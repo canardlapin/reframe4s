@@ -30,8 +30,9 @@ vectors, grids, and affine coordinates. `image4s-core` owns the single
 `Sampled[F,D,A,Role,R]` representation. Reframe modules consume those values
 directly; no adapter image or geometry hierarchy exists here.
 
-`reframe4s-halfflow` is an experimental evidence-ledger artifact. It is not
-part of the default bundle and cannot mint an exact inverse capability.
+`reframe4s-halfflow` owns the concrete experimental HalfFlow engine and its
+evidence ledger. It is not part of the default bundle and cannot mint an exact
+inverse capability.
 
 `MIG-410` is replacing the initial centroid-only motion foundation with the
 canonical reusable engine. The port uses complete physical grid affines,

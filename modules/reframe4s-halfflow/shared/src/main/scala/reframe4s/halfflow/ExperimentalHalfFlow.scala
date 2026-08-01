@@ -81,7 +81,7 @@ object ExperimentalCapabilityLedger:
   *
   * No inverse relationship is implied by this container.
   */
-final case class HalfStep[Positive, Negative](
+final case class ExperimentalHalfStep[Positive, Negative](
     positiveEndpoint: Positive,
     negativeEndpoint: Negative
 )

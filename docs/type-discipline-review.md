@@ -181,14 +181,16 @@ Plan reconciliation:
   affine, and application delegates to the existing pull `ResamplingPlan`.
   The timed image boundary is a zero-copy view. `PoseTrajectory` transports
   relative SE(3) increments without exposing proof plumbing.
-- `API-022` and `AC-042` are upheld. HalfFlow exposes an experimental ledger
-  and ordinary certified maps only. It is still excluded from the bundle and
-  cannot mint `SmoothIso`.
+- `API-022` and `AC-042` are upheld. HalfFlow owns a concrete experimental
+  engine, its explicit controls and kernels, an evidence ledger, and ordinary
+  certified maps only. It is still excluded from the bundle and cannot mint
+  `SmoothIso`.
 
-The production-source audit found no cast, null, warning suppression,
+The production-source audit of the seven stable MIG-400 artifacts found no
+cast, null, warning suppression,
 `require`, public throw, sentinel failure, untyped metadata bag, ScalaFIM
-import, locus import, or duplicate sampling/image/affine algebra in the seven
-MIG-400 artifacts. Partial collection access was removed from production
+import, locus import, or duplicate sampling/image/affine algebra. Partial
+collection access was removed from production
 motion and multiscale paths even where private constructor invariants would
 have made it safe.
 
@@ -363,7 +365,7 @@ or wildcard match in the changed estimator, application, or resampling
 sources. The ownership gate now names `RigidPose`, not the removed
 `AffinePose`, and verifies one owner for all 55 canonical symbols.
 
-Verified: the aggregate `testAll` court passes 225 tests across the current JVM
+Verified: the aggregate `testAll` court passes 421 tests across the current JVM
 and Scala.js module suites with no failures or errors. The focused motion court
 passes 42 JVM and 39 Scala.js tests. The known six-degree-of-freedom case
 recovers 0.001716758 mm translation and 0.043979019 degrees rotation against

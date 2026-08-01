@@ -344,7 +344,6 @@
       "role": "High-level neuroimaging analysis suite and compatibility consumer",
       "artifacts": [
         "scalafim-image",
-        "scalafim-registration",
         "scalafim-motion",
         "scalafim-locus"
       ],
@@ -455,10 +454,6 @@
       },
       {
         "artifact": "scalafim-image",
-        "kind": "downstream"
-      },
-      {
-        "artifact": "scalafim-registration",
         "kind": "downstream"
       },
       {
@@ -709,6 +704,18 @@
       },
       {
         "from": "reframe4s-halfflow",
+        "to": "image4s-core"
+      },
+      {
+        "from": "reframe4s-halfflow",
+        "to": "ravel-core"
+      },
+      {
+        "from": "reframe4s-halfflow",
+        "to": "gale-core"
+      },
+      {
+        "from": "reframe4s-halfflow",
         "to": "reframe4s-register"
       },
       {
@@ -776,14 +783,6 @@
         "to": "image4s-locus"
       },
       {
-        "from": "scalafim-registration",
-        "to": "reframe4s-register"
-      },
-      {
-        "from": "scalafim-registration",
-        "to": "reframe4s-resample"
-      },
-      {
         "from": "scalafim-motion",
         "to": "reframe4s-motion"
       },
@@ -824,10 +823,6 @@
       {
         "from": "image4s-core",
         "to": "scalafim-image"
-      },
-      {
-        "from": "reframe4s-core",
-        "to": "scalafim-registration"
       },
       {
         "from": "locus4s-core",
@@ -978,7 +973,7 @@
     {
       "id": "API-022",
       "name": "Experimental HalfFlow boundary",
-      "contract": "reframe4s-halfflow exposes experimental candidates and a capability ledger only. Half steps are independently integrated estimates, not analytic inverses. Admission to a RegistrationResult requires separately checked inverse residual and scoped topology evidence; a rejected candidate remains inspectable and no HalfFlow value is promoted to SmoothIso or included in the stable umbrella."
+      "contract": "reframe4s-halfflow owns the concrete experimental HalfFlow engine, kernels, controls, and evidence ledger. Half steps are independently integrated estimates, not analytic inverses. Admission to a RegistrationResult requires separately checked inverse residual and scoped topology evidence; a rejected candidate remains inspectable and no HalfFlow value is promoted to SmoothIso or included in the stable umbrella."
     },
     {
       "id": "API-023",

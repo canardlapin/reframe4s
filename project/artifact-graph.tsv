@@ -23,7 +23,6 @@ node	internal	reframe4s-motion
 node	internal-experimental	reframe4s-halfflow
 node	internal-bundle	reframe4s
 node	downstream	scalafim-image
-node	downstream	scalafim-registration
 node	downstream	scalafim-motion
 node	downstream	scalafim-locus
 # edge	consumer	dependency
@@ -86,6 +85,9 @@ edge	reframe4s-motion	reframe4s-lie
 edge	reframe4s-motion	ravel-core
 edge	reframe4s-halfflow	reframe4s-core
 edge	reframe4s-halfflow	image4s-geometry
+edge	reframe4s-halfflow	image4s-core
+edge	reframe4s-halfflow	ravel-core
+edge	reframe4s-halfflow	gale-core
 edge	reframe4s-halfflow	reframe4s-register
 edge	reframe4s-halfflow	reframe4s-flow
 edge	reframe4s	image4s-geometry
@@ -103,8 +105,6 @@ edge	scalafim-image	image4s-core
 edge	scalafim-image	image4s-nifti
 edge	scalafim-image	reframe4s-resample
 edge	scalafim-image	image4s-locus
-edge	scalafim-registration	reframe4s-register
-edge	scalafim-registration	reframe4s-resample
 edge	scalafim-motion	reframe4s-motion
 edge	scalafim-motion	scalafim-image
 edge	scalafim-locus	locus4s-core

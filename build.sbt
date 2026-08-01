@@ -184,6 +184,19 @@ lazy val reframe4sMotion = foundationProjects("reframe4s-motion")
 lazy val reframe4sHalfflow = foundationProjects("reframe4s-halfflow")
 lazy val reframe4sBundle = foundationProjects("reframe4s")
 
+// Performance evidence is deliberately outside the published aggregate. It
+// exercises the same JVM artifact users consume without making JMH part of the
+// library surface or ordinary compile/test cycle.
+lazy val halfflowBenchJVM =
+  project
+    .in(reframe4sBuildRoot / "benchmarks" / "halfflow-jvm")
+    .dependsOn(reframe4sHalfflow.jvm)
+    .enablePlugins(JmhPlugin)
+    .settings(
+      name := "reframe4s-halfflow-benchmarks",
+      publish / skip := true
+    )
+
 lazy val root =
   project
     .in(reframe4sBuildRoot)

@@ -34,18 +34,24 @@ with another registration package.
 
 | Field | Current value |
 |---|---|
-| implementation | ScalaFIM revised forward-midpoint/HalfFlow CC lane |
+| implementation | reframe4s concrete forward-midpoint/HalfFlow CC engine |
 | anatomical dataset manifest | unavailable |
 | observed anatomical pairs | 0 |
 | required anatomical pairs | 20 |
 | status | `NotRun` |
 | stable export admitted | no |
 
-The available ScalaFIM fixtures are synthetic local-refinement evidence. The
+The checked-in fixtures migrated from ScalaFIM are synthetic local-refinement
+evidence and remain versioned independently of the implementation. The
 2 mm case is admitted by the extant export checks; the 4, 8, and 12 mm cases
 exercise typed topology rejection. That is useful algorithm-development
 evidence but does not satisfy the anatomical threshold above.
 
-The shared `ExperimentalHalfFlowSuite` proves that an otherwise valid
-candidate is rejected when the ledger is not admissible and that numerical
-HalfFlow evidence cannot type-check as `SmoothIso`.
+The complete engine, controls, kernels, utilities, fixtures, shared law suites,
+platform probes, and JMH benchmarks now live in this repository. The shared
+HalfFlow court passes 100 tests on each of JVM and Scala.js. The JVM probe also
+checks exact agreement between reference, primitive, and Ravel-workspace
+composition paths while recording time and allocation. `ExperimentalHalfFlowSuite`
+proves that an otherwise valid candidate is rejected when the ledger is not
+admissible and that numerical HalfFlow evidence cannot type-check as
+`SmoothIso`.

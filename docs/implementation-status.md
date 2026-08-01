@@ -7,7 +7,7 @@ migration phase and its evidence.
 |---|---|---|
 | `MIG-000` authority | complete | approved PRD and valid ID references |
 | `MIG-010` inventory | complete | pinned Gale/Ravel revisions and migration inventory |
-| `MIG-050` artifact graph | complete | 27 concrete nodes, 83 consumer-to-dependency edges, independent image4s/locus4s repositories, DAG checks, and browser-safe `reframe4s` umbrella |
+| `MIG-050` artifact graph | complete | 26 concrete nodes, 84 consumer-to-dependency edges, independent image4s/locus4s repositories, DAG checks, and browser-safe `reframe4s` umbrella |
 | `MIG-100` geometry | complete | JVM and Scala.js ownership, affine, restore, and dynamic-boundary suites |
 | `MIG-110` image foundation | complete | canonical `Sampled`, path-dependent `SomeSampled`, reference oracle, and image laws are green on JVM and Scala.js |
 | `MIG-120` basic NIfTI I/O | complete | shared typed NIfTI-1 parser/encoder with JVM and Node path/filesystem/gzip adapters |
@@ -18,7 +18,7 @@ migration phase and its evidence.
 | `MIG-300A` locus core | complete | unforgeable live domains and package-joining negative tests |
 | `MIG-300B` locus data | complete | indexed fields and domain-neutral aggregation only; package-joining boundary tests |
 | `MIG-310` image/locus bridge | complete | checked grid-to-finite-domain bridge; JVM and Scala.js tests |
-| `MIG-400` registration and motion | complete | canonical dense components, scoped cell topology, explicit flow integration, unambiguous transform routing, endpoint-preserving multiscale continuation, precise registration capabilities, physical-affine motion, and an experimental HalfFlow ledger |
+| `MIG-400` registration and motion | complete | canonical dense components, scoped cell topology, explicit flow integration, unambiguous transform routing, endpoint-preserving multiscale continuation, precise registration capabilities, physical-affine motion, and the concrete experimental HalfFlow engine with its evidence ledger |
 | `MIG-410` canonical motion engine | in progress | `MIG-412` supplies typed `Rigid3`, poses, SE(3) trajectories, timing, zero-copy time-volume views, and metrics. `MIG-413` supplies the initial complete estimator and application engine. `MIG-421` freezes optimizer semantics and `MIG-431` freezes the independent superiority protocol. `MIG-422` supplies the deterministic physical stencil, analytic SE(3) Jacobians, shared robust normal-equation kernel, and typed damped solver. `MIG-423` makes LM/GN the production pair, multiscale, series, and template strategy; coordinate search remains an explicit reference policy. `MIG-414` closes the analytic, adversarial, aggregate, allocation, throughput, JVM, development Scala.js, and optimized-Node evidence gates. `MIG-424` supplies production Lanczos-5 application. `MIG-425` freezes corrected reference, worker, and observable timing semantics in protocol v2. `MIG-432` supplies the unpublished pinned comparator runner, independent common resampler, versioned raw schema, plan enforcement, and execution aggregates. `MIG-435` supplies a candidate-only, space-bounded laptop accuracy and performance gate with no superiority authority. `MIG-433` now supplies the resumable 900-shard executor, strict checkpoints and retry semantics, SHA-256 corrected-image retention, designated scoring links, two-phase finalization, and a separate attestation job. The external court remains fail-closed on qualified-host access and the unresolved comparator, public-data, license, hardware, and candidate admission lock. No external result has run. |
 | `MIG-450` unified image representation | complete | image4s is independently published at immutable revision `c1c9866eb61390de40d3ba110e040ee2a09f5f32`; reframe4s consumes it without a reverse edge; ScalaFIM `compileAll` and its 243 JVM plus 232 Scala.js image tests passed at the original migration pin; the full-source structural audit finds no raw access, parallel owner, duplicate kernel, or mutable source composite |
 | `MIG-500` downstream removal/release | blocked by `MIG-410` and the active graph/locus cutover | image4s and reframe4s immutable gates are green; ScalaFIM aggregate verification is waiting on separately tracked `bd-01KYR1QHESSHADQBBTTDPATF6J` |
@@ -48,15 +48,15 @@ optimized Scala.js links. Reframe4s then passes
 `sbt -J-Xmx4G compileAll testAll` against the immutable remote image4s
 revision, including 37 JVM and 35 Scala.js reframe4s laws plus the current
 resampling, field, flow, registration, graph, multiscale, motion, and
-experimental HalfFlow suites. ScalaFIM `compileAll` and the focused image
+experimental HalfFlow suites, including 100 tests on each platform. ScalaFIM `compileAll` and the focused image
 consumer suites pass against the same revision: 243 JVM and 232 Scala.js
 tests. Its aggregate `testAll` currently stops in the separately tracked
 standalone-locus migration's test sources, not in an image consumer. The
 architecture checks confirm:
 
-- 27 concrete artifacts and 83 consumer-to-dependency edges in an acyclic DAG;
+- 26 concrete artifacts and 84 consumer-to-dependency edges in an acyclic DAG;
 - exact agreement between the PRD and sbt build graph;
-- 55 canonical symbol owners, with no duplicate ownership among 726 public
+- 55 canonical symbol owners, with no duplicate ownership among 917 public
   qualified names.
 
 The unpublished nested benchmark runner has a separate 16-test strict JVM
@@ -135,4 +135,4 @@ when its test linker is forced to `FullOptStage`, including non-spatial pixel
 dimensions and temporal units.
 
 The accepted `PRD.json` SHA-256 is
-`8124439078f754c5eefe453c113b71ba14ea8e8b45bd871424b32e0953e8cbb7`.
+`88bec6bd208a3285e23ba199521129fcb2842846eb9e995979a460cde26be1a0`.
