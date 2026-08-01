@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/canardlapin/reframe4s/benchmarks/motion/receipt-v2.schema.json",
+  "title": "reframe4s motion superiority canonical receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "protocolSha256",
+    "candidateRevision",
+    "artifactSha256",
+    "environmentLockSha256",
+    "dataLockSha256",
+    "hardware",
+    "implementations",
+    "randomization",
+    "runs",
+    "metrics",
+    "hypotheses",
+    "guardrails",
+    "failures",
+    "claimDecision",
+    "permittedLanguage",
+    "sourceEvidence"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "reframe4s.motion-superiority.receipt/v2"
+    },
+    "protocolSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "candidateRevision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "artifactSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "environmentLockSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "dataLockSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "hardware": {
+      "type": "object"
+    },
+    "implementations": {
+      "type": "object"
+    },
+    "randomization": {
+      "type": "object"
+    },
+    "runs": {
+      "type": "object"
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "hypotheses": {
+      "type": "object"
+    },
+    "guardrails": {
+      "type": "object"
+    },
+    "failures": {
+      "type": "object"
+    },
+    "claimDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "admissible",
+        "passed",
+        "status",
+        "completePassRuleSatisfied",
+        "visibleLossCount"
+      ],
+      "properties": {
+        "admissible": {
+          "type": "boolean"
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "passed",
+            "failed",
+            "inadmissible"
+          ]
+        },
+        "completePassRuleSatisfied": {
+          "type": "boolean"
+        },
+        "visibleLossCount": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "permittedLanguage": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceEvidence": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

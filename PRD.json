@@ -1,0 +1,1715 @@
+{
+  "schemaVersion": "1.0.0",
+  "product": {
+    "name": "reframe4s",
+    "description": "A lawful, typed Scala foundation for spatial correspondences, transport, resampling, registration, flows, and motion.",
+    "repository": "reframe4s",
+    "coordinates": {
+      "organization": "io.github.canardlapin",
+      "artifactPrefix": "reframe4s",
+      "packagePrefix": "reframe4s"
+    },
+    "language": "Scala",
+    "scalaVersion": "3.7.4",
+    "sbtVersion": "1.11.7",
+    "platforms": [
+      "JVM",
+      "Scala.js"
+    ]
+  },
+  "status": {
+    "state": "approved",
+    "approvedBy": "user",
+    "approvedAt": "2026-07-28",
+    "approvalBasis": "The user selected the reframe4s name, requested that the accepted plan be written to PRD.json, and then explicitly instructed implementation of the plan.",
+    "revisionBasis": "Blocking architecture review of snapshot f52318bd8a89bd5d424683196c2489927cc08d711e39a84b54f1c80080e735ac.",
+    "revisedAt": "2026-07-28",
+    "revisionApprovalBasis": "The user supplied the mandatory revision tranche and instructed implementation. This revision incorporates every blocking finding as a normative decision, contract, phase boundary, and acceptance gate before source migration resumes.",
+    "implementationAmendment": "image4s-locus declares its direct image4s-geometry dependency because its sole public bridge names the geometry-owned Grid type; image4s-core and locus4s-core remain its integration dependencies.",
+    "ioAmendment": "The user approved a format-free SomeSampled dynamic boundary in image4s-core and a separate JVM-and-Node image4s-nifti artifact for basic NIfTI I/O. Basic I/O includes uncompressed and gzip-compressed single-file and pair-file NIfTI-1, extension preservation, and selectable UInt8, Int16, Int32, Float32, or Float64 output. The Scala.js artifact targets Node.js filesystem and gzip facilities and does not claim browser I/O. BIDS discovery, acquisition semantics, random-access staging policy, and workflow-level I/O remain in ScalaFIM.",
+    "bundleAmendment": "The user approved a concrete published reframe4s umbrella artifact so ordinary consumers can select one browser-safe dependency instead of reconstructing the granular runtime DAG. Granular artifacts remain public; laws, reference oracles, experimental modules, and Node-only NIfTI I/O are excluded from the default bundle.",
+    "repositoryAmendment": "On 2026-07-29 the user authorized image4s as an independent repository and release boundary. image4s-geometry replaces reframe4s-geometry as the sole geometry authority, image4s owns all image4s-* artifacts, and reframe4s plus ScalaFIM consume image4s only through immutable coordinates or explicit audited development overrides."
+  },
+  "authority": {
+    "implementationContract": "PRD.json",
+    "designRationale": "notes.md",
+    "precedence": [
+      "PRD.json",
+      "accepted ADRs",
+      "notes.md",
+      "non-defective extant behavior"
+    ],
+    "changePolicy": "Any change to a DEC, API, MIG, or AC item must update this file before implementation."
+  },
+  "problem": {
+    "summary": "ScalaFIM currently mixes generic image geometry and storage, spatial mappings, resampling, registration, motion, finite-domain machinery, and neuroimaging-specific analysis. This creates dependency pressure, duplicated authority, ambiguous transform direction, and unsafe ownership boundaries.",
+    "goal": "Extract coherent, reusable foundations beneath ScalaFIM while preserving a one-way dependency graph and migrating extant behavior through explicit compatibility layers.",
+    "successCriteria": [
+      "image4s owns minimal sampled-image foundations without depending on ScalaFIM.",
+      "reframe4s owns lawful spatial maps and their actions on image4s data without depending on ScalaFIM.",
+      "locus4s owns identity-safe finite domains without depending on imaging.",
+      "ScalaFIM depends on these foundations and retains neuroimaging-specific structures and workflows.",
+      "Map polarity, ownership, dimensions, capabilities, and failures are encoded explicitly and verified on JVM and Scala.js.",
+      "Extant implementations are removed only after compatible downstream consumers and published-artifact smoke tests are green."
+    ]
+  },
+  "decisions": [
+    {
+      "id": "DEC-001",
+      "title": "Use reframe4s as the transformation and registration library name",
+      "status": "accepted",
+      "decision": "The transformation and registration repository and artifact family use the reframe4s name. The image4s-* and locus4s-* families are independently owned by the standalone image4s and locus4s repositories.",
+      "rationale": "The name covers mappings, re-expression, transport, flows, and registration without reducing the library to warping."
+    },
+    {
+      "id": "DEC-002",
+      "title": "Use separately owned foundation artifact families",
+      "status": "accepted",
+      "decision": "Create image4s, reframe4s, and locus4s as separately owned artifact families and repositories beneath ScalaFIM. Each has an independent build, CI boundary, immutable revision, and release cadence.",
+      "rationale": "Image representation, spatial correspondence, and finite-domain identity have distinct ownership and dependency requirements."
+    },
+    {
+      "id": "DEC-003",
+      "title": "Keep dependency direction acyclic",
+      "status": "accepted",
+      "decision": "The concrete moduleGraph is authoritative. Geometry may depend on Gale; image4s-core depends on geometry and Ravel; reframe4s map modules depend on geometry and Gale; production resampling depends on reframe4s-core, image4s-core, and Ravel; locus4s-core has no imaging dependency; integration and ScalaFIM artifacts point only toward these foundations.",
+      "rationale": "The extracted libraries must remain independently reusable and cannot recreate the original dependency knot."
+    },
+    {
+      "id": "DEC-004",
+      "title": "Separate spatial dimension from storage rank",
+      "status": "accepted",
+      "decision": "Spatial geometry is D2 or D3. Time, channel, echo, coil, direction, and batch are explicit non-spatial axes.",
+      "rationale": "A D3 time series is not a D4 spatial image, and non-spatial axes must not enter spatial Jacobians or transforms."
+    },
+    {
+      "id": "DEC-005",
+      "title": "Make map direction normative",
+      "status": "accepted",
+      "decision": "SpatialMap[From, To, D] maps physical coordinates from From to To. Resampling requires a pull map from Target to Source.",
+      "rationale": "Direction must be visible in types and names so same-grid tests cannot conceal an inverse-map error."
+    },
+    {
+      "id": "DEC-006",
+      "title": "Make capabilities explicit",
+      "status": "accepted",
+      "decision": "Differentiability, invertibility, Jacobians, inverse availability, topology guarantees, and interpolation support are represented by types or explicit capabilities.",
+      "rationale": "A requested capability must not be fabricated or inferred from an unrelated representation."
+    },
+    {
+      "id": "DEC-007",
+      "title": "Make public data ownership immutable",
+      "status": "accepted",
+      "decision": "Public image, grid, matrix, and array constructors defensively copy borrowed mutable storage. Already immutable owned Ravel and Gale values may be shared without copying; package-private ownership-transfer constructors may avoid copies.",
+      "rationale": "Caller mutation must not alter an already-constructed public value."
+    },
+    {
+      "id": "DEC-008",
+      "title": "Ship foundations before advanced algorithms",
+      "status": "accepted",
+      "decision": "image4s and the reframe4s map, Lie, resampling, and laws foundations precede nonlinear registration and motion extraction.",
+      "rationale": "Higher algorithms must target one coherent and already-lawful substrate."
+    },
+    {
+      "id": "DEC-009",
+      "title": "Correct extant defects instead of preserving them",
+      "status": "accepted",
+      "decision": "Compatibility applies only to behavior that conforms to the normative contracts. Direction, ownership, affine, and runtime-identity defects receive explicit corrective regression tests.",
+      "rationale": "Mechanical parity is not authority when existing tests cannot expose a known defect."
+    },
+    {
+      "id": "DEC-010",
+      "title": "Keep HalfFlow experimental",
+      "status": "accepted",
+      "decision": "HalfFlow is not part of the stable foundational API until topology, convergence, and multi-pair anatomical evidence gates pass.",
+      "rationale": "Current evidence supports a fold-safe local refinement role, not a general ANTs-level registration claim."
+    },
+    {
+      "id": "DEC-011",
+      "title": "Keep image semantics independent of flat storage order",
+      "status": "accepted",
+      "decision": "image4s defines logical spatial and non-spatial axes but no public flat-index ordering contract. Ravel owns physical layout and strides; compatibility adapters explicitly translate historical ScalaFIM first-axis-fastest buffers.",
+      "rationale": "A sampled image should remain correct for contiguous arrays, strided views, and future storage backends without confusing spatial axis meaning with memory layout."
+    },
+    {
+      "id": "DEC-012",
+      "title": "Split foundation repositories without changing artifact contracts",
+      "status": "accepted",
+      "decision": "The stable, imaging-independent locus4s seam and the sampled-image image4s seam are extracted to independent repositories without changing representation or platform coverage. Geometry ownership moves with image4s as image4s-geometry and package image4s.geometry, so the repository dependency direction is image4s to reframe4s to ScalaFIM with no reverse source edge.",
+      "rationale": "Repository ownership should follow a clean semantic and dependency boundary, while source movement must not create a new API or representation hierarchy."
+    },
+    {
+      "id": "DEC-013",
+      "title": "Use concrete consumer-to-dependency artifact edges",
+      "status": "accepted",
+      "decision": "Every moduleGraph edge is directed from a concrete consuming artifact to a concrete dependency artifact. Aggregate repository names are forbidden as graph nodes. A published coordinate may match the repository name only when it is explicitly declared as an internal-bundle artifact with concrete consumer-to-dependency edges.",
+      "rationale": "The graph must directly drive sbt dependency checks, cycle detection, and forbidden-edge validation."
+    },
+    {
+      "id": "DEC-014",
+      "title": "Establish one geometry and affine authority",
+      "status": "accepted",
+      "decision": "image4s-geometry exclusively owns Dim, Frame, FrameId, runtime frame identity, Point, Vec, GridId, Grid, and the immutable validated Affine[D] coordinate operator. A grid stores exactly one index-to-frame Affine[D]. Framed affine maps wrap that same value without copying or reimplementing affine mathematics.",
+      "rationale": "Neither image4s-core nor reframe4s-core may introduce a second grid, coordinate, matrix, inverse, or affine algebra."
+    },
+    {
+      "id": "DEC-015",
+      "title": "Use one sampled-image storage owner",
+      "status": "accepted",
+      "decision": "Sampled[F,D,A,Role,R] is the sole owned sampled-image representation. Image, ContinuousImage, CategoricalImage, and MaskImage are type aliases or zero-copy views over Sampled, never parallel storage containers.",
+      "rationale": "One owner prevents a repetition of overlapping NeuroImage, NeuroVol, and NeuroVec representations."
+    },
+    {
+      "id": "DEC-016",
+      "title": "Separate persistent identity, runtime ownership, and checked recovery",
+      "status": "accepted",
+      "decision": "FrameId, GridId, and DomainId are distinct persistent identifiers. Each live value also has an unforgeable runtime token. Fresh construction always creates a new runtime owner; restore resolves a serialized record through an explicit registry and validates dimension plus metadata; align returns typed evidence only after checked identity and metadata agreement.",
+      "rationale": "Names and equal ordinals are not runtime ownership, multiple grids may share a frame, and a finite domain is not a spatial frame."
+    },
+    {
+      "id": "DEC-017",
+      "title": "Preserve the locus core and data split",
+      "status": "accepted",
+      "decision": "locus4s-core owns identities, finite spaces, ordinals, regions, selections, relations, and total maps. locus4s-data owns indexed fields and genuinely domain-neutral aggregation. Parcellation and searchlight workflows remain in ScalaFIM. image4s-locus contains only the grid-to-finite-domain bridge.",
+      "rationale": "Finite-domain foundations remain general and independently implementable without absorbing high-level analysis workflows."
+    },
+    {
+      "id": "DEC-018",
+      "title": "Separate lawful inverses, inverse estimates, and topology evidence",
+      "status": "accepted",
+      "decision": "SmoothIso is reserved for a total analytic inverse that satisfies inverse laws. Approximate inversion produces InverseEstimate or a certified bidirectional pair with residual diagnostics. TopologyCertificate is scoped to a specific GridId, resolution, region, sampling rule, determinant threshold, criteria, and implementation revision; it is never a global diffeomorphism proof.",
+      "rationale": "Algorithmic convergence and sampled topology checks cannot manufacture stronger mathematical capabilities."
+    },
+    {
+      "id": "DEC-019",
+      "title": "Block production resampling on required Ravel capabilities",
+      "status": "accepted",
+      "decision": "Production reframe4s-resample cannot be implemented or published until an immutable remotely green Ravel revision provides allocation-free rank-specific indexing and consuming output construction. No internal replacement kernel is authorized by this PRD. A separately named reference sampler may exist only as a correctness oracle and must not satisfy production performance gates.",
+      "rationale": "The currently pinned Ravel revision is sound for representation and correctness fixtures but cannot support the required allocation and memory behavior."
+    },
+    {
+      "id": "DEC-020",
+      "title": "Package runtime-discovered sampled images without erasing their owners",
+      "status": "accepted",
+      "decision": "image4s-core provides SomeSampled[A,Role], a sealed path-dependent package over exactly one Sampled value. It hides a runtime-discovered spatial dimension, frame owner, and Ravel rank behind abstract type members, exposes D2 and D3 elimination through typed visitors or folds, and never manufactures equality evidence or a second storage owner.",
+      "rationale": "File readers and other dynamic adapters must return useful images without widening geometry to untyped metadata bags, casting at call sites, or duplicating Sampled."
+    },
+    {
+      "id": "DEC-021",
+      "title": "Own basic NIfTI I/O in an optional image4s artifact",
+      "status": "accepted",
+      "decision": "A JVM-and-Node image4s-nifti artifact owns basic NIfTI-1 header, payload, uncompressed and gzip-compressed input and output, single-file and pair-file storage, and extension preservation. Parsing, validation, byte order, storage variants, and numeric conversion are shared Scala code. Thin JVM and Node.js adapters own only paths, physical file access, and gzip. The artifact depends on image4s-core, image4s-geometry, and Ravel, returns Sampled values plus separate immutable NIfTI metadata, requires an explicit scalar-versus-label entry point, and exposes typed errors. The Scala.js artifact is Node-only and makes no browser filesystem claim. image4s-core remains free of filesystem, compression, and format APIs; BIDS discovery, random-access staging policy, and acquisition or workflow semantics remain in ScalaFIM.",
+      "rationale": "NIfTI is the baseline interchange format for a medical-imaging-centered image library, and its byte-level format rules are portable. Filesystem and gzip effects remain outside image4s-core and are implemented only by supported JVM and Node runtimes."
+    },
+    {
+      "id": "DEC-022",
+      "title": "Model NIfTI storage and extensions explicitly",
+      "status": "accepted",
+      "decision": "NIfTI storage is a closed distinction between SingleFile and PairFile, selected and validated from .nii, .nii.gz, .hdr, .img, .hdr.gz, or .img.gz paths. Pair-file operations resolve and report both companions. NIfTI extensions are immutable value blocks with a non-negative integer code and exact padded payload bytes; readers reject malformed block sizes or bounds, and read-write preserves each code value and padded payload exactly while the adapter remains free to emit a canonical header byte order. Compression is an encoding property of each physical file, not a promise of random access.",
+      "rationale": "Filename guessing, a single returned Path for pair output, or lossy extension decoding would make valid baseline NIfTI datasets ambiguous or impossible to round-trip safely."
+    },
+    {
+      "id": "DEC-023",
+      "title": "Make NIfTI numeric output conversion explicit",
+      "status": "accepted",
+      "decision": "NiftiWriteOptions selects UInt8, Int16, Int32, Float32, or Float64 output plus a finite nonzero Float32-representable slope, a finite Float32-representable intercept, and an integer-conversion policy. Construction canonicalizes slope and intercept to the exact Float32 values recorded in the NIfTI-1 header. Integer output rejects fractional encoded values by default; callers must explicitly select nearest-even quantization when loss is intended. Every integer path rejects non-finite and out-of-range encoded values. Float32 uses IEEE nearest representable conversion but rejects finite-to-infinite overflow. The default remains unscaled Float64.",
+      "rationale": "A Double-backed Sampled value cannot be narrowed safely through implicit truncation, wrapping, clamping, or an unrecorded quantization policy."
+    },
+    {
+      "id": "DEC-024",
+      "title": "Publish one curated browser-safe umbrella artifact",
+      "status": "accepted",
+      "decision": "Publish a concrete reframe4s umbrella artifact for JVM and Scala.js whose dependency metadata brings in all stable browser-safe runtime artifacts. It contributes no competing algebra. Granular artifacts remain independently consumable. The umbrella excludes image4s-nifti because its Scala.js implementation requires Node.js, excludes all laws and reference-oracle artifacts, and excludes experimental reframe4s-halfflow.",
+      "rationale": "Artifact boundaries should preserve ownership and dependency control without forcing ordinary users to reconstruct a large internal DAG or making the primary Scala.js dependency unusable in browsers."
+    },
+    {
+      "id": "DEC-025",
+      "title": "Keep multiscale and transform routing independent of registration",
+      "status": "accepted",
+      "decision": "reframe4s-multiscale owns generic scale descriptions, grid towers, transfer protocols, and continuation control; reframe4s-register consumes it and remains the owner of optimizer-specific budgets and termination. reframe4s-graph is a dimension-specific transform multigraph over frame identities and maps, with no dependency on registration, locus, surface, plugin, or workflow algebras.",
+      "rationale": "Schedules and transform routing are reusable foundations. Depending on registration would create the wrong ownership direction and would make unrelated algorithms inherit registration policy."
+    },
+    {
+      "id": "DEC-026",
+      "title": "Represent dense components through canonical sampled storage",
+      "status": "accepted",
+      "decision": "image4s distinguishes continuous scalar samples, continuous component samples, and categorical labels as roles of the same canonical Sampled representation. reframe4s-field provides zero-copy semantic wrappers for absolute coordinate maps, displacement, velocity, and momentum; it does not create another image or array container. Component interpolation is owned by the production resampling machinery and is not privately duplicated in field algorithms.",
+      "rationale": "A buffer of vector components may support different mathematics without becoming a second sampled-data owner or being mislabeled as a scalar image."
+    },
+    {
+      "id": "DEC-027",
+      "title": "Make reframe4s-motion the sole reusable motion algorithm authority",
+      "status": "accepted",
+      "decision": "reframe4s-motion owns reusable rigid-motion estimation, multiscale capture, template fitting, time-indexed pose series, acquisition timing, motion application, fit diagnostics, and pose-derived displacement metrics. It accepts canonical Sampled values and depends only on foundation artifacts. ScalaFIM may expose source-compatible adapters and retain BIDS discovery, workflow orchestration, image-series QC such as DVARS, report rendering, censoring or confound policy, and application CLIs, but it may not retain a competing pose algebra, estimator, sampler, or motion-application kernel.",
+      "rationale": "A container-only motion artifact would leave the real algorithm in ScalaFIM and create two authorities. A reusable core must own the complete computational engine while domain applications retain policy and orchestration."
+    },
+    {
+      "id": "DEC-028",
+      "title": "Correct rigid motion through SE(3) and full physical geometry",
+      "status": "accepted",
+      "decision": "Rigid motion is a frame-directed lawful isomorphism represented through the authoritative affine and Lie-transform types. Estimator updates, interpolation, smoothing, and temporal regularization operate through SE(3) composition, exponential, logarithm, and relative group increments. They do not average Euler columns. Sampling and application use each Grid's complete index-to-frame affine and the production interpolation or resampling machinery; spacing-only voxel maps and private trilinear kernels are not ported. Public construction is validated and failures, convergence reports, workspaces, and execution policy are explicit.",
+      "rationale": "Euler-component arithmetic is discontinuous at angle wrapping and is not invariant under rigid-transform composition. Spacing-only sampling is also wrong for translated, permuted, reflected, or oblique grids."
+    },
+    {
+      "id": "DEC-029",
+      "title": "Unify dense images on image4s and Ravel",
+      "status": "accepted",
+      "decision": "Ravel NDArray is the sole dense buffer, rank, shape, stride, layout, view, and kernel authority. image4s Sampled is the sole dense sampled-image representation and adds only Grid geometry, ordered non-spatial axes, and field-role semantics. ScalaFIM NeuroVol and NeuroVec become aliases, extensions, or narrowly scoped compatibility views over that representation; SparseNeuroVec becomes typed spatial support plus compact rank-2 Ravel storage. No ScalaFIM dense multidimensional-array, geometry, raw-offset, or duplicate-kernel hierarchy remains after migration.",
+      "rationale": "Parallel array and image hierarchies impose wrapper overhead, duplicate invariants, and make logical coordinate parity depend on undocumented flat-buffer order."
+    }
+  ],
+  "repositories": [
+    {
+      "name": "reframe4s",
+      "kind": "foundation-repository",
+      "role": "Independent release home for spatial transformations, resampling, registration, fields, flows, and motion",
+      "artifacts": [
+        "reframe4s",
+        "reframe4s-core",
+        "reframe4s-lie",
+        "reframe4s-resample",
+        "reframe4s-laws",
+        "reframe4s-field",
+        "reframe4s-flow",
+        "reframe4s-graph",
+        "reframe4s-register",
+        "reframe4s-multiscale",
+        "reframe4s-motion",
+        "reframe4s-halfflow"
+      ],
+      "artifactBoundaries": [
+        "reframe4s is a dependency-only stable runtime bundle and owns no competing symbols",
+        "reframe4s-* owns maps, transport, resampling, registration, flows, and motion",
+        "reframe4s consumes image4s geometry and sampled data without redeclaring either algebra"
+      ],
+      "doesNotOwn": [
+        "image geometry, sampled-image storage, or file formats",
+        "BIDS discovery, dataset, or workflow semantics",
+        "BOLD or acquisition semantics",
+        "parcellation and searchlight workflows",
+        "ROI science, clustering, or statistics",
+        "application CLIs and reports"
+      ]
+    },
+    {
+      "name": "image4s",
+      "kind": "foundation-repository",
+      "role": "Independent release home for spatial geometry and sampled-image foundations",
+      "artifacts": [
+        "image4s-geometry",
+        "image4s-core",
+        "image4s-nifti",
+        "image4s-reference",
+        "image4s-laws",
+        "image4s-locus"
+      ],
+      "artifactBoundaries": [
+        "image4s-geometry is the sole geometry and affine authority",
+        "image4s-core owns the sole sampled-image representation over Ravel storage",
+        "image4s-nifti owns shared NIfTI-1 mechanics plus JVM and Node filesystem/gzip adapters",
+        "image4s-reference and image4s-laws own correctness oracles and reusable laws",
+        "image4s-locus is the only foundation bridge from grids to finite domains"
+      ],
+      "doesNotOwn": [
+        "spatial transformation, registration, field, flow, or motion algorithms",
+        "Ravel storage, layout, view, builder, or kernel authority",
+        "BIDS discovery, acquisition semantics, or workflow orchestration",
+        "ROI science, parcellation, clustering, or statistics"
+      ]
+    },
+    {
+      "name": "locus4s",
+      "kind": "foundation-repository",
+      "role": "Independent release home for identity-safe finite domains",
+      "artifacts": [
+        "locus4s-core",
+        "locus4s-data",
+        "locus4s-laws"
+      ],
+      "artifactBoundaries": [
+        "locus4s-core owns domain identity, finite spaces, ordinals, regions, selections, relations, and total maps",
+        "locus4s-data owns indexed fields and genuinely domain-neutral aggregation",
+        "locus4s-laws owns reusable laws and cross-platform contract tests"
+      ],
+      "doesNotOwn": [
+        "image storage, grids, or spatial transforms",
+        "parcellation and searchlight workflows",
+        "ROI science, clustering, or statistics",
+        "BIDS discovery, acquisition semantics, or workflow orchestration"
+      ]
+    },
+    {
+      "name": "scalafim",
+      "kind": "downstream-repository",
+      "role": "High-level neuroimaging analysis suite and compatibility consumer",
+      "artifacts": [
+        "scalafim-image",
+        "scalafim-registration",
+        "scalafim-motion",
+        "scalafim-locus"
+      ],
+      "retains": [
+        "NeuroSpace, NeuroVol, and NeuroVec compatibility APIs",
+        "BOLD and acquisition semantics",
+        "ROI, masks, searchlights, and parcellations",
+        "clustering, statistics, and sparse representations",
+        "BIDS and workflow-level neuroimaging IO",
+        "application CLIs, reports, and workflows"
+      ]
+    }
+  ],
+  "moduleGraph": {
+    "direction": "consumer-to-dependency",
+    "nodes": [
+      {
+        "artifact": "gale-core",
+        "kind": "external"
+      },
+      {
+        "artifact": "ravel-core",
+        "kind": "external"
+      },
+      {
+        "artifact": "image4s-geometry",
+        "kind": "external"
+      },
+      {
+        "artifact": "image4s-core",
+        "kind": "external"
+      },
+      {
+        "artifact": "image4s-nifti",
+        "kind": "external"
+      },
+      {
+        "artifact": "image4s-reference",
+        "kind": "external"
+      },
+      {
+        "artifact": "image4s-laws",
+        "kind": "external"
+      },
+      {
+        "artifact": "reframe4s-core",
+        "kind": "internal"
+      },
+      {
+        "artifact": "reframe4s-lie",
+        "kind": "internal"
+      },
+      {
+        "artifact": "reframe4s-resample",
+        "kind": "internal"
+      },
+      {
+        "artifact": "reframe4s-laws",
+        "kind": "internal"
+      },
+      {
+        "artifact": "locus4s-core",
+        "kind": "external"
+      },
+      {
+        "artifact": "locus4s-data",
+        "kind": "external"
+      },
+      {
+        "artifact": "locus4s-laws",
+        "kind": "external"
+      },
+      {
+        "artifact": "image4s-locus",
+        "kind": "external"
+      },
+      {
+        "artifact": "reframe4s-field",
+        "kind": "internal"
+      },
+      {
+        "artifact": "reframe4s-flow",
+        "kind": "internal"
+      },
+      {
+        "artifact": "reframe4s-graph",
+        "kind": "internal"
+      },
+      {
+        "artifact": "reframe4s-register",
+        "kind": "internal"
+      },
+      {
+        "artifact": "reframe4s-multiscale",
+        "kind": "internal"
+      },
+      {
+        "artifact": "reframe4s-motion",
+        "kind": "internal"
+      },
+      {
+        "artifact": "reframe4s-halfflow",
+        "kind": "internal-experimental"
+      },
+      {
+        "artifact": "reframe4s",
+        "kind": "internal-bundle"
+      },
+      {
+        "artifact": "scalafim-image",
+        "kind": "downstream"
+      },
+      {
+        "artifact": "scalafim-registration",
+        "kind": "downstream"
+      },
+      {
+        "artifact": "scalafim-motion",
+        "kind": "downstream"
+      },
+      {
+        "artifact": "scalafim-locus",
+        "kind": "downstream"
+      }
+    ],
+    "edges": [
+      {
+        "from": "image4s-geometry",
+        "to": "gale-core"
+      },
+      {
+        "from": "image4s-core",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "image4s-core",
+        "to": "ravel-core"
+      },
+      {
+        "from": "image4s-nifti",
+        "to": "image4s-core"
+      },
+      {
+        "from": "image4s-nifti",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "image4s-nifti",
+        "to": "ravel-core"
+      },
+      {
+        "from": "image4s-reference",
+        "to": "image4s-core"
+      },
+      {
+        "from": "image4s-reference",
+        "to": "ravel-core"
+      },
+      {
+        "from": "image4s-laws",
+        "to": "image4s-core"
+      },
+      {
+        "from": "image4s-laws",
+        "to": "image4s-reference"
+      },
+      {
+        "from": "reframe4s-core",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "reframe4s-core",
+        "to": "gale-core"
+      },
+      {
+        "from": "reframe4s-lie",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "reframe4s-lie",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "reframe4s-lie",
+        "to": "gale-core"
+      },
+      {
+        "from": "reframe4s-resample",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "reframe4s-resample",
+        "to": "image4s-core"
+      },
+      {
+        "from": "reframe4s-resample",
+        "to": "ravel-core"
+      },
+      {
+        "from": "reframe4s-laws",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "reframe4s-laws",
+        "to": "reframe4s-lie"
+      },
+      {
+        "from": "reframe4s-laws",
+        "to": "image4s-reference"
+      },
+      {
+        "from": "reframe4s-laws",
+        "to": "reframe4s-resample"
+      },
+      {
+        "from": "locus4s-data",
+        "to": "locus4s-core"
+      },
+      {
+        "from": "locus4s-laws",
+        "to": "locus4s-core"
+      },
+      {
+        "from": "locus4s-laws",
+        "to": "locus4s-data"
+      },
+      {
+        "from": "image4s-locus",
+        "to": "image4s-core"
+      },
+      {
+        "from": "image4s-locus",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "image4s-locus",
+        "to": "locus4s-core"
+      },
+      {
+        "from": "reframe4s-field",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "reframe4s-field",
+        "to": "image4s-core"
+      },
+      {
+        "from": "reframe4s-field",
+        "to": "reframe4s-resample"
+      },
+      {
+        "from": "reframe4s-field",
+        "to": "gale-core"
+      },
+      {
+        "from": "reframe4s-field",
+        "to": "ravel-core"
+      },
+      {
+        "from": "reframe4s-flow",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "reframe4s-flow",
+        "to": "reframe4s-field"
+      },
+      {
+        "from": "reframe4s-flow",
+        "to": "reframe4s-lie"
+      },
+      {
+        "from": "reframe4s-flow",
+        "to": "image4s-core"
+      },
+      {
+        "from": "reframe4s-flow",
+        "to": "ravel-core"
+      },
+      {
+        "from": "reframe4s-graph",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "reframe4s-graph",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "reframe4s-register",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "reframe4s-register",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "reframe4s-register",
+        "to": "reframe4s-resample"
+      },
+      {
+        "from": "reframe4s-register",
+        "to": "reframe4s-flow"
+      },
+      {
+        "from": "reframe4s-register",
+        "to": "reframe4s-multiscale"
+      },
+      {
+        "from": "reframe4s-register",
+        "to": "image4s-core"
+      },
+      {
+        "from": "reframe4s-multiscale",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "reframe4s-multiscale",
+        "to": "image4s-core"
+      },
+      {
+        "from": "reframe4s-multiscale",
+        "to": "reframe4s-resample"
+      },
+      {
+        "from": "reframe4s-multiscale",
+        "to": "reframe4s-field"
+      },
+      {
+        "from": "reframe4s-motion",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "reframe4s-motion",
+        "to": "image4s-core"
+      },
+      {
+        "from": "reframe4s-motion",
+        "to": "reframe4s-resample"
+      },
+      {
+        "from": "reframe4s-motion",
+        "to": "reframe4s-register"
+      },
+      {
+        "from": "reframe4s-motion",
+        "to": "reframe4s-multiscale"
+      },
+      {
+        "from": "reframe4s-motion",
+        "to": "reframe4s-lie"
+      },
+      {
+        "from": "reframe4s-motion",
+        "to": "ravel-core"
+      },
+      {
+        "from": "reframe4s-halfflow",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "reframe4s-halfflow",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "reframe4s-halfflow",
+        "to": "reframe4s-register"
+      },
+      {
+        "from": "reframe4s-halfflow",
+        "to": "reframe4s-flow"
+      },
+      {
+        "from": "reframe4s",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "reframe4s",
+        "to": "image4s-core"
+      },
+      {
+        "from": "reframe4s",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "reframe4s",
+        "to": "reframe4s-lie"
+      },
+      {
+        "from": "reframe4s",
+        "to": "reframe4s-resample"
+      },
+      {
+        "from": "reframe4s",
+        "to": "reframe4s-field"
+      },
+      {
+        "from": "reframe4s",
+        "to": "reframe4s-flow"
+      },
+      {
+        "from": "reframe4s",
+        "to": "reframe4s-graph"
+      },
+      {
+        "from": "reframe4s",
+        "to": "reframe4s-register"
+      },
+      {
+        "from": "reframe4s",
+        "to": "reframe4s-multiscale"
+      },
+      {
+        "from": "reframe4s",
+        "to": "reframe4s-motion"
+      },
+      {
+        "from": "scalafim-image",
+        "to": "image4s-core"
+      },
+      {
+        "from": "scalafim-image",
+        "to": "image4s-nifti"
+      },
+      {
+        "from": "scalafim-image",
+        "to": "reframe4s-resample"
+      },
+      {
+        "from": "scalafim-image",
+        "to": "image4s-locus"
+      },
+      {
+        "from": "scalafim-registration",
+        "to": "reframe4s-register"
+      },
+      {
+        "from": "scalafim-registration",
+        "to": "reframe4s-resample"
+      },
+      {
+        "from": "scalafim-motion",
+        "to": "reframe4s-motion"
+      },
+      {
+        "from": "scalafim-motion",
+        "to": "scalafim-image"
+      },
+      {
+        "from": "scalafim-locus",
+        "to": "locus4s-core"
+      },
+      {
+        "from": "scalafim-locus",
+        "to": "locus4s-data"
+      },
+      {
+        "from": "scalafim-locus",
+        "to": "image4s-locus"
+      }
+    ],
+    "forbiddenEdges": [
+      {
+        "from": "image4s-geometry",
+        "to": "image4s-core"
+      },
+      {
+        "from": "image4s-core",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "locus4s-core",
+        "to": "image4s-core"
+      },
+      {
+        "from": "locus4s-core",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "image4s-core",
+        "to": "scalafim-image"
+      },
+      {
+        "from": "reframe4s-core",
+        "to": "scalafim-registration"
+      },
+      {
+        "from": "locus4s-core",
+        "to": "scalafim-locus"
+      }
+    ]
+  },
+  "dependencyRules": [
+    {
+      "id": "DEP-001",
+      "rule": "Use published artifacts or immutable reviewed commit pins; never rely on incidental APIs from dirty sibling checkouts."
+    },
+    {
+      "id": "DEP-002",
+      "rule": "Shared modules must not expose JVM-only storage, reflection, or IO types."
+    },
+    {
+      "id": "DEP-003",
+      "rule": "Boundary adapters remain thin and must not create a second transformation or image algebra."
+    },
+    {
+      "id": "DEP-004",
+      "rule": "Optional integration modules may add dependencies without widening the dependency surface of a core module."
+    },
+    {
+      "id": "DEP-005",
+      "rule": "moduleGraph is the build authority: every sbt project dependency is a declared concrete consumer-to-dependency edge, forbidden edges are absent, and the graph must pass mechanical cycle and symbol-ownership checks."
+    },
+    {
+      "id": "DEP-006",
+      "rule": "Production resampling work cannot enter MIG-210 until AC-006 proves the required Ravel indexing and consuming-builder capabilities at an immutable remotely green revision; image4s-reference cannot satisfy that gate."
+    },
+    {
+      "id": "DEP-007",
+      "rule": "Immutable Ravel values may be shared safely. Borrowed mutable inputs are copied at public boundaries; no redundant copy is required merely to move an already immutable owned value between foundation APIs."
+    },
+    {
+      "id": "DEP-008",
+      "rule": "Each public foundational symbol has exactly one owning artifact. Compatibility modules may alias or adapt it but may not redeclare geometry, affine, sampled-image, map, or finite-domain algebras."
+    }
+  ],
+  "publicContracts": [
+    {
+      "id": "API-001",
+      "name": "Frame and grid identity",
+      "contract": "Frame.fresh[D](metadata) creates a new unforgeable runtime owner and persistent FrameId even when names match. Frame.restore[D](record, registry) resolves or creates the registered runtime owner only after dimension and metadata validation. Frame.align and Grid.align return typed alignment values that explicitly rebind owned points, vectors, or grid-bound values only after checked persistent identity and metadata agreement; they never fabricate Scala =:= evidence between distinct live objects. Multiple GridIds may share one FrameId; GridId is not FrameId."
+    },
+    {
+      "id": "API-002",
+      "name": "Canonical sampled representation",
+      "contract": "Sampled[F,D,A,Role,R] is the sole owned sampled-image representation. Its validated data shape equals grid.shape ++ nonSpatialAxes.shape. Continuous scalar and continuous component roles permit continuous interpolation, while categorical label roles permit only label-safe interpolation. Image, ContinuousImage, CategoricalImage, and MaskImage are type aliases or zero-copy views that neither own parallel storage nor define competing invariants."
+    },
+    {
+      "id": "API-003",
+      "name": "Spatial map polarity",
+      "contract": "SpatialMap[From, To, D] maps Point[From, D] to Point[To, D]. andThen composes only through an identical intermediate frame and preserves the strongest justified capability."
+    },
+    {
+      "id": "API-004",
+      "name": "Smooth maps and isomorphisms",
+      "contract": "SmoothMap adds first-order jets. SmoothIso adds a total analytic inverse and must satisfy both inverse laws. Numerical inversion, convergence, or sampled residuals never promote a value to SmoothIso. The public API does not expose internal match types or proof plumbing."
+    },
+    {
+      "id": "API-005",
+      "name": "Pull resampling",
+      "contract": "A production ResamplingPlan for a source Sampled value and target grid requires SpatialMap[Target, Source, D], a role-compatible interpolation policy, a boundary policy, and explicit validity. A separately named ReferenceSampler provides correctness-oracle behavior only and cannot be passed or reported as a compiled production plan."
+    },
+    {
+      "id": "API-006",
+      "name": "Registration result",
+      "contract": "RegistrationResult[Fixed, Moving, D] exposes fixedToMoving for pull resampling. BidirectionalRegistrationResult additionally exposes movingToFixed only when independently computed or lawfully inverted, preserving the precise map capabilities of both directions. Ambiguous forward, backward, and inverse aliases are not public."
+    },
+    {
+      "id": "API-007",
+      "name": "Motion series",
+      "contract": "Motion is a non-empty time-indexed series of D3 rigid poses or pull maps with common live endpoints and strictly increasing finite times. A zero-copy timed image view validates exactly one image4s Time axis. Interpolation and regularization operate through relative SE(3) group increments and preserve declared reference poses; public motion values expose movingToFixed and fixedToMoving with unambiguous pull direction."
+    },
+    {
+      "id": "API-008",
+      "name": "Typed failures",
+      "contract": "Frame mismatch, invalid dimensions, unsupported interpolation, insufficient support, non-invertibility, invalid topology, and convergence failure are distinct typed errors rather than strings, exceptions, booleans, or sentinels."
+    },
+    {
+      "id": "API-009",
+      "name": "Finite-domain identity",
+      "contract": "DomainId is distinct from FrameId and GridId. Every locus element carries or verifies its unforgeable runtime domain owner; fresh, restore, and align follow checked semantics parallel to frames, and equal ordinals from different domains are not interchangeable."
+    },
+    {
+      "id": "API-010",
+      "name": "Geometry and affine authority",
+      "contract": "image4s-geometry is the only owner of Dim, Frame, FrameId, Point, Vec, Grid, GridId, and immutable validated Affine[D]. A Grid has one indexToFrame affine. Spatial affine maps are typed endpoint wrappers over the same Affine[D], not a second algebra."
+    },
+    {
+      "id": "API-011",
+      "name": "Approximate inverse evidence",
+      "contract": "An approximate inversion returns InverseEstimate with residuals, convergence status, domain of validity, criteria, and implementation revision. A CertifiedBidirectionalPair contains two maps plus checked consistency evidence but does not implement SmoothIso unless both maps are analytic lawful inverses."
+    },
+    {
+      "id": "API-012",
+      "name": "Scoped topology evidence",
+      "contract": "TopologyCertificate records the exact GridId, resolution, sampled region, sampling rule, determinant threshold, criteria, implementation revision, and diagnostics. It certifies only that finite check and is never represented as a global diffeomorphism proof."
+    },
+    {
+      "id": "API-013",
+      "name": "Compiled resampling ownership",
+      "contract": "Compiled production plans are immutable and thread-safe. Each execution receives an explicit mutable workspace; built-in affine paths do not materialize O(nVoxels) coordinate collections or allocate objects per voxel."
+    },
+    {
+      "id": "API-014",
+      "name": "Runtime-loaded sampled image",
+      "contract": "SomeSampled[A,Role] packages exactly one Sampled value behind abstract D, F, and R type members. Its D2 and D3 fold cases recover a Dimension witness and the same underlying Sampled object without casts in consumer code, copying storage, fabricating frame equality, or allowing unsupported spatial ranks."
+    },
+    {
+      "id": "API-015",
+      "name": "Basic NIfTI adapter",
+      "contract": "image4s-nifti supports JVM filesystem paths and Node.js Scala.js string paths through the same shared parser and encoder. It does not support browser filesystem I/O. Public readers return Either[NiftiError,DecodedNifti[SomeSampled[Double,Role]]] or a statically framed equivalent, keep NIfTI metadata separate from Sampled, create a fresh frame unless the caller supplies one, apply qform and sform rules explicitly, translate NIfTI first-axis-fastest payload order to image4s logical axes, and never infer scalar versus label role or acquisition-specific extra-axis meaning from datatype and dimensions alone."
+    },
+    {
+      "id": "API-016",
+      "name": "NIfTI physical-file and extension boundary",
+      "contract": "NiftiStorage distinguishes SingleFile from PairFile. NiftiFiles[P] reports the one or two physical platform paths written. Supported suffixes are exactly .nii, .nii.gz, .hdr, .img, .hdr.gz, and .img.gz, with either pair member accepted as an entry path and its companion derived deterministically. NiftiExtension owns a non-negative code and exact immutable padded payload bytes; safe construction pads new content to a valid 16-byte block size, while decoding rejects invalid esize, alignment, or region bounds. Header metadata reports storage and extensions separately from Sampled."
+    },
+    {
+      "id": "API-017",
+      "name": "NIfTI numeric write policy",
+      "contract": "NiftiWriteOptions is an immutable validated policy containing NiftiDatatype, slope, intercept, and NiftiIntegerConversion. Its smart constructors reject slope or intercept values that become zero or non-finite in the Float32 NIfTI-1 header fields, and store the exact widened Float32 values that will be written. Writers encode raw = (value - intercept) / slope, write matching datatype and bitpix fields, and return a typed NiftiError.ValueNotRepresentable carrying the logical index, source value, encoded value, datatype, and structured reason instead of silently truncating, wrapping, clamping, or overflowing."
+    },
+    {
+      "id": "API-018",
+      "name": "Curated runtime bundle",
+      "contract": "The reframe4s artifact is a dependency-only JVM and Scala.js bundle over stable browser-safe runtime artifacts. It defines only a marker and no duplicate public algebra. Its transitive dependency metadata excludes image4s-nifti, image4s-reference, every laws artifact, and reframe4s-halfflow; users may add those artifacts explicitly."
+    },
+    {
+      "id": "API-019",
+      "name": "Dense field semantics",
+      "contract": "DenseMap stores absolute target-frame coordinates on a source-frame Grid through one canonical component Sampled value and implements SpatialMap without claiming a lawful inverse. Displacement, Velocity, and Momentum are distinct zero-copy semantic wrappers over component samples; only Displacement defines x plus u(x) within one live frame. All constructors validate one Direction axis of extent D and finite components."
+    },
+    {
+      "id": "API-020",
+      "name": "Transform graph routing",
+      "contract": "TransformGraph[D] is an immutable frame-identity multigraph keyed by unique TransformKeys. Parallel estimates are allowed. One-way maps provide only forward traversal; only SmoothIso edges provide automatic exact reversal; CertifiedBidirectionalPair contributes two explicit ordinary-map traversals without becoming SmoothIso. Default path resolution rejects missing and ambiguous routes rather than silently choosing by cost."
+    },
+    {
+      "id": "API-021",
+      "name": "Reusable multiscale continuation",
+      "contract": "ScaleSpec and ScaleSchedule are validated coarse-to-fine data independent of any registration algorithm. Coarse Grid construction preserves both physical endpoints on awkward, anisotropic, or oblique grids and creates a fresh GridId in the same Frame. Transfer protocols are explicit about scalar, label, mask, displacement, velocity, and absolute-coordinate semantics; Continuation propagates typed level failures without owning optimizer policy."
+    },
+    {
+      "id": "API-022",
+      "name": "Experimental HalfFlow boundary",
+      "contract": "reframe4s-halfflow exposes experimental candidates and a capability ledger only. Half steps are independently integrated estimates, not analytic inverses. Admission to a RegistrationResult requires separately checked inverse residual and scoped topology evidence; a rejected candidate remains inspectable and no HalfFlow value is promoted to SmoothIso or included in the stable umbrella."
+    },
+    {
+      "id": "API-023",
+      "name": "Canonical motion engine",
+      "contract": "reframe4s-motion estimates and applies rigid motion directly on canonical D3-plus-Time Sampled values. Estimation uses the complete Grid affine, explicit multiscale and optimizer controls, deterministic sample selection, explicit workspaces, and typed per-frame convergence diagnostics. Application delegates ordinary volume transforms to production pull resampling and evaluates time-dependent acquisition poses without a private competing interpolation kernel. Pose-derived displacement and fit measurements are returned as data; ScalaFIM owns BIDS, image-series QC such as DVARS, report, censoring, confound, and command policy."
+    },
+    {
+      "id": "API-024",
+      "name": "Logical image indexing and legacy ingress",
+      "contract": "Sampled logical axes are grid axes followed by ordered non-spatial axes: (i,j), (i,j,k), and (i,j,k,t) are independent of physical layout. In D3, z means the third grid-axis slice; anatomical and world axes come only from the Grid affine. Ravel canonical arrays use last-axis-fastest C order and strided Ravel views remain valid. Historical ScalaFIM first-axis-fastest buffers cross one checked boundary that validates shape, length, geometry, axes, layout, and ownership, then either proves a zero-copy view or reports one explicit canonicalizing materialization. image4s exposes no raw flat-index contract."
+    }
+  ],
+  "migrationPhases": [
+    {
+      "id": "MIG-000",
+      "name": "Approve authority",
+      "requires": [],
+      "actions": [
+        "Validate PRD.json syntax and required sections.",
+        "Review PRD.json against notes.md and the accepted plan.",
+        "Record explicit approval in status.",
+        "Create the Mote epic and dependency-ordered issues from PRD IDs."
+      ],
+      "exitGates": [
+        "AC-001",
+        "AC-002"
+      ]
+    },
+    {
+      "id": "MIG-010",
+      "name": "Freeze dependencies and compatibility evidence",
+      "requires": [
+        "MIG-000"
+      ],
+      "actions": [
+        "Pin reviewed green Gale and Ravel revisions.",
+        "Inventory the extant ScalaFIM spatial, registration, motion, locus, and image APIs by destination owner.",
+        "Capture asymmetric-grid, ownership, affine, and runtime-identity fixtures before porting."
+      ],
+      "exitGates": [
+        "AC-003",
+        "AC-004"
+      ]
+    },
+    {
+      "id": "MIG-050",
+      "name": "Establish the monorepo artifact skeleton",
+      "requires": [
+        "MIG-010"
+      ],
+      "actions": [
+        "Declare every concrete internal, external, and downstream artifact in the consumer-to-dependency DAG.",
+        "Generate sbt project dependencies from or mechanically compare them with moduleGraph.",
+        "Install cycle, forbidden-edge, undeclared-edge, and public-symbol uniqueness checks.",
+        "Keep all foundation artifacts in the reframe4s monorepo.",
+        "Add a concrete browser-safe reframe4s umbrella whose published metadata depends on stable runtime artifacts without introducing duplicate symbols."
+      ],
+      "exitGates": [
+        "AC-005",
+        "AC-007",
+        "AC-056"
+      ]
+    },
+    {
+      "id": "MIG-100",
+      "name": "Build the geometry foundation",
+      "requires": [
+        "MIG-050"
+      ],
+      "actions": [
+        "Implement image4s-geometry as the sole authority for dimensions, identities, points, vectors, grids, and affine coordinate operators.",
+        "Add fresh, restore, registry, align, serialization, existential-boundary, ownership, and JVM/Scala.js tests.",
+        "Prove framed affine maps wrap the same immutable Affine value rather than recreating its algebra."
+      ],
+      "exitGates": [
+        "AC-010",
+        "AC-011",
+        "AC-015",
+        "AC-017"
+      ]
+    },
+    {
+      "id": "MIG-110",
+      "name": "Build the image foundation",
+      "requires": [
+        "MIG-100"
+      ],
+      "actions": [
+        "Implement Sampled as the sole image4s-core storage owner with axes, roles, boundary policy, and validity.",
+        "Implement SomeSampled as a sealed path-dependent package with typed D2 and D3 elimination and no parallel storage.",
+        "Implement image4s-reference as a clearly non-production correctness oracle.",
+        "Add shape, axes, ownership, alias or zero-copy-view, dynamic-boundary, and JVM/Scala.js tests."
+      ],
+      "exitGates": [
+        "AC-012",
+        "AC-013",
+        "AC-014",
+        "AC-016",
+        "AC-019"
+      ]
+    },
+    {
+      "id": "MIG-120",
+      "name": "Build basic NIfTI I/O",
+      "requires": [
+        "MIG-110"
+      ],
+      "actions": [
+        "Add image4s-nifti as a JVM-and-Node Scala.js artifact with explicit dependencies on image4s-core, image4s-geometry, and Ravel.",
+        "Keep parsing, encoding, validation, byte order, storage variants, and numeric conversion in shared Scala while thin platform adapters own JVM or Node paths, physical file access, and gzip.",
+        "Port and correct the extant ScalaFIM NIfTI-1 header and payload behavior into typed total public APIs.",
+        "Read and write gzip-compressed or uncompressed NIfTI on JVM and Node without adding filesystem APIs to image4s-core or claiming browser filesystem support.",
+        "Translate NIfTI first-axis-fastest payload order to and from Ravel logical indexing.",
+        "Return immutable NIfTI metadata separately from the sole Sampled storage owner and require explicit scalar or label role.",
+        "Retain BIDS discovery, staging policy, acquisition semantics, and workflow orchestration in ScalaFIM."
+      ],
+      "exitGates": [
+        "AC-027",
+        "AC-028",
+        "AC-055"
+      ]
+    },
+    {
+      "id": "MIG-121",
+      "name": "Complete baseline NIfTI storage variants",
+      "requires": [
+        "MIG-120"
+      ],
+      "actions": [
+        "Write gzip-compressed .nii.gz and read or write uncompressed .nii without changing image4s-core.",
+        "Read and write NIfTI-1 pair files through either .hdr or .img entry paths, including independently gzip-compressed .hdr.gz and .img.gz companions.",
+        "Represent output as one or two explicit physical paths rather than collapsing pair-file output to one Path.",
+        "Parse, validate, expose, and write all valid NIfTI-1 extension blocks while preserving each code value and exact padded payload bytes.",
+        "Keep compressed random-access staging and workflow policy in ScalaFIM."
+      ],
+      "exitGates": [
+        "AC-029"
+      ]
+    },
+    {
+      "id": "MIG-122",
+      "name": "Complete supported NIfTI numeric output",
+      "requires": [
+        "MIG-121"
+      ],
+      "actions": [
+        "Add validated NiftiWriteOptions with UInt8, Int16, Int32, Float32, and Float64 output.",
+        "Write matching datatype, bitpix, slope, and intercept header fields for every storage and compression variant.",
+        "Reject lossy integer conversion by default and require an explicit nearest-even quantization policy.",
+        "Return indexed typed failures for non-finite, fractional, out-of-range, or floating-overflow conversions before writing a physical file.",
+        "Add independent byte-level payload oracles, scaled read-write checks, boundary cases, and a storage-variant conversion matrix."
+      ],
+      "exitGates": [
+        "AC-054"
+      ]
+    },
+    {
+      "id": "MIG-200",
+      "name": "Build map and Lie foundations",
+      "requires": [
+        "MIG-100"
+      ],
+      "actions": [
+        "Implement spatial maps, smooth maps, exact isomorphisms, jets, composition, Lie transforms, typed errors, and laws.",
+        "Implement InverseEstimate, CertifiedBidirectionalPair, and scoped TopologyCertificate without capability inflation.",
+        "Port only extant behavior that satisfies normative map direction and ownership contracts.",
+        "Add noncommuting-composition and finite-difference derivative fixtures."
+      ],
+      "exitGates": [
+        "AC-020",
+        "AC-022",
+        "AC-023",
+        "AC-024",
+        "AC-025"
+      ]
+    },
+    {
+      "id": "MIG-210",
+      "name": "Build production pull resampling",
+      "requires": [
+        "MIG-110",
+        "MIG-200"
+      ],
+      "entryGates": [
+        "AC-006"
+      ],
+      "actions": [
+        "Do not start production-kernel implementation until AC-006 is green at a pinned immutable Ravel revision.",
+        "Implement immutable thread-safe compiled plans with explicit per-run workspaces.",
+        "Implement allocation-free built-in affine paths without O(nVoxels) coordinate materialization.",
+        "Validate map polarity on asymmetric source and target grids against image4s-reference.",
+        "Record throughput, allocation, and peak-memory baselines before accepting migration."
+      ],
+      "exitGates": [
+        "AC-006",
+        "AC-021",
+        "AC-026"
+      ]
+    },
+    {
+      "id": "MIG-300A",
+      "name": "Extract locus4s-core independently",
+      "requires": [
+        "MIG-050"
+      ],
+      "actions": [
+        "Correct runtime domain ownership before extraction.",
+        "Extract identities, finite spaces, ordinals, regions, selections, relations, and total maps.",
+        "Add fresh, restore, align, serialization, and cross-domain rejection laws.",
+        "Keep image, parcellation, searchlight, and aggregation APIs out of locus4s-core."
+      ],
+      "exitGates": [
+        "AC-030",
+        "AC-031"
+      ]
+    },
+    {
+      "id": "MIG-300B",
+      "name": "Extract locus4s-data",
+      "requires": [
+        "MIG-300A"
+      ],
+      "actions": [
+        "Extract indexed fields and genuinely domain-neutral aggregation.",
+        "Keep parcellation and searchlight workflows in ScalaFIM.",
+        "Verify locus4s-data depends only on locus4s-core among foundation artifacts."
+      ],
+      "exitGates": [
+        "AC-032"
+      ]
+    },
+    {
+      "id": "MIG-310",
+      "name": "Build the image-to-locus bridge",
+      "requires": [
+        "MIG-110",
+        "MIG-300A"
+      ],
+      "actions": [
+        "Implement image4s-locus as only the Grid-to-finite-domain bridge.",
+        "Migrate ScalaFIM image-domain adapters without moving parcellation or searchlight workflows.",
+        "Verify no reverse dependency from locus4s-core or locus4s-data into imaging."
+      ],
+      "exitGates": [
+        "AC-033"
+      ]
+    },
+    {
+      "id": "MIG-400",
+      "name": "Migrate registration and motion algorithms",
+      "requires": [
+        "MIG-210",
+        "MIG-300B",
+        "MIG-310"
+      ],
+      "actions": [
+        "Port generic affine, field, flow, graph, multiscale, registration, and motion components in dependency order.",
+        "Keep BOLD orchestration, BIDS and workflow-level neuroimaging IO, reports, and CLIs in ScalaFIM.",
+        "Run old and new implementations against shared non-defective fixtures."
+      ],
+      "exitGates": [
+        "AC-040",
+        "AC-041",
+        "AC-042",
+        "AC-043"
+      ]
+    },
+    {
+      "id": "MIG-410",
+      "name": "Extract the canonical reusable motion engine",
+      "requires": [
+        "MIG-400"
+      ],
+      "actions": [
+        "Classify every ScalaFIM motion source as a corrected canonical port, a ScalaFIM policy adapter, or a rejected duplicate.",
+        "Implement frame-directed rigid transforms, SE(3) updates and interpolation, acquisition timing, validated controls, fit diagnostics, and generic motion metrics.",
+        "Port multiscale capture, template fitting, robust rigid estimation, and motion application onto canonical Sampled values, complete Grid affines, Ravel-backed kernels, ordinary resampling plans, and explicit workspaces.",
+        "Replace ScalaFIM motion algorithms with compatibility and workflow adapters, then remove its competing pose, estimator, sampler, and application implementations after differential and downstream gates pass."
+      ],
+      "exitGates": [
+        "AC-044",
+        "AC-045",
+        "AC-046",
+        "AC-047",
+        "AC-048",
+        "AC-049"
+      ]
+    },
+    {
+      "id": "MIG-450",
+      "name": "Unify image representation",
+      "requires": [
+        "MIG-110"
+      ],
+      "actions": [
+        "Freeze logical spatial and non-spatial indexing, physical-layout independence, ownership, slicing, failure, and performance contracts with an executable JVM and Scala.js court.",
+        "Add allocation-free ranked image access and zero-copy Ravel views to image4s while keeping Ravel the sole storage and kernel authority.",
+        "Migrate ScalaFIM dense NeuroVol and NeuroVec consumers through one checked legacy ingress, redesign SparseNeuroVec as typed support plus compact rank-2 Ravel storage, and remove the private array and image hierarchy.",
+        "Record matched checksums, layout parity, allocation, throughput, downstream consumer, serialization, I/O, and visible-loss evidence before duplicate removal."
+      ],
+      "exitGates": [
+        "AC-057",
+        "AC-058",
+        "AC-059"
+      ]
+    },
+    {
+      "id": "MIG-500",
+      "name": "Remove duplication and release",
+      "requires": [
+        "MIG-122",
+        "MIG-400",
+        "MIG-410",
+        "MIG-450"
+      ],
+      "actions": [
+        "Switch ScalaFIM consumers to published or immutable-pinned foundation artifacts.",
+        "Deprecate compatibility names for at least one migration release.",
+        "Remove duplicated implementations only after downstream and consumer smoke tests are green."
+      ],
+      "exitGates": [
+        "AC-018",
+        "AC-050",
+        "AC-051",
+        "AC-052",
+        "AC-053"
+      ]
+    }
+  ],
+  "acceptanceGates": [
+    {
+      "id": "AC-001",
+      "requirement": "PRD.json parses as valid JSON and contains every required top-level section.",
+      "evidence": "jq validation and semantic structure check"
+    },
+    {
+      "id": "AC-002",
+      "requirement": "PRD status records explicit approval before build or source scaffolding.",
+      "evidence": "status.state equals approved with approval basis"
+    },
+    {
+      "id": "AC-003",
+      "requirement": "Gale and Ravel dependencies resolve from immutable reviewed revisions.",
+      "evidence": "dependency pins plus green JVM and Scala.js resolution"
+    },
+    {
+      "id": "AC-004",
+      "requirement": "Every extant source subsystem and public API has a recorded destination, compatibility strategy, and removal gate.",
+      "evidence": "migration inventory linked to PRD IDs"
+    },
+    {
+      "id": "AC-005",
+      "requirement": "The concrete consumer-to-dependency artifact graph is acyclic, contains no aggregate repository nodes, matches sbt project dependencies, and contains no undeclared or forbidden edge.",
+      "evidence": "scripts/verify-prd.mjs plus sbt dependency-graph comparison"
+    },
+    {
+      "id": "AC-006",
+      "requirement": "An immutable remotely green Ravel revision provides allocation-free rank-specific indexing and a consuming output builder sufficient for production resampling.",
+      "evidence": "pinned revision, remote CI URL, capability compile probe, and allocation microbenchmark"
+    },
+    {
+      "id": "AC-007",
+      "requirement": "Every foundational public symbol has exactly one owning artifact and no compatibility or integration artifact redeclares its algebra.",
+      "evidence": "public API symbol inventory and duplicate-symbol check"
+    },
+    {
+      "id": "AC-008",
+      "requirement": "Representative construction, identity recovery, pull-resampling, inverse-evidence, and locus workflows are documented as executable examples with actionable compile-time and runtime diagnostics.",
+      "evidence": "mdoc or compile-checked guides plus diagnostic golden tests"
+    },
+    {
+      "id": "AC-010",
+      "requirement": "JVM and Scala.js compile and test image4s-geometry independently.",
+      "evidence": "image4s-geometry JVM and Scala.js test reports"
+    },
+    {
+      "id": "AC-011",
+      "requirement": "Invalid frame mixing and spatial-dimension combinations fail to compile.",
+      "evidence": "negative compile tests"
+    },
+    {
+      "id": "AC-012",
+      "requirement": "JVM and Scala.js compile and test image4s-core, image4s-reference, and image4s-laws; borrowed mutable constructor inputs and exports cannot mutate public values, while already immutable Ravel values can be shared without a redundant copy.",
+      "evidence": "per-artifact cross-platform reports plus mutation-after-construction, export, and immutable-sharing identity tests"
+    },
+    {
+      "id": "AC-013",
+      "requirement": "D2, D3, D3-plus-time, and D3-plus-channel fixtures keep non-spatial axes out of spatial transforms.",
+      "evidence": "axis and geometry suites"
+    },
+    {
+      "id": "AC-014",
+      "requirement": "image4s-reference explicitly tests nearest, linear, label, boundary, partial-support, and validity semantics and is impossible to mistake for a compiled production plan.",
+      "evidence": "reference sampling laws, scenario suites, and API type checks"
+    },
+    {
+      "id": "AC-015",
+      "requirement": "FrameId, GridId, and DomainId remain distinct; same-name fresh frames differ; restore and align validate dimension and metadata; serialization and existential or dynamic boundaries recover typed rebinding evidence only through checked registries, without fabricated Scala equality.",
+      "evidence": "fresh/restore/align, registry, round-trip, mismatch, and dynamic-boundary suites"
+    },
+    {
+      "id": "AC-016",
+      "requirement": "Sampled[F,D,A,Role,R] is the sole owned sampled-image representation, validates data shape as grid.shape ++ nonSpatialAxes.shape, and all convenience image names are aliases or zero-copy views.",
+      "evidence": "public API inventory, shape property suites, zero-copy view tests, and duplicate-owner check"
+    },
+    {
+      "id": "AC-017",
+      "requirement": "Only image4s-geometry defines dimensions, frames, points, vectors, grids, identifiers, or affine coordinate algebra, and framed affine maps wrap the same immutable Affine[D].",
+      "evidence": "artifact symbol scan, affine law suites, and wrapper-sharing tests"
+    },
+    {
+      "id": "AC-018",
+      "requirement": "The extracted foundations and the ScalaFIM 3.7.4 compatibility consumer compile on JVM and Scala.js against published or immutable-pinned artifacts without relying on source-level sibling leakage.",
+      "evidence": "clean cross-toolchain consumer matrix"
+    },
+    {
+      "id": "AC-019",
+      "requirement": "SomeSampled packages exactly one Sampled value with path-dependent D, F, and R members; D2 and D3 folds preserve object identity and dimension evidence, unsupported ranks cannot be constructed, and consumers need no unchecked cast.",
+      "evidence": "JVM and Scala.js dynamic-boundary suites, negative compile tests, identity checks, and type-discipline review"
+    },
+    {
+      "id": "AC-020",
+      "requirement": "Spatial map identity, associativity, capability-preserving composition, and supported inverse laws pass.",
+      "evidence": "reusable law suites"
+    },
+    {
+      "id": "AC-021",
+      "requirement": "Asymmetric source and target grids prove pull-map direction with distinct origin, spacing, orientation, and extent.",
+      "evidence": "asymmetric-grid resampling fixtures"
+    },
+    {
+      "id": "AC-022",
+      "requirement": "Analytic Jacobians agree with finite-difference derivatives within documented tolerances.",
+      "evidence": "finite-difference derivative suites"
+    },
+    {
+      "id": "AC-023",
+      "requirement": "Typed failures remain distinguishable and no public API uses string errors, sentinels, null, unchecked casts, or fabricated inverses.",
+      "evidence": "type-discipline review and error scenario suites"
+    },
+    {
+      "id": "AC-024",
+      "requirement": "Only analytic lawful inverses implement SmoothIso; numerical inversion returns InverseEstimate or CertifiedBidirectionalPair with residual and convergence evidence.",
+      "evidence": "negative capability compile tests, inverse laws, and approximate-inverse scenario suites"
+    },
+    {
+      "id": "AC-025",
+      "requirement": "Topology evidence is scoped to GridId, resolution, region, sampling rule, determinant threshold, criteria, and implementation revision and cannot be consumed as a global diffeomorphism proof.",
+      "evidence": "certificate construction, serialization, scope-mismatch, and negative capability tests"
+    },
+    {
+      "id": "AC-026",
+      "requirement": "Built-in production resampling has no per-voxel object allocation, affine plans do not materialize O(nVoxels) coordinates, compiled plans are immutable and thread-safe with explicit per-run workspaces, and throughput, allocation, and peak memory meet recorded baselines.",
+      "evidence": "allocation profiles, peak-memory measurements, concurrency laws, structural plan inspection, and same-environment benchmarks"
+    },
+    {
+      "id": "AC-027",
+      "requirement": "image4s-nifti is a JVM-and-Node Scala.js leaf whose concrete consumer-to-dependency edges are image4s-core, image4s-geometry, and ravel-core; shared sources contain no JVM or Node filesystem/gzip imports; image4s-core contains no filesystem, gzip, or NIfTI symbols; and no browser support is claimed.",
+      "evidence": "artifact graph validation, JVM and Scala.js project listing, shared-source forbidden-import scan, platform adapter inspection, and optimized Node linking"
+    },
+    {
+      "id": "AC-028",
+      "requirement": "Basic NIfTI-1 tests cover little- and big-endian headers, supported numeric datatypes, slope and intercept, qform with qfac, sform precedence, missing-form fallback, gzip input, uncompressed single-file output, explicit scalar and label roles, typed malformed-input failures, and asymmetric first-axis-fastest payload order round trips.",
+      "evidence": "image4s-nifti JVM fixture suite plus Node Scala.js round-trip suite"
+    },
+    {
+      "id": "AC-029",
+      "requirement": "NIfTI-1 storage tests cover .nii and .nii.gz read-write-read, .hdr/.img and .hdr.gz/.img.gz pair read-write-read through either member path, correct n+1 versus ni1 magic, explicit one-file versus two-file results, multiple extension blocks in single and pair storage, exact extension code and padded-payload preservation, and typed failures for unsupported paths, absent companions, invalid extension sizes, alignment, and bounds.",
+      "evidence": "image4s-nifti JVM and Node physical-file, compression, extension, malformed-input, and round-trip suites"
+    },
+    {
+      "id": "AC-054",
+      "requirement": "NIfTI-1 writer tests cover UInt8, Int16, Int32, Float32, and Float64 datatype and bitpix fields; independent raw payload bytes; single, pair, gzip, and uncompressed storage; Float32-canonical slope/intercept reconstruction and invalid-option rejection; signed and unsigned bounds; default fractional rejection; explicit nearest-even quantization; finite-to-infinite Float32 overflow; non-finite integer rejection; and no physical output after conversion failure.",
+      "evidence": "image4s-nifti JVM byte-level oracles plus JVM and Node conversion matrix, boundary, failure-atomicity, and read-write suites"
+    },
+    {
+      "id": "AC-055",
+      "requirement": "The shared image4s-nifti parser and encoder compile unchanged on JVM and Scala.js; Node reads and writes uncompressed and gzip single and pair files, preserves extensions, covers UInt8, Int16, Int32, Float32, and Float64 output, reports typed physical-path failures, and passes optimized Node linking and execution.",
+      "evidence": "image4s-niftiJVM and image4s-niftiJS compile/test reports, Node storage and datatype matrix, and Scala.js fullOptJS"
+    },
+    {
+      "id": "AC-056",
+      "requirement": "A clean JVM and Scala.js consumer can select the reframe4s umbrella and receive every declared stable browser-safe runtime dependency transitively, while generated dependency metadata excludes image4s-nifti, image4s-reference, laws artifacts, and reframe4s-halfflow and the bundle declares no duplicate algebra.",
+      "evidence": "generated POM or dependency report, JVM and Scala.js umbrella compile, clean consumer smoke test, and symbol-ownership check"
+    },
+    {
+      "id": "AC-030",
+      "requirement": "Equal indices belonging to distinct locus domains are rejected or remain distinct at runtime.",
+      "evidence": "runtime domain-identity laws"
+    },
+    {
+      "id": "AC-031",
+      "requirement": "locus4s-core has no image4s, reframe4s, or ScalaFIM dependency.",
+      "evidence": "dependency graph check"
+    },
+    {
+      "id": "AC-032",
+      "requirement": "locus4s-data depends only on locus4s-core among foundation artifacts and contains indexed fields plus genuinely domain-neutral aggregation, not parcellation or searchlight workflows.",
+      "evidence": "dependency and public-symbol ownership checks"
+    },
+    {
+      "id": "AC-033",
+      "requirement": "image4s-locus contains only the checked Grid-to-finite-domain bridge and neither locus4s-core nor locus4s-data depends on imaging.",
+      "evidence": "bridge API audit, identity laws, and dependency graph check"
+    },
+    {
+      "id": "AC-040",
+      "requirement": "Motion fixtures use non-identity affines and verify estimation, application, pull direction, and report round trips.",
+      "evidence": "motion JVM and Scala.js scenario suites where applicable"
+    },
+    {
+      "id": "AC-041",
+      "requirement": "Nonlinear modules detect folds, reject invalid topology, and classify convergence failures.",
+      "evidence": "Jacobian and topology scenario suites"
+    },
+    {
+      "id": "AC-042",
+      "requirement": "HalfFlow remains experimental until multi-pair anatomical evidence passes its separately recorded acceptance threshold.",
+      "evidence": "experimental capability ledger"
+    },
+    {
+      "id": "AC-043",
+      "requirement": "Registration APIs expose fixedToMoving and movingToFixed with their precise capabilities and expose no ambiguous forward or inverse aliases.",
+      "evidence": "public API scan, pull-resampling compile tests, and executable registration guide"
+    },
+    {
+      "id": "AC-044",
+      "requirement": "reframe4s-motion is the only reusable motion algorithm authority: ScalaFIM contains adapters and domain policy but no competing rigid-pose algebra, estimator, interpolation kernel, motion sampler, or application engine.",
+      "evidence": "source-to-destination inventory, dependency and public-symbol scan, ScalaFIM adapter review, and duplicate-implementation gate"
+    },
+    {
+      "id": "AC-045",
+      "requirement": "Rigid transforms are typed by live moving and fixed frames; composition, identity, analytic inverse, exponential and logarithm round trips, adjoint consistency, and relative-pose interpolation satisfy documented SE(3) laws without public Euler-column arithmetic or ambiguous direction aliases.",
+      "evidence": "analytic, property-based, angle-wrap, near-zero, near-pi, compile-negative, and frame-owner law suites on JVM and Scala.js"
+    },
+    {
+      "id": "AC-046",
+      "requirement": "The canonical estimator recovers declared synthetic rigid transforms on translated, anisotropic, permuted, reflected, and oblique asymmetric grids within scale-aware tolerances; it uses complete physical affines, reports typed convergence and support failures, and does not accept a spacing-only or same-grid implementation.",
+      "evidence": "known-transform analytic oracles, asymmetric-grid metamorphic tests, finite-difference derivative checks, convergence traces, and adversarial support or conditioning suites"
+    },
+    {
+      "id": "AC-047",
+      "requirement": "Time and acquisition semantics validate one Time axis, strictly increasing finite times, slice or packet coverage, and frame counts. Pose interpolation and regularization are continuous across Euler wrap boundaries, preserve the reference pose, and use group increments; packet-aware application agrees with independently evaluated time-dependent pull maps.",
+      "evidence": "temporal contract, SE(3) interpolation, wrap-boundary, packet coverage, reference-preservation, and independent pointwise oracle suites"
+    },
+    {
+      "id": "AC-048",
+      "requirement": "Every corrected ScalaFIM motion behavior has a recorded differential disposition: preserved behaviors agree on shared non-defective fixtures, known defects fail the legacy expectation and pass a physical-affine or group-law oracle, and displacement, framewise-displacement, fit, and application results have explicit tolerance and non-finite policies.",
+      "evidence": "fixture disposition ledger, old-new differential harness, corrected-defect regressions, metric oracles, and visible loss reports"
+    },
+    {
+      "id": "AC-049",
+      "requirement": "Built-in motion estimation and application compile and pass on JVM and Scala.js, are deterministic for a declared execution policy, use immutable compiled state with explicit per-run workspaces, avoid per-sample and per-voxel object allocation in hot loops, and meet recorded allocation, peak-memory, and same-environment throughput baselines without hiding losses.",
+      "evidence": "cross-platform suites, deterministic checksums, workspace-concurrency tests, allocation and peak-memory receipts, and matched public workload benchmarks"
+    },
+    {
+      "id": "AC-050",
+      "requirement": "Core resampling and transform evaluation satisfy AC-026 and do not regress median same-environment throughput by more than 10 percent without an approved PRD exception.",
+      "evidence": "phase-local allocation and memory evidence plus final before-and-after benchmark report"
+    },
+    {
+      "id": "AC-051",
+      "requirement": "Standalone foundation suites and all affected ScalaFIM downstream suites pass.",
+      "evidence": "JVM and Scala.js aggregate test reports"
+    },
+    {
+      "id": "AC-052",
+      "requirement": "A clean consumer resolves published or immutable-pinned artifacts and runs a representative image resampling workflow.",
+      "evidence": "published-artifact consumer smoke test"
+    },
+    {
+      "id": "AC-053",
+      "requirement": "Public guides, API reference, migration notes, artifact ownership, capability boundaries, and source-compatible deprecations are complete and executable.",
+      "evidence": "documentation build, link check, executable guide report, and migration consumer compile"
+    },
+    {
+      "id": "AC-057",
+      "requirement": "D2, D3, and D3-plus-non-spatial Sampled values preserve logical coordinate values across canonical, reversed, sliced, and strided Ravel layouts, and checked legacy first-axis-fastest ingress cannot silently transpose a buffer. The third grid axis is explicitly distinguished from world or anatomical Z.",
+      "evidence": "JVM and Scala.js differential, property, asymmetric-shape, affine-permutation, layout, and transpose-regression suites with logical and weighted checksums"
+    },
+    {
+      "id": "AC-058",
+      "requirement": "Sampled remains the sole dense image owner over immutable Ravel storage. Ranked successful access and valid views are allocation-free; mutable or borrowed ingress, materialization, aliasing, axis removal, and failure behavior are explicit and no wrapper chain or raw-offset API appears in hot loops.",
+      "evidence": "ownership and mutation tests, view identity and layout tests, compile-time API review, JVM allocation receipts, and optimized Scala.js inspection"
+    },
+    {
+      "id": "AC-059",
+      "requirement": "Canonical image access and every ScalaFIM compatibility path pass matched C-order, legacy-volume-order, z-slice, and time-series workloads with equal sample counts and checksums. Same-environment timing and allocation receipts expose every materialization or regression; no layout-mismatched benchmark is admitted.",
+      "evidence": "matched public workload court, layout signatures, checksums, allocation profiles, throughput receipts, and visible-loss ledger"
+    }
+  ],
+  "risks": [
+    {
+      "id": "RISK-001",
+      "risk": "Existing same-grid tests conceal map-polarity defects.",
+      "mitigation": "Require asymmetric physical grids before accepting resampling or registration ports."
+    },
+    {
+      "id": "RISK-002",
+      "risk": "Mutable Breeze or primitive arrays escape through public values.",
+      "mitigation": "Use defensive public construction and export, package-private ownership transfer, and mutation-after-construction tests."
+    },
+    {
+      "id": "RISK-003",
+      "risk": "Dirty Gale or Ravel sibling worktrees become accidental API authority.",
+      "mitigation": "Resolve only immutable reviewed revisions and record exact pins."
+    },
+    {
+      "id": "RISK-004",
+      "risk": "Compatibility wrappers become a duplicate algebra.",
+      "mitigation": "Require one-way thin adapters and canonical-expansion tests."
+    },
+    {
+      "id": "RISK-005",
+      "risk": "ScalaFIM concepts leak into general foundations.",
+      "mitigation": "Keep BIDS, acquisition, ROI science, statistics, and workflows in ScalaFIM; confine basic NIfTI mechanics and metadata to image4s-nifti."
+    },
+    {
+      "id": "RISK-006",
+      "risk": "Generic type proofs make the public API hostile.",
+      "mitigation": "Hide proof plumbing, provide ergonomic constructors, and test representative compiler diagnostics."
+    },
+    {
+      "id": "RISK-007",
+      "risk": "Mechanical parity preserves known defects.",
+      "mitigation": "Give normative contracts precedence and record every intentional correction with a dedicated regression test."
+    },
+    {
+      "id": "RISK-008",
+      "risk": "The accepted Ravel pin is mistaken for production-kernel readiness because representation and compile probes are green.",
+      "mitigation": "Keep AC-006 as an explicit MIG-210 entry gate and prohibit the reference sampler or an unauthorized internal kernel from satisfying it."
+    },
+    {
+      "id": "RISK-009",
+      "risk": "Convenience names, adapters, or neighboring artifacts recreate duplicate affine, image, map, or finite-domain algebras.",
+      "mitigation": "Enforce artifact symbol ownership and zero-copy alias or view rules through AC-007, AC-016, and AC-017."
+    },
+    {
+      "id": "RISK-010",
+      "risk": "Repository splitting during API incubation creates release coupling and hides conceptual dependency errors.",
+      "mitigation": "Keep image4s, reframe4s, and locus4s independently buildable at immutable revisions, preserve the mechanically verified artifact DAG, and prohibit reverse source-composite dependencies."
+    },
+    {
+      "id": "RISK-011",
+      "risk": "Names or serialized identifiers are treated as sufficient runtime ownership evidence.",
+      "mitigation": "Require distinct persistent IDs, unforgeable live tokens, checked registries, and fresh/restore/align dynamic-boundary tests."
+    },
+    {
+      "id": "RISK-012",
+      "risk": "Final throughput looks acceptable while per-voxel allocation or coordinate materialization causes unacceptable memory behavior.",
+      "mitigation": "Gate production resampling locally on allocation, peak memory, plan structure, immutable compilation, and explicit workspaces before final throughput comparison."
+    },
+    {
+      "id": "RISK-013",
+      "risk": "A dynamic file reader erases frame ownership or lets consumers recover D, F, or R through unchecked casts.",
+      "mitigation": "Use the sealed SomeSampled fold with abstract type members, exact D2 and D3 constructors, identity tests, and negative compile fixtures."
+    },
+    {
+      "id": "RISK-014",
+      "risk": "NIfTI file order is mistaken for Ravel logical layout, silently transposing asymmetric images.",
+      "mitigation": "Translate first-axis-fastest file offsets explicitly and require asymmetric index-value fixtures plus read-write-read round trips."
+    },
+    {
+      "id": "RISK-015",
+      "risk": "Pair companions are mismatched or NIfTI extensions are truncated, misaligned, or silently rewritten.",
+      "mitigation": "Resolve pair paths from a closed suffix model, validate both files and extension-region bounds, return both output paths explicitly, and require exact extension-byte round trips for single and pair storage."
+    },
+    {
+      "id": "RISK-016",
+      "risk": "Writing Double-backed image values to a narrower NIfTI datatype silently truncates, wraps, clamps, overflows, or records scaling inconsistent with the payload.",
+      "mitigation": "Require a validated numeric write policy, reject lossy integer conversion by default, expose quantization explicitly, fail before physical output, and verify header fields plus raw payload bytes independently."
+    },
+    {
+      "id": "RISK-017",
+      "risk": "Scala.js NIfTI support is mistaken for a browser filesystem promise, or JVM and Node adapters drift into separate format implementations.",
+      "mitigation": "Declare image4s-nifti Scala.js as Node-only, keep all format parsing and encoding in shared sources, restrict platform code to paths/files/gzip, and run the same storage and datatype contracts on JVM and Node."
+    },
+    {
+      "id": "RISK-018",
+      "risk": "An umbrella artifact hides ownership boundaries, duplicates APIs, or accidentally pulls testing, experimental, or Node-only dependencies into browser consumers.",
+      "mitigation": "Make reframe4s dependency-only except for a marker, verify its exact concrete DAG and generated metadata, run symbol uniqueness checks, and exclude laws, reference, HalfFlow, and image4s-nifti."
+    }
+  ],
+  "nonGoals": [
+    "True D4 spatial geometry in the initial releases",
+    "File-format or filesystem APIs in image4s-core or reframe4s-core",
+    "BIDS discovery, acquisition semantics, or workflow orchestration in image4s-nifti",
+    "Browser filesystem or browser NIfTI I/O support in image4s-nifti",
+    "ROI science, parcellation, clustering, or statistics in the foundations",
+    "Silent transform inversion or a universal untyped transform operation",
+    "Mutable public storage",
+    "ANTs-level accuracy claims for the initial HalfFlow implementation",
+    "Removal of ScalaFIM compatibility APIs in the first migration release",
+    "Recombining image4s and reframe4s or introducing a circular source-composite dependency",
+    "Production resampling without an immutable Ravel pin that satisfies AC-006",
+    "An internal array or interpolation kernel that recreates Ravel",
+    "Treating a sampled topology check as a global diffeomorphism proof",
+    "Moving parcellation or searchlight workflows into locus4s"
+  ],
+  "sourceEvidence": [
+    {
+      "source": "architecture review of snapshot f52318bd8a89bd5d424683196c2489927cc08d711e39a84b54f1c80080e735ac",
+      "role": "Blocking review that required the monorepo artifact DAG, sole geometry and image authorities, identity recovery contract, locus split, capability-safe inverses, and phase-local performance gates"
+    },
+    {
+      "source": "docs/migration-inventory.json",
+      "role": "Live dependency pins, green baseline evidence, source-to-destination ownership, known-defect corrections, and removal gates"
+    },
+    {
+      "source": "notes.md",
+      "role": "Complete mathematical and architectural design rationale"
+    },
+    {
+      "source": "../scalafim/modules/image",
+      "role": "Extant image structures, ownership behavior, and neuroimaging-specific APIs"
+    },
+    {
+      "source": "../scalafim/modules/spatial",
+      "role": "Extant spatial foundations and direction conventions"
+    },
+    {
+      "source": "../scalafim/modules/registration",
+      "role": "Extant registration, flow, and resampling implementations"
+    },
+    {
+      "source": "../scalafim/modules/motion",
+      "role": "Extant motion estimation, application, reporting, and CLI behavior"
+    },
+    {
+      "source": "../scalafim/modules/locus-*",
+      "role": "Extant finite-domain modules and identity behavior"
+    }
+  ]
+}

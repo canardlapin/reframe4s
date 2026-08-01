@@ -1,0 +1,956 @@
+{
+  "schemaVersion": "reframe4s.motion-superiority.protocol/v1",
+  "protocolId": "motion-superiority-v1",
+  "version": "1.0.0",
+  "status": "frozen",
+  "frozenAt": "2026-07-29",
+  "owner": "reframe4s-motion",
+  "normativeReferences": [
+    "PRD.json#DEC-027",
+    "PRD.json#DEC-028",
+    "PRD.json#API-023",
+    "docs/motion-optimizer-contract.md",
+    "docs/motion-evidence-plan.md"
+  ],
+  "changeControl": {
+    "rule": "Any change to scenarios, seeds, endpoints, margins, hypotheses, exclusions, weights, timing, or pass rules requires a new protocol version before examining candidate results.",
+    "erratumRule": "A non-substantive correction must preserve the original file, identify the corrected fields, and state why no result or decision can change.",
+    "resultDrivenChangesForbidden": true
+  },
+  "claim": {
+    "candidate": "reframe4s-motion",
+    "headlineComparators": [
+      "afni_3dvolreg",
+      "nifreeze"
+    ],
+    "requiredContextComparators": [
+      "fsl_mcflirt"
+    ],
+    "scope": "Rigid within-run three-dimensional fMRI motion estimation and correction on the registered protocol-v1 workloads.",
+    "acceptedLanguage": "On the preregistered reframe4s motion-superiority-v1 workloads and hardware, reframe4s-motion was both faster and more accurate than AFNI 3dvolreg and nifreeze by the prespecified practical margins; FSL MCFLIRT results are reported as a required context comparison.",
+    "unmetLanguage": "reframe4s-motion did not demonstrate the preregistered joint speed-and-accuracy superiority claim against both AFNI 3dvolreg and nifreeze on motion-superiority-v1.",
+    "forbiddenLanguage": [
+      "best motion corrector",
+      "universally superior",
+      "clinically superior",
+      "superior to FSL MCFLIRT unless its four contextual superiority hypotheses also pass",
+      "superior when any required court, comparator, endpoint, or scenario is missing"
+    ]
+  },
+  "admission": {
+    "state": "blocked",
+    "claimAdmissible": false,
+    "blockers": [
+      {
+        "id": "LOCK-CANDIDATE",
+        "reason": "The candidate must be a clean immutable git revision with published artifact checksums."
+      },
+      {
+        "id": "LOCK-AFNI-DIGEST",
+        "reason": "Resolve and record the linux/amd64 manifest digest for the versioned AFNI image."
+      },
+      {
+        "id": "LOCK-NIFREEZE-ENV",
+        "reason": "Build the pinned nifreeze commit from a fully hashed dependency lock and record the image digest."
+      },
+      {
+        "id": "LOCK-FSL-ENV",
+        "reason": "Install the pinned FSL manifest under an accepted non-commercial license and record package hashes and mcflirt version output."
+      },
+      {
+        "id": "LOCK-REAL-DATA",
+        "reason": "Freeze the public real-anatomy dataset manifest, including at least twelve eligible subjects, checksums, provenance, and redistribution constraints, before any candidate result is run."
+      },
+      {
+        "id": "LOCK-HARDWARE",
+        "reason": "Record the benchmark host, operating system, firmware, CPU governor, thermal policy, JVM, Node, filesystem, and available memory."
+      }
+    ],
+    "rule": "The structural validator may pass while admission is blocked. The claim validator must fail unless every blocker is removed by a signed environment-and-data lock and all required receipt hashes are present."
+  },
+  "implementations": [
+    {
+      "id": "reframe4s_motion",
+      "role": "candidate",
+      "pin": {
+        "kind": "git-revision-and-artifact-sha256",
+        "value": null,
+        "resolved": false
+      },
+      "configuration": {
+        "optimizer": "production compiled SE3 LM/GN",
+        "profile": "motion-superiority-v1",
+        "threads": 4,
+        "finalInterpolator": "Lanczos5",
+        "boundary": "Constant(0.0)"
+      }
+    },
+    {
+      "id": "afni_3dvolreg",
+      "role": "headline-comparator",
+      "source": "https://hub.docker.com/r/afni/afni_make_build/tags",
+      "license": "AFNI distribution terms recorded with the locked image",
+      "pin": {
+        "kind": "versioned-container-tag-plus-required-digest",
+        "value": "afni/afni_make_build:AFNI_26.1.04",
+        "platform": "linux/amd64",
+        "digest": null,
+        "resolved": false
+      },
+      "configuration": {
+        "program": "3dvolreg",
+        "baseIndex": 0,
+        "arguments": [
+          "-twopass",
+          "-zpad",
+          "1",
+          "-heptic",
+          "-1Dmatrix_save"
+        ],
+        "threads": 4,
+        "versionOutputRequired": true
+      }
+    },
+    {
+      "id": "nifreeze",
+      "role": "headline-comparator",
+      "source": "https://github.com/nipreps/nifreeze",
+      "license": "Apache-2.0 for nifreeze; all transitive and ANTs licenses must be recorded in the environment lock",
+      "pin": {
+        "kind": "git-revision-plus-required-container-digest",
+        "value": "a3985fe5a4763f0a2eafb24e78d88fcfad60992a",
+        "digest": null,
+        "resolved": false
+      },
+      "configuration": {
+        "model": "mean",
+        "predictionStatistic": "median leave-one-volume-out",
+        "registrationBackend": "nifreeze.registration.ants",
+        "threads": 4,
+        "seed": 4401,
+        "finalInterpolator": "cubic-order-3"
+      }
+    },
+    {
+      "id": "fsl_mcflirt",
+      "role": "required-context-comparator",
+      "source": "https://git.fmrib.ox.ac.uk/fsl/conda/manifest/-/tags/6.0.7.22",
+      "license": "FSL non-commercial license; the runner may not redistribute FSL binaries",
+      "pin": {
+        "kind": "fsl-manifest-version-plus-required-package-lock",
+        "value": "FSL 6.0.7.22",
+        "manifestRevision": "31062d2e",
+        "resolved": false
+      },
+      "configuration": {
+        "program": "mcflirt",
+        "referenceVolume": 0,
+        "arguments": [
+          "-plots",
+          "-mats",
+          "-spline_final"
+        ],
+        "threads": 4,
+        "versionOutputRequired": true
+      }
+    }
+  ],
+  "data": {
+    "independentUnit": "subject",
+    "clusterRule": "Frames, voxels, landmarks, repetitions, and scenarios are repeated measurements within subject and are never independent sampling units.",
+    "syntheticSubjects": {
+      "count": 24,
+      "seeds": [
+        41001,
+        41002,
+        41003,
+        41004,
+        41005,
+        41006,
+        41007,
+        41008,
+        41009,
+        41010,
+        41011,
+        41012,
+        41013,
+        41014,
+        41015,
+        41016,
+        41017,
+        41018,
+        41019,
+        41020,
+        41021,
+        41022,
+        41023,
+        41024
+      ],
+      "earlyStopping": "forbidden",
+      "renderer": {
+        "specification": "docs/motion-optimizer-contract.md#continuous-full-affine-phantom",
+        "implementationRevisionRequired": true,
+        "independentOfProductionResampling": true,
+        "supersampling": [
+          3,
+          3,
+          3
+        ],
+        "convergenceCheckSupersampling": [
+          5,
+          5,
+          5
+        ],
+        "generatedAssetSha256Required": true
+      }
+    },
+    "realAnatomySubjects": {
+      "minimumCount": 12,
+      "role": "required external-validity guardrail; these subjects are not pooled with analytic synthetic subjects for the headline co-primary estimates",
+      "selectionRule": "Use the first twelve eligible subject-run identifiers in bytewise lexical order from the frozen public dataset manifest. Eligibility is decided from metadata and file integrity before any implementation is run.",
+      "injectionRule": "Select the registered motion-free reference volume, reconstruct it on a 0.75 mm isotropic world grid with a benchmark-only windowed-sinc implementation, apply the four registered SE3 trajectories, and integrate onto the native complete affine. The injector may not call any candidate or comparator resampler.",
+      "analysisRule": "Report the real-anatomy stratum separately. Every headline comparator-by-metric contrast must pass the registered scenario non-inferiority margin, and candidate failure and absolute gates must pass. These results may veto but may not rescue the synthetic headline superiority decision.",
+      "requiredManifestFields": [
+        "dataset",
+        "datasetVersion",
+        "subject",
+        "run",
+        "sourceUrl",
+        "license",
+        "redistribution",
+        "sha256",
+        "bytes",
+        "shape",
+        "indexToWorld",
+        "trSeconds"
+      ],
+      "manifest": null,
+      "resolved": false
+    },
+    "exploratoryInputsExcludedFromClaims": [
+      {
+        "pathHint": "volregger/data-raw/sub-01_task-freerecall_bold.nii.gz",
+        "sha256": "f71341998e1431a3f38f0c7f76506e6ab1a3a79bdf5fe6d98e27d3ceafeab5c5",
+        "bytes": 70954024,
+        "provenance": "not recorded in the source checkout",
+        "license": "unknown",
+        "claimEligible": false
+      },
+      {
+        "pathHint": "volregger/data-raw/sub-CC221565_task-movie_run-01_echo-2_bold.nii.gz",
+        "sha256": "5b775a14341964b6ec3137054d45e19538c61f533c0cd139e2c9e021e1b6e442",
+        "bytes": 28794136,
+        "provenance": "not recorded in the source checkout",
+        "license": "unknown",
+        "claimEligible": false
+      }
+    ]
+  },
+  "scenarioGeneration": {
+    "timeCoordinate": "u = frameIndex / (frames - 1)",
+    "poseRule": "For each of six fixed-frame twist components, sum every registered harmonic amplitude*sin(2*pi*frequency*u+phase), add registered impulses, subtract the value at frame zero, and form movingToFixed with the exact SE3 exponential.",
+    "noiseRule": "Use a counter-based PRNG keyed by subjectSeed, scenarioSeed, frame, voxel index, and nuisance stream name so execution order cannot change generated values.",
+    "referencePolicy": {
+      "referenceIndex": 0,
+      "referenceIsExactIdentityPose": true,
+      "commonCourt": "All estimators receive the same separately rendered frame-zero fixed target and mask.",
+      "nativeCourt": "All pipelines receive the same four-dimensional input and explicit frame-zero reference; native template selection is disabled."
+    },
+    "maskPolicy": "Render the motion-free continuous field on the target grid, threshold at 15 intensity units, and use that immutable mask for every implementation and score.",
+    "scenarios": [
+      {
+        "id": "clean_isotropic_small",
+        "weight": 0.25,
+        "scenarioSeed": 5101,
+        "shape": [
+          48,
+          52,
+          40,
+          60
+        ],
+        "indexToWorld": [
+          2.2,
+          0.0,
+          0.0,
+          -51.7,
+          0.0,
+          2.2,
+          0.0,
+          -56.1,
+          0.0,
+          0.0,
+          2.2,
+          -42.9,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "twistHarmonics": {
+          "translationMm": [
+            [
+              0.45,
+              1.0,
+              0.2
+            ],
+            [
+              0.35,
+              1.5,
+              1.1
+            ],
+            [
+              0.30,
+              0.5,
+              2.2
+            ]
+          ],
+          "rotationRadians": [
+            [
+              0.008726646259971648,
+              1.0,
+              0.4
+            ],
+            [
+              0.006981317007977318,
+              1.5,
+              1.3
+            ],
+            [
+              0.005235987755982988,
+              0.5,
+              2.0
+            ]
+          ]
+        },
+        "impulses": [],
+        "nuisance": {
+          "additiveNoiseSd": 0.5,
+          "temporalGainAmplitude": 0.0,
+          "biasAmplitude": 0.0,
+          "dropout": []
+        }
+      },
+      {
+        "id": "oblique_anisotropic_moderate",
+        "weight": 0.25,
+        "scenarioSeed": 5102,
+        "shape": [
+          56,
+          48,
+          36,
+          80
+        ],
+        "indexToWorld": [
+          1.6057,
+          -0.6725,
+          -0.4638,
+          -48.0,
+          0.491,
+          2.1995,
+          -0.1417,
+          -52.0,
+          0.2659,
+          0.0,
+          3.062,
+          -38.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "twistHarmonics": {
+          "translationMm": [
+            [
+              1.4,
+              1.0,
+              0.3
+            ],
+            [
+              1.1,
+              2.0,
+              1.0
+            ],
+            [
+              0.9,
+              0.75,
+              2.4
+            ]
+          ],
+          "rotationRadians": [
+            [
+              0.026179938779914945,
+              1.0,
+              0.5
+            ],
+            [
+              0.020943951023931952,
+              1.75,
+              1.4
+            ],
+            [
+              0.017453292519943295,
+              0.75,
+              2.1
+            ]
+          ]
+        },
+        "impulses": [
+          {
+            "frame": 31,
+            "twist": [
+              0.8,
+              -0.5,
+              0.4,
+              0.006981317007977318,
+              -0.005235987755982988,
+              0.003490658503988659
+            ]
+          }
+        ],
+        "nuisance": {
+          "additiveNoiseSd": 1.5,
+          "temporalGainAmplitude": 0.02,
+          "biasAmplitude": 0.04,
+          "dropout": []
+        }
+      },
+      {
+        "id": "permuted_capture_boundary",
+        "weight": 0.25,
+        "scenarioSeed": 5103,
+        "shape": [
+          64,
+          56,
+          32,
+          72
+        ],
+        "indexToWorld": [
+          0.0,
+          -2.4,
+          0.0,
+          60.0,
+          1.8,
+          0.0,
+          0.0,
+          -55.0,
+          0.0,
+          0.0,
+          3.4,
+          -45.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "twistHarmonics": {
+          "translationMm": [
+            [
+              3.8,
+              0.75,
+              0.2
+            ],
+            [
+              3.2,
+              1.25,
+              1.2
+            ],
+            [
+              2.5,
+              0.5,
+              2.5
+            ]
+          ],
+          "rotationRadians": [
+            [
+              0.06981317007977318,
+              0.75,
+              0.4
+            ],
+            [
+              0.061086523819801536,
+              1.25,
+              1.5
+            ],
+            [
+              0.05235987755982989,
+              0.5,
+              2.2
+            ]
+          ]
+        },
+        "impulses": [
+          {
+            "frame": 18,
+            "twist": [
+              2.0,
+              -1.5,
+              1.0,
+              0.017453292519943295,
+              -0.013962634015954637,
+              0.010471975511965976
+            ]
+          },
+          {
+            "frame": 47,
+            "twist": [
+              -2.5,
+              1.0,
+              -1.2,
+              -0.020943951023931952,
+              0.017453292519943295,
+              -0.013962634015954637
+            ]
+          }
+        ],
+        "nuisance": {
+          "additiveNoiseSd": 2.0,
+          "temporalGainAmplitude": 0.03,
+          "biasAmplitude": 0.05,
+          "dropout": []
+        }
+      },
+      {
+        "id": "oblique_hard_nuisance",
+        "weight": 0.25,
+        "scenarioSeed": 5104,
+        "shape": [
+          60,
+          54,
+          38,
+          90
+        ],
+        "indexToWorld": [
+          1.783,
+          0.486,
+          0.353,
+          -58.0,
+          -0.637,
+          2.035,
+          -0.424,
+          -47.0,
+          -0.151,
+          0.538,
+          2.781,
+          -40.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "twistHarmonics": {
+          "translationMm": [
+            [
+              4.5,
+              1.0,
+              0.1
+            ],
+            [
+              3.7,
+              1.5,
+              1.0
+            ],
+            [
+              3.0,
+              0.6,
+              2.0
+            ]
+          ],
+          "rotationRadians": [
+            [
+              0.08726646259971647,
+              1.0,
+              0.3
+            ],
+            [
+              0.07853981633974483,
+              1.5,
+              1.4
+            ],
+            [
+              0.06981317007977318,
+              0.6,
+              2.3
+            ]
+          ]
+        },
+        "impulses": [
+          {
+            "frame": 22,
+            "twist": [
+              3.0,
+              -2.0,
+              1.5,
+              0.026179938779914945,
+              -0.020943951023931952,
+              0.017453292519943295
+            ]
+          },
+          {
+            "frame": 63,
+            "twist": [
+              -3.5,
+              2.5,
+              -1.0,
+              -0.030543261909900768,
+              0.024434609527920613,
+              -0.019198621771937627
+            ]
+          }
+        ],
+        "nuisance": {
+          "additiveNoiseSd": 3.0,
+          "temporalGainAmplitude": 0.06,
+          "biasAmplitude": 0.09,
+          "dropout": [
+            {
+              "frame": 41,
+              "axis": 2,
+              "start": 0,
+              "endExclusive": 3,
+              "multiplicativeGain": 0.15
+            },
+            {
+              "frame": 70,
+              "axis": 1,
+              "start": 12,
+              "endExclusive": 18,
+              "multiplicativeGain": 0.35
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "courts": [
+    {
+      "id": "common_resampler_estimation",
+      "purpose": "Measure transform estimation without credit or blame for each implementation's output interpolation.",
+      "required": true,
+      "inputs": "Identical NIfTI values, affine, fixed reference, and mask.",
+      "outputs": "One movingToFixed physical 4-by-4 matrix per frame plus typed or normalized failure status.",
+      "scoring": "Convert every output through a separately tested adapter, score pose and landmarks directly, and apply every accepted pose with one independent benchmark resampler for corrected-image metrics.",
+      "timing": "Estimation-stage elapsed time begins after input decode and immutable preparation and ends after all physical matrices are materialized. Common scoring resampling is excluded."
+    },
+    {
+      "id": "native_end_to_end",
+      "purpose": "Measure the complete recommended correction pipeline, including native interpolation.",
+      "required": true,
+      "inputs": "Identical local NIfTI input, affine, fixed reference index, mask, thread budget, and output filesystem.",
+      "outputs": "Corrected NIfTI, physical matrices, stage timing, stdout, stderr, exit status, peak RSS, and checksums.",
+      "scoring": "Score native corrected images and converted physical transforms; retain each implementation's boundary and interpolation behavior.",
+      "timing": "Elapsed time begins immediately before process or already-provisioned container launch and ends after corrected image and transform files are fsynced. Dataset download, environment construction, and image pull are excluded."
+    }
+  ],
+  "execution": {
+    "primaryThreadCount": 4,
+    "sensitivityThreadCount": 1,
+    "environmentVariables": {
+      "OMP_NUM_THREADS": "4",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    },
+    "cpuAffinity": "All methods use the same isolated four physical cores. Simultaneous multithreading siblings are excluded.",
+    "frequencyPolicy": "Use one fixed performance governor or record a fixed-frequency host. Abort on thermal throttling or governor changes.",
+    "memoryPolicy": "No swapping, no competing workload, and at least twice the maximum observed peak RSS available.",
+    "filesystemPolicy": "Inputs and outputs use the same local filesystem. Each measured repetition writes to a new directory. Page-cache policy is identical across methods and recorded.",
+    "jvm": {
+      "warmupRuns": 5,
+      "measuredRuns": 20,
+      "freshWorkspacePerRun": true,
+      "gcBetweenRuns": false,
+      "versionAndFlagsRequired": true
+    },
+    "otherImplementations": {
+      "warmupRuns": 5,
+      "measuredRuns": 20,
+      "freshProcessPerEndToEndRun": true,
+      "preProvisionedEnvironment": true
+    },
+    "randomization": {
+      "seed": 6201,
+      "unit": "subject-scenario-court-repetition block",
+      "methodOrder": "balanced Latin square with a seeded permutation per block",
+      "rule": "All required methods complete one repetition in a block before the next repetition begins."
+    },
+    "stageBoundaries": {
+      "decode": "open input through validated in-memory sampled values",
+      "prepare": "construct masks, templates, grids, compiled stencils, and immutable plans",
+      "estimate": "first optimizer preparation specific to a run through final physical pose matrix",
+      "apply": "first output sample through materialized corrected values",
+      "encode": "begin output serialization through fsync and close",
+      "endToEnd": "fresh process or container launch through all required fsynced outputs"
+    },
+    "oneShotTimingForbidden": true
+  },
+  "metrics": [
+    {
+      "id": "physical_landmark_displacement_p95_mm",
+      "units": "mm",
+      "direction": "lower-is-better",
+      "aggregation": "Within subject and scenario, compute the p95 over frames and the fixed registered landmark set; combine scenarios with registered equal weights.",
+      "role": "co-primary-accuracy",
+      "missingValuePolicy": "A missing or non-finite value is a method failure and is not omitted.",
+      "effect": "comparator-minus-candidate",
+      "practicalSuperiorityMargin": 0.05,
+      "scenarioNonInferiorityMargin": 0.1,
+      "candidateAbsoluteGate": 0.5
+    },
+    {
+      "id": "corrected_image_nrmse",
+      "units": "truth-standard-deviation",
+      "direction": "lower-is-better",
+      "aggregation": "Root masked squared error over all non-reference frames divided by the masked motion-free truth standard deviation, first within subject and scenario, then equal-weighted across scenarios.",
+      "role": "co-primary-accuracy",
+      "missingValuePolicy": "A missing or non-finite value is a method failure and is not omitted.",
+      "effect": "comparator-minus-candidate",
+      "practicalSuperiorityMargin": 0.005,
+      "scenarioNonInferiorityMargin": 0.01,
+      "candidateAbsoluteGate": 0.1
+    },
+    {
+      "id": "native_end_to_end_elapsed_seconds",
+      "units": "seconds",
+      "direction": "lower-is-better",
+      "aggregation": "Median of twenty measured repetitions within subject, scenario, and method; equal-weighted log ratios across scenarios.",
+      "role": "co-primary-speed",
+      "missingValuePolicy": "A failed or missing repetition is a method failure; fewer than twenty measurements makes the whole court inadmissible.",
+      "effect": "log-comparator-over-candidate",
+      "practicalSuperiorityMargin": 0.09531017980432493,
+      "scenarioNonInferiorityMargin": 0.04879016416943205,
+      "candidateAbsoluteGate": null
+    },
+    {
+      "id": "estimation_stage_elapsed_seconds",
+      "units": "seconds",
+      "direction": "lower-is-better",
+      "aggregation": "Median of twenty measured repetitions within subject, scenario, and method; equal-weighted log ratios across scenarios.",
+      "role": "co-primary-speed",
+      "missingValuePolicy": "A failed or missing repetition is a method failure; fewer than twenty measurements makes the whole court inadmissible.",
+      "effect": "log-comparator-over-candidate",
+      "practicalSuperiorityMargin": 0.09531017980432493,
+      "scenarioNonInferiorityMargin": 0.04879016416943205,
+      "candidateAbsoluteGate": null
+    },
+    {
+      "id": "relative_rotation_error_p95_degrees",
+      "units": "degrees",
+      "direction": "lower-is-better",
+      "aggregation": "p95 over frames within subject and scenario",
+      "role": "accuracy-guardrail",
+      "missingValuePolicy": "Count as a method failure.",
+      "effect": "comparator-minus-candidate",
+      "practicalSuperiorityMargin": 0.01,
+      "scenarioNonInferiorityMargin": 0.05,
+      "candidateAbsoluteGate": 0.25
+    },
+    {
+      "id": "framewise_displacement_error_p95_mm",
+      "units": "mm",
+      "direction": "lower-is-better",
+      "aggregation": "p95 absolute error in relative-pose framewise displacement over frame transitions within subject and scenario",
+      "role": "accuracy-guardrail",
+      "missingValuePolicy": "Count as a method failure.",
+      "effect": "comparator-minus-candidate",
+      "practicalSuperiorityMargin": 0.01,
+      "scenarioNonInferiorityMargin": 0.05,
+      "candidateAbsoluteGate": 0.25
+    },
+    {
+      "id": "boundary_shell_nrmse",
+      "units": "truth-standard-deviation",
+      "direction": "lower-is-better",
+      "aggregation": "NRMSE within the registered three-voxel inner boundary shell, within subject and scenario",
+      "role": "fidelity-guardrail",
+      "missingValuePolicy": "Count as a method failure.",
+      "effect": "comparator-minus-candidate",
+      "practicalSuperiorityMargin": 0.002,
+      "scenarioNonInferiorityMargin": 0.01,
+      "candidateAbsoluteGate": 0.15
+    },
+    {
+      "id": "temporal_difference_nrmse",
+      "units": "truth-temporal-difference-standard-deviation",
+      "direction": "lower-is-better",
+      "aggregation": "Masked NRMSE of first temporal differences against motion-free truth within subject and scenario",
+      "role": "fidelity-guardrail",
+      "missingValuePolicy": "Count as a method failure.",
+      "effect": "comparator-minus-candidate",
+      "practicalSuperiorityMargin": 0.002,
+      "scenarioNonInferiorityMargin": 0.01,
+      "candidateAbsoluteGate": 0.15
+    },
+    {
+      "id": "edge_energy_log_error",
+      "units": "absolute-log-ratio",
+      "direction": "lower-is-better",
+      "aggregation": "Absolute log ratio of masked physical-gradient energy to motion-free truth, within subject and scenario",
+      "role": "fidelity-guardrail",
+      "missingValuePolicy": "Count as a method failure.",
+      "effect": "comparator-minus-candidate",
+      "practicalSuperiorityMargin": 0.01,
+      "scenarioNonInferiorityMargin": 0.03,
+      "candidateAbsoluteGate": 0.2
+    },
+    {
+      "id": "ringing_fraction",
+      "units": "fraction-of-masked-samples",
+      "direction": "lower-is-better",
+      "aggregation": "Fraction outside the local truth envelope expanded by one percent of global truth range, within subject and scenario",
+      "role": "fidelity-guardrail",
+      "missingValuePolicy": "Count as a method failure.",
+      "effect": "comparator-minus-candidate",
+      "practicalSuperiorityMargin": 0.001,
+      "scenarioNonInferiorityMargin": 0.005,
+      "candidateAbsoluteGate": 0.02
+    },
+    {
+      "id": "failure_rate",
+      "units": "fraction-of-required-runs",
+      "direction": "lower-is-better",
+      "aggregation": "Required runs with nonzero exit, typed non-success termination, missing outputs, non-finite values, or checksum failure divided by all required runs",
+      "role": "reliability-guardrail",
+      "missingValuePolicy": "Missing status is a failure.",
+      "effect": "comparator-minus-candidate",
+      "practicalSuperiorityMargin": 0.005,
+      "scenarioNonInferiorityMargin": 0.01,
+      "candidateAbsoluteGate": 0.02
+    },
+    {
+      "id": "peak_resident_memory_bytes",
+      "units": "bytes",
+      "direction": "lower-is-better",
+      "aggregation": "p95 measured peak RSS within subject, scenario, court, and method",
+      "role": "diagnostic",
+      "missingValuePolicy": "The receipt is inadmissible.",
+      "effect": "log-comparator-over-candidate",
+      "practicalSuperiorityMargin": 0.04879016416943205,
+      "scenarioNonInferiorityMargin": 0.09531017980432493,
+      "candidateAbsoluteGate": null
+    }
+  ],
+  "hypotheses": {
+    "headlineFamily": {
+      "comparators": [
+        "afni_3dvolreg",
+        "nifreeze"
+      ],
+      "metrics": [
+        "physical_landmark_displacement_p95_mm",
+        "corrected_image_nrmse",
+        "native_end_to_end_elapsed_seconds",
+        "estimation_stage_elapsed_seconds"
+      ],
+      "null": "The registered paired effect is less than or equal to the metric's positive practical superiority margin.",
+      "alternative": "The registered paired effect is greater than the metric's positive practical superiority margin.",
+      "allMustReject": true
+    },
+    "contextFamily": {
+      "comparators": [
+        "fsl_mcflirt"
+      ],
+      "metrics": [
+        "physical_landmark_displacement_p95_mm",
+        "corrected_image_nrmse",
+        "native_end_to_end_elapsed_seconds",
+        "estimation_stage_elapsed_seconds"
+      ],
+      "rule": "Test and report the same superiority hypotheses separately. They do not alter the headline AFNI-and-nifreeze claim and cannot replace a failed headline comparison."
+    },
+    "scenarioGuardrails": {
+      "comparators": [
+        "afni_3dvolreg",
+        "nifreeze"
+      ],
+      "rule": "For every scenario, the lower simultaneous confidence bound for each co-primary paired effect must be greater than the negative scenario non-inferiority margin."
+    }
+  },
+  "statistics": {
+    "analysisSet": "The headline superiority estimates use the twenty-four analytic synthetic subjects. The twelve or more real-anatomy subjects form a separate required external-validity stratum that may veto but not rescue the headline decision. Every required run follows intention-to-benchmark and failures remain failures.",
+    "scenarioWeights": "Use the four registered 0.25 weights. Do not weight by voxels, frames, landmarks, or runtime repetitions.",
+    "pairedAnalysis": true,
+    "cluster": "subject",
+    "confidenceLevel": 0.95,
+    "intervalMethod": "Studentized paired cluster bootstrap with 10000 subject resamples and deterministic seed 7301.",
+    "headlineMultiplicity": "For the eight headline hypotheses, use one-sided 99.375 percent bootstrap lower confidence bounds and Holm-adjusted one-sided paired sign-flip p-values controlling family-wise error at 0.05.",
+    "contextMultiplicity": "Use Holm control at family-wise 0.05 across the four FSL MCFLIRT context hypotheses and label the family contextual.",
+    "guardrailMultiplicity": "Use Bonferroni one-sided 95 percent family-wise lower bounds within each metric across the eight headline comparator-by-scenario contrasts.",
+    "signFlipSeed": 7302,
+    "signFlipDraws": 100000,
+    "precisionRule": "The fixed sample is twenty-four synthetic subjects plus at least twelve locked real-anatomy subjects. There is no result-dependent early stop or sample-size extension.",
+    "exclusions": [
+      "A subject may be excluded only for a pre-run checksum mismatch, corrupt source file, or preregistered metadata ineligibility.",
+      "A method crash, timeout, invalid transform, missing frame, non-finite metric, or output checksum failure is not an exclusion.",
+      "A host-control failure invalidates the whole randomized block for every method; rerun the complete block and retain the invalid receipt."
+    ]
+  },
+  "absoluteGates": [
+    "The candidate satisfies every non-null candidateAbsoluteGate in every required scenario.",
+    "Every implementation has a failure_rate at or below 0.02; an unavailable required comparator makes the court inadmissible.",
+    "Every transform adapter passes independent polarity, full-affine, identity, and landmark tests before benchmark execution.",
+    "Every output has the expected frame count, complete affine, finite values, and registered checksums."
+  ],
+  "completePassRule": [
+    "Claim admission is true and every environment, data, candidate, and comparator lock is resolved.",
+    "Both required courts complete for all registered subjects, scenarios, implementations, warmups, and measured repetitions.",
+    "Every absolute gate passes.",
+    "All eight headline co-primary superiority hypotheses reject their null and have lower simultaneous confidence bounds beyond their positive practical margins.",
+    "Every headline comparator-by-scenario co-primary contrast passes its non-inferiority guardrail.",
+    "The separately reported real-anatomy stratum passes every absolute, failure, and headline-comparator non-inferiority guardrail.",
+    "Every candidate accuracy, fidelity, and reliability guardrail passes its absolute and scenario-level non-inferiority rule.",
+    "The FSL MCFLIRT context family is reported in full, regardless of result.",
+    "The receipt contains no silent skip, retrospective margin, changed weight, or unregistered endpoint."
+  ],
+  "receipt": {
+    "format": "reframe4s.motion-superiority.receipt/v1",
+    "requiredTopLevelFields": [
+      "protocolSha256",
+      "candidateRevision",
+      "artifactSha256",
+      "environmentLockSha256",
+      "dataLockSha256",
+      "hardware",
+      "implementations",
+      "randomization",
+      "runs",
+      "metrics",
+      "hypotheses",
+      "guardrails",
+      "failures",
+      "claimDecision",
+      "permittedLanguage"
+    ],
+    "requiredRunFields": [
+      "subject",
+      "scenario",
+      "court",
+      "implementation",
+      "repetition",
+      "order",
+      "threadCount",
+      "exitStatus",
+      "termination",
+      "stageTimes",
+      "peakRssBytes",
+      "stdoutSha256",
+      "stderrSha256",
+      "poseSha256",
+      "correctedImageSha256"
+    ],
+    "rawEvidenceRetention": "Archive raw inputs or immutable source references, generated manifests, commands, stdout, stderr, all outputs, timing streams, checksums, analysis code, and the final signed receipt.",
+    "visibleLossesRequired": true
+  },
+  "prohibitedEvidence": [
+    "negated Euler columns as physical truth",
+    "spacing-only coordinates",
+    "a self-resampled image as the independent truth",
+    "voxels, landmarks, frames, or repetitions counted as independent subjects",
+    "native tSNR or DVARS treated as accuracy truth",
+    "one-shot timing",
+    "silent comparator or scenario skips",
+    "retrospective endpoint, weight, sample, exclusion, or margin changes",
+    "a mixed speed-accuracy tradeoff described as joint superiority",
+    "an exploratory input with unknown provenance or license used in a claim"
+  ]
+}

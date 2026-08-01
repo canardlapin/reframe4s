@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out reframe4s
+        uses: actions/checkout@v4
+
+      - name: Check out immutable image4s source
+        uses: actions/checkout@v4
+        with:
+          repository: canardlapin/image4s
+          ref: c1c9866eb61390de40d3ba110e040ee2a09f5f32
+          path: .ci/image4s
+
+      - name: Check out immutable locus4s source
+        uses: actions/checkout@v4
+        with:
+          repository: canardlapin/locus4s
+          ref: af063d7fcf2d0d48aed5474c9c9a41376e18531f
+          path: .ci/locus4s
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "22"
+          cache: sbt
+
+      - name: Set up sbt
+        uses: sbt/setup-sbt@v1
+
+      - name: Verify contracts and ownership
+        env:
+          IMAGE4S_ROOT: ${{ github.workspace }}/.ci/image4s
+          LOCUS4S_ROOT: ${{ github.workspace }}/.ci/locus4s
+        run: |
+          node scripts/verify-prd.mjs
+          node scripts/verify-build-graph.mjs
+          node scripts/verify-symbol-ownership.mjs
+
+      - name: Compile and test JVM and Scala.js
+        run: sbt -J-Xmx4G -batch compileAll testAll

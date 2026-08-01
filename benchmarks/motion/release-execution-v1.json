@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "reframe4s.motion.release-execution/v1",
+  "id": "motion-superiority-release-execution-v1",
+  "protocol": {
+    "path": "benchmarks/motion/protocol-v2.json",
+    "sha256": "ebc2346097d2ad5e4ccc4457154bab09912e96fe2a9d8043e9cf06c3dc122f40"
+  },
+  "masterPlan": {
+    "expectedRows": 57600,
+    "balancedBlockRows": 4,
+    "requiredImplementations": [
+      "reframe4s_motion",
+      "afni_3dvolreg",
+      "nifreeze",
+      "fsl_mcflirt"
+    ]
+  },
+  "sharding": {
+    "balancedBlocksPerShard": 16,
+    "expectedShards": 900,
+    "executeSequentiallyOnOneHost": true,
+    "maximumShardsPerInvocation": 4
+  },
+  "resume": {
+    "completedRunRecordRetry": "forbidden",
+    "incompleteAttemptDisposition": "atomic-quarantine",
+    "maximumAttemptsPerRow": 2,
+    "checkpointWrite": "create-new-after-complete-validation"
+  },
+  "retention": {
+    "algorithm": "sha256",
+    "correctedObjectDirectory": "objects/sha256",
+    "pointerFile": "corrected.cas.json",
+    "designatedAccuracyOutput": {
+      "phase": "measured",
+      "repetition": 0,
+      "allocatedCoreCount": 4,
+      "retainDirectHardLinkUntilScored": true
+    },
+    "allRunRecordsLogsPosesAndFailureArtifacts": "retain",
+    "nonDesignatedCorrectedDirectFiles": "remove-after-object-and-pointer-fsync"
+  },
+  "finalization": {
+    "requireEveryShardCheckpoint": true,
+    "requireExactMasterPlanCoverage": true,
+    "requireDesignatedMetricsBeforeRelease": true,
+    "releaseDesignatedHardLinksAfterScoring": true,
+    "separateAttestationJob": true
+  }
+}

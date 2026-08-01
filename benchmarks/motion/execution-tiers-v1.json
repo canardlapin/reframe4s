@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "reframe4s.motion.execution-tiers/v1",
+  "laptopRegression": {
+    "id": "motion-laptop-regression-v1",
+    "purpose": "Catch candidate accuracy, allocation, concurrency, and throughput regressions on a space-constrained development laptop.",
+    "claimAuthority": "none",
+    "fixtures": "deterministic-in-memory-analytic-only",
+    "externalDatasets": false,
+    "externalComparators": false,
+    "niftiOutputs": false,
+    "jvmMaximumHeapMiB": 2048,
+    "testsRequired": 13,
+    "suites": [
+      "reframe4s.motion.RigidEstimatorSuite",
+      "reframe4s.motion.RigidCaptureSuite",
+      "reframe4s.motion.MotionPerformanceSuite",
+      "reframe4s.motion.RigidOptimizationKernelPerformanceSuite"
+    ],
+    "accuracyThresholds": {
+      "sixDofTranslationErrorMmMaximum": 0.05,
+      "sixDofRotationErrorDegreesMaximum": 0.05,
+      "captureScenariosRequired": 5,
+      "captureSuccessesRequired": 5,
+      "captureMayUnderperformDisabledBaseline": false
+    },
+    "performanceThresholds": {
+      "pairThroughputMegaVoxelsPerSecondMinimum": 5.0,
+      "pairLargeAllocationBytesMaximum": 2097152,
+      "applicationThroughputMegaSamplesPerSecondMinimum": 10.0,
+      "applicationFixedOverheadBytesMaximum": 262144,
+      "kernelThroughputMegaSamplesPerSecondMinimum": 20.0,
+      "kernelLargeAllocationBytesMaximum": 32768,
+      "kernelAllocationGrowthBytesMaximum": 8192
+    },
+    "resourceBudget": {
+      "minimumFreeDiskBytesBeforeRun": 536870912,
+      "maximumNetRepositoryBuildGrowthBytes": 268435456,
+      "maximumPersistedLogBytes": 2097152,
+      "maximumPersistedReceiptBytes": 262144
+    },
+    "requiredReceiptFields": [
+      "definitionSha256",
+      "sourceRevision",
+      "dirtyWorktree",
+      "environment",
+      "command",
+      "disk",
+      "tests",
+      "accuracy",
+      "performance",
+      "checks",
+      "log"
+    ]
+  },
+  "releaseSuperiority": {
+    "id": "motion-superiority-v2",
+    "protocolPath": "benchmarks/motion/protocol-v2.json",
+    "claimAuthority": "speed-and-accuracy-superiority",
+    "executionLocation": "qualified-larger-host",
+    "status": "deferred",
+    "reason": "The frozen court expands to 57,600 fresh-process rows. Literal repeated-output retention is about 3.9 TB before compression and is not suitable for a development laptop.",
+    "activationRequirements": [
+      "A clean immutable candidate revision and the complete protocol-v2 admission lock.",
+      "Pinned AFNI, nifreeze, and FSL comparator environments.",
+      "Checksummed licensed public data and a qualified stable-frequency host.",
+      "A resumable execution design with content-addressed designated-output retention and a separate final attestation step.",
+      "No laptop-regression result may be substituted for a release-court row or superiority endpoint."
+    ]
+  }
+}

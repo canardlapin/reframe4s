@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/canardlapin/reframe4s/benchmarks/motion/aggregate-v1.schema.json",
+  "title": "reframe4s motion runner execution aggregate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "protocolSha256",
+    "planSha256",
+    "runCount",
+    "successCount",
+    "failureCount",
+    "groups"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "reframe4s.motion-superiority.aggregate/v1"
+    },
+    "protocolSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "planSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "runCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "successCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "failureCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/group"
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nullableNonnegativeNumber": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observedCount",
+        "medianSeconds",
+        "p95Seconds"
+      ],
+      "properties": {
+        "observedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "medianSeconds": {
+          "$ref": "#/$defs/nullableNonnegativeNumber"
+        },
+        "p95Seconds": {
+          "$ref": "#/$defs/nullableNonnegativeNumber"
+        }
+      }
+    },
+    "stages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decodeSeconds",
+        "prepareSeconds",
+        "estimateSeconds",
+        "applySeconds",
+        "encodeSeconds",
+        "reportSeconds"
+      ],
+      "properties": {
+        "decodeSeconds": {
+          "$ref": "#/$defs/stage"
+        },
+        "prepareSeconds": {
+          "$ref": "#/$defs/stage"
+        },
+        "estimateSeconds": {
+          "$ref": "#/$defs/stage"
+        },
+        "applySeconds": {
+          "$ref": "#/$defs/stage"
+        },
+        "encodeSeconds": {
+          "$ref": "#/$defs/stage"
+        },
+        "reportSeconds": {
+          "$ref": "#/$defs/stage"
+        }
+      }
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "scenario",
+        "court",
+        "implementation",
+        "phase",
+        "allocatedCoreCount",
+        "requestedWorkerCount",
+        "effectiveWorkerCount",
+        "effectiveWorkerEvidence",
+        "referencePolicy",
+        "plannedCount",
+        "successCount",
+        "failureCount",
+        "medianEndToEndSeconds",
+        "p95EndToEndSeconds",
+        "peakRssObservedCount",
+        "p95PeakRssBytes",
+        "p95MaterializedOutputBytes",
+        "stages"
+      ],
+      "properties": {
+        "subject": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scenario": {
+          "type": "string",
+          "minLength": 1
+        },
+        "court": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phase": {
+          "type": "string",
+          "minLength": 1
+        },
+        "allocatedCoreCount": {
+          "type": "integer",
+          "enum": [
+            1,
+            4
+          ]
+        },
+        "requestedWorkerCount": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "effectiveWorkerCount": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "effectiveWorkerEvidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "referencePolicy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "plannedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "successCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failureCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "medianEndToEndSeconds": {
+          "$ref": "#/$defs/nullableNonnegativeNumber"
+        },
+        "p95EndToEndSeconds": {
+          "$ref": "#/$defs/nullableNonnegativeNumber"
+        },
+        "peakRssObservedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "p95PeakRssBytes": {
+          "$ref": "#/$defs/nullableNonnegativeNumber"
+        },
+        "p95MaterializedOutputBytes": {
+          "$ref": "#/$defs/nullableNonnegativeNumber"
+        },
+        "stages": {
+          "$ref": "#/$defs/stages"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,326 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/canardlapin/reframe4s/benchmarks/motion/run-record-v2.schema.json",
+  "title": "reframe4s motion superiority raw run record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "protocolSha256",
+    "subject",
+    "scenario",
+    "court",
+    "implementation",
+    "phase",
+    "repetition",
+    "order",
+    "allocatedCoreCount",
+    "requestedWorkerCount",
+    "effectiveWorkerCount",
+    "effectiveWorkerEvidence",
+    "cpuAffinity",
+    "referencePolicy",
+    "command",
+    "workingDirectory",
+    "environment",
+    "exitStatus",
+    "termination",
+    "failure",
+    "stageTimes",
+    "peakRssBytes",
+    "materializedOutputBytes",
+    "stdoutSha256",
+    "stderrSha256",
+    "poseSha256",
+    "correctedImageSha256",
+    "tool",
+    "pipeline"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "reframe4s.motion-superiority.run/v2"
+    },
+    "protocolSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenario": {
+      "type": "string",
+      "minLength": 1
+    },
+    "court": {
+      "enum": [
+        "common_resampler_estimation",
+        "native_end_to_end"
+      ]
+    },
+    "implementation": {
+      "enum": [
+        "reframe4s_motion",
+        "afni_3dvolreg",
+        "nifreeze",
+        "fsl_mcflirt"
+      ]
+    },
+    "phase": {
+      "enum": [
+        "warmup",
+        "measured"
+      ]
+    },
+    "repetition": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "allocatedCoreCount": {
+      "type": "integer",
+      "enum": [
+        1,
+        4
+      ]
+    },
+    "requestedWorkerCount": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4
+    },
+    "effectiveWorkerCount": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4
+    },
+    "effectiveWorkerEvidence": {
+      "enum": [
+        "implementation_contract",
+        "locked_tool_probe",
+        "locked_adapter_configuration"
+      ]
+    },
+    "cpuAffinity": {
+      "type": "string",
+      "minLength": 1
+    },
+    "referencePolicy": {
+      "enum": [
+        "fixed_frame_0",
+        "median_leave_one_volume_out"
+      ]
+    },
+    "command": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "workingDirectory": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "required": [
+        "OMP_NUM_THREADS",
+        "OPENBLAS_NUM_THREADS",
+        "MKL_NUM_THREADS",
+        "VECLIB_MAXIMUM_THREADS",
+        "NUMEXPR_NUM_THREADS"
+      ]
+    },
+    "exitStatus": {
+      "type": "integer"
+    },
+    "termination": {
+      "enum": [
+        "success",
+        "process_failure",
+        "timeout",
+        "invalid_output",
+        "runner_failure"
+      ]
+    },
+    "failure": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stageTimes": {
+      "$ref": "#/$defs/stageTimes"
+    },
+    "peakRssBytes": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "materializedOutputBytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "stdoutSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "stderrSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "poseSha256": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/sha256"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "correctedImageSha256": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/sha256"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "executable",
+        "registeredPin",
+        "versionExitStatus",
+        "versionStdoutSha256",
+        "versionStderrSha256"
+      ],
+      "properties": {
+        "executable": {
+          "type": "string",
+          "minLength": 1
+        },
+        "registeredPin": {
+          "type": "string",
+          "minLength": 1
+        },
+        "versionExitStatus": {
+          "type": "integer"
+        },
+        "versionStdoutSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "versionStderrSha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "pipeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "estimatorMaskPolicy",
+        "estimationInterpolation",
+        "finalInterpolation",
+        "boundaryPolicy",
+        "finalResamplingPasses",
+        "timingIncludesFinalResampling"
+      ],
+      "properties": {
+        "estimatorMaskPolicy": {
+          "enum": [
+            "none",
+            "registered_mask"
+          ]
+        },
+        "estimationInterpolation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "finalInterpolation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "boundaryPolicy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "finalResamplingPasses": {
+          "type": "integer",
+          "const": 1
+        },
+        "timingIncludesFinalResampling": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nullableSeconds": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "stageTimes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "decodeSeconds",
+        "prepareSeconds",
+        "estimateSeconds",
+        "applySeconds",
+        "encodeSeconds",
+        "reportSeconds",
+        "endToEndSeconds"
+      ],
+      "properties": {
+        "source": {
+          "enum": [
+            "instrumented",
+            "runner_end_to_end_only"
+          ]
+        },
+        "decodeSeconds": {
+          "$ref": "#/$defs/nullableSeconds"
+        },
+        "prepareSeconds": {
+          "$ref": "#/$defs/nullableSeconds"
+        },
+        "estimateSeconds": {
+          "$ref": "#/$defs/nullableSeconds"
+        },
+        "applySeconds": {
+          "$ref": "#/$defs/nullableSeconds"
+        },
+        "encodeSeconds": {
+          "$ref": "#/$defs/nullableSeconds"
+        },
+        "reportSeconds": {
+          "$ref": "#/$defs/nullableSeconds"
+        },
+        "endToEndSeconds": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

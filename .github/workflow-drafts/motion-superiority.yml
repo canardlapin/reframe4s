@@ -1,0 +1,354 @@
+name: Motion superiority court (inactive resumable draft)
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Prepare, execute/score a shard range, or finalize
+        required: true
+        default: setup
+        type: choice
+        options:
+          - setup
+          - shard
+          - finalize
+      admission_lock:
+        description: Repository-relative path to the frozen admission lock
+        required: true
+        default: benchmarks/motion/environment-and-data-lock-v2.json
+        type: string
+      shard_start:
+        description: First zero-based shard ordinal for action=shard
+        required: true
+        default: "0"
+        type: string
+      shard_count:
+        description: Sequential shard count, from 1 through 4
+        required: true
+        default: "1"
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+concurrency:
+  group: motion-superiority-court
+  cancel-in-progress: false
+
+env:
+  ADMISSION_LOCK: ${{ inputs.admission_lock || 'benchmarks/motion/environment-and-data-lock-v2.json' }}
+  PROTOCOL: benchmarks/motion/protocol-v2.json
+  RELEASE_EXECUTION: benchmarks/motion/release-execution-v1.json
+  REGISTERED_CANDIDATE_SHA: ${{ vars.MOTION_CANDIDATE_SHA }}
+  CANDIDATE_SHA: ${{ vars.MOTION_CANDIDATE_SHA || github.sha }}
+  RESULTS: ${{ vars.MOTION_PERSISTENT_ROOT }}/${{ vars.MOTION_CANDIDATE_SHA || github.sha }}
+
+jobs:
+  setup:
+    if: inputs.action == 'setup'
+    name: Prepare locked plans and immutable shards
+    runs-on: [self-hosted, linux, x64, motion-benchmark]
+    environment: motion-benchmark
+    timeout-minutes: 1380
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: true
+          fetch-depth: 0
+          ref: ${{ env.CANDIDATE_SHA }}
+
+      - name: Require the persistent evidence filesystem
+        run: |
+          test -n "${{ vars.MOTION_PERSISTENT_ROOT }}"
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+          test ! -e "$RESULTS"
+
+      - name: Export and verify immutable admission paths
+        run: |
+          node scripts/export-motion-lock-paths.mjs "$ADMISSION_LOCK"
+          node scripts/verify-motion-superiority-protocol.mjs "$PROTOCOL"
+          node scripts/verify-motion-superiority-protocol.mjs "$PROTOCOL" \
+            --admission --lock "$ADMISSION_LOCK"
+          node scripts/provision-motion-comparators.mjs \
+            --lock "$ADMISSION_LOCK" --pull
+          node scripts/preflight-motion-court.mjs \
+            --lock "$ADMISSION_LOCK" \
+            --protocol "$PROTOCOL" \
+            --repository "$GITHUB_WORKSPACE"
+          node scripts/verify-motion-assets.mjs \
+            --protocol "$PROTOCOL" \
+            --lock "$ADMISSION_LOCK" \
+            --verify-files
+
+      - name: Build the master, scoring, and shard plans
+        run: |
+          install -d "$RESULTS"
+          node scripts/prepare-motion-workloads.mjs \
+            --assets "$MOTION_ASSETS_PATH" \
+            --output "$RESULTS/workloads.tsv"
+          node scripts/invoke-motion-runner.mjs \
+            --lock "$ADMISSION_LOCK" -- \
+            plan \
+            --workloads "$RESULTS/workloads.tsv" \
+            --output-root "$RESULTS/runs" \
+            --plan "$RESULTS/plan.tsv" \
+            --protocol "$GITHUB_WORKSPACE/$PROTOCOL" \
+            --warmup-runs 5 \
+            --measured-runs 20 \
+            --allocated-core-counts 4,1
+          node scripts/verify-motion-assets.mjs \
+            --protocol "$PROTOCOL" \
+            --lock "$ADMISSION_LOCK" \
+            --verify-files \
+            --plan "$RESULTS/plan.tsv"
+          node scripts/prepare-motion-scoring-plan.mjs \
+            --plan "$RESULTS/plan.tsv" \
+            --assets "$MOTION_ASSETS_PATH" \
+            --output "$RESULTS/scoring-plan.tsv"
+          node scripts/prepare-motion-shards.mjs \
+            --definition "$RELEASE_EXECUTION" \
+            --plan "$RESULTS/plan.tsv" \
+            --output-root "$RESULTS/execution"
+
+  shard:
+    if: inputs.action == 'shard' || github.event_name == 'schedule'
+    name: Execute and score a bounded shard range
+    runs-on: [self-hosted, linux, x64, motion-benchmark]
+    environment: motion-benchmark
+    timeout-minutes: 1380
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: true
+          fetch-depth: 0
+          ref: ${{ env.CANDIDATE_SHA }}
+
+      - name: Revalidate admission and persistent state
+        run: |
+          if [ "${{ github.event_name }}" = schedule ]; then
+            test -n "$REGISTERED_CANDIDATE_SHA"
+          fi
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+          test -f "$RESULTS/execution/manifest.json"
+          node scripts/export-motion-lock-paths.mjs "$ADMISSION_LOCK"
+          node scripts/verify-motion-superiority-protocol.mjs "$PROTOCOL" \
+            --admission --lock "$ADMISSION_LOCK"
+          node scripts/provision-motion-comparators.mjs \
+            --lock "$ADMISSION_LOCK" --pull
+          node scripts/preflight-motion-court.mjs \
+            --lock "$ADMISSION_LOCK" \
+            --protocol "$PROTOCOL" \
+            --repository "$GITHUB_WORKSPACE"
+          node scripts/verify-motion-assets.mjs \
+            --protocol "$PROTOCOL" \
+            --lock "$ADMISSION_LOCK" \
+            --verify-files \
+            --plan "$RESULTS/plan.tsv"
+
+      - name: Execute and score shards sequentially
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SHARD_START: ${{ inputs.shard_start }}
+          SHARD_COUNT: ${{ inputs.shard_count }}
+        run: |
+          shards=()
+          if [ "$EVENT_NAME" = schedule ]; then
+            selection=$(node scripts/select-motion-shards.mjs \
+              --manifest "$RESULTS/execution/manifest.json" \
+              --count 4)
+            if [ -z "$selection" ]; then
+              echo "all registered motion shards have checkpoints"
+              exit 0
+            fi
+            mapfile -t shards <<<"$selection"
+          else
+            case "$SHARD_START" in
+              ''|*[!0-9]*) echo "shard_start must be a non-negative integer" >&2; exit 1 ;;
+            esac
+            case "$SHARD_COUNT" in
+              1|2|3|4) ;;
+              *) echo "shard_count must be from 1 through 4" >&2; exit 1 ;;
+            esac
+            last=$((SHARD_START + SHARD_COUNT))
+            shard_total=$(node -p \
+              'JSON.parse(require("fs").readFileSync(process.argv[1])).shards.length' \
+              "$RESULTS/execution/manifest.json")
+            if [ "$last" -gt "$shard_total" ]; then
+              echo "requested shard range ends at $last, but only $shard_total exist" >&2
+              exit 1
+            fi
+            index=$SHARD_START
+            while [ "$index" -lt "$last" ]; do
+              shards+=("$(printf 'shard-%04d' "$index")")
+              index=$((index + 1))
+            done
+          fi
+          for shard in "${shards[@]}"; do
+            node scripts/execute-motion-shard.mjs \
+              --manifest "$RESULTS/execution/manifest.json" \
+              --shard "$shard" \
+              --lock "$ADMISSION_LOCK"
+            node scripts/score-motion-shard.mjs \
+              --manifest "$RESULTS/execution/manifest.json" \
+              --shard "$shard" \
+              --scoring-plan "$RESULTS/scoring-plan.tsv" \
+              --lock "$ADMISSION_LOCK"
+          done
+
+  finalize:
+    if: inputs.action == 'finalize'
+    name: Verify, decide, and finalize retention
+    runs-on: [self-hosted, linux, x64, motion-benchmark]
+    environment: motion-benchmark
+    timeout-minutes: 1380
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: true
+          fetch-depth: 0
+          ref: ${{ env.CANDIDATE_SHA }}
+
+      - name: Revalidate admission and all raw evidence
+        id: raw
+        continue-on-error: true
+        run: |
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+          node scripts/export-motion-lock-paths.mjs "$ADMISSION_LOCK"
+          node scripts/verify-motion-superiority-protocol.mjs "$PROTOCOL" \
+            --admission --lock "$ADMISSION_LOCK"
+          node scripts/preflight-motion-court.mjs \
+            --lock "$ADMISSION_LOCK" \
+            --protocol "$PROTOCOL" \
+            --repository "$GITHUB_WORKSPACE"
+          node scripts/verify-motion-run-records.mjs \
+            --admission \
+            --lock "$ADMISSION_LOCK" \
+            --plan "$RESULTS/plan.tsv" \
+            --plan-run-records
+          node scripts/verify-motion-metrics.mjs \
+            --plan "$RESULTS/scoring-plan.tsv" \
+            --lock "$ADMISSION_LOCK"
+
+      - name: Summarize every planned row
+        id: aggregate
+        if: always()
+        continue-on-error: true
+        run: |
+          node scripts/summarize-motion-runs.mjs \
+            --admission \
+            --plan "$RESULTS/plan.tsv" \
+            --output-json "$RESULTS/execution-aggregate.json" \
+            --output-csv "$RESULTS/execution-aggregate.csv"
+
+      - name: Build and independently verify the decision
+        id: receipt
+        if: always()
+        continue-on-error: true
+        run: |
+          node scripts/build-motion-receipt.mjs \
+            --protocol "$PROTOCOL" \
+            --lock "$ADMISSION_LOCK" \
+            --assets "$MOTION_ASSETS_PATH" \
+            --plan "$RESULTS/plan.tsv" \
+            --scoring-plan "$RESULTS/scoring-plan.tsv" \
+            --execution-aggregate "$RESULTS/execution-aggregate.json" \
+            --output "$RESULTS/receipt.json" \
+            --audit "$RESULTS/audit.md"
+          node scripts/verify-motion-receipt.mjs \
+            --receipt "$RESULTS/receipt.json" \
+            --protocol "$PROTOCOL" \
+            --lock "$ADMISSION_LOCK" \
+            --assets "$MOTION_ASSETS_PATH" \
+            --plan "$RESULTS/plan.tsv" \
+            --scoring-plan "$RESULTS/scoring-plan.tsv" \
+            --execution-aggregate "$RESULTS/execution-aggregate.json"
+
+      - name: Finalize content-addressed retention
+        id: retention
+        if: >-
+          always() &&
+          steps.raw.outcome == 'success' &&
+          steps.aggregate.outcome == 'success' &&
+          steps.receipt.outcome == 'success'
+        run: |
+          node scripts/finalize-motion-shards.mjs \
+            --manifest "$RESULTS/execution/manifest.json" \
+            --release-designated \
+            --output "$RESULTS/shard-finalization.json"
+
+      - name: Require a verified, finalized court
+        if: always()
+        env:
+          RAW_OUTCOME: ${{ steps.raw.outcome }}
+          AGGREGATE_OUTCOME: ${{ steps.aggregate.outcome }}
+          RECEIPT_OUTCOME: ${{ steps.receipt.outcome }}
+          RETENTION_OUTCOME: ${{ steps.retention.outcome }}
+        run: |
+          test "$RAW_OUTCOME" = success
+          test "$AGGREGATE_OUTCOME" = success
+          test "$RECEIPT_OUTCOME" = success
+          test "$RETENTION_OUTCOME" = success
+          test -f "$RESULTS/shard-finalization.json"
+
+  attest:
+    if: inputs.action == 'finalize'
+    needs: finalize
+    name: Attest, archive, and enforce the decision
+    runs-on: [self-hosted, linux, x64, motion-benchmark]
+    environment: motion-benchmark
+    timeout-minutes: 1380
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: true
+          fetch-depth: 0
+          ref: ${{ env.CANDIDATE_SHA }}
+
+      - name: Hash and attest the retained evidence
+        id: attest
+        run: |
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+          node scripts/export-motion-lock-paths.mjs "$ADMISSION_LOCK"
+          test -f "$RESULTS/shard-finalization.json"
+          node scripts/create-motion-evidence-manifest.mjs \
+            --output "$RESULTS/evidence-manifest.json" \
+            --include "$PROTOCOL" \
+            --include "$ADMISSION_LOCK" \
+            --include "$MOTION_ASSETS_PATH" \
+            --include "$MOTION_ENVIRONMENT_MANIFEST_PATH" \
+            --include "$RESULTS"
+          node scripts/verify-motion-evidence-manifest.mjs \
+            "$RESULTS/evidence-manifest.json"
+
+      - name: Attest the evidence manifest
+        id: github_attest
+        uses: actions/attest@v4
+        with:
+          subject-path: ${{ env.RESULTS }}/evidence-manifest.json
+
+      - name: Archive the single-copy retained court
+        uses: actions/upload-artifact@v4
+        with:
+          name: motion-superiority-${{ github.sha }}-${{ github.run_id }}
+          path: |
+            ${{ env.RESULTS }}
+            ${{ env.ADMISSION_LOCK }}
+            ${{ env.MOTION_ASSETS_PATH }}
+            ${{ env.MOTION_ENVIRONMENT_MANIFEST_PATH }}
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 6
+
+      - name: Enforce attestation and the preregistered decision
+        env:
+          ATTESTATION_OUTCOME: ${{ steps.github_attest.outcome }}
+        run: |
+          if [ "$ATTESTATION_OUTCOME" != "success" ]; then
+            echo "evidence-manifest attestation failed" >&2
+            exit 1
+          fi
+          node scripts/enforce-motion-decision.mjs "$RESULTS/receipt.json"
