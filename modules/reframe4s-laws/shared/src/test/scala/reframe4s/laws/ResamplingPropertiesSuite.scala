@@ -82,7 +82,7 @@ final class ResamplingPropertiesSuite extends ScalaCheckSuite:
           )
         val sourcePoint = mapRight(pull(point))
         val expected =
-          imageRight(ReferenceSampler.linear(source, sourcePoint))
+          imageRight(ReferenceSampler.linearToDouble(source, sourcePoint))
         val actual = imageRight(result.image.valueAt(Vector(i, j)))
         assertEqualsDouble(actual, expected.value, 1e-11)
 
