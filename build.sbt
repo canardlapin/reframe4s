@@ -26,12 +26,7 @@ Global / concurrentRestrictions += Tags.limit(Tags.Test, 1)
 // repository path from an explicit build root so this build works both
 // standalone and as a composite dependency.
 lazy val reframe4sBuildRoot =
-  file(
-    sys.props.getOrElse(
-      "reframe4s.build.root",
-      "."
-    )
-  ).getCanonicalFile
+  ReframeBuildRoot.resolve("reframe4s.build.root")
 
 lazy val ravelRevision = "9c5669399ab8e2a11402e71973dd5f1e2f2c13f4"
 // Immutable by default; the explicit property admits an audited local Ravel
