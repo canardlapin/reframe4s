@@ -13,6 +13,7 @@ import image4s.NonSpatialAxes
 import image4s.Sampled
 import ravel.DType.given
 import ravel.NDArray
+import ravel.Rank
 import image4s.geometry.Affine
 import image4s.geometry.D2
 import image4s.geometry.D3
@@ -342,12 +343,13 @@ final class ResamplingPerformanceSuite extends munit.FunSuite:
       result: ResamplingResult[F, D2, Sem],
       extent: Int
   ): Double =
+    val data = result.image.data.asInstanceOf[NDArray[Double, Rank[2]]]
     var total = 0.0
     var i = 0
     while i < extent do
       var j = 0
       while j < extent do
-        total += result.image.data(i, j)
+        total += data(i, j)
         j += 1
       i += 1
     total

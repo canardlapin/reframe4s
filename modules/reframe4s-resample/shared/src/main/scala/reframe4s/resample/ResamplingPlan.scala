@@ -17,6 +17,7 @@ import ravel.CanonicalArray
 import ravel.DType.given
 import ravel.IntegralDType
 import ravel.NDArray
+import ravel.Rank
 import ravel.Shape
 import reframe4s.core.AffineMap
 import image4s.geometry.Affine
@@ -1270,7 +1271,7 @@ private object DataReader:
         extra0: Int,
         extra1: Int
     ): Double =
-      data(i, j)
+      data.asInstanceOf[NDArray[Double, Rank[2]]](i, j)
 
   private object D2Rank3 extends DataReader:
     def read(
@@ -1281,7 +1282,7 @@ private object DataReader:
         extra0: Int,
         extra1: Int
     ): Double =
-      data(i, j, extra0)
+      data.asInstanceOf[NDArray[Double, Rank[3]]](i, j, extra0)
 
   private object D2Rank4 extends DataReader:
     def read(
@@ -1292,7 +1293,13 @@ private object DataReader:
         extra0: Int,
         extra1: Int
     ): Double =
-      data(i, j, extra0, extra1)
+      data
+        .asInstanceOf[NDArray[Double, Rank[4]]](
+          i,
+          j,
+          extra0,
+          extra1
+        )
 
   private object D3Rank3 extends DataReader:
     def read(
@@ -1303,7 +1310,7 @@ private object DataReader:
         extra0: Int,
         extra1: Int
     ): Double =
-      data(i, j, k)
+      data.asInstanceOf[NDArray[Double, Rank[3]]](i, j, k)
 
   private object D3Rank4 extends DataReader:
     def read(
@@ -1314,7 +1321,7 @@ private object DataReader:
         extra0: Int,
         extra1: Int
     ): Double =
-      data(i, j, k, extra0)
+      data.asInstanceOf[NDArray[Double, Rank[4]]](i, j, k, extra0)
 
   def compile(
       dataRank: Int,

@@ -145,7 +145,7 @@ object Affine:
     val shape =
       Shape
         .from(outShape)
-        .fold(error => throw new IllegalArgumentException(error.getMessage), identity)
+        .fold(error => throw new IllegalArgumentException(error.reason), identity)
     RavelArray.build[Double, AnyRank](shape): out =>
       var point = 0
       while point < nPoints do

@@ -161,7 +161,7 @@ final class ResamplingPlanSuite extends munit.FunSuite:
       val sourcePoint = mapRight(pull(targetPoint))
       val expected =
         imageRight(
-          ReferenceSampler.linear(
+          ReferenceSampler.linearToDouble(
             source,
             sourcePoint,
             boundary = boundary
@@ -810,7 +810,7 @@ final class ResamplingPlanSuite extends munit.FunSuite:
     val shape =
       Shape
         .from(Vector(2, 2, 2, 2, 2))
-        .fold(error => fail(error.getMessage), identity)
+        .fold(error => fail(error.reason), identity)
     val source =
       imageRight(
         Sampled.continuous(
