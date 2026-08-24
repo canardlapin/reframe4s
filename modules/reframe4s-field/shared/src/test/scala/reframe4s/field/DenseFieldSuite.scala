@@ -2,6 +2,7 @@ package reframe4s.field
 
 import image4s.Axis
 import image4s.AxisKind
+import image4s.BoundaryPolicy
 import image4s.ImageError
 import image4s.NonSpatialAxes
 import image4s.Sampled
@@ -14,6 +15,7 @@ import reframe4s.core.EvidenceError
 import reframe4s.core.ImplementationRevision
 import reframe4s.core.IndexRegion
 import reframe4s.core.MapError
+import reframe4s.core.SpatialMap
 import reframe4s.core.TopologyCriteria
 import reframe4s.core.TopologyScope
 import image4s.geometry.Affine
@@ -28,6 +30,8 @@ import image4s.geometry.GeometryError
 import image4s.geometry.Grid
 import image4s.geometry.GridId
 import image4s.geometry.LatticeIndex
+import image4s.geometry.Point
+import reframe4s.resample.Interpolation
 
 final class DenseFieldSuite extends munit.FunSuite:
   test("D2 and D3 fields validate their one physical component axis"):
@@ -162,6 +166,113 @@ final class DenseFieldSuite extends munit.FunSuite:
       -physical(0) + 3.0 * physical(1) - 2.0,
       1e-10
     )
+
+  test("dense maps expose interpolation and identity-outside policy"):
+    val frame = geometryRight(Frame.named[D2]("dense-boundary"))
+    val grid =
+      geometryRight(Grid.in(frame)(Vector(2, 2), Affine.identity[D2]))
+    val axis = imageRight(Axis.create("component", 2, AxisKind.Direction))
+    val axes = imageRight(NonSpatialAxes.from(Vector(axis)))
+    val coordinates =
+      imageRight(
+        Sampled.continuous(
+          grid,
+          axes,
+          NDArray.tabulate[Double](2, 2, 2): (i, j, component) =>
+            if component == 0 then i.toDouble + 10.0
+            else j.toDouble - 5.0
+        )
+      )
+    val preserved =
+      fieldRight(
+        DenseMap.fromCoordinates(
+          coordinates,
+          frame,
+          Interpolation.Nearest,
+          CoordinateBoundaryPolicy.PreserveSource
+        )
+      )
+    val rejected =
+      fieldRight(DenseMap.fromCoordinates(coordinates, frame))
+    val outside = geometryRight(Point.in[D2](frame)(5.0, -3.0))
+
+    assertEquals(mapRight(preserved(outside)).coordinates, outside.coordinates)
+    assertEquals(
+      rejected(outside),
+      Left(MapError.OutsideDomain(outside.coordinates))
+    )
+    assertEquals(
+      DenseMap.fromCoordinates(
+        coordinates,
+        frame,
+        boundary = CoordinateBoundaryPolicy.Constant(Vector(1.0))
+      ),
+      Left(FieldError.InvalidBoundaryCoordinates(2, 1))
+    )
+
+  test("dense-map fingerprints survive checked frame erasure and detect content"):
+    val frame = geometryRight(Frame.named[D2]("dense-fingerprint"))
+    val grid =
+      geometryRight(Grid.in(frame)(Vector(2, 2), Affine.identity[D2]))
+    val axis = imageRight(Axis.create("component", 2, AxisKind.Direction))
+    val axes = imageRight(NonSpatialAxes.from(Vector(axis)))
+
+    def dense(offset: Double) =
+      val coordinates =
+        imageRight(
+          Sampled.continuous(
+            grid,
+            axes,
+            NDArray.tabulate[Double](2, 2, 2): (i, j, component) =>
+              if component == 0 then i.toDouble + offset else j.toDouble
+          )
+        )
+      fieldRight(DenseMap.fromCoordinates(coordinates, frame))
+
+    val first = dense(0.0)
+    val changed = dense(0.25)
+    val erased = SpatialMap.eraseFrameRefinements(first)
+
+    assert(DenseMap.isDense(erased))
+    assertEquals(
+      DenseMap.fingerprint(erased),
+      DenseMap.fingerprint(SpatialMap.eraseFrameRefinements(first))
+    )
+    assertNotEquals(
+      DenseMap.fingerprint(erased),
+      DenseMap.fingerprint(SpatialMap.eraseFrameRefinements(changed))
+    )
+
+  test("displacement maps delegate cubic interpolation to the provider kernel"):
+    val frame = geometryRight(Frame.named[D2]("cubic-displacement"))
+    val grid =
+      geometryRight(Grid.in(frame)(Vector(5, 4), Affine.identity[D2]))
+    val axis = imageRight(Axis.create("component", 2, AxisKind.Direction))
+    val axes = imageRight(NonSpatialAxes.from(Vector(axis)))
+    val samples =
+      imageRight(
+        Sampled.continuous(
+          grid,
+          axes,
+          NDArray.tabulate[Double](5, 4, 2): (i, _, component) =>
+            if component == 0 then i.toDouble * i.toDouble else 0.0
+        )
+      )
+    val displacement = fieldRight(Displacement.from(samples))
+    val map =
+      Displacement.asInterpolatedMap(
+        displacement,
+        Interpolation.Cubic,
+        BoundaryPolicy.Constant(0.0)
+      )
+    val input =
+      geometryRight(
+        grid.pointAt(geometryRight(ContinuousIndex.of[D2](1.5, 1.0)))
+      )
+
+    val result = mapRight(map(input))
+    assertEqualsDouble(result.coordinates(0), 3.75, 1e-10)
+    assertEqualsDouble(result.coordinates(1), 1.0, 1e-10)
 
   test("cell topology accepts D2 identity and rejects a reflection"):
     val frame =

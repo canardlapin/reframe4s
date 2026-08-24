@@ -20,12 +20,15 @@ import ravel.NDArray
 import ravel.Rank
 import ravel.Shape
 import reframe4s.core.AffineMap
+import reframe4s.core.MapError
+import reframe4s.core.SpatialMap
 import image4s.geometry.Affine
 import image4s.geometry.Dim
 import image4s.geometry.Dimension
 import image4s.geometry.Frame
 import image4s.geometry.GeometryError
 import image4s.geometry.Grid
+import image4s.geometry.LatticeIndex
 
 /**
  * An interpolation policy whose semantic parameter prevents linear kernels
@@ -36,6 +39,7 @@ sealed trait Interpolation[-Sem] derives CanEqual
 object Interpolation:
   case object Nearest extends Interpolation[Any]
   case object Linear extends Interpolation[Continuous]
+  case object Cubic extends Interpolation[Continuous]
   case object Lanczos5 extends Interpolation[Continuous]
 
 sealed trait ResamplingError derives CanEqual:
@@ -46,6 +50,9 @@ object ResamplingError:
     val message: String = error.message
 
   final case class Image(error: ImageError) extends ResamplingError:
+    val message: String = error.message
+
+  final case class Map(error: MapError) extends ResamplingError:
     val message: String = error.message
 
   final case class UnsupportedDataRank(
@@ -266,7 +273,7 @@ final class ResamplingPlan[
     val target: Grid[TargetFrame, D],
     val interpolation: Interpolation[Sem],
     val boundary: BoundaryPolicy[Double],
-    private val kernel: AffineIndexKernel,
+    private val kernel: IndexKernel,
     private val reader: DataReader
 )(using
     private val dimension: Dimension[D],
@@ -276,7 +283,7 @@ final class ResamplingPlan[
     PlanStructure(
       spatialRank = dimension.rank,
       dataRank = source.data.rank,
-      materializedCoordinateCount = 0
+      materializedCoordinateCount = kernel.materializedCoordinateCount
     )
 
   def newWorkspace(): ResamplingWorkspace[D] =
@@ -380,25 +387,25 @@ final class ResamplingPlan[
       workspace: ResamplingWorkspace[D]
   ): Unit =
     kernel match
-      case affine: AffineIndexKernel.D2 =>
-        executeD2(affine, values, validity, workspace)
-      case affine: AffineIndexKernel.D3 =>
-        executeD3(affine, values, validity, workspace)
+      case rank2: IndexKernel.D2 =>
+        executeD2(rank2, values, validity, workspace)
+      case rank3: IndexKernel.D3 =>
+        executeD3(rank3, values, validity, workspace)
 
   private def executeSink(
       workspace: ResamplingWorkspace[D],
       sink: ResamplingSink
   ): Either[ResamplingError, Unit] =
     kernel match
-      case affine: AffineIndexKernel.D2 =>
-        executeD2Sink(affine, sink, workspace)
-      case affine: AffineIndexKernel.D3 =>
-        executeD3Sink(affine, sink, workspace)
+      case rank2: IndexKernel.D2 =>
+        executeD2Sink(rank2, sink, workspace)
+      case rank3: IndexKernel.D3 =>
+        executeD3Sink(rank3, sink, workspace)
     if workspace.hasFailed then Left(workspace.outsideError)
     else Right(())
 
   private def executeD2Sink(
-      affine: AffineIndexKernel.D2,
+      kernel: IndexKernel.D2,
       sink: ResamplingSink,
       workspace: ResamplingWorkspace[D]
   ): Unit =
@@ -417,7 +424,7 @@ final class ResamplingPlan[
     while i < target0 && !workspace.hasFailed do
       var j = 0
       while j < target1 && !workspace.hasFailed do
-        affine.load(i, j, workspace)
+        kernel.load(i, j, workspace)
         var a = 0
         while a < extra0 && !workspace.hasFailed do
           var b = 0
@@ -436,7 +443,7 @@ final class ResamplingPlan[
       i += 1
 
   private def executeD3Sink(
-      affine: AffineIndexKernel.D3,
+      kernel: IndexKernel.D3,
       sink: ResamplingSink,
       workspace: ResamplingWorkspace[D]
   ): Unit =
@@ -454,7 +461,7 @@ final class ResamplingPlan[
       while j < target1 && !workspace.hasFailed do
         var k = 0
         while k < target2 && !workspace.hasFailed do
-          affine.load(i, j, k, workspace)
+          kernel.load(i, j, k, workspace)
           var a = 0
           while a < extra0 && !workspace.hasFailed do
             sample(i, j, k, a, 0, workspace)
@@ -471,7 +478,7 @@ final class ResamplingPlan[
       i += 1
 
   private def executeD2(
-      affine: AffineIndexKernel.D2,
+      kernel: IndexKernel.D2,
       values: ArrayBuilder[Double],
       validity: ArrayBuilder[Double],
       workspace: ResamplingWorkspace[D]
@@ -491,7 +498,7 @@ final class ResamplingPlan[
     while i < target0 && !workspace.hasFailed do
       var j = 0
       while j < target1 && !workspace.hasFailed do
-        affine.load(i, j, workspace)
+        kernel.load(i, j, workspace)
         var a = 0
         while a < extra0 && !workspace.hasFailed do
           var b = 0
@@ -507,7 +514,7 @@ final class ResamplingPlan[
       i += 1
 
   private def executeD3(
-      affine: AffineIndexKernel.D3,
+      kernel: IndexKernel.D3,
       values: ArrayBuilder[Double],
       validity: ArrayBuilder[Double],
       workspace: ResamplingWorkspace[D]
@@ -526,7 +533,7 @@ final class ResamplingPlan[
       while j < target1 && !workspace.hasFailed do
         var k = 0
         while k < target2 && !workspace.hasFailed do
-          affine.load(i, j, k, workspace)
+          kernel.load(i, j, k, workspace)
           var a = 0
           while a < extra0 && !workspace.hasFailed do
             sample(i, j, k, a, 0, workspace)
@@ -559,6 +566,15 @@ final class ResamplingPlan[
         )
       case Interpolation.Linear =>
         sampleLinear(
+          target0,
+          target1,
+          target2,
+          extra0,
+          extra1,
+          workspace
+        )
+      case Interpolation.Cubic =>
+        sampleCubic(
           target0,
           target1,
           target2,
@@ -648,6 +664,63 @@ final class ResamplingPlan[
         if inside >= 1.0 - ResamplingPlan.ValidityTolerance then 1.0
         else if inside <= ResamplingPlan.ValidityTolerance then 0.0
         else inside
+
+  private def sampleCubic(
+      target0: Int,
+      target1: Int,
+      target2: Int,
+      extra0: Int,
+      extra1: Int,
+      workspace: ResamplingWorkspace[D]
+  ): Unit =
+    val lower0 = math.floor(workspace.source0).toInt
+    val lower1 = math.floor(workspace.source1).toInt
+    val lower2 = math.floor(workspace.source2).toInt
+    val fraction0 = workspace.source0 - lower0.toDouble
+    val fraction1 = workspace.source1 - lower1.toDouble
+    val fraction2 = workspace.source2 - lower2.toDouble
+    val taps2 = if dimension.rank == 3 then CubicKernel.TapCount else 1
+    var tap0 = 0
+    var value = 0.0
+    var absoluteInside = 0.0
+    var absoluteTotal = 0.0
+    while tap0 < CubicKernel.TapCount && !workspace.hasFailed do
+      val weight0 = CubicKernel.weight(fraction0, tap0)
+      var tap1 = 0
+      while tap1 < CubicKernel.TapCount && !workspace.hasFailed do
+        val weight01 = weight0 * CubicKernel.weight(fraction1, tap1)
+        var tap2 = 0
+        while tap2 < taps2 && !workspace.hasFailed do
+          val weight =
+            if dimension.rank == 3 then
+              weight01 * CubicKernel.weight(fraction2, tap2)
+            else weight01
+          if weight != 0.0 then
+            val i = lower0 + tap0 - 1
+            val j = lower1 + tap1 - 1
+            val k = if dimension.rank == 3 then lower2 + tap2 - 1 else 0
+            absoluteTotal += math.abs(weight)
+            if contains(i, j, k) then
+              value += weight * read(i, j, k, extra0, extra1)
+              absoluteInside += math.abs(weight)
+            else
+              boundary match
+                case BoundaryPolicy.Reject =>
+                  workspace.recordOutside(target0, target1, target2)
+                case BoundaryPolicy.Constant(outside) =>
+                  value += weight * outside
+          tap2 += 1
+        tap1 += 1
+      tap0 += 1
+    if !workspace.hasFailed then
+      workspace.sampledValue = value
+      val fraction =
+        if absoluteTotal == 0.0 then 0.0
+        else math.max(0.0, math.min(1.0, absoluteInside / absoluteTotal))
+      workspace.insideWeight =
+        if fraction >= 1.0 - ResamplingPlan.ValidityTolerance then 1.0
+        else if fraction <= ResamplingPlan.ValidityTolerance then 0.0
+        else fraction
 
   private def sampleLanczos5(
       target0: Int,
@@ -1092,6 +1165,56 @@ object ResamplingPlan:
       reader
     )
 
+  /** Compile an arbitrary provider spatial pullback.
+    *
+    * Unlike [[affine]], this plan materializes one source continuous index per
+    * target grid point. Sampling and boundary semantics remain owned by this
+    * provider plan; callers do not need a second coordinate interpreter.
+    */
+  def mapped[
+      SourceFrame <: Frame[D],
+      TargetFrame <: Frame[D],
+      D <: Dim,
+      Sem,
+      S <: SampleSpace[SourceFrame, D],
+      R <: AnyRank
+  ](
+      source: Sampled[S, Double, Sem, R],
+      target: Grid[TargetFrame, D],
+      pull: SpatialMap[TargetFrame, SourceFrame, D],
+      interpolation: Interpolation[Sem],
+      boundary: BoundaryPolicy[Double] = BoundaryPolicy.Reject
+  )(using
+      dimension: Dimension[D],
+      semantics: ValueSemantics[Double, Sem]
+  ): Either[
+    ResamplingError,
+    ResamplingPlan[SourceFrame, TargetFrame, D, Sem, R]
+  ] =
+    pull match
+      case affinePull: AffineMap[TargetFrame, SourceFrame, D] @unchecked =>
+        affine(
+          source,
+          target,
+          affinePull,
+          interpolation,
+          boundary
+        )
+      case _ =>
+        for
+          reader <- DataReader.compile(source.data.rank, dimension.rank)
+          _ <- validateEndpoint(target.frame, pull.source)
+          _ <- validateEndpoint(source.frame, pull.target)
+          kernel <- MappedIndexKernel.compile(target, source.grid, pull)
+        yield new ResamplingPlan(
+          source,
+          target,
+          interpolation,
+          boundary,
+          kernel,
+          reader
+        )
+
   private def validateDataRank(
       dataRank: Int,
       spatialRank: Int
@@ -1117,7 +1240,27 @@ object ResamplingPlan:
       .map(ResamplingError.Geometry.apply)
       .map(_ => ())
 
-private sealed trait AffineIndexKernel
+private sealed trait IndexKernel:
+  def materializedCoordinateCount: Int
+
+private object IndexKernel:
+  trait D2 extends IndexKernel:
+    def load[D <: Dim](
+        i: Int,
+        j: Int,
+        workspace: ResamplingWorkspace[D]
+    ): Unit
+
+  trait D3 extends IndexKernel:
+    def load[D <: Dim](
+        i: Int,
+        j: Int,
+        k: Int,
+        workspace: ResamplingWorkspace[D]
+    ): Unit
+
+private sealed trait AffineIndexKernel extends IndexKernel:
+  final val materializedCoordinateCount: Int = 0
 
 private final class BuiltOutput[R <: AnyRank](
     values: NDArray[Double, R],
@@ -1178,7 +1321,7 @@ private object AffineIndexKernel:
       m10: Double,
       m11: Double,
       m12: Double
-  ) extends AffineIndexKernel:
+  ) extends AffineIndexKernel, IndexKernel.D2:
     def load[D <: Dim](
         i: Int,
         j: Int,
@@ -1201,7 +1344,7 @@ private object AffineIndexKernel:
       m21: Double,
       m22: Double,
       m23: Double
-  ) extends AffineIndexKernel:
+  ) extends AffineIndexKernel, IndexKernel.D3:
     def load[D <: Dim](
         i: Int,
         j: Int,
@@ -1250,6 +1393,118 @@ private object AffineIndexKernel:
         )
       case rank =>
         Left(GeometryError.UnsupportedSpatialRank(rank))
+
+private object MappedIndexKernel:
+  final class D2(
+      source0: Array[Double],
+      source1: Array[Double],
+      extent1: Int
+  ) extends IndexKernel.D2:
+    val materializedCoordinateCount: Int = source0.length
+
+    def load[D <: Dim](
+        i: Int,
+        j: Int,
+        workspace: ResamplingWorkspace[D]
+    ): Unit =
+      val index = i * extent1 + j
+      workspace.source0 = source0(index)
+      workspace.source1 = source1(index)
+      workspace.source2 = 0.0
+
+  final class D3(
+      source0: Array[Double],
+      source1: Array[Double],
+      source2: Array[Double],
+      extent1: Int,
+      extent2: Int
+  ) extends IndexKernel.D3:
+    val materializedCoordinateCount: Int = source0.length
+
+    def load[D <: Dim](
+        i: Int,
+        j: Int,
+        k: Int,
+        workspace: ResamplingWorkspace[D]
+    ): Unit =
+      val index = (i * extent1 + j) * extent2 + k
+      workspace.source0 = source0(index)
+      workspace.source1 = source1(index)
+      workspace.source2 = source2(index)
+
+  def compile[
+      SourceFrame <: Frame[D],
+      TargetFrame <: Frame[D],
+      D <: Dim
+  ](
+      target: Grid[TargetFrame, D],
+      source: Grid[SourceFrame, D],
+      pull: SpatialMap[TargetFrame, SourceFrame, D]
+  )(using dimension: Dimension[D]): Either[ResamplingError, IndexKernel] =
+    val count = target.shape.product
+    val source0 = new Array[Double](count)
+    val source1 = new Array[Double](count)
+    val source2 =
+      if dimension.rank == 3 then new Array[Double](count)
+      else Array.emptyDoubleArray
+    var output = 0
+    var failure = Option.empty[ResamplingError]
+    var i = 0
+    while i < target.shape(0) && failure.isEmpty do
+      var j = 0
+      while j < target.shape(1) && failure.isEmpty do
+        var k = 0
+        val extent2 = if dimension.rank == 3 then target.shape(2) else 1
+        while k < extent2 && failure.isEmpty do
+          val coordinates =
+            if dimension.rank == 3 then Vector(i, j, k)
+            else Vector(i, j)
+          val resolved =
+            for
+              lattice <- LatticeIndex
+                .fromVector[D](coordinates)
+                .left
+                .map(ResamplingError.Geometry.apply)
+              targetPoint <- target
+                .pointAt(lattice)
+                .left
+                .map(ResamplingError.Geometry.apply)
+              sourcePoint <- pull(targetPoint).left.map(ResamplingError.Map.apply)
+              sourceIndex <- source
+                .continuousIndexOf(sourcePoint)
+                .left
+                .map(ResamplingError.Geometry.apply)
+            yield sourceIndex.values
+          resolved match
+            case Left(error) => failure = Some(error)
+            case Right(values) =>
+              source0(output) = values(0)
+              source1(output) = values(1)
+              if dimension.rank == 3 then source2(output) = values(2)
+              output += 1
+          k += 1
+        j += 1
+      i += 1
+    failure match
+      case Some(error) => Left(error)
+      case None if dimension.rank == 2 =>
+        Right(new D2(source0, source1, target.shape(1)))
+      case None if dimension.rank == 3 =>
+        Right(
+          new D3(
+            source0,
+            source1,
+            source2,
+            target.shape(1),
+            target.shape(2)
+          )
+        )
+      case None =>
+        Left(
+          ResamplingError.Geometry(
+            GeometryError.UnsupportedSpatialRank(dimension.rank)
+          )
+        )
 
 private sealed trait DataReader:
   def read(

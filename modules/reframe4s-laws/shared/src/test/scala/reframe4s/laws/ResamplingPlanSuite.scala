@@ -17,6 +17,7 @@ import ravel.DType.given
 import ravel.NDArray
 import ravel.Shape
 import reframe4s.core.MapError
+import reframe4s.core.SpatialMap
 import image4s.geometry.Affine
 import image4s.geometry.D2
 import image4s.geometry.D3
@@ -24,6 +25,7 @@ import image4s.geometry.Frame
 import image4s.geometry.GeometryError
 import image4s.geometry.Grid
 import image4s.geometry.LatticeIndex
+import image4s.geometry.Point
 import reframe4s.lie.FramedAffine
 import reframe4s.resample.Interpolation
 import reframe4s.resample.ResamplingError
@@ -910,6 +912,146 @@ final class ResamplingPlanSuite extends munit.FunSuite:
     assert(linearErrors.nonEmpty)
     assert(lanczosErrors.nonEmpty)
 
+  test("arbitrary spatial maps compile one provider-owned coordinate plan"):
+    val sourceFrame = geometryRight(Frame.named[D2]("mapped-source"))
+    val targetFrame = geometryRight(Frame.named[D2]("mapped-target"))
+    val sourceGrid =
+      geometryRight(
+        Grid.in(sourceFrame)(Vector(8, 8), Affine.identity[D2])
+      )
+    val targetGrid =
+      geometryRight(
+        Grid.in(targetFrame)(Vector(3, 3), Affine.identity[D2])
+      )
+    val source =
+      imageRight(
+        Sampled.continuous(
+          sourceGrid,
+          NonSpatialAxes.empty,
+          NDArray.tabulate[Double](8, 8): (i, j) =>
+            4.0 * i.toDouble - 3.0 * j.toDouble + 2.0
+        )
+      )
+    val pull =
+      new SpatialMap[targetFrame.type, sourceFrame.type, D2]:
+        val source: targetFrame.type = targetFrame
+        val target: sourceFrame.type = sourceFrame
+
+        def apply(
+            point: Point[targetFrame.type, D2]
+        ): Either[MapError, Point[sourceFrame.type, D2]] =
+          Point
+            .in[D2](sourceFrame)(
+              point.coordinates(0) + 0.1 * point.coordinates(1) * point.coordinates(1),
+              point.coordinates(1) + 0.25
+            )
+            .left
+            .map(MapError.Geometry.apply)
+    val plan =
+      resamplingRight(
+        ResamplingPlan.mapped(
+          source,
+          targetGrid,
+          pull,
+          Interpolation.Linear,
+          BoundaryPolicy.Reject
+        )
+      )
+    val result = resamplingRight(plan.run(plan.newWorkspace()))
+
+    assertEquals(plan.structure.materializedCoordinateCount, 9)
+    for
+      i <- 0 until 3
+      j <- 0 until 3
+    do
+      val sourceI = i.toDouble + 0.1 * j.toDouble * j.toDouble
+      val sourceJ = j.toDouble + 0.25
+      assertEqualsDouble(
+        imageRight(result.image.valueAt(Vector(i, j))),
+        4.0 * sourceI - 3.0 * sourceJ + 2.0,
+        1e-12
+      )
+
+  test("mapped plan compilation preserves provider map failures"):
+    val sourceFrame = geometryRight(Frame.named[D2]("failed-source"))
+    val targetFrame = geometryRight(Frame.named[D2]("failed-target"))
+    val sourceGrid =
+      geometryRight(Grid.in(sourceFrame)(Vector(2, 2), Affine.identity[D2]))
+    val targetGrid =
+      geometryRight(Grid.in(targetFrame)(Vector(2, 2), Affine.identity[D2]))
+    val source =
+      imageRight(
+        Sampled.continuous(
+          sourceGrid,
+          NonSpatialAxes.empty,
+          NDArray.zeros[Double, ravel.Rank[2]](Shape(2, 2))
+        )
+      )
+    val cause = MapError.OutsideDomain(Vector(0.0, 0.0))
+    val failed =
+      new SpatialMap[targetFrame.type, sourceFrame.type, D2]:
+        val source: targetFrame.type = targetFrame
+        val target: sourceFrame.type = sourceFrame
+        def apply(
+            point: Point[targetFrame.type, D2]
+        ): Either[MapError, Point[sourceFrame.type, D2]] =
+          Left(cause)
+
+    ResamplingPlan.mapped(
+      source,
+      targetGrid,
+      failed,
+      Interpolation.Linear
+    ) match
+      case Left(ResamplingError.Map(error)) => assertEquals(error, cause)
+      case other => fail(s"expected provider map failure, got $other")
+
+  test("cubic interpolation matches an independent Catmull-Rom oracle"):
+    val sourceFrame = geometryRight(Frame.named[D2]("cubic-source"))
+    val targetFrame = geometryRight(Frame.named[D2]("cubic-target"))
+    val sourceGrid =
+      geometryRight(Grid.in(sourceFrame)(Vector(7, 7), Affine.identity[D2]))
+    val targetEmbedding =
+      geometryRight(
+        Affine.fromOriginSpacingDirection[D2](
+          origin = Vector(1.25, 1.6),
+          spacing = Vector(1.0, 1.0),
+          directionRowMajor = Vector(1.0, 0.0, 0.0, 1.0)
+        )
+      )
+    val targetGrid =
+      geometryRight(Grid.in(targetFrame)(Vector(3, 3), targetEmbedding))
+    val data =
+      NDArray.tabulate[Double](7, 7): (i, j) =>
+        i.toDouble * i.toDouble + 0.5 * j.toDouble * j.toDouble + i.toDouble * j.toDouble
+    val source =
+      imageRight(
+        Sampled.continuous(sourceGrid, NonSpatialAxes.empty, data)
+      )
+    val pull =
+      FramedAffine.between(targetFrame, sourceFrame)(Affine.identity[D2])
+    val plan =
+      resamplingRight(
+        ResamplingPlan.affine(
+          source,
+          targetGrid,
+          pull,
+          Interpolation.Cubic,
+          BoundaryPolicy.Constant(-11.0)
+        )
+      )
+    val result = resamplingRight(plan.run(plan.newWorkspace()))
+
+    for
+      i <- 0 until 3
+      j <- 0 until 3
+    do
+      assertEqualsDouble(
+        imageRight(result.image.valueAt(Vector(i, j))),
+        independentCubic2(data, i.toDouble + 1.25, j.toDouble + 1.6, -11.0),
+        1e-12
+      )
+
   private def independentLanczos2(
       data: NDArray[Double, ravel.Rank[2]],
       x: Double,
@@ -939,6 +1081,45 @@ final class ResamplingPlanSuite extends munit.FunSuite:
     value -> math.max(
       0.0,
       math.min(1.0, absoluteInside / absoluteTotal)
+    )
+
+  private def independentCubic2(
+      data: NDArray[Double, ravel.Rank[2]],
+      x: Double,
+      y: Double,
+      outside: Double
+  ): Double =
+    val x0 = math.floor(x).toInt
+    val y0 = math.floor(y).toInt
+    val tx = x - x0.toDouble
+    val ty = y - y0.toDouble
+    val alongY = Array.ofDim[Double](4)
+    var tapY = 0
+    while tapY < 4 do
+      val row = y0 + tapY - 1
+      val values = Array.tabulate(4): tapX =>
+        val column = x0 + tapX - 1
+        if column >= 0 && column < data.shape(0) && row >= 0 && row < data.shape(1) then
+          data(column, row)
+        else outside
+      alongY(tapY) = catmullRom(values(0), values(1), values(2), values(3), tx)
+      tapY += 1
+    catmullRom(alongY(0), alongY(1), alongY(2), alongY(3), ty)
+
+  private def catmullRom(
+      p0: Double,
+      p1: Double,
+      p2: Double,
+      p3: Double,
+      t: Double
+  ): Double =
+    val t2 = t * t
+    val t3 = t2 * t
+    0.5 * (
+      2.0 * p1 +
+        (-p0 + p2) * t +
+        (2.0 * p0 - 5.0 * p1 + 4.0 * p2 - p3) * t2 +
+        (-p0 + 3.0 * p1 - 3.0 * p2 + p3) * t3
     )
 
   private def independentLanczosWeights(

@@ -46,6 +46,8 @@ object SampledInterpolator:
             nearest(image, continuous.values, nonSpatialIndex, boundary)
           case Interpolation.Linear =>
             linear(image, continuous.values, nonSpatialIndex, boundary)
+          case Interpolation.Cubic =>
+            cubic(image, continuous.values, nonSpatialIndex, boundary)
           case Interpolation.Lanczos5 =>
             lanczos5(image, continuous.values, nonSpatialIndex, boundary)
     yield result
@@ -151,6 +153,85 @@ object SampledInterpolator:
     failure match
       case Some(error) => Left(error)
       case None =>
+        validity(insideWeight).map(Sample(value, _))
+
+  private def cubic[
+      F <: Frame[D],
+      D <: Dim,
+      Role <: Continuous,
+      S <: SampleSpace[F, D],
+      R <: AnyRank
+  ](
+      image: Sampled[S, Double, Role, R],
+      continuous: Vector[Double],
+      nonSpatial: Vector[Int],
+      boundary: BoundaryPolicy[Double]
+  )(using dimension: Dimension[D]): Either[ImageError, Sample[Double]] =
+    val lower = continuous.map(math.floor(_).toInt)
+    val fraction =
+      continuous.indices.map(axis => continuous(axis) - lower(axis)).toVector
+    val tapCount =
+      if dimension.rank == 2 then
+        CubicKernel.TapCount * CubicKernel.TapCount
+      else
+        CubicKernel.TapCount * CubicKernel.TapCount * CubicKernel.TapCount
+    var flat = 0
+    var value = 0.0
+    var absoluteInside = 0.0
+    var absoluteTotal = 0.0
+    var failure = Option.empty[ImageError]
+    while flat < tapCount && failure.isEmpty do
+      val tap0 = flat / (
+        if dimension.rank == 2 then CubicKernel.TapCount
+        else CubicKernel.TapCount * CubicKernel.TapCount
+      )
+      val remainder =
+        if dimension.rank == 2 then flat - tap0 * CubicKernel.TapCount
+        else flat - tap0 * CubicKernel.TapCount * CubicKernel.TapCount
+      val tap1 =
+        if dimension.rank == 2 then remainder
+        else remainder / CubicKernel.TapCount
+      val tap2 =
+        if dimension.rank == 2 then 0
+        else remainder - tap1 * CubicKernel.TapCount
+      val weight =
+        CubicKernel.weight(fraction(0), tap0) *
+          CubicKernel.weight(fraction(1), tap1) *
+          (
+            if dimension.rank == 3 then
+              CubicKernel.weight(fraction(2), tap2)
+            else 1.0
+          )
+      if weight != 0.0 then
+        val spatial =
+          if dimension.rank == 2 then
+            Vector(lower(0) + tap0 - 1, lower(1) + tap1 - 1)
+          else
+            Vector(
+              lower(0) + tap0 - 1,
+              lower(1) + tap1 - 1,
+              lower(2) + tap2 - 1
+            )
+        absoluteTotal += math.abs(weight)
+        if inside(spatial, image.grid.shape) then
+          image.valueAt(spatial, nonSpatial) match
+            case Right(sample) =>
+              value += weight * sample
+              absoluteInside += math.abs(weight)
+            case Left(error) => failure = Some(error)
+        else
+          boundary match
+            case BoundaryPolicy.Reject =>
+              failure = Some(ImageError.OutsideGrid(continuous))
+            case BoundaryPolicy.Constant(outside) =>
+              value += weight * outside
+      flat += 1
+    failure match
+      case Some(error) => Left(error)
+      case None =>
+        val insideWeight =
+          if absoluteTotal == 0.0 then 0.0
+          else absoluteInside / absoluteTotal
         validity(insideWeight).map(Sample(value, _))
 
   private def lanczos5[

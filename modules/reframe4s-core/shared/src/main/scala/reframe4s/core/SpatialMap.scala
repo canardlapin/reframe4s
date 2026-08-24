@@ -22,6 +22,17 @@ trait SpatialMap[
   )(using Dimension[D]): SpatialMap[From, Next, D] =
     SpatialMap.compose(this, next)
 
+/** A checked widening of path-dependent frame endpoint refinements.
+  *
+  * `underlying` exists so provider modules can preserve capabilities and
+  * structural provenance without asking consumers to use casts.
+  */
+trait FrameErasedMap[D <: Dim]
+    extends SpatialMap[Frame[D], Frame[D], D]:
+  type UnderlyingFrom <: Frame[D]
+  type UnderlyingTo <: Frame[D]
+  def underlying: SpatialMap[UnderlyingFrom, UnderlyingTo, D]
+
 trait SmoothMap[
     From <: Frame[D],
     To <: Frame[D],
@@ -106,6 +117,21 @@ object AffineMap:
       this
 
 object SpatialMap:
+  /** Safely widen path-dependent endpoint refinements at an API boundary.
+    *
+    * The returned map preserves the exact live endpoint owners and checks both
+    * input and output ownership on every application. This is the provider
+    * boundary for consumers that must store heterogeneous maps without casts.
+    */
+  def eraseFrameRefinements[
+      From <: Frame[D],
+      To <: Frame[D],
+      D <: Dim
+  ](
+      map: SpatialMap[From, To, D]
+  )(using Dimension[D]): SpatialMap[Frame[D], Frame[D], D] =
+    new ErasedFrameMap(map)
+
   def identity[D <: Dim, F <: Frame[D]](
       frame: F
   )(using Dimension[D]): SmoothIso[F, F, D] =
@@ -158,6 +184,44 @@ object SpatialMap:
         result <- second(rebound)
         _ <- validateResultPoint(target, result)
       yield result
+
+  private final class ErasedFrameMap[
+      From <: Frame[D],
+      To <: Frame[D],
+      D <: Dim
+  ](
+      val underlying: SpatialMap[From, To, D]
+  )(using Dimension[D]) extends FrameErasedMap[D]:
+    type UnderlyingFrom = From
+    type UnderlyingTo = To
+    private val map = underlying
+    val source: Frame[D] = map.source
+    val target: Frame[D] = map.target
+
+    def apply(
+        point: Point[Frame[D], D]
+    ): Either[MapError, Point[Frame[D], D]] =
+      for
+        _ <- validateSourcePoint(source, point)
+        sourceAlignment <- Frame
+          .alignOwners[D, Frame[D], From](source, map.source)
+          .left
+          .map(MapError.Geometry.apply)
+        refined <- sourceAlignment
+          .pointToRight(point)
+          .left
+          .map(MapError.Geometry.apply)
+        mapped <- map(refined)
+        _ <- validateResultPoint(target, mapped)
+        targetAlignment <- Frame
+          .alignOwners[D, To, Frame[D]](map.target, target)
+          .left
+          .map(MapError.Geometry.apply)
+        widened <- targetAlignment
+          .pointToRight(mapped)
+          .left
+          .map(MapError.Geometry.apply)
+      yield widened
 
   def validateSourcePoint[
       D <: Dim,

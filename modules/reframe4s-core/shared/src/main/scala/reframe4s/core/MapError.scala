@@ -63,6 +63,11 @@ object MapError:
     val message: String =
       s"differential ($row,$column) must be finite, got $value"
 
+  final case class InvalidFiniteDifferenceStep(value: Double)
+      extends MapError:
+    val message: String =
+      s"finite-difference step must be finite and positive, got $value"
+
   final case class OutsideDomain(coordinates: Vector[Double])
       extends MapError:
     val message: String =

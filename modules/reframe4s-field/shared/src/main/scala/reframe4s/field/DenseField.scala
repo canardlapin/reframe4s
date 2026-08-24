@@ -45,6 +45,20 @@ object FieldError:
     val message: String =
       s"dense field component $flatIndex must be finite, got $value"
 
+  final case class InvalidBoundaryCoordinates(
+      expected: Int,
+      actual: Int
+  ) extends FieldError:
+    val message: String =
+      s"coordinate boundary requires $expected values, got $actual"
+
+  final case class NonFiniteBoundaryCoordinate(
+      component: Int,
+      value: Double
+  ) extends FieldError:
+    val message: String =
+      s"coordinate boundary component $component must be finite, got $value"
+
 final class DenseField[
     F <: Frame[D],
     D <: Dim,
@@ -64,6 +78,13 @@ final class DenseField[
       point: Point[F, D],
       boundary: BoundaryPolicy[Double] = BoundaryPolicy.Reject
   )(using dimension: Dimension[D]): Either[FieldError, Vec[F, D]] =
+    atInterpolated(point, Interpolation.Linear, boundary)
+
+  def atInterpolated(
+      point: Point[F, D],
+      interpolation: Interpolation[image4s.Continuous],
+      boundary: BoundaryPolicy[Double] = BoundaryPolicy.Reject
+  )(using dimension: Dimension[D]): Either[FieldError, Vec[F, D]] =
     val values = Vector.newBuilder[Double]
     var component = 0
     var failure = Option.empty[FieldError]
@@ -72,7 +93,7 @@ final class DenseField[
         samples,
         point,
         Vector(component),
-        Interpolation.Linear,
+        interpolation,
         boundary
       ) match
         case Right(sample) => values += sample.value
@@ -168,6 +189,17 @@ object Displacement:
       displacement: Displacement[F, D, R],
       boundary: BoundaryPolicy[Double] = BoundaryPolicy.Reject
   )(using Dimension[D]): SpatialMap[F, F, D] =
+    asInterpolatedMap(displacement, Interpolation.Linear, boundary)
+
+  def asInterpolatedMap[
+      F <: Frame[D],
+      D <: Dim,
+      R <: AnyRank
+  ](
+      displacement: Displacement[F, D, R],
+      interpolation: Interpolation[image4s.Continuous],
+      boundary: BoundaryPolicy[Double] = BoundaryPolicy.Reject
+  )(using Dimension[D]): SpatialMap[F, F, D] =
     new SpatialMap[F, F, D]:
       val source: F = displacement.frame
       val target: F = displacement.frame
@@ -176,7 +208,7 @@ object Displacement:
         for
           _ <- SpatialMap.validateSourcePoint(source, point)
           vector <- displacement
-            .at(point, boundary)
+            .atInterpolated(point, interpolation, boundary)
             .left
             .map(_ => MapError.OutsideDomain(point.coordinates))
           result = point + vector

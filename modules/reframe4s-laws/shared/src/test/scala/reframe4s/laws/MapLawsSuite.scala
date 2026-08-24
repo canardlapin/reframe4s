@@ -16,6 +16,7 @@ import reframe4s.core.InverseResidual
 import reframe4s.core.InversionStatus
 import reframe4s.core.MapError
 import reframe4s.core.SpatialMap
+import reframe4s.core.SpatialDifferential
 import reframe4s.core.TopologyCertificate
 import reframe4s.core.TopologyCriteria
 import reframe4s.core.TopologyDiagnostics
@@ -68,6 +69,45 @@ final class MapLawsSuite extends munit.FunSuite:
     assert(rightMap(MapLaws.rightInverse(map, targetPoint, 1e-12)))
     assert(rightMap(MapLaws.leftIdentity(map, sourcePoint, 1e-12)))
     assert(rightMap(MapLaws.rightIdentity(map, sourcePoint, 1e-12)))
+
+  test("frame-refinement erasure preserves action and rejects a foreign live owner"):
+    val source = rightGeometry(Frame.named[D2]("erased-source"))
+    val target = rightGeometry(Frame.named[D2]("erased-target"))
+    val map = rightGeometry(
+      FramedAffine.translation(source, target)(3.0, -4.0)
+    )
+    val erased = SpatialMap.eraseFrameRefinements(map)
+    val erasedSource: Frame[D2] = erased.source
+    val raw = rightGeometry(Point.fromVector(erasedSource, Vector(1.5, 2.5)))
+    val alignment = rightGeometry(
+      Frame.alignOwners[D2, erasedSource.type, Frame[D2]](
+        erasedSource,
+        erasedSource
+      )
+    )
+    val point = rightGeometry(alignment.pointToRight(raw))
+    val result = rightMap(erased(point))
+
+    assert(erased.source eq source)
+    assert(erased.target eq target)
+    assert(result.frame eq target)
+    assertEquals(result.coordinates, Vector(4.5, -1.5))
+
+    val foreign = rightGeometry(Frame.named[D2]("erased-foreign"))
+    val foreignFrame: Frame[D2] = foreign
+    val foreignRaw = rightGeometry(
+      Point.fromVector(foreignFrame, Vector(1.5, 2.5))
+    )
+    val foreignAlignment = rightGeometry(
+      Frame.alignOwners[D2, foreignFrame.type, Frame[D2]](
+        foreignFrame,
+        foreignFrame
+      )
+    )
+    val foreignPoint = rightGeometry(foreignAlignment.pointToRight(foreignRaw))
+    erased(foreignPoint) match
+      case Left(_: MapError.SourceFrameMismatch) => ()
+      case other => fail(s"expected a typed source-owner failure, got $other")
 
   test("composition is associative across distinct framed endpoints"):
     val a = rightGeometry(Frame.named[D2]("a"))
@@ -170,6 +210,46 @@ final class MapLawsSuite extends munit.FunSuite:
           jet.differential(output, axis),
           1e-8
         )
+
+  test("provider numerical differential handles ordinary spatial maps and typed failures"):
+    val sourceFrame = rightGeometry(Frame.named[D2]("numeric-source"))
+    val targetFrame = rightGeometry(Frame.named[D2]("numeric-target"))
+    val map = new SpatialMap[sourceFrame.type, targetFrame.type, D2]:
+      val source: sourceFrame.type = sourceFrame
+      val target: targetFrame.type = targetFrame
+
+      def apply(
+          point: Point[sourceFrame.type, D2]
+      ): Either[MapError, Point[targetFrame.type, D2]] =
+        if point.coordinates(0) < 0.0 then
+          Left(MapError.OutsideDomain(point.coordinates))
+        else
+          Point
+            .in[D2](targetFrame)(
+              point.coordinates(0) * point.coordinates(0),
+              3.0 * point.coordinates(1)
+            )
+            .left
+            .map(MapError.Geometry.apply)
+
+    val point = rightGeometry(Point.in[D2](sourceFrame)(2.0, 1.5))
+    val jet = rightMap(
+      SpatialDifferential.centralDifference(map, point, step = 1e-5)
+    )
+    assertEqualsDouble(jet.value.coordinates(0), 4.0, 1e-12)
+    assertEqualsDouble(jet.differential(0, 0), 4.0, 1e-8)
+    assertEqualsDouble(jet.differential(0, 1), 0.0, 1e-8)
+    assertEqualsDouble(jet.differential(1, 0), 0.0, 1e-8)
+    assertEqualsDouble(jet.differential(1, 1), 3.0, 1e-8)
+
+    assertEquals(
+      SpatialDifferential.centralDifference(map, point, step = 0.0).left.toOption,
+      Some(MapError.InvalidFiniteDifferenceStep(0.0))
+    )
+    val boundary = rightGeometry(Point.in[D2](sourceFrame)(1e-6, 0.0))
+    SpatialDifferential.centralDifference(map, boundary, step = 1e-5) match
+      case Left(MapError.OutsideDomain(_)) => ()
+      case other => fail(s"expected map domain failure, got $other")
 
   test("oblique D3 affine Jacobian agrees with a finite difference"):
     val source = rightGeometry(Frame.named[D3]("source-3d"))
