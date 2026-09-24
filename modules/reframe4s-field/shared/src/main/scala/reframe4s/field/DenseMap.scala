@@ -209,6 +209,25 @@ final class DenseMap[
       component += 1
     failure.toLeft(values.result() -> covered)
 
+  /** Allocation-free linear evaluation for hot loops, present only when
+    * this map interpolates linearly. It reproduces `applyWithCoverage`
+    * arithmetic exactly.
+    */
+  private[field] lazy val linearSampler: Option[LinearCoordinateSampler] =
+    if interpolation != Interpolation.Linear then None
+    else
+      val rank = dimension.rank
+      val values = new Array[Double](coordinates.data.size)
+      var flat = 0
+      coordinates.data.foreachElement: value =>
+        values(flat) = value
+        flat += 1
+      val inverse = grid.indexToFrame.inverse.matrix
+      val frameToIndex = Array.tabulate(rank * (rank + 1))(entry =>
+        inverse(entry / (rank + 1), entry % (rank + 1))
+      )
+      Some(new LinearCoordinateSampler(rank, grid.shape.toArray, values, frameToIndex, boundary))
+
   private def componentBoundary(
       point: Point[From, D],
       component: Int
@@ -299,3 +318,80 @@ object DenseMap:
             FieldError.NonFiniteBoundaryCoordinate(component, value)
         }.toLeft(())
       case _ => Right(())
+
+/** Primitive linear sampler over a dense map's absolute coordinates. */
+private[field] final class LinearCoordinateSampler(
+    rank: Int,
+    shape: Array[Int],
+    values: Array[Double],
+    frameToIndex: Array[Double],
+    boundary: CoordinateBoundaryPolicy
+):
+  private val continuous = new Array[Double](rank)
+  private val lower = new Array[Int](rank)
+  private val fraction = new Array[Double](rank)
+
+  /** Evaluate at physical `point` into `out`. Returns `None` when the
+    * `Reject` policy rejects the point, otherwise its support outcome.
+    * Not thread-safe: the sampler owns scratch arrays.
+    */
+  def sample(point: Array[Double], out: Array[Double]): Option[SupportOutcome] =
+    var row = 0
+    var finite = true
+    while row < rank do
+      var sum = frameToIndex(row * (rank + 1) + rank)
+      var column = 0
+      while column < rank do
+        sum += frameToIndex(row * (rank + 1) + column) * point(column)
+        column += 1
+      finite = finite && sum.isFinite
+      continuous(row) = sum
+      lower(row) = math.floor(sum).toInt
+      fraction(row) = sum - lower(row)
+      row += 1
+    if !finite then None
+    else
+      java.util.Arrays.fill(out, 0.0)
+      var insideWeight = 0.0
+      var rejected = false
+      var corner = 0
+      while corner < (1 << rank) && !rejected do
+        var weight = 1.0
+        var inside = true
+        var linear = 0
+        var axis = 0
+        while axis < rank do
+          val upper = ((corner >> axis) & 1) == 1
+          weight *= (if upper then fraction(axis) else 1.0 - fraction(axis))
+          val index = lower(axis) + (if upper then 1 else 0)
+          inside = inside && index >= 0 && index < shape(axis)
+          linear = linear * shape(axis) + index
+          axis += 1
+        if weight > 0.0 then
+          if inside then
+            var component = 0
+            while component < rank do
+              out(component) += weight * values(linear * rank + component)
+              component += 1
+            insideWeight += weight
+          else
+            boundary match
+              case CoordinateBoundaryPolicy.Reject => rejected = true
+              case CoordinateBoundaryPolicy.Constant(fill) =>
+                var component = 0
+                while component < rank do
+                  out(component) += weight * fill(component)
+                  component += 1
+              case CoordinateBoundaryPolicy.PreserveSource =>
+                var component = 0
+                while component < rank do
+                  out(component) += weight * point(component)
+                  component += 1
+        corner += 1
+      if rejected then None
+      else if insideWeight >= 1.0 - 1e-12 then Some(SupportOutcome.Covered)
+      else
+        boundary match
+          case CoordinateBoundaryPolicy.PreserveSource =>
+            Some(SupportOutcome.SourcePreserved)
+          case _ => Some(SupportOutcome.ConstantFilled)
