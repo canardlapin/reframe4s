@@ -4,6 +4,7 @@ import image4s.BoundaryPolicy
 import image4s.Continuous
 import image4s.ContinuousImage
 import image4s.SampleSpace
+import image4s.Validity
 import ravel.AnyRank
 import reframe4s.core.MapError
 import reframe4s.core.FrameErasedMap
@@ -27,6 +28,106 @@ enum CoordinateBoundaryPolicy derives CanEqual:
   case Constant(coordinates: Vector[Double])
   case PreserveSource
 
+/** How one successful map evaluation related to the map's sampled support.
+  *
+  * A rejected evaluation is not an outcome: it is `MapError.OutsideDomain`.
+  */
+enum SupportOutcome derives CanEqual:
+  case Covered
+  case ConstantFilled
+  case SourcePreserved
+
+final case class CoveredPoint[F <: Frame[D], D <: Dim](
+    point: Point[F, D],
+    outcome: SupportOutcome
+)
+
+/** A spatial map that states, per evaluation, whether its boundary policy
+  * supplied the result. Composition reports the first stage that left its
+  * support, so filled values are never mistaken for sampled ones.
+  */
+trait CoverageReportingMap[
+    From <: Frame[D],
+    To <: Frame[D],
+    D <: Dim
+] extends SpatialMap[From, To, D]:
+  def applyWithCoverage(
+      point: Point[From, D]
+  ): Either[MapError, CoveredPoint[To, D]]
+
+  def apply(point: Point[From, D]): Either[MapError, Point[To, D]] =
+    applyWithCoverage(point).map(_.point)
+
+object CoverageReportingMap:
+  /** Use a map's own coverage report, or treat every successful evaluation
+    * of an ordinary map as covered.
+    */
+  def lift[From <: Frame[D], To <: Frame[D], D <: Dim](
+      map: SpatialMap[From, To, D]
+  ): CoverageReportingMap[From, To, D] =
+    map match
+      case reporting: CoverageReportingMap[From, To, D] @unchecked =>
+        reporting
+      case _ =>
+        new ExactlyCovered(map)
+
+  def compose[
+      A <: Frame[D],
+      B <: Frame[D],
+      C <: Frame[D],
+      D <: Dim
+  ](
+      first: SpatialMap[A, B, D],
+      second: SpatialMap[B, C, D]
+  )(using Dimension[D]): CoverageReportingMap[A, C, D] =
+    new Composite(lift(first), lift(second))
+
+  private final class ExactlyCovered[
+      From <: Frame[D],
+      To <: Frame[D],
+      D <: Dim
+  ](map: SpatialMap[From, To, D])
+      extends CoverageReportingMap[From, To, D]:
+    val source: From = map.source
+    val target: To = map.target
+
+    def applyWithCoverage(
+        point: Point[From, D]
+    ): Either[MapError, CoveredPoint[To, D]] =
+      map(point).map(CoveredPoint(_, SupportOutcome.Covered))
+
+  private final class Composite[
+      A <: Frame[D],
+      B <: Frame[D],
+      C <: Frame[D],
+      D <: Dim
+  ](
+      first: CoverageReportingMap[A, B, D],
+      second: CoverageReportingMap[B, C, D]
+  )(using Dimension[D]) extends CoverageReportingMap[A, C, D]:
+    val source: A = first.source
+    val target: C = second.target
+
+    def applyWithCoverage(
+        point: Point[A, D]
+    ): Either[MapError, CoveredPoint[C, D]] =
+      for
+        _ <- SpatialMap.validateSourcePoint(source, point)
+        intermediate <- first.applyWithCoverage(point)
+        _ <- SpatialMap.validateResultPoint(first.target, intermediate.point)
+        rebound <- Frame
+          .alignOwners[D, B, B](first.target, second.source)
+          .flatMap(_.pointToRight(intermediate.point))
+          .left
+          .map(MapError.Geometry.apply)
+        result <- second.applyWithCoverage(rebound)
+        _ <- SpatialMap.validateResultPoint(target, result.point)
+      yield CoveredPoint(
+        result.point,
+        if intermediate.outcome == SupportOutcome.Covered then result.outcome
+        else intermediate.outcome
+      )
+
 /** An absolute target-coordinate field sampled on a source-frame grid.
   *
   * This is an ordinary spatial map. Piecewise interpolation and finite
@@ -47,14 +148,21 @@ final class DenseMap[
     val interpolation: Interpolation[Continuous],
     val boundary: CoordinateBoundaryPolicy
 )(using private val dimension: Dimension[D])
-    extends SpatialMap[From, To, D]:
+    extends CoverageReportingMap[From, To, D]:
   val source: From = coordinates.frame
   val grid = coordinates.grid
 
-  def apply(point: Point[From, D]): Either[MapError, Point[To, D]] =
+  /** Evaluate and report whether the boundary policy contributed. With
+    * `Reject` every success is covered; `Constant` and `PreserveSource`
+    * report any evaluation whose stencil reached outside the samples.
+    */
+  def applyWithCoverage(
+      point: Point[From, D]
+  ): Either[MapError, CoveredPoint[To, D]] =
     for
       _ <- SpatialMap.validateSourcePoint(source, point)
-      values <- interpolate(point)
+      interpolated <- interpolate(point)
+      (values, covered) = interpolated
       result <- Point
         .fromVector(target, values)
         .left
@@ -67,12 +175,22 @@ final class DenseMap[
         .pointToRight(result)
         .left
         .map(MapError.Geometry.apply)
-    yield rebound
+    yield CoveredPoint(rebound, outcome(covered))
+
+  private def outcome(covered: Boolean): SupportOutcome =
+    if covered then SupportOutcome.Covered
+    else
+      boundary match
+        case CoordinateBoundaryPolicy.PreserveSource =>
+          SupportOutcome.SourcePreserved
+        case _ =>
+          SupportOutcome.ConstantFilled
 
   private def interpolate(
       point: Point[From, D]
-  ): Either[MapError, Vector[Double]] =
+  ): Either[MapError, (Vector[Double], Boolean)] =
     val values = Vector.newBuilder[Double]
+    var covered = true
     var component = 0
     var failure = Option.empty[MapError]
     while component < dimension.rank && failure.isEmpty do
@@ -83,11 +201,13 @@ final class DenseMap[
         interpolation,
         componentBoundary(point, component)
       ) match
-        case Right(sample) => values += sample.value
+        case Right(sample) =>
+          values += sample.value
+          covered = covered && sample.validity == Validity.Full
         case Left(_) =>
           failure = Some(MapError.OutsideDomain(point.coordinates))
       component += 1
-    failure.toLeft(values.result())
+    failure.toLeft(values.result() -> covered)
 
   private def componentBoundary(
       point: Point[From, D],
@@ -165,7 +285,7 @@ object DenseMap:
       boundary
     )
 
-  private def validateBoundary(
+  private[field] def validateBoundary(
       boundary: CoordinateBoundaryPolicy,
       rank: Int
   ): Either[FieldError, Unit] =
