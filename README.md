@@ -18,7 +18,7 @@ cross-repository DAG in `PRD.json`.
 | Default bundle | `reframe4s` | stable browser-safe runtime artifacts through transitive dependencies |
 | Maps | `reframe4s-core` | spatial maps, jets, exact inverses, numerical evidence |
 | Lie transforms | `reframe4s-lie` | framed affine and validated rigid SE(3) transforms |
-| Dense fields | `reframe4s-field` | canonical component storage, displacement, velocity, momentum, and scoped topology assessment |
+| Dense fields | `reframe4s-field` | canonical component storage, displacement, velocity, momentum, tensor-product B-spline fields, coverage-reporting composition to a lattice, determinant and log-determinant fields, numerical inversion evidence, and scoped topology assessment |
 | Flow | `reframe4s-flow` | explicit stationary-velocity integration with typed diagnostics |
 | Transform graph | `reframe4s-graph` | immutable keyed routing with exact-only automatic reversal |
 | Multiscale | `reframe4s-multiscale` | endpoint-preserving grid towers and typed level continuation |
@@ -52,6 +52,9 @@ The public contracts are intentionally strict:
   therefore requires a target-to-source map.
 - Only an analytic lawful inverse implements `SmoothIso`. Numerical inversion
   returns evidence values that cannot be used as exact isomorphisms.
+  `NumericalInversion.invert` returns an `InverseEstimate` with per-point
+  status, coverage and two-directional residual evidence, or a typed gate
+  failure carrying that evidence.
 - Scalar, label, and series image names are aliases of `Sampled`, not additional
   containers.
 - Logical image access is `(i,j[,k][,t...])` regardless of Ravel layout. In D3,
@@ -95,7 +98,9 @@ continuous `Double` images and integral categorical label images. A plan require
 for scalar fields, while the integral-only nearest plan accepts labels. Every run
 requires an explicit workspace and returns both the sampled image and a
 full/partial/outside validity mask. D2 data may have total rank 2–4, and D3 data
-may have total rank 3–4. `image4s-reference` remains the independent
+may have total rank 3–4. `ModulatedResamplingPlan` scales a continuous pull by
+`|det D phi|` (`Jacobian`, which preserves a density's integral) or its square
+root (`SqrtJacobian`, which preserves the squared L2 norm). `image4s-reference` remains the independent
 correctness oracle.
 
 The build pins Ravel
