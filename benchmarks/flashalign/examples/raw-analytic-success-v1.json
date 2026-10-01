@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "analytic-schema-example",
+  "case_id": "analytic-pair",
+  "subject_id": "synthetic-subject-1",
+  "cohort": "ordinary-same-subject",
+  "method": {
+    "id": "flashalign-rigid",
+    "model": "rigid",
+    "revision": "example-only",
+    "comparator_command": null,
+    "comparator_version": null
+  },
+  "inputs": {
+    "moving": "1111111111111111111111111111111111111111111111111111111111111111",
+    "fixed": "2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "provenance": {
+    "moving": {
+      "path": "moving.synthetic",
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "provenance": "independent analytic phantom v1",
+      "license": "Apache-2.0"
+    },
+    "fixed": {
+      "path": "fixed.synthetic",
+      "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "provenance": "independent analytic phantom v1",
+      "license": "Apache-2.0"
+    }
+  },
+  "configuration": {
+    "method": "3333333333333333333333333333333333333333333333333333333333333333",
+    "sample_ids": "4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "environment": {
+    "os": "example-os",
+    "cpu": "example-cpu",
+    "jdk": "example-jdk",
+    "threads": 1
+  },
+  "initialization": {
+    "id": "identity-v1",
+    "moving_to_fixed": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    "sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+  },
+  "outcome": {
+    "status": "success",
+    "accepted": true,
+    "failure_detail": null
+  },
+  "result": {
+    "moving_to_fixed": [1, 0, 0, 2, 0, 1, 0, -1, 0, 0, 1, 0.5, 0, 0, 0, 1],
+    "sha256": "6666666666666666666666666666666666666666666666666666666666666666"
+  },
+  "metrics": {
+    "landmark_rms_mm": 0,
+    "landmark_p95_mm": 0,
+    "landmark_max_mm": 0,
+    "candidate_projected_patch_loss": 1.25
+  },
+  "work": {
+    "unique_interpolations": 2700,
+    "gradient_evaluations": 2700,
+    "linearizations": 3,
+    "trial_evaluations": 5,
+    "rejected_trials": 2,
+    "early_rejections": 1,
+    "curvature_products": 0
+  },
+  "timing_ms": {
+    "read": 2.0,
+    "decompress": 4.0,
+    "prepare": 5.0,
+    "capture": 3.0,
+    "optimize": 15.0,
+    "validate": 4.0,
+    "output": 2.0,
+    "total": 35.0
+  }
+}

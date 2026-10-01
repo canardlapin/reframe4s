@@ -1,0 +1,91 @@
+{
+  "artifacts": {
+    "development_fixture_manifest": {
+      "path": "benchmarks/flashalign/manifests/development-fixtures-v1.json",
+      "sha256": "cb30cd1ed1a0b351a245f9b0d9e774c7e6af10f123058fe765822fed70968afb"
+    },
+    "extension_check_results": {
+      "path": "docs/plans/flashalign/flashalign_extension_check_results.json",
+      "sha256": "bf730a8b16cd600c486fb0f9befeda38c93dd8e731da24964cf35e0fc9392074"
+    },
+    "implementation_prd": {
+      "path": "docs/plans/flashalign-implementation-prd.md",
+      "sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929"
+    },
+    "model_selection_source": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/NonlinearModelSelection.scala",
+      "sha256": "eba7acf2708efda324b74b2141ef0717b479778933719477dc44a9424d183b0b"
+    },
+    "model_selection_tests": {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/NonlinearModelSelectionSuite.scala",
+      "sha256": "2d97da617843c0804e186dc3790144356ec421886100115704bfce832f0fdcd7"
+    }
+  },
+  "claim_boundary": "Proposed engineering thresholds supported by analytic and deterministic synthetic checks only. This manifest does not establish MRI accuracy, nonlinear benefit, runtime, or release admission.",
+  "manifest_id": "flashalign-nonlinear-preset-training-v1",
+  "model_order": [
+    "validated-rigid-or-affine",
+    "pe-field-64",
+    "small-strain-96",
+    "adaptive-local-refinement"
+  ],
+  "roles": {
+    "all_roles_subject_disjoint": true,
+    "audit": {
+      "id": "fa-nonlinear-sealed-audit-v1",
+      "sample_ids": [
+        "fa-nonlinear-audit-01",
+        "fa-nonlinear-audit-02",
+        "fa-nonlinear-audit-03",
+        "fa-nonlinear-audit-04",
+        "fa-nonlinear-audit-05",
+        "fa-nonlinear-audit-06",
+        "fa-nonlinear-audit-07",
+        "fa-nonlinear-audit-08",
+        "fa-nonlinear-audit-09",
+        "fa-nonlinear-audit-10",
+        "fa-nonlinear-audit-11",
+        "fa-nonlinear-audit-12"
+      ],
+      "sample_ids_sha256": "050bd2b8427a7872bc1e75f72ed73615affbbd4cc46437574200b1273988c088",
+      "status": "reserved-unopened-role"
+    },
+    "optimization": {
+      "id": "fa-nonlinear-train-opt-v1",
+      "sample_ids": [
+        "pose-field-schur-v1",
+        "prior-scaling-v1",
+        "rank-nullspace-v1"
+      ],
+      "sample_ids_sha256": "0518f91340820ef322f6e52caf467eb357303921ced356be7331aa3cb43f04a6",
+      "status": "open-analytic-training-input"
+    },
+    "sample_id_hash_encoding": "UTF-8 LF-joined sorted IDs with trailing LF",
+    "selection": {
+      "id": "fa-nonlinear-train-selection-v1",
+      "sample_ids": [
+        "prior-controlled-fallback-v1",
+        "role-separation-v1",
+        "smallest-supported-v1"
+      ],
+      "sample_ids_sha256": "bc8b39e59a8dd8c3034272f45d25f916aa407aeb5ccee8d83ed20ef9eb5b6bc8",
+      "status": "open-analytic-training-input"
+    },
+    "subject_split_id": "flashalign-nonlinear-analytic-subject-split-v1",
+    "unit": "analytic-fixture-family"
+  },
+  "schema_version": "1.0.0",
+  "seed": 20260912,
+  "status": "engineering-thresholds-frozen-audit-unopened",
+  "thresholds": {
+    "allow_partial_support": false,
+    "maximum_regional_instability_mm": 1.0,
+    "minimum_conditional_data_rank": 2,
+    "minimum_effective_dimension": 0.5,
+    "minimum_maximum_prior_relative_information": 0.25,
+    "minimum_predicted_residual_reduction": 0.1,
+    "minimum_regional_support_fraction": 0.75,
+    "minimum_selection_improvement": 0.05,
+    "simpler_fallback_model_id": "validated-rigid-or-affine"
+  }
+}

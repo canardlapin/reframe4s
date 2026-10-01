@@ -32,6 +32,13 @@ with another registration package.
 
 ## Current evidence
 
+The canonical inventory of acquired-image runs is the
+[real-world registration registry](benchmarks/real-world-registration.md).
+It separates stage smoke tests, negative diagnostics, external HodgeFlow
+results, and admission evidence. The zero below means zero pairs satisfy this
+ledger's complete admission contract; it does not mean that no acquired image
+has ever been processed.
+
 | Field | Current value |
 |---|---|
 | implementation | reframe4s concrete forward-midpoint/HalfFlow CC engine |
@@ -42,10 +49,9 @@ with another registration package.
 | stable export admitted | no |
 
 The checked-in fixtures migrated from ScalaFIM are synthetic local-refinement
-evidence and remain versioned independently of the implementation. The
-2 mm case is admitted by the extant export checks; the 4, 8, and 12 mm cases
-exercise typed topology rejection. That is useful algorithm-development
-evidence but does not satisfy the anatomical threshold above.
+evidence and remain versioned independently of the implementation. Their exact
+current pass/failure accounting belongs to the corresponding frozen receipts;
+regardless of outcome, they do not satisfy the anatomical threshold above.
 
 The complete engine, controls, kernels, utilities, fixtures, shared law suites,
 platform probes, and JMH benchmarks now live in this repository. The shared

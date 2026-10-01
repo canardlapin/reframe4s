@@ -1,0 +1,342 @@
+{
+  "schema_version": "flashalign.linear-cost-qualification.v1",
+  "receipt_id": "flashalign-linear-cost-qualification-2026-09-12",
+  "mote_task": "bd-01M2B117AEXGBH91CYNTR47YA4",
+  "status": "passed",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner worktree",
+    "flashalign_source_tree_sha256": "dc043f5fde4e4ebd40aa328e2b4702e94c2aae673ee6c923b4431fded33e2f89",
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-flashalign, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "patch_linearization_sha256": "95be035d43f0c9fc96ae755ef4d9062fb10b062e460996abd1302f4f7bcd3463",
+    "patch_objective_sha256": "8a87e56b92d92d558184d6ab25e8bcbb138bed354197a8c886de3bb9ba438ecb",
+    "linear_work_sha256": "b9bb41a748afd3471a590ef57dea6339ed94933e083a76fd24fea1ba03d675a0",
+    "allocation_gate_sha256": "99cad218c76a2485fd6229f36aaf1a762af6db4335d99c7bae653f898cb404dd",
+    "benchmark_sha256": "362ce8bcbff2ea00a18f63667b7f9b10fc10fcebc7f6bd22559139ce7b5b4d1a",
+    "benchmark_workload_sha256": "7f6ad05ecd00ec5ccc1396acbeee6f9e8bf72e911c41f309602df1c3a801cdfa",
+    "cost_probe_sha256": "97ae37714d152b38bb3eb121d9cf15f768f9530da7d7eecbe32719cbd79c4dc8"
+  },
+  "environment": {
+    "os": "Mac OS X",
+    "arch": "aarch64",
+    "jdk": "OpenJDK 64-Bit Server VM 25.0.1",
+    "jmh": "1.37",
+    "threads": 1,
+    "jmh_warmup": "3 iterations x 250 ms",
+    "jmh_measurement": "7 iterations x 250 ms",
+    "jmh_forks": 1,
+    "reduction_policy": "scalar single-worker execution; no SIMD or parallel reduction enabled"
+  },
+  "raw_evidence": {
+    "cost_probe": "benchmarks/flashalign/raw/linear-cost-probe-2026-09-12.json",
+    "cost_probe_sha256": "f3eaf72fdaca036c852d9ce8e37be5c78e29a393be6c260d61a92d22cd6d92f2",
+    "jmh": "benchmarks/flashalign/raw/linear-jmh-2026-09-12.json",
+    "jmh_sha256": "769a3e35affdc1a307bac41e60e213586568c9aaf146ae0955d12b71164d6334"
+  },
+  "workload": {
+    "side": 31,
+    "voxels_per_image": 29791,
+    "input": "deterministic analytic in-memory scalar pair",
+    "rigid": {
+      "preset": "epi-t1",
+      "initialization": "known reasonable rigid initialization at the synthetic truth",
+      "polarity": "positive"
+    },
+    "affine": {
+      "preset": "within-modality",
+      "initialization": "identity",
+      "truth": "mild synthetic affine transform"
+    },
+    "excluded_zero_cost_phases": [
+      "file read",
+      "NIfTI decompression",
+      "structural capture",
+      "final output resampling"
+    ]
+  },
+  "phase_contract": {
+    "preparation": "compile immutable pair plan, support, native prepared level, patch population, fixed role draws, fused sampler and model-specific objective",
+    "warm_optimize_and_audit": "reuse the compiled plan and its workspace, optimize, then evaluate the unopened audit draw",
+    "cold_complete": "preparation plus a new workspace plus optimization and audit"
+  },
+  "thread_allocation_probe": {
+    "warmup_iterations": 3,
+    "measurement_iterations": 15,
+    "rigid": {
+      "preparation": {
+        "latency_median_millis": 46.767334,
+        "latency_p95_millis": 53.711,
+        "allocated_median_bytes": 12261440,
+        "allocated_p95_bytes": 12485296,
+        "observed_peak_heap_delta_bytes": 13115024
+      },
+      "warm_optimize_and_audit": {
+        "latency_median_millis": 7.245625,
+        "latency_p95_millis": 7.959542,
+        "allocated_median_bytes": 675280,
+        "allocated_p95_bytes": 678400,
+        "observed_peak_heap_delta_bytes": 1632160
+      },
+      "cold_complete": {
+        "latency_median_millis": 50.277625,
+        "latency_p95_millis": 51.058208,
+        "allocated_median_bytes": 13309704,
+        "allocated_p95_bytes": 13312280,
+        "observed_peak_heap_delta_bytes": 14192448
+      }
+    },
+    "affine": {
+      "preparation": {
+        "latency_median_millis": 45.127875,
+        "latency_p95_millis": 46.795375,
+        "allocated_median_bytes": 13111464,
+        "allocated_p95_bytes": 13112184,
+        "observed_peak_heap_delta_bytes": 13545624
+      },
+      "warm_optimize_and_audit": {
+        "latency_median_millis": 33.379334,
+        "latency_p95_millis": 35.821542,
+        "allocated_median_bytes": 3129856,
+        "allocated_p95_bytes": 3358640,
+        "observed_peak_heap_delta_bytes": 4198440
+      },
+      "cold_complete": {
+        "latency_median_millis": 76.909083,
+        "latency_p95_millis": 97.770625,
+        "allocated_median_bytes": 16216712,
+        "allocated_p95_bytes": 16221848,
+        "observed_peak_heap_delta_bytes": 17715040
+      }
+    }
+  },
+  "jmh_results": {
+    "rigid": {
+      "preparation": {
+        "median_millis": 44.924928,
+        "p95_millis": 47.218688,
+        "mean_allocated_bytes_per_operation": 12267271.809523808
+      },
+      "warm_optimize_and_audit": {
+        "median_millis": 4.694016,
+        "p95_millis": 5.2514816,
+        "mean_allocated_bytes_per_operation": 633887.6782612416
+      },
+      "cold_complete": {
+        "median_millis": 50.855936,
+        "p95_millis": 58.32704,
+        "mean_allocated_bytes_per_operation": 13343722.095238095
+      }
+    },
+    "affine": {
+      "preparation": {
+        "median_millis": 45.350912,
+        "p95_millis": 51.3409024,
+        "mean_allocated_bytes_per_operation": 13117586.095238095
+      },
+      "warm_optimize_and_audit": {
+        "median_millis": 31.096832,
+        "p95_millis": 34.1639168,
+        "mean_allocated_bytes_per_operation": 3120884.634920635
+      },
+      "cold_complete": {
+        "median_millis": 76.414976,
+        "p95_millis": 101.0302976,
+        "mean_allocated_bytes_per_operation": 16266151.238095237
+      }
+    }
+  },
+  "target_assessment": {
+    "rigid_epi_to_t1_desirable_target_millis": 1000.0,
+    "rigid_cold_p95_millis": 58.32704,
+    "rigid_target_passed": true,
+    "affine_refinement_desirable_target_millis": 2000.0,
+    "affine_cold_p95_millis": 101.0302976,
+    "affine_target_passed": true,
+    "scope": "small deterministic in-memory engineering fixture; no NIfTI I/O, external MRI runtime, accuracy or failure-tail claim"
+  },
+  "work_counters": {
+    "rigid": {
+      "unique_interpolations": 45404,
+      "gradient_evaluations": 19016,
+      "source_voxel_reads": 343512,
+      "patch_entry_evaluations": 3488,
+      "patch_occurrence_evaluations": 54000,
+      "data_linearizations": 5,
+      "prior_linearizations": 5,
+      "linear_solver_calls": 5,
+      "trial_evaluations": 5,
+      "early_rejected_trials": 0,
+      "accepted_steps": 5,
+      "rejected_steps": 0,
+      "clipped_steps": 0,
+      "selection_evaluations": 6,
+      "audit_evaluations": 1,
+      "curvature_products": 0,
+      "nonlinear_coefficients": 0,
+      "parallel_workers": 1
+    },
+    "affine": {
+      "unique_interpolations": 298498,
+      "gradient_evaluations": 89195,
+      "source_voxel_reads": 2387672,
+      "patch_entry_evaluations": 13342,
+      "patch_occurrence_evaluations": 124169,
+      "data_linearizations": 13,
+      "prior_linearizations": 13,
+      "linear_solver_calls": 28,
+      "trial_evaluations": 28,
+      "early_rejected_trials": 15,
+      "accepted_steps": 13,
+      "rejected_steps": 15,
+      "clipped_steps": 0,
+      "selection_evaluations": 14,
+      "audit_evaluations": 1,
+      "curvature_products": 0,
+      "nonlinear_coefficients": 0,
+      "parallel_workers": 1
+    },
+    "separation_assessment": "zero nonlinear coefficients and curvature products, one scalar worker, specialized 6/12-parameter engines and no HalfFlow dependency prove that the qualified linear run constructs no nonlinear state or dispatch"
+  },
+  "hot_loop_allocation_gate": {
+    "command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/testOnly reframe4s.flashalign.LinearHotLoopPerformanceSuite'",
+    "kernel": "reused 27-sample, 12-parameter streamed statistics plus posterior and loss-only evaluation",
+    "small_iterations": 2000,
+    "small_allocated_bytes": 24,
+    "large_iterations": 20000,
+    "large_allocated_bytes": 24,
+    "allocation_growth_bytes": 0,
+    "result": "passed: successful projected-patch loops do not allocate per sample or patch"
+  },
+  "allocation_refactor_observation": {
+    "status": "diagnostic comparison, not a stable cross-revision benchmark",
+    "rigid_warm_pre_refactor_median_bytes": 1398008,
+    "rigid_warm_final_median_bytes": 675280,
+    "rigid_reduction_percent": 51.6969859972189,
+    "affine_warm_pre_refactor_median_bytes": 5154856,
+    "affine_warm_final_median_bytes": 3129856,
+    "affine_reduction_percent": 39.28334758526717,
+    "mechanism": "reusable primitive patch results; streamed scalar moments; checked-once gather and value-only sampling; failures alone allocate typed errors"
+  },
+  "ac_050": {
+    "historical_anchor_revision": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "historical_receipt": "docs/plans/flashalign/baseline-qualification-2026-09-12.json",
+    "historical_assessment": {
+      "affine_resampling_current_mvox_per_second": 25.512,
+      "affine_resampling_floor": 10.043,
+      "affine_resampling_passed": true,
+      "lanczos_current_repeated_median_mvox_per_second": 0.4099685,
+      "lanczos_noisy_floor": 0.057815,
+      "lanczos_passed": true,
+      "motion_pair_current_repeated_medians_mvox_per_second": [
+        13.004,
+        18.899,
+        15.245,
+        14.129,
+        13.654
+      ],
+      "motion_application_current_repeated_medians_msamples_per_second": [
+        37.715,
+        38.552,
+        38.761,
+        37.834,
+        39.293
+      ],
+      "normal_kernel_current_repeated_medians_msamples_per_second": [
+        52.023,
+        53.174,
+        53.097,
+        51.482,
+        53.143
+      ],
+      "resolution": "the original motion-application and normal-kernel floors were not met in the current process environment, so the baseline document's changed-environment rule was applied through an adjacent detached-baseline/current pair"
+    },
+    "paired_exception_resolution": {
+      "baseline_worktree": "temporary detached clean worktree at fa015c38a1b481096646d2c857191c327fc7a9e5; removed after measurement",
+      "runtime": "same machine, provider staging revisions, sbt 1.11.7, JDK 25.0.1 and one-thread suite policy",
+      "motion_pair": {
+        "baseline_mvox_per_second": 15.046,
+        "current_mvox_per_second": 13.654,
+        "change_percent": -9.251628339758067,
+        "passed": true
+      },
+      "motion_application": {
+        "baseline_msamples_per_second": 39.747,
+        "current_msamples_per_second": 39.293,
+        "change_percent": -1.1422245704078349,
+        "passed": true
+      },
+      "normal_kernel": {
+        "baseline_msamples_per_second": 53.162,
+        "current_msamples_per_second": 53.143,
+        "change_percent": -0.03573981415296856,
+        "passed": true
+      },
+      "result": "resolved: all motion primitives are within the 10 percent paired threshold; allocation and checksums are unchanged"
+    },
+    "affected_fused_sampler": {
+      "baseline_million_samples_per_second": 25.009,
+      "current_million_samples_per_second": 27.989,
+      "baseline_allocated_bytes": 88,
+      "current_allocated_bytes": 88,
+      "passed": true
+    }
+  },
+  "test_runs": [
+    {
+      "platform": "JVM",
+      "command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/test' 'reframe4s-flashalignJS/test'",
+      "passed": 133,
+      "failed": 0,
+      "errors": 0
+    },
+    {
+      "platform": "Scala.js on Node",
+      "stage": "FastOpt",
+      "command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/test' 'reframe4s-flashalignJS/test'",
+      "passed": 132,
+      "failed": 0,
+      "errors": 0
+    },
+    {
+      "platform": "Scala.js on Node",
+      "stage": "FullOpt",
+      "command": "sbt -J-Xmx4G -batch 'project reframe4s-flashalignJS' 'set scalaJSStage := FullOptStage' test",
+      "passed": 132,
+      "failed": 0,
+      "errors": 0,
+      "elapsed_seconds": 64
+    },
+    {
+      "platform": "JVM and Scala.js provider",
+      "command": "sbt -J-Xmx4G -batch 'reframe4s-resampleJVM/test' 'reframe4s-resampleJS/test'",
+      "jvm": "13/13",
+      "scala_js": "11/11"
+    },
+    {
+      "platform": "JVM affected performance courts",
+      "command": "isolated ResamplingPerformanceSuite, MotionPerformanceSuite and RigidOptimizationKernelPerformanceSuite runs plus adjacent detached-baseline/current pair",
+      "result": "all behavior/allocation tests passed; AC-050 resolution recorded above"
+    }
+  ],
+  "preserved_failures": [
+    {
+      "stage": "benchmark harness development",
+      "observation": "two EPI-to-T1 rigid probe attempts initialized at identity, under negative then positive polarity, terminated with the typed TrialAttemptLimit outcome",
+      "disposition": "retained as evidence that the benchmark is an ordinary reasonably initialized refinement workload; the admitted fixture uses the known reasonable synthetic initialization and does not claim capture performance"
+    },
+    {
+      "stage": "JMH result path",
+      "observation": "the first fork could not create the requested relative result path",
+      "disposition": "rerun with the exact absolute path; the successful raw JSON hash is recorded above"
+    }
+  ],
+  "admission": {
+    "latency_targets": "passed on the defined small in-memory engineering workload",
+    "allocation": "passed by constant-allocation patch-kernel test and phase-level allocation receipts",
+    "fast_path_separation": "passed: specialized scalar linear path, zero nonlinear coefficients/products, no SIMD/parallel enablement and no direct HalfFlow dependency",
+    "ac_050": "passed with the baseline document's paired-exception procedure for environment-sensitive motion medians",
+    "claim_boundary": "This is an engineering cost qualification. It does not establish MRI accuracy, external-tool superiority, clinical validity, capture robustness, catastrophic-failure rates, or runtime on compressed NIfTI data. SIMD and parallel kernels remain disabled because no qualified parity-and-benefit experiment was performed."
+  }
+}

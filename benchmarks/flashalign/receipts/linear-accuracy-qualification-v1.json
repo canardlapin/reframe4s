@@ -1,0 +1,697 @@
+{
+  "mote_task": "bd-01M2B117EC1FBBF37Y3V0VKHQY",
+  "manifest": {
+    "path": "benchmarks/flashalign/manifests/linear-accuracy-audit-v1.json",
+    "sha256": "d81e70c00a6a2920e70f1153aec534bf7b20327726e0dac97f91513a4909b2f9"
+  },
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "audited_flashalign_source_tree_sha256": "dc043f5fde4e4ebd40aa328e2b4702e94c2aae673ee6c923b4431fded33e2f89",
+    "post_audit_status": "The audited candidate is frozen in the raw evidence. The audit exposed cancellation handling defects; the working tree now contains an explicit-J fallback correction that is outside this audit and has no accuracy claim."
+  },
+  "comparator": {
+    "name": "3dAllineate",
+    "version": "AFNI_26.1.04 (Jun 2 2026) [64-bit]",
+    "container": "afni/afni_make_build@sha256:6bc2b04e92e0874d7cf252006be35f2671438904c233f844633c40a8fc7cf9bf",
+    "successes": 32,
+    "attempts": 32
+  },
+  "cohort_results": [
+    {
+      "catastrophic_rate": 0.0,
+      "cohort": "dropout-or-low-signal",
+      "denominator": 4,
+      "failures": [],
+      "median_adjudicated_rms_mm": 1.8810053372411564,
+      "method": "3dAllineate",
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 2.990193822922705,
+      "successes": 4
+    },
+    {
+      "catastrophic_rate": 0.0,
+      "cohort": "dropout-or-low-signal",
+      "denominator": 4,
+      "failures": [],
+      "median_adjudicated_rms_mm": 1.2253308629269988,
+      "method": "3dAllineate",
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 2.3673146251245134,
+      "successes": 4
+    },
+    {
+      "catastrophic_rate": 0.0,
+      "cohort": "large-initialization-error",
+      "denominator": 4,
+      "failures": [],
+      "median_adjudicated_rms_mm": 0.879524384471109,
+      "method": "3dAllineate",
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 2.756643483384211,
+      "successes": 4
+    },
+    {
+      "catastrophic_rate": 0.0,
+      "cohort": "large-initialization-error",
+      "denominator": 4,
+      "failures": [],
+      "median_adjudicated_rms_mm": 0.730122203997236,
+      "method": "3dAllineate",
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 1.0089666415606642,
+      "successes": 4
+    },
+    {
+      "catastrophic_rate": 0.0,
+      "cohort": "ordinary-same-subject",
+      "denominator": 4,
+      "failures": [],
+      "median_adjudicated_rms_mm": 0.8842380000049702,
+      "method": "3dAllineate",
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.905896043719891,
+      "successes": 4
+    },
+    {
+      "catastrophic_rate": 0.0,
+      "cohort": "ordinary-same-subject",
+      "denominator": 4,
+      "failures": [],
+      "median_adjudicated_rms_mm": 0.6353781167178804,
+      "method": "3dAllineate",
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.8867183858669819,
+      "successes": 4
+    },
+    {
+      "catastrophic_rate": 0.0,
+      "cohort": "partial-slab",
+      "denominator": 4,
+      "failures": [],
+      "median_adjudicated_rms_mm": 0.4815519703810804,
+      "method": "3dAllineate",
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.6282787846279905,
+      "successes": 4
+    },
+    {
+      "catastrophic_rate": 0.0,
+      "cohort": "partial-slab",
+      "denominator": 4,
+      "failures": [],
+      "median_adjudicated_rms_mm": 0.734685313210449,
+      "method": "3dAllineate",
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.8781473467016356,
+      "successes": 4
+    },
+    {
+      "catastrophic_rate": 1.0,
+      "cohort": "dropout-or-low-signal",
+      "denominator": 4,
+      "failures": [
+        {
+          "case_id": "s01-dropout-or-low-signal-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -5.168375730856185E-10 at scale 5.168375730856185E-10"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s02-dropout-or-low-signal-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -4.0673281348932764E-8 at scale 3.253862507914621E-7"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s03-dropout-or-low-signal-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -4.319390605794225E-11 at scale 6.91102496927076E-10"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s04-dropout-or-low-signal-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -1.5431389041336368E-12 at scale 1.5431389041336368E-12"
+          },
+          "status": "numerical-failure"
+        }
+      ],
+      "median_adjudicated_rms_mm": 100.0,
+      "method": "flashalign",
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 100.0,
+      "successes": 0
+    },
+    {
+      "catastrophic_rate": 1.0,
+      "cohort": "dropout-or-low-signal",
+      "denominator": 4,
+      "failures": [
+        {
+          "case_id": "s01-dropout-or-low-signal-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: streamed and explicitly centred patch statistics disagree: absolute 8.910738674705598E-10, relative 2.297641019441586E-8"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s02-dropout-or-low-signal-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "linear fit rejected: LinearizationLimit"
+          },
+          "status": "iteration-limit"
+        },
+        {
+          "case_id": "s03-dropout-or-low-signal-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -2.43778001405599E-11 at scale 2.43778001405599E-11"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s04-dropout-or-low-signal-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -1.4242070078153965E-11 at scale 1.4242070078153965E-11"
+          },
+          "status": "numerical-failure"
+        }
+      ],
+      "median_adjudicated_rms_mm": 100.0,
+      "method": "flashalign",
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 100.0,
+      "successes": 0
+    },
+    {
+      "catastrophic_rate": 1.0,
+      "cohort": "large-initialization-error",
+      "denominator": 4,
+      "failures": [
+        {
+          "case_id": "s01-large-initialization-error-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -6.160478006032599E-10 at scale 6.571176539768106E-9"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s02-large-initialization-error-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -9.567437747358667E-12 at scale 2.8702313242076E-11"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s03-large-initialization-error-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: streamed and explicitly centred patch statistics disagree: absolute 3.725290298461914E-9, relative 2.0840062936970794E-5"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s04-large-initialization-error-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -1.673363402337671E-10 at scale 1.673363402337671E-10"
+          },
+          "status": "numerical-failure"
+        }
+      ],
+      "median_adjudicated_rms_mm": 100.0,
+      "method": "flashalign",
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 100.0,
+      "successes": 0
+    },
+    {
+      "catastrophic_rate": 1.0,
+      "cohort": "large-initialization-error",
+      "denominator": 4,
+      "failures": [
+        {
+          "case_id": "s01-large-initialization-error-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: streamed and explicitly centred patch statistics disagree: absolute 2.277068203920233E-10, relative 2.371946045750243E18"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s02-large-initialization-error-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -1.708141451742779E-7 at scale 4.270353629356948E-7"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s03-large-initialization-error-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -6.078656111506552E-12 at scale 1.7020237112218347E-10"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s04-large-initialization-error-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -1.6479998813712254E-12 at scale 2.201154624161915E-10"
+          },
+          "status": "numerical-failure"
+        }
+      ],
+      "median_adjudicated_rms_mm": 100.0,
+      "method": "flashalign",
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 100.0,
+      "successes": 0
+    },
+    {
+      "catastrophic_rate": 1.0,
+      "cohort": "ordinary-same-subject",
+      "denominator": 4,
+      "failures": [
+        {
+          "case_id": "s01-ordinary-same-subject-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "linear fit rejected: TrialAttemptLimit"
+          },
+          "status": "stalled"
+        },
+        {
+          "case_id": "s02-ordinary-same-subject-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -1.3601540994062713E-12 at scale 1.3601540994062713E-12"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s03-ordinary-same-subject-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -1.3615103397896728E-12 at scale 1.3615103397896728E-12"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s04-ordinary-same-subject-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "linear fit rejected: TrialAttemptLimit"
+          },
+          "status": "stalled"
+        }
+      ],
+      "median_adjudicated_rms_mm": 100.0,
+      "method": "flashalign",
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 100.0,
+      "successes": 0
+    },
+    {
+      "catastrophic_rate": 0.75,
+      "cohort": "ordinary-same-subject",
+      "denominator": 4,
+      "failures": [
+        {
+          "case_id": "s02-ordinary-same-subject-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -3.699443404197334E-11 at scale 3.699443404197334E-11"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s03-ordinary-same-subject-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "linear fit rejected: LinearizationLimit"
+          },
+          "status": "iteration-limit"
+        },
+        {
+          "case_id": "s04-ordinary-same-subject-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -5.907437230897151E-9 at scale 5.907437230897151E-9"
+          },
+          "status": "numerical-failure"
+        }
+      ],
+      "median_adjudicated_rms_mm": 100.0,
+      "method": "flashalign",
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 100.0,
+      "successes": 1
+    },
+    {
+      "catastrophic_rate": 1.0,
+      "cohort": "partial-slab",
+      "denominator": 4,
+      "failures": [
+        {
+          "case_id": "s01-partial-slab-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -7.737703478645488E-7 at scale 2.321311043593646E-6"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s02-partial-slab-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -1.3601540994062713E-12 at scale 1.3601540994062713E-12"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s03-partial-slab-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -5.6161954074925245E-11 at scale 5.6161954074925245E-11"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s04-partial-slab-affine",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -3.45479470162067E-11 at scale 3.45479470162067E-11"
+          },
+          "status": "numerical-failure"
+        }
+      ],
+      "median_adjudicated_rms_mm": 100.0,
+      "method": "flashalign",
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 100.0,
+      "successes": 0
+    },
+    {
+      "catastrophic_rate": 1.0,
+      "cohort": "partial-slab",
+      "denominator": 4,
+      "failures": [
+        {
+          "case_id": "s01-partial-slab-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -6.571954679680267E-12 at scale 1.3143909359360533E-11"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s02-partial-slab-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -6.083251382905143E-7 at scale 6.083251382905143E-7"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s03-partial-slab-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: explicitly centred patch curvature remains materially indefinite: minimum diagonal -3.1032905913249113E-10 at scale 3.1032905913249113E-10"
+          },
+          "status": "numerical-failure"
+        },
+        {
+          "case_id": "s04-partial-slab-rigid",
+          "detail": {
+            "kind": "flashalign",
+            "message": "Optimizer failed: DataLinearization failed: streamed and explicitly centred patch statistics disagree: absolute 6.8374210968613625E-6, relative 1.0609949578179297E-7"
+          },
+          "status": "numerical-failure"
+        }
+      ],
+      "median_adjudicated_rms_mm": 100.0,
+      "method": "flashalign",
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 100.0,
+      "successes": 0
+    }
+  ],
+  "denominator": {
+    "complete": true,
+    "duplicates": [],
+    "expected_rows": 64,
+    "input_hash_mismatches": [],
+    "missing": [],
+    "observed_rows": 64
+  },
+  "fixture": {
+    "declared_cases": 32,
+    "path": "benchmarks/flashalign/fixtures/linear-accuracy-audit-v1.json",
+    "sha256": "7b9e2387701b9138cff66697a37b5a1c8d45c691d336ab9917eebba8a55ade0a"
+  },
+  "fixture_release_accuracy": {
+    "gate": "all ordinary rigid Flashalign cases succeed with landmark RMS <= 0.1 mm",
+    "passed": false
+  },
+  "nonclaims": [
+    "No acquired MRI was used.",
+    "A favorable point estimate is not superiority.",
+    "The court does not test structural capture because the public candidate path does not execute it."
+  ],
+  "paired_comparisons": [
+    {
+      "cohort": "ordinary-same-subject",
+      "model": "rigid",
+      "pairs": 4,
+      "point_estimates_flashalign_minus_afni": {
+        "catastrophic_rate_difference": 0.75,
+        "median_difference_mm": 99.36462188328213,
+        "p95_difference_mm": 99.11328161413302
+      },
+      "subject_clustered_bootstrap_95_percent_ci": {
+        "catastrophic_rate_difference": [
+          0.25,
+          1.0
+        ],
+        "median_difference_mm": [
+          -0.3128609079455274,
+          99.36831991347951
+        ],
+        "p95_difference_mm": [
+          99.11328161413302,
+          99.36462188328213
+        ]
+      },
+      "superiority_passed": false
+    },
+    {
+      "cohort": "ordinary-same-subject",
+      "model": "affine",
+      "pairs": 4,
+      "point_estimates_flashalign_minus_afni": {
+        "catastrophic_rate_difference": 1.0,
+        "median_difference_mm": 99.11576199999503,
+        "p95_difference_mm": 99.09410395628011
+      },
+      "subject_clustered_bootstrap_95_percent_ci": {
+        "catastrophic_rate_difference": [
+          1.0,
+          1.0
+        ],
+        "median_difference_mm": [
+          99.09410395628011,
+          99.30992873637433
+        ],
+        "p95_difference_mm": [
+          99.09410395628011,
+          99.11576199999503
+        ]
+      },
+      "superiority_passed": false
+    },
+    {
+      "cohort": "large-initialization-error",
+      "model": "rigid",
+      "pairs": 4,
+      "point_estimates_flashalign_minus_afni": {
+        "catastrophic_rate_difference": 1.0,
+        "median_difference_mm": 99.26987779600276,
+        "p95_difference_mm": 98.99103335843934
+      },
+      "subject_clustered_bootstrap_95_percent_ci": {
+        "catastrophic_rate_difference": [
+          1.0,
+          1.0
+        ],
+        "median_difference_mm": [
+          98.99103335843934,
+          99.76834857842955
+        ],
+        "p95_difference_mm": [
+          98.99103335843934,
+          99.26987779600276
+        ]
+      },
+      "superiority_passed": false
+    },
+    {
+      "cohort": "large-initialization-error",
+      "model": "affine",
+      "pairs": 4,
+      "point_estimates_flashalign_minus_afni": {
+        "catastrophic_rate_difference": 1.0,
+        "median_difference_mm": 99.12047561552889,
+        "p95_difference_mm": 97.24335651661579
+      },
+      "subject_clustered_bootstrap_95_percent_ci": {
+        "catastrophic_rate_difference": [
+          1.0,
+          1.0
+        ],
+        "median_difference_mm": [
+          97.24335651661579,
+          99.18481215765141
+        ],
+        "p95_difference_mm": [
+          97.24335651661579,
+          99.12047561552889
+        ]
+      },
+      "superiority_passed": false
+    },
+    {
+      "cohort": "partial-slab",
+      "model": "rigid",
+      "pairs": 4,
+      "point_estimates_flashalign_minus_afni": {
+        "catastrophic_rate_difference": 1.0,
+        "median_difference_mm": 99.26531468678955,
+        "p95_difference_mm": 99.12185265329836
+      },
+      "subject_clustered_bootstrap_95_percent_ci": {
+        "catastrophic_rate_difference": [
+          1.0,
+          1.0
+        ],
+        "median_difference_mm": [
+          99.12185265329836,
+          99.45885868287674
+        ],
+        "p95_difference_mm": [
+          99.12185265329836,
+          99.26531468678955
+        ]
+      },
+      "superiority_passed": false
+    },
+    {
+      "cohort": "partial-slab",
+      "model": "affine",
+      "pairs": 4,
+      "point_estimates_flashalign_minus_afni": {
+        "catastrophic_rate_difference": 1.0,
+        "median_difference_mm": 99.51844802961892,
+        "p95_difference_mm": 99.371721215372
+      },
+      "subject_clustered_bootstrap_95_percent_ci": {
+        "catastrophic_rate_difference": [
+          1.0,
+          1.0
+        ],
+        "median_difference_mm": [
+          99.371721215372,
+          99.52795022813888
+        ],
+        "p95_difference_mm": [
+          99.371721215372,
+          99.51844802961892
+        ]
+      },
+      "superiority_passed": false
+    },
+    {
+      "cohort": "dropout-or-low-signal",
+      "model": "rigid",
+      "pairs": 4,
+      "point_estimates_flashalign_minus_afni": {
+        "catastrophic_rate_difference": 1.0,
+        "median_difference_mm": 98.774669137073,
+        "p95_difference_mm": 97.63268537487549
+      },
+      "subject_clustered_bootstrap_95_percent_ci": {
+        "catastrophic_rate_difference": [
+          1.0,
+          1.0
+        ],
+        "median_difference_mm": [
+          97.63268537487549,
+          98.89540806481203
+        ],
+        "p95_difference_mm": [
+          97.63268537487549,
+          98.774669137073
+        ]
+      },
+      "superiority_passed": false
+    },
+    {
+      "cohort": "dropout-or-low-signal",
+      "model": "affine",
+      "pairs": 4,
+      "point_estimates_flashalign_minus_afni": {
+        "catastrophic_rate_difference": 1.0,
+        "median_difference_mm": 98.11899466275884,
+        "p95_difference_mm": 97.0098061770773
+      },
+      "subject_clustered_bootstrap_95_percent_ci": {
+        "catastrophic_rate_difference": [
+          1.0,
+          1.0
+        ],
+        "median_difference_mm": [
+          97.0098061770773,
+          98.48830030116258
+        ],
+        "p95_difference_mm": [
+          97.0098061770773,
+          98.11899466275884
+        ]
+      },
+      "superiority_passed": false
+    }
+  ],
+  "predeclared_policy": {
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 20260912,
+    "catastrophic_rms_mm": 5.0,
+    "failure_penalty_mm": 100.0,
+    "superiority": "upper endpoint of every subject-clustered 95% CI for Flashalign-minus-3dAllineate median, p95, and catastrophic-rate difference is strictly below zero"
+  },
+  "raw_evidence": {
+    "path": "benchmarks/flashalign/raw/linear-accuracy-audit-2026-09-12.json",
+    "rows": 64,
+    "sha256": "3b6fd9c3f28785c6f0b7252fd617adb8ae028266dd2b9b77b35dffaf538924f0"
+  },
+  "receipt_id": "flashalign-linear-accuracy-qualification-2026-09-12",
+  "schema_version": "flashalign.linear-accuracy-qualification.v1",
+  "scope": "sealed repository-authored analytic synthetic engineering court; no acquired-MRI accuracy or clinical claim",
+  "status": "completed-negative",
+  "superiority_claim": {
+    "claim": "none",
+    "passed": false
+  }
+}

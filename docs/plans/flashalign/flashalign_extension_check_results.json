@@ -1,0 +1,21 @@
+{
+  "status": "PASS: numerical identities only, not MRI accuracy or timing",
+  "errors": {
+    "streamed_curvature_relative_error": 3.9306246509732297e-16,
+    "streamed_rhs_relative_error": 3.222481445435165e-16,
+    "streamed_correlation_absolute_error": 8.326672684688674e-17,
+    "matrix_free_hvp_relative_error": 3.8471080652140113e-16,
+    "geometry_adjoint_relative_error": 3.7589950997236906e-16,
+    "directional_patch_derivative_relative_error": 1.60839876847763e-10,
+    "soft_norm_corrected_curvature_relative_error": 4.06161026834354e-16,
+    "pe_determinant_identity_absolute_error": 0.0,
+    "pe_spatial_jacobian_relative_error": 2.1117843125359255e-09,
+    "pose_warp_schur_relative_error": 3.743278056077879e-16
+  },
+  "illustration": {
+    "incorrect_soft_norm_projector_curvature_relative_error": 0.011531059273689517,
+    "global_vector_field_derivative_bound": 0.35000000000000003,
+    "guaranteed_singular_value_lower_bound": 0.6499999999999999,
+    "minimum_singular_value_at_100_test_points": 0.9137150502591661
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "schema": "reframe4s-basinbridge-b5-followup-receipt-v1",
+  "status": "rejected-jvm-falsifications",
+  "capturedAtUtc": "2026-08-02",
+  "moteIssue": "sf-01ky5p21c338zz91n2k2hjj3yw",
+  "trigger": {
+    "source": "docs/benchmarks/receipts/basinbridge-b4-decomposition-2026-08-02.json",
+    "failure": "exact-oracle bridge-plus-HalfFlow passes 2/4 mm and retains typed accumulated-topology failures at 8/12 mm",
+    "oneFactorRule": "preserve B4 oracle matches, budget2x controls, topology floors, and export policy"
+  },
+  "experiments": [
+    {
+      "name": "true-computational-halo",
+      "factorChanged": "translated padded work grid with fixed optimization support restricted to the requested core",
+      "haloVox": 16,
+      "coreGrid": [33, 33, 33],
+      "movingHaloForces": "none",
+      "topologyFloorsChanged": false,
+      "matrix": [
+        {
+          "shiftMm": 8.0,
+          "bridge": "accepted",
+          "fine": "typed RegriddedTopologyInvalid accumulated Jacobian rejection",
+          "widenedSafeBasin": false
+        },
+        {
+          "shiftMm": 12.0,
+          "bridge": "accepted",
+          "fine": "typed RegriddedTopologyInvalid accumulated Jacobian rejection",
+          "widenedSafeBasin": false
+        }
+      ]
+    },
+    {
+      "name": "fixed-anchor-midpoint-action",
+      "factorChanged": "HalfFlowCcAction.FixedAnchor",
+      "matrix": [
+        {
+          "shiftMm": 8.0,
+          "bridge": "accepted",
+          "fine": "typed RegriddedTopologyInvalid accumulated Jacobian rejection",
+          "widenedSafeBasin": false
+        },
+        {
+          "shiftMm": 12.0,
+          "bridge": "accepted",
+          "fine": "typed RegriddedTopologyInvalid accumulated Jacobian rejection",
+          "widenedSafeBasin": false
+        }
+      ],
+      "topologyFloorsChanged": false,
+      "productionDefaultChanged": false
+    }
+  ],
+  "verification": [
+    {
+      "command": "sbt reframe4s-halfflowJVM/Test/compile",
+      "status": "passed"
+    },
+    {
+      "command": "sbt reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeB5FollowUpSuite",
+      "status": "passed",
+      "tests": 2,
+      "elapsedSeconds": 74,
+      "meaning": "both experiments passed their explicit rejection assertions"
+    },
+    {
+      "command": "python3 tools/registration/validate_basinbridge_b5_followup.py",
+      "status": "passed"
+    }
+  ],
+  "decision": {
+    "status": "reject",
+    "reason": "Neither true computational padding nor the fixed-anchor action widened the exact-oracle fine-stage safe basin at 8 or 12 mm.",
+    "retainProductionChange": false,
+    "nextFactor": "none selected; do not retune from these negative results"
+  },
+  "external": {
+    "scalaJsCandidateRun": "not-required-for-rejected-branch",
+    "sameAffineSub18": "pending-external-input",
+    "labeledDevelopmentPairsRequired": 5,
+    "labeledDevelopmentPairsAvailable": 0
+  },
+  "limitations": [
+    "This is a JVM falsification receipt for removed, non-default experiments; no Scala.js candidate result is claimed.",
+    "The halo test uses an analytic same-grid image and is not anatomical validation or ANTs parity.",
+    "No topology floor, support threshold, production default, or external accuracy claim changed."
+  ]
+}

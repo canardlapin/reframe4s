@@ -1,0 +1,92 @@
+{
+  "schema": "reframe4s-real-world-registration-visual-qa-review-v1",
+  "reviewedAt": "2026-09-13",
+  "reviewer": "Codex image inspection",
+  "receipt": {
+    "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/receipt.json",
+    "sha256": "c697ed82a0e77e5cbeab569caf410b785c4cc08b3d91ba070545810700d4931d"
+  },
+  "reviewContract": {
+    "checks": [
+      "anatomical orientation and laterality are consistent across fixed and candidate images",
+      "gross brain position and extent are captured in axial, coronal, and sagittal views",
+      "fixed and candidate internal edges do not show a catastrophic displacement",
+      "Jacobian panels contain no magenta non-positive or non-finite voxels inside the fixed mask",
+      "missing method artifacts remain visibly distinct from valid outputs and comparators"
+    ],
+    "scope": "Visual inspection is diagnostic evidence. It does not replace landmarks, held-out labels, topology checks, or quantitative registration courts."
+  },
+  "reviewedArtifacts": [
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102-contact.png",
+      "sha256": "a924f1e60e3cd96c14d468a314df6072ca6dcbb0364cf488c8f60719124dd157"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-01.png",
+      "sha256": "913e25df92414f885a686ea124619814b3aeb7a8bdc424036af810c64335a26a"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-02.png",
+      "sha256": "06e4007e324a635aa4a20cdc8a6283e94171cd39ec9b10084619b3927c887645"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-03.png",
+      "sha256": "4aed9a566a8c0355d7b5dab71d9dea8efe21be49b13a296107b6050bdb589935"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-04.png",
+      "sha256": "af8287649abf3d6df9b93fd150d6e03c73d452656c314e941b47fae772e9f709"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-05.png",
+      "sha256": "48b48edfc97f5eb2dba8c132f30fad3c19eb20c699c292aa535f495ed1766040"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-06.png",
+      "sha256": "d7dbaee7ba907558b313f55f0731425eb606bf6389df58b2e221dd9d5842497c"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18-contact.png",
+      "sha256": "84ccb820860c9250f314257b0479661a9927c5176976b483f12540022c967bc6"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_01_to_IBSR_02.png",
+      "sha256": "0389f9872f1aab39c1bee177a632e7ee7e4af8dd9387dc8ca46d4abfec815a80"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_03_to_IBSR_04.png",
+      "sha256": "1a6fe50bb895453cc251d9ddd414d4394b36c3c3883e74c4305b1077d6a70c53"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_05_to_IBSR_06.png",
+      "sha256": "92f9b84aa4c36e2d912db322beb54478300b49efa8d835d58000f200f24953b9"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_07_to_IBSR_08.png",
+      "sha256": "e1eeed883b3a54bca2187b7689850722db539b08713c46a986d3ad11aa0e17a5"
+    },
+    {
+      "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_17_to_IBSR_18.png",
+      "sha256": "c2b33a86bfad863ad630673cfcd090a5842662040688f192ce219ca18c558905"
+    }
+  ],
+  "courtFindings": [
+    {
+      "courtId": "hodgeflow-openneuro-ds000102-t1-to-mni",
+      "verdict": "gross-capture-passed-local-deformation-needs-follow-up",
+      "finding": "All six replayed outputs correct the severe baseline displacement, preserve orientation, and place the brain and major internal structures plausibly in MNI space across nine sampled slices. Masked NCC ranges from 0.726 to 0.845. Subject 03 is the clear similarity tail. Five subjects have 5.50% to 12.30% of fixed-mask voxels below Jacobian 0.5, while none has a non-positive fixed-mask Jacobian; this contraction burden should be investigated before making a robustness claim."
+    },
+    {
+      "courtId": "hodgeflow-ibsr18-labeled-t1",
+      "verdict": "three-method-outputs-grossly-plausible-six-not-locally-reviewable",
+      "finding": "The three locally replayable HodgeFlow transforms are orientation-correct and grossly aligned, without visible catastrophic displacement or a non-positive Jacobian. Held-out labels remain decisive: HodgeFlow improves on affine for each of these three pairs but trails ANTs in Dice and HD95. Six additional HodgeFlow transforms have retained metrics but are absent from the local evidence bundle, so the nine-pair cohort does not yet have complete visual QA."
+    }
+  ],
+  "overallVerdict": "External HodgeFlow reference only: the prior inspection supports global capture in six OpenNeuro and three locally replayable IBSR cases. Six IBSR transforms are unavailable locally; OpenNeuro lacks labels or landmarks and its contraction tails need follow-up. These results provide no HalfFlow or Flashalign method validation.",
+  "nextEvidence": [
+    "recover the six IBSR transform bundles from the stopped cloud disk or rerun under a new declared protocol",
+    "add held-out landmarks or labels to the T1-to-MNI court"
+  ],
+  "scope": "external-hodgeflow-reference",
+  "attributionCorrection": "2026-09-13: split the mixed report by implementation ownership. Prior image findings retained only for their original method; image hashes must remain unchanged when rebinding the review to the scoped receipt."
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": "flashalign.linear-release-assessment.v2",
+  "receipt_id": "flashalign-linear-release-assessment-2026-09-13-v2",
+  "mote_task": "bd-01M2B1134ZCW8RZPCAZBW01ZTQ",
+  "status": "linear-release-qualified",
+  "candidate": {
+    "candidate_identity_sha256": "df4a4ddf84a63e5b7ae714a29b226d15639ce32bf8d583e3f08b931196442089",
+    "flashalign_source_tree_sha256": "51f65b218eb7051f89d232491f55f5b4523e3c230a9df43994d539c8415ce456",
+    "spectral_source_tree_sha256": "90814c0e2395e039f3c9d41c0a934e43dcfde478120e448175dbafd2c63d89e1",
+    "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5",
+    "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner working tree"
+  },
+  "scope": {
+    "products": ["automatic rigid pair alignment", "automatic affine pair alignment"],
+    "public_entry_points": ["Flashalign.rigid", "Flashalign.affine"],
+    "included": ["structural capture", "multiscale refinement", "typed result and QC", "typed failures", "final pull resampling from the original moving image"],
+    "excluded": ["nonlinear registration", "HalfFlow execution", "acquired-MRI qualification", "publication"]
+  },
+  "prerequisites": {
+    "blocking_prerequisites": 10,
+    "blocking_prerequisites_closed": 10,
+    "passed": true
+  },
+  "gate_results": {
+    "automatic_accuracy": "passed on fresh sealed 48-row analytic-synthetic v5 court",
+    "exact_recovery": "all 36 exact rows passed six frozen cohort/model RMS gates",
+    "failure_denominator": "48 of 48 rows present; 48 typed successes",
+    "complete_cost_evidence": "present for all rows, including one final materialized output for every success",
+    "desirable_automatic_latency": "passed strict rigid 1000 ms and affine 2000 ms ordinary median/p95 limits",
+    "jvm": "Flashalign 161 passed; spectral 8 passed; benchmark consumer 13 passed",
+    "scala_js": "Flashalign 160 passed; spectral 8 passed",
+    "allocation": "24 bytes at both 2000 and 20000 projected-patch iterations",
+    "source_identity": "current Flashalign, spectral, multiscale and resample trees rehash exactly to the sealed candidate",
+    "linear_dependency_boundary": "no HalfFlow or nonlinear runtime import/dependency in the linear product; artifact graph contains only declared lower-level providers"
+  },
+  "accuracy": {
+    "rows": 48,
+    "successes": 48,
+    "exact_rows": 36,
+    "maximum_landmark_rms_mm": {
+      "exact_core": {"rigid": 0.060758026437156054, "affine": 0.060676808453061365, "limit": 0.1},
+      "capture_range": {"rigid": 0.01952270434336485, "affine": 0.04482620581153694, "limit": 0.25},
+      "partial_slab": {"rigid": 0.052199835677128076, "affine": 0.08832995581246193, "limit": 0.25}
+    }
+  },
+  "latency": {
+    "ordinary_rigid": {"rows": 6, "rows_below_limit": 6, "median_total_ms": 873.8592295, "p95_total_ms": 948.174334, "strict_limit_ms": 1000.0, "passed": true},
+    "ordinary_affine": {"rows": 6, "rows_below_limit": 6, "median_total_ms": 888.607771, "p95_total_ms": 1350.904958, "strict_limit_ms": 2000.0, "passed": true},
+    "environment": "Mac OS X 14.3 aarch64; Apple Silicon; OpenJDK 25.0.1; one Flashalign thread",
+    "interpretation": "single-host descriptive cost qualification"
+  },
+  "external_comparison": {
+    "method": "3dAllineate",
+    "recorded_court_status": "completed-negative on superseded pre-correction candidate",
+    "recorded_outcome": "Flashalign 1/32 successes; 3dAllineate 32/32 successes",
+    "final_candidate_recompared": false,
+    "superiority_claim": "none",
+    "superiority_passed": false,
+    "release_use": "the negative result is retained as evidence and is not counted as a passed release gate; the final candidate passes independent frozen absolute accuracy gates"
+  },
+  "evidence": {
+    "assessment": {"path": "docs/benchmarks/flashalign-linear-release-assessment-v2.md", "sha256": "7dde66c5f81ac3f7517a60137b8cab1d8066b2c0c4eede7396931b1cbb922efd"},
+    "final_optimization": {"path": "benchmarks/flashalign/receipts/structural-capture-optimization-v2.json", "sha256": "a4b445c3cfddb3ec7972e94ba21d46493d121dfc850047fd721b57e5fd6e8a4e"},
+    "sealed_accuracy": {"path": "benchmarks/flashalign/receipts/linear-automatic-release-confirmation-v5.json", "sha256": "2d51d5af822fd76dc6c3b4714d22c5805259f1459818a1777a40ca0ce5348e4e"},
+    "sealed_cost": {"path": "benchmarks/flashalign/receipts/linear-automatic-release-cost-v5.json", "sha256": "b34e1f517ad6045ae9708fb8a2900c1d3f099e8f53a624cdac6a04e851c80769"},
+    "external_comparator": {"path": "benchmarks/flashalign/receipts/linear-accuracy-qualification-v1.json", "sha256": "6fa43b00e4dab3e6410dfef6927f34e24cd118e8b5ec1bdf092a7d74f7574013"},
+    "api_qualification": {"path": "benchmarks/flashalign/receipts/linear-api-qualification-v1.json", "sha256": "ae401a6d8be10f677fec1b569caace1aca59b93a221c0680c1697eba7a20ed92"},
+    "linear_cost_qualification": {"path": "benchmarks/flashalign/receipts/linear-cost-qualification-v1.json", "sha256": "c7fe59ecce22ef9377c23ade99e44682a759055e140ccf609c4619b219d5a036"},
+    "visual_qa": {"path": "benchmarks/flashalign/visual-qa/r19-exact-core-rigid.manifest.json", "sha256": "c591ac300e3ba228dfc144ac13e5893a7683df78ad3871c103b7223de169fa3d"}
+  },
+  "decision": {
+    "fa_gl": "passed",
+    "fast_linear_product": "released for the qualified scope",
+    "c04": "unblocked for its separately controlled Flashalign-affine to HalfFlow comparison",
+    "publication": "not executed"
+  },
+  "claim_boundary": "This admits the frozen automatic analytic-synthetic rigid/affine product and its declared single-host latency gates. It does not establish acquired-MRI, anatomical, clinical, nonlinear, publication, or 3dAllineate superiority claims."
+}

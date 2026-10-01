@@ -1,0 +1,400 @@
+{
+  "all_rows_by_model": {
+    "affine": {
+      "rows": 24,
+      "timing_ms": {
+        "capture": {
+          "maximum": 531.962084,
+          "median": 501.164396,
+          "p95": 528.998875
+        },
+        "decompress": {
+          "maximum": 3.653708,
+          "median": 2.330604,
+          "p95": 3.414417
+        },
+        "optimize": {
+          "maximum": 920.324583,
+          "median": 537.8805835000001,
+          "p95": 850.332167
+        },
+        "output": {
+          "maximum": 10.0865,
+          "median": 2.5347085,
+          "p95": 3.3565
+        },
+        "prepare": {
+          "maximum": 191.361,
+          "median": 128.0198335,
+          "p95": 149.789708
+        },
+        "read": {
+          "maximum": 2.164666,
+          "median": 1.2022504999999999,
+          "p95": 1.7245000000000004
+        },
+        "total": {
+          "maximum": 1604.50125,
+          "median": 1200.235375,
+          "p95": 1487.05325
+        },
+        "validate": {
+          "maximum": 4.923417,
+          "median": 2.993604,
+          "p95": 3.941
+        }
+      },
+      "work": {
+        "curvature_products": {
+          "maximum": 0.0,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "early_rejections": {
+          "maximum": 60.0,
+          "median": 12.5,
+          "p95": 40.0
+        },
+        "gradient_evaluations": {
+          "maximum": 4926958.0,
+          "median": 2864165.0,
+          "p95": 4372791.0
+        },
+        "linearizations": {
+          "maximum": 197.0,
+          "median": 148.0,
+          "p95": 182.0
+        },
+        "rejected_trials": {
+          "maximum": 60.0,
+          "median": 12.5,
+          "p95": 40.0
+        },
+        "trial_evaluations": {
+          "maximum": 231.0,
+          "median": 162.0,
+          "p95": 224.0
+        },
+        "unique_interpolations": {
+          "maximum": 11489241.0,
+          "median": 6609250.5,
+          "p95": 11191353.0
+        }
+      }
+    },
+    "rigid": {
+      "rows": 24,
+      "timing_ms": {
+        "capture": {
+          "maximum": 549.525208,
+          "median": 502.662083,
+          "p95": 533.856208
+        },
+        "decompress": {
+          "maximum": 63.25425,
+          "median": 2.32525,
+          "p95": 3.347041
+        },
+        "optimize": {
+          "maximum": 361.728375,
+          "median": 216.0709375,
+          "p95": 312.696458
+        },
+        "output": {
+          "maximum": 35.621542,
+          "median": 2.517708,
+          "p95": 24.990459
+        },
+        "prepare": {
+          "maximum": 525.3795,
+          "median": 130.0433955,
+          "p95": 152.260041
+        },
+        "read": {
+          "maximum": 1.8008750000000049,
+          "median": 0.9980629999999999,
+          "p95": 1.5725409999999997
+        },
+        "total": {
+          "maximum": 1041.971417,
+          "median": 872.2256875,
+          "p95": 967.366916
+        },
+        "validate": {
+          "maximum": 6.530208,
+          "median": 2.395104,
+          "p95": 3.618875
+        }
+      },
+      "work": {
+        "curvature_products": {
+          "maximum": 0.0,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "early_rejections": {
+          "maximum": 26.0,
+          "median": 0.0,
+          "p95": 25.0
+        },
+        "gradient_evaluations": {
+          "maximum": 2612583.0,
+          "median": 1864951.5,
+          "p95": 2563578.0
+        },
+        "linearizations": {
+          "maximum": 110.0,
+          "median": 98.0,
+          "p95": 110.0
+        },
+        "rejected_trials": {
+          "maximum": 26.0,
+          "median": 0.0,
+          "p95": 25.0
+        },
+        "trial_evaluations": {
+          "maximum": 136.0,
+          "median": 101.0,
+          "p95": 134.0
+        },
+        "unique_interpolations": {
+          "maximum": 6070013.0,
+          "median": 4309635.5,
+          "p95": 5976969.0
+        }
+      }
+    }
+  },
+  "candidate_source_tree_sha256": "df4a4ddf84a63e5b7ae714a29b226d15639ce32bf8d583e3f08b931196442089",
+  "claim_boundary": "This is a single-host, single-thread descriptive cost receipt for the sealed analytic-synthetic court. It does not establish cross-host performance, acquired-MRI behavior, or an accuracy claim.",
+  "complete_cost_evidence": {
+    "all_failed_rows_explicitly_omit_output": true,
+    "all_successful_rows_have_positive_output_time": true,
+    "failed_rows_without_materialized_output": 0,
+    "materialized_output_voxels": {
+      "maximum": 50653.0,
+      "median": 50653.0,
+      "p95": 50653.0
+    },
+    "nonfinite_output_voxels": {
+      "maximum": 4280.0,
+      "median": 3922.5,
+      "p95": 4160.0
+    },
+    "output_timing_ms": {
+      "maximum": 35.621542,
+      "median": 2.527604,
+      "p95": 10.0865
+    },
+    "passed": true,
+    "scope": "input read and decompression, public-plan preparation, structural capture, all refinement attempts, final audit, one materialized linear output resampling from the original moving image, and total wall time",
+    "successful_rows_with_materialized_output": 48
+  },
+  "desirable_latency_targets": {
+    "affine": {
+      "cohort": "ordinary-same-subject",
+      "desirable_total_latency_limit_ms": 2000.0,
+      "median_below_limit": true,
+      "median_total_ms": 888.607771,
+      "p95_below_limit": true,
+      "p95_total_ms": 1350.904958,
+      "rows": 6,
+      "rows_below_limit": 6
+    },
+    "rigid": {
+      "cohort": "ordinary-same-subject",
+      "desirable_total_latency_limit_ms": 1000.0,
+      "median_below_limit": true,
+      "median_total_ms": 873.8592295,
+      "p95_below_limit": true,
+      "p95_total_ms": 948.174334,
+      "rows": 6,
+      "rows_below_limit": 6
+    }
+  },
+  "environment": {
+    "cpu": "Apple Silicon host; single-thread Flashalign",
+    "jdk": "OpenJDK 64-Bit Server VM 25.0.1",
+    "os": "Mac OS X 14.3 aarch64",
+    "threads": 1
+  },
+  "interpretation": "The packed grouped-correlation and compiled-radix candidate meets the ordinary same-subject median and p95 desktop latency limits on this sealed single-host court.",
+  "latency_targets_passed": true,
+  "ordinary_same_subject_by_model": {
+    "affine": {
+      "rows": 6,
+      "timing_ms": {
+        "capture": {
+          "maximum": 528.998875,
+          "median": 258.4485835,
+          "p95": 528.998875
+        },
+        "decompress": {
+          "maximum": 3.653708,
+          "median": 2.3812705,
+          "p95": 3.653708
+        },
+        "optimize": {
+          "maximum": 708.440166,
+          "median": 445.074917,
+          "p95": 708.440166
+        },
+        "output": {
+          "maximum": 3.3565,
+          "median": 2.5925205,
+          "p95": 3.3565
+        },
+        "prepare": {
+          "maximum": 191.361,
+          "median": 141.451708,
+          "p95": 191.361
+        },
+        "read": {
+          "maximum": 1.7245000000000004,
+          "median": 1.030542,
+          "p95": 1.7245000000000004
+        },
+        "total": {
+          "maximum": 1350.904958,
+          "median": 888.607771,
+          "p95": 1350.904958
+        },
+        "validate": {
+          "maximum": 4.923417,
+          "median": 3.2457715,
+          "p95": 4.923417
+        }
+      },
+      "work": {
+        "curvature_products": {
+          "maximum": 0.0,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "early_rejections": {
+          "maximum": 17.0,
+          "median": 0.0,
+          "p95": 17.0
+        },
+        "gradient_evaluations": {
+          "maximum": 3807391.0,
+          "median": 1793043.5,
+          "p95": 3807391.0
+        },
+        "linearizations": {
+          "maximum": 144.0,
+          "median": 73.5,
+          "p95": 144.0
+        },
+        "rejected_trials": {
+          "maximum": 17.0,
+          "median": 0.0,
+          "p95": 17.0
+        },
+        "trial_evaluations": {
+          "maximum": 144.0,
+          "median": 77.0,
+          "p95": 144.0
+        },
+        "unique_interpolations": {
+          "maximum": 8801537.0,
+          "median": 4168203.5,
+          "p95": 8801537.0
+        }
+      }
+    },
+    "rigid": {
+      "rows": 6,
+      "timing_ms": {
+        "capture": {
+          "maximum": 523.119125,
+          "median": 254.9568335,
+          "p95": 523.119125
+        },
+        "decompress": {
+          "maximum": 63.25425,
+          "median": 2.3335415,
+          "p95": 63.25425
+        },
+        "optimize": {
+          "maximum": 268.086542,
+          "median": 220.09887550000002,
+          "p95": 268.086542
+        },
+        "output": {
+          "maximum": 35.621542,
+          "median": 2.6090415,
+          "p95": 35.621542
+        },
+        "prepare": {
+          "maximum": 525.3795,
+          "median": 135.8661045,
+          "p95": 525.3795
+        },
+        "read": {
+          "maximum": 1.8008750000000049,
+          "median": 1.1645834999999998,
+          "p95": 1.8008750000000049
+        },
+        "total": {
+          "maximum": 948.174334,
+          "median": 873.8592295,
+          "p95": 948.174334
+        },
+        "validate": {
+          "maximum": 6.530208,
+          "median": 2.662292,
+          "p95": 6.530208
+        }
+      },
+      "work": {
+        "curvature_products": {
+          "maximum": 0.0,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "early_rejections": {
+          "maximum": 0.0,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "gradient_evaluations": {
+          "maximum": 2204683.0,
+          "median": 1333342.0,
+          "p95": 2204683.0
+        },
+        "linearizations": {
+          "maximum": 92.0,
+          "median": 56.5,
+          "p95": 92.0
+        },
+        "rejected_trials": {
+          "maximum": 0.0,
+          "median": 0.0,
+          "p95": 0.0
+        },
+        "trial_evaluations": {
+          "maximum": 92.0,
+          "median": 56.5,
+          "p95": 92.0
+        },
+        "unique_interpolations": {
+          "maximum": 5143294.0,
+          "median": 3097686.0,
+          "p95": 5143294.0
+        }
+      }
+    }
+  },
+  "outcomes": {
+    "success": 48
+  },
+  "raw": {
+    "path": "benchmarks/flashalign/raw/linear-automatic-release-confirmation-v5-2026-09-13.jsonl",
+    "rows": 48,
+    "sha256": "38dc4857d30844711e4d676e75558a98975dce7f3788a0c9144b4090aca22d2e"
+  },
+  "receipt_id": "flashalign-linear-automatic-release-cost-v5",
+  "schema_version": "flashalign.linear-automatic-release-cost.v5",
+  "status": "passed"
+}

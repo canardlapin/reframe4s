@@ -1,0 +1,203 @@
+{
+  "accuracy_passed": true,
+  "adjudication": {
+    "exact_limits_mm": {
+      "capture-range": 0.25,
+      "exact-core": 0.1,
+      "partial-slab": 0.25
+    },
+    "failure_penalty_mm": 100.0,
+    "nonlinear_contrast": "descriptive approximation distribution; excluded from exact-recovery gates"
+  },
+  "candidate": {
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "candidate_identity_contract": "SHA-256 of newline-terminated key=value rows for flashalign, spectral, multiscale, resample, build.sbt, and artifact-graph SHA-256 fields in that order",
+    "candidate_identity_sha256": "d91a46fa040bb53beec46a7fb7fdefc745e155abcd8aaedffbedb471aea0162e",
+    "flashalign_source_tree_bytes": 1276351,
+    "flashalign_source_tree_files": 73,
+    "flashalign_source_tree_sha256": "5c9dab979c6037eba6c8193813dae1644cf55af2e12dc452b178ce8bbee6d11b",
+    "implementation": "Pack eight real left correlation fields into four forward FFTs and four Hermitian outputs into two inverse FFTs. Compile bit-reversal and general-butterfly schedules, specialize the unit and imaginary-root stages, scale inverse 3D transforms once, and transform contiguous z lines in place.",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "initialization": "CoherentHeaderWorldIdentityThenCapture",
+    "multiscale_source_tree_bytes": 67488,
+    "multiscale_source_tree_files": 6,
+    "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5",
+    "preset": "WithinModality",
+    "public_entry_point": "Flashalign.rigid/affine followed by plan.run(workspace)",
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "resample_source_tree_bytes": 106084,
+    "resample_source_tree_files": 10,
+    "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+    "spectral_source_tree_bytes": 62982,
+    "spectral_source_tree_files": 4,
+    "spectral_source_tree_sha256": "37ff2d54cb93afcf472fde7e76c05221f2b8c9e58d44388bcb2bbfe15e9753ca",
+    "threads": 1,
+    "tree_hash_contract": "SHA-256 over every non-target regular file below the named repository path, sorted by repository-relative path, with each UTF-8 path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "worktree_state": "uncommitted multi-owner working tree"
+  },
+  "claim_boundary": "This adjudicates the sealed analytic-synthetic automatic linear court. It does not establish acquired-MRI, anatomical, clinical, cost, publication, or cross-method superiority claims.",
+  "completeness": {
+    "duplicates": [],
+    "expected_rows": 48,
+    "missing": [],
+    "observed_rows": 48,
+    "passed": true,
+    "unexpected": [],
+    "violations": []
+  },
+  "exact_recovery_gates": [
+    {
+      "cohort": "exact-core",
+      "maximum_landmark_rms_mm": 0.1,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "exact-core",
+      "maximum_landmark_rms_mm": 0.1,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "capture-range",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "capture-range",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    }
+  ],
+  "raw": {
+    "path": "benchmarks/flashalign/raw/linear-automatic-release-confirmation-v4-2026-09-13.jsonl",
+    "rows": 48,
+    "sha256": "66e1324d6a54f7e4417c1f6defa317b317f1ff6970d38f12806fa70e4c2f96b5"
+  },
+  "receipt_id": "flashalign-linear-automatic-confirmation-execution-v1",
+  "schema_version": "flashalign.linear-automatic-confirmation.v1",
+  "seal": {
+    "path": "benchmarks/flashalign/manifests/linear-automatic-release-confirmation-v4.json",
+    "sha256": "ec852c63b7dcf78a03c36e405e9a7cd50ed26d15a44502fc86d501485a855601"
+  },
+  "status": "passed",
+  "summaries": [
+    {
+      "cohort": "exact-core",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.06369296917133284,
+      "median_adjudicated_rms_mm": 0.03172179801620164,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.06369296917133284,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "exact-core",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.0777815874363436,
+      "median_adjudicated_rms_mm": 0.057068412144802856,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.0777815874363436,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "capture-range",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.025126466545691315,
+      "median_adjudicated_rms_mm": 0.019230800904711687,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.025126466545691315,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "capture-range",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.04164435790695231,
+      "median_adjudicated_rms_mm": 0.03621090533002836,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.04164435790695231,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.036098187017173246,
+      "median_adjudicated_rms_mm": 0.02386408233670846,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.036098187017173246,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.09419946603354207,
+      "median_adjudicated_rms_mm": 0.03174176800806544,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.09419946603354207,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "nonlinear-contrast",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.11642473645404494,
+      "median_adjudicated_rms_mm": 0.04296015316841288,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.11642473645404494,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "nonlinear-contrast",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.17483160173187684,
+      "median_adjudicated_rms_mm": 0.09377967191063852,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.17483160173187684,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    }
+  ]
+}

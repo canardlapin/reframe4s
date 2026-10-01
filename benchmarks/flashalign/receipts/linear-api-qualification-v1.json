@@ -1,0 +1,176 @@
+{
+  "schema_version": "flashalign.linear-api-qualification.v1",
+  "receipt_id": "flashalign-linear-api-qualification-2026-09-12",
+  "mote_task": "bd-01M2B1176364H28NG1DD0K11Q5",
+  "status": "passed",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner worktree",
+    "flashalign_source_tree_sha256": "7192486fbbcaa72f675e0d8f0dc253363081342de91a9a8aa4ef76f7cd5b19d0",
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-flashalign, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "build_sbt_sha256": "cd3f7fa77b147ac647e474dc71171e187c09781e90c6c467399c7cc326e91876",
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "linear_engine_sha256": "d645c19d1288ee7f7d8ffc36ae32336b6352c6816aea6383a1d9e78c3592e474",
+    "rigid_refinement_sha256": "85a55798e30ddb33a0c2490e60ce5bce767dc6316c236d21c39a5c55ccd87752",
+    "affine_refinement_sha256": "479915ef560f90fba2b64b95d73bc60703094e59d7bee2266148781e55e44d5a",
+    "public_api_sha256": "18b14034bbfb58b5900cb136832171246d86778cf3151733f1b0bcaf6186a146",
+    "linear_engine_suite_sha256": "67596d8c8912ca1580947f02d776cb00f84c6b3b973974ddb9513ab91e848ef5",
+    "public_api_suite_sha256": "290ea0e4811c8043c019aba2f0d412ed03d2779e1271b42f9c1a28c9281e7aa6",
+    "preset_calibration_receipt_sha256": "79c258b0da0a825650d57f74f95ecd69da17e3fa8bbd4145771f9708ea141dba"
+  },
+  "providers": {
+    "gale": "83cac90a678d1b8a31c590e0c1b8fc8bf3427161",
+    "image4s": "ec56b34806c22e26c28ecbd366ef2e323195fc88",
+    "ravel": "9c5669399ab8e2a11402e71973dd5f1e2f2c13f4",
+    "intaglio": "596b398af380079e4b251535230d0bc03cd88c51",
+    "locus4s": "58c9739be51345ad9adc4bc9c9e7335023254ec9"
+  },
+  "qualified_project_ids": {
+    "flashalign_jvm": "reframe4s-flashalignJVM",
+    "flashalign_scala_js": "reframe4s-flashalignJS",
+    "default_bundle_jvm": "reframe4sJVM",
+    "default_bundle_scala_js": "reframe4sJS",
+    "unpublished_evidence_runner": "flashalignBenchmarkJVM"
+  },
+  "public_execution_contract": {
+    "rigid": "Flashalign.compile followed by plan.runFrom executes the frozen projected-patch objective through the six-parameter rigid refinement adapter and returns an endpoint-correct canonical registration result",
+    "affine": "Flashalign.compile followed by plan.runFrom executes the frozen projected-patch objective through the twelve-parameter affine refinement adapter with prior gradient and curvature and returns an endpoint-correct canonical registration result",
+    "workspace": "compiled plans own reusable non-concurrent workspaces; re-entry and cross-plan payload use fail as typed values",
+    "sampling": "optimization, selection and audit roles retain disjoint fixed identities; audit opens only after selection completion",
+    "separation": "the linear execution path imports no HalfFlow, PE-field, small-strain or general nonlinear geometry implementation"
+  },
+  "generated_pom_evidence": {
+    "flashalign_jvm_pom": "modules/reframe4s-flashalign/jvm/target/scala-3.7.4/reframe4s-flashalign_3-0.1.0-SNAPSHOT.pom",
+    "flashalign_scala_js_pom": "modules/reframe4s-flashalign/js/target/scala-3.7.4/reframe4s-flashalign_sjs1_3-0.1.0-SNAPSHOT.pom",
+    "flashalign_compile_dependencies": [
+      "reframe4s-core",
+      "reframe4s-lie",
+      "reframe4s-register",
+      "reframe4s-resample",
+      "reframe4s-multiscale",
+      "reframe4s-spectral",
+      "gale-core",
+      "image4s-core",
+      "image4s-geometry",
+      "ravel-core",
+      "scala3-library"
+    ],
+    "prohibited_runtime_dependencies_absent": [
+      "image4s-nifti",
+      "image4s-reference",
+      "image4s-laws",
+      "reframe4s-laws",
+      "JMH"
+    ],
+    "default_bundle_jvm_pom": "modules/reframe4s/jvm/target/scala-3.7.4/reframe4s_3-0.1.0-SNAPSHOT.pom",
+    "default_bundle_scala_js_pom": "modules/reframe4s/js/target/scala-3.7.4/reframe4s_sjs1_3-0.1.0-SNAPSHOT.pom",
+    "flashalign_absent_from_default_bundles": true,
+    "evidence_runner_boundary": "flashalignBenchmarkJVM is unpublished and alone adds image4s-nifti on the JVM"
+  },
+  "structural_checks": [
+    {
+      "command": "node scripts/verify-prd.mjs",
+      "result": "passed: 148 unique IDs, 28 artifact nodes, 95 consumer-to-dependency edges, acyclic DAG"
+    },
+    {
+      "command": "node scripts/verify-build-graph.mjs",
+      "result": "passed: checked graph matches PRD with 28 nodes and 95 edges"
+    },
+    {
+      "command": "node scripts/verify-symbol-ownership.mjs",
+      "result": "passed: 1368 public qualified names are unique and 66 canonical owners are verified"
+    },
+    {
+      "command": "sbt -J-Xmx4G -batch projects",
+      "result": "passed: all five qualified project IDs were observed in the loaded build"
+    },
+    {
+      "command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/makePom' 'reframe4s-flashalignJS/makePom' 'reframe4sJVM/makePom' 'reframe4sJS/makePom'",
+      "result": "passed: all four POMs generated and their exact dependency elements inspected"
+    },
+    {
+      "command": "git diff --check -- build.sbt PRD.json project/artifact-graph.tsv scripts/verify-symbol-ownership.mjs",
+      "result": "passed"
+    },
+    {
+      "command": "textual CR and trailing-whitespace scan over modules/reframe4s-flashalign and benchmarks/flashalign excluding target",
+      "result": "passed"
+    }
+  ],
+  "test_runs": [
+    {
+      "platform": "JVM",
+      "stage": "default",
+      "command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/test' 'reframe4s-flashalignJS/test'",
+      "suite": "reframe4s-flashalignJVM",
+      "passed": 131,
+      "failed": 0,
+      "errors": 0
+    },
+    {
+      "platform": "Scala.js on Node",
+      "stage": "FastOpt",
+      "command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/test' 'reframe4s-flashalignJS/test'",
+      "suite": "reframe4s-flashalignJS",
+      "passed": 131,
+      "failed": 0,
+      "errors": 0
+    },
+    {
+      "platform": "Scala.js on Node",
+      "stage": "FullOpt",
+      "command": "sbt -J-Xmx4G -batch 'project reframe4s-flashalignJS' 'set scalaJSStage := FullOptStage' test",
+      "suite": "reframe4s-flashalignJS",
+      "passed": 131,
+      "failed": 0,
+      "errors": 0,
+      "elapsed_seconds": 64
+    }
+  ],
+  "affected_consumer_and_provider_runs": {
+    "single_command": "sbt -J-Xmx4G -batch reframe4s-core{JVM,JS}/test reframe4s-lie{JVM,JS}/test reframe4s-register{JVM,JS}/test reframe4s-resample{JVM,JS}/test reframe4s-multiscale{JVM,JS}/test reframe4s-spectral{JVM,JS}/test reframe4s-motion{JVM,JS}/test reframe4s-halfflow{JVM,JS}/test, with every literal project task passed separately to sbt",
+    "totals": {
+      "lie_jvm": "12/12",
+      "lie_scala_js": "12/12",
+      "register_jvm": "4/4",
+      "register_scala_js": "4/4",
+      "resample_jvm": "13/13",
+      "resample_scala_js": "11/11",
+      "multiscale_jvm": "10/10",
+      "multiscale_scala_js": "10/10",
+      "spectral_jvm": "6/6",
+      "spectral_scala_js": "6/6",
+      "motion_jvm": "42/42",
+      "motion_scala_js": "39/39",
+      "halfflow_jvm": "143/143",
+      "halfflow_scala_js": "140/140"
+    },
+    "halfflow_jvm_elapsed_seconds": 558,
+    "halfflow_scala_js_elapsed_seconds": 956,
+    "existing_default_semantics_changed": false
+  },
+  "gate_assessment": {
+    "G-geometry": "passed by RigidModelSuite, AffineModelSuite, LinearEngineSuite, FlashalignApiSuite and canonical owner checks, including physical rebasing, inverse direction, finite differences, end-to-end rigid recovery and compile-negative endpoint calls",
+    "G-interpolation": "passed by LinearValueGradientSampler3Suite, SparseValueGradientBuffer3Suite and the public engine phantoms using the fused exact trilinear value-gradient provider",
+    "G-patch": "passed by PatchObjectiveSuite, PatchLinearizationSuite, AffineObjectiveLinearizationSuite and MatrixFreePatchOperator3Suite through 129 parameters",
+    "G-objective": "passed by PatchSampleSetSuite, RigidTrialObjectiveSuite and LinearValidationSuite, including fixed roles, exact loss-only equality and safe early rejection",
+    "G-optimizer": "passed by ProjectedPatchOptimizerSuite, AffineRefinementSuite, LinearEngineSuite and typed no-information/stalled cases",
+    "G-operators": "passed by GeometryPointOperator3Suite, MatrixFreePatchOperator3Suite, PoseEliminatedSystemSuite and GalePcgAdapterSuite",
+    "G-PE": "passed for the implemented extension by PeFieldModelSuite, PeFieldGeometrySuite and PeFieldOptimizerSuite",
+    "G-anatomy": "passed for the implemented extension by SpectralBasis3Suite, SmallStrainModelSuite, SmallStrainGeometrySuite and SmallStrainOptimizerSuite",
+    "G-failure-tail": "passed for current synthetic contracts covering support loss, homogeneous data, dropout, competing capture candidates, unsupported affine patches and unsafe nonlinear proposals; no external MRI failure-rate claim is made",
+    "G-output": "passed for the linear product by LinearResultRecordSuite and FlashalignApiSuite; nonlinear serialized output is assessed separately in FA-N13",
+    "G-determinism": "passed for fixed sampling IDs, fixed role transitions, JVM/Scala.js suite parity, reusable workspace behavior and typed concurrent/cross-plan rejection",
+    "G-integration": "passed by exact graph/symbol/POM checks and the affected provider, motion and HalfFlow suites on JVM and Scala.js",
+    "G-cross-method": "not applicable to the independently releasable linear milestone; controlled comparison tasks remain separate",
+    "G-cost": "only structural linear-path separation and provider allocation contracts are admitted here; phase-local Flashalign measurements and latency claims remain FA-L22 and FA-L23"
+  },
+  "known_repository_gate_issue": {
+    "command": "fmtCheck",
+    "status": "not available",
+    "reason": "the repository alias invokes the unavailable scalafmtCheckAll command in the current build; this pre-existing build-tool issue is outside the Flashalign source slice",
+    "replacement_evidence": "strict Scala compilation, git diff --check on tracked integration files, and direct textual whitespace checks on new Flashalign files all passed"
+  },
+  "claim_boundary": "This receipt establishes engineering qualification of the current executable linear API and preservation of affected repository contracts. It does not establish MRI accuracy, clinical validity, external-tool superiority, catastrophic-failure-rate targets, or the sub-second performance targets; those require the frozen evidence lanes in FA-L22 and FA-L23. Nonlinear record/output qualification remains FA-N13."
+}

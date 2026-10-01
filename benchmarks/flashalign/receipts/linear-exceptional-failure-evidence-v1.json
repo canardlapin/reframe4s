@@ -1,0 +1,105 @@
+{
+  "schema_version": "flashalign.linear-exceptional-failure-evidence.v1",
+  "receipt_id": "flashalign-linear-exceptional-failure-evidence-2026-09-13",
+  "mote_task": "bd-01M2DP6D6GCA48ZNC2STYTMT2X",
+  "status": "exceptional-failure-evidence-qualified",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner working tree",
+    "flashalign_source_tree_sha256": "d3e96fdfcc4525a473ab42d3b371c15b7fa907ac2859809996237b245dea3c9f",
+    "source_tree_files": 73,
+    "source_tree_bytes": 1274473,
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-flashalign, sorted by repository-relative path, with each UTF-8 path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+    "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5"
+  },
+  "artifacts": {
+    "optimizer": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/ProjectedPatchOptimizer.scala",
+      "sha256": "baa81e85964dc037ab231ce7ca588dc91e457a27b9858c271c9a736470d705ad"
+    },
+    "work_model": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/LinearWork.scala",
+      "sha256": "5244cf51fb33ce344bf42684130a407cd98a8f72c366a8d3173e442f145e8e55"
+    },
+    "rigid_linearization": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/RigidObjectiveLinearization.scala",
+      "sha256": "0111cc92635abc80b6154c2bb4b7cc5de0c54d2ce7e642c9146be993a7045f33"
+    },
+    "affine_linearization": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/AffineObjectiveLinearization.scala",
+      "sha256": "8bb0c5890d59f8993a96173bf35456bc809d04ce5528d68683c9f88992561218"
+    },
+    "rigid_trial": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/RigidTrialObjective.scala",
+      "sha256": "be09e62077193f2b39afde8c2a58aa52b80bc026a4d61ec704ec0e338a92f0fa"
+    },
+    "affine_trial": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/AffineTrialObjective.scala",
+      "sha256": "9424a0b5e2c731ad234c425f60ca75a875ba6000afe3b0f8b643840181dc42b9"
+    },
+    "rigid_adapter": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/RigidRefinement.scala",
+      "sha256": "daaa867a06d28991c1dabffddc8a087cfabed6ded33c893849ff578a75f693fb"
+    },
+    "affine_adapter": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/AffineRefinement.scala",
+      "sha256": "3cc3fe93ca78960c59568d0e10236ff907c3d5610aa66f86b34cff0a7d07bec7"
+    },
+    "linear_engine": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/LinearEngine.scala",
+      "sha256": "a63c21535a70c5c332ae36d9252f8c1144dfb90bb37f6450b4857be4f48080fa"
+    },
+    "public_api": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/Flashalign.scala",
+      "sha256": "b08a77f59f2a724d34ee8aa8e99dab6c3a4033e742ee529432c4de23eb3cb8e2"
+    },
+    "optimizer_suite": {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/ProjectedPatchOptimizerSuite.scala",
+      "sha256": "29434e8b25f6b77a5b09d71ce5276cdc45c8c22afb17b3923df86a02751fd463"
+    },
+    "public_evidence_suite": {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/ExceptionalLinearFailureEvidenceSuite.scala",
+      "sha256": "6831dbe526394e32faf9316e69b01ab69ee5db876efeaa9930a460c95aa649b2"
+    },
+    "runner_suite": {
+      "path": "benchmarks/flashalign/runner/src/test/scala/reframe4s/benchmark/flashalign/PairBenchmarkRunnerSuite.scala",
+      "sha256": "a202299314f890d39fd8e19d84f1b03cbe298167e859534c4809d4a3b6d13844"
+    },
+    "analysis": {
+      "path": "docs/benchmarks/flashalign-exceptional-failure-evidence.md",
+      "sha256": "99e8fa0164cd3c5c78c6511d375f14888bc1b3228bd7efff3ce39aa0c6df4018"
+    }
+  },
+  "failure_contract": {
+    "after_initial_checkpoint": "Typed evaluator errors and nonfatal provider exceptions return ProjectedPatchTermination.ExceptionalFailure with best checkpoint, last-valid state, finite initial and last optimization objectives, attempts, and exact optimizer counters.",
+    "before_initial_checkpoint": "Attempted optimizer and partial data work are exposed with no checkpoint; no selection objective is fabricated.",
+    "later_pyramid_level": "A pre-checkpoint failure retains the previous completed level and its checkpoint; a post-checkpoint failure appends the failed level and its work.",
+    "final_audit": "A typed FinalAuditFailed retains selected refinement evidence and partial audit work.",
+    "partial_data_work": "Rigid and affine linearization and trial workspaces snapshot sampling and patch progress; adapters add that snapshot on typed errors and nonfatal exceptions.",
+    "automatic_path": "Capture candidates retain individual failure evidence; aggregation sums every candidate and performs no audit unless a candidate converged and was selected.",
+    "fatal_boundary": "Scala fatal VM conditions are not caught by the NonFatal provider boundary."
+  },
+  "benchmark_row_contract": {
+    "schema_version": "1.1.0",
+    "failure_result": {
+      "moving_to_fixed": null,
+      "sha256": null
+    },
+    "checkpoint": "Separate best and last-valid 4x4 transforms with independent SHA-256 values, selection objective identity, accepted steps, and optimization objectives.",
+    "regression": "The deliberate numerical-failure row uses different best and last-valid transforms and retains nonzero work and stage timings."
+  },
+  "validation": {
+    "focused_command": "sbt -J-Xmx4G -Dsbt.supershell=false with ProjectedPatchOptimizerSuite, ExceptionalLinearFailureEvidenceSuite, RigidObjectiveLinearizationSuite, AffineObjectiveLinearizationSuite and RigidTrialObjectiveSuite on reframe4s-flashalignJVM and reframe4s-flashalignJS",
+    "focused_result": "19 passed on JVM and 19 passed on Scala.js; no failures or errors",
+    "full_command": "sbt -J-Xmx4G -Dsbt.supershell=false 'reframe4s-flashalignJVM/test' 'reframe4s-flashalignJS/test' 'flashalignBenchmarkJVM/test'",
+    "full_result": "Flashalign JVM 161 passed; Flashalign Scala.js 160 passed; benchmark JVM 12 passed; no failures or errors",
+    "allocation_observation": "The JVM projected-patch probe retained 24 allocated bytes at both 2000 and 20000 iterations.",
+    "repository_checks": "Build graph 28 nodes and 95 edges; PRD 148 unique IDs, 28 nodes and 95 edges, acyclic; symbol ownership 1411 public qualified names and 66 canonical owners."
+  },
+  "sealed_court_state": {
+    "candidate_executed": false,
+    "reseal_status": "Completed before candidate execution at manifest SHA-256 e113a392f035e053755722ef36edced2ddf6775d38aaeca91355302a1ec45a96. A later disclosed attempt-1 harness validation failure wrote no row; the unchanged d3e96fdf candidate and corrected output-evidence harness are rebound at manifest SHA-256 44af7737653265ace6bb9c9c8ac0e544343f83c1010e54998664c45e91c6b508."
+  },
+  "claim_boundary": "This receipt qualifies failure capture and accounting on JVM and Scala.js. It does not qualify automatic registration accuracy, whole-pipeline cost, acquired-MRI behavior, linear release admission, or use as a HalfFlow initializer."
+}

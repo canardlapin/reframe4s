@@ -1,0 +1,155 @@
+{
+  "schema_version": "flashalign.linear-automatic-completion.v1",
+  "receipt_id": "flashalign-linear-automatic-completion-2026-09-13",
+  "mote_task": "bd-01M2DKZ4NQPVY2WA2XZAQVSN7E",
+  "status": "automatic-control-flow-and-bounded-failure-evidence-qualified-release-gates-failed",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "flashalign_source_tree_sha256": "7d5c0959cbe4edd4ee9f8a8a84f3d19660c4a1d360403b2f9d4df1c2b21b9490",
+    "source_tree_files": 72,
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-flashalign, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "worktree_state": "uncommitted multi-owner working tree",
+    "snapshot_scope": "The candidate hash covers the complete Flashalign module rather than repository HEAD alone; individual hashes bind the changed benchmark runner, raw output, tests and analysis."
+  },
+  "artifacts": {
+    "structural_capture": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/StructuralCapture.scala",
+      "sha256": "37387210fc0d1c6724777b3aad375b7b4aab8a2d0aa129ed8329e1387a49a19b"
+    },
+    "automatic_initialization": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/AutomaticLinearInitialization.scala",
+      "sha256": "0bdcd2c10f2701c15da77d762fc39f0ca1fb246db2f51d0d180e81b819b431be"
+    },
+    "public_api": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/Flashalign.scala",
+      "sha256": "9698e33f3a839459b80bd9920b4d49cdb0e34a780b3a764dfed82abbbeb6dc55"
+    },
+    "linear_engine": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/LinearEngine.scala",
+      "sha256": "4dbae3b8ccd1fdf6ca4dd450221372791c0e2c4535498a7ed318bfef6de828b6"
+    },
+    "capture_regression_suite": {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/StructuralCaptureSuite.scala",
+      "sha256": "2fe6061240bb30dd629ec24c144eb49bfe5f013153fa0d3a794ab6938cb98c60"
+    },
+    "automatic_regression_suite": {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/AutomaticLinearPipelineSuite.scala",
+      "sha256": "862ffeeb6a96c49fbb1ab9ff77c45265251f8ca4e52990a9e3c68756f786d3bb"
+    },
+    "allocation_regression_suite": {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/LinearCostDiagnosticsSuite.scala",
+      "sha256": "fc75fe810e014f16773832e492a435e7e533f59542127c415fd13ee6bf6f5900"
+    },
+    "evidence_model": {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/Model.scala",
+      "sha256": "eb846f52981b8808c0eefc70ea2638c4ca1e12414c64996a64a96a5a73721cc1"
+    },
+    "evidence_json": {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/EvidenceJson.scala",
+      "sha256": "f2a2ba40b1aec0f94bcef3f135275e5782bc5903d84ba271ffd6224178a557bc"
+    },
+    "evidence_validator": {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/PairBenchmarkRunner.scala",
+      "sha256": "3a59a6f4ccb2615a4002dc38a8a0edda8c41e49a353e66df2e44bc98330702c2"
+    },
+    "development_runner": {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/LinearAccuracyCourt.scala",
+      "sha256": "8194083c6e4215d6d62a602f14f7ce7f3ce40ce10bddf1d19df76150f3cf036e"
+    },
+    "evidence_validator_suite": {
+      "path": "benchmarks/flashalign/runner/src/test/scala/reframe4s/benchmark/flashalign/PairBenchmarkRunnerSuite.scala",
+      "sha256": "14dc13dacf3f5a62a9bbe7a196952b54eadccce587b35ef44ee62661e418f275"
+    },
+    "development_runner_suite": {
+      "path": "benchmarks/flashalign/runner/src/test/scala/reframe4s/benchmark/flashalign/LinearAccuracyCourtSuite.scala",
+      "sha256": "dcc56d283ab12a9f20e6575264e2ea9a63f7a1bde355d7cc4bd29e9f2522d377"
+    },
+    "development_raw": {
+      "path": "benchmarks/flashalign/raw/linear-automatic-complete-development-2026-09-13.json",
+      "sha256": "6a98ab7e30f4f9f51689afef40e6498b0a349d43794a751a8fa1096d60b35618",
+      "rows": 32,
+      "row_schema_version": "1.1.0"
+    },
+    "analysis": {
+      "path": "docs/benchmarks/flashalign-automatic-completion.md",
+      "sha256": "920e8c03e1858f455515482d51f4094bb36023775aa980ed0b502cecc3cf4a67"
+    }
+  },
+  "identity_contract": {
+    "capture_lattice": "Both prepared images are resampled on one axis-aligned physical lattice spanning the union of their complete affine-derived world bounds.",
+    "exact_candidate": "The zero-rotation, zero-world-lag identity candidate is evaluated first.",
+    "eligibility": "Identity may skip expanded capture only when it meets the frozen overlap, structural-energy and structural-score requirements and is retained as a deterministic local maximum under the existing peak and separation rules.",
+    "diagnostics": "Public capture evidence records identity overlap, structural score, eligibility and whether expanded capture executed.",
+    "rejected_development_rule": "Numeric overlap, energy and score thresholds alone admitted a displaced 6 mm pair and produced 4.55 mm affine maximum landmark error; the final rule adds no tuned tolerance."
+  },
+  "failure_evidence_contract": {
+    "bounded_refinement": "Each bounded nonconverged candidate retains failure status, exact work, executed pyramid levels, best selection checkpoint and final valid transform.",
+    "automatic_aggregation": "Automatic failure sums work across every attempted candidate, preserves capture and refinement times, selects the diagnostic checkpoint deterministically and records zero audit work when no candidate converges.",
+    "audit": "Only the selected converged candidate is audited; audit rejection retains refinement plus audit work and checkpoint evidence.",
+    "row_encoding": "Failed schema-1.1 rows keep result null and serialize last_checkpoint separately, including independently hashed best and final-valid transforms, objectives, accepted steps and selection-objective identity.",
+    "remaining_limit": "An exceptional internal optimizer or provider error returned before a bounded result may still lack counters or a checkpoint; this receipt does not claim exhaustive evidence for arbitrary exceptions."
+  },
+  "validation": {
+    "focused_command": "sbt -J-Xmx4G -Dsbt.supershell=false with StructuralCaptureSuite, AutomaticLinearPipelineSuite and LinearCostDiagnosticsSuite on reframe4s-flashalignJVM and reframe4s-flashalignJS",
+    "focused_result": "12 passed on JVM and 12 passed on Scala.js; no failures or errors",
+    "full_command": "sbt -J-Xmx4G -Dsbt.supershell=false 'reframe4s-flashalignJVM/test' 'reframe4s-flashalignJS/test' 'flashalignBenchmarkJVM/test'",
+    "full_result": "Flashalign JVM 153 passed; Flashalign Scala.js 152 passed; benchmark JVM 10 passed; no failures or errors",
+    "automatic_regressions": "Aligned identity skips expanded capture; displaced rigid and affine pairs execute capture; a capture rejection retains schedule and timings; deliberately exhausted candidates retain nonzero per-candidate and aggregate work, levels, checkpoints and timings with zero audit.",
+    "allocation_observation": "The JVM probe retained 24 allocated bytes at both 2000 and 20000 projected-patch iterations.",
+    "repository_checks": "Build graph 28 nodes and 95 edges; symbol ownership 1407 public qualified names and 66 owners; PRD 148 IDs, 28 nodes and 95 edges, acyclic; git diff --check clean."
+  },
+  "opened_cohort_development_result": {
+    "command": "sbt -J-Xmx4G -Dsbt.supershell=false 'flashalignBenchmarkJVM/runMain reframe4s.benchmark.flashalign.LinearAccuracyCourt benchmarks/flashalign/raw/linear-automatic-complete-development-2026-09-13.json 7d5c0959cbe4edd4ee9f8a8a84f3d19660c4a1d360403b2f9d4df1c2b21b9490 --automatic-candidate-only-development'",
+    "statuses": {
+      "success": 12,
+      "iteration_limit": 8,
+      "stalled": 12,
+      "numerical_failure": 0
+    },
+    "failed_row_evidence": {
+      "rows": 20,
+      "with_nonzero_work": 20,
+      "with_best_checkpoint": 20,
+      "with_final_valid_transform": 20,
+      "with_positive_capture_and_refinement_time": 20,
+      "linearizations_minimum": 19,
+      "linearizations_maximum": 271
+    },
+    "capture_path_for_successes": {
+      "identity_short_circuit": 5,
+      "expanded_capture": 7
+    },
+    "successful_landmark_rms_mm": {
+      "minimum": 0.393502163251489,
+      "median": 0.8744557483474353,
+      "p90": 1.7393509130670295,
+      "maximum": 4.221324683152158,
+      "at_or_below_0_1_mm": 0,
+      "at_or_below_1_mm": 8,
+      "at_or_below_2_mm": 11
+    },
+    "ordinary_rigid": {
+      "successes": 1,
+      "attempts": 4,
+      "successful_rms_mm": [
+        0.393502163251489
+      ],
+      "release_gate": "all four succeed with landmark RMS at or below 0.1 mm",
+      "passed": false
+    },
+    "timing_ms": {
+      "minimum_total": 144.23,
+      "median_total": 2710.026542,
+      "p90_total": 5105.560708,
+      "maximum_total": 5422.461333
+    },
+    "comparison_to_l25": "Median total time decreased from 4698 ms to 2710 ms, while successes decreased from 14 to 12. This is an opened-cohort development observation and cannot qualify accuracy or cost."
+  },
+  "open_release_requirements": [
+    "Preserve evidence for exceptional optimizer and evaluation failures that occur after work begins.",
+    "Freeze an independent unopened cohort and run sealed automatic linear accuracy without candidate-aware tuning.",
+    "Refresh whole-pipeline cost for that exact candidate, charging capture, all candidate attempts, final audit and output.",
+    "Keep GL and Flashalign-to-HalfFlow transfer blocked until the linear release gates pass."
+  ],
+  "claim_boundary": "This receipt qualifies the coherent identity control flow, bounded failure evidence, evidence-row schema and cross-platform engineering regressions for the exact candidate. The opened development cohort fails the frozen accuracy and failure-tail gates. It is not fresh confirmation, MRI qualification, whole-pipeline cost qualification, linear release admission or authority to use Flashalign as a qualified HalfFlow initializer."
+}

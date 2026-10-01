@@ -21,6 +21,8 @@ node	internal	reframe4s-register
 node	internal	reframe4s-multiscale
 node	internal	reframe4s-motion
 node	internal-experimental	reframe4s-halfflow
+node	internal-experimental	reframe4s-spectral
+node	internal-experimental	reframe4s-flashalign
 node	internal-bundle	reframe4s
 node	downstream	scalafim-image
 node	downstream	scalafim-motion
@@ -90,6 +92,16 @@ edge	reframe4s-halfflow	ravel-core
 edge	reframe4s-halfflow	gale-core
 edge	reframe4s-halfflow	reframe4s-register
 edge	reframe4s-halfflow	reframe4s-flow
+edge	reframe4s-flashalign	reframe4s-core
+edge	reframe4s-flashalign	reframe4s-lie
+edge	reframe4s-flashalign	reframe4s-register
+edge	reframe4s-flashalign	reframe4s-resample
+edge	reframe4s-flashalign	reframe4s-multiscale
+edge	reframe4s-flashalign	reframe4s-spectral
+edge	reframe4s-flashalign	image4s-geometry
+edge	reframe4s-flashalign	image4s-core
+edge	reframe4s-flashalign	ravel-core
+edge	reframe4s-flashalign	gale-core
 edge	reframe4s	image4s-geometry
 edge	reframe4s	image4s-core
 edge	reframe4s	reframe4s-core

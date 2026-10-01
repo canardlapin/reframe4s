@@ -1,0 +1,54 @@
+{
+  "schema_version": "flashalign.linear-release-assessment.v1",
+  "receipt_id": "flashalign-linear-release-assessment-2026-09-13",
+  "mote_task": "bd-01M2B1134ZCW8RZPCAZBW01ZTQ",
+  "status": "release-withheld",
+  "candidate_source_tree_sha256": "d3e96fdfcc4525a473ab42d3b371c15b7fa907ac2859809996237b245dea3c9f",
+  "evidence": {
+    "qualification_receipt": {
+      "path": "benchmarks/flashalign/receipts/linear-automatic-qualification-v1.json",
+      "sha256": "d1864b980dbb5281eb2cb0dc11b9002d95ff24bb7336e0962c6783a01d6b41c8"
+    },
+    "assessment": {
+      "path": "docs/benchmarks/flashalign-linear-release-assessment.md",
+      "sha256": "109d013a08112ca978ded5c7427fdc2caa12ba87a71059b521d4768f71119016"
+    }
+  },
+  "gate_results": {
+    "automatic_accuracy": "passed on 48-row sealed analytic-synthetic court",
+    "exact_recovery": "all 36 interpolation-exact rows passed frozen thresholds",
+    "failure_denominator": "48 of 48 rows present; 48 typed successes",
+    "final_output": "one materialized output from the original moving image with positive output timing on every row",
+    "jvm": "161 passed",
+    "scala_js": "160 passed",
+    "benchmark_jvm": "13 passed",
+    "allocation": "24 bytes at both 2000 and 20000 projected-patch iterations",
+    "architecture": "PRD, build graph, and symbol ownership checks passed",
+    "complete_cost_evidence": "present",
+    "desirable_automatic_latency": "not met"
+  },
+  "latency": {
+    "ordinary_rigid": {
+      "limit_ms": 1000.0,
+      "rows_below_limit": 2,
+      "rows": 6,
+      "median_total_ms": 2240.0287705,
+      "p95_total_ms": 3886.885084
+    },
+    "ordinary_affine": {
+      "limit_ms": 2000.0,
+      "rows_below_limit": 3,
+      "rows": 6,
+      "median_total_ms": 2190.5330005,
+      "p95_total_ms": 4318.433291
+    },
+    "dominant_stage": "structural capture"
+  },
+  "decision": {
+    "fa_gl": "withheld",
+    "c04": "blocked until FA-GL passes",
+    "new_prerequisite": "bd-01M2DWW1N9WW4SPJG2ZBXJ1FFT",
+    "next_evidence": "Development-only structural-capture tail optimization followed by a new unopened accuracy and complete-cost court."
+  },
+  "claim_boundary": "Accuracy qualification is retained. This receipt does not qualify fast-product release, acquired-MRI behavior, publication, or use as a HalfFlow initializer."
+}

@@ -1,0 +1,86 @@
+{
+  "schema": "reframe4s-basinbridge-realdata-diagnostic-receipt-v1",
+  "status": "source-tree-real-data-bridge-complete-external-promotion-pending",
+  "capturedAtUtc": "2026-08-02",
+  "moteIssue": "sf-01ky5p210dbhc1st4vr73nyd5c",
+  "sourceTree": {
+    "project": "hodgeflow",
+    "rootSelection": "HODGEFLOW_ROOT, ancestor hodgeflow checkout, or /Users/bbuchsbaum/code/hodgeflow",
+    "testPattern": "tests/testthat/test-benchmark-public-t1.R source-tree real T1 case",
+    "dataBuildPolicy": "Hodgeflow data-raw assets are source-tree inputs and are not assumed to be package fixtures",
+    "dataLicenseEvidence": null
+  },
+  "case": {
+    "id": "hodgeflow-public-t1-sub1002-to-mni152lin",
+    "movingPathRelativeToHodgeflow": "data-raw/sub-1002_run-01_res-3_T1w.nii.gz",
+    "fixedPathRelativeToHodgeflow": "data-raw/tpl-MNI152Lin_res-02_T1w.nii.gz",
+    "movingRole": "optimization-input",
+    "fixedRole": "optimization-input",
+    "movingMaskRole": "not-provided",
+    "fixedMaskRole": "not-provided",
+    "labelsRole": "not-provided",
+    "sameAffine": false,
+    "movingShape": [62, 93, 93],
+    "fixedShape": [91, 109, 91],
+    "movingSha256": "e0563a9d227383125ed4b1514bc66f480ed016de68ce1dc4ed6699b436d93692",
+    "fixedSha256": "5f6e8fc4f60b8e53ec5574d536238034bc340aca01438d7ab32ee9df8ea80b4d"
+  },
+  "frozenRun": {
+    "anchors": 18,
+    "anchorPolicy": "fixed-grid physical points at x/y fractions 0.30, 0.50, 0.70 and z fractions 0.30, 0.70",
+    "blockRadiusVox": [1, 1, 1],
+    "searchRadiusVox": [8, 8, 8],
+    "minimumValidFraction": 0.75,
+    "projector": "BasinBridgeProjectorConfig.default",
+    "cc": "BasinBridgeCcObjectiveConfig.default",
+    "retuneAfterObservation": false
+  },
+  "observed": {
+    "command": "sbt -J-Xmx4G reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeRealDataSuite",
+    "status": "passed",
+    "ingestionOrder": "corrected image4s logical D3 to legacy x-fastest through NeuroVol.fromRavel and copyLegacyLinear",
+    "supersedesInvalidObservation": "the earlier 19.882579516284345 to 13.59305310337546 result used NDArray.elementsIterator as x-fastest and is withdrawn",
+    "elapsedSeconds": 100.649,
+    "bridgeAccepted": true,
+    "acceptedAlpha": 1.0,
+    "rematched": true,
+    "initialMatchErrorMm": 15.380748177022042,
+    "finalMatchErrorMm": 9.480970212168321,
+    "initialCcLoss": 0.7897691963417637,
+    "finalCcLoss": 0.7828775417413045,
+    "finalResidualP95Mm": 26.73589646179686,
+    "methodElapsedMillis": 100625
+  },
+  "verification": [
+    {
+      "command": "sbt reframe4s-halfflowJVM/Test/compile",
+      "status": "passed"
+    },
+    {
+      "command": "sbt reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeRealDataSuite",
+      "status": "passed",
+      "tests": 1,
+      "failed": 0
+    },
+    {
+      "command": "sbt -J-Xmx4G reframe4s-halfflowJVM/test",
+      "status": "passed",
+      "tests": 141,
+      "failed": 0,
+      "elapsedSeconds": 329,
+      "note": "Fresh full gate after corrected NIfTI ingestion; the real-data suite took 94.822 seconds inside this run."
+    }
+  ],
+  "interpretation": {
+    "observed": "After correcting NIfTI logical-to-x-fastest ingestion, the native BasinBridge round accepts and reduces both the sparse match objective and frozen true-CC loss on this real source-tree pair.",
+    "notEstablished": [
+      "ANTs parity",
+      "anatomical registration accuracy",
+      "same-affine sub18 accuracy",
+      "multi-pair generalization",
+      "label, surface, or TRE accuracy",
+      "data licensing for promotion"
+    ],
+    "externalGate": "docs/benchmarks/manifests/basinbridge-external-v1.json remains pending-required-inputs with doNotRun=true"
+  }
+}

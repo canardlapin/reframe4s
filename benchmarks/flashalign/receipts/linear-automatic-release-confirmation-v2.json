@@ -1,0 +1,200 @@
+{
+  "accuracy_passed": true,
+  "adjudication": {
+    "exact_limits_mm": {
+      "capture-range": 0.25,
+      "exact-core": 0.1,
+      "partial-slab": 0.25
+    },
+    "failure_penalty_mm": 100.0,
+    "nonlinear_contrast": "descriptive approximation distribution; excluded from exact-recovery gates"
+  },
+  "candidate": {
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "flashalign_source_tree_bytes": 1276755,
+    "flashalign_source_tree_files": 73,
+    "flashalign_source_tree_sha256": "50ec8257d6f531aec793e11f568627b6b95813b80be8cc2bd8ad748c47ab60d8",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "initialization": "CoherentHeaderWorldIdentityThenCapture",
+    "multiscale_source_tree_bytes": 67488,
+    "multiscale_source_tree_files": 6,
+    "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5",
+    "preset": "WithinModality",
+    "public_entry_point": "Flashalign.rigid/affine followed by plan.run(workspace)",
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "resample_source_tree_bytes": 106084,
+    "resample_source_tree_files": 10,
+    "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+    "spectral_source_tree_bytes": 41777,
+    "spectral_source_tree_files": 4,
+    "spectral_source_tree_sha256": "ef2f2ac3056a5ec4a5bbbb5b33c10a9a4148910d29704bdecd3ad06a1cf25496",
+    "threads": 1,
+    "tree_hash_contract": "SHA-256 over every non-target regular file below the named repository path, sorted by repository-relative path, with each UTF-8 path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "worktree_state": "uncommitted multi-owner working tree"
+  },
+  "claim_boundary": "This adjudicates the sealed analytic-synthetic automatic linear court. It does not establish acquired-MRI, anatomical, clinical, cost, publication, or cross-method superiority claims.",
+  "completeness": {
+    "duplicates": [],
+    "expected_rows": 48,
+    "missing": [],
+    "observed_rows": 48,
+    "passed": true,
+    "unexpected": [],
+    "violations": []
+  },
+  "exact_recovery_gates": [
+    {
+      "cohort": "exact-core",
+      "maximum_landmark_rms_mm": 0.1,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "exact-core",
+      "maximum_landmark_rms_mm": 0.1,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "capture-range",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "capture-range",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    }
+  ],
+  "raw": {
+    "path": "benchmarks/flashalign/raw/linear-automatic-release-confirmation-2026-09-13.jsonl",
+    "rows": 48,
+    "sha256": "40672c581ba9d3412be8f59b133d3e4f225a62a018ec98bfb6aca143fca6ac18"
+  },
+  "receipt_id": "flashalign-linear-automatic-confirmation-execution-v1",
+  "schema_version": "flashalign.linear-automatic-confirmation.v1",
+  "seal": {
+    "path": "benchmarks/flashalign/manifests/linear-automatic-release-confirmation-v2.json",
+    "sha256": "1a8faa917bc52d074dc764f4f6a8aa0484ca664b205333307ae86b7102ba1062"
+  },
+  "status": "passed",
+  "summaries": [
+    {
+      "cohort": "exact-core",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.04905081724398687,
+      "median_adjudicated_rms_mm": 0.03227242460028203,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.04905081724398687,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "exact-core",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.07302280553444708,
+      "median_adjudicated_rms_mm": 0.04657600699548773,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.07302280553444708,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "capture-range",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.03815831628971955,
+      "median_adjudicated_rms_mm": 0.017765898468197528,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.03815831628971955,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "capture-range",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.04019261874711811,
+      "median_adjudicated_rms_mm": 0.026385783967650085,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.04019261874711811,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.04827837901613965,
+      "median_adjudicated_rms_mm": 0.02001933072231062,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.04827837901613965,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.04865227261752545,
+      "median_adjudicated_rms_mm": 0.033342970260071866,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.04865227261752545,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "nonlinear-contrast",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.11689001223168154,
+      "median_adjudicated_rms_mm": 0.03778667244769661,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.11689001223168154,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "nonlinear-contrast",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.19509047161813245,
+      "median_adjudicated_rms_mm": 0.13841926718087066,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.19509047161813245,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    }
+  ]
+}

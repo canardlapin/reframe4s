@@ -1,0 +1,1268 @@
+{
+  "schema": "reframe4s-real-world-registration-visual-qa-receipt-v1",
+  "scope": "external-hodgeflow-reference",
+  "capturedAt": "2026-09-13",
+  "manifest": {
+    "role": "visual-qa-manifest",
+    "owner": "repository",
+    "path": "docs/benchmarks/manifests/external-hodgeflow-visual-qa-v1.json",
+    "bytes": 3302,
+    "sha256": "863b0c9f9fd0d2ad69b44adff94c0e04bb254c2c869ffc6338fb331a9fb5a427"
+  },
+  "generator": {
+    "role": "visual-qa-generator",
+    "owner": "repository",
+    "path": "tools/registration/generate_real_world_registration_visual_qa.R",
+    "bytes": 33100,
+    "sha256": "a2023930ad28280d389aa967d7834232c5f8732377375904c252e4b87c333356"
+  },
+  "environment": {
+    "r": "R version 4.5.1 (2025-06-13)",
+    "packages": {
+      "digest": "0.6.39",
+      "jsonlite": "2.0.0",
+      "neuroim2": "0.19.0.9000",
+      "hodgeflow": "0.0.1"
+    }
+  },
+  "renderingContract": {
+    "sliceSelection": "For each anatomical axis, use the 25th, 50th, and 75th percentiles of fixed-mask voxel indices. Every candidate for a row uses the identical fixed-space slice.",
+    "intensityWindow": "Independently clip each volume to its finite nonzero 1st and 99th percentiles, then scale to [0,1]. This is a display transform only.",
+    "edgeOverlay": "Within the fixed mask, fixed-image edges are cyan and candidate-image edges are red. Coincident edges approach white.",
+    "jacobianDisplay": "Within the fixed mask, display log total pullback Jacobian clipped to [-log(2), log(2)]; blue is contraction, white is unit determinant, red is expansion, and magenta is non-positive or non-finite.",
+    "failurePolicy": "A method without a valid exported result receives an explicit NO SAFE METHOD OUTPUT panel. A completed result whose transform is not present in the local evidence bundle receives an explicit OUTPUT NOT LOCAL panel. Comparator output must never occupy the method column.",
+    "interpretation": "Visual QA can reveal orientation errors, gross capture failures, boundary artifacts, and suspicious local deformation. It complements but cannot replace held-out labels, landmarks, topology checks, or retained failure accounting.",
+    "methodOwnership": "All method outputs in this bundle were produced by the external HodgeFlow project. They are reference evidence only and cannot validate reframe4s HalfFlow or Flashalign."
+  },
+  "coverage": {
+    "externalHodgeFlowCases": 15,
+    "externalHodgeFlowMethodOutputsRendered": 9,
+    "externalHodgeFlowMetricRowsWithoutLocalMethodOutput": 6,
+    "detailedPlates": 15,
+    "contactSheets": 2
+  },
+  "courtOutputs": {
+    "hodgeflow-openneuro-ds000102-t1-to-mni": [
+      {
+        "role": "contact-sheet",
+        "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102-contact.png",
+        "bytes": 257942,
+        "sha256": "a924f1e60e3cd96c14d468a314df6072ca6dcbb0364cf488c8f60719124dd157"
+      }
+    ],
+    "hodgeflow-ibsr18-labeled-t1": [
+      {
+        "role": "contact-sheet",
+        "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18-contact.png",
+        "bytes": 252367,
+        "sha256": "84ccb820860c9250f314257b0479661a9927c5176976b483f12540022c967bc6"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "courtId": "hodgeflow-openneuro-ds000102-t1-to-mni",
+      "caseId": "ds000102_sub-01",
+      "qaStatus": "registered-output-and-jacobian-rendered",
+      "observed": {
+        "maskedNccReceipt": 0.82729839262163196,
+        "maskedNccReplay": 0.82820892062805163,
+        "globalNccReceipt": 0.760833222702887,
+        "minimumFixedMaskJacobian": 0.062696945586377298,
+        "jacobianDisplayTails": {
+          "finiteVoxels": 240403,
+          "nonPositiveVoxels": 0,
+          "belowHalfPercent": 7.4250321335424267,
+          "aboveTwoPercent": 0.14974854723110775
+        }
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/extracted/ds000102_sub-01/ds000102_sub-01_BrainExtractionBrain.nii.gz",
+          "bytes": 5563831,
+          "sha256": "f83d0eed564b32487e2e5f3504db1e16c0dc70de3b5a354f89663508fe081c89"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_T1w.nii.gz",
+          "bytes": 1448817,
+          "sha256": "5f6e8fc4f60b8e53ec5574d536238034bc340aca01438d7ab32ee9df8ea80b4d"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_desc-brain_mask.nii.gz",
+          "bytes": 25649,
+          "sha256": "7093720d918b40b347c4b02fc08987e69180cc13784a5ff754ec7bf403d1d3a2"
+        },
+        {
+          "role": "registration-result",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/results/hodgeflow_part_a/registration_ds000102_sub-01.rds",
+          "bytes": 56981916,
+          "sha256": "69ca01fa046961ea10a34070dcc69b58cd953207eb46e88bd79f2f12bc2280a0"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-01.png",
+          "bytes": 740852,
+          "sha256": "913e25df92414f885a686ea124619814b3aeb7a8bdc424036af810c64335a26a"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-openneuro-ds000102-t1-to-mni",
+      "caseId": "ds000102_sub-02",
+      "qaStatus": "registered-output-and-jacobian-rendered",
+      "observed": {
+        "maskedNccReceipt": 0.84489516901378003,
+        "maskedNccReplay": 0.84633238007479406,
+        "globalNccReceipt": 0.76352761776531297,
+        "minimumFixedMaskJacobian": 0.106363211470048,
+        "jacobianDisplayTails": {
+          "finiteVoxels": 240403,
+          "nonPositiveVoxels": 0,
+          "belowHalfPercent": 6.745340116387899,
+          "aboveTwoPercent": 0.12063077415839236
+        }
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/extracted/ds000102_sub-02/ds000102_sub-02_BrainExtractionBrain.nii.gz",
+          "bytes": 5583883,
+          "sha256": "04b075c10eefbd7638e9e5db702619004e83e6649da1736c93ecd9a3d9384c9f"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_T1w.nii.gz",
+          "bytes": 1448817,
+          "sha256": "5f6e8fc4f60b8e53ec5574d536238034bc340aca01438d7ab32ee9df8ea80b4d"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_desc-brain_mask.nii.gz",
+          "bytes": 25649,
+          "sha256": "7093720d918b40b347c4b02fc08987e69180cc13784a5ff754ec7bf403d1d3a2"
+        },
+        {
+          "role": "registration-result",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/results/hodgeflow_part_a/registration_ds000102_sub-02.rds",
+          "bytes": 56918438,
+          "sha256": "47cc373f42cb3e5020a71eb5b3f35f0371d8b9e49f7e3ae8d1bc3c1e2534dfd7"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-02.png",
+          "bytes": 730829,
+          "sha256": "06e4007e324a635aa4a20cdc8a6283e94171cd39ec9b10084619b3927c887645"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-openneuro-ds000102-t1-to-mni",
+      "caseId": "ds000102_sub-03",
+      "qaStatus": "registered-output-and-jacobian-rendered",
+      "observed": {
+        "maskedNccReceipt": 0.72646560247235903,
+        "maskedNccReplay": 0.72877636731029105,
+        "globalNccReceipt": 0.74380724077996596,
+        "minimumFixedMaskJacobian": 0.48747011465538098,
+        "jacobianDisplayTails": {
+          "finiteVoxels": 240403,
+          "nonPositiveVoxels": 0,
+          "belowHalfPercent": 0.0016638727470123084,
+          "aboveTwoPercent": 0
+        }
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/extracted/ds000102_sub-03/ds000102_sub-03_BrainExtractionBrain.nii.gz",
+          "bytes": 5539795,
+          "sha256": "625bc8da826eddaf08c534ee8dca3bb1716918a34c6105574c3167b5a9891d85"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_T1w.nii.gz",
+          "bytes": 1448817,
+          "sha256": "5f6e8fc4f60b8e53ec5574d536238034bc340aca01438d7ab32ee9df8ea80b4d"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_desc-brain_mask.nii.gz",
+          "bytes": 25649,
+          "sha256": "7093720d918b40b347c4b02fc08987e69180cc13784a5ff754ec7bf403d1d3a2"
+        },
+        {
+          "role": "registration-result",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/results/hodgeflow_part_a/registration_ds000102_sub-03.rds",
+          "bytes": 56517558,
+          "sha256": "ef75463a214f3e7d8b549427a84b0b5a1cf364881e468dc22791bcebd58ffa7d"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-03.png",
+          "bytes": 695904,
+          "sha256": "4aed9a566a8c0355d7b5dab71d9dea8efe21be49b13a296107b6050bdb589935"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-openneuro-ds000102-t1-to-mni",
+      "caseId": "ds000102_sub-04",
+      "qaStatus": "registered-output-and-jacobian-rendered",
+      "observed": {
+        "maskedNccReceipt": 0.82587331286935795,
+        "maskedNccReplay": 0.82606252568723271,
+        "globalNccReceipt": 0.75425654752938498,
+        "minimumFixedMaskJacobian": 0.067675584043352693,
+        "jacobianDisplayTails": {
+          "finiteVoxels": 240403,
+          "nonPositiveVoxels": 0,
+          "belowHalfPercent": 12.295603632234206,
+          "aboveTwoPercent": 0.12770223333319466
+        }
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/extracted/ds000102_sub-04/ds000102_sub-04_BrainExtractionBrain.nii.gz",
+          "bytes": 5268734,
+          "sha256": "6957a0632b303e476c384ac1bc9c9ab8938bf454fcdb0e4a2b68dac1776d2853"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_T1w.nii.gz",
+          "bytes": 1448817,
+          "sha256": "5f6e8fc4f60b8e53ec5574d536238034bc340aca01438d7ab32ee9df8ea80b4d"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_desc-brain_mask.nii.gz",
+          "bytes": 25649,
+          "sha256": "7093720d918b40b347c4b02fc08987e69180cc13784a5ff754ec7bf403d1d3a2"
+        },
+        {
+          "role": "registration-result",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/results/hodgeflow_part_a/registration_ds000102_sub-04.rds",
+          "bytes": 57015451,
+          "sha256": "2be5a176701fccfd51296aa3c2359fc633fa8e41135e03ae00070fbf5a7468ff"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-04.png",
+          "bytes": 738037,
+          "sha256": "af8287649abf3d6df9b93fd150d6e03c73d452656c314e941b47fae772e9f709"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-openneuro-ds000102-t1-to-mni",
+      "caseId": "ds000102_sub-05",
+      "qaStatus": "registered-output-and-jacobian-rendered",
+      "observed": {
+        "maskedNccReceipt": 0.82078090660832104,
+        "maskedNccReplay": 0.82233801164298703,
+        "globalNccReceipt": 0.75969342667907103,
+        "minimumFixedMaskJacobian": 0.111063853867471,
+        "jacobianDisplayTails": {
+          "finiteVoxels": 240403,
+          "nonPositiveVoxels": 0,
+          "belowHalfPercent": 7.7203695461371113,
+          "aboveTwoPercent": 0.19675295233420551
+        }
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/extracted/ds000102_sub-05/ds000102_sub-05_BrainExtractionBrain.nii.gz",
+          "bytes": 5699183,
+          "sha256": "59eba9f80f11e982f1bc821f254034ffb040e4c0d59977f93c3ed2e3953cbdee"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_T1w.nii.gz",
+          "bytes": 1448817,
+          "sha256": "5f6e8fc4f60b8e53ec5574d536238034bc340aca01438d7ab32ee9df8ea80b4d"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_desc-brain_mask.nii.gz",
+          "bytes": 25649,
+          "sha256": "7093720d918b40b347c4b02fc08987e69180cc13784a5ff754ec7bf403d1d3a2"
+        },
+        {
+          "role": "registration-result",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/results/hodgeflow_part_b/registration_ds000102_sub-05.rds",
+          "bytes": 57053389,
+          "sha256": "175056f6056c37c08cad4336a7d080faff6da40790fbb8a4e6fda804124d97bd"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-05.png",
+          "bytes": 738031,
+          "sha256": "48b48edfc97f5eb2dba8c132f30fad3c19eb20c699c292aa535f495ed1766040"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-openneuro-ds000102-t1-to-mni",
+      "caseId": "ds000102_sub-06",
+      "qaStatus": "registered-output-and-jacobian-rendered",
+      "observed": {
+        "maskedNccReceipt": 0.834061530256485,
+        "maskedNccReplay": 0.83520263550333596,
+        "globalNccReceipt": 0.75838710775226303,
+        "minimumFixedMaskJacobian": 0.056368474623579599,
+        "jacobianDisplayTails": {
+          "finiteVoxels": 240403,
+          "nonPositiveVoxels": 0,
+          "belowHalfPercent": 5.497435556128667,
+          "aboveTwoPercent": 0.20174457057524239
+        }
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/extracted/ds000102_sub-06/ds000102_sub-06_BrainExtractionBrain.nii.gz",
+          "bytes": 5807145,
+          "sha256": "c3f7c0a815d65a9bd7c2583436d179763d8497bb27d58821b3c24e251052a32c"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_T1w.nii.gz",
+          "bytes": 1448817,
+          "sha256": "5f6e8fc4f60b8e53ec5574d536238034bc340aca01438d7ab32ee9df8ea80b4d"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_desc-brain_mask.nii.gz",
+          "bytes": 25649,
+          "sha256": "7093720d918b40b347c4b02fc08987e69180cc13784a5ff754ec7bf403d1d3a2"
+        },
+        {
+          "role": "registration-result",
+          "owner": "hodgeflow",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/results/hodgeflow_part_a/registration_ds000102_sub-06.rds",
+          "bytes": 56997150,
+          "sha256": "22b26065a7617f5dcf36359f68c44ada5f287868de48c36a894444dec67c9dc3"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/openneuro-ds000102/ds000102_sub-06.png",
+          "bytes": 730754,
+          "sha256": "d7dbaee7ba907558b313f55f0731425eb606bf6389df58b2e221dd9d5842497c"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-ibsr18-labeled-t1",
+      "caseId": "IBSR_01_to_IBSR_02",
+      "qaStatus": "affine-hodgeflow-ants-and-jacobian-rendered",
+      "localOutputAvailability": {
+        "affine": true,
+        "hodgeflow": true,
+        "ants": true
+      },
+      "observed": {
+        "affineDice": 0.5742726572957122,
+        "hodgeflowDice": 0.66609366590868535,
+        "antsDice": 0.74347165857800823,
+        "hodgeflowHd95Mm": 3.5201254468799208,
+        "antsHd95Mm": 2.9592212508216513,
+        "minimumJacobian": 0.05000001492511421,
+        "jacobianDisplayTails": {
+          "finiteVoxels": 195854,
+          "nonPositiveVoxels": 0,
+          "belowHalfPercent": 2.7326477886588987,
+          "aboveTwoPercent": 0.63261409008751424
+        }
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_01/brain_2mm.nii.gz",
+          "bytes": 831818,
+          "sha256": "aeb1fb826958d4370962012c45c9c32f56079e3e4048ef38aeab12e4a3f4ab0c"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_02/brain_2mm.nii.gz",
+          "bytes": 861740,
+          "sha256": "3840f7d6249dd1a79796ec4b5ecc1b3ab223031a9f8c3d70b3167daa4267515d"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_02/mask_2mm.nii.gz",
+          "bytes": 32607,
+          "sha256": "344ba6db269f120917fa07e42f9008c256111f23e072f653fef55ab72df2e576"
+        },
+        {
+          "role": "method-spec",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_01_to_IBSR_02/hodgeflow/spec.json",
+          "bytes": 671,
+          "sha256": "69c4e5d81f9b6d103563c7a9a6cc3a701fac038ddc247209298476f762c0b242"
+        },
+        {
+          "role": "method-result",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_01_to_IBSR_02/hodgeflow/result.json",
+          "bytes": 1333,
+          "sha256": "aab6019abaaa111515ca1572aeeaab5c5e962835c8c0789c6165401f6a8c06d5"
+        },
+        {
+          "role": "cohort-metrics",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/scores/pairs.csv",
+          "bytes": 2954,
+          "sha256": "545c5a65ece97ed7e1c9b9c0f7ce0060e4feb54322b634599d3eab2ec1a0fa79"
+        },
+        {
+          "role": "local-result-archive",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/results.tar.gz",
+          "bytes": 255453398,
+          "sha256": "cc2f3ffe6210d0656c09a4ace46a3180c31e6b92eec9bbfc065e1e85ac4f787e"
+        },
+        {
+          "role": "hodgeflow-affine",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_01_to_IBSR_02/hodgeflow/tx_0GenericAffine.tfm",
+          "bytes": 294,
+          "sha256": "76795d6805fd5c810ea22195bb5a5b18a14d9484f58b97527af08475c646191b"
+        },
+        {
+          "role": "hodgeflow-warp",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_01_to_IBSR_02/hodgeflow/tx_1Warp.nii.gz",
+          "bytes": 5355027,
+          "sha256": "475ad5e902d1ad472281f38010b906e1cf935fe08b571b0977a259b4ed62faf6"
+        },
+        {
+          "role": "hodgeflow-transform-manifest",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_01_to_IBSR_02/hodgeflow/tx_transform.json",
+          "bytes": 7284,
+          "sha256": "5583cf1c34f48245469977c4a03383c64b4572c83a80c1fa3bcde00cc2a02318"
+        },
+        {
+          "role": "shared-affine-warped",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_01_to_IBSR_02/affine/tx_Warped.nii.gz",
+          "bytes": 1815011,
+          "sha256": "a46ca9c7bf20e50e05c981bbcd3b24f461f4f19878550819ab14d1b43d478bf2"
+        },
+        {
+          "role": "ants-warped",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_01_to_IBSR_02/ants/tx_Warped.nii.gz",
+          "bytes": 1848615,
+          "sha256": "a47c12c459acc892822004d3e93177d17a3bacf3dde9b27179a1390e46e056a0"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_01_to_IBSR_02.png",
+          "bytes": 663936,
+          "sha256": "0389f9872f1aab39c1bee177a632e7ee7e4af8dd9387dc8ca46d4abfec815a80"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-ibsr18-labeled-t1",
+      "caseId": "IBSR_03_to_IBSR_04",
+      "qaStatus": "affine-hodgeflow-ants-and-jacobian-rendered",
+      "localOutputAvailability": {
+        "affine": true,
+        "hodgeflow": true,
+        "ants": true
+      },
+      "observed": {
+        "affineDice": 0.47277872284065148,
+        "hodgeflowDice": 0.58347160819100274,
+        "antsDice": 0.71932984688589818,
+        "hodgeflowHd95Mm": 4.2221344434015693,
+        "antsHd95Mm": 2.7974521416324225,
+        "minimumJacobian": 0.05000001490132578,
+        "jacobianDisplayTails": {
+          "finiteVoxels": 175551,
+          "nonPositiveVoxels": 0,
+          "belowHalfPercent": 3.4690773621340805,
+          "aboveTwoPercent": 0.16918160534545515
+        }
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_03/brain_2mm.nii.gz",
+          "bytes": 697033,
+          "sha256": "94e81d7836404299c64acde3a577dfa677ad53776c30e4c9643bd89ccd47bf1c"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_04/brain_2mm.nii.gz",
+          "bytes": 786795,
+          "sha256": "c157c260d995028691f7b1f494724a171aa99ab74c6faecb19c8bb058ad9c36f"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_04/mask_2mm.nii.gz",
+          "bytes": 30122,
+          "sha256": "247f44e2da0d2bace1d7b15614df5d858f296171ea54055aa2c744ca8f01d6a1"
+        },
+        {
+          "role": "method-spec",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_03_to_IBSR_04/hodgeflow/spec.json",
+          "bytes": 671,
+          "sha256": "08fff9b8ffce5c824233398fe352cd610eb1c121d1645264c156eda6ee2d239d"
+        },
+        {
+          "role": "method-result",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_03_to_IBSR_04/hodgeflow/result.json",
+          "bytes": 1333,
+          "sha256": "6379dd39d4c09021488a2a38e72caeeeb60d09939316685c6df135698ce683b6"
+        },
+        {
+          "role": "cohort-metrics",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/scores/pairs.csv",
+          "bytes": 2954,
+          "sha256": "545c5a65ece97ed7e1c9b9c0f7ce0060e4feb54322b634599d3eab2ec1a0fa79"
+        },
+        {
+          "role": "local-result-archive",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/results.tar.gz",
+          "bytes": 255453398,
+          "sha256": "cc2f3ffe6210d0656c09a4ace46a3180c31e6b92eec9bbfc065e1e85ac4f787e"
+        },
+        {
+          "role": "hodgeflow-affine",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_03_to_IBSR_04/hodgeflow/tx_0GenericAffine.tfm",
+          "bytes": 294,
+          "sha256": "caef05e0353c83e1c5364f25a0e54bfa9f3c273b8972e4f31e080b552af4f34e"
+        },
+        {
+          "role": "hodgeflow-warp",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_03_to_IBSR_04/hodgeflow/tx_1Warp.nii.gz",
+          "bytes": 4866302,
+          "sha256": "ecb8af87e088db66fb8418ef25bb515b53a5ea76e06b4407e77e0bea90540dd1"
+        },
+        {
+          "role": "hodgeflow-transform-manifest",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_03_to_IBSR_04/hodgeflow/tx_transform.json",
+          "bytes": 7288,
+          "sha256": "379d6679822cacc587b5d2efc1164f51f92d5060bdf4c3cc8b150ac7fa0b8ef6"
+        },
+        {
+          "role": "shared-affine-warped",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_03_to_IBSR_04/affine/tx_Warped.nii.gz",
+          "bytes": 1606862,
+          "sha256": "c9e3f22653d8a313cddc4d9de752904af053443704d9cf623ff976f8ca58c2e5"
+        },
+        {
+          "role": "ants-warped",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_03_to_IBSR_04/ants/tx_Warped.nii.gz",
+          "bytes": 1692055,
+          "sha256": "43680c3dc80f74066c81ae1cc0dda8d52c6320bab44813fa448216722be721a8"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_03_to_IBSR_04.png",
+          "bytes": 660182,
+          "sha256": "1a6fe50bb895453cc251d9ddd414d4394b36c3c3883e74c4305b1077d6a70c53"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-ibsr18-labeled-t1",
+      "caseId": "IBSR_05_to_IBSR_06",
+      "qaStatus": "affine-hodgeflow-ants-and-jacobian-rendered",
+      "localOutputAvailability": {
+        "affine": true,
+        "hodgeflow": true,
+        "ants": true
+      },
+      "observed": {
+        "affineDice": 0.62727707672904487,
+        "hodgeflowDice": 0.6558059669505889,
+        "antsDice": 0.71718268579798372,
+        "hodgeflowHd95Mm": 6.9583861121027892,
+        "antsHd95Mm": 6.509672132910878,
+        "minimumJacobian": 0.050000015042635841,
+        "jacobianDisplayTails": {
+          "finiteVoxels": 175704,
+          "nonPositiveVoxels": 0,
+          "belowHalfPercent": 2.5081956016937577,
+          "aboveTwoPercent": 0.3796157173428038
+        }
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_05/brain_2mm.nii.gz",
+          "bytes": 775679,
+          "sha256": "7329add7bdf4d5153bbb75315e02172fafce0cfe1dbda1d26e9516e17a94695c"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_06/brain_2mm.nii.gz",
+          "bytes": 787467,
+          "sha256": "7ce215ad6be041000c9e05543fb0cb36f9dce1705a640a2c70334468e6d5278e"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_06/mask_2mm.nii.gz",
+          "bytes": 31836,
+          "sha256": "489a837b6562ec2421b007510454ce7ad85ccd215580760b4065d58d8fb285e6"
+        },
+        {
+          "role": "method-spec",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_05_to_IBSR_06/hodgeflow/spec.json",
+          "bytes": 671,
+          "sha256": "ce676f321b14aaf674413dd629abdfa8dc16d4fa90b0ffb6b3dab88047cf75f5"
+        },
+        {
+          "role": "method-result",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_05_to_IBSR_06/hodgeflow/result.json",
+          "bytes": 1338,
+          "sha256": "395a78187e6c2f88051214289ec8656b90db4f226f09fa811c9091e473e7a54e"
+        },
+        {
+          "role": "cohort-metrics",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/scores/pairs.csv",
+          "bytes": 2954,
+          "sha256": "545c5a65ece97ed7e1c9b9c0f7ce0060e4feb54322b634599d3eab2ec1a0fa79"
+        },
+        {
+          "role": "local-result-archive",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/results.tar.gz",
+          "bytes": 255453398,
+          "sha256": "cc2f3ffe6210d0656c09a4ace46a3180c31e6b92eec9bbfc065e1e85ac4f787e"
+        },
+        {
+          "role": "hodgeflow-affine",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_05_to_IBSR_06/hodgeflow/tx_0GenericAffine.tfm",
+          "bytes": 294,
+          "sha256": "7a1ccb66c0813e7e90481bda7c154e94a27793144f78ecd03201ea891c94d91a"
+        },
+        {
+          "role": "hodgeflow-warp",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_05_to_IBSR_06/hodgeflow/tx_1Warp.nii.gz",
+          "bytes": 4841972,
+          "sha256": "7926dcee79cd7cbb94bc2d94c72d0c5b37cda9998f1fe3dfde47e8a9c94cc6db"
+        },
+        {
+          "role": "hodgeflow-transform-manifest",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_05_to_IBSR_06/hodgeflow/tx_transform.json",
+          "bytes": 7284,
+          "sha256": "57f1681bfd4f25dcd793875dfc0e612b313c7b355135a91d61b491df590c4e9c"
+        },
+        {
+          "role": "shared-affine-warped",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_05_to_IBSR_06/affine/tx_Warped.nii.gz",
+          "bytes": 1676149,
+          "sha256": "a1bfe5cf5bdbf3128a710c8d57f48c62799b5a7a0868b3feb3698156bf361382"
+        },
+        {
+          "role": "ants-warped",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_05_to_IBSR_06/ants/tx_Warped.nii.gz",
+          "bytes": 1741611,
+          "sha256": "ad1aaf8da34cce0d8c6d3859e6cf3244e821d6d29e7caed60e25cd56d53e8fdd"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_05_to_IBSR_06.png",
+          "bytes": 651793,
+          "sha256": "92f9b84aa4c36e2d912db322beb54478300b49efa8d835d58000f200f24953b9"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-ibsr18-labeled-t1",
+      "caseId": "IBSR_07_to_IBSR_08",
+      "qaStatus": "fixed-and-available-comparators-rendered-method-transform-not-local",
+      "localOutputAvailability": {
+        "affine": true,
+        "hodgeflow": false,
+        "ants": true
+      },
+      "observed": {
+        "affineDice": 0.54038204628158504,
+        "hodgeflowDice": 0.62402537912032197,
+        "antsDice": 0.70818631586632597,
+        "hodgeflowHd95Mm": 7.5044095327965641,
+        "antsHd95Mm": 6.759120052328937,
+        "minimumJacobian": 0.050000014901131831,
+        "jacobianDisplayTails": null
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_07/brain_2mm.nii.gz",
+          "bytes": 700529,
+          "sha256": "e6f5940b15821448a6f124cb8f75f5a536df9b194ef202a470b5c68ec2056515"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_08/brain_2mm.nii.gz",
+          "bytes": 686385,
+          "sha256": "5f9f70c5a0fb7c005867cd4fbb193938322ccc3a4a4166d4905af7dc567650a5"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_08/mask_2mm.nii.gz",
+          "bytes": 27500,
+          "sha256": "844bd2f7b1a46b061d4a8532b92e6e24f43c6d64372f77e0aeab28b2ac9f8d51"
+        },
+        {
+          "role": "method-spec",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_07_to_IBSR_08/hodgeflow/spec.json",
+          "bytes": 671,
+          "sha256": "d70d8a247168db2010208aadcf548b9bddc08cf38456f12c1f18c87e36bb2fd9"
+        },
+        {
+          "role": "method-result",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/runs/IBSR_07_to_IBSR_08/hodgeflow/result.json",
+          "bytes": 1349,
+          "sha256": "9e713e8603f0af4a506ca6b471a668bab5bb8d7b72d177692a7f29f88694c09f"
+        },
+        {
+          "role": "cohort-metrics",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/scores/pairs.csv",
+          "bytes": 2954,
+          "sha256": "545c5a65ece97ed7e1c9b9c0f7ce0060e4feb54322b634599d3eab2ec1a0fa79"
+        },
+        {
+          "role": "local-result-archive",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/results.tar.gz",
+          "bytes": 255453398,
+          "sha256": "cc2f3ffe6210d0656c09a4ace46a3180c31e6b92eec9bbfc065e1e85ac4f787e"
+        },
+        {
+          "role": "shared-affine-warped",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_07_to_IBSR_08/affine/tx_Warped.nii.gz",
+          "bytes": 1610518,
+          "sha256": "b077530fa2ee3023ce25887fb082f945d2ab28f1fa4411f293b3e370db22809b"
+        },
+        {
+          "role": "ants-warped",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_07_to_IBSR_08/ants/tx_Warped.nii.gz",
+          "bytes": 1560700,
+          "sha256": "9e694606e1d7215e6f1bfe8ffc07403d5045256ecf87d1190a948fdeae433fb3"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_07_to_IBSR_08.png",
+          "bytes": 449094,
+          "sha256": "e1eeed883b3a54bca2187b7689850722db539b08713c46a986d3ad11aa0e17a5"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-ibsr18-labeled-t1",
+      "caseId": "IBSR_09_to_IBSR_10",
+      "qaStatus": "fixed-and-available-comparators-rendered-method-transform-not-local",
+      "localOutputAvailability": {
+        "affine": true,
+        "hodgeflow": false,
+        "ants": false
+      },
+      "observed": {
+        "affineDice": 0.56613389477491116,
+        "hodgeflowDice": 0.64589411490763837,
+        "antsDice": 0.6998690105133436,
+        "hodgeflowHd95Mm": 15.389416691924245,
+        "antsHd95Mm": 14.858080720989308,
+        "minimumJacobian": 0.05000001490120147,
+        "jacobianDisplayTails": null
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_09/brain_2mm.nii.gz",
+          "bytes": 809993,
+          "sha256": "7421cb354821a2e294dfa1e41aaccccdc06b2a0277ca71e04549d22278f15232"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_10/brain_2mm.nii.gz",
+          "bytes": 789155,
+          "sha256": "f878aa4cbd2ab1f83a47ceedb6487b7756438c3d51a7356828a103be0fd55d71"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_10/mask_2mm.nii.gz",
+          "bytes": 30312,
+          "sha256": "6071ef0f58a599b2a8398caf8fe2013c56edbe7e0f849c8c412ca4038355a5d5"
+        },
+        {
+          "role": "method-spec",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_09_to_IBSR_10/hodgeflow/spec.json",
+          "bytes": 670,
+          "sha256": "28e84ce7836623e610701dd816b42aa0a9a5e1a8277768de07fa9d1e872c8153"
+        },
+        {
+          "role": "method-result",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/runs/IBSR_09_to_IBSR_10/hodgeflow/result.json",
+          "bytes": 1347,
+          "sha256": "d8902bd04797edfe205a6ecdfcce0161ab95ea21c5313f252c8f457851418f0d"
+        },
+        {
+          "role": "cohort-metrics",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/scores/pairs.csv",
+          "bytes": 2954,
+          "sha256": "545c5a65ece97ed7e1c9b9c0f7ce0060e4feb54322b634599d3eab2ec1a0fa79"
+        },
+        {
+          "role": "local-result-archive",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/results.tar.gz",
+          "bytes": 255453398,
+          "sha256": "cc2f3ffe6210d0656c09a4ace46a3180c31e6b92eec9bbfc065e1e85ac4f787e"
+        },
+        {
+          "role": "shared-affine-warped",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_09_to_IBSR_10/affine/tx_Warped.nii.gz",
+          "bytes": 1816877,
+          "sha256": "c919416fbc7962a06bcec5b8e703fe8a3a87122671336db9548800a46b84d286"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_09_to_IBSR_10.png",
+          "bytes": 341193,
+          "sha256": "008d50a2bf353a43a0dc434c1e18ba459d9f0dd17ab5cead2fd00f265c4f7e51"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-ibsr18-labeled-t1",
+      "caseId": "IBSR_11_to_IBSR_12",
+      "qaStatus": "fixed-and-available-comparators-rendered-method-transform-not-local",
+      "localOutputAvailability": {
+        "affine": false,
+        "hodgeflow": false,
+        "ants": false
+      },
+      "observed": {
+        "affineDice": 0.53953588787577811,
+        "hodgeflowDice": 0.63449568814768553,
+        "antsDice": 0.71464892448234141,
+        "hodgeflowHd95Mm": 14.497420967953556,
+        "antsHd95Mm": 13.909492334918614,
+        "minimumJacobian": 0.055013016280444582,
+        "jacobianDisplayTails": null
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_11/brain_2mm.nii.gz",
+          "bytes": 800412,
+          "sha256": "954a7b302dc68c71dafd091d3383f05a863927d6b791d6d90c8c178f13456d17"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_12/brain_2mm.nii.gz",
+          "bytes": 812574,
+          "sha256": "dc24428bb1497a588129fabf4a643b1dcb691919593eaf155154316872639411"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_12/mask_2mm.nii.gz",
+          "bytes": 31607,
+          "sha256": "f2673030ad213eabb11f70274fa2d7117360a8be5d270b3ce26c7f05c31b9d8b"
+        },
+        {
+          "role": "method-spec",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_11_to_IBSR_12/hodgeflow/spec.json",
+          "bytes": 670,
+          "sha256": "f6c0f770180a3c84684f01df248a1891014d0bb5324415d808bb82d0ba3ba694"
+        },
+        {
+          "role": "method-result",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/runs/IBSR_11_to_IBSR_12/hodgeflow/result.json",
+          "bytes": 1348,
+          "sha256": "2213db795abdf52fcc9884420f517de9615d567d0d1fd4e186884ae3b368e511"
+        },
+        {
+          "role": "cohort-metrics",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/scores/pairs.csv",
+          "bytes": 2954,
+          "sha256": "545c5a65ece97ed7e1c9b9c0f7ce0060e4feb54322b634599d3eab2ec1a0fa79"
+        },
+        {
+          "role": "local-result-archive",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/results.tar.gz",
+          "bytes": 255453398,
+          "sha256": "cc2f3ffe6210d0656c09a4ace46a3180c31e6b92eec9bbfc065e1e85ac4f787e"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_11_to_IBSR_12.png",
+          "bytes": 264492,
+          "sha256": "cfd53e380e7f79ed58ebc94cb82bd63e7af709fe2108e903c0a305930112ac08"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-ibsr18-labeled-t1",
+      "caseId": "IBSR_13_to_IBSR_14",
+      "qaStatus": "fixed-and-available-comparators-rendered-method-transform-not-local",
+      "localOutputAvailability": {
+        "affine": false,
+        "hodgeflow": false,
+        "ants": false
+      },
+      "observed": {
+        "affineDice": 0.60093025253189702,
+        "hodgeflowDice": 0.65983522684053786,
+        "antsDice": 0.72220257951985045,
+        "hodgeflowHd95Mm": 14.357381536381618,
+        "antsHd95Mm": 13.94505501042106,
+        "minimumJacobian": 0.091187640485251548,
+        "jacobianDisplayTails": null
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_13/brain_2mm.nii.gz",
+          "bytes": 794289,
+          "sha256": "455ac03a13941d4aff7238c66e4c39e2edd48a7f8a1179482555a5683641ba2e"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_14/brain_2mm.nii.gz",
+          "bytes": 842815,
+          "sha256": "125788ed3a3072668ef83013d961da0ac41f7a4252eb0a8b9d437fb1cd2e214d"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_14/mask_2mm.nii.gz",
+          "bytes": 32230,
+          "sha256": "712d22578405e95a7470dfaa7085882f439c665a7bf3cd547f92956e7fb0113f"
+        },
+        {
+          "role": "method-spec",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_13_to_IBSR_14/hodgeflow/spec.json",
+          "bytes": 670,
+          "sha256": "90cf26433933a561093989c87ee1225522012c25204c3ae68e91f4be31c70eb4"
+        },
+        {
+          "role": "method-result",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/runs/IBSR_13_to_IBSR_14/hodgeflow/result.json",
+          "bytes": 1350,
+          "sha256": "8e45531ae219aac15eb802cb4b68bcf7a41fc277fc4e56ace6b14bf08ebaf358"
+        },
+        {
+          "role": "cohort-metrics",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/scores/pairs.csv",
+          "bytes": 2954,
+          "sha256": "545c5a65ece97ed7e1c9b9c0f7ce0060e4feb54322b634599d3eab2ec1a0fa79"
+        },
+        {
+          "role": "local-result-archive",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/results.tar.gz",
+          "bytes": 255453398,
+          "sha256": "cc2f3ffe6210d0656c09a4ace46a3180c31e6b92eec9bbfc065e1e85ac4f787e"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_13_to_IBSR_14.png",
+          "bytes": 263436,
+          "sha256": "e131696366d0d059bd0988527dd6162778ced0128c201b9e30acc9dcd007b26b"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-ibsr18-labeled-t1",
+      "caseId": "IBSR_15_to_IBSR_16",
+      "qaStatus": "fixed-and-available-comparators-rendered-method-transform-not-local",
+      "localOutputAvailability": {
+        "affine": false,
+        "hodgeflow": false,
+        "ants": false
+      },
+      "observed": {
+        "affineDice": 0.55278014717596213,
+        "hodgeflowDice": 0.66056313630705688,
+        "antsDice": 0.73712946672943802,
+        "hodgeflowHd95Mm": 22.950294998261796,
+        "antsHd95Mm": 22.595463783735894,
+        "minimumJacobian": 0.050000015038335253,
+        "jacobianDisplayTails": null
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_15/brain_2mm.nii.gz",
+          "bytes": 846657,
+          "sha256": "3b01fc838529acf894e6f283367d8c89803f4eca133bb91e3fb4284d8ee1b2f5"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_16/brain_2mm.nii.gz",
+          "bytes": 887840,
+          "sha256": "2984f56480f2bb05facb6eb2d0985d51ca763db4727cad8ae784b10a1825da9f"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_16/mask_2mm.nii.gz",
+          "bytes": 27430,
+          "sha256": "bef43cf613d5958a0141856a96f60a941040cb85fe5bc92a9a2c36f540d95e3c"
+        },
+        {
+          "role": "method-spec",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_15_to_IBSR_16/hodgeflow/spec.json",
+          "bytes": 670,
+          "sha256": "30aab5e0edf0cf20a9f4c0d749e0289cb3b9bdafd9caf2223a38465055af58e0"
+        },
+        {
+          "role": "method-result",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/runs/IBSR_15_to_IBSR_16/hodgeflow/result.json",
+          "bytes": 1348,
+          "sha256": "48fc9e58024d3cbc040c237dff5c6b051aa80a8a5d98a838a12063a556411c0e"
+        },
+        {
+          "role": "cohort-metrics",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/scores/pairs.csv",
+          "bytes": 2954,
+          "sha256": "545c5a65ece97ed7e1c9b9c0f7ce0060e4feb54322b634599d3eab2ec1a0fa79"
+        },
+        {
+          "role": "local-result-archive",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/results.tar.gz",
+          "bytes": 255453398,
+          "sha256": "cc2f3ffe6210d0656c09a4ace46a3180c31e6b92eec9bbfc065e1e85ac4f787e"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_15_to_IBSR_16.png",
+          "bytes": 263496,
+          "sha256": "7738106e447eeb2aae6c55789132c7247b1f04a8524489efe3db8f0b4990d050"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-ibsr18-labeled-t1",
+      "caseId": "IBSR_17_to_IBSR_18",
+      "qaStatus": "fixed-and-available-comparators-rendered-method-transform-not-local",
+      "localOutputAvailability": {
+        "affine": false,
+        "hodgeflow": false,
+        "ants": false
+      },
+      "observed": {
+        "affineDice": 0.60527317501193734,
+        "hodgeflowDice": 0.70480622319471076,
+        "antsDice": 0.73234967769879422,
+        "hodgeflowHd95Mm": 23.783214070924274,
+        "antsHd95Mm": 23.553149648563984,
+        "minimumJacobian": 0.050000014901198986,
+        "jacobianDisplayTails": null
+      },
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_17/brain_2mm.nii.gz",
+          "bytes": 944868,
+          "sha256": "c0cba52ffaf48b9159cb4af479e91cff5813dfab8a257423aa26877214d99d3c"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_18/brain_2mm.nii.gz",
+          "bytes": 992338,
+          "sha256": "83b791dd9fda460ec8656e6d82b5f0d631ca726dbf2b68bc0be163a4cc5d7e41"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/inputs/IBSR_18/mask_2mm.nii.gz",
+          "bytes": 30737,
+          "sha256": "a3cec0b8862e9777a356efbf8dc153ae6f79d176899e623b4dc5d22f48244994"
+        },
+        {
+          "role": "method-spec",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/runs/IBSR_17_to_IBSR_18/hodgeflow/spec.json",
+          "bytes": 670,
+          "sha256": "d1c6e23a2df30977e068ed7acc5a5573850772243adcc802b7723cf641086d98"
+        },
+        {
+          "role": "method-result",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/runs/IBSR_17_to_IBSR_18/hodgeflow/result.json",
+          "bytes": 1349,
+          "sha256": "353ee0cf19436161ce33fb454059e140dc6d62d3b5a3dcb9297495c29150491b"
+        },
+        {
+          "role": "cohort-metrics",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/final-metadata/snapshot/tmp/ibsr18-heldout/scores/pairs.csv",
+          "bytes": 2954,
+          "sha256": "545c5a65ece97ed7e1c9b9c0f7ce0060e4feb54322b634599d3eab2ec1a0fa79"
+        },
+        {
+          "role": "local-result-archive",
+          "owner": "hodgeflow",
+          "path": "tmp/ibsr18-heldout/cloud/results.tar.gz",
+          "bytes": 255453398,
+          "sha256": "cc2f3ffe6210d0656c09a4ace46a3180c31e6b92eec9bbfc065e1e85ac4f787e"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/ibsr18/IBSR_17_to_IBSR_18.png",
+          "bytes": 270090,
+          "sha256": "c2b33a86bfad863ad630673cfcd090a5842662040688f192ce219ca18c558905"
+        }
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    }
+  ],
+  "claimBoundary": "These plates are sampled human-facing diagnostics over nine fixed-space slices per case. They can reveal gross misregistration and deformation artifacts but do not replace the frozen quantitative courts or establish reframe4s acquired-data accuracy."
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "reframe4s-real-world-registration-visual-qa-review-v1",
+  "reviewedAt": "2026-09-13",
+  "reviewer": "Codex image inspection",
+  "receipt": {
+    "path": "benchmarks/registration/visual-qa/v1/receipt.json",
+    "sha256": "a7e34fe519280e35db62e4db10c6909d3d6350736f99e9725e69a0390187ce03"
+  },
+  "reviewContract": {
+    "checks": [
+      "anatomical orientation and laterality are consistent across fixed and candidate images",
+      "gross brain position and extent are captured in axial, coronal, and sagittal views",
+      "fixed and candidate internal edges do not show a catastrophic displacement",
+      "Jacobian panels contain no magenta non-positive or non-finite voxels inside the fixed mask",
+      "missing method artifacts remain visibly distinct from valid outputs and comparators"
+    ],
+    "scope": "Visual inspection is diagnostic evidence. It does not replace landmarks, held-out labels, topology checks, or quantitative registration courts."
+  },
+  "reviewedArtifacts": [
+    {
+      "path": "benchmarks/registration/visual-qa/v1/basinbridge-public-t1-input-only.png",
+      "sha256": "c5c3b3e01c95375894dbdb353b138f09c02669bce8a60084261713589aaacaa9"
+    },
+    {
+      "path": "benchmarks/registration/visual-qa/v1/basinbridge-sub18-retained-failure.png",
+      "sha256": "fb9389e067a64b53f4e767fa0710ab67dd560fe0e324e0e602d0d06750a6c50d"
+    }
+  ],
+  "courtFindings": [
+    {
+      "courtId": "basinbridge-public-t1-to-mni",
+      "verdict": "method-not-visually-reviewable",
+      "finding": "The input plate shows a large header/world baseline displacement. BasinBridge reduced its bridge match error from 15.38 to 9.48 mm, but no registered volume or complete transform was retained, so the method's final anatomical alignment cannot be inspected."
+    },
+    {
+      "courtId": "basinbridge-sub18-to-mni",
+      "verdict": "failure-correctly-retained",
+      "finding": "The HalfFlow column remains empty because topology and export were rejected. The saved ANTs comparator is grossly aligned in all three views, but it is visibly separate and supplies no visual pass for HalfFlow."
+    }
+  ],
+  "overallVerdict": "No final acquired-image HalfFlow output is visually reviewable in either retained case (0 of 2). Flashalign acquired nonlinear qualification remains blocked before execution. Neither inputs nor the ANTs comparator supply a method visual pass.",
+  "nextEvidence": [
+    "retain a complete registered volume and transform for every direct reframe4s acquired-data case",
+    "add held-out landmarks or labels to the T1-to-MNI court",
+    "compare Jacobian tail burden and anatomical accuracy under affine-preconditioned HalfFlow"
+  ],
+  "scope": "reframe4s-methods",
+  "attributionCorrection": "2026-09-13: split the mixed report by implementation ownership. Prior image findings retained only for their original method; image hashes must remain unchanged when rebinding the review to the scoped receipt."
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "flashalign.linear-automatic-confirmation-seal-receipt.v1",
+  "receipt_id": "flashalign-linear-automatic-confirmation-seal-2026-09-13",
+  "mote_task": "bd-01M2DR963G3PH3X3TXPTF0EJ9P",
+  "status": "court-resealed-after-harness-validation-failure",
+  "sealed_at": "2026-09-13T16:25:48Z",
+  "resealed_at": "2026-09-13T17:13:02Z",
+  "candidate_executed": true,
+  "seal": {
+    "path": "benchmarks/flashalign/manifests/linear-automatic-confirmation-v1.json",
+    "sha256": "44af7737653265ace6bb9c9c8ac0e544343f83c1010e54998664c45e91c6b508"
+  },
+  "artifacts": {
+    "analysis": {
+      "path": "docs/benchmarks/flashalign-linear-confirmation-court.md",
+      "sha256": "2fafab7212f45e0d99a2153fb8d461e4b28d71b0d0471e88f2209c717e9f5c00"
+    },
+    "generator": {
+      "path": "benchmarks/flashalign/fixtures/generate_linear_automatic_confirmation.py",
+      "sha256": "2bddbc96ff000fdfc032ff3d44ef03e661cdaaa95ff84db3867c63fd869a7abf"
+    },
+    "descriptor": {
+      "path": "benchmarks/flashalign/fixtures/linear-automatic-confirmation-v1.json",
+      "sha256": "0256c23cc60d6b9d93dc87cc6b57c271ab6eb30fdbb4bcd105de4b6ec20961d9"
+    },
+    "case_table": {
+      "path": "benchmarks/flashalign/fixtures/linear-automatic-confirmation-v1.cases.tsv",
+      "sha256": "c75de6659264c1580008d6312895ce4f21c52bcd461ced6b84c9a0afb06669fd"
+    },
+    "image_tree": {
+      "path": "benchmarks/flashalign/fixtures/linear-automatic-confirmation-v1",
+      "sha256": "47fe374efbbd2e0049a95c3a31fe07a604277d051bf6ba2cfc3064718c1ac454",
+      "files": 54,
+      "bytes": 7291717
+    },
+    "runner": {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/LinearAutomaticConfirmationCourt.scala",
+      "sha256": "5f165a944ec803906a56e8d636052e8660d0e418916d9131a1ca8264e6ecd628"
+    },
+    "runner_suite": {
+      "path": "benchmarks/flashalign/runner/src/test/scala/reframe4s/benchmark/flashalign/LinearAutomaticConfirmationCourtSuite.scala",
+      "sha256": "656409e1527e33956d10ca50471775578dbd9f254205f8cef181648cc703198f"
+    },
+    "summarizer": {
+      "path": "benchmarks/flashalign/summarize_linear_automatic_confirmation.py",
+      "sha256": "6b5f81f9928b4a9d21feb5525b341c7abfcc97d3c2b0cf1fbf28f6a30a9256ce"
+    }
+  },
+  "candidate_snapshot": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "flashalign_source_tree_sha256": "d3e96fdfcc4525a473ab42d3b371c15b7fa907ac2859809996237b245dea3c9f",
+    "flashalign_source_tree_files": 73,
+    "flashalign_source_tree_bytes": 1274473,
+    "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+    "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "worktree_state": "uncommitted multi-owner working tree; hashes bind the candidate independently of HEAD"
+  },
+  "court": {
+    "cases": 48,
+    "exact_rows": 36,
+    "descriptive_rows": 12,
+    "subjects": 6,
+    "models": [
+      "rigid",
+      "affine"
+    ],
+    "automatic_public_path_only": true,
+    "all_exact_preexecution_oracles_passed": true,
+    "minimum_observed_truth_correlation": 0.9999999999999439,
+    "minimum_observed_perturbation_drop": 1.6391487525635462e-05,
+    "failure_penalty_mm": 100.0
+  },
+  "validation": {
+    "generator_self_test": "passed",
+    "summarizer_self_test": "passed",
+    "runner_suite_command": "sbt -J-Xmx4G -Dsbt.supershell=false 'flashalignBenchmarkJVM/testOnly reframe4s.benchmark.flashalign.LinearAutomaticConfirmationCourtSuite'",
+    "runner_suite_result": "3 passed; no failures or errors, including non-finite output-evidence regression",
+    "fixture_hash_verification": "all 48 descriptor moving/fixed hashes and all 48 table moving/fixed hashes matched the stored bytes",
+    "case_distribution": "six rows for every cohort/model combination",
+    "json_validation": "manifest, descriptor and receipt parsed successfully",
+    "repository_diff_check": "git diff --check clean for the sealed artifacts",
+    "preexecution_reseal": "Before any candidate execution, the failure-result encoding was corrected to match schema 1.1 and the candidate was rebound after FA-L27 failure capture and accounting. The result object remains present with moving_to_fixed and sha256 both null. The benchmark-only runner was also corrected to materialize one output from the original moving image and charge its full interval.",
+    "attempt_1": "The first invocation began q01-exact-core-rigid, then PairBenchmarkRunner rejected a non-finite diagnostic output sum before printing or writing any row. No accuracy metric was observed. The attempt is preserved at benchmarks/flashalign/raw/linear-automatic-confirmation-2026-09-13-attempt-1.json with SHA-256 efff227f8098175c41cc92f277e88a4e8c32b3cca42eca377b215994dc8dc19c.",
+    "post_attempt_reseal": "The harness now counts non-finite output voxels explicitly and sums finite values only. The candidate source, fixtures, transforms, thresholds, failure penalty, configuration, and adjudication did not change."
+  },
+  "next_gate": "FA-L27 is qualified. FA-L28 must retry the rebound harness, preserve all rows, and refresh whole-pipeline cost for the exact unchanged candidate.",
+  "claim_boundary": "This receipt records the original pre-execution seal and the disclosed harness failure and correction. It contains no adjudicated candidate result and makes no accuracy, cost, MRI, publication, release, or cross-method qualification claim."
+}

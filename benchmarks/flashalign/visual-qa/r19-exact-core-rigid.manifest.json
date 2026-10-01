@@ -1,0 +1,13 @@
+{
+  "schema_version": "flashalign.linear-visual-qa.v2",
+  "case_id": "r19-exact-core-rigid",
+  "candidate_identity_sha256": "df4a4ddf84a63e5b7ae714a29b226d15639ce32bf8d583e3f08b931196442089",
+  "flashalign_source_tree_sha256": "51f65b218eb7051f89d232491f55f5b4523e3c230a9df43994d539c8415ce456",
+  "raw_evidence": {"path": "benchmarks/flashalign/raw/linear-automatic-release-confirmation-v5-2026-09-13.jsonl", "sha256": "38dc4857d30844711e4d676e75558a98975dce7f3788a0c9144b4090aca22d2e"},
+  "moving": {"path": "benchmarks/flashalign/fixtures/linear-automatic-release-confirmation-v5/r19-exact-core-rigid-moving.nii.gz", "sha256": "1b3962267eb5e98e8b88470e39edb70f417833020e026332081d9b2e248ec2ff"},
+  "fixed": {"path": "benchmarks/flashalign/fixtures/linear-automatic-release-confirmation-v5/r19-fixed.nii.gz", "sha256": "accc5a97373b9c225ab5db734e55756526dc40d82094439b35fc958f83854412"},
+  "result": {"moving_to_fixed": [0.9988636309830528,-0.04460687822576724,-0.016783119921629296,3.3824445035645145,0.04433389847612293,0.9988837813197498,-0.016300210497645008,-1.7048174598652694,0.01749148779438263,0.015537626308747656,0.9997262775497243,1.3215290653175962,0.0,0.0,0.0,1.0], "sha256": "b50c7521235b1ed68dfe3885c11301069b5252e6a5e836708cd2c8e9e0bc8a54", "landmark_rms_mm": 0.03241684835962561, "projected_patch_objective": 0.0012879352838694649, "audit_overlap_fraction": 1.0},
+  "visual": {"path": "benchmarks/flashalign/visual-qa/r19-exact-core-rigid.png", "sha256": "0af88e5a3bbd564856885760428cd8433ace686aaa0ca4a19eeda182e8d95804", "bytes": 119637, "width": 1240, "height": 672, "planes": ["axial-k", "coronal-j", "sagittal-i"], "columns": ["fixed", "moving-before", "registered", "red-cyan-overlay-before", "red-cyan-overlay-after", "absolute-difference-after"], "normalized_slice_mean_absolute_difference_before": [0.08669153662099877,0.08262191776171819,0.06919931443863943], "normalized_slice_mean_absolute_difference_after": [0.028192687748410862,0.028424797330990476,0.028051955050700135]},
+  "rendering_boundary": "image4s/Reframe4s load, automatic registration and final resampling; benchmark-local Java2D PNG composition; no ScalaFIM dependency",
+  "claim_boundary": "Human-facing analytic-synthetic visual QA for one preserved rigid row; not acquired-MRI or clinical evidence."
+}

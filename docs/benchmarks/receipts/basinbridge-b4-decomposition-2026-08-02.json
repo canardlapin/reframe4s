@@ -1,0 +1,257 @@
+{
+  "schema": "reframe4s-basinbridge-b4-decomposition-receipt-v1",
+  "status": "synthetic-oracle-and-native-matrices-complete-external-validation-pending",
+  "capturedAtUtc": "2026-08-02",
+  "moteIssue": "sf-01ky5p210dbhc1st4vr73nyd5c",
+  "lanes": [
+    "oracle-to-bridge",
+    "oracle-to-bridge-to-halfflow",
+    "block-to-bridge-to-halfflow"
+  ],
+  "implementation": {
+    "runner": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/BasinBridgeDecomposition.scala",
+    "round": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/BasinBridgeRound.scala",
+    "suite": "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/BasinBridgeDecompositionSuite.scala",
+    "plan": "docs/plans/basinbridge-b4-decomposition.md"
+  },
+  "frozenContract": {
+    "grid": [25, 25, 25],
+    "spacingMm": [1.0, 1.0, 1.0],
+    "blockRadiusVox": [1, 1, 1],
+    "searchRadiusVox": [3, 2, 2],
+    "minimumValidFraction": 0.8,
+    "projectorSigmaMm": 1.5,
+    "ccMaximumStepMm": 4.0,
+    "fine": {
+      "levels": [
+        {
+          "shrink": 1,
+          "pyramidSigmaMm": 0.0,
+          "smoothSigmaMm": 1.0,
+          "maximumStepMm": 0.5,
+          "targetAcceptedSteps": 1,
+          "maximumAttempts": 2
+        }
+      ],
+      "supportSigmaMm": 1.5
+    },
+    "geometryInteriorMargin": 3
+  },
+  "verification": [
+    {
+     "command": "sbt reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeDecompositionSuite",
+     "status": "passed",
+      "tests": 5,
+      "elapsedSeconds": 148
+   },
+    {
+     "command": "sbt reframe4s-halfflowJS/testOnly reframe4s.halfflow.BasinBridgeDecompositionSuite",
+     "status": "passed",
+      "tests": 5,
+      "elapsedSeconds": 1151
+   },
+    {
+      "command": "sbt reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeDecompositionSuite",
+      "status": "passed",
+      "testFilter": "exact 12 mm oracle separates bridge success from fine-stage topology rejection",
+      "tests": 1,
+      "elapsedSeconds": 8,
+      "profile": "budget2x"
+    },
+    {
+      "command": "sbt reframe4s-halfflowJS/testOnly reframe4s.halfflow.BasinBridgeDecompositionSuite",
+      "status": "passed",
+      "testFilter": "exact 12 mm oracle separates bridge success from fine-stage topology rejection",
+      "tests": 1,
+      "elapsedSeconds": 72,
+      "profile": "budget2x"
+    },
+    {
+      "command": "sbt reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeDecompositionSuite",
+      "status": "passed",
+      "testFilter": "oracle B4 budget2x lane covers the complete 2/4/8/12 mm matrix",
+      "tests": 1,
+      "elapsedSeconds": 117,
+      "profile": "budget2x"
+    },
+    {
+      "command": "sbt reframe4s-halfflowJS/testOnly reframe4s.halfflow.BasinBridgeDecompositionSuite",
+      "status": "passed",
+      "testFilter": "oracle B4 budget2x lane covers the complete 2/4/8/12 mm matrix",
+      "tests": 1,
+      "elapsedSeconds": 874,
+      "profile": "budget2x"
+    },
+    {
+      "command": "python3 tools/registration/generate_basinbridge_fixtures.py --check",
+      "status": "passed"
+    },
+    {
+      "command": "python3 tools/registration/validate_basinbridge_b4_receipt.py",
+      "status": "passed"
+    },
+    {
+     "command": "sbt reframe4s-halfflowJVM/test",
+     "status": "passed",
+      "tests": 140,
+     "failed": 0,
+      "elapsedSeconds": 242
+   },
+    {
+     "command": "sbt reframe4s-halfflowJS/test",
+     "status": "passed",
+      "tests": 138,
+     "failed": 0,
+      "elapsedSeconds": 1328
+    },
+    {
+      "command": "python3 tools/registration/validate_basinbridge_b4_performance_receipt.py",
+      "status": "passed",
+      "receipt": "docs/benchmarks/receipts/basinbridge-b4-performance-2026-08-02.json"
+    }
+  ],
+  "observedNativeBridgeMatrix": [
+    {
+      "shiftMm": 2.0,
+      "bridgePreP50Mm": 2.0,
+      "bridgePreP95Mm": 2.0,
+      "bridgePostP50Mm": 0.0,
+      "bridgePostP95Mm": 0.0,
+      "bridgeTrueCcLoss": 0.015120884206697886,
+      "rematched": true,
+      "fineStage": "passed"
+    },
+    {
+      "shiftMm": 4.0,
+      "bridgePreP50Mm": 4.0,
+      "bridgePreP95Mm": 4.0,
+      "bridgePostP50Mm": 0.0,
+      "bridgePostP95Mm": 0.0,
+      "bridgeTrueCcLoss": 0.017478177873426436,
+      "rematched": true,
+      "fineStage": "passed"
+    },
+    {
+      "shiftMm": 8.0,
+      "bridgePreP50Mm": 8.0,
+      "bridgePreP95Mm": 8.0,
+      "bridgePostP50Mm": 0.0,
+      "bridgePostP95Mm": 0.0,
+      "bridgeTrueCcLoss": 0.019571723257351514,
+      "rematched": true,
+      "fineStage": "passed"
+    },
+    {
+      "shiftMm": 12.0,
+      "bridgePreP50Mm": 12.0,
+      "bridgePreP95Mm": 12.0,
+      "bridgePostP50Mm": 0.0,
+      "bridgePostP95Mm": 0.0,
+      "bridgeTrueCcLoss": 0.01752563304620694,
+      "rematched": true,
+      "bridgeMinimumJacobian": 0.028076171875,
+      "bridgeNonPositiveJacobians": 0,
+      "bridgeValidFraction": 1.0,
+      "fineStage": "rejected",
+      "fineFailure": "HalfFlowCcError.RegriddedTopologyInvalid(AccumulatedJacobianTooSmall(Fixed,0.028076171875))"
+    }
+  ],
+  "oracleControl": {
+    "grid": [33, 33, 33],
+    "shiftMm": 12.0,
+    "profile": "budget2x",
+    "bridgeOnly": "passed",
+    "bridgeToHalfFlow": "typed accumulated-Jacobian rejection",
+    "bridgeMinimumJacobian": 0.028076171875,
+    "minimumReportedJacobian": 0.028076171875,
+    "jvm": "passed in 8s",
+    "scalaJs": "passed in 72s"
+  },
+  "observedOracleMatrix": [
+    {
+      "shiftMm": 2.0,
+      "oracleBridge": "passed",
+      "oracleBridgeToHalfFlow": "passed"
+    },
+    {
+      "shiftMm": 4.0,
+      "oracleBridge": "passed",
+      "oracleBridgeToHalfFlow": "passed"
+    },
+    {
+      "shiftMm": 8.0,
+      "oracleBridge": "passed",
+      "oracleBridgeToHalfFlow": "typed accumulated-Jacobian rejection",
+      "minimumReportedJacobian": 0.0029296875
+    },
+    {
+      "shiftMm": 12.0,
+      "oracleBridge": "passed",
+      "oracleBridgeToHalfFlow": "typed accumulated-Jacobian rejection"
+    }
+  ],
+  "productionBudget2x": {
+    "source": "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcEngineSuite.scala compactPlan",
+    "metric": "TrueNeighborhoodCc",
+    "levels": [
+      {
+        "shrink": 2,
+        "pyramidSigmaMm": 1.0,
+        "smoothSigmaMm": 10.0,
+        "maximumStepMm": 1.0,
+        "targetAcceptedSteps": 10,
+        "maximumAttempts": 24
+      },
+      {
+        "shrink": 1,
+        "pyramidSigmaMm": 0.0,
+        "smoothSigmaMm": 6.0,
+        "maximumStepMm": 0.6,
+        "targetAcceptedSteps": 10,
+        "maximumAttempts": 24
+      }
+    ],
+    "supportSigmaMm": 1.5,
+    "minimumUsefulStepMm": 1e-6,
+    "maximumIntegrationInverseErrorMm": 0.03,
+    "control": {
+      "initialDamping": 1e-4,
+      "minimumDamping": 1e-8,
+      "maximumDamping": 1.0,
+      "maximumObjectiveRetries": 6,
+      "maximumGeometryRetries": 8,
+      "maximumIntegrationRetries": 5
+    },
+    "export": {
+      "shrinks": [2, 1],
+      "iterationsPerLevel": 50,
+      "maximumInteriorErrorMm": 0.2,
+      "maximumInteriorErrorVox": 0.2,
+      "interiorMargin": 6
+    }
+  },
+  "decision": {
+    "status": "partial-classification",
+    "observedBranch": "native bridge succeeds through 12 mm, but the frozen fine stage rejects 12 mm at accumulated topology admission",
+    "oracleComparison": "exact budget2x oracle bridge succeeds at 2/4/8/12 mm; oracle-plus-fine succeeds at 2/4 mm and rejects 8/12 mm at accumulated topology admission",
+    "productionBudget2x": "full 2/4/8/12 mm oracle matrix complete",
+    "retentionThreshold": "1 - blockGap / oracleGap >= 0.8 when both gaps are positive",
+    "results": []
+  },
+ "external": {
+    "manifest": "docs/benchmarks/manifests/basinbridge-external-v1.json",
+   "sameAffineAnts": "required-external-input",
+    "sameAffineSub18": "pending-external-input",
+    "labeledDevelopmentPairs": {
+      "required": 5,
+      "available": 0,
+      "status": "pending-external-input"
+    }
+  },
+  "limitations": [
+    "The synthetic oracle and native matrices are complete under their frozen profiles; JVM JMH allocation, JVM and Scala.js runtime probes, and qualified process-level RSS envelopes are recorded in docs/benchmarks/receipts/basinbridge-b4-performance-2026-08-02.json.",
+    "Scala.js allocation remains explicitly uninstrumented, and the RSS values include sbt project loading/linking plus the child runtime rather than method-level peak memory.",
+    "Labels, surface metrics, and the external same-affine court remain pending; typed export diagnostics are retained by the runner but not yet serialized here.",
+    "No ANTs parity, anatomical accuracy, or architecture-promotion claim is made."
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": "flashalign.linear-automatic-pipeline.v1",
+  "receipt_id": "flashalign-linear-automatic-pipeline-2026-09-13",
+  "mote_task": "bd-01M2DGY4K40JVND3REXE37GTEH",
+  "status": "automatic-pipeline-engineering-qualified-release-gates-open",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "development_execution_tree_sha256": "a62f2a5e2a7977d0b560dec371627c5e2bc169c5e7389ed146d368c7c1f961a4",
+    "final_validation_tree_sha256": "9cb733e09c420179cc20a2d3e7bdc57a5f51530fc54576f9307771c026ffe39a",
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-flashalign, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "post_development_run_change": "Only LinearCostDiagnosticsSuite changed after the development run: its assertions now reconcile aggregate work with all pyramid levels and the final report with the native level. Production sources and the runner did not change.",
+    "worktree_state": "uncommitted multi-owner working tree"
+  },
+  "artifacts": {
+    "public_api": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/Flashalign.scala",
+      "sha256": "21a9f7cf885cb4a37180b6bdaae5baf3705c693b8f27ebf203a5de933401f297"
+    },
+    "automatic_initialization": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/AutomaticLinearInitialization.scala",
+      "sha256": "9bd5f4594b1d80a48dda1c4bae1f59d0e45f5111aae1571cec7efaa3386b10b3"
+    },
+    "pyramid_engine": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/LinearEngine.scala",
+      "sha256": "9009c105f237a7fd62c3a9607663d279830c16ffe03acf056c1dbbb2dcf7fc5e"
+    },
+    "work_accounting": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/LinearWork.scala",
+      "sha256": "d5699ac56dce3131c4a6aa633e40d1d47fd6c27cf6a1044360913ce80ae625a9"
+    },
+    "automatic_regression_suite": {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/AutomaticLinearPipelineSuite.scala",
+      "sha256": "5a8ff68b630f83b1c9ee44b921d5b7a0d008eaaf06c7ad94864817a391e7b9c6"
+    },
+    "cost_regression_suite": {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/LinearCostDiagnosticsSuite.scala",
+      "sha256": "fc75fe810e014f16773832e492a435e7e533f59542127c415fd13ee6bf6f5900"
+    },
+    "development_runner": {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/LinearAccuracyCourt.scala",
+      "sha256": "0f390148d06f8150ccb3c7724375eda467579fbc81014e88fec88a7ab452d824"
+    },
+    "development_raw": {
+      "path": "benchmarks/flashalign/raw/linear-automatic-development-2026-09-13.json",
+      "sha256": "a5a21588ed603fb0cf8ae4f0c48db8b9b67f3d978541644c8dba035161e97e0b",
+      "rows": 32
+    },
+    "analysis": {
+      "path": "docs/benchmarks/flashalign-automatic-pipeline.md",
+      "sha256": "dc402d8d406d5f9802dbe3e24f0d4b7b5ccfb9d72ce42e25371ae3443c62cb1d"
+    }
+  },
+  "workflow_contract": {
+    "entry_point": "RigidFlashalignPlan.run or AffineFlashalignPlan.run compiled with CoherentHeaderWorldIdentityThenCapture",
+    "capture_preparation": "support-aware physical image towers, complete affine-derived bounds, common axis-aligned capture spacing and normalized gradient tensors",
+    "candidate_mapping": "rotation about the declared pivot and translation are composed into a complete moving-to-fixed affine offset p - R p + t",
+    "refinement": "every retained capture candidate is refined coarse-to-fine using the declared effective-resolution tower and frozen projected-patch policy",
+    "selection": "successful candidates are ranked by final native-level selection objective with deterministic capture rotation and lag tie breaks",
+    "audit": "only the selected candidate is read on the audit partition",
+    "output": "the canonical bidirectional result can drive one-pass output sampling of the original moving image without materialized coordinate storage",
+    "supplied_transform": "runFrom remains available and does not provision or execute structural capture"
+  },
+  "validation": {
+    "focused_cost_command": "sbt -J-Xmx4G -Dsbt.supershell=false 'reframe4s-flashalignJVM/testOnly reframe4s.flashalign.LinearCostDiagnosticsSuite' 'reframe4s-flashalignJS/testOnly reframe4s.flashalign.LinearCostDiagnosticsSuite'",
+    "focused_cost_result": "1 passed on JVM and 1 passed on Scala.js",
+    "full_command": "sbt -J-Xmx4G -Dsbt.supershell=false 'reframe4s-flashalignJVM/test' 'reframe4s-flashalignJS/test' 'flashalignBenchmarkJVM/test'",
+    "full_result": "Flashalign JVM 150 passed; Flashalign Scala.js 149 passed; benchmark JVM 9 passed; no failures or errors",
+    "automatic_regressions": "rigid capture recovered 6 mm and -6 mm translations within 0.35 mm and executed one-pass output; affine capture plus refinement stayed below 0.9 mm maximum landmark error; both platforms asserted 6.0, 3.0 and 1.5 mm levels, candidate diagnostics, aggregate work and one audit",
+    "allocation_observation": "the JVM full suite retained 24 allocated bytes at both 2000 and 20000 projected-patch iterations",
+    "repository_checks": "build graph 28 nodes and 95 edges; symbol ownership 1404 public qualified names and 66 owners; PRD 148 IDs, 28 nodes and 95 edges, acyclic; tracked diff whitespace check clean"
+  },
+  "opened_cohort_development_result": {
+    "command": "sbt -J-Xmx4G -Dsbt.supershell=false 'flashalignBenchmarkJVM/runMain reframe4s.benchmark.flashalign.LinearAccuracyCourt benchmarks/flashalign/raw/linear-automatic-development-2026-09-13.json a62f2a5e2a7977d0b560dec371627c5e2bc169c5e7389ed146d368c7c1f961a4 --automatic-candidate-only-development'",
+    "statuses": {
+      "success": 14,
+      "iteration_limit": 8,
+      "stalled": 10,
+      "numerical_failure": 0
+    },
+    "successful_landmark_rms_mm": {
+      "minimum": 0.6100039282860096,
+      "median": 0.8911948257478863,
+      "maximum": 4.2350327065038895,
+      "at_or_below_1_mm": 9,
+      "at_or_below_2_mm": 13
+    },
+    "ordinary_rigid": {
+      "successes": 2,
+      "attempts": 4,
+      "successful_rms_mm": [
+        0.6100039282860096,
+        1.0344958206172075
+      ],
+      "release_gate": "all four succeed with landmark RMS at or below 0.1 mm",
+      "passed": false
+    },
+    "timing_ms": {
+      "minimum_total": 2082.463375,
+      "median_total": 4698.279896,
+      "p90_total": 5516.529584,
+      "maximum_total": 7111.6885
+    },
+    "comparison_to_corrected_supplied_identity": "nominal successes increased from 8 to 14 and the 12.779642 mm accepted outlier was absent, but automatic accuracy and failure tail remain outside release admission"
+  },
+  "open_release_requirements": [
+    "Add and qualify an explicit coarse identity-adequacy short circuit before expanded capture.",
+    "Return complete work and stage diagnostics for failed automatic runs so failed work is charged accurately.",
+    "Obtain a fresh independently frozen cohort and run sealed automatic accuracy evaluation without candidate-aware tuning.",
+    "Refresh whole-pipeline cost evidence for the exact admitted candidate, including capture, all candidate refinements, final audit and output.",
+    "Keep GL and the Flashalign-to-HalfFlow comparison blocked until the linear release criteria pass."
+  ],
+  "claim_boundary": "This receipt establishes that the automatic public linear workflow is executable, typed, deterministic in its schedule and selection, and cross-platform green on analytic regression tests. The opened development cohort fails the frozen accuracy and failure-tail gates. It is not fresh confirmation, an MRI claim, a latency qualification, a linear release admission, or authority to use Flashalign as a qualified HalfFlow initializer."
+}

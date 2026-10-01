@@ -1,0 +1,130 @@
+{
+  "schema": "reframe4s-basinbridge-b6-rematch-support-receipt-v1",
+  "status": "accepted-rematch-contract-no-accuracy-promotion",
+  "capturedAtUtc": "2026-08-02",
+  "moteIssue": "bd-01KZ268ADEJSDRY2JC4V9TKKF7",
+  "promotionEligible": false,
+  "trigger": {
+    "baselineReceipt": "docs/benchmarks/receipts/basinbridge-sub18-headtohead-2026-08-02.json",
+    "failure": "mandatory post-acceptance rematch aborted at the first anchor that lost local reference support",
+    "oneFactorRule": "change only post-acceptance rematch support handling; preserve strict initial matching, anchors, matcher scores, projector, assimilation, true-CC, topology floors, export policy, and budget2x"
+  },
+  "contract": {
+    "strictInitialSearchChanged": false,
+    "retainingSearchUsedOnlyAfterAcceptedAssimilation": true,
+    "droppableFailures": ["InvalidAnchor", "InsufficientReferenceSupport", "NoUsableCandidate"],
+    "allOtherFailuresRemainFatal": true,
+    "deterministicInputOrderPreserved": true,
+    "minimumRetainedAnchors": 4,
+    "minimumRetainedAnchorsBoundedByRequestedCount": true,
+    "minimumRetainedFraction": 0.5,
+    "requestedRetainedIndicesAndDropReasonsRecorded": true,
+    "movingEvaluationMaskUsedForOptimization": false,
+    "labelsUsedForOptimization": false
+  },
+  "syntheticVerification": {
+    "jvm": {
+      "command": "sbt 'reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeBlockMatcherSuite reframe4s.halfflow.BasinBridgeRoundSuite reframe4s.halfflow.BasinBridgeDecompositionSuite'",
+      "status": "passed",
+      "tests": 16,
+      "elapsedSeconds": 137
+    },
+    "scalaJs": {
+      "command": "sbt 'reframe4s-halfflowJS/testOnly reframe4s.halfflow.BasinBridgeBlockMatcherSuite reframe4s.halfflow.BasinBridgeRoundSuite reframe4s.halfflow.BasinBridgeDecompositionSuite'",
+      "status": "passed",
+      "tests": 16,
+      "elapsedSeconds": 1065
+    },
+    "claims": [
+      "strict search still fails closed when a declared boundary anchor lacks support",
+      "retaining rematch search preserves usable anchors and reports drops in deterministic order",
+      "retaining rematch search fails with a typed error below its explicit support floor",
+      "an accepted native round records complete rematch-support diagnostics"
+    ]
+  },
+  "broadVerification": {
+    "regressionCaught": "The first complete JVM gate rejected an unconditional 4-anchor floor in existing declared 3-anchor B4 scenarios (141 passed, 2 failed). The floor was corrected to be bounded by the requested count before final verification.",
+    "jvm": {
+      "command": "sbt -J-Xmx4G 'reframe4s-halfflowJVM/test'",
+      "status": "passed",
+      "tests": 143,
+      "failed": 0,
+      "elapsedSeconds": 321
+    },
+    "scalaJs": {
+      "status": "affected-shared-suites-passed",
+      "tests": 16,
+      "failed": 0,
+      "elapsedSeconds": 1065,
+      "note": "The matcher, round, and full frozen decomposition suites cover the changed shared surface. A second duplicate full Scala.js gate was not run."
+    }
+  },
+  "sub18": {
+    "command": "sbt -J-Xmx4G 'reframe4s-halfflowJVM/Test/runMain reframe4s.halfflow.BasinBridgeSub18AccuracyProbe all'",
+    "status": "complete-round-returned-unsafe-state",
+    "elapsedSeconds": 166,
+    "artifactsAndOracles": "unchanged SHA-256-pinned court from the baseline receipt",
+    "initialMatch": {
+      "requestedAnchors": 18,
+      "correspondences": 18,
+      "strictSearch": true
+    },
+    "rematch": {
+      "status": "completed",
+      "requestedAnchors": 18,
+      "retainedAnchors": 15,
+      "retainedIndices": [0, 2, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      "dropped": [
+        {"index": 1, "reason": "InsufficientReferenceSupport", "direction": "Forward", "available": 6, "required": 21},
+        {"index": 3, "reason": "InsufficientReferenceSupport", "direction": "Forward", "available": 14, "required": 21},
+        {"index": 5, "reason": "InsufficientReferenceSupport", "direction": "Forward", "available": 15, "required": 21}
+      ]
+    },
+    "bridge": {
+      "accepted": true,
+      "acceptedAlpha": 1.0,
+      "initialMatchErrorMm": 15.755849482703288,
+      "finalMatchErrorMm": 8.765332170357594,
+      "initialCcLoss": 0.9229897696900153,
+      "finalCcLoss": 0.9149877440475543,
+      "methodElapsedMillisIncludingRematch": 94408,
+      "stateNumericallyIdenticalToBaselinePartialAssimilation": true
+    },
+    "metrics": {
+      "ncc": 0.1379602928496381,
+      "globalNcc": 0.628563548990878,
+      "gradientNcc": -0.12557698027816408,
+      "dice": 0.7208578251914299,
+      "comDistanceVox": 13.687294707249926,
+      "evaluationElapsedMillis": 63446,
+      "accuracyChangedByDiagnosticRematch": false
+    },
+    "fine": {
+      "status": "rejected-before-full-resolution-refinement",
+      "failure": "HalfFlow-CC regrid at shrink 1 violates accumulated topology: AccumulatedJacobianTooSmall(Fixed,0.03943797115921224)",
+      "elapsedMillis": 4416,
+      "minimumObservedFixedAccumulatedJacobian": 0.03943797115921224,
+      "minimumRequiredAccumulatedJacobian": 0.05,
+      "topologyFloorWasLoosened": false
+    },
+    "export": {
+      "status": "rejected-fixed-residual-inverse-tolerance",
+      "maximumInteriorMm": 0.6796445796390174,
+      "endpointJacobianMinimum": -0.4890898791741532,
+      "endpointJacobianNonPositive": 11434
+    }
+  },
+  "decision": {
+    "retainSupportAwareRematch": true,
+    "reason": "The isolated change converts an anchor-local support loss into a complete, auditable rematch while retaining 15 of 18 anchors and preserving fail-closed geometry, support floors, and all downstream safety guards.",
+    "accuracyPromoted": false,
+    "reasonAccuracyNotPromoted": "Rematching is diagnostic and does not alter the accepted state; gradient NCC remains worse than identity, frozen fine refinement rejects accumulated topology, and endpoint export remains unsafe.",
+    "nextFactor": "separately test global-affine initialization versus bridge boundary/projector behavior; do not tune the fine objective or loosen topology"
+  },
+  "limitations": [
+    "This is one hash-pinned real pair, not multi-subject anatomical validation.",
+    "The source data license is still unverified for external promotion.",
+    "Successful rematching does not establish ANTs parity, safe export, or a usable end-to-end registration result.",
+    "Runtime is a single diagnostic observation and is not a performance comparison."
+  ]
+}

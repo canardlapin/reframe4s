@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canardlapin.github.io/reframe4s/flashalign/linear-preset-calibration-v1.schema.json",
+  "title": "Flashalign linear preset calibration manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "status",
+    "artifacts",
+    "roles",
+    "claim_boundary"
+  ],
+  "properties": {
+    "$schema": { "type": "string", "minLength": 1 },
+    "schema_version": { "const": "1.0.0" },
+    "manifest_id": { "const": "flashalign-linear-preset-calibration-v1" },
+    "status": { "const": "training-frozen-holdouts-reserved" },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prd", "generator", "fixture", "receipt", "preset_source"],
+      "properties": {
+        "prd": { "$ref": "#/$defs/hashedArtifact" },
+        "generator": { "$ref": "#/$defs/hashedArtifact" },
+        "fixture": { "$ref": "#/$defs/hashedArtifact" },
+        "receipt": { "$ref": "#/$defs/hashedArtifact" },
+        "preset_source": { "$ref": "#/$defs/hashedArtifact" }
+      }
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit",
+        "training_subject_ids_sha256",
+        "selection_subject_ids_sha256",
+        "audit_subject_ids_sha256",
+        "test_subject_ids_sha256",
+        "all_roles_subject_disjoint",
+        "unopened_roles"
+      ],
+      "properties": {
+        "unit": { "const": "synthetic-subject" },
+        "training_subject_ids_sha256": { "$ref": "#/$defs/sha256" },
+        "selection_subject_ids_sha256": { "$ref": "#/$defs/sha256" },
+        "audit_subject_ids_sha256": { "$ref": "#/$defs/sha256" },
+        "test_subject_ids_sha256": { "$ref": "#/$defs/sha256" },
+        "all_roles_subject_disjoint": { "const": true },
+        "unopened_roles": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "selection" },
+            { "const": "audit" },
+            { "const": "test" }
+          ],
+          "items": false
+        }
+      }
+    },
+    "claim_boundary": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "hashedArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    }
+  }
+}

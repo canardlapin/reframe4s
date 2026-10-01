@@ -1,0 +1,187 @@
+{
+  "schema": "reframe4s-basinbridge-sub18-headtohead-receipt-v1",
+  "status": "observed-diagnostic-method-incomplete-external-promotion-pending",
+  "capturedAtUtc": "2026-08-02",
+  "moteIssue": "sf-01ky5p210dbhc1st4vr73nyd5c",
+  "promotionEligible": false,
+  "source": {
+    "project": "hodgeflow",
+    "directoryRelativeToHodgeflow": "tmp/sub18_hodgeflow_vs_ants/ants_synquick_softbrain_fixedmask",
+    "protocolScript": "inst/benchmarks/benchmark_sub18_synquick_fixedmask.R",
+    "metricDefinitions": "inst/benchmarks/benchmark_common.R",
+    "dataLicenseEvidence": null,
+    "note": "Hodgeflow source-tree assets are consumed read-only and are not copied or packaged by reframe4s. The code license is not treated as data-license evidence."
+  },
+  "artifacts": [
+    {
+      "role": "optimization-moving-softbrain",
+      "path": "moving.nii.gz",
+      "sha256": "917dd8c4c6cf6fcc96c445fa0e17f88dfad469853e5bc3509bf17b81fb440d06",
+      "shape": [176, 265, 265]
+    },
+    {
+      "role": "optimization-fixed-mni2009casym-brain",
+      "path": "fixed.nii.gz",
+      "sha256": "7b168153a9508f5f116ac37d33835fa44dd168ba7a9ae31a3b33e6f63bd23292",
+      "shape": [97, 115, 97]
+    },
+    {
+      "role": "evaluation-only-moving-bet-mask",
+      "path": "moving_mask.nii.gz",
+      "sha256": "64e089065293eabd54244ea73862f97aa59466b7dd054948bfb5c330abc0f0e3"
+    },
+    {
+      "role": "optimization-support-and-evaluation-fixed-mask",
+      "path": "fixed_mask.nii.gz",
+      "sha256": "745c970d2b45eb5088446528399b6965c2ce912d37ca7cacb993513a302d5161"
+    },
+    {
+      "role": "saved-ants-warped-moving-reference",
+      "path": "synquick_Warped.nii.gz",
+      "sha256": "54e7ff7ea17adb15b8ef99627d64f5cf03f534f67ec9ab26fbdf6654ec39d835"
+    },
+    {
+      "role": "saved-ants-warped-evaluation-mask",
+      "path": "synquick_MaskWarped.nii.gz",
+      "sha256": "08a10d9192239547671d519dab121ded90447f11928ebbe7264892a1cf1c2140"
+    }
+  ],
+  "oracleContract": {
+    "metricIds": [
+      "fixed-mask-ncc",
+      "global-ncc",
+      "fixed-mask-gradient-magnitude-ncc",
+      "mask-dice",
+      "mask-com-distance-vox"
+    ],
+    "tolerance": "absolute 1e-6 plus relative 1e-6",
+    "hodgeflowHeaderBaselineRecomputedFromCurrentSource": true,
+    "olderSavedPreMetricsRejectedAsStale": true,
+    "scalaHeaderBaselineMatched": true,
+    "savedAntsMetricsMatched": true,
+    "movingMaskUsedForOptimization": false,
+    "fixedMaskUsedForOptimizationSupport": true
+  },
+  "frozenRun": {
+    "anchorCount": 18,
+    "anchorPolicy": "deterministic physical maximin from a 7x7x7 fractional lattice after matcher-exact complete-reference-block support qualification",
+    "blockRadiusVox": [1, 1, 1],
+    "searchRadiusVox": [8, 8, 8],
+    "minimumValidFraction": 0.75,
+    "projector": "BasinBridgeProjectorConfig.default",
+    "cc": "BasinBridgeCcObjectiveConfig.default",
+    "finePlan": "frozen two-level budget2x: shrink 2 then 1, true Neighborhood-CC, 10 accepted or 24 attempts per level",
+    "minimumAccumulatedJacobian": 0.05,
+    "retuneAfterObservation": false
+  },
+  "methods": [
+    {
+      "id": "initial-header-identity",
+      "status": "oracle-matched",
+      "ncc": 0.12629279168027657,
+      "globalNcc": 0.5678517376638428,
+      "gradientNcc": -0.10722456158956443,
+      "dice": 0.6609480584043748,
+      "comDistanceVox": 17.720557855282404
+    },
+    {
+      "id": "ants-synquick-softbrain-fixedmask",
+      "status": "saved-reference-oracle-matched",
+      "ncc": 0.6722980501504529,
+      "globalNcc": 0.9457095651791072,
+      "gradientNcc": 0.43994560051600695,
+      "dice": 0.9793589557154222,
+      "comDistanceVox": 0.30836844437303096,
+      "registrationElapsedMillisFromSavedRunLog": 47800,
+      "jacobianStatus": "not-evaluated-from-saved-output"
+    },
+    {
+      "id": "basinbridge-complete-round",
+      "status": "failed-mandatory-rematch",
+      "failure": "BasinBridge Forward anchor 1 has insufficient reference support: 6 available, 21 required"
+    },
+    {
+      "id": "basinbridge-accepted-assimilation-diagnostic",
+      "status": "partial-state-not-method-complete",
+      "initialMatcherCorrespondences": 18,
+      "bridgeAccepted": true,
+      "acceptedAlpha": 1.0,
+      "initialMatchErrorMm": 15.755849482703288,
+      "finalMatchErrorMm": 8.765332170357594,
+      "initialCcLoss": 0.9229897696900153,
+      "finalCcLoss": 0.9149877440475543,
+      "methodElapsedMillis": 119575,
+      "rematchElapsedMillis": 567,
+      "ncc": 0.1379602928496381,
+      "globalNcc": 0.628563548990878,
+      "gradientNcc": -0.12557698027816408,
+      "dice": 0.7208578251914299,
+      "comDistanceVox": 13.687294707249926,
+      "evaluationElapsedMillis": 72811,
+      "exportStatus": "rejected-fixed-residual-inverse-tolerance",
+      "exportMaximumInteriorMm": 0.6796445796390174,
+      "endpointJacobian": {
+        "minimum": -0.4890898791741532,
+        "q01": -0.006103638085542149,
+        "q05": 0.2734820209169683,
+        "q50": 0.9999999999999698,
+        "q95": 1.000100845878577,
+        "q99": 1.4979942365507295,
+        "nonPositive": 11434,
+        "evaluated": 1019825,
+        "eligible": 1019825,
+        "validFraction": 1.0
+      }
+    },
+    {
+      "id": "basinbridge-assimilation-then-budget2x-diagnostic",
+      "status": "rejected-before-full-resolution-refinement",
+      "failure": "HalfFlow-CC regrid at shrink 1 violates accumulated topology: AccumulatedJacobianTooSmall(Fixed,0.03943797115921224)",
+      "elapsedMillis": 4302,
+      "minimumObservedFixedAccumulatedJacobian": 0.03943797115921224,
+      "topologyFloorWasLoosened": false
+    }
+  ],
+  "classification": {
+    "decision": "do-not-tune-fine-objective-yet",
+    "evidence": [
+      "native matching produced 18 correspondences and assimilation improved sparse match error",
+      "the complete round failed mandatory rematch after support moved",
+      "the accepted partial state improved global NCC, Dice, and COM but worsened gradient NCC and remained far below saved ANTs",
+      "budget2x safely rejected the partial state at the existing topology floor",
+      "endpoint export rejected a non-converged inverse candidate with non-positive Jacobians"
+    ],
+    "nextFactor": "bridge boundary/support and global affine handling, including rematch anchor support, before another frozen all-lane rerun",
+    "notEstablished": [
+      "anatomical accuracy promotion",
+      "ANTs parity",
+      "safe export",
+      "complete BasinBridge method success",
+      "multi-subject generalization",
+      "data-license eligibility"
+    ]
+  },
+  "verification": [
+    {
+      "command": "sbt -J-Xmx4G reframe4s-halfflowJVM/Test/compile",
+      "status": "passed"
+    },
+    {
+      "command": "sbt -J-Xmx4G 'reframe4s-halfflowJVM/Test/runMain reframe4s.halfflow.BasinBridgeSub18AccuracyProbe oracles'",
+      "status": "passed"
+    },
+    {
+      "command": "sbt -J-Xmx4G 'reframe4s-halfflowJVM/Test/runMain reframe4s.halfflow.BasinBridgeSub18AccuracyProbe all'",
+      "status": "passed-diagnostic",
+      "elapsedSeconds": 202
+    },
+    {
+      "command": "sbt -J-Xmx4G reframe4s-halfflowJVM/test",
+      "status": "passed",
+      "tests": 141,
+      "failed": 0,
+      "elapsedSeconds": 329,
+      "note": "The opt-in sub18 probe is not part of MUnit discovery; this gate covers the corrected source-tree real-data suite and the production/shared HalfFlow surface."
+    }
+  ]
+}

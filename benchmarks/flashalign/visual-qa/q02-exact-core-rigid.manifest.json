@@ -1,0 +1,12 @@
+{
+  "schema_version": "flashalign.linear-visual-qa.v1",
+  "case_id": "q02-exact-core-rigid",
+  "candidate_source_tree_sha256": "50ec8257d6f531aec793e11f568627b6b95813b80be8cc2bd8ad748c47ab60d8",
+  "raw_evidence": {"path": "benchmarks/flashalign/raw/linear-automatic-confirmation-2026-09-13.jsonl", "sha256": "0f5b25b34fee92670add2e5683404a9770105f20245a99ffe2c7fd2f1119c2a8"},
+  "moving": {"path": "benchmarks/flashalign/fixtures/linear-automatic-confirmation-v1/q02-exact-core-rigid-moving.nii.gz", "sha256": "1ba8c9c57fd4954cf932cab21b25a800e6d9990729954698519d8f9147a5660e"},
+  "fixed": {"path": "benchmarks/flashalign/fixtures/linear-automatic-confirmation-v1/q02-fixed.nii.gz", "sha256": "1f5305b3876b12b67ed9040370fd0c7925b3a08f737018bd8ce3cb7ebf361f58"},
+  "result": {"moving_to_fixed": [0.9988306967475683,0.04384483601338422,-0.02036834774170034,-2.991476244756116,-0.04408601476023375,0.9989610110720841,-0.011546499919889411,-1.81762446150252,0.019840930858400687,0.012430957839161106,0.999725866800431,1.4929903663950461,0.0,0.0,0.0,1.0], "sha256": "5619227b56b8a8bee196b6804300210eeba8e3ac6b6aa795237022fde2cc59ca", "landmark_rms_mm": 0.0320655084478178, "projected_patch_objective": 0.0013323974168251527, "audit_overlap_fraction": 1.0},
+  "visual": {"path": "benchmarks/flashalign/visual-qa/q02-exact-core-rigid.png", "sha256": "3dc901dcbf3ab313ac3c076098ea21b4f0891aba6b9684b813bc583991498c74", "bytes": 120992, "width": 1240, "height": 672, "planes": ["axial-k", "coronal-j", "sagittal-i"], "columns": ["fixed", "moving-before", "registered", "red-cyan-overlay-before", "red-cyan-overlay-after", "absolute-difference-after"], "normalized_slice_mean_absolute_difference_before": [0.10408310893927593,0.08467556686784462,0.09997851580397686], "normalized_slice_mean_absolute_difference_after": [0.024661063865503183,0.0328961854528482,0.02504236188812414]},
+  "rendering_boundary": "image4s/Reframe4s load, automatic registration and final resampling; benchmark-local Java2D PNG composition; no ScalaFIM dependency",
+  "claim_boundary": "Human-facing analytic-synthetic visual QA for one preserved rigid row; not acquired-MRI or clinical evidence."
+}

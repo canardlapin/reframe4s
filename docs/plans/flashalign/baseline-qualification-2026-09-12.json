@@ -1,0 +1,156 @@
+{
+  "schema_version": "flashalign-baseline-qualification/v1",
+  "claim_authority": "implementation-baseline-only",
+  "date": "2026-09-12",
+  "candidate": {
+    "source_revision": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "isolated_clone": "/tmp/reframe4s-flashalign-baseline-fa015c3",
+    "source_clean_before_patch": true,
+    "candidate_paths": {
+      "PRD.json": "cb16679e325dae927f19117588d2efc039d0a0661c81689d0311e19e97fdbd4d",
+      ".github/workflows/ci.yml": "a6139e4947094b02390777095263e069a2de87219f5c2f103fc86a07bddd78a8",
+      "build.sbt": "e6ba38d0e36d4ad647ff39a95e7f7ee20670a756ad48ea2c76366406230e3402",
+      "project/artifact-graph.tsv": "e9170977c8ab497d0116bdb0392d3cd8eaa942e86d4379bfca06800708928362",
+      "project/build.properties": "bc2e83307ba4a40cb286711cee6f644d9bca62ab2d791053000c7c9ce7a82bb2"
+    }
+  },
+  "providers": {
+    "image4s": "ec56b34806c22e26c28ecbd366ef2e323195fc88",
+    "locus4s": "58c9739be51345ad9adc4bc9c9e7335023254ec9",
+    "gale": "83cac90a678d1b8a31c590e0c1b8fc8bf3427161",
+    "ravel": "9c5669399ab8e2a11402e71973dd5f1e2f2c13f4"
+  },
+  "toolchain": {
+    "scala": "3.7.4",
+    "sbt": "1.11.7",
+    "sbt_policy": "bounded reframe4s exception; 1.12.14 migration is separate",
+    "java_launcher": "OpenJDK 22+36-2370",
+    "sbt_test_runtime": "OpenJDK 64-Bit Server VM 25.0.1; Mac OS X aarch64",
+    "node": "v26.7.0",
+    "os": "darwin 23.3.0 arm64"
+  },
+  "gates": [
+    {
+      "id": "verify-prd",
+      "command": ["node", "scripts/verify-prd.mjs"],
+      "exit_code": 0,
+      "result": "148 unique IDs, 26 artifact nodes, 85 edges, acyclic"
+    },
+    {
+      "id": "verify-build-graph",
+      "command": ["node", "scripts/verify-build-graph.mjs"],
+      "exit_code": 0,
+      "result": "26 nodes and 85 edges match PRD"
+    },
+    {
+      "id": "verify-symbol-ownership",
+      "command": ["node", "scripts/verify-symbol-ownership.mjs"],
+      "environment": {
+        "IMAGE4S_ROOT": "detached ec56b34806c22e26c28ecbd366ef2e323195fc88",
+        "LOCUS4S_ROOT": "detached 58c9739be51345ad9adc4bc9c9e7335023254ec9"
+      },
+      "exit_code": 0,
+      "result": "992 public qualified names in isolated source, 55 canonical owners"
+    },
+    {
+      "id": "reframe4s-jvm-js",
+      "command": ["sbt", "-J-Xmx4G", "-batch", "compileAll", "testAll"],
+      "exit_code": 0,
+      "duration_seconds": 137,
+      "result": "all isolated JVM and Scala.js projects compiled and tested; exact baseline HalfFlow reported 100 passing tests on each platform"
+    },
+    {
+      "id": "scalafim-clean-consumer-compile",
+      "source_revision": "96db5b7a317331f180e3106f0462f1019965251a",
+      "source_tree": "68c0274ba99832e6f760079e08f6c1a755a56041",
+      "reframe4s_pin": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+      "image4s_pin": "ec56b34806c22e26c28ecbd366ef2e323195fc88",
+      "command": ["sbt", "-J-Xmx6G", "-batch", "scalafimCompileAll"],
+      "exit_code": 0,
+      "result": "clean exact consumer compiled all declared JVM and Scala.js modules"
+    },
+    {
+      "id": "motion-laptop-regression-v1",
+      "command": ["node", "scripts/run-motion-laptop-gate.mjs", "--output", "benchmarks/motion/results/laptop/flashalign-baseline-fa015c3"],
+      "exit_code": 0,
+      "passed": true,
+      "tests": {"total": 13, "passed": 13, "failed": 0, "errors": 0, "ignored": 0},
+      "upstream_receipt_sha256": "5aa0a6f5e55e334c9ce3ce420dd0fe2c9b1baa2fc274b13e2a1669d41a871cef",
+      "definition_sha256": "9f9f8c93d60ae052e76984aaa2f380f93338a7b0febbc2db7e4de01717c16943"
+    }
+  ],
+  "performance_baselines": {
+    "claim_authority": "same-machine regression anchors only",
+    "ac026_affine_resampling": {
+      "voxels": 36864,
+      "allocated_bytes": 597568,
+      "payload_bytes": 589824,
+      "fixed_overhead_bytes": 7744,
+      "median_ns": 3303542,
+      "throughput_megavoxels_per_second": 11.159,
+      "source": "isolated compileAll testAll console"
+    },
+    "mig424_lanczos5_output": {
+      "voxels": 1000,
+      "large_allocated_bytes": 464,
+      "median_ns": 15566875,
+      "p95_ns": 85553208,
+      "throughput_megavoxels_per_second": 0.064239,
+      "checksum": 817939.0106519748,
+      "source": "isolated compileAll testAll console"
+    },
+    "mig414_motion_pair": {
+      "voxels": 9261,
+      "evaluations": 11,
+      "large_allocated_bytes": 236416,
+      "median_ns": 6302917,
+      "p95_ns": 8825458,
+      "throughput_megavoxels_per_second": 16.163,
+      "checksum": 9209.402669981322
+    },
+    "mig414_motion_application": {
+      "samples": 147456,
+      "allocated_bytes": 2373552,
+      "payload_bytes": 2359296,
+      "fixed_overhead_bytes": 14256,
+      "median_ns": 3086000,
+      "p95_ns": 3404083,
+      "throughput_megasamples_per_second": 47.782,
+      "value_checksum": 2073600.0,
+      "validity_checksum": 147456.0
+    },
+    "mig422_normal_kernel": {
+      "large_samples": 32768,
+      "small_allocated_bytes": 88,
+      "large_allocated_bytes": 88,
+      "median_ns": 1909000,
+      "throughput_megasamples_per_second": 68.66,
+      "checksum": 32259.615053612182
+    }
+  },
+  "preexisting_failures": [
+    {
+      "id": "scalafim-image-unification-structural-audit",
+      "source_revision": "96db5b7a317331f180e3106f0462f1019965251a",
+      "command": ["node", "scripts/verify-image-unification.mjs", "--scalafim", "/tmp/reframe4s-flashalign-scalafim-96db5b7a", "--summary-only"],
+      "exit_code": 1,
+      "files_scanned": 1096,
+      "finding_counts": {
+        "raw-image-buffer-access": 3,
+        "dense-volume-sampled-owner": 1,
+        "dense-series-sampled-owner": 1,
+        "sparse-ravel-rank-two": 1,
+        "sparse-typed-support": 1,
+        "component-image-owner": 1,
+        "temporary-source-composite": 1
+      },
+      "classification": "preexisting ScalaFIM MIG-500 removal/migration debt; present in clean consumer snapshot; does not block exact JVM/Scala.js compilation or require a Flashalign implementation dependency",
+      "owner_record": "docs/implementation-status.md MIG-500 and docs/scalafim-compatibility-gate.md"
+    }
+  ],
+  "limitations": [
+    "No remote CI run or publication was performed.",
+    "Performance values are machine-local regression anchors, not Flashalign speed results.",
+    "The broader ScalaFIM image-unification removal audit is not green and remains outside this feature baseline."
+  ]
+}

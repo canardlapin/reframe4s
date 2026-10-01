@@ -111,11 +111,13 @@ object HalfStepNumerics:
 final case class ForwardGeometryConfig(
     minimumIncrementJacobian: Double = 0.05,
     minimumAccumulatedJacobian: Double = 0.05,
-    minimumValidFraction: Double = 0.95
+    minimumValidFraction: Double = 0.95,
+    interiorMargin: Int = 1
 ):
   require(minimumIncrementJacobian.isFinite && minimumIncrementJacobian > 0.0)
   require(minimumAccumulatedJacobian.isFinite && minimumAccumulatedJacobian > 0.0)
   require(minimumValidFraction.isFinite && minimumValidFraction > 0.0 && minimumValidFraction <= 1.0)
+  require(interiorMargin >= 1)
 
 final case class ForwardJacobianReport(
     minimum: Double,
@@ -149,8 +151,8 @@ object ForwardGeometry:
       config: ForwardGeometryConfig = ForwardGeometryConfig()
   ): (GeometryVerdict, Vector[ForwardJacobianReport]) =
     val workspace = ForwardGeometryWorkspace(step.plus.from.grid)
-    val plus = report(step.plus, workspace)
-    val minus = report(step.minus, workspace)
+    val plus = report(step.plus, workspace, config.interiorMargin)
+    val minus = report(step.minus, workspace, config.interiorMargin)
     val minimum = math.min(plus.minimum, minus.minimum)
     val valid = acceptable(plus, config.minimumIncrementJacobian, config.minimumValidFraction) &&
       acceptable(minus, config.minimumIncrementJacobian, config.minimumValidFraction)
@@ -164,8 +166,8 @@ object ForwardGeometry:
       config: ForwardGeometryConfig = ForwardGeometryConfig()
   ): (GeometryVerdict, Vector[ForwardJacobianReport]) =
     val workspace = ForwardGeometryWorkspace(state.work.grid)
-    val fixed = report(state.fixed.residual, workspace)
-    val moving = report(state.moving.residual, workspace)
+    val fixed = report(state.fixed.residual, workspace, config.interiorMargin)
+    val moving = report(state.moving.residual, workspace, config.interiorMargin)
     val verdict =
       if !acceptable(fixed, config.minimumAccumulatedJacobian, config.minimumValidFraction) then
         GeometryVerdict.AccumulatedJacobianTooSmall(MidpointArmName.Fixed, fixed.minimum)
@@ -174,7 +176,11 @@ object ForwardGeometry:
       else GeometryVerdict.Valid
     (verdict, Vector(fixed, moving))
 
-  private def report[A](pull: DensePull[A, A], workspace: ForwardGeometryWorkspace): ForwardJacobianReport =
+  private def report[A](
+      pull: DensePull[A, A],
+      workspace: ForwardGeometryWorkspace,
+      interiorMargin: Int
+  ): ForwardJacobianReport =
     require(workspace.grid == pull.from.grid, "forward geometry workspace/grid mismatch")
     HalfFlowKernels.jacobianDeterminantsReduceInto(
       pull.sourceCoordinates,
@@ -182,11 +188,13 @@ object ForwardGeometry:
       workspace.valid,
       workspace.sampler,
       pull.validity,
-      workspace.reduction
+      workspace.reduction,
+      interiorMargin
     )
     val eligible =
-      math.max(0, workspace.grid.shape.x - 2) * math.max(0, workspace.grid.shape.y - 2) *
-        math.max(0, workspace.grid.shape.z - 2)
+      math.max(0, workspace.grid.shape.x - 2 * interiorMargin) *
+        math.max(0, workspace.grid.shape.y - 2 * interiorMargin) *
+        math.max(0, workspace.grid.shape.z - 2 * interiorMargin)
     ForwardJacobianReport(
       workspace.reduction.minimumOrNaN,
       workspace.reduction.evaluated,

@@ -1,0 +1,188 @@
+{
+  "schema_version": "flashalign.nonlinear-platform-qualification.v1",
+  "receipt_id": "flashalign-nonlinear-platform-qualification-2026-09-12",
+  "mote_task": "bd-01M2B119P74DWQB1W9VEV4C3DJ",
+  "status": "engineering-platform-gates-passed",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner worktree",
+    "flashalign_source_tree_sha256": "6d00dde079a16e56455c7743f401d31f2340255cee29a0e40aa7cba7a236319b",
+    "flashalign_source_file_count": 70,
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-flashalign, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "prd_json_sha256": "a770ad35ced78bf2015c4f8ea96c80074155e6c8e4b9e834b9400a53860ed0e5",
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "symbol_ownership_verifier_sha256": "f9b8d8985a3a42876993a461503f22b0daf3e0927897e77f334bd34ea5f8e379"
+  },
+  "providers": {
+    "gale": "83cac90a678d1b8a31c590e0c1b8fc8bf3427161",
+    "image4s": "ec56b34806c22e26c28ecbd366ef2e323195fc88",
+    "ravel": "9c5669399ab8e2a11402e71973dd5f1e2f2c13f4",
+    "intaglio": "596b398af380079e4b251535230d0bc03cd88c51",
+    "locus4s": "58c9739be51345ad9adc4bc9c9e7335023254ec9"
+  },
+  "nonlinear_source_hashes": {
+    "geometry_operator": "493c2ad003c9f2b3a52eb11b36489ffedb40f187ea8baf0274091b2692d7035a",
+    "matrix_free_patch_operator": "5757839ceb500c5408bc19a1ea13fd557af64cfe8521078ccba86d092af9749b",
+    "gale_pcg_adapter": "3fd39c173a43e1502640d80e2457f5df77ca080510dbbdc5ebe68d03eff0a1b8",
+    "pe_field_model": "ff7ea225847a93de7cfee91c33d6d8ea862144d5ede84153202d129487ac1c05",
+    "pe_geometry": "98ddb8ec619f224033c6b6e70aa1fe3421f07c147ef6d291107efb3c11b12728",
+    "pe_optimizer": "f8d6d873def13fbdb49713cf2094870132c0ec6e60767e54a127cceba28128e8",
+    "small_strain_model": "96e2661d141d626917104266abfd3eeed87f8050a39447ea96fd047c5299adcd",
+    "small_strain_geometry": "0739e0a1e40945cbc736b29e8f7e8fd983097f0117ab3452cb01d05be0fac35c",
+    "small_strain_optimizer": "cba006f5b8a29f74a8258678eee780d72feb32d57a0f8a33ea13bf04485d2c73",
+    "model_selection": "eba7acf2708efda324b74b2141ef0717b479778933719477dc44a9424d183b0b",
+    "result_and_output": "d3fbeec5d72eb2138c11bce69b874512cee005eef69709752609ce62c22a52cf",
+    "result_suite": "1d982537f198684292de9a4c114bb4898d3218e8ae17f1f2c5c62280a999c916"
+  },
+  "generated_pom_evidence": {
+    "flashalign_jvm": {
+      "path": "modules/reframe4s-flashalign/jvm/target/scala-3.7.4/reframe4s-flashalign_3-0.1.0-SNAPSHOT.pom",
+      "sha256": "d436965bd41f0de1d3cc085c5ddabbc90f69f029e649332f534be83532928ecb"
+    },
+    "flashalign_scala_js": {
+      "path": "modules/reframe4s-flashalign/js/target/scala-3.7.4/reframe4s-flashalign_sjs1_3-0.1.0-SNAPSHOT.pom",
+      "sha256": "3e51d79062975bdac339d51c54ac18e6f6a93bf7187bbe6bd40af24cde661549"
+    },
+    "default_bundle_jvm": {
+      "path": "modules/reframe4s/jvm/target/scala-3.7.4/reframe4s_3-0.1.0-SNAPSHOT.pom",
+      "sha256": "8048e59973831799e493df281ce2930a86d1ef45ae37c91e26c1cbc9b85724a4"
+    },
+    "default_bundle_scala_js": {
+      "path": "modules/reframe4s/js/target/scala-3.7.4/reframe4s_sjs1_3-0.1.0-SNAPSHOT.pom",
+      "sha256": "9879a4e53021a4cc21d44fbd43c22789e42f04358b73b3010b82f5fd3ba5a8fc"
+    },
+    "flashalign_compile_dependencies": [
+      "reframe4s-core",
+      "reframe4s-lie",
+      "reframe4s-register",
+      "reframe4s-resample",
+      "reframe4s-multiscale",
+      "reframe4s-spectral",
+      "gale-core",
+      "image4s-core",
+      "image4s-geometry",
+      "ravel-core",
+      "scala3-library"
+    ],
+    "scala_js_runtime_addition": "scalajs-library",
+    "prohibited_compile_dependencies_absent": [
+      "image4s-nifti",
+      "image4s-reference",
+      "image4s-laws",
+      "reframe4s-laws",
+      "reframe4s-motion",
+      "reframe4s-halfflow",
+      "JMH"
+    ],
+    "flashalign_absent_from_default_bundles": true,
+    "benchmark_boundary": "The JVM-only flashalignBenchmarkJVM project is unpublished and alone adds image4s-nifti and JMH concerns."
+  },
+  "public_capability_audit": {
+    "publication_state": "internal-experimental opt-in cross-project; excluded from the default reframe4s bundles",
+    "execution_surface": "PE and small-strain models, optimizers, matrix-free operators and workspaces remain private[flashalign]; this qualification does not promote them to a stable external execution API",
+    "public_surface": "Versioned immutable nonlinear model, field, domain, acquisition, certificate, inverse-evidence and result records plus strict restoration and named affine-component export",
+    "mutable_alias": "No public nonlinear record contains Array or another mutable buffer. The two Array fields in NonlinearResult.scala are private scratch arrays inside the private GeometrySpatialMap3 adapter and never escape.",
+    "owner_safety": "No asInstanceOf or unchecked annotation occurs in the nonlinear implementation files. Point mapping validates the source owner and uses Frame.alignOwners before returning a target point.",
+    "inverse_capability": "The numerical inverse is exposed only as SpatialMap with retained inverse evidence. Tests require the evidence to say numerical inverse and not SmoothIso; no SmoothIso or exact inverse capability is fabricated.",
+    "matrix_export": "Complete nonlinear matrix export is rejected; only the separately named GlobalPoseComponentOnly record is available.",
+    "platform_types": "No java.io, java.nio, Thread, Executor or Future type occurs in shared nonlinear implementation files. Filesystem and NIfTI concerns remain in the JVM-only evidence runner.",
+    "workspace_and_failure_contracts": "Wrong model, basis, owner, shape, stale sample identity, workspace reuse/reentry, inverse domain, inverse exhaustion, certificate and output failures are typed and tested before unsafe computation or padding."
+  },
+  "structural_checks": [
+    {
+      "command": "node scripts/verify-prd.mjs",
+      "result": "passed: 148 unique IDs, 28 artifact nodes, 95 consumer-to-dependency edges, acyclic DAG"
+    },
+    {
+      "command": "node scripts/verify-build-graph.mjs",
+      "result": "passed: 28 nodes and 95 edges match PRD.json"
+    },
+    {
+      "command": "node scripts/verify-symbol-ownership.mjs",
+      "result": "passed: 1394 public qualified names are unique and 66 canonical owners are verified"
+    },
+    {
+      "command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/makePom' 'reframe4s-flashalignJS/makePom' 'reframe4sJVM/makePom' 'reframe4sJS/makePom'",
+      "result": "passed: exact generated dependency elements and default-bundle exclusion were asserted"
+    },
+    {
+      "command": "static scan of eleven nonlinear implementation files for asInstanceOf, @unchecked, java.io/java.nio, thread/executor/future types, plus Array visibility inspection",
+      "result": "passed: none of the prohibited unchecked/platform types occur; arrays are package-private implementation buffers except for two private map scratch arrays"
+    },
+    {
+      "command": "git diff --check on Flashalign and tracked integration paths plus textual CR/trailing-whitespace scan on text sources",
+      "result": "passed"
+    }
+  ],
+  "flashalign_test_runs": [
+    {
+      "platform": "JVM",
+      "stage": "default",
+      "command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/test' 'reframe4s-flashalignJS/test'",
+      "passed": 144,
+      "failed": 0,
+      "errors": 0
+    },
+    {
+      "platform": "Scala.js on Node",
+      "stage": "FastOpt",
+      "command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/test' 'reframe4s-flashalignJS/test'",
+      "passed": 143,
+      "failed": 0,
+      "errors": 0
+    },
+    {
+      "platform": "Scala.js on Node",
+      "stage": "FullOpt",
+      "command": "sbt -J-Xmx4G -batch 'project reframe4s-flashalignJS' 'set scalaJSStage := FullOptStage' test",
+      "passed": 143,
+      "failed": 0,
+      "errors": 0,
+      "elapsed_seconds": 46
+    }
+  ],
+  "nonlinear_gate_coverage": {
+    "geometry_and_adjoint": "Rigid/affine/PE/small-strain map, JVP and VJP contracts, physical frames and adjoint identities",
+    "patch_and_solver": "Exact matrix-free projected-patch curvature/RHS parity, repeated-index scattering, Gale PCG residuals, preconditioners and full-system pose elimination",
+    "PE": "world-space acquisition direction, gauge, prior, directional derivatives, monotonicity/amplitude certificate, bracketed inverse, typed domain/exhaustion failures and representable recovery",
+    "small_strain": "vector gauge, elastic prior, global derivative bound, contraction inverse, typed domain/exhaustion failures and independently generated representable recovery",
+    "selection": "data-only conditional information, prior whitening, smallest-supported-model rule, disjoint role identities and explicit simpler fallback",
+    "output": "versioned persistent metadata, strict restoration, numerical inverse evidence, bounded one-pass resampling from the original image and typed pre-padding failure",
+    "determinism_and_concurrency": "fixed sample identities, owned reusable workspaces, stale-cache rejection, cross-owner rejection and reentry protection"
+  },
+  "affected_consumer_runs": {
+    "command": "sbt -J-Xmx4G -batch with explicit JVM and Scala.js test tasks for reframe4s-core, lie, register, resample, multiscale, spectral, motion and halfflow",
+    "results": {
+      "core_jvm": "passed; no test cases",
+      "core_scala_js": "passed; no test cases",
+      "lie_jvm": "12/12",
+      "lie_scala_js": "12/12",
+      "register_jvm": "4/4",
+      "register_scala_js": "4/4",
+      "resample_jvm": "13/13",
+      "resample_scala_js": "11/11",
+      "multiscale_jvm": "10/10",
+      "multiscale_scala_js": "10/10",
+      "spectral_jvm": "6/6",
+      "spectral_scala_js": "6/6",
+      "motion_jvm": "42/42",
+      "motion_scala_js": "39/39",
+      "halfflow_jvm": "143/143",
+      "halfflow_scala_js": "140/140"
+    },
+    "halfflow_jvm_elapsed_seconds": 337,
+    "halfflow_scala_js_elapsed_seconds": 668,
+    "half_flow_method_state": "The current independent HalfFlow/BasinBridge defaults, experimental claims and dirty-tree ownership were preserved; this consumer pass does not admit or promote that method.",
+    "existing_default_semantics_changed": false
+  },
+  "admission": {
+    "numerical_typed_platform_gates": "passed on JVM, Scala.js FastOpt and Scala.js FullOpt",
+    "dependency_closure": "passed with exact generated POM inspection and no Flashalign inclusion in default bundles",
+    "public_safety_boundary": "passed for immutable records, runtime owner checks, numerical inverse evidence, unsupported full-matrix export and private workspaces",
+    "affected_consumers": "passed on JVM and Scala.js through the complete listed suites",
+    "publication": "The implementation remains internal-experimental and opt-in. Engineering platform qualification does not itself make the nonlinear execution API stable or published.",
+    "claim_boundary": "This receipt establishes engineering, type, platform, dependency and consumer preservation. It does not establish nonlinear MRI accuracy, benefit over affine registration, failure-tail targets, ANTs/HalfFlow superiority, clinical validity or release readiness; those require the separate sealed nonlinear accuracy and comparison courts."
+  }
+}

@@ -69,6 +69,67 @@ object MultiscaleError:
     val message: String =
       s"grid physical scale on axis $axis must be finite and positive, got $value"
 
+  final case class InvalidPsfWidth(value: Double, unit: GaussianWidthUnit)
+      extends MultiscaleError:
+    val message: String =
+      s"Gaussian PSF width must be finite and non-negative, got $value $unit"
+
+  final case class PsfLevelCountMismatch(expected: Int, actual: Int)
+      extends MultiscaleError:
+    val message: String =
+      s"support-aware pyramid requires $expected target PSFs, got $actual"
+
+  final case class InvalidSupportThreshold(value: Double)
+      extends MultiscaleError:
+    val message: String =
+      s"support threshold must be finite and in (0, 1], got $value"
+
+  final case class InvalidGaussianTruncation(value: Double)
+      extends MultiscaleError:
+    val message: String =
+      s"Gaussian truncation must be finite and positive, got $value"
+
+  final case class SupportShapeMismatch(
+      expected: Vector[Int],
+      actual: Vector[Int]
+  ) extends MultiscaleError:
+    val message: String =
+      s"support shape ${actual.mkString("x")} does not match image shape ${expected.mkString("x")}"
+
+  final case class InvalidSupportValue(linearIndex: Int, value: Double)
+      extends MultiscaleError:
+    val message: String =
+      s"support at linear index $linearIndex must be finite and in [0, 1], got $value"
+
+  final case class NonFiniteSupportedValue(linearIndex: Int, value: Double)
+      extends MultiscaleError:
+    val message: String =
+      s"supported image value at linear index $linearIndex must be finite, got $value"
+
+  case object EmptySourceSupport extends MultiscaleError:
+    val message: String =
+      "support-aware pyramid requires at least one positively supported source sample"
+
+  case object SupportAwarePyramidWorkspaceInUse extends MultiscaleError:
+    val message: String =
+      "a support-aware pyramid workspace cannot be shared by concurrent builds"
+
+  final case class InvalidPreparedSupport(linearIndex: Int, value: Double)
+      extends MultiscaleError:
+    val message: String =
+      s"prepared support at linear index $linearIndex must be finite and in [0, 1] up to roundoff, got $value"
+
+  final case class NonFinitePreparedNumerator(
+      linearIndex: Int,
+      value: Double
+  ) extends MultiscaleError:
+    val message: String =
+      s"prepared weighted value at linear index $linearIndex must be finite, got $value"
+
+  case object PyramidBuilderProtocolViolation extends MultiscaleError:
+    val message: String =
+      "Ravel returned from a nested pyramid build without producing both arrays"
+
   case object ScalarPyramidWorkspaceInUse extends MultiscaleError:
     val message: String =
       "a scalar pyramid workspace cannot be shared by concurrent builds"

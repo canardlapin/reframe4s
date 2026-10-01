@@ -117,6 +117,14 @@ final case class ForwardMidpointExportCandidate[F, M](
     endpointRoundTrip: InversePairSummary
 )
 
+/** Invert the continuous boundary-cell extension of a sampled residual.
+  *
+  * A residual may carry nonzero motion at the work-grid boundary. Replacing
+  * that motion by identity outside the grid makes even a translation
+  * discontinuous and can fold its numerical inverse. Regridding, both inverse
+  * corrections, and their error reports must use the same extension as export.
+  * Admission still checks the resulting endpoint Jacobians and inverse errors.
+  */
 object ResidualInverseRefiner:
   def refine[A](
       forward: DensePull[A, A],
@@ -134,7 +142,7 @@ object ResidualInverseRefiner:
         forward.sourceCoordinates,
         levelGrid,
         forward.validity,
-        CoordinateMapOutside.Identity
+        CoordinateMapOutside.BoundaryLinear
       )
       val forwardLevel = DensePull.unsafe(
         levelFrame,
@@ -149,7 +157,7 @@ object ResidualInverseRefiner:
             coarse.sourceCoordinates,
             levelGrid,
             coarse.validity,
-            CoordinateMapOutside.Identity
+            CoordinateMapOutside.BoundaryLinear
           )
           DensePull.unsafe(levelFrame, levelFrame, result.field, FieldValidity.copyMask(result.valid))
       val (inverse, used) = refineLevel(
@@ -209,7 +217,7 @@ object ResidualInverseRefiner:
         sampler,
         FieldValidity.copyMask(currentValid),
         forward.validity,
-        CoordinateMapOutside.Identity
+        CoordinateMapOutside.BoundaryLinear
       )
       var maximum = 0.0
       var index = 0
@@ -238,7 +246,7 @@ object ResidualInverseRefiner:
         sampler,
         forward.validity,
         FieldValidity.copyMask(currentValid),
-        CoordinateMapOutside.Identity
+        CoordinateMapOutside.BoundaryLinear
       )
       index = 0
       while index < n do
@@ -269,7 +277,7 @@ object ResidualInverseRefiner:
         sampler,
         FieldValidity.copyMask(currentValid),
         FieldValidity.copyMask(composedValid),
-        CoordinateMapOutside.Identity
+        CoordinateMapOutside.BoundaryLinear
       )
       index = 0
       while index < n do
@@ -300,7 +308,7 @@ object ResidualInverseRefiner:
       valid,
       left.validity,
       right.validity,
-      CoordinateMapOutside.Identity
+      CoordinateMapOutside.BoundaryLinear
     )
     val identity = PrimitiveBuffers.ofSize[Double](3 * n)
     val identityValid = PrimitiveBuffers.ofSize[Boolean](n)
@@ -401,11 +409,11 @@ object ForwardMidpointExporter:
     val fixedToWork = state.fixed.affine.inverse.dense.forward
     val movingToWork = state.moving.affine.inverse.dense.forward
     val pair = for
-      throughFixed <- fixedToWork.thenSelfExtended(fixedInverse.inverse)
-      throughMoving <- throughFixed.thenSelfExtended(state.moving.residual)
+      throughFixed <- fixedToWork.thenSelfExtended(fixedInverse.inverse, CoordinateMapOutside.BoundaryLinear)
+      throughMoving <- throughFixed.thenSelfExtended(state.moving.residual, CoordinateMapOutside.BoundaryLinear)
       forward <- state.moving.affine.after(throughMoving)
-      backThroughMoving <- movingToWork.thenSelfExtended(movingInverse.inverse)
-      backThroughFixed <- backThroughMoving.thenSelfExtended(state.fixed.residual)
+      backThroughMoving <- movingToWork.thenSelfExtended(movingInverse.inverse, CoordinateMapOutside.BoundaryLinear)
+      backThroughFixed <- backThroughMoving.thenSelfExtended(state.fixed.residual, CoordinateMapOutside.BoundaryLinear)
       backward <- state.fixed.affine.after(backThroughFixed)
       result <- InversePair.make(forward, backward)
     yield result

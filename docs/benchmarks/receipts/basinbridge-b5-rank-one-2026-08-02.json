@@ -1,0 +1,87 @@
+{
+  "schema": "reframe4s-basinbridge-b5-rank-one-receipt-v1",
+  "status": "rejected-jvm-falsification",
+  "capturedAtUtc": "2026-08-02",
+  "moteIssue": "sf-01ky5p21c338zz91n2k2hjj3yw",
+  "trigger": {
+    "source": "docs/benchmarks/receipts/basinbridge-b4-decomposition-2026-08-02.json",
+    "oracleBridge": "passed at 2/4/8/12 mm",
+    "oracleBridgeToHalfFlow": "passed at 2/4 mm; typed accumulated-topology rejection at 8/12 mm"
+  },
+  "candidate": {
+    "name": "mean-CC residual with median-gradient damping",
+    "productionDefaultChanged": false,
+    "formula": "v_i = -s * sqrt(2 * L + epsilon) * g_i / (||g_i||^2 + lambda * median(||g||)^2)",
+    "factorChanged": "rank-one scaling only",
+    "factorsFrozen": [
+      "BasinBridge oracle correspondences",
+      "projector and assimilator",
+      "TrueNeighborhoodCc objective",
+      "budget2x levels and accepted-step budgets",
+      "topology floors and regrid admission",
+      "integration depth and export policy"
+    ]
+  },
+  "matrix": [
+    {
+      "shiftMm": 2.0,
+      "bridge": "accepted",
+      "fine": "passed",
+      "bridgeStateMinimumJacobian": 1.0
+    },
+    {
+      "shiftMm": 4.0,
+      "bridge": "accepted",
+      "fine": "passed",
+      "bridgeStateMinimumJacobian": 0.9375
+    },
+    {
+      "shiftMm": 8.0,
+      "bridge": "accepted",
+      "fine": "typed accumulated-topology rejection",
+      "bridgeStateMinimumJacobian": 0.1845703125
+    },
+    {
+      "shiftMm": 12.0,
+      "bridge": "accepted",
+      "fine": "typed accumulated-topology rejection",
+      "bridgeStateMinimumJacobian": 0.028076171875
+    }
+  ],
+  "verification": [
+    {
+      "command": "sbt reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeDecompositionSuite",
+      "status": "candidate-observation-run",
+      "tests": 6,
+      "candidateTests": 1,
+      "frozenB4TestsPassed": 5,
+      "elapsedSeconds": 254,
+      "result": "temporary candidate harness failed intentionally after recording the matrix; the five frozen B4 tests passed"
+    },
+    {
+      "command": "sbt reframe4s-halfflowJVM/testOnly reframe4s.halfflow.HalfFlowCcEngineSuite",
+      "status": "passed",
+      "tests": 11,
+      "failed": 0,
+      "elapsedSeconds": 19,
+      "scope": "frozen production rank-one law after candidate removal"
+    }
+  ],
+  "decision": {
+    "status": "reject",
+    "reason": "The candidate preserves the 2/4 mm passes but leaves the 8/12 mm fine-stage topology failures unchanged in the decisive oracle lane.",
+    "retainProductionChange": false,
+    "nextFactor": "boundary/support or midpoint-resampling experiment, one factor at a time",
+    "promotion": "not a promotion result"
+  },
+  "external": {
+    "sameAffineSub18": "pending-external-input",
+    "labeledDevelopmentPairsRequired": 5,
+    "labeledDevelopmentPairsAvailable": 0
+  },
+  "limitations": [
+    "This receipt records a JVM mechanism falsification; no Scala.js candidate result is claimed.",
+    "The candidate was removed after rejection, so the current production source remains the frozen B4 law.",
+    "No ANTs parity, anatomical accuracy, runtime superiority, or architecture-promotion claim is made."
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "schema": "reframe4s-basinbridge-b3-assimilator-receipt-v1",
+  "status": "synthetic-assimilator-contract-complete-true-cc-and-rewarp-pending",
+  "capturedAtUtc": "2026-08-02",
+  "repository": {
+    "head": "e7f469c",
+    "moteIssue": "sf-01ky5p20mngx2xcj8xzrxhyxrz"
+  },
+  "implementation": {
+    "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/BasinBridgeAssimilator.scala",
+    "sha256": "caa40b7144d492f61e6e23407394c618079ac4b20fc832f09fc9db8af904d0f4"
+  },
+  "supportingChanges": [
+    {
+      "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/ForwardMidpoint.scala",
+      "sha256": "f160bd01f136e4b0675d47d17678f56be4c79d0b877af5851c609d7d8a880d57"
+    },
+    {
+      "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowKernels.scala",
+      "sha256": "0956cebeb054596fae513ab7974219f068409890792b026c1214a9f46fa0c5ce"
+    }
+  ],
+  "tests": {
+    "path": "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/BasinBridgeAssimilatorSuite.scala",
+    "sha256": "a67cbf2653d9e8aad8255b7cf3b12b491c45fa97f30f11f52e623e6fdd4bdda9",
+    "cases": 4
+  },
+  "plan": {
+    "path": "docs/plans/basinbridge-b3-assimilator.md",
+    "sha256": "386be28673949bc9de7ce6c78a942788f0ec2d832b5500d5fa95732551916ce0"
+  },
+  "contract": {
+    "alphaInitialization": "physical symmetric-strain percentile, clamped to [minimumAlpha, 1]",
+    "proposalSchedule": "global alpha, alpha/2, alpha/4, ...",
+    "integration": "paired scaling-and-squaring with fixed-alpha depth escalation before alpha backtracking",
+    "stateAdvance": "existing paired HalfStep advances both ForwardMidpoint arms",
+    "topology": "incremental and accumulated Jacobian floors on a displacement-aware interior margin",
+    "objective": "confidence-weighted sparse match error plus caller-supplied frozen-support true-CC loss",
+    "acceptance": "largest tested alpha with meaningful match-error drop, bounded true-CC loss, and valid topology",
+    "rejection": "immutable original state and per-trial diagnostics"
+  },
+  "verification": [
+    {
+      "command": "python3 tools/registration/generate_basinbridge_fixtures.py --check",
+      "status": "passed",
+      "cases": 6,
+      "correspondences": 750
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeAssimilatorSuite\"",
+      "status": "passed",
+      "tests": 4
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJS/testOnly reframe4s.halfflow.BasinBridgeAssimilatorSuite\"",
+      "status": "passed",
+      "tests": 4
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/test\" \"reframe4s-halfflowJS/test\"",
+      "status": "passed",
+      "jvm": {
+        "passed": 118,
+        "failed": 0
+      },
+      "scalaJs": {
+        "passed": 118,
+        "failed": 0
+      }
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "notImplemented": [
+    "block-search and reverse-search adapter",
+    "actual frozen-support coarse true-CC evaluation",
+    "rewarp and rematch after accepted state update",
+    "B3 integration into the experimental HalfFlow CC engine",
+    "runtime and allocation benchmark",
+    "same-affine ANTs and anatomical validation"
+  ],
+  "limitations": [
+    "The checked-in fixture and this assimilator are synthetic contracts only.",
+    "Focused objective tests use an analytic sparse match-error proxy for trueCcLoss; the CC increase test injects a synthetic loss increase.",
+    "No claim is made about external registration accuracy or anatomical HalfFlow improvement until matcher, true-CC, rewarp/rematch, and end-to-end lanes exist."
+  ]
+}

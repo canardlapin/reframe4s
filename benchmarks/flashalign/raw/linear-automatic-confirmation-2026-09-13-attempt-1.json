@@ -1,0 +1,19 @@
+{
+  "schema_version": "flashalign.linear-automatic-confirmation-attempt.v1",
+  "attempt": 1,
+  "started_at": "2026-09-13T17:10:45Z",
+  "status": "benchmark-harness-validation-failure",
+  "command": "sbt -J-Xmx4G -Dsbt.supershell=false 'flashalignBenchmarkJVM/runMain reframe4s.benchmark.flashalign.LinearAutomaticConfirmationCourt benchmarks/flashalign/raw/linear-automatic-confirmation-2026-09-13.jsonl d3e96fdfcc4525a473ab42d3b371c15b7fa907ac2859809996237b245dea3c9f'",
+  "candidate_source_tree_sha256": "d3e96fdfcc4525a473ab42d3b371c15b7fa907ac2859809996237b245dea3c9f",
+  "manifest_sha256": "e113a392f035e053755722ef36edced2ddf6775d38aaeca91355302a1ec45a96",
+  "runner_sha256": "7dd6c53731c8ae939acdbe20d3a023201c0174409ca5871b193f986bdd017d49",
+  "candidate_execution_began": true,
+  "first_case": "q01-exact-core-rigid",
+  "rows_written": 0,
+  "result_file_created": false,
+  "error": "invalid candidate result: candidate metrics are non-finite",
+  "diagnosis": "The benchmark output checksum accumulated non-finite image values and exposed the non-finite sum as a candidate metric. PairBenchmarkRunner correctly rejected that evidence shape before the row was printed or written.",
+  "accuracy_observed": false,
+  "correction_boundary": "Count non-finite output voxels explicitly and compute the diagnostic output sum over finite values only. Do not change Flashalign source, fixtures, truth, thresholds, failure penalty, candidate configuration, or adjudication. Disclose and rebind the benchmark runner before retrying.",
+  "claim_boundary": "This attempt is a failed benchmark-harness invocation. It is not an accuracy or cost result."
+}

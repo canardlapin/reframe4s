@@ -1,0 +1,197 @@
+{
+  "accuracy_passed": true,
+  "adjudication": {
+    "exact_limits_mm": {
+      "capture-range": 0.25,
+      "exact-core": 0.1,
+      "partial-slab": 0.25
+    },
+    "failure_penalty_mm": 100.0,
+    "nonlinear_contrast": "descriptive approximation distribution; excluded from exact-recovery gates"
+  },
+  "candidate": {
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "flashalign_source_tree_bytes": 1274473,
+    "flashalign_source_tree_files": 73,
+    "flashalign_source_tree_sha256": "d3e96fdfcc4525a473ab42d3b371c15b7fa907ac2859809996237b245dea3c9f",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "initialization": "CoherentHeaderWorldIdentityThenCapture",
+    "multiscale_source_tree_bytes": 67488,
+    "multiscale_source_tree_files": 6,
+    "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5",
+    "preset": "WithinModality",
+    "public_entry_point": "Flashalign.rigid/affine followed by plan.run(workspace)",
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "resample_source_tree_bytes": 106084,
+    "resample_source_tree_files": 10,
+    "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+    "threads": 1,
+    "tree_hash_contract": "SHA-256 over every non-target regular file below the named repository path, sorted by repository-relative path, with each UTF-8 path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "worktree_state": "uncommitted multi-owner working tree"
+  },
+  "claim_boundary": "This adjudicates the sealed analytic-synthetic automatic linear court. It does not establish acquired-MRI, anatomical, clinical, cost, publication, or cross-method superiority claims.",
+  "completeness": {
+    "duplicates": [],
+    "expected_rows": 48,
+    "missing": [],
+    "observed_rows": 48,
+    "passed": true,
+    "unexpected": [],
+    "violations": []
+  },
+  "exact_recovery_gates": [
+    {
+      "cohort": "exact-core",
+      "maximum_landmark_rms_mm": 0.1,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "exact-core",
+      "maximum_landmark_rms_mm": 0.1,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "capture-range",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "capture-range",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    }
+  ],
+  "raw": {
+    "path": "benchmarks/flashalign/raw/linear-automatic-confirmation-2026-09-13.jsonl",
+    "rows": 48,
+    "sha256": "0f5b25b34fee92670add2e5683404a9770105f20245a99ffe2c7fd2f1119c2a8"
+  },
+  "receipt_id": "flashalign-linear-automatic-confirmation-execution-v1",
+  "schema_version": "flashalign.linear-automatic-confirmation.v1",
+  "seal": {
+    "path": "benchmarks/flashalign/manifests/linear-automatic-confirmation-v1.json",
+    "sha256": "44af7737653265ace6bb9c9c8ac0e544343f83c1010e54998664c45e91c6b508"
+  },
+  "status": "passed",
+  "summaries": [
+    {
+      "cohort": "exact-core",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.048758032057250524,
+      "median_adjudicated_rms_mm": 0.03101922580977623,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.048758032057250524,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "exact-core",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.06525617472647768,
+      "median_adjudicated_rms_mm": 0.05381797457839031,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.06525617472647768,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "capture-range",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.032042533042199166,
+      "median_adjudicated_rms_mm": 0.01737179745071879,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.032042533042199166,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "capture-range",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.05582052505639196,
+      "median_adjudicated_rms_mm": 0.03816182636696922,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.05582052505639196,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.03795745974105402,
+      "median_adjudicated_rms_mm": 0.026432596381973098,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.03795745974105402,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.0491042646756562,
+      "median_adjudicated_rms_mm": 0.03422456211167899,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.0491042646756562,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "nonlinear-contrast",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.11255296667289566,
+      "median_adjudicated_rms_mm": 0.04510099464830272,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.11255296667289566,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "nonlinear-contrast",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.3106588164026152,
+      "median_adjudicated_rms_mm": 0.1530579439261824,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.3106588164026152,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    }
+  ]
+}

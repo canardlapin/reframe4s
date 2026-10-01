@@ -1,0 +1,93 @@
+{
+  "schema_version": "flashalign.nonlinear-cost-probe.v1",
+  "environment": {
+    "os": "Mac OS X",
+    "arch": "aarch64",
+    "jdk": "OpenJDK 64-Bit Server VM 25.0.1",
+    "available_processors": 14,
+    "maximum_heap_bytes": 4294967296,
+    "threads": 1
+  },
+  "measurement": {
+    "warmup_products": 5,
+    "measured_products": 25,
+    "timer": "System.nanoTime",
+    "accuracy_reference": "independent explicit gather-project-scatter and basis-transpose loop"
+  },
+  "cases": [
+    {
+      "nonlinear_coefficients": 32,
+      "parameters_including_pose": 38,
+      "unique_points": 1024,
+      "patches": 512,
+      "patch_size": 27,
+      "setup_millis": 11.276667000,
+      "curvature_product_median_millis": 0.541666000,
+      "curvature_product_p95_millis": 0.581167000,
+      "maximum_relative_error_vs_explicit": 0.0000000000000000,
+      "checksum": -20815.458446864675,
+      "retained_evidence_bytes": 354304,
+      "budgeted_basis_table_bytes": 311296,
+      "production_dense_normal_bytes": 0,
+      "interpolation_calls_at_linearization": 1024,
+      "gradient_calls_at_linearization": 1024,
+      "interpolation_calls_per_product": 0,
+      "gradient_calls_per_product": 0,
+      "measured_products_including_warmup": 30
+    },
+    {
+      "nonlinear_coefficients": 64,
+      "parameters_including_pose": 70,
+      "unique_points": 1024,
+      "patches": 512,
+      "patch_size": 27,
+      "setup_millis": 5.043959000,
+      "curvature_product_median_millis": 0.250792000,
+      "curvature_product_p95_millis": 0.269291000,
+      "maximum_relative_error_vs_explicit": 0.0000000000000000,
+      "checksum": -10845.072795555137,
+      "retained_evidence_bytes": 354304,
+      "budgeted_basis_table_bytes": 573440,
+      "production_dense_normal_bytes": 0,
+      "interpolation_calls_at_linearization": 1024,
+      "gradient_calls_at_linearization": 1024,
+      "interpolation_calls_per_product": 0,
+      "gradient_calls_per_product": 0,
+      "measured_products_including_warmup": 30
+    },
+    {
+      "nonlinear_coefficients": 128,
+      "parameters_including_pose": 134,
+      "unique_points": 1024,
+      "patches": 512,
+      "patch_size": 27,
+      "setup_millis": 6.275291000,
+      "curvature_product_median_millis": 0.390083000,
+      "curvature_product_p95_millis": 0.407541000,
+      "maximum_relative_error_vs_explicit": 0.0000000000000000,
+      "checksum": 14787.719698781804,
+      "retained_evidence_bytes": 354304,
+      "budgeted_basis_table_bytes": 1097728,
+      "production_dense_normal_bytes": 0,
+      "interpolation_calls_at_linearization": 1024,
+      "gradient_calls_at_linearization": 1024,
+      "interpolation_calls_per_product": 0,
+      "gradient_calls_per_product": 0,
+      "measured_products_including_warmup": 30
+    }
+  ],
+  "preconditioner": {
+    "dimension": 134,
+    "condition_span": "1e-6 through 1e6 diagonal",
+    "unpreconditioned_termination": "IterationLimit",
+    "unpreconditioned_iterations": 512,
+    "unpreconditioned_products": 514,
+    "unpreconditioned_residual": 0.9904048249803429,
+    "diagonal_termination": "Converged",
+    "diagonal_iterations": 1,
+    "diagonal_products": 3,
+    "diagonal_residual": 1.1743432126857736E-10,
+    "retained_preconditioner_bytes": 1072
+  },
+  "claim_boundary": "Machine-local deterministic operator measurement. Setup excludes MRI I/O and registration capture; the result is not an MRI accuracy, clinical, end-to-end latency, or general-hardware claim."
+}

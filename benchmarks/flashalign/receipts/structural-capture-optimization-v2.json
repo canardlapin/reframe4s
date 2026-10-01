@@ -1,0 +1,121 @@
+{
+  "schema_version": "flashalign.structural-capture-optimization.v2",
+  "receipt_id": "flashalign-structural-capture-optimization-v2",
+  "mote_task": "bd-01M2DZHXDE77HX947X8EV6PJ44",
+  "status": "accuracy-and-latency-qualified",
+  "candidate": {
+    "candidate_identity_sha256": "df4a4ddf84a63e5b7ae714a29b226d15639ce32bf8d583e3f08b931196442089",
+    "flashalign_source_tree_sha256": "51f65b218eb7051f89d232491f55f5b4523e3c230a9df43994d539c8415ce456",
+    "flashalign_source_tree_files": 73,
+    "flashalign_source_tree_bytes": 1280077,
+    "spectral_source_tree_sha256": "90814c0e2395e039f3c9d41c0a934e43dcfde478120e448175dbafd2c63d89e1",
+    "spectral_source_tree_files": 4,
+    "spectral_source_tree_bytes": 68996,
+    "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5",
+    "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner working tree",
+    "implementation": "Packed real-pair forward and inverse correlation transforms, paired fixed-field preparation, direct packed output accumulation, mixed radix-4 FFT stages, compact packed workspace, and reuse of public-path pyramids for automatic capture.",
+    "unchanged_contracts": [
+      "125-rotation capture schedule",
+      "objectives",
+      "thresholds",
+      "candidate ordering",
+      "single-thread execution",
+      "typed failures",
+      "public entry point"
+    ]
+  },
+  "numerical_preservation": {
+    "grouped_direct_spatial_oracle_maximum_tolerance": 8e-11,
+    "structural_score_oracle_maximum_tolerance": 3e-11,
+    "paired_prepared_correlation_maximum_tolerance": 2e-11,
+    "direct_dft_sizes": [2, 4, 8, 16, 32, 64],
+    "exposed_v4_replay_rows": 48,
+    "exposed_v4_exact_result_hashes": 48,
+    "exposed_v4_same_statuses": true,
+    "tolerances_or_schedule_loosened": false
+  },
+  "preserved_negative_evidence": {
+    "v3": {
+      "raw_sha256": "ecea9c6300f32bea83ed7da5b888cb8de3661db715c11d0b115456a44d8946a2",
+      "accuracy_receipt_sha256": "9857ac710a6c1efed086401adce50b88752061f8e94a5db03a6f12f41c3e7a4c",
+      "cost_receipt_sha256": "a08e2b2dcc7eb9393b7d5d87d0f43b915e846868cc07253d3c2f40a48f6b161a",
+      "outcomes": "47 success and one typed descriptive Stalled row",
+      "latency_targets_passed": false,
+      "rigid_median_p95_ms": [1173.0, 1224.0],
+      "affine_median_p95_ms": [1581.0, 1697.0]
+    },
+    "v4": {
+      "raw_sha256": "66e1324d6a54f7e4417c1f6defa317b317f1ff6970d38f12806fa70e4c2f96b5",
+      "accuracy_receipt_sha256": "1fae9494ff82af6da4aeee58b74e45ed95cc06faa0ad9609d80bdc039e7e1649",
+      "cost_receipt_sha256": "ae5cb293979b1c5d9b873971b9ab82d47bb1a53db241c977b2c9ab1757947df1",
+      "outcomes": "48 successes",
+      "latency_targets_passed": false,
+      "rigid_median_p95_ms": [1050.590, 1077.323],
+      "affine_median_p95_ms": [997.847, 1561.922]
+    }
+  },
+  "fresh_sealed_court": {
+    "seal_sha256": "c3f56906a2b447e0d3ac272ffc203616b8e1bd6d7a887db58362adef3a59b80f",
+    "generator_sha256": "97475cf0cb4180db1f355ee126e776d43f4ab9ddc585b2f8071f8ca630f9bab3",
+    "descriptor_sha256": "19bd0beab38f7f4cc75663cf496777d6383004f580b19d7d87739add6b7ad915",
+    "case_table_sha256": "01b19237dc07a90bcce37b13e47c88e6eeb856d15f523ce2cfcd0d2d575f4fd6",
+    "image_tree_sha256": "ca495347e182d04d2cf875165fc4758c22eca53d4456ff55c19b988b80974718",
+    "image_tree_files": 54,
+    "image_tree_bytes": 7268737,
+    "preexecution_oracles_passed": 36,
+    "preexecution_oracles_total": 36,
+    "v4_v5_image_hash_overlap": 0,
+    "raw_absent_at_seal": true,
+    "raw_sha256": "38dc4857d30844711e4d676e75558a98975dce7f3788a0c9144b4090aca22d2e",
+    "rows": 48,
+    "successes": 48,
+    "accuracy_receipt_sha256": "2d51d5af822fd76dc6c3b4714d22c5805259f1459818a1777a40ca0ce5348e4e",
+    "cost_receipt_sha256": "b34e1f517ad6045ae9708fb8a2900c1d3f099e8f53a624cdac6a04e851c80769",
+    "accuracy_passed": true,
+    "complete_cost_evidence": true,
+    "latency_targets_passed": true,
+    "maximum_landmark_rms_mm": {
+      "exact_core": {"rigid": 0.060758026437156054, "affine": 0.060676808453061365, "limit": 0.1},
+      "capture_range": {"rigid": 0.01952270434336485, "affine": 0.04482620581153694, "limit": 0.25},
+      "partial_slab": {"rigid": 0.052199835677128076, "affine": 0.08832995581246193, "limit": 0.25}
+    },
+    "ordinary_latency": {
+      "rigid": {"rows": 6, "rows_below_limit": 6, "median_total_ms": 873.8592295, "p95_total_ms": 948.174334, "limit_ms": 1000.0, "passed": true},
+      "affine": {"rows": 6, "rows_below_limit": 6, "median_total_ms": 888.607771, "p95_total_ms": 1350.904958, "limit_ms": 2000.0, "passed": true}
+    }
+  },
+  "validation": {
+    "spectral_jvm": "8 passed",
+    "spectral_scalajs": "8 passed",
+    "flashalign_jvm": "161 passed",
+    "flashalign_scalajs": "160 passed",
+    "benchmark_jvm": "13 passed",
+    "projected_patch_allocation": "24 bytes at 2000 and 20000 iterations",
+    "accuracy_summarizer_self_test": "passed"
+  },
+  "visual_qa": {
+    "case_id": "r19-exact-core-rigid",
+    "runner_sha256": "c6e9c41a8ab68c187b40947492a22144a89236844131614280235aeb19cb3320",
+    "png_sha256": "0af88e5a3bbd564856885760428cd8433ace686aaa0ca4a19eeda182e8d95804",
+    "manifest_sha256": "c591ac300e3ba228dfc144ac13e5893a7683df78ad3871c103b7223de169fa3d",
+    "documentation_sha256": "f22b87ebab15482a0323edbf465d0d37b0c3c746af0fd4b7af08b4c330b80df1",
+    "rendering_boundary": "image4s/Reframe4s registration and resampling plus benchmark-local Java2D composition; no ScalaFIM dependency"
+  },
+  "artifacts": {
+    "analysis": {"path": "docs/benchmarks/flashalign-structural-capture-optimization-l32.md", "sha256": "9190d67c1071d87a25f418d286476e93ebc572932cba0d2712ea3d8c23341c7f"},
+    "accuracy_receipt": {"path": "benchmarks/flashalign/receipts/linear-automatic-release-confirmation-v5.json", "sha256": "2d51d5af822fd76dc6c3b4714d22c5805259f1459818a1777a40ca0ce5348e4e"},
+    "cost_receipt": {"path": "benchmarks/flashalign/receipts/linear-automatic-release-cost-v5.json", "sha256": "b34e1f517ad6045ae9708fb8a2900c1d3f099e8f53a624cdac6a04e851c80769"},
+    "accuracy_summarizer": {"path": "benchmarks/flashalign/summarize_linear_automatic_confirmation_v5.py", "sha256": "957f5e085172a5f7034bb0e707e1f188aca06793fc9c2184c1e3f8b2ba376ba6"},
+    "cost_summarizer": {"path": "benchmarks/flashalign/summarize_linear_automatic_release_cost_v5.py", "sha256": "1afc3a3e9b85c018c356b186c3e51db280b90b59bb0c920ed3e67dac04a2da87"}
+  },
+  "release_decision": {
+    "l32": "complete",
+    "fast_linear_product": "eligible for FA-GL release assessment",
+    "flashalign_to_halfflow_comparison": "may begin only after FA-GL records its own passed decision"
+  },
+  "claim_boundary": "This qualifies automatic analytic-synthetic linear accuracy and the declared single-host single-thread latency gates for the frozen candidate. It does not establish acquired-MRI, anatomical, clinical, nonlinear, publication, or cross-method superiority claims."
+}

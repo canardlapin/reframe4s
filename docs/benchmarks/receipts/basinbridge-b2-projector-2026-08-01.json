@@ -1,0 +1,65 @@
+{
+  "schema": "reframe4s-basinbridge-b2-projector-receipt-v1",
+  "status": "synthetic-projector-contract-complete-matcher-and-end-to-end-lanes-pending",
+  "capturedAtUtc": "2026-08-01",
+  "repository": {
+    "head": "e7f469c",
+    "moteIssue": "sf-01ky5p208fn02gryf4mg943v1y"
+  },
+  "implementation": {
+    "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/BasinBridgeProjector.scala",
+    "sha256": "4449b6e1785830db0e1e5b9ed62c4992c669aba5bf8f0497d5f0c2a9a70754ee"
+  },
+  "tests": {
+    "path": "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/BasinBridgeProjectorSuite.scala",
+    "sha256": "e62c68c55144a2408a198dce64c8c7c659790ff850a51430274064c5a049f8b4",
+    "cases": 7
+  },
+  "contract": {
+    "background": "confidence-weighted mean plus one Cauchy IRLS reweight",
+    "observation": "midpoint trilinear splat of moving-minus-fixed tangent",
+    "residual": "weak zero-residual prior plus existing normalized physical Gaussian",
+    "boundary": "reflection with dense small-residual preservation",
+    "allocationControlled": true
+  },
+  "verification": [
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeProjectorSuite\" \"reframe4s-halfflowJS/testOnly reframe4s.halfflow.BasinBridgeProjectorSuite\"",
+      "status": "passed",
+      "jvm": {
+        "passed": 7,
+        "failed": 0
+      },
+      "scalaJs": {
+        "passed": 7,
+        "failed": 0
+      }
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/test\" \"reframe4s-halfflowJS/test\"",
+      "status": "passed",
+      "jvm": {
+        "passed": 114,
+        "failed": 0
+      },
+      "scalaJs": {
+        "passed": 114,
+        "failed": 0
+      }
+    }
+  ],
+  "notImplemented": [
+    "block-search adapter and reverse search execution",
+    "projector integration into the experimental HalfFlow engine",
+    "end-to-end runtime/allocation benchmark",
+    "same-affine ANTs and anatomical validation"
+  ],
+  "limitations": [
+    "The checked-in fixture and this projector are synthetic contracts only.",
+    "No claim is made about external registration accuracy or HalfFlow improvement until the matcher and end-to-end lanes exist."
+  ]
+}

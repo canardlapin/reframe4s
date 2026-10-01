@@ -17,6 +17,11 @@ import reframe4s.halfflow.internal.*
 enum CoordinateMapOutside:
   case Invalid
   case Identity
+  /** Continue the outermost trilinear cell. Requires at least two samples per
+    * axis for extrapolation. Preserves affine maps across the grid boundary;
+    * invalid contributing samples remain invalid. Used by residual export.
+    */
+  case BoundaryLinear
 
 final case class ScalarPullResult(
     values: NeuroVol[Double],
@@ -889,7 +894,8 @@ private[halfflow] object HalfFlowKernels:
           rightSampler,
           queryX,
           queryY,
-          queryZ
+          queryZ,
+          outside
         )
       else
         rightSampler.valid = false
@@ -969,7 +975,8 @@ private[halfflow] object HalfFlowKernels:
           sampler,
           queryX,
           queryY,
-          queryZ
+          queryZ,
+          outside
         )
       else
         sampler.valid = false
@@ -1083,7 +1090,8 @@ private[halfflow] object HalfFlowKernels:
         sourceSampler,
         worldX,
         worldY,
-        worldZ
+        worldZ,
+        outside
       )
       val identityOutside =
         outside == CoordinateMapOutside.Identity && !sourceSampler.insideSupport
@@ -1137,10 +1145,12 @@ private[halfflow] object HalfFlowKernels:
       determinantValid: Array[Boolean],
       fieldSampler: DenseFieldSampler,
       fieldValidity: FieldValidity,
-      reduction: JacobianReduction
+      reduction: JacobianReduction,
+      interiorMargin: Int = 1
   ): Unit =
     requireSourceCoordinates(field)
     require(fieldSampler.grid == field.grid, "Jacobian sampler/field grid mismatch")
+    require(interiorMargin >= 1, "Jacobian interior margin must be positive")
     val n = field.grid.nVoxels
     require(determinants.length >= n, "Jacobian determinant destination is too small")
     require(determinantValid.length >= n, "Jacobian validity destination is too small")
@@ -1161,12 +1171,12 @@ private[halfflow] object HalfFlowKernels:
     var min = Double.PositiveInfinity
     var max = Double.NegativeInfinity
     var sum = 0.0
-    var z = 1
-    while z < nz - 1 do
-      var y = 1
-      while y < ny - 1 do
-        var x = 1
-        while x < nx - 1 do
+    var z = interiorMargin
+    while z < nz - interiorMargin do
+      var y = interiorMargin
+      while y < ny - interiorMargin do
+        var x = interiorMargin
+        while x < nx - interiorMargin do
           index = x + y * nx + z * xy
           val xm = index - 1
           val xp = index + 1
@@ -1627,15 +1637,23 @@ private[halfflow] object HalfFlowKernels:
       sampler: DenseFieldSampler,
       worldX: Double,
       worldY: Double,
-      worldZ: Double
+      worldZ: Double,
+      outside: CoordinateMapOutside = CoordinateMapOutside.Invalid
   ): Unit =
     val inverse = sampler.inverse
     val voxelX = snapVoxel(affineCoordinate(inverse, 0, worldX, worldY, worldZ))
     val voxelY = snapVoxel(affineCoordinate(inverse, 1, worldX, worldY, worldZ))
     val voxelZ = snapVoxel(affineCoordinate(inverse, 2, worldX, worldY, worldZ))
-    val x0 = math.floor(voxelX).toInt
-    val y0 = math.floor(voxelY).toInt
-    val z0 = math.floor(voxelZ).toInt
+    val extrapolate = outside == CoordinateMapOutside.BoundaryLinear && nx >= 2 && ny >= 2 && nz >= 2
+    val x0 =
+      if extrapolate then math.max(0, math.min(nx - 2, math.floor(voxelX).toInt))
+      else math.floor(voxelX).toInt
+    val y0 =
+      if extrapolate then math.max(0, math.min(ny - 2, math.floor(voxelY).toInt))
+      else math.floor(voxelY).toInt
+    val z0 =
+      if extrapolate then math.max(0, math.min(nz - 2, math.floor(voxelZ).toInt))
+      else math.floor(voxelZ).toInt
     val fx = voxelX - x0.toDouble
     val fy = voxelY - y0.toDouble
     val fz = voxelZ - z0.toDouble
@@ -1693,15 +1711,23 @@ private[halfflow] object HalfFlowKernels:
       sampler: DenseFieldSampler,
       worldX: Double,
       worldY: Double,
-      worldZ: Double
+      worldZ: Double,
+      outside: CoordinateMapOutside
   ): Unit =
     val inverse = sampler.inverse
     val voxelX = snapVoxel(affineCoordinate(inverse, 0, worldX, worldY, worldZ))
     val voxelY = snapVoxel(affineCoordinate(inverse, 1, worldX, worldY, worldZ))
     val voxelZ = snapVoxel(affineCoordinate(inverse, 2, worldX, worldY, worldZ))
-    val x0 = math.floor(voxelX).toInt
-    val y0 = math.floor(voxelY).toInt
-    val z0 = math.floor(voxelZ).toInt
+    val extrapolate = outside == CoordinateMapOutside.BoundaryLinear && nx >= 2 && ny >= 2 && nz >= 2
+    val x0 =
+      if extrapolate then math.max(0, math.min(nx - 2, math.floor(voxelX).toInt))
+      else math.floor(voxelX).toInt
+    val y0 =
+      if extrapolate then math.max(0, math.min(ny - 2, math.floor(voxelY).toInt))
+      else math.floor(voxelY).toInt
+    val z0 =
+      if extrapolate then math.max(0, math.min(nz - 2, math.floor(voxelZ).toInt))
+      else math.floor(voxelZ).toInt
     val fx = voxelX - x0.toDouble
     val fy = voxelY - y0.toDouble
     val fz = voxelZ - z0.toDouble

@@ -1,0 +1,116 @@
+{
+  "schema_version": "flashalign.linear-automatic-qualification.v1",
+  "receipt_id": "flashalign-linear-automatic-qualification-2026-09-13",
+  "mote_task": "bd-01M2DP6R2EXF4CDGS40GN8M306",
+  "status": "accuracy-qualified-latency-targets-not-met",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner working tree",
+    "flashalign_source_tree_sha256": "d3e96fdfcc4525a473ab42d3b371c15b7fa907ac2859809996237b245dea3c9f",
+    "flashalign_source_tree_files": 73,
+    "flashalign_source_tree_bytes": 1274473,
+    "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+    "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929"
+  },
+  "artifacts": {
+    "manifest": {
+      "path": "benchmarks/flashalign/manifests/linear-automatic-confirmation-v1.json",
+      "sha256": "44af7737653265ace6bb9c9c8ac0e544343f83c1010e54998664c45e91c6b508"
+    },
+    "seal_receipt": {
+      "path": "benchmarks/flashalign/receipts/linear-automatic-confirmation-seal-v1.json",
+      "sha256": "f76c9142792f7ff8e847c7b248af68f4a0ec2fe0fe762707cb87a35cdac5ca02"
+    },
+    "attempt_1": {
+      "path": "benchmarks/flashalign/raw/linear-automatic-confirmation-2026-09-13-attempt-1.json",
+      "sha256": "efff227f8098175c41cc92f277e88a4e8c32b3cca42eca377b215994dc8dc19c"
+    },
+    "raw_rows": {
+      "path": "benchmarks/flashalign/raw/linear-automatic-confirmation-2026-09-13.jsonl",
+      "sha256": "0f5b25b34fee92670add2e5683404a9770105f20245a99ffe2c7fd2f1119c2a8",
+      "rows": 48
+    },
+    "accuracy_summarizer": {
+      "path": "benchmarks/flashalign/summarize_linear_automatic_confirmation.py",
+      "sha256": "6b5f81f9928b4a9d21feb5525b341c7abfcc97d3c2b0cf1fbf28f6a30a9256ce"
+    },
+    "accuracy_receipt": {
+      "path": "benchmarks/flashalign/receipts/linear-automatic-confirmation-execution-v1.json",
+      "sha256": "dc77dc8c082e5ba319590aa5724bd3a5d1763b8f5e8ce23ecd34a7abd341b20e"
+    },
+    "cost_summarizer": {
+      "path": "benchmarks/flashalign/summarize_linear_automatic_cost.py",
+      "sha256": "157e77049c9ff2b0ad1b9780e20859f3df480b55a485ea282b6b7bae8da88a3f"
+    },
+    "cost_receipt": {
+      "path": "benchmarks/flashalign/receipts/linear-automatic-confirmation-cost-v1.json",
+      "sha256": "0a5cf88e662e34fa9db3520d3a0c597a87315a193251cf677a75abff2bb0cd51"
+    },
+    "analysis": {
+      "path": "docs/benchmarks/flashalign-linear-confirmation-result.md",
+      "sha256": "55c8b390b957522d09c53c5e33370465488c0b52ef9f87a4c268683368dba071"
+    }
+  },
+  "execution": {
+    "command": "sbt -J-Xmx4G -Dsbt.supershell=false 'flashalignBenchmarkJVM/runMain reframe4s.benchmark.flashalign.LinearAutomaticConfirmationCourt benchmarks/flashalign/raw/linear-automatic-confirmation-2026-09-13.jsonl d3e96fdfcc4525a473ab42d3b371c15b7fa907ac2859809996237b245dea3c9f'",
+    "successful_invocation_wall_time_seconds": 156,
+    "rows": 48,
+    "statuses": {
+      "success": 48
+    },
+    "output_contract": "Every successful row materialized one linearly interpolated FlashalignOutput from the original moving image on the fixed grid and recorded positive output time."
+  },
+  "accuracy": {
+    "passed": true,
+    "exact_rows": 36,
+    "descriptive_nonlinear_contrast_rows": 12,
+    "exact_core_maximum_rms_mm": {
+      "rigid": 0.048758032057250524,
+      "affine": 0.06525617472647768
+    },
+    "capture_range_maximum_rms_mm": {
+      "rigid": 0.032042533042199166,
+      "affine": 0.05582052505639196
+    },
+    "partial_slab_maximum_rms_mm": {
+      "rigid": 0.03795745974105402,
+      "affine": 0.0491042646756562
+    }
+  },
+  "cost": {
+    "complete_evidence": true,
+    "desirable_latency_targets_passed": false,
+    "ordinary_same_subject": {
+      "rigid": {
+        "rows": 6,
+        "rows_below_1000_ms": 2,
+        "median_total_ms": 2240.0287705,
+        "p95_total_ms": 3886.885084
+      },
+      "affine": {
+        "rows": 6,
+        "rows_below_2000_ms": 3,
+        "median_total_ms": 2190.5330005,
+        "p95_total_ms": 4318.433291
+      }
+    },
+    "diagnosis": "Structural capture dominates the slow automatic-path rows; final output sampling is approximately 2.3 ms at the median."
+  },
+  "validation": {
+    "cross_platform_command": "sbt -J-Xmx4G -Dsbt.supershell=false 'reframe4s-flashalignJVM/test' 'reframe4s-flashalignJS/test' 'flashalignBenchmarkJVM/test'",
+    "cross_platform_result": "Flashalign JVM 161 passed; Flashalign Scala.js 160 passed; benchmark JVM 13 passed; no failures or errors",
+    "allocation_observation": "Projected-patch allocation remained 24 bytes at both 2000 and 20000 iterations.",
+    "architecture": "PRD valid with 148 unique IDs, 28 nodes and 95 acyclic edges; build graph matched 28 nodes and 95 edges; symbol ownership unique across 1411 public names and 66 canonical owners.",
+    "artifact_integrity": "All manifest, receipt, raw-row, source/provider tree and referenced artifact hashes matched; JSON/JSONL and whitespace checks passed."
+  },
+  "release_decision": {
+    "automatic_linear_accuracy": "qualified on the sealed analytic-synthetic court",
+    "fast_linear_product": "withheld because complete ordinary automatic-path latency missed the desirable targets",
+    "half_flow_initializer_comparison": "blocked until FA-GL passes",
+    "next_work": "Reduce structural-capture tail cost using development material, then face a new unopened accuracy and complete-cost confirmation."
+  },
+  "claim_boundary": "This qualifies automatic rigid and affine accuracy on the frozen analytic-synthetic court and records complete single-host cost. It does not qualify the latency target, acquired-MRI behavior, publication, release, or cross-method superiority."
+}

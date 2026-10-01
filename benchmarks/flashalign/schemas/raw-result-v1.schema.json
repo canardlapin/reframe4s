@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canardlapin.github.io/reframe4s/flashalign/raw-result-v1.schema.json",
+  "title": "Flashalign raw result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "case_id",
+    "subject_id",
+    "cohort",
+    "method",
+    "inputs",
+    "provenance",
+    "configuration",
+    "environment",
+    "initialization",
+    "outcome",
+    "result",
+    "metrics",
+    "work",
+    "timing_ms"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "run_id": { "type": "string", "minLength": 1 },
+    "case_id": { "type": "string", "minLength": 1 },
+    "subject_id": { "type": "string", "minLength": 1 },
+    "cohort": { "type": "string", "minLength": 1 },
+    "method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "model", "revision"],
+      "properties": {
+        "id": { "type": "string" },
+        "model": { "type": "string" },
+        "revision": { "type": "string" },
+        "comparator_command": { "type": ["string", "null"] },
+        "comparator_version": { "type": ["string", "null"] }
+      }
+    },
+    "inputs": { "$ref": "#/$defs/hashMap" },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["moving", "fixed"],
+      "properties": {
+        "moving": { "$ref": "#/$defs/licensedArtifact" },
+        "fixed": { "$ref": "#/$defs/licensedArtifact" }
+      }
+    },
+    "configuration": { "$ref": "#/$defs/hashMap" },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["os", "cpu", "jdk", "threads"],
+      "properties": {
+        "os": { "type": "string" },
+        "cpu": { "type": "string" },
+        "jdk": { "type": "string" },
+        "threads": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "initialization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "moving_to_fixed", "sha256"],
+      "properties": {
+        "id": { "type": "string" },
+        "moving_to_fixed": { "type": "array", "minItems": 16, "maxItems": 16, "items": { "type": "number" } },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "accepted"],
+      "properties": {
+        "status": {
+          "enum": [
+            "success",
+            "stalled",
+            "iteration-limit",
+            "insufficient-overlap",
+            "insufficient-information",
+            "ambiguous",
+            "invalid-geometry",
+            "numerical-failure",
+            "inverse-failure",
+            "solver-breakdown",
+            "search-exhausted",
+            "unavailable"
+          ]
+        },
+        "accepted": { "type": "boolean" },
+        "failure_detail": { "type": ["object", "null"] }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["moving_to_fixed", "sha256"],
+      "properties": {
+        "moving_to_fixed": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "array", "minItems": 16, "maxItems": 16, "items": { "type": "number" } }
+          ]
+        },
+        "sha256": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/sha256" }
+          ]
+        }
+      }
+    },
+    "metrics": { "type": "object", "additionalProperties": { "type": ["number", "null"] } },
+    "work": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unique_interpolations", "gradient_evaluations", "linearizations", "trial_evaluations", "rejected_trials", "early_rejections", "curvature_products"],
+      "properties": {
+        "unique_interpolations": { "$ref": "#/$defs/nonnegativeInteger" },
+        "gradient_evaluations": { "$ref": "#/$defs/nonnegativeInteger" },
+        "linearizations": { "$ref": "#/$defs/nonnegativeInteger" },
+        "trial_evaluations": { "$ref": "#/$defs/nonnegativeInteger" },
+        "rejected_trials": { "$ref": "#/$defs/nonnegativeInteger" },
+        "early_rejections": { "$ref": "#/$defs/nonnegativeInteger" },
+        "curvature_products": { "$ref": "#/$defs/nonnegativeInteger" }
+      }
+    },
+    "timing_ms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["read", "decompress", "prepare", "capture", "optimize", "validate", "output", "total"],
+      "properties": {
+        "read": { "$ref": "#/$defs/nonnegativeNumber" },
+        "decompress": { "$ref": "#/$defs/nonnegativeNumber" },
+        "prepare": { "$ref": "#/$defs/nonnegativeNumber" },
+        "capture": { "$ref": "#/$defs/nonnegativeNumber" },
+        "optimize": { "$ref": "#/$defs/nonnegativeNumber" },
+        "validate": { "$ref": "#/$defs/nonnegativeNumber" },
+        "output": { "$ref": "#/$defs/nonnegativeNumber" },
+        "total": { "$ref": "#/$defs/nonnegativeNumber" }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "licensedArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "provenance", "license"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "provenance": { "type": "string", "minLength": 1 },
+        "license": { "type": "string", "minLength": 1 }
+      }
+    },
+    "hashMap": { "type": "object", "minProperties": 1, "additionalProperties": { "$ref": "#/$defs/sha256" } },
+    "nonnegativeInteger": { "type": "integer", "minimum": 0 },
+    "nonnegativeNumber": { "type": "number", "minimum": 0 }
+  }
+}

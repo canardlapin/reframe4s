@@ -1,0 +1,86 @@
+{
+  "schema_version": "flashalign.halfflow-comparison-baseline.v1",
+  "manifest_id": "flashalign-halfflow-comparison-baseline-v1",
+  "status": "diagnostic-baseline-frozen-before-rerun",
+  "frozen_at": "2026-09-13T00:12:00Z",
+  "scope": "Non-promotional single-pair development baseline for C0 and C4. It freezes the extant Scala HalfFlow/BasinBridge pipeline and saved sub-18 comparator court without changing recipient controls.",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner worktree",
+    "halfflow_source_tree_sha256": "795cc836ead44fea9d5822eb36fbff5639e0383dd7f4a31f2e26dcf857ce95cf",
+    "halfflow_source_file_count": 66,
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-halfflow, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "capability_ledger_path": "docs/halfflow-capability-ledger.md",
+    "capability_ledger_sha256": "022993d0df8e5421fd30793b8cfbdf1c7eedd354e0a6f964fc3bfb0ba70bc891",
+    "capability_ledger_status": "not admitted to the stable foundation"
+  },
+  "implementation": {
+    "probe_path": "modules/reframe4s-halfflow/jvm/src/test/scala/reframe4s/halfflow/BasinBridgeSub18AccuracyProbe.scala",
+    "probe_sha256": "0aeb8faaebfa2582b8c92d9786c5823343340ac8c1876a273ec925ec0bd88e61",
+    "basinbridge_round_sha256": "0d8fee1549286ff7348a6809d6254d3192ee9220a4e8a5d389098363bedcce3d",
+    "halfflow_cc_engine_sha256": "a722ccb7d38c6670613b93812f35a2f3b05103d9475cc5a03946f6f15502c326",
+    "fixture_path": "modules/reframe4s-halfflow/fixtures/v1/basin-bridge-v1.json",
+    "fixture_sha256": "a2ba1f0208d009f475fbaf7456b707ded31e86504b0219bbfb1fc14b9cce377e"
+  },
+  "input": {
+    "court": "saved Hodgeflow sub-18 softbrain/fixed-mask diagnostic",
+    "role": "development diagnostic only",
+    "root": "/Users/bbuchsbaum/code/hodgeflow/tmp/sub18_hodgeflow_vs_ants/ants_synquick_softbrain_fixedmask",
+    "moving_sha256": "917dd8c4c6cf6fcc96c445fa0e17f88dfad469853e5bc3509bf17b81fb440d06",
+    "fixed_sha256": "7b168153a9508f5f116ac37d33835fa44dd168ba7a9ae31a3b33e6f63bd23292",
+    "moving_evaluation_mask_sha256": "64e089065293eabd54244ea73862f97aa59466b7dd054948bfb5c330abc0f0e3",
+    "fixed_optimization_mask_sha256": "745c970d2b45eb5088446528399b6965c2ce912d37ca7cacb993513a302d5161",
+    "saved_ants_warped_sha256": "54e7ff7ea17adb15b8ef99627d64f5cf03f534f67ec9ab26fbdf6654ec39d835",
+    "saved_ants_mask_warped_sha256": "08a10d9192239547671d519dab121ded90447f11928ebbe7264892a1cf1c2140",
+    "provenance_boundary": "External user-held Hodgeflow worktree data. It is not copied, redistributed, or treated as a checked-in licensed audit fixture."
+  },
+  "lanes": {
+    "C0": {
+      "method": "header/world identity pull map",
+      "model": "no registration",
+      "expected_metrics": {
+        "masked_ncc": 0.12629275726471551,
+        "global_ncc": 0.567851411262996,
+        "gradient_ncc": -0.10722447412063871,
+        "brain_mask_dice": 0.6609480584043748,
+        "brain_mask_com_distance_vox": 17.720557855282404
+      }
+    },
+    "C4": {
+      "initializer": "ForwardMidpoint.identity on the fixed work grid",
+      "matcher": "18 farthest-spread fixed-mask anchors from a deterministic 7x7x7 fractional grid; search radius 8 voxels; patch radius 1; minimum valid fraction 0.75",
+      "bridge": "BasinBridge default projector and default frozen CC objective",
+      "fine_levels": [
+        {"shrink": 2, "pyramid_sigma_mm": 1.0, "cc_radius": 2, "smooth_sigma_mm": 10.0, "maximum_step_mm": 1.0, "target_accepted_steps": 10, "maximum_attempts": 24},
+        {"shrink": 1, "pyramid_sigma_mm": 0.0, "cc_radius": 2, "smooth_sigma_mm": 6.0, "maximum_step_mm": 0.6, "target_accepted_steps": 10, "maximum_attempts": 24}
+      ],
+      "cc": {"minimum_support_fraction": 0.15, "full_support_fraction": 0.7, "minimum_variance_fraction": 1e-7, "full_variance_fraction": 1e-5, "denominator_epsilon_fraction": 1e-7},
+      "control": {"initial_damping": 1e-4, "minimum_damping": 1e-8, "maximum_damping": 1.0, "maximum_objective_retries": 6, "maximum_geometry_retries": 8, "maximum_integration_retries": 5},
+      "topology_and_export": {"maximum_integration_inverse_error_mm": 0.03, "residual_inverse_shrinks": [2, 1], "iterations_per_level": 50, "maximum_interior_error_mm": 0.2, "maximum_interior_error_vox": 0.2, "interior_margin": 6},
+      "action": "symmetric midpoint",
+      "recipient_controls_may_change": false
+    }
+  },
+  "saved_external_oracle": {
+    "method": "ANTs SyNQuick-style fixed-mask protocol",
+    "runtime_ms": 47800,
+    "expected_metrics": {"masked_ncc": 0.672298050150454, "global_ncc": 0.9457095651791, "gradient_ncc": 0.439945600516007, "brain_mask_dice": 0.979358955715422, "brain_mask_com_distance_vox": 0.308368444373031},
+    "use": "input/oracle integrity and diagnostic context only; not an ANTs parity court"
+  },
+  "admission_boundary": {
+    "required_anatomical_pairs": 20,
+    "required_independent_datasets": 2,
+    "checked_in_anatomical_pairs": 0,
+    "stable_export_admitted": false,
+    "single_pair_or_synthetic_receipts_are_parity_evidence": false,
+    "standalone_flashalign_linear_release_dependency": false
+  },
+  "execution": {
+    "command": "sbt -J-Xmx4G -batch 'reframe4s-halfflowJVM/Test/runMain reframe4s.halfflow.BasinBridgeSub18AccuracyProbe all'",
+    "raw_log": "benchmarks/flashalign/raw/halfflow-sub18-baseline-2026-09-12.log",
+    "oracle_tolerance": "absolute 1e-6 plus relative 1e-6",
+    "threads": 1,
+    "early_stopping": "recipient defaults only"
+  }
+}

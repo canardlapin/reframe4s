@@ -1,0 +1,136 @@
+{
+  "schema": "reframe4s-basinbridge-external-manifest-v1",
+  "status": "pending-required-inputs",
+  "capturedAtUtc": "2026-08-02",
+  "moteEpic": "sf-01ky5p0r0c44tyyp5psa8xzp2v",
+  "moteIssue": "sf-01ky5p210dbhc1st4vr73nyd5c",
+  "sourceOfTruth": {
+    "syntheticReceipt": "docs/benchmarks/receipts/basinbridge-b4-decomposition-2026-08-02.json",
+    "performanceReceipt": "docs/benchmarks/receipts/basinbridge-b4-performance-2026-08-02.json",
+    "realDataDiagnosticReceipt": "docs/benchmarks/receipts/basinbridge-realdata-hodgeflow-2026-08-02.json",
+    "sub18HeadToHeadDiagnosticReceipt": "docs/benchmarks/receipts/basinbridge-sub18-headtohead-2026-08-02.json",
+    "fixture": "modules/reframe4s-halfflow/fixtures/v1/basin-bridge-v1.json"
+  },
+  "requiredInputs": {
+    "sameAffineAnts": {
+      "required": true,
+      "status": "required-external-input",
+      "role": "engineering-oracle-correspondence-source",
+      "expected": "licensed same-affine ANTs deformation and correspondence extraction for the fixed/moving cohort",
+      "providedPath": null,
+      "sha256": null,
+      "licenseEvidence": null
+    },
+    "sameAffineSub18": {
+      "required": true,
+      "status": "pending-external-input",
+      "role": "external-accuracy-court",
+      "expected": "same-affine sub18 case with fixed and moving images, transform, and evaluation metadata",
+      "providedPath": null,
+      "sha256": null,
+      "licenseEvidence": null
+    },
+    "labeledDevelopmentPairs": {
+      "required": 5,
+      "available": 0,
+      "status": "pending-external-input",
+      "role": "multi-pair anatomical development court",
+      "pairIds": []
+    }
+  },
+  "pairSchema": {
+    "requiredFields": [
+      "id",
+      "fixedImagePath",
+      "movingImagePath",
+      "sameAffineTransformPath",
+      "dimensions",
+      "spacingMm",
+      "orientation",
+      "fixedAffineMatrix",
+      "movingAffineMatrix",
+      "fixedImageSha256",
+      "movingImageSha256",
+      "transformSha256",
+      "licenseEvidencePath"
+    ],
+    "evaluationOnlyFields": [
+      "movingMaskPath",
+      "fixedLabelsPath",
+      "movingLabelsPath",
+      "surfacePath",
+      "treLandmarksPath"
+    ],
+    "optimizationInputs": [
+      "fixedImagePath",
+      "movingImagePath",
+      "sameAffineTransformPath",
+      "fixedMaskPath"
+    ],
+    "forbiddenMatchingInputs": [
+      "movingMaskPath",
+      "fixedLabelsPath",
+      "movingLabelsPath",
+      "surfacePath"
+    ]
+  },
+  "frozenRun": {
+    "lanes": [
+      "oracle-to-bridge",
+      "oracle-to-bridge-to-halfflow",
+      "block-to-bridge-to-halfflow"
+    ],
+    "controls": "docs/benchmarks/receipts/basinbridge-b4-decomposition-2026-08-02.json",
+    "sameSettingsAcrossPairs": true,
+    "sameMatcherAndHalfFlowProfile": true,
+    "retuneAfterObservation": false,
+    "requiredMeasurements": [
+      "weightedMatchResidualP50P95MaximumMean",
+      "trueNeighborhoodCcLoss",
+      "diceAndSurfaceMetricsWhenAvailable",
+      "treWhenAvailable",
+      "determinantDistributionAndFoldCount",
+      "exportInverseError",
+      "supportCoverage",
+      "acceptedAlphaAndRematchRounds",
+      "rejectionReasons",
+      "runtime",
+      "allocations",
+      "peakMemory"
+    ]
+  },
+  "roles": {
+    "fixedMask": "optimization-support-only",
+    "movingMask": "evaluation-only",
+    "labels": "evaluation-only",
+    "surfaces": "evaluation-only",
+    "ants": "engineering-reference-not-ground-truth"
+  },
+  "activation": {
+    "doNotRun": true,
+    "reason": "hash-pinned Hodgeflow real-data and sub18 head-to-head diagnostics are observed but non-promotional; the sub18 method is incomplete and lacks data-license evidence, while licensed same-affine ANTs evidence and five labeled pairs remain absent from this checkout",
+    "observedRows": []
+  },
+  "sourceTreeDiagnostic": {
+    "status": "observed-real-data-diagnostic",
+    "receipt": "docs/benchmarks/receipts/basinbridge-realdata-hodgeflow-2026-08-02.json",
+    "source": "Hodgeflow source-tree test pattern",
+    "sameAffine": false,
+    "promotionEligible": false,
+    "licenseEvidence": null,
+    "doNotSubstituteForExternalCourt": true
+  },
+  "sub18HeadToHeadDiagnostic": {
+    "status": "observed-method-incomplete",
+    "receipt": "docs/benchmarks/receipts/basinbridge-sub18-headtohead-2026-08-02.json",
+    "source": "Hodgeflow saved softbrain/fixed-mask SyNQuick case",
+    "sameAffine": false,
+    "oracleMetricsMatched": true,
+    "completeBasinBridgeRound": false,
+    "fineStageCompleted": false,
+    "safeExport": false,
+    "promotionEligible": false,
+    "licenseEvidence": null,
+    "doNotSubstituteForExternalCourt": true
+  }
+}

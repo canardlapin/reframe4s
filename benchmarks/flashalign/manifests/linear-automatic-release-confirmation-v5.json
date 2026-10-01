@@ -1,0 +1,127 @@
+{
+  "accuracy_gates": {
+    "capture_range": {
+      "maximum_landmark_rms_mm": 0.25,
+      "required_successes_per_model": 6
+    },
+    "denominator_policy": "Every row exactly once; any non-success receives 100 mm adjudicated error.",
+    "exact_core": {
+      "maximum_landmark_rms_mm": 0.1,
+      "required_successes_per_model": 6
+    },
+    "nonlinear_contrast": "descriptive only",
+    "partial_slab": {
+      "maximum_landmark_rms_mm": 0.25,
+      "required_successes_per_model": 6
+    }
+  },
+  "candidate": {
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "candidate_identity_contract": "SHA-256 of newline-terminated key=value rows for flashalign, spectral, multiscale, resample, build.sbt, and artifact-graph SHA-256 fields in that order",
+    "candidate_identity_sha256": "df4a4ddf84a63e5b7ae714a29b226d15639ce32bf8d583e3f08b931196442089",
+    "flashalign_source_tree_bytes": 1280077,
+    "flashalign_source_tree_files": 73,
+    "flashalign_source_tree_sha256": "51f65b218eb7051f89d232491f55f5b4523e3c230a9df43994d539c8415ce456",
+    "implementation": "Pack eight real left fields into four forward FFTs, accumulate four correlation outputs directly into two inverse spectra, prepare eight fixed real fields with four packed FFTs, use specialized low-width stages plus mixed radix-4 for remaining FFT passes, compact packed workspaces, scale 3D inverse transforms once, transform contiguous z lines in place, and reuse the exact coarsest public-pipeline pyramid levels for automatic capture.",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "initialization": "CoherentHeaderWorldIdentityThenCapture",
+    "multiscale_source_tree_bytes": 67488,
+    "multiscale_source_tree_files": 6,
+    "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5",
+    "preset": "WithinModality",
+    "public_entry_point": "Flashalign.rigid/affine followed by plan.run(workspace)",
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "resample_source_tree_bytes": 106084,
+    "resample_source_tree_files": 10,
+    "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+    "spectral_source_tree_bytes": 68996,
+    "spectral_source_tree_files": 4,
+    "spectral_source_tree_sha256": "90814c0e2395e039f3c9d41c0a934e43dcfde478120e448175dbafd2c63d89e1",
+    "threads": 1,
+    "tree_hash_contract": "SHA-256 over every non-target regular file below the named repository path, sorted by repository-relative path, with each UTF-8 path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "worktree_state": "uncommitted multi-owner working tree"
+  },
+  "candidate_executed_before_seal": false,
+  "claim_boundary": "This is an unopened analytic-synthetic seal. It contains no Flashalign result and makes no accuracy, latency, MRI, clinical, release, or cross-method claim.",
+  "construction": {
+    "descriptive_rows": 12,
+    "exact_rows": 36,
+    "fixed_images": "Six new independent analytic phantoms r19-r24, stored as float32 NIfTI on a 2 mm grid.",
+    "independence": "The v5 generator imports no Reframe4s code and did not execute Flashalign. Subject image parameters are distinct from the exposed v2, v3, and v4 courts; transform cohorts retain the sealed release ranges.",
+    "interpolant_exact_rows": "Moving voxels come from an independent standard-library trilinear sampler over stored fixed voxels at declared moving-to-fixed truth, then intensity = 80 + 1.17 * fixedSample.",
+    "nonlinear_contrast_boundary": "Signed-square-root intensity mapping; descriptive only and excluded from exact-recovery admission."
+  },
+  "cost_evidence_requirement": {
+    "affine_desirable_total_ms": 2000.0,
+    "ordinary_rows": "exact-core rigid and affine, six rows each",
+    "rigid_desirable_total_ms": 1000.0,
+    "scope": "read, decompression, preparation including fixed-spectrum preparation, capture, refinement, audit, and final output"
+  },
+  "execution_policy": {
+    "candidate_has_not_seen_fixtures": true,
+    "next_step": "Execute once, preserve all rows, and adjudicate accuracy and cost without tuning.",
+    "no_candidate_aware_tuning_after_seal": true,
+    "permitted_post_seal_changes": "Evidence-integrity fixes only, with disclosed reseal and no candidate, fixture, transform, threshold, or adjudication change."
+  },
+  "fixtures": {
+    "case_count": 48,
+    "case_table": {
+      "path": "benchmarks/flashalign/fixtures/linear-automatic-release-confirmation-v5.cases.tsv",
+      "sha256": "01b19237dc07a90bcce37b13e47c88e6eeb856d15f523ce2cfcd0d2d575f4fd6"
+    },
+    "cohorts": [
+      "exact-core",
+      "capture-range",
+      "partial-slab",
+      "nonlinear-contrast"
+    ],
+    "descriptor": {
+      "path": "benchmarks/flashalign/fixtures/linear-automatic-release-confirmation-v5.json",
+      "sha256": "19bd0beab38f7f4cc75663cf496777d6383004f580b19d7d87739add6b7ad915"
+    },
+    "generator": {
+      "path": "benchmarks/flashalign/fixtures/generate_linear_automatic_release_confirmation_v5.py",
+      "sha256": "97475cf0cb4180db1f355ee126e776d43f4ab9ddc585b2f8071f8ca630f9bab3"
+    },
+    "image_tree": {
+      "bytes": 7268737,
+      "files": 54,
+      "path": "benchmarks/flashalign/fixtures/linear-automatic-release-confirmation-v5",
+      "sha256": "ca495347e182d04d2cf875165fc4758c22eca53d4456ff55c19b988b80974718"
+    },
+    "input_binding": "Every table row carries expected moving and fixed hashes; the runner rejects mismatch before execution.",
+    "models": [
+      "rigid",
+      "affine"
+    ],
+    "rows_per_cohort_and_model": 6,
+    "subjects": 6
+  },
+  "manifest_id": "flashalign-linear-automatic-release-confirmation-v5",
+  "mote_task": "bd-01M2DZHXDE77HX947X8EV6PJ44",
+  "preexecution_oracle": {
+    "all_passed": true,
+    "exact_rows": 36,
+    "maximum_points_per_case": 4096,
+    "minimum_observed_perturbation_drop": 1.7358856653326704e-05,
+    "minimum_observed_truth_correlation": 0.9999999999999336,
+    "minimum_perturbation_drop": 1e-08,
+    "minimum_truth_correlation": 0.999999999,
+    "perturbations": "plus/minus 0.1 mm translations and 0.3 degree target-frame rotations; affine rows also include plus/minus 0.5 percent axis scales"
+  },
+  "runner": {
+    "candidate_mode": "automatic public run only; explicit sealed descriptor and table identities",
+    "output_stage": "Materialize one linear FlashalignOutput from the original moving image on the fixed grid and charge its complete interval.",
+    "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/LinearAutomaticConfirmationCourt.scala",
+    "row_schema_version": "1.1.0",
+    "sha256": "8c4d8b2f38aa2dca19b1699b982e89530e144ec10451f21f5a6adb719781338e",
+    "suite_path": "benchmarks/flashalign/runner/src/test/scala/reframe4s/benchmark/flashalign/LinearAutomaticConfirmationCourtSuite.scala",
+    "suite_sha256": "656409e1527e33956d10ca50471775578dbd9f254205f8cef181648cc703198f",
+    "summarizer_path": "benchmarks/flashalign/summarize_linear_automatic_confirmation_v5.py",
+    "summarizer_sha256": "957f5e085172a5f7034bb0e707e1f188aca06793fc9c2184c1e3f8b2ba376ba6"
+  },
+  "schema_version": "flashalign.linear-automatic-release-confirmation-seal.v5",
+  "sealed_before_candidate_execution": "2026-09-13T19:39:13Z",
+  "status": "sealed-unopened"
+}

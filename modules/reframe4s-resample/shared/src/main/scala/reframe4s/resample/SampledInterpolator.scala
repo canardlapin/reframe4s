@@ -348,7 +348,7 @@ object SampledInterpolator:
       index(axis) >= 0 && index(axis) < shape(axis)
     )
 
-  private def validity(weight: Double): Either[ImageError, Validity] =
+  private[resample] def validity(weight: Double): Either[ImageError, Validity] =
     if weight >= 1.0 - 1e-12 then Right(Validity.Full)
     else if weight <= 1e-12 then Right(Validity.Outside)
     else PartialWeight.from(weight).map(Validity.Partial.apply)

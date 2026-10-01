@@ -1,0 +1,68 @@
+{
+  "claim_boundary": "Numerical implementation and model-admission policy only. No MRI accuracy, nonlinear benefit, runtime, or release claim is admitted.",
+  "commands": [
+    "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/testOnly reframe4s.flashalign.NonlinearModelSelectionSuite' 'reframe4s-flashalignJS/testOnly reframe4s.flashalign.NonlinearModelSelectionSuite'"
+  ],
+  "evidence_scope": "analytic-and-deterministic-synthetic-training-only",
+  "gates": {
+    "audit_samples_opened": 0,
+    "data_rank_excludes_prior_and_damping": true,
+    "explicit_simpler_fallback_cannot_count_as_nonlinear_success": true,
+    "jvm_tests": {
+      "failed": 0,
+      "passed": 6
+    },
+    "prior_scaling_changes_effective_dimension_without_changing_data_rank": true,
+    "rank_aware_pose_schur_complement": true,
+    "scala_js_tests": {
+      "failed": 0,
+      "passed": 6
+    },
+    "selection_and_audit_roles_distinct": true,
+    "smallest_supported_model_retained": true
+  },
+  "manifest": {
+    "path": "benchmarks/flashalign/manifests/nonlinear-preset-training-v1.json",
+    "sha256": "de9936bb0dfa631851b75a235f4445c45f5beafdfe317f60213b047e44214d89"
+  },
+  "numerical_fixtures": {
+    "pose_field_schur": {
+      "conditional_field_eigenvalues": [
+        1.5,
+        3.0
+      ],
+      "field_dimension": 2,
+      "pose_data_rank": 6
+    },
+    "rank_nullspace": {
+      "conditional_data_rank": 2,
+      "effective_dimension": 1.0,
+      "field_dimension": 3,
+      "lost_pose_directions": 2,
+      "pose_data_rank": 4,
+      "prior_relative_eigenvalues": [
+        0.0,
+        0.5,
+        2.0
+      ]
+    }
+  },
+  "policy": {
+    "admission": "Choose the lowest-complexity candidate that passes every configured information, residual, selection, stability, optimizer, and geometry gate.",
+    "fallback": "When no nonlinear candidate passes, retain the named validated rigid or affine checkpoint and report nonlinear success as false.",
+    "partial_support": "Observable as a distinct assessment; disabled by the frozen v1 engineering threshold.",
+    "prior_controlled": "Observable as a distinct assessment and excluded from nonlinear admission."
+  },
+  "receipt_id": "flashalign-nonlinear-preset-training-v1",
+  "roles": {
+    "audit_id": "fa-nonlinear-sealed-audit-v1",
+    "audit_status": "reserved-unopened-role",
+    "optimization_id": "fa-nonlinear-train-opt-v1",
+    "selection_id": "fa-nonlinear-train-selection-v1",
+    "subject_split_id": "flashalign-nonlinear-analytic-subject-split-v1",
+    "subject_split_reproducible": true
+  },
+  "schema_version": "1.0.0",
+  "seed": 20260912,
+  "status": "engineering-thresholds-frozen"
+}

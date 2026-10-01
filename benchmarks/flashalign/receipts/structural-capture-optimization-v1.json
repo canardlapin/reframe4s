@@ -1,0 +1,149 @@
+{
+  "artifacts": {
+    "accuracy_receipt": {
+      "path": "benchmarks/flashalign/receipts/linear-automatic-release-confirmation-v2.json",
+      "sha256": "8d2d6b440212cfb243e8a4a5f21db85f46097e9a9164b2615dfa5bd85b602c82"
+    },
+    "analysis": {
+      "path": "docs/benchmarks/flashalign-structural-capture-optimization.md",
+      "sha256": "295a862b2523dceed21367a89845780d638d230e93217e930b2050ceb930f959"
+    },
+    "cost_receipt": {
+      "path": "benchmarks/flashalign/receipts/linear-automatic-release-cost-v2.json",
+      "sha256": "9ec43fed18fd095d8886d8eb60ac1674ef07a0560c0c1a841f53e21ab51def62"
+    },
+    "cost_summarizer": {
+      "path": "benchmarks/flashalign/summarize_linear_automatic_release_cost.py",
+      "sha256": "cf6afa795af2e2e4d157cae8b840033148e14a4da6ae037a36196694eca4d979"
+    },
+    "development_baseline": {
+      "path": "benchmarks/flashalign/raw/structural-capture-development-baseline-2026-09-13.json",
+      "sha256": "71103abf0becbe936047c3ff6d36f2651a6bbbb6c9f7a9572811d5c2aec76361"
+    },
+    "development_candidate": {
+      "path": "benchmarks/flashalign/raw/structural-capture-development-candidate-2026-09-13.json",
+      "sha256": "ea7afe96f96a07020c08e7d6a0b9beb8ffa4ea16be468e1127287c446ac302c7"
+    },
+    "development_probe_source": {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/flashalign/StructuralCaptureDevelopmentProbe.scala",
+      "sha256": "0a5af24ed15dd7bc2fb9e23f6746372b8aa2d492e04ece19aa4c917c5a8fd423"
+    },
+    "historical_raw": {
+      "path": "benchmarks/flashalign/raw/linear-automatic-confirmation-2026-09-13-candidate-50ec-historical.jsonl",
+      "sha256": "92c88b6db616abd4d17268a364a37ce289c9c3945f161c13dd99005596697b6d"
+    },
+    "raw_release": {
+      "path": "benchmarks/flashalign/raw/linear-automatic-release-confirmation-2026-09-13.jsonl",
+      "sha256": "40672c581ba9d3412be8f59b133d3e4f225a62a018ec98bfb6aca143fca6ac18"
+    },
+    "seal": {
+      "path": "benchmarks/flashalign/manifests/linear-automatic-release-confirmation-v2.json",
+      "sha256": "1a8faa917bc52d074dc764f4f6a8aa0484ca664b205333307ae86b7102ba1062"
+    }
+  },
+  "candidate": {
+    "flashalign_source_tree_bytes": 1276755,
+    "flashalign_source_tree_files": 73,
+    "flashalign_source_tree_sha256": "50ec8257d6f531aec793e11f568627b6b95813b80be8cc2bd8ad748c47ab60d8",
+    "implementation": "Prepare eight immutable fixed spectra once. Per rotation, combine six tensor numerator correlations into one inverse FFT and share the rotated-support forward FFT for right-energy and overlap.",
+    "spectral_source_tree_bytes": 41777,
+    "spectral_source_tree_files": 4,
+    "spectral_source_tree_sha256": "ef2f2ac3056a5ec4a5bbbb5b33c10a9a4148910d29704bdecd3ad06a1cf25496",
+    "unchanged_contracts": [
+      "rotation schedule",
+      "identity adequacy objective",
+      "thresholds",
+      "candidate ordering",
+      "single-thread execution",
+      "typed failures",
+      "public entry point"
+    ]
+  },
+  "claim_boundary": "This qualifies the numerical preservation and accuracy of one structural-capture optimization and records a material single-host cost reduction. It does not qualify the latency target, fast linear release, acquired MRI, clinical use, publication, or cross-method superiority.",
+  "development_comparison": {
+    "baseline_capture_median_ms": 268.959833,
+    "baseline_total_median_ms": 301.918125,
+    "candidate_capture_median_ms": 119.933667,
+    "candidate_total_median_ms": 150.551333,
+    "capture_median_reduction_fraction": 0.5540833526618081,
+    "evaluated_rotations_each": 125,
+    "fixture_role": "open development only; excluded from confirmation",
+    "matrix_identical": true,
+    "repetitions": 5,
+    "retained_candidates_each": 4
+  },
+  "fresh_sealed_court": {
+    "accuracy_passed": true,
+    "complete_output_evidence": true,
+    "descriptive_rows": 12,
+    "exact_rows": 36,
+    "latency_targets_passed": false,
+    "maximum_landmark_rms_mm": {
+      "capture_range": {
+        "affine": 0.04019261874711811,
+        "limit": 0.25,
+        "rigid": 0.03815831628971955
+      },
+      "exact_core": {
+        "affine": 0.07302280553444708,
+        "limit": 0.1,
+        "rigid": 0.04905081724398687
+      },
+      "partial_slab": {
+        "affine": 0.04865227261752545,
+        "limit": 0.25,
+        "rigid": 0.04827837901613965
+      }
+    },
+    "ordinary_latency": {
+      "affine": {
+        "limit_ms": 2000.0,
+        "median_total_ms": 2164.4526665000003,
+        "p95_total_ms": 2289.957625,
+        "passed": false,
+        "rows": 6,
+        "rows_below_limit": 2
+      },
+      "rigid": {
+        "limit_ms": 1000.0,
+        "median_total_ms": 1767.2316664999998,
+        "p95_total_ms": 1798.762833,
+        "passed": false,
+        "rows": 6,
+        "rows_below_limit": 1
+      }
+    },
+    "rows": 48,
+    "successes": 48
+  },
+  "mote_task": "bd-01M2DWW1N9WW4SPJG2ZBXJ1FFT",
+  "paired_exposed_historical_comparison": {
+    "baseline_expanded_capture_median_ms": 3019.4451040000004,
+    "candidate_expanded_capture_median_ms": 1330.4584380000001,
+    "exact_transform_hashes": 48,
+    "expanded_capture_median_reduction_fraction": 0.5593698867922853,
+    "expanded_rows": 42,
+    "maximum_landmark_rms_absolute_difference": 0.0,
+    "maximum_matrix_absolute_difference": 0.0,
+    "role": "post-implementation engineering evidence only; excluded from admission and tuning",
+    "rows": 48,
+    "same_statuses": true
+  },
+  "receipt_id": "flashalign-structural-capture-optimization-v1",
+  "release_decision": {
+    "fast_linear_product": "withheld",
+    "flashalign_to_halfflow_comparison": "remains blocked until fast linear qualification passes",
+    "next_work": "Further reduce the fixed 125-rotation path with independently checked real-pair FFT packing or an equivalent exact computation change, then face a new unopened court."
+  },
+  "schema_version": "flashalign.structural-capture-optimization.v1",
+  "status": "accuracy-qualified-latency-not-qualified",
+  "validation": {
+    "benchmark_jvm": "13 passed",
+    "direct_spatial_oracle": "passed at every lag under existing 3e-11 score tolerance",
+    "flashalign_jvm": "161 passed",
+    "flashalign_scalajs": "160 passed",
+    "projected_patch_allocation": "24 bytes at 2000 and 20000 iterations",
+    "spectral_jvm": "7 passed",
+    "spectral_scalajs": "7 passed"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "artifacts": {
+    "geometry_operator_source": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/GeometryPointOperator3.scala",
+      "sha256": "493c2ad003c9f2b3a52eb11b36489ffedb40f187ea8baf0274091b2692d7035a"
+    },
+    "implementation_prd": {
+      "path": "docs/plans/flashalign-implementation-prd.md",
+      "sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929"
+    },
+    "nonlinear_result_source": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/NonlinearResult.scala",
+      "sha256": "d3fbeec5d72eb2138c11bce69b874512cee005eef69709752609ce62c22a52cf"
+    },
+    "nonlinear_result_tests": {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/NonlinearResultSuite.scala",
+      "sha256": "1d982537f198684292de9a4c114bb4898d3218e8ae17f1f2c5c62280a999c916"
+    }
+  },
+  "claim_boundary": "Deterministic geometry, record, export, memory-accounting and output-semantics qualification only. This receipt does not establish MRI accuracy, nonlinear benefit, or latency targets.",
+  "command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/testOnly reframe4s.flashalign.NonlinearResultSuite' 'reframe4s-flashalignJS/testOnly reframe4s.flashalign.NonlinearResultSuite'",
+  "gates": {
+    "asymmetric_grid_record_restore": true,
+    "complete_nonlinear_matrix_export_rejected": true,
+    "corrupt_model_and_pe_metadata_rejected": true,
+    "inverse_failure_precedes_boundary_padding": true,
+    "jvm": {
+      "failed": 0,
+      "passed": 5
+    },
+    "named_affine_component_export": "GlobalPoseComponentOnly",
+    "numerical_inverse_not_promoted_to_smooth_iso": true,
+    "scala_js": {
+      "failed": 0,
+      "passed": 5
+    }
+  },
+  "output_measurement": {
+    "boundary_policy": "Constant(-1000.0)",
+    "coordinate_array_bytes": 1440,
+    "coordinate_arrays": 3,
+    "estimated_incremental_peak_bytes": 2400,
+    "final_interpolation_passes": 1,
+    "interpolation": "Linear",
+    "materialized_coordinate_count": 60,
+    "output_bytes": 480,
+    "output_elements": 60,
+    "source_interpolation_evaluations": 60,
+    "target_shape": [
+      4,
+      5,
+      3
+    ],
+    "target_voxels": 60,
+    "validity_bytes": 480,
+    "validity_full_count": 60,
+    "validity_preserved": true
+  },
+  "output_policy": {
+    "budget_check_order": "Before nonlinear inverse-map compilation and before image interpolation.",
+    "coordinate_memory_formula": "3 Double arrays x target voxel count = 24 bytes x target voxel count.",
+    "incremental_peak_scope": "Coordinate arrays plus Double output and Double validity arrays; excludes the caller-owned original image and runtime overhead.",
+    "source_image": "The original moving image is supplied directly to one ResamplingPlan.mapped execution.",
+    "unsupported_size": "Target-coordinate and output-element counts above the Int-indexed materialization limit fail before allocation."
+  },
+  "receipt_id": "flashalign-nonlinear-output-qualification-v1",
+  "schema_version": "1.0.0",
+  "status": "engineering-output-gates-passed"
+}

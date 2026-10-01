@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reframe4s.org/schemas/basinbridge-fixture-v1.schema.json",
+  "title": "reframe4s BasinBridge B0 fixture",
+  "type": "object",
+  "required": [
+    "schema",
+    "generator",
+    "coordinateContract",
+    "grid",
+    "externalOracle",
+    "inputRoles",
+    "lanes",
+    "cases",
+    "measurementPlan",
+    "status"
+  ],
+  "properties": {
+    "schema": {
+      "const": "reframe4s-basinbridge-fixtures-v1"
+    },
+    "coordinateContract": {
+      "type": "object",
+      "required": [
+        "mapKind",
+        "pRole",
+        "qRole",
+        "midpoint",
+        "tangent",
+        "translationExample"
+      ],
+      "properties": {
+        "mapKind": {
+          "const": "physical-coordinate-pull"
+        },
+        "pRole": {
+          "const": "moving-source coordinate"
+        },
+        "qRole": {
+          "const": "fixed-target coordinate"
+        },
+        "midpoint": {
+          "const": "z = (p + q) / 2"
+        },
+        "tangent": {
+          "const": "t = p - q"
+        }
+      }
+    },
+    "grid": {
+      "type": "object",
+      "required": [
+        "shape",
+        "spacingMm",
+        "originMm",
+        "seedCoordinatesMm",
+        "seedSpacingMm"
+      ]
+    },
+    "externalOracle": {
+      "type": "object",
+      "required": [
+        "type",
+        "status",
+        "affinePolicy",
+        "evaluationOnly"
+      ],
+      "properties": {
+        "type": {
+          "const": "same-affine-ants"
+        },
+        "status": {
+          "const": "required-external-input"
+        }
+      }
+    },
+    "lanes": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "correspondenceSource",
+          "bridge",
+          "fineRefinement",
+          "purpose"
+        ]
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "oracle",
+          "expected",
+          "correspondences"
+        ],
+        "properties": {
+          "correspondences": {
+            "type": "array",
+            "minItems": 125,
+            "items": {
+              "type": "object",
+              "required": [
+                "p",
+                "q",
+                "midpoint",
+                "tangent",
+                "confidence",
+                "oracleOutlier"
+              ],
+              "properties": {
+                "p": {
+                  "type": "array",
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "q": {
+                  "type": "array",
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "confidence": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "oracleOutlier": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "measurementPlan": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "object",
+      "required": [
+        "syntheticFixtures",
+        "sameAffineAntsExtraction",
+        "anatomicalAccuracy"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

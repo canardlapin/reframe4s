@@ -51,9 +51,10 @@ final case class DensePull[A, B] private (
     DensePull.compose(this, that)
 
   private[halfflow] def thenSelfExtended(
-      that: DensePull[B, B]
+      that: DensePull[B, B],
+      outside: CoordinateMapOutside = CoordinateMapOutside.Identity
   ): Either[RegistrationError, DensePull[A, B]] =
-    DensePull.compose(this, that, CoordinateMapOutside.Identity)
+    DensePull.compose(this, that, outside)
 
   def regrid(
       newFrom: Frame[A],

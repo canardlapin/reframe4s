@@ -1,0 +1,71 @@
+{
+  "schema_version": "flashalign.linear-cancellation-correction.v1",
+  "receipt_id": "flashalign-linear-cancellation-correction-2026-09-13",
+  "mote_task": "bd-01M2DFKCRWPQ3YRHFC9RWMZEH3",
+  "status": "numerical-correction-qualified-development-accuracy-still-failing",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "flashalign_source_tree_sha256": "7e8c9ea06f01d0a1023f97b02f997c5a41ced9ef474922301e4d2b16b9dcff52",
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-flashalign, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "worktree_state": "uncommitted multi-owner working tree"
+  },
+  "artifacts": {
+    "implementation": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/PatchLinearization.scala",
+      "sha256": "0949496b5e157b84df28be31fb5a3acae31ae6027ec8f5a9e84cefc0adf06956"
+    },
+    "regression_suite": {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PatchLinearizationSuite.scala",
+      "sha256": "49ce3c923d3dd0d9ff9fbd314158697c4eae0fd6d9057a4e501be7bfdfc5f22a"
+    },
+    "independent_projector": {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PatchObjectiveReference.scala",
+      "sha256": "b14c77ba7a7051877115829ec003c44de9127fd8f8daf2ed4e0033def0ed4e8d"
+    },
+    "analysis": {
+      "path": "docs/benchmarks/flashalign-linear-cancellation-analysis.md",
+      "sha256": "34a8afd7f50cc6ab3ea01354dd74c573bba95810e7c3f2d71d6436fd5bb196f9"
+    },
+    "development_runner": {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/LinearAccuracyCourt.scala",
+      "sha256": "e8827a252da9bbd1befc0fa5f78e88c61c7c56f202dc026723fb31c37ef19fb5"
+    },
+    "development_raw": {
+      "path": "benchmarks/flashalign/raw/linear-post-audit-development-2026-09-13.json",
+      "sha256": "d220ea75f837a6c3729b56bb4541324bcf2087ad4b30403e9173be92bd347dfe",
+      "rows": 32
+    }
+  },
+  "numerical_contract": {
+    "fast_path": "streamed centered moments remain the allocation-bounded ordinary path",
+    "diagnostic_trigger": "existing cancellation, definiteness, finite-value and correlation checks select explicit recomputation without relaxed thresholds",
+    "fallback": "gradient columns are origin-shifted before centering; normalized Jacobian rows are constructed directly and JtJ is accumulated as an explicit Gram matrix",
+    "admission": "the explicit result is authoritative after diagnostic selection and must have finite correlation, direction and curvature plus no materially negative diagonal"
+  },
+  "validation": {
+    "focused_command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/testOnly reframe4s.flashalign.PatchLinearizationSuite' 'reframe4s-flashalignJS/testOnly reframe4s.flashalign.PatchLinearizationSuite'",
+    "focused_result": "8 passed on JVM and 8 passed on Scala.js",
+    "affected_command": "sbt -J-Xmx4G -batch with PatchLinearizationSuite, RigidObjectiveLinearizationSuite, AffineObjectiveLinearizationSuite, RigidTrialObjectiveSuite and LinearEngineSuite on JVM and Scala.js",
+    "affected_result": "17 passed on JVM and 17 passed on Scala.js",
+    "full_command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/test' 'reframe4s-flashalignJS/test'",
+    "full_result": "JVM 147 passed; Scala.js 146 passed; no failures or errors",
+    "allocation_observation": "JVM full suite retained the FA-L22 hot-loop result: 24 bytes for both 2000 and 20000 iterations"
+  },
+  "opened_cohort_development_result": {
+    "command": "sbt -J-Xmx4G -batch 'flashalignBenchmarkJVM/runMain reframe4s.benchmark.flashalign.LinearAccuracyCourt benchmarks/flashalign/raw/linear-post-audit-development-2026-09-13.json 7e8c9ea06f01d0a1023f97b02f997c5a41ced9ef474922301e4d2b16b9dcff52 --candidate-only-development'",
+    "historical_l23_statuses": {
+      "success": 1,
+      "numerical_failure": 27,
+      "iteration_limit": 2,
+      "stalled": 2
+    },
+    "corrected_statuses": {
+      "success": 8,
+      "numerical_failure": 0,
+      "iteration_limit": 13,
+      "stalled": 11
+    },
+    "accuracy_warning": "one accepted large-initialization rigid result had 12.779642 mm landmark RMS; optimizer acceptance is not an accuracy admission"
+  },
+  "claim_boundary": "The cancellation correction and its cross-platform engineering behavior are qualified. The opened court shows removal of the observed numerical-failure class, but it is development evidence only. Linear accuracy, automatic structural capture, refreshed cost qualification and GL release admission remain open."
+}

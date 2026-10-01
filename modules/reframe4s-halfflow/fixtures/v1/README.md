@@ -1,4 +1,4 @@
-# HalfFlow-LM v1 independent fixtures
+# HalfFlow-LM and BasinBridge v1 independent fixtures
 
 `half-flow-synthetic.json` is the implementation-independent oracle for the
 first HalfFlow-LM contracts. The future `registration` crossProject should load
@@ -45,6 +45,23 @@ Before writing or checking the fixture, the generator also verifies its
 analytic velocity Jacobian by central differences, checks RK4 convergence at
 2,048 versus 4,096 steps, checks the integrated variational Jacobian against
 finite differences of the flow, and verifies both inverse-composition orders.
+
+## BasinBridge B0 correspondence fixture
+
+`basin-bridge-v1.json` freezes the physical pull-map correspondence contract
+for the next accuracy experiment. It is generated independently of Scala:
+
+```sh
+python3 tools/registration/generate_basinbridge_fixtures.py
+python3 tools/registration/generate_basinbridge_fixtures.py --check
+```
+
+The contract names `q` as the fixed-target point and `p` as the
+moving-source point, with `z = (p + q) / 2` and `t = p - q`. It contains
+known-transform translation, rotation, affine, regional-residual, outlier,
+and boundary cases plus the three oracle/block/refinement lanes. The
+same-affine anatomical oracle is an explicit external input requirement; the
+synthetic fixture does not stand in for licensed anatomical evidence.
 
 ## Direction convention
 

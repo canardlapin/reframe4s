@@ -1,0 +1,72 @@
+{
+  "schema_version": "flashalign.nonlinear-accuracy-qualification.v1",
+  "receipt_id": "flashalign-nonlinear-accuracy-qualification-2026-09-12",
+  "mote_task": "bd-01M2B119C7HRM7GQCQ206NPD2D",
+  "status": "qualification-blocked-before-execution",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner worktree",
+    "flashalign_source_tree_sha256": "6d00dde079a16e56455c7743f401d31f2340255cee29a0e40aa7cba7a236319b",
+    "flashalign_source_file_count": 70,
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "nonlinear_platform_qualification_sha256": "6f8f95c0aa9d5d6475b864f8e18c06af2d6b68b9729348d920b81464452bda85",
+    "nonlinear_output_qualification_sha256": "a4a53d38f49c1819c9ddff3571b6b80f96754d65c83f10ab2b93b0fba21504c1"
+  },
+  "frozen_protocol": {
+    "path": "benchmarks/flashalign/manifests/nonlinear-accuracy-audit-v1.json",
+    "sha256": "659da271a4417d82b5725f56e355cfba93e10f24e053704f1f70caea835afcce",
+    "frozen_before_flashalign_execution": true,
+    "strata": ["pe-anatomy-guided-single-direction", "pe-reverse-encoding-common-domain", "pe-fieldmap-assisted", "anatomical-small-strain"],
+    "required_controls": ["rigid", "affine", "zero-field constrained model", "matched-information matched-geometry comparator"],
+    "primary_evidence": ["independent landmarks", "manual anatomical labels", "explicit geometric validity", "inverse residual and coverage"],
+    "secondary_evidence": ["projected-patch objective", "image similarity", "overlap"]
+  },
+  "input_audit": {
+    "path": "benchmarks/flashalign/raw/nonlinear-accuracy-input-audit-2026-09-12.json",
+    "sha256": "fecfaf0a1c1dcb9c0773a745e7b3c8960244b4625c40a6636417d88dfacb4ceb",
+    "roots_examined": 4,
+    "declared_registration_rows": 0,
+    "executed_registration_rows": 0,
+    "decision": "reject-before-execution"
+  },
+  "external_candidate_evidence": {
+    "hodgeflow_repository_head": "d4ea249ab76ad2c817e72811051023f82124ba5c",
+    "hodgeflow_worktree_state": "dirty exploratory checkout",
+    "ibsr18_plan_sha256": "dad41d56d0f045c2ead5d764394c74c87911c85570fb5cc957b5f03592160e4e",
+    "ibsr18_assessment_sha256": "4cda8f6875f0340fe9701fa7e5a9d3a9bfc7aeadcd1b623d9010470f34d7a3dc",
+    "ibsr18_results_sha256": "03ea18ced64c1de3f20cf71884ddc1fa5ef94895972d9d53b5fe5fadc08265fb",
+    "ibsr18_acquisition_receipts_sha256": "f05b0426fd99fcaf27c47fccb0664489729681a884b58e3478a64cbe38c9e252",
+    "ibsr18_input_receipt_sha256": "4b0a0fef6eae227b953e0b714b9c230b0a68b2b1fdeab29873fe942ce7ac0c85",
+    "ibsr18_preflight_receipt_sha256": "13a1f8ff7093b02495a03cbdf89e52f6f05cc0d74bf6a8c6b418a36d38067223",
+    "assessment": "Useful future development and complementary-method material, but already unblinded, single-cohort and missing every PE acquisition stratum. It cannot be relabeled as an unopened Flashalign nonlinear audit."
+  },
+  "admission": {
+    "complete_failure_denominator": "not evaluable: no admissible cases were declared or run",
+    "subject_level_accuracy_distributions": "not evaluable",
+    "subject_level_uncertainty": "not evaluable",
+    "pe_accuracy": "blocked: no admissible PE cohort with independent geometry",
+    "reverse_pe_accuracy": "blocked and separate: no reverse-PE common-domain cohort",
+    "fieldmap_accuracy": "blocked and separate: no fieldmap-assisted cohort",
+    "small_strain_anatomical_accuracy": "blocked: no unopened multi-cohort audit with failure-tail strata",
+    "model_class_fairness": "protocol passed: PE superiority cannot be inferred from an affine-only comparator and acquisition-assisted strata cannot be pooled",
+    "geometry_evidence": "not evaluable on acquired data",
+    "image_similarity_role": "protocol passed: secondary only",
+    "nonlinear_release_gate": "failed closed"
+  },
+  "blocking_conditions": [
+    "PE_EXTERNAL_COHORT_UNAVAILABLE",
+    "PE_ASSISTED_STRATA_UNAVAILABLE",
+    "ANATOMY_SEALED_MULTI_COHORT_UNAVAILABLE",
+    "IMAGE_BACKED_NONLINEAR_OBJECTIVE_UNAVAILABLE"
+  ],
+  "claim_boundary": {
+    "supported": ["The acquired nonlinear court was specified before Flashalign execution.", "The absence and inadmissibility of external inputs were audited reproducibly.", "No missing lane was converted into a success or silently dropped."],
+    "unsupported": ["nonlinear MRI accuracy", "PE correction accuracy", "small-strain anatomical benefit", "superiority over affine, HalfFlow, ANTs or another comparator", "clinical validity", "nonlinear release admission"]
+  },
+  "next_evidence_required": [
+    "Implement and qualify an image-backed nonlinear projected-patch objective in the benchmark or production path.",
+    "Acquire and seal a subject-disjoint single-PE EPI-to-anatomy cohort with PE metadata, independent geometry and all four failure-tail cohorts.",
+    "Acquire and seal an untouched labeled or landmarked anatomical confirmation cohort; keep IBSR18 as development/comparison evidence.",
+    "Freeze matched-information PE and matched-geometry anatomical comparator adapters before opening evaluation evidence."
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "flashalign-nonlinear-accuracy-audit-v1",
+  "status": "protocol-frozen-inputs-unavailable",
+  "frozen_at": "2026-09-12T23:58:14Z",
+  "scope": "Independent acquired-data qualification of the constrained nonlinear PE and anatomical models. This manifest freezes the court before any Flashalign nonlinear registration is run; it is not itself an accuracy result.",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner worktree",
+    "flashalign_source_tree_sha256": "6d00dde079a16e56455c7743f401d31f2340255cee29a0e40aa7cba7a236319b",
+    "flashalign_source_file_count": 70,
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-flashalign, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "fixture_evidence_spec_sha256": "21f7252e09ac198baecad2dd4a8d23db83c4fcce5561bf7ed0d8cc2c50f227e4",
+    "nonlinear_training_manifest_sha256": "de9936bb0dfa631851b75a235f4445c45f5beafdfe317f60213b047e44214d89"
+  },
+  "split_policy": {
+    "unit": "subject",
+    "related_data_rule": "All sessions, repeats, derived images and initialization replicates from one subject remain in one split and one bootstrap cluster.",
+    "site_rule": "Use site as the split and resampling cluster when site effects are part of a claim.",
+    "roles": ["training", "selection", "audit"],
+    "audit_use": "once after input hashes, candidate source, providers, initialization distribution, masks, thresholds and method configurations are sealed",
+    "minimum_independent_subject_clusters_per_required_stratum": 12,
+    "audit_reuse_rule": "Any audit observation used for tuning retires this manifest and requires a new dataset split and version."
+  },
+  "required_strata": [
+    {
+      "id": "pe-anatomy-guided-single-direction",
+      "required_for": "PE-field accuracy admission",
+      "inputs": ["observed EPI reference", "same-subject T1w or T2w anatomy", "world-space phase-encoding unit direction", "independent landmarks or distortion geometry"],
+      "cohorts": ["ordinary-same-subject", "large-initialization-error", "partial-slab", "dropout-or-low-signal"],
+      "methods": ["validated-rigid", "matched-affine", "flashalign-pe64-zero-field", "flashalign-pe64", "equivalent-information-equivalent-distortion comparator"],
+      "comparison_rule": "The PE field is compared only with methods given the same single-direction acquisition information and equivalent nonlinear freedom. Affine remains a required control, never the sole superiority comparator."
+    },
+    {
+      "id": "pe-reverse-encoding-common-domain",
+      "required_for": "reverse-PE-assisted claims only",
+      "inputs": ["opposite phase-encoding acquisitions", "directions and readout metadata", "common undistorted-domain model", "independent landmarks or distortion geometry"],
+      "methods": ["common affine", "zero-field common-domain model", "reverse-PE comparator", "future Flashalign reverse-PE model"],
+      "comparison_rule": "This stratum is never pooled with anatomically guided single-PE fitting; opposing forward distortions are defined on a common undistorted domain."
+    },
+    {
+      "id": "pe-fieldmap-assisted",
+      "required_for": "fieldmap-assisted claims only",
+      "inputs": ["EPI reference", "same-subject anatomy", "calibrated fieldmap and metadata", "independent landmarks or distortion geometry"],
+      "methods": ["common affine", "zero-field model", "fieldmap-assisted comparator", "future Flashalign fieldmap-assisted model"],
+      "comparison_rule": "This acquisition-information stratum remains separate from both single-PE and reverse-PE analyses."
+    },
+    {
+      "id": "anatomical-small-strain",
+      "required_for": "small-strain anatomical accuracy admission",
+      "inputs": ["within-modality T1w-to-T1w or T2w-to-T2w pair", "manual anatomical labels or independent landmarks", "independent masks when masks enter registration"],
+      "cohorts": ["ordinary", "large-initialization-error", "partial-coverage", "low-signal-or-missing-anatomy"],
+      "methods": ["validated-rigid", "matched-affine", "flashalign-small-strain96-zero-field", "flashalign-small-strain96", "matched general nonlinear comparator"],
+      "comparison_rule": "The matched nonlinear comparison must receive the same affine initialization, images, masks, thread budget and output scoring. Zero-field and affine controls are reported even when the flexible model improves."
+    }
+  ],
+  "initialization": {
+    "ordinary": "One fixed, independently specified moving-to-fixed world transform shared by every applicable method.",
+    "large_error": "Deterministic physical perturbations stratified by translation and rotation, fixed before execution and retained in the original subject cluster.",
+    "same_affine_nonlinear_rule": "All nonlinear arms receive the identical typed world-space affine. A method's own initializer is a separate complete-pipeline comparison.",
+    "failed_initialization_rule": "Failure, ambiguity, invalid geometry and timeout remain rows in the original cohort denominator."
+  },
+  "scoring": {
+    "primary": [
+      "independent landmark RMS, p95 and maximum error in millimetres when landmarks exist",
+      "per-structure Dice and subject-level macro Dice when labels exist",
+      "per-structure HD95 millimetres and subject-level macro HD95 when labels exist"
+    ],
+    "geometry": [
+      "continuous PE directional-Jacobian certificate and margin",
+      "continuous small-strain gradient certificate and margin",
+      "independent sampled singular values or Jacobian determinants",
+      "inverse roundtrip maximum and coverage on the certified scope",
+      "out-of-domain and inverse failures"
+    ],
+    "secondary": ["projected-patch objective", "cross-method image similarity", "overlap", "regional refit stability", "effective model dimension"],
+    "image_similarity_role": "diagnostic only; it cannot establish anatomical accuracy"
+  },
+  "thresholds": {
+    "engineering_representable_fixture_landmark_rms_mm_max": 0.1,
+    "certified_scope_inverse_roundtrip_mm_max": 0.01,
+    "acquired_landmark_noninferiority_margin_mm": 0.5,
+    "anatomical_dice_noninferiority_margin": 0.01,
+    "anatomical_hd95_noninferiority_margin_mm": 0.5,
+    "catastrophic_landmark_error_mm": 5.0,
+    "pe_minimum_directional_jacobian": 0.2,
+    "pe_maximum_displacement_mm": 20.0,
+    "small_strain_maximum_gradient": 0.5,
+    "small_strain_maximum_displacement_mm": 20.0,
+    "failed_or_uncertified_case_is_catastrophic": true,
+    "superiority_rule": "For every required cohort, the subject-clustered 95% interval must exclude zero in the favorable direction for the declared primary difference, and neither catastrophic failures nor invalid geometry may increase.",
+    "noninferiority_rule": "The unfavorable endpoint of the subject-clustered 95% interval must stay within the predeclared metric-specific margin."
+  },
+  "statistics": {
+    "paired": true,
+    "cluster": "subject, or site when the claim is site-generalization",
+    "confidence_level": 0.95,
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 20260912,
+    "summaries": ["median", "p95", "catastrophic-failure rate"],
+    "reporting": "Per-subject rows, failures, cohort distributions and intervals are retained; pooling never replaces stratum-specific results."
+  },
+  "failure_accounting": {
+    "statuses": ["success", "nonconvergence", "ambiguity", "invalid-geometry", "inverse-failure", "insufficient-overlap", "insufficient-information", "prior-dominated", "numerical-failure", "timeout", "unavailable-input", "unavailable-comparator"],
+    "missing_output_is_failure": true,
+    "silent_identity_success_forbidden": true,
+    "early_stopping": "none for the accuracy court",
+    "denominator": "Every declared subject-by-initialization-by-method row, including unavailable and failed lanes."
+  },
+  "execution_gate": {
+    "raw_schema": "benchmarks/flashalign/schemas/raw-result-v1.schema.json",
+    "input_audit": "benchmarks/flashalign/raw/nonlinear-accuracy-input-audit-2026-09-12.json",
+    "state": "closed",
+    "reason": "No admissible sealed PE cohort is present, no unopened multi-cohort anatomical audit is present, and the source tree has no image-backed nonlinear objective adapter outside test fixtures. No nonlinear registration was executed."
+  },
+  "claim_boundary": {
+    "permitted": ["frozen nonlinear external-evidence protocol", "reproducible missing-input audit"],
+    "prohibited": ["nonlinear MRI accuracy", "PE correction accuracy", "small-strain anatomical benefit", "superiority", "clinical validity", "release admission"]
+  }
+}

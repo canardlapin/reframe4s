@@ -66,6 +66,8 @@ lazy val image4sReferenceJVM =
   ProjectRef(image4sBuild, "image4s-referenceJVM")
 lazy val image4sReferenceJS =
   ProjectRef(image4sBuild, "image4s-referenceJS")
+lazy val image4sNiftiJVM =
+  ProjectRef(image4sBuild, "image4s-niftiJVM")
 
 lazy val sharedSettings = Seq(
   libraryDependencies ++= Seq(
@@ -176,7 +178,11 @@ lazy val reframe4sGraph = foundationProjects("reframe4s-graph")
 lazy val reframe4sRegister = foundationProjects("reframe4s-register")
 lazy val reframe4sMultiscale = foundationProjects("reframe4s-multiscale")
 lazy val reframe4sMotion = foundationProjects("reframe4s-motion")
-lazy val reframe4sHalfflow = foundationProjects("reframe4s-halfflow")
+lazy val reframe4sHalfflow =
+  foundationProjects("reframe4s-halfflow")
+    .jvmConfigure(_.dependsOn(image4sNiftiJVM % "test->compile"))
+lazy val reframe4sSpectral = foundationProjects("reframe4s-spectral")
+lazy val reframe4sFlashalign = foundationProjects("reframe4s-flashalign")
 lazy val reframe4sBundle = foundationProjects("reframe4s")
 
 // Performance evidence is deliberately outside the published aggregate. It
@@ -190,6 +196,20 @@ lazy val halfflowBenchJVM =
     .settings(
       name := "reframe4s-halfflow-benchmarks",
       publish / skip := true
+    )
+
+// Pair-registration evidence is JVM-only and unpublished. Keeping it outside
+// the aggregate prevents filesystem, NIfTI, and benchmark concerns from
+// entering the cross-published Flashalign artifact.
+lazy val flashalignBenchmarkJVM =
+  project
+    .in(reframe4sBuildRoot / "benchmarks" / "flashalign" / "runner")
+    .dependsOn(reframe4sFlashalign.jvm, reframe4sHalfflow.jvm, image4sNiftiJVM)
+    .enablePlugins(JmhPlugin)
+    .settings(
+      name := "reframe4s-flashalign-benchmark-runner",
+      publish / skip := true,
+      libraryDependencies += "org.scalameta" %% "munit" % "1.3.0" % Test
     )
 
 lazy val root =

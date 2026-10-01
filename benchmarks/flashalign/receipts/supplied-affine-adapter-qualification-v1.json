@@ -1,0 +1,45 @@
+{
+  "schema_version": "flashalign.supplied-affine-adapter-qualification.v1",
+  "receipt_id": "flashalign-supplied-affine-adapter-qualification-2026-09-12",
+  "mote_task": "bd-01M2B11A3E11QC7HDQDAVWGYQG",
+  "status": "engineering-adapter-gates-passed",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner worktree"
+  },
+  "artifacts": {
+    "adapter": {
+      "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/SuppliedAffineAdapter.scala",
+      "sha256": "d806ab6d19c157ba6d0306e4be0d592e2e1ca85f614a615ed54905c86c94a74d"
+    },
+    "shared_tests": {
+      "path": "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/SuppliedAffineAdapterSuite.scala",
+      "sha256": "454949c22eca3c1413250b0ea7240e63732ff0cbc1425c9703f358932ec7cf60"
+    }
+  },
+  "contract": {
+    "canonical_input": "reframe4s.core.AffineMap over image4s D3 frames",
+    "moving_to_fixed_entry": "Uses the canonical operator's validated exact inverse exactly once to obtain HalfFlow's fixed-to-moving pull direction.",
+    "fixed_to_moving_entry": "Copies the canonical operator directly into the HalfFlow-owned affine representation.",
+    "midpoint": "Delegates to the pre-existing AffineInitializer.supplied split and converts that unchanged result with ForwardMidpoint.fromLegacy.",
+    "residual": "Both initial residual arms are identity; the supplied affine lives only in the exact endpoint factors.",
+    "ownership": "The Gale-to-HalfFlow matrix copy and internal Affine3D construction are confined to the HalfFlow-owned adapter. Callers require no reframe4s.halfflow.internal import.",
+    "defaults": "No HalfFlow estimator, objective, plan, guard, or default configuration was changed."
+  },
+  "validation": {
+    "focused_command": "sbt -J-Xmx4G -batch 'reframe4s-halfflowJVM/testOnly reframe4s.halfflow.SuppliedAffineAdapterSuite' 'reframe4s-halfflowJS/testOnly reframe4s.halfflow.SuppliedAffineAdapterSuite'",
+    "focused_result": "passed on JVM and Scala.js",
+    "focused_tests_per_platform": 3,
+    "full_command": "sbt -J-Xmx4G -batch 'reframe4s-halfflowJVM/test' 'reframe4s-halfflowJS/test'",
+    "full_result": "exit 0; final platform report 143 passed, 0 failed, 0 errors",
+    "full_elapsed_seconds": 649,
+    "asymmetric_grid_check": "A nontrivial affine was tested with distinct oblique, anisotropic fixed, moving, and work grids.",
+    "direction_check": "Dense fixed-to-moving and moving-to-fixed landmark coordinates agree with explicit matrix inverse and forward evaluations to 2e-11 mm.",
+    "single_composition_check": "At a shared work landmark, the moving-arm endpoint equals fixedToMoving(fixed-arm endpoint) to 2e-9 mm.",
+    "delegate_parity_check": "The adapter and the existing supplied initializer produce bit-identical forward arm fields on both platforms.",
+    "unsupported_root_check": "A valid determinant-positive 180-degree rotation is rejected by the current midpoint square-root algorithm with a typed affine-square-root failure; no root is invented.",
+    "diff_check": "git diff --check passed for both task files",
+    "format_tooling": "No repository-local Scalafmt task or executable is configured. The environment-global fmtCheck alias expands to unavailable scalafmtCheckAll and was not counted as a gate."
+  },
+  "claim_boundary": "This qualifies the canonical supplied-affine input boundary and cross-platform composition semantics. It does not qualify a HalfFlow MRI result, repair HalfFlow's frozen nonlinear baseline, or merge Flashalign and HalfFlow objectives."
+}

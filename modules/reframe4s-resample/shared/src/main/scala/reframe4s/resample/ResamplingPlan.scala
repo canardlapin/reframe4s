@@ -79,6 +79,36 @@ object ResamplingError:
     val message: String =
       s"resampling plan requires a D$expected workspace, got D$actual"
 
+  final case class NonSpatialDerivativeAxes(count: Int)
+      extends ResamplingError:
+    val message: String =
+      s"D3 value/gradient sampling requires a spatial-only image, got $count non-spatial axes"
+
+  final case class DerivativeExtentTooSmall(axis: Int, extent: Int)
+      extends ResamplingError:
+    val message: String =
+      s"D3 value/gradient sampling requires extent at least 2 on axis $axis, got $extent"
+
+  final case class NonFiniteContinuousIndex(axis: Int, value: Double)
+      extends ResamplingError:
+    val message: String =
+      s"continuous index coordinate $axis must be finite, got $value"
+
+  final case class InvalidSparseSamplingCapacity(value: Int)
+      extends ResamplingError:
+    val message: String =
+      s"sparse value/gradient capacity must be non-negative, got $value"
+
+  final case class InvalidSparseSamplingShape(
+      requested: Int,
+      xCoordinates: Int,
+      yCoordinates: Int,
+      zCoordinates: Int,
+      outputCapacity: Int
+  ) extends ResamplingError:
+    val message: String =
+      s"cannot sample $requested points from coordinate lengths ($xCoordinates, $yCoordinates, $zCoordinates) into capacity $outputCapacity"
+
   case object WorkspaceInUse extends ResamplingError:
     val message: String =
       "a resampling workspace cannot be shared by concurrent executions"

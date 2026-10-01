@@ -1,0 +1,406 @@
+{
+  "schema": "reframe4s-real-world-registration-registry-v1",
+  "capturedAt": "2026-09-13",
+  "generatedDocument": "docs/benchmarks/real-world-registration.md",
+  "purpose": "Inventory of reframe4s HalfFlow and Flashalign evidence, with external HodgeFlow references explicitly separated from method validation.",
+  "visualQa": {
+    "status": "no-reviewable-final-method-outputs",
+    "manifest": "docs/benchmarks/manifests/real-world-registration-visual-qa-v1.json",
+    "receipt": "benchmarks/registration/visual-qa/v1/receipt.json",
+    "review": "benchmarks/registration/visual-qa/v1/review.json",
+    "report": "docs/benchmarks/real-world-registration-visual-qa.md",
+    "directReframeCases": 2,
+    "directReframeMethodOutputsRendered": 0,
+    "scope": "reframe4s-methods"
+  },
+  "vocabulary": {
+    "evidenceClasses": {
+      "analytic-engineering": "Known-transform synthetic evidence for implementation behavior; it cannot establish acquired-image accuracy.",
+      "acquired-smoke": "An acquired-image execution that checks a narrow stage or invariant without an anatomical accuracy oracle.",
+      "acquired-diagnostic": "An acquired-image comparison that can reveal failures but is not an admission or release court.",
+      "acquired-qualification": "A predeclared acquired-image court intended to support an accuracy or release decision. A blocked court remains qualification evidence about missing inputs, not method accuracy."
+    },
+    "runStatuses": {
+      "completed": "Every declared case was attempted and retained in the result.",
+      "blocked-before-execution": "The court rejected its inputs or implementation path before declaring or running cases."
+    },
+    "decisions": {
+      "pass": "The court met its own declared, limited gate.",
+      "fail": "The court ran and did not meet its declared gate, or the method failed safely.",
+      "descriptive": "The court has results but no admission decision is warranted.",
+      "blocked": "The intended decision is unavailable because prerequisites are missing."
+    }
+  },
+  "halfFlowAdmission": {
+    "requiredPairs": 20,
+    "requiredIndependentDatasets": 2,
+    "currentlyAdmittedPairs": 0,
+    "policy": "docs/halfflow-capability-ledger.md",
+    "reason": "Existing acquired runs are smoke or diagnostic evidence and do not jointly provide the required multi-dataset labels or landmarks, complete exports, topology certificates, and frozen common policy."
+  },
+  "courts": [
+    {
+      "id": "c04-flashalign-halfflow-affine-transfer",
+      "title": "C04 Flashalign affine handoff",
+      "dataClass": "analytic-synthetic",
+      "owner": "reframe4s Flashalign and HalfFlow",
+      "task": "known affine transform recovery and HalfFlow initialization",
+      "evidenceClass": "analytic-engineering",
+      "runStatus": "completed",
+      "decision": "pass",
+      "counts": {
+        "casesDeclared": 6,
+        "casesExecuted": 6,
+        "methodRuns": 18,
+        "retainedMethodFailures": 2
+      },
+      "evaluation": "Known-transform landmark RMS and export geometry.",
+      "topology": "Identity-start HalfFlow failed export on two cases; Flashalign-initialized HalfFlow exported all six.",
+      "headline": "Supports Flashalign affine preconditioning on six synthetic affine pairs; it is not acquired T1 evidence.",
+      "limitations": [
+        "Repository-authored analytic images only.",
+        "Does not qualify anatomical alignment, acquired MRI, nonlinear Flashalign, or HalfFlow stable export."
+      ],
+      "countsTowardHalfFlowAdmission": false,
+      "admissionReason": "Analytic-synthetic cases do not satisfy the acquired anatomical-pair requirement.",
+      "sources": [
+        {
+          "kind": "repository",
+          "path": "benchmarks/flashalign/receipts/flashalign-halfflow-affine-transfer-v1.json",
+          "assertions": [
+            {
+              "pointer": "/status",
+              "equals": "completed-benefit-analytic-synthetic"
+            },
+            {
+              "pointer": "/integrity/failed_rows_retained",
+              "equals": true
+            },
+            {
+              "pointer": "/outcomes/C4/statuses/inverse-failure",
+              "equals": 2
+            },
+            {
+              "pointer": "/outcomes/C5/successes",
+              "equals": 6
+            }
+          ]
+        },
+        {
+          "kind": "repository",
+          "path": "docs/benchmarks/flashalign-halfflow-affine-transfer-v1.md"
+        }
+      ],
+      "reproduce": [
+        "python3 benchmarks/flashalign/summarize_halfflow_affine_transfer_v1.py benchmarks/flashalign/raw/flashalign-halfflow-affine-transfer-v1-2026-09-13.jsonl benchmarks/flashalign/manifests/flashalign-halfflow-affine-transfer-v1.json /tmp/flashalign-halfflow-affine-transfer-v1.json"
+      ]
+    },
+    {
+      "id": "basinbridge-public-t1-to-mni",
+      "title": "BasinBridge public T1 to MNI smoke court",
+      "dataClass": "acquired",
+      "owner": "reframe4s HalfFlow/BasinBridge",
+      "task": "sub-1002 T1w to MNI152Lin T1w",
+      "evidenceClass": "acquired-smoke",
+      "runStatus": "completed",
+      "decision": "pass",
+      "counts": {
+        "casesDeclared": 1,
+        "casesExecuted": 1,
+        "methodRuns": 1,
+        "retainedMethodFailures": 0
+      },
+      "evaluation": "Hash-locked NIfTI ingestion, bridge acceptance, sparse correspondence error, and true CC loss.",
+      "topology": "Not evaluated; the court stops after one BasinBridge round and does not export a complete bidirectional transform.",
+      "headline": "One real T1-to-template bridge round passed, reducing match error from 15.38 mm to 9.48 mm.",
+      "limitations": [
+        "No labels, landmarks, surfaces, or TRE oracle.",
+        "No complete HalfFlow fine stage, endpoint export, or ANTs comparison.",
+        "External source-tree data have no recorded redistribution-license evidence."
+      ],
+      "countsTowardHalfFlowAdmission": false,
+      "admissionReason": "A one-stage smoke result without anatomical accuracy or export evidence is not an admitted anatomical pair.",
+      "sources": [
+        {
+          "kind": "repository",
+          "path": "docs/benchmarks/receipts/basinbridge-realdata-hodgeflow-2026-08-02.json",
+          "assertions": [
+            {
+              "pointer": "/observed/status",
+              "equals": "passed"
+            },
+            {
+              "pointer": "/observed/bridgeAccepted",
+              "equals": true
+            },
+            {
+              "pointer": "/observed/initialMatchErrorMm",
+              "equals": 15.380748177022042
+            },
+            {
+              "pointer": "/observed/finalMatchErrorMm",
+              "equals": 9.480970212168321
+            }
+          ]
+        },
+        {
+          "kind": "repository",
+          "path": "modules/reframe4s-halfflow/jvm/src/test/scala/reframe4s/halfflow/BasinBridgeRealDataSuite.scala"
+        },
+        {
+          "kind": "external",
+          "rootEnv": "HODGEFLOW_ROOT",
+          "path": "data-raw/sub-1002_run-01_res-3_T1w.nii.gz",
+          "sha256": "e0563a9d227383125ed4b1514bc66f480ed016de68ce1dc4ed6699b436d93692"
+        },
+        {
+          "kind": "external",
+          "rootEnv": "HODGEFLOW_ROOT",
+          "path": "data-raw/tpl-MNI152Lin_res-02_T1w.nii.gz",
+          "sha256": "5f6e8fc4f60b8e53ec5574d536238034bc340aca01438d7ab32ee9df8ea80b4d"
+        }
+      ],
+      "reproduce": [
+        "sbt -J-Xmx4G 'reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeRealDataSuite'"
+      ]
+    },
+    {
+      "id": "basinbridge-sub18-to-mni",
+      "title": "BasinBridge sub18 T1 to MNI diagnostic",
+      "dataClass": "acquired",
+      "owner": "reframe4s HalfFlow/BasinBridge",
+      "task": "sub18 T1w to MNI2009cAsym T1w",
+      "evidenceClass": "acquired-diagnostic",
+      "runStatus": "completed",
+      "decision": "fail",
+      "counts": {
+        "casesDeclared": 1,
+        "casesExecuted": 1,
+        "methodRuns": 1,
+        "retainedMethodFailures": 1
+      },
+      "evaluation": "Saved ANTs differential oracle, NCC diagnostics, brain-mask Dice and center of mass, fine-stage topology, inverse residual, and endpoint Jacobians.",
+      "topology": "Failed safely: the fine stage crossed the 0.05 accumulated-Jacobian floor and the intermediate endpoint had 11,434 non-positive sampled Jacobians, minimum -0.4891.",
+      "headline": "The partial bridge improved some diagnostics, but the complete method failed and remained far below the saved ANTs result.",
+      "limitations": [
+        "One external, development-open case with no recorded redistribution-license evidence.",
+        "The stored result predates the later endpoint-boundary correction and has not been relabelled; the earlier receipt records a rematch failure and the latest reproduction retains the fine-stage topology and export failures.",
+        "A successful probe process means the negative result was recorded correctly, not that registration passed."
+      ],
+      "countsTowardHalfFlowAdmission": false,
+      "admissionReason": "The only method row is a retained topology and export failure.",
+      "sources": [
+        {
+          "kind": "repository",
+          "path": "benchmarks/flashalign/receipts/halfflow-comparison-baseline-v1.json",
+          "assertions": [
+            {
+              "pointer": "/status",
+              "equals": "baseline-reproduced-c4-failed-closed"
+            },
+            {
+              "pointer": "/C4/status",
+              "equals": "invalid-geometry-and-fine-stage-failure"
+            },
+            {
+              "pointer": "/C4/intermediate_bridge_diagnostics/nonpositive_sampled_jacobians",
+              "equals": 11434
+            }
+          ]
+        },
+        {
+          "kind": "repository",
+          "path": "docs/benchmarks/receipts/basinbridge-sub18-headtohead-2026-08-02.json",
+          "assertions": [
+            {
+              "pointer": "/promotionEligible",
+              "equals": false
+            },
+            {
+              "pointer": "/methods/2/status",
+              "equals": "failed-mandatory-rematch"
+            },
+            {
+              "pointer": "/methods/3/endpointJacobian/nonPositive",
+              "equals": 11434
+            }
+          ]
+        },
+        {
+          "kind": "repository",
+          "path": "modules/reframe4s-halfflow/jvm/src/test/scala/reframe4s/halfflow/BasinBridgeSub18AccuracyProbe.scala"
+        },
+        {
+          "kind": "external",
+          "rootEnv": "HODGEFLOW_ROOT",
+          "path": "tmp/sub18_hodgeflow_vs_ants/ants_synquick_softbrain_fixedmask"
+        }
+      ],
+      "reproduce": [
+        "sbt -J-Xmx4G -batch 'reframe4s-halfflowJVM/Test/runMain reframe4s.halfflow.BasinBridgeSub18AccuracyProbe all'"
+      ]
+    },
+    {
+      "id": "flashalign-nonlinear-acquired-qualification",
+      "title": "Flashalign nonlinear acquired-data qualification",
+      "dataClass": "acquired",
+      "owner": "reframe4s Flashalign",
+      "task": "PE-constrained and small-strain nonlinear registration",
+      "evidenceClass": "acquired-qualification",
+      "runStatus": "blocked-before-execution",
+      "decision": "blocked",
+      "counts": {
+        "casesDeclared": 0,
+        "casesExecuted": 0,
+        "methodRuns": 0,
+        "retainedMethodFailures": 0
+      },
+      "evaluation": "The protocol requires independent landmarks or manual labels, geometry validity, inverse residual, and coverage; image similarity is secondary.",
+      "topology": "Not evaluated on acquired data because no registration row was declared or run.",
+      "headline": "The audit failed closed before execution: Flashalign has no image-backed acquired nonlinear benchmark path or admissible cohort.",
+      "limitations": [
+        "Only synthetic test objectives currently connect images to the nonlinear optimizer interfaces.",
+        "No sealed multi-cohort anatomical audit or PE/reverse-PE/fieldmap strata are available."
+      ],
+      "countsTowardHalfFlowAdmission": false,
+      "admissionReason": "This is a blocked Flashalign qualification with zero executed rows, not HalfFlow evidence.",
+      "sources": [
+        {
+          "kind": "repository",
+          "path": "benchmarks/flashalign/receipts/nonlinear-accuracy-qualification-v1.json",
+          "assertions": [
+            {
+              "pointer": "/status",
+              "equals": "qualification-blocked-before-execution"
+            },
+            {
+              "pointer": "/input_audit/declared_registration_rows",
+              "equals": 0
+            },
+            {
+              "pointer": "/input_audit/executed_registration_rows",
+              "equals": 0
+            },
+            {
+              "pointer": "/admission/nonlinear_release_gate",
+              "equals": "failed closed"
+            }
+          ]
+        },
+        {
+          "kind": "repository",
+          "path": "benchmarks/flashalign/raw/nonlinear-accuracy-input-audit-2026-09-12.json",
+          "assertions": [
+            {
+              "pointer": "/implementation_ingress_audit/production_or_benchmark_matches",
+              "equals": 0
+            },
+            {
+              "pointer": "/execution/executed_registration_rows",
+              "equals": 0
+            }
+          ]
+        }
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "hodgeflow-openneuro-ds000102-t1-to-mni",
+      "title": "HodgeFlow OpenNeuro ds000102 T1 to MNI screen",
+      "dataClass": "acquired",
+      "owner": "HodgeFlow external project",
+      "task": "six T1w subjects to MNI template",
+      "evidenceClass": "acquired-diagnostic",
+      "runStatus": "completed",
+      "decision": "fail",
+      "counts": {
+        "casesDeclared": 6,
+        "casesExecuted": 6,
+        "methodRuns": 12,
+        "retainedMethodFailures": 0
+      },
+      "evaluation": "Masked, global, and gradient NCC against ANTs; sampled pullback Jacobians; secondary outline and center-of-mass diagnostics.",
+      "topology": "HodgeFlow completed all six with zero sampled folds and minimum total pullback Jacobian 0.0564.",
+      "headline": "The prospective screen failed: HodgeFlow lost mean masked NCC despite favorable global and gradient NCC.",
+      "limitations": [
+        "This exercises HodgeFlow, not reframe4s HalfFlow or Flashalign.",
+        "No anatomical labels; brain extraction used ANTs tooling and runtime environments were unmatched."
+      ],
+      "countsTowardHalfFlowAdmission": false,
+      "admissionReason": "External HodgeFlow results do not exercise the HalfFlow implementation, and the court lacks labels or landmarks.",
+      "sources": [
+        {
+          "kind": "external",
+          "rootEnv": "HODGEFLOW_ROOT",
+          "path": "tmp/openneuro_t1_validation_ds000102_v1/RESULTS.md",
+          "sha256": "f6d25c4fdca110830d41693e65be00d8a13e7401bac4e19a69ca5980d74e67db"
+        }
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "hodgeflow-ibsr18-labeled-t1",
+      "title": "HodgeFlow IBSR18 labeled anatomical court",
+      "dataClass": "acquired",
+      "owner": "HodgeFlow external project",
+      "task": "nine disjoint subject-to-subject T1w pairs",
+      "evidenceClass": "acquired-diagnostic",
+      "runStatus": "completed",
+      "decision": "descriptive",
+      "counts": {
+        "casesDeclared": 9,
+        "casesExecuted": 9,
+        "methodRuns": 27,
+        "retainedMethodFailures": 0
+      },
+      "evaluation": "Sealed anatomical-label Dice and HD95 for shared affine, HodgeFlow, and ANTs SyN, with secondary intensity diagnostics.",
+      "topology": "HodgeFlow retained 685 of 685 accepted updates with zero sampled folds and minimum sampled Jacobian 0.0500000149 on 2 mm grids.",
+      "headline": "HodgeFlow improved over affine but ANTs won all nine pairs on Dice and HD95.",
+      "limitations": [
+        "This exercises HodgeFlow, not reframe4s HalfFlow or Flashalign.",
+        "One development-open cohort and subject-to-subject registration rather than T1-to-template alignment."
+      ],
+      "countsTowardHalfFlowAdmission": false,
+      "admissionReason": "External HodgeFlow evidence cannot admit the distinct HalfFlow implementation.",
+      "sources": [
+        {
+          "kind": "external",
+          "rootEnv": "HODGEFLOW_ROOT",
+          "path": "tmp/ibsr18-heldout/cloud/RESULTS.md",
+          "sha256": "03ea18ced64c1de3f20cf71884ddc1fa5ef94895972d9d53b5fe5fadc08265fb"
+        }
+      ],
+      "reproduce": []
+    }
+  ],
+  "nextCourt": {
+    "name": "reframe4s acquired T1 registration court",
+    "minimumPurpose": "Turn the existing one-off acquired diagnostics into one reproducible capture-range, accuracy, and export-safety court without using evaluation labels during fitting.",
+    "lanes": [
+      "Flashalign affine",
+      "identity-initialized HalfFlow",
+      "Flashalign-affine-initialized HalfFlow",
+      "ANTs comparator"
+    ],
+    "requiredOutputs": [
+      "complete retained denominator and typed failure reasons",
+      "landmark or segmentation accuracy with labels held out from optimization",
+      "bidirectional residual and coverage",
+      "per-direction topology certificates over the declared evaluation region",
+      "image-similarity diagnostics as secondary evidence",
+      "immutable data, implementation, settings, and comparator provenance"
+    ],
+    "promotionBoundary": "A development court can organize and falsify the method. HalfFlow admission still requires at least 20 predeclared pairs from two independently sourced datasets under one frozen policy."
+  },
+  "externalVisualQa": {
+    "status": "reviewed-with-retained-artifact-gaps",
+    "manifest": "docs/benchmarks/manifests/external-hodgeflow-visual-qa-v1.json",
+    "receipt": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/receipt.json",
+    "review": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/review.json",
+    "report": "docs/benchmarks/external-hodgeflow-visual-qa.md",
+    "externalHodgeFlowCases": 15,
+    "externalHodgeFlowMethodOutputsRendered": 9,
+    "externalHodgeFlowMetricRowsWithoutLocalMethodOutput": 6,
+    "scope": "external-hodgeflow-reference"
+  }
+}

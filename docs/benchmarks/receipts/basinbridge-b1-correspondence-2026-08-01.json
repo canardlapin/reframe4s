@@ -1,0 +1,132 @@
+{
+  "schema": "reframe4s-basinbridge-b1-correspondence-receipt-v1",
+  "status": "native-same-grid-matcher-complete-historical-geometry-pending",
+  "capturedAtUtc": "2026-08-01",
+  "repository": {
+    "head": "e7f469c",
+    "moteIssue": "sf-01ky5p1zvxa0f6zsb2wpvmczeg"
+  },
+  "scope": {
+    "implemented": [
+      "typed fixed and moving physical points",
+      "midpoint and moving-minus-fixed tangent",
+      "forward and reverse displacement distributions",
+      "normalized entropy and cycle-consistency soft confidence",
+      "bounded inspectable low-confidence weights",
+      "typed forward/reverse search observation boundary",
+      "reverse-endpoint-derived cycle error",
+      "order-preserving adapter with finite aggregate diagnostics",
+      "explicit-geometry same-grid image block matcher",
+      "trilinear block sampling and z-normalized candidate scoring",
+      "real reverse search from the selected moving point",
+      "reused per-direction scratch buffers in the candidate loop"
+    ],
+    "unchanged": [
+      "HalfFlow controls",
+      "BasinBridge projection",
+      "licensed anatomical input lane"
+    ],
+    "notImplemented": [
+      "historical block size and search radius recovery",
+      "multi-grid or differing-affine matching",
+      "anatomical matcher accuracy and runtime court"
+    ]
+  },
+  "sources": {
+    "implementation": {
+      "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/BasinBridgeCorrespondence.scala",
+      "sha256": "98ca95334843f8b61b1933dba003c14ee885e2cff39f4e007d8739a1c80aef38"
+    },
+    "tests": {
+      "path": "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/BasinBridgeCorrespondenceSuite.scala",
+      "sha256": "f575be394a1d58c73cf24c7a356c80c2c3c040aea604c0d8555504b1382f4efb"
+    },
+    "adapterImplementation": {
+      "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/BasinBridgeSearchAdapter.scala",
+      "sha256": "5c8eeed3b96b326249223ddbde3233a5acde36e011e5fedd15d946637e66d607"
+    },
+    "adapterTests": {
+      "path": "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/BasinBridgeSearchAdapterSuite.scala",
+      "sha256": "8a0250bb0d407a36b13b303cc33792acccbea2d117cccd1356ea13853351b359"
+    },
+    "matcherImplementation": {
+      "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/BasinBridgeBlockMatcher.scala",
+      "sha256": "d6b0c15e348941486f9e91d15bd03723145b4c7581a443821d183bca83d86442"
+    },
+    "matcherTests": {
+      "path": "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/BasinBridgeBlockMatcherSuite.scala",
+      "sha256": "29a904a78aaafbf5dfdec96b4b05a5dbd8fcb299e3afa6db3631f2541348a6e7"
+    },
+    "plan": {
+      "path": "docs/plans/basinbridge-b1-correspondence.md",
+      "sha256": "66418ec7c96bcf8d141c78c258254027ed0b4ed3f06e0b1fabdb0363894bedd6"
+    }
+  },
+  "verification": [
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeCorrespondenceSuite\"",
+      "status": "passed",
+      "tests": 7
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJS/testOnly reframe4s.halfflow.BasinBridgeCorrespondenceSuite\"",
+      "status": "passed",
+      "tests": 7
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeSearchAdapterSuite\"",
+      "status": "passed",
+      "tests": 6
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJS/testOnly reframe4s.halfflow.BasinBridgeSearchAdapterSuite\"",
+      "status": "passed",
+      "tests": 6
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeBlockMatcherSuite\"",
+      "status": "passed",
+      "tests": 6
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJS/testOnly reframe4s.halfflow.BasinBridgeBlockMatcherSuite\"",
+      "status": "passed",
+      "tests": 6
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeCorrespondenceSuite reframe4s.halfflow.BasinBridgeSearchAdapterSuite reframe4s.halfflow.BasinBridgeBlockMatcherSuite\" \"reframe4s-halfflowJS/testOnly reframe4s.halfflow.BasinBridgeCorrespondenceSuite reframe4s.halfflow.BasinBridgeSearchAdapterSuite reframe4s.halfflow.BasinBridgeBlockMatcherSuite\"",
+      "status": "passed",
+      "jvm": {
+        "passed": 19,
+        "failed": 0
+      },
+      "scalaJs": {
+        "passed": 19,
+        "failed": 0
+      }
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/test\" \"reframe4s-halfflowJS/test\"",
+      "status": "passed",
+      "jvm": {
+        "passed": 130,
+        "failed": 0
+      },
+      "scalaJs": {
+        "passed": 130,
+        "failed": 0
+      }
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "limitations": [
+    "This receipt proves the evidence contract and a same-grid synthetic native matcher path, not historical-geometry fidelity or anatomical registration accuracy.",
+    "The matcher requires caller-supplied block and search radii because the historical geometry is absent; no silent geometry retuning is claimed.",
+    "The full Scala.js gate passed, but its unusually long environment-dominated runtime is not admitted as a performance baseline.",
+    "The external same-affine ANTs deformation and five-pair anatomical cohort remain unavailable.",
+    "B2 must consume this contract through a topology-safe background-plus-residual projector."
+  ]
+}

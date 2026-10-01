@@ -1,0 +1,124 @@
+{
+  "schema_version": "flashalign.linear-cost-probe.v1",
+  "workload": {
+    "side": 31,
+    "voxels_per_image": 29791,
+    "rigid_preset": "epi-t1",
+    "affine_preset": "within-modality",
+    "input": "deterministic analytic in-memory scalar pair",
+    "read_millis": 0.0,
+    "decompress_millis": 0.0,
+    "capture_millis": 0.0,
+    "output_resampling_millis": 0.0,
+    "warmup_iterations": 3,
+    "measurement_iterations": 15
+  },
+  "environment": {
+    "os": "Mac OS X",
+    "arch": "aarch64",
+    "jdk": "OpenJDK 64-Bit Server VM 25.0.1",
+    "available_processors": 14,
+    "maximum_heap_bytes": 4294967296
+  },
+  "phase_contract": {
+    "preparation": "compile immutable pair plan, including support, native prepared level, patch population, fixed role draws, fused fixed sampler and model-specific objective",
+    "warm_optimize_and_audit": "reuse compiled plan and workspace; optimize and evaluate the unopened audit draw",
+    "cold_complete": "preparation plus new workspace plus optimization and audit",
+    "excluded_zero_cost_phases": ["file read", "NIfTI decompression", "structural capture", "final output resampling"]
+  },
+  "rigid": {
+    "preparation": {
+      "latency_median_millis": 34.788417000,
+      "latency_p95_millis": 40.962750000,
+      "allocated_median_bytes": 12262016,
+      "allocated_p95_bytes": 12485296,
+      "observed_peak_heap_delta_bytes": 12932640,
+      "checksum": 893730.00000000000
+    },
+    "warm_optimize_and_audit": {
+      "latency_median_millis": 5.040209000,
+      "latency_p95_millis": 5.558209000,
+      "allocated_median_bytes": 675280,
+      "allocated_p95_bytes": 678256,
+      "observed_peak_heap_delta_bytes": 1678056,
+      "checksum": 74.658152607242430
+    },
+    "cold_complete": {
+      "latency_median_millis": 35.224292000,
+      "latency_p95_millis": 36.804541000,
+      "allocated_median_bytes": 13308160,
+      "allocated_p95_bytes": 13310480,
+      "observed_peak_heap_delta_bytes": 14116640,
+      "checksum": 74.658152607242430
+    },
+    "accepted": true,
+    "work": {
+      "unique_interpolations": 45404,
+      "gradient_evaluations": 19016,
+      "source_voxel_reads": 343512,
+      "patch_entry_evaluations": 3488,
+      "patch_occurrence_evaluations": 54000,
+      "data_linearizations": 5,
+      "prior_linearizations": 5,
+      "linear_solver_calls": 5,
+      "trial_evaluations": 5,
+      "early_rejected_trials": 0,
+      "accepted_steps": 5,
+      "rejected_steps": 0,
+      "clipped_steps": 0,
+      "selection_evaluations": 6,
+      "audit_evaluations": 1,
+      "curvature_products": 0,
+      "nonlinear_coefficients": 0,
+      "parallel_workers": 1
+    }
+  },
+  "affine": {
+    "preparation": {
+      "latency_median_millis": 31.468958000,
+      "latency_p95_millis": 35.061500000,
+      "allocated_median_bytes": 13111464,
+      "allocated_p95_bytes": 13112184,
+      "observed_peak_heap_delta_bytes": 13531776,
+      "checksum": 893730.00000000000
+    },
+    "warm_optimize_and_audit": {
+      "latency_median_millis": 23.360958000,
+      "latency_p95_millis": 27.522458000,
+      "allocated_median_bytes": 3119272,
+      "allocated_p95_bytes": 3186488,
+      "observed_peak_heap_delta_bytes": 4597440,
+      "checksum": 60.895460262195670
+    },
+    "cold_complete": {
+      "latency_median_millis": 54.398750000,
+      "latency_p95_millis": 60.756125000,
+      "allocated_median_bytes": 16217736,
+      "allocated_p95_bytes": 16222872,
+      "observed_peak_heap_delta_bytes": 17173176,
+      "checksum": 60.895460262195670
+    },
+    "accepted": true,
+    "work": {
+      "unique_interpolations": 298498,
+      "gradient_evaluations": 89195,
+      "source_voxel_reads": 2387672,
+      "patch_entry_evaluations": 13342,
+      "patch_occurrence_evaluations": 124169,
+      "data_linearizations": 13,
+      "prior_linearizations": 13,
+      "linear_solver_calls": 28,
+      "trial_evaluations": 28,
+      "early_rejected_trials": 15,
+      "accepted_steps": 13,
+      "rejected_steps": 15,
+      "clipped_steps": 0,
+      "selection_evaluations": 14,
+      "audit_evaluations": 1,
+      "curvature_products": 0,
+      "nonlinear_coefficients": 0,
+      "parallel_workers": 1
+    }
+  },
+  "claim_boundary": "Machine-local analytic engineering measurement. It is not an MRI accuracy, clinical, external-comparator, or general-hardware performance claim."
+}

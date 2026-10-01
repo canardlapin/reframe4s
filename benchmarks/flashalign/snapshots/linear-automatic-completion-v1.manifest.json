@@ -1,0 +1,581 @@
+{
+  "schema_version": "flashalign.source-snapshot.v1",
+  "snapshot_id": "linear-automatic-completion-v1",
+  "captured_at_utc": "2026-09-13T15:50:00Z",
+  "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+  "worktree_state": "uncommitted multi-owner working tree; snapshot contains only the listed Flashalign candidate, provider, runner, build-graph, receipt, raw-evidence, and analysis files",
+  "hash_contract": "SHA-256 over bytes for files; tree hashes sort repository-relative paths and prefix each UTF-8 path and payload with an unsigned eight-byte big-endian length",
+  "archive": {
+    "path": "benchmarks/flashalign/snapshots/linear-automatic-completion-v1.tar.gz",
+    "sha256": "45a3ea86dd3e834c23ccff27b40c70b4001f1a085a34a4b1e7f6696bda9cfdea",
+    "bytes": 371574,
+    "determinism": "gzip mtime 0; sorted regular files; tar uid/gid/mtime zero; normalized modes"
+  },
+  "components": {
+    "flashalign": {
+      "sha256": "7d5c0959cbe4edd4ee9f8a8a84f3d19660c4a1d360403b2f9d4df1c2b21b9490",
+      "files": 72
+    },
+    "resample_provider": {
+      "sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+      "files": 10
+    },
+    "multiscale_provider": {
+      "sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5",
+      "files": 6
+    },
+    "evidence_runner": {
+      "sha256": "0e1c3c5ec143ee977fa519a688125a74a60472352a7f59bcaa45c509badc9ce5",
+      "files": 13
+    }
+  },
+  "closed_receipt_checks": {
+    "flashalign_expected_sha256": "7d5c0959cbe4edd4ee9f8a8a84f3d19660c4a1d360403b2f9d4df1c2b21b9490",
+    "development_runner_expected_sha256": "8194083c6e4215d6d62a602f14f7ce7f3ce40ce10bddf1d19df76150f3cf036e",
+    "development_runner_actual_sha256": "8194083c6e4215d6d62a602f14f7ce7f3ce40ce10bddf1d19df76150f3cf036e",
+    "flashalign_matches": true,
+    "development_runner_matches": true
+  },
+  "files": [
+    {
+      "path": "PRD.json",
+      "bytes": 90521,
+      "sha256": "a770ad35ced78bf2015c4f8ea96c80074155e6c8e4b9e834b9400a53860ed0e5"
+    },
+    {
+      "path": "benchmarks/flashalign/raw/linear-automatic-complete-development-2026-09-13.json",
+      "bytes": 104230,
+      "sha256": "6a98ab7e30f4f9f51689afef40e6498b0a349d43794a751a8fa1096d60b35618"
+    },
+    {
+      "path": "benchmarks/flashalign/receipts/linear-automatic-completion-v1.json",
+      "bytes": 10395,
+      "sha256": "02f4eabd3c469f18b545f2cb1e7e41be53059783832332017b6c495f007c9b97"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/CrossMethodEvidence.scala",
+      "bytes": 20262,
+      "sha256": "e03be8806c7b7d4de895a26ed9984d07f85e6317b60f2d0122b67fde22623d8a"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/EvidenceJson.scala",
+      "bytes": 6033,
+      "sha256": "f2a2ba40b1aec0f94bcef3f135275e5782bc5903d84ba271ffd6224178a557bc"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/LinearAccuracyCourt.scala",
+      "bytes": 26952,
+      "sha256": "8194083c6e4215d6d62a602f14f7ce7f3ce40ce10bddf1d19df76150f3cf036e"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/Model.scala",
+      "bytes": 8230,
+      "sha256": "eb846f52981b8808c0eefc70ea2638c4ca1e12414c64996a64a96a5a73721cc1"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/PairBenchmarkRunner.scala",
+      "bytes": 10985,
+      "sha256": "3a59a6f4ccb2615a4002dc38a8a0edda8c41e49a353e66df2e44bc98330702c2"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/flashalign/NonlinearCostProbe.scala",
+      "bytes": 17729,
+      "sha256": "f5e1617369e3f318dc57858c401defec7b93c55b939285f30a783cf3ad0022da"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/flashalign/NonlinearOutputCostProbe.scala",
+      "bytes": 16170,
+      "sha256": "3ded335fb5dae44cc29cb63551934eddf2c4ee15df2b0df0d52b57241857d23f"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/flashalign/benchmark/FlashalignLinearBenchmark.scala",
+      "bytes": 1559,
+      "sha256": "362ce8bcbff2ea00a18f63667b7f9b10fc10fcebc7f6bd22559139ce7b5b4d1a"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/flashalign/benchmark/LinearBenchmarkWorkload.scala",
+      "bytes": 8263,
+      "sha256": "7f6ad05ecd00ec5ccc1396acbeee6f9e8bf72e911c41f309602df1c3a801cdfa"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/flashalign/benchmark/LinearCostProbe.scala",
+      "bytes": 10021,
+      "sha256": "97ae37714d152b38bb3eb121d9cf15f768f9530da7d7eecbe32719cbd79c4dc8"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/test/scala/reframe4s/benchmark/flashalign/CrossMethodEvidenceSuite.scala",
+      "bytes": 7740,
+      "sha256": "e370ac066f8c1a265221d10f6846c349c5ae3ab0028c9e83f8d61a856980a104"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/test/scala/reframe4s/benchmark/flashalign/LinearAccuracyCourtSuite.scala",
+      "bytes": 1106,
+      "sha256": "dcc56d283ab12a9f20e6575264e2ea9a63f7a1bde355d7cc4bd29e9f2522d377"
+    },
+    {
+      "path": "benchmarks/flashalign/runner/src/test/scala/reframe4s/benchmark/flashalign/PairBenchmarkRunnerSuite.scala",
+      "bytes": 9941,
+      "sha256": "14dc13dacf3f5a62a9bbe7a196952b54eadccce587b35ef44ee62661e418f275"
+    },
+    {
+      "path": "build.sbt",
+      "bytes": 8653,
+      "sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1"
+    },
+    {
+      "path": "docs/benchmarks/flashalign-automatic-completion.md",
+      "bytes": 5093,
+      "sha256": "920e8c03e1858f455515482d51f4094bb36023775aa980ed0b502cecc3cf4a67"
+    },
+    {
+      "path": "docs/plans/flashalign-implementation-prd.md",
+      "bytes": 85351,
+      "sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/jvm/src/test/scala/reframe4s/flashalign/LinearHotLoopPerformanceSuite.scala",
+      "bytes": 5161,
+      "sha256": "99cad218c76a2485fd6229f36aaf1a762af6db4335d99c7bae653f898cb404dd"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/AffineModel.scala",
+      "bytes": 23846,
+      "sha256": "b2816265f97030d3b0e42b814d1b5013374bbd4144d57c2223fda070afb605c4"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/AffineObjectiveLinearization.scala",
+      "bytes": 20808,
+      "sha256": "df5a802d3b0458cf63ca590fbedb16f94d2e7608d071b10394f78fc3f00500ee"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/AffineRefinement.scala",
+      "bytes": 17128,
+      "sha256": "c737bf9fec4457b72b424022693aafcfc30fce4d0d668bee8d944fdfa9a152c5"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/AffineTrialObjective.scala",
+      "bytes": 12509,
+      "sha256": "078fb9129b0864957e86d6d83662ff8d681f2a87f711cecce434f9045c70eed7"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/AutomaticLinearInitialization.scala",
+      "bytes": 17368,
+      "sha256": "0bdcd2c10f2701c15da77d762fc39f0ca1fb246db2f51d0d180e81b819b431be"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/Flashalign.scala",
+      "bytes": 43796,
+      "sha256": "9698e33f3a839459b80bd9920b4d49cdb0e34a780b3a764dfed82abbbeb6dc55"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/GalePcgAdapter.scala",
+      "bytes": 13422,
+      "sha256": "3fd39c173a43e1502640d80e2457f5df77ca080510dbbdc5ebe68d03eff0a1b8"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/GeometryPointOperator3.scala",
+      "bytes": 25478,
+      "sha256": "493c2ad003c9f2b3a52eb11b36489ffedb40f187ea8baf0274091b2692d7035a"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/LinearEngine.scala",
+      "bytes": 43691,
+      "sha256": "4dbae3b8ccd1fdf6ca4dd450221372791c0e2c4535498a7ed318bfef6de828b6"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/LinearPreset.scala",
+      "bytes": 19700,
+      "sha256": "ca6e8ed664adea6a3a32f4856bd11c5ecb2c9155d0f877c35546de2bd942f6f8"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/LinearResultRecord.scala",
+      "bytes": 15879,
+      "sha256": "b35bac06b5bdaf2a0c064921993cc3bd79e61a24528cb17f7b2bbd75f7fa9a2b"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/LinearValidation.scala",
+      "bytes": 25517,
+      "sha256": "451a617d9ef4e2c13a8e0e89c00fc63727915897bd208f1b7b8900a84ca4c552"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/LinearWork.scala",
+      "bytes": 7018,
+      "sha256": "d5699ac56dce3131c4a6aa633e40d1d47fd6c27cf6a1044360913ce80ae625a9"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/MatrixFreePatchOperator3.scala",
+      "bytes": 15332,
+      "sha256": "5757839ceb500c5408bc19a1ea13fd557af64cfe8521078ccba86d092af9749b"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/NonlinearModelSelection.scala",
+      "bytes": 19667,
+      "sha256": "eba7acf2708efda324b74b2141ef0717b479778933719477dc44a9424d183b0b"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/NonlinearResult.scala",
+      "bytes": 32362,
+      "sha256": "d3fbeec5d72eb2138c11bce69b874512cee005eef69709752609ce62c22a52cf"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/PatchLinearization.scala",
+      "bytes": 21704,
+      "sha256": "0949496b5e157b84df28be31fb5a3acae31ae6027ec8f5a9e84cefc0adf06956"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/PatchObjective.scala",
+      "bytes": 17802,
+      "sha256": "8a87e56b92d92d558184d6ab25e8bcbb138bed354197a8c886de3bb9ba438ecb"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/PatchSampleSet.scala",
+      "bytes": 24178,
+      "sha256": "edd9c95c496fdce9f1f03616da53ec2d3ff8c2c3ce4230f27032eef4d6131916"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/PeFieldGeometry.scala",
+      "bytes": 22577,
+      "sha256": "98ddb8ec619f224033c6b6e70aa1fe3421f07c147ef6d291107efb3c11b12728"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/PeFieldModel.scala",
+      "bytes": 25254,
+      "sha256": "ff7ea225847a93de7cfee91c33d6d8ea862144d5ede84153202d129487ac1c05"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/PeFieldOptimizer.scala",
+      "bytes": 32719,
+      "sha256": "f8d6d873def13fbdb49713cf2094870132c0ec6e60767e54a127cceba28128e8"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/PoseEliminatedSystem.scala",
+      "bytes": 37145,
+      "sha256": "2405f34d8abb21b71a4f8ab7cb73044274af05d3445508973728292803a8def2"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/Preparation.scala",
+      "bytes": 18367,
+      "sha256": "38aac849911b2a61ed0da87875c2b48ceed0082c7961ebc354ad88a0f740d927"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/ProjectedPatchOptimizer.scala",
+      "bytes": 51226,
+      "sha256": "f6e1825cd99c565bfc039c3665e1beb7a514f95d0864d20f09dc963f1863f87e"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/RigidModel.scala",
+      "bytes": 9301,
+      "sha256": "b2c6cd1c9dc235a1ed4b9d40c0eb64c34e1d1d990a0b187abedc98aaa26d2e41"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/RigidObjectiveLinearization.scala",
+      "bytes": 20709,
+      "sha256": "cbfb427ff8aed3e71b5faa0862442855a931bda2f02b1cce4743ef9dca437fd4"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/RigidRefinement.scala",
+      "bytes": 15406,
+      "sha256": "b57d3cbf0463f0f7580491c55cae4c79f536877de3c25eafdf2f02a10a5a886e"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/RigidTrialObjective.scala",
+      "bytes": 12761,
+      "sha256": "9daa7da15e26ea6b7a359a851d2db1ac3e840edd33a69aa219f8ed904cfc528b"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/SmallStrainGeometry.scala",
+      "bytes": 22354,
+      "sha256": "0739e0a1e40945cbc736b29e8f7e8fd983097f0117ab3452cb01d05be0fac35c"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/SmallStrainModel.scala",
+      "bytes": 40868,
+      "sha256": "96e2661d141d626917104266abfd3eeed87f8050a39447ea96fd047c5299adcd"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/SmallStrainOptimizer.scala",
+      "bytes": 23320,
+      "sha256": "cba006f5b8a29f74a8258678eee780d72feb32d57a0f8a33ea13bf04485d2c73"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/SpectralBasis3.scala",
+      "bytes": 17709,
+      "sha256": "0b7bd6bdc664a4ec20e5287b2e01711aa174cab3e64419699e21d18ad71ce1ad"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/StructuralCapture.scala",
+      "bytes": 33607,
+      "sha256": "37387210fc0d1c6724777b3aad375b7b4aab8a2d0aa129ed8329e1387a49a19b"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/StructuralFeature3.scala",
+      "bytes": 18325,
+      "sha256": "5575d03aa2d4ade028f069fb93147fa0366426a59bbc8d64aff3f09191509de0"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/UniquePointRegistry.scala",
+      "bytes": 15404,
+      "sha256": "08922a807fe3b67317dce9658609532206a3dec7e9262c4c61c3af48339dc553"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/AffineModelSuite.scala",
+      "bytes": 14809,
+      "sha256": "8d2eff111c4ff0869689dba62c8b57d35a50f957eaafb71afc0c555b04125d99"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/AffineObjectiveLinearizationSuite.scala",
+      "bytes": 10003,
+      "sha256": "944e6c9ba2e227d5407b736cfa1b7565eec2aad76b3be37c6359f1aa8005115f"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/AffineRefinementSuite.scala",
+      "bytes": 11910,
+      "sha256": "8da7512f80d0c6d19bd4b29405ad2ce0f9dacd9de619b1cb599099fd8ab35326"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/AutomaticLinearPipelineSuite.scala",
+      "bytes": 13955,
+      "sha256": "862ffeeb6a96c49fbb1ab9ff77c45265251f8ca4e52990a9e3c68756f786d3bb"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/FlashalignApiSuite.scala",
+      "bytes": 8082,
+      "sha256": "290ea0e4811c8043c019aba2f0d412ed03d2779e1271b42f9c1a28c9281e7aa6"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/GalePcgAdapterSuite.scala",
+      "bytes": 7089,
+      "sha256": "33439dac6189575cc5a88038e19d6263fb9ad0ea0abfcc66d346b5762d14dee1"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/GeometryPointOperator3Suite.scala",
+      "bytes": 13964,
+      "sha256": "5fb206bea34114d01e48f10a506aba5660873f91e9fbd236be1b574e3e60b64b"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/LinearCostDiagnosticsSuite.scala",
+      "bytes": 3917,
+      "sha256": "fc75fe810e014f16773832e492a435e7e533f59542127c415fd13ee6bf6f5900"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/LinearEngineSuite.scala",
+      "bytes": 7604,
+      "sha256": "67596d8c8912ca1580947f02d776cb00f84c6b3b973974ddb9513ab91e848ef5"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/LinearPresetSuite.scala",
+      "bytes": 6955,
+      "sha256": "fe288f8e9b4345a473dde1fdce9d639f37817bc6c8a989c167e034eec24b7d7e"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/LinearResultRecordSuite.scala",
+      "bytes": 14262,
+      "sha256": "8ffdc2201c46e19000b57214d099cb950147ac375c17c5ff180405f867462fe4"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/LinearValidationSuite.scala",
+      "bytes": 15878,
+      "sha256": "c311cf6d49798ff11450b543f7cfa4cfdd8d5502178abf6ab9a5d7fb82f06dc3"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/MatrixFreePatchOperator3Suite.scala",
+      "bytes": 12991,
+      "sha256": "6cdbc0a240f322369c238a8e2328929cd34e7c6d95b3ef00a286e64344f054a7"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/NonlinearModelSelectionSuite.scala",
+      "bytes": 7262,
+      "sha256": "2d97da617843c0804e186dc3790144356ec421886100115704bfce832f0fdcd7"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/NonlinearResultSuite.scala",
+      "bytes": 14928,
+      "sha256": "1d982537f198684292de9a4c114bb4898d3218e8ae17f1f2c5c62280a999c916"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PatchLinearizationSuite.scala",
+      "bytes": 12647,
+      "sha256": "49ce3c923d3dd0d9ff9fbd314158697c4eae0fd6d9057a4e501be7bfdfc5f22a"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PatchObjectiveReference.scala",
+      "bytes": 3657,
+      "sha256": "b14c77ba7a7051877115829ec003c44de9127fd8f8daf2ed4e0033def0ed4e8d"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PatchObjectiveSuite.scala",
+      "bytes": 12683,
+      "sha256": "ad2c317cc33ff05b7fccae8ad29995c0eb57904917f38670f0eea851f6f7956a"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PatchSampleSetSuite.scala",
+      "bytes": 11779,
+      "sha256": "7148ce20aff961334796f71d302c3814444e85722471e9e22a460903795d2d7b"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PeFieldGeometrySuite.scala",
+      "bytes": 14204,
+      "sha256": "951fced5936f686828cf6e5c38fc368ca4ddbde221504200d8b8468a69f50217"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PeFieldModelSuite.scala",
+      "bytes": 11770,
+      "sha256": "2f96b509705ddff84f27f3da994b94da28849b7a6db3f8f301347f6720757ad1"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PeFieldOptimizerSuite.scala",
+      "bytes": 21029,
+      "sha256": "21333bad96f229207b013348e4d33e23b9aa67e498af0736fd0ff624915a6afc"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PoseEliminatedSystemSuite.scala",
+      "bytes": 9877,
+      "sha256": "e18d0145ab637d2fbc0d7d31fd964ab4aa329f5a7f616494e4c86d33ec659fd0"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PreparationSuite.scala",
+      "bytes": 9321,
+      "sha256": "18a44e35976f40dfdeb02795ccdd391270b147152bcc538fe9ef3533d9d0111c"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/ProjectedPatchOptimizerSuite.scala",
+      "bytes": 17451,
+      "sha256": "981050bb3bc3874840294eb439e9263ac852a193fb2cbd977678fd9ac5e24f48"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/RigidModelSuite.scala",
+      "bytes": 10493,
+      "sha256": "0b6aec74980be48b79990eb38d3ae39298b7bf8b65a3ff046f87a5f7546e80f8"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/RigidObjectiveLinearizationSuite.scala",
+      "bytes": 12751,
+      "sha256": "17d4e0cd04d669e10bb5c605c74b447c09283756bba50fc55937f9fab68fdacd"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/RigidTrialObjectiveSuite.scala",
+      "bytes": 10858,
+      "sha256": "af3c7793e687e94b7317f628d6423c892cff8e4e6d5450c6e2842eae146f6ef3"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/SmallStrainGeometrySuite.scala",
+      "bytes": 11010,
+      "sha256": "c2de348da23d5dbded5505397d9becddc8b46fc1efe353c7f8eb97632e03c82d"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/SmallStrainModelSuite.scala",
+      "bytes": 13418,
+      "sha256": "a2c70d261f58edab2fe259fd25e14c6affd793e4bf402d2de66effa5da2eb82d"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/SmallStrainOptimizerSuite.scala",
+      "bytes": 21607,
+      "sha256": "07c2fd3ed949c260df571c08d555e93849c5a90588d8995042b76335774b609e"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/SpectralBasis3Suite.scala",
+      "bytes": 7869,
+      "sha256": "2ece6a62c391fcc12a6fce3e0a3404c44864a50c369b169365b840b70b3e52e6"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/StructuralCaptureSuite.scala",
+      "bytes": 12261,
+      "sha256": "2fe6061240bb30dd629ec24c144eb49bfe5f013153fa0d3a794ab6938cb98c60"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/StructuralFeature3Suite.scala",
+      "bytes": 3953,
+      "sha256": "a90893b65257abf344a5dffd23e91243993d24aeae644a7c98b5743be3f6dfed"
+    },
+    {
+      "path": "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/UniquePointRegistrySuite.scala",
+      "bytes": 12404,
+      "sha256": "92123d065be26041081fb553da39dbf8747900cb436799c08aa0890c2f75bdef"
+    },
+    {
+      "path": "modules/reframe4s-multiscale/shared/src/main/scala/reframe4s/multiscale/Multiscale.scala",
+      "bytes": 12821,
+      "sha256": "327643feabb087fa69bf3905a9e0a78936c94b593894be4eba4b8d37dc03b607"
+    },
+    {
+      "path": "modules/reframe4s-multiscale/shared/src/main/scala/reframe4s/multiscale/ScalarPyramid3.scala",
+      "bytes": 8704,
+      "sha256": "f30d6d33270f959da186d0d9f8962d8cb5fdf244dd1cb7ed49d0eec79ae66f1a"
+    },
+    {
+      "path": "modules/reframe4s-multiscale/shared/src/main/scala/reframe4s/multiscale/SupportAwarePyramid3.scala",
+      "bytes": 23954,
+      "sha256": "8ba456464e2bce98a3917eebac065c98cb3b16d0bd943186a47561d630f0be1e"
+    },
+    {
+      "path": "modules/reframe4s-multiscale/shared/src/test/scala/reframe4s/multiscale/MultiscaleSuite.scala",
+      "bytes": 4828,
+      "sha256": "a51f0e64a7b8b7e35b1677981cbcfa703b4a11c83b111076f5a7ff8829277c54"
+    },
+    {
+      "path": "modules/reframe4s-multiscale/shared/src/test/scala/reframe4s/multiscale/ScalarPyramid3Suite.scala",
+      "bytes": 4799,
+      "sha256": "5f772cd2a3d861b2040eab0fdb3ec70dc6a05d9542296b23081d8a873979884e"
+    },
+    {
+      "path": "modules/reframe4s-multiscale/shared/src/test/scala/reframe4s/multiscale/SupportAwarePyramid3Suite.scala",
+      "bytes": 12382,
+      "sha256": "d9853ccb0fd0e9c95ba15b41fa7e34368f4bb4651b45fd857b73f5012f08eb60"
+    },
+    {
+      "path": "modules/reframe4s-resample/jvm/src/test/scala/reframe4s/resample/SparseValueGradientPerformanceSuite.scala",
+      "bytes": 5807,
+      "sha256": "19a4f7f5f89536327421fdf81965b82aa118e3e79f09b138d7197aa8e34749b1"
+    },
+    {
+      "path": "modules/reframe4s-resample/shared/src/main/scala/reframe4s/resample/CubicKernel.scala",
+      "bytes": 558,
+      "sha256": "2a232f095c17b9fa8866bba0f18916367941ce0053205a7c68e5d5b36f35fe52"
+    },
+    {
+      "path": "modules/reframe4s-resample/shared/src/main/scala/reframe4s/resample/LanczosKernel.scala",
+      "bytes": 1975,
+      "sha256": "fb32f543a1c709ba8ab69f03b20c20ea3221fc1e5782595a549a2e6548f1b719"
+    },
+    {
+      "path": "modules/reframe4s-resample/shared/src/main/scala/reframe4s/resample/LinearValueGradientSampler3.scala",
+      "bytes": 16478,
+      "sha256": "7fb4b5d82dc71f56135e57557bd1a68aa9c87009a7b3c833731d8820a8245daf"
+    },
+    {
+      "path": "modules/reframe4s-resample/shared/src/main/scala/reframe4s/resample/ResamplingPlan.scala",
+      "bytes": 48756,
+      "sha256": "895ba729edfa363f15e542c7b3e0005e76ae7a2305fbb8990e96cf64387b3c81"
+    },
+    {
+      "path": "modules/reframe4s-resample/shared/src/main/scala/reframe4s/resample/SampledInterpolator.scala",
+      "bytes": 11925,
+      "sha256": "9a2df2c9eaca196edde0e69c1fff08ee2008fb249715099d59dee84a7db6c645"
+    },
+    {
+      "path": "modules/reframe4s-resample/shared/src/main/scala/reframe4s/resample/SparseValueGradientBuffer3.scala",
+      "bytes": 2111,
+      "sha256": "1412fed9da7a8e5b49a84191b52314c1a9c713c9027b3b727e82297d58bc87d7"
+    },
+    {
+      "path": "modules/reframe4s-resample/shared/src/test/scala/reframe4s/resample/LinearValueGradientSampler3Suite.scala",
+      "bytes": 9424,
+      "sha256": "d27b4f8c4fe800efa9b9d8e468ff8b0de75a1e2e4f592cab48ad2f1c4efae8b7"
+    },
+    {
+      "path": "modules/reframe4s-resample/shared/src/test/scala/reframe4s/resample/RavelCapabilitySuite.scala",
+      "bytes": 1000,
+      "sha256": "6913dbf8fab5469ec17632101fee3cd5e6545e56293d848e6861c525c0983dc4"
+    },
+    {
+      "path": "modules/reframe4s-resample/shared/src/test/scala/reframe4s/resample/SparseValueGradientBuffer3Suite.scala",
+      "bytes": 8050,
+      "sha256": "3a32ac362206b173832dd981519e7b88cc38f8d545ed11ee86066544f042419b"
+    },
+    {
+      "path": "project/artifact-graph.tsv",
+      "bytes": 4348,
+      "sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47"
+    }
+  ]
+}

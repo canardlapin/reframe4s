@@ -169,11 +169,14 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
       if shift == 2.0 then assert(capture.exported.isRight, s"2 mm export was not admitted: ${capture.exported}")
       else assertTypedTopologyFailure(capture.exported)
 
-  test("production lane reports eight- and twelve-millimetre capture range"):
+  test("continuous export repairs the eight-millimetre case and retains the twelve-millimetre failure"):
     Vector((41, 8.0), (49, 12.0)).foreach: (side, shift) =>
       val capture = runCapture(side, shift)
       assert(capture.errorMm < shift, s"$shift mm capture did not improve: ${capture.errorMm} mm")
-      assertTypedTopologyFailure(capture.exported)
+      // The 8 mm failure originated in discontinuous inverse boundary handling.
+      // runCapture independently checks both endpoint Jacobians on admission.
+      if shift == 8.0 then assert(capture.exported.isRight, s"8 mm export was not admitted: ${capture.exported}")
+      else assertTypedTopologyFailure(capture.exported)
 
   private final case class TranslationFixture(
       grid: GridSpec,

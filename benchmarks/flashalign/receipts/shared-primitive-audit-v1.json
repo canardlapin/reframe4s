@@ -1,0 +1,109 @@
+{
+  "schema_version": "flashalign.shared-primitive-audit.v1",
+  "receipt_id": "flashalign-shared-primitive-audit-2026-09-13",
+  "mote_task": "bd-01M2B11AT1PEV62TJ3ZMHFJF6S",
+  "status": "no-additional-extraction-justified",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner working tree",
+    "flashalign_source_tree_sha256": "7d5c0959cbe4edd4ee9f8a8a84f3d19660c4a1d360403b2f9d4df1c2b21b9490",
+    "halfflow_source_tree_sha256": "dae5bac9521388a97159dfd1c0b85d32b5193eaf80e97a4632e622ba91f11172",
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below the named module, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47"
+  },
+  "decision": {
+    "candidate_families_audited": 5,
+    "semantically_identical_cross_method_pairs": 0,
+    "new_extractions": 0,
+    "existing_shared_boundaries_retained": [
+      "reframe4s-resample owns Flashalign's fused sparse value-and-gradient sampler",
+      "reframe4s-multiscale owns Flashalign's support-aware physical pyramid",
+      "canonical AffineMap and FramedAffine types carry the Flashalign-to-HalfFlow handoff",
+      "the unpublished CrossMethodEvidenceRunner owns orchestration across both methods"
+    ],
+    "reason": "No candidate matched support and mask rules, interpolation and derivative semantics, physical scale policy, and cache identity at two concrete call sites. An extraction would change a method objective, add a dependency for incompatible behavior, or duplicate an existing canonical boundary."
+  },
+  "artifacts": {
+    "analysis": {
+      "path": "docs/benchmarks/flashalign-shared-primitive-audit.md",
+      "sha256": "cfe2a1d5711006b496ee07fcf86e8afaf1647b097f99ad04e7af7e18687bf49a"
+    },
+    "flashalign_sampler_provider": {
+      "path": "modules/reframe4s-resample/shared/src/main/scala/reframe4s/resample/LinearValueGradientSampler3.scala",
+      "sha256": "7fb4b5d82dc71f56135e57557bd1a68aa9c87009a7b3c833731d8820a8245daf"
+    },
+    "flashalign_sparse_buffer_provider": {
+      "path": "modules/reframe4s-resample/shared/src/main/scala/reframe4s/resample/SparseValueGradientBuffer3.scala",
+      "sha256": "1412fed9da7a8e5b49a84191b52314c1a9c713c9027b3b727e82297d58bc87d7"
+    },
+    "flashalign_pyramid_provider": {
+      "path": "modules/reframe4s-multiscale/shared/src/main/scala/reframe4s/multiscale/SupportAwarePyramid3.scala",
+      "sha256": "8ba456464e2bce98a3917eebac065c98cb3b16d0bd943186a47561d630f0be1e"
+    },
+    "flashalign_unique_registry": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/UniquePointRegistry.scala",
+      "sha256": "08922a807fe3b67317dce9658609532206a3dec7e9262c4c61c3af48339dc553"
+    },
+    "halfflow_kernels": {
+      "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowKernels.scala",
+      "sha256": "0956cebeb054596fae513ab7974219f068409890792b026c1214a9f46fa0c5ce"
+    },
+    "halfflow_cc_engine": {
+      "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala",
+      "sha256": "a722ccb7d38c6670613b93812f35a2f3b05103d9475cc5a03946f6f15502c326"
+    },
+    "halfflow_neighborhood_cc": {
+      "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/NeighborhoodCc.scala",
+      "sha256": "cb239b1c85adf009472742de2a0eb291541e7c41e43f4d4c1bf92ae6dead5d86"
+    },
+    "halfflow_block_matcher": {
+      "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/BasinBridgeBlockMatcher.scala",
+      "sha256": "a69d6b6f365abc85c8cd0d0b699b3d17cf4d50fac74335a0631da1e693101924"
+    },
+    "affine_handoff": {
+      "path": "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/SuppliedAffineAdapter.scala",
+      "sha256": "d806ab6d19c157ba6d0306e4be0d592e2e1ca85f614a615ed54905c86c94a74d"
+    },
+    "cross_method_runner": {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/CrossMethodEvidence.scala",
+      "sha256": "e03be8806c7b7d4de895a26ed9984d07f85e6317b60f2d0122b67fde22623d8a"
+    },
+    "cross_method_runner_suite": {
+      "path": "benchmarks/flashalign/runner/src/test/scala/reframe4s/benchmark/flashalign/CrossMethodEvidenceSuite.scala",
+      "sha256": "e370ac066f8c1a265221d10f6846c349c5ae3ab0028c9e83f8d61a856980a104"
+    }
+  },
+  "semantic_findings": {
+    "sampling": "Flashalign samples sparse world points with complete eight-tap support and analytic trilinear world gradients; HalfFlow pulls dense scalar lattices and computes mask-aware physical finite differences after warping, while BasinBridge uses voxel-window scalar sampling.",
+    "pyramid": "Flashalign subtracts an affine-derived source PSF from target PSFs and propagates fractional zero-padded support directly from native data; HalfFlow applies its frozen shrink/sigma schedule with separable axis kernels, binary validity, partial-linear support and a different minimum weight.",
+    "affine": "The existing fromMovingToFixed adapter already accepts the canonical map and performs the required inversion exactly once; another wrapper would obscure direction semantics.",
+    "indexing": "Flashalign's exact point registry is keyed by an immutable sample set and physical stencil with draw multiplicity; HalfFlow uses dense box sums or per-anchor search windows with unrelated cache lifetimes.",
+    "evidence": "The benchmark runner already shares loading, map composition, independent metrics, lane cost and complete failure denominators while retaining method-specific diagnostics."
+  },
+  "maintenance_and_cost": {
+    "identical_call_sites_removed_by_proposed_extraction": 0,
+    "dependency_effect": "HalfFlow presently has no reframe4s-resample or reframe4s-multiscale dependency. Adding one without exact semantic reuse would enlarge the graph and require representation adapters.",
+    "existing_generic_provider_lines": {
+      "linear_value_gradient_sampler": 504,
+      "sparse_value_gradient_buffer": 76,
+      "support_aware_pyramid": 758
+    },
+    "existing_orchestration_lines": 473,
+    "timing_boundary": "No timing result can admit substitution of a numerically different kernel. Flashalign's existing projected-patch allocation probe remains 24 bytes at 2000 and 20000 iterations; HalfFlow retains its separately frozen dense-stage cost evidence."
+  },
+  "validation": {
+    "command": "sbt -J-Xmx4G -Dsbt.supershell=false with focused LinearValueGradientSampler3Suite, SparseValueGradientBuffer3Suite, SupportAwarePyramid3Suite, SuppliedAffineAdapterSuite, BasinBridgeBlockMatcherSuite, HalfFlowCcEngineSuite and CrossMethodEvidenceSuite targets",
+    "resample_jvm": "10 passed",
+    "resample_scalajs": "10 passed",
+    "multiscale_jvm": "6 passed",
+    "multiscale_scalajs": "6 passed",
+    "halfflow_jvm": "22 passed",
+    "halfflow_scalajs": "22 passed",
+    "cross_method_runner_jvm": "3 passed",
+    "failures_or_errors": 0,
+    "repository_checks": "Build graph 28 nodes and 95 edges; symbol ownership 1407 public qualified names and 66 owners; PRD 148 IDs, 28 nodes and 95 edges, acyclic; git diff --check clean."
+  },
+  "reopen_trigger": "Reconsider sharing only when two consumers need an exact existing contract without compatibility switches and parity plus measured allocation or compute benefit are available before migration.",
+  "claim_boundary": "This receipt supports a no-additional-extraction decision for the audited candidate families. It does not claim the implementations are mathematically interchangeable, qualify Flashalign accuracy, admit Flashalign-to-HalfFlow transfer, or preclude a future proposal with two newly equivalent call sites."
+}

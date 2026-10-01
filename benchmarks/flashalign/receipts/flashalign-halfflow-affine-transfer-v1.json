@@ -1,0 +1,375 @@
+{
+  "candidate": {
+    "C5_composite_revision_sha256": "5b2bc0a063f6c720e318fcc2b0bb64e96d2166a8e437ae5b6a380052c0bf25a6",
+    "flashalign_released_candidate_sha256": "df4a4ddf84a63e5b7ae714a29b226d15639ce32bf8d583e3f08b931196442089",
+    "flashalign_source_tree_sha256": "51f65b218eb7051f89d232491f55f5b4523e3c230a9df43994d539c8415ce456",
+    "halfflow_source_tree_sha256": "dae5bac9521388a97159dfd1c0b85d32b5193eaf80e97a4632e622ba91f11172",
+    "integration_build_sbt_sha256": "83dd8b2efb12ed178ae705f7f868aa4ef17c2913c293846feaef604f9a0e9bb1",
+    "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+  },
+  "claim_boundary": "This is a six-pair analytic-synthetic development transfer court. It cannot establish acquired-MRI, anatomical, clinical, population, external-method parity, nonlinear Flashalign, or publication claims.",
+  "decision": {
+    "C04": "completed",
+    "advance_constrained_warp_handoff": false,
+    "affine_handoff": "supported on this analytic-synthetic court",
+    "promote_halfFlow_stable_export": false,
+    "recipient_retuned": false
+  },
+  "environment": {
+    "java": "openjdk version \"22\" 2024-03-19\nOpenJDK Runtime Environment (build 22+36-2370)\nOpenJDK 64-Bit Server VM (build 22+36-2370, mixed mode, sharing)",
+    "machine": "arm64",
+    "platform": "macOS-14.3-arm64-arm-64bit-Mach-O",
+    "threads": 1
+  },
+  "evidence": {
+    "manifest": {
+      "path": "benchmarks/flashalign/manifests/flashalign-halfflow-affine-transfer-v1.json",
+      "sha256": "b150d86bd0e707e91faa72d7d9d4caa539c7d07165fd70fd9b647c2fbcdd6989"
+    },
+    "raw": {
+      "courts": 6,
+      "path": "benchmarks/flashalign/raw/flashalign-halfflow-affine-transfer-v1-2026-09-13.jsonl",
+      "rows": 48,
+      "sha256": "648c47c0a6fba2b0444d98d43a6d1ea3f8e775739844b4ddb4fe6699625ad670"
+    },
+    "report": {
+      "path": "docs/benchmarks/flashalign-halfflow-affine-transfer-v1.md",
+      "sha256": "9c27825255a00d6f053e0db932d4545a166ce937f1b63c18e769907620a7c77a"
+    },
+    "summarizer": {
+      "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/summarize_halfflow_affine_transfer_v1.py",
+      "sha256": "56ceb52c61d7c5b49da25096727bc88509b2fdfe105916ea73ae3f0289e85e8c"
+    }
+  },
+  "integrity": {
+    "C1_preserved_before_downstream": true,
+    "C4_C5_controls_identical": true,
+    "C5_complete_map_not_double_composed": true,
+    "expected_rows": 48,
+    "failed_rows_retained": true,
+    "observed_rows": 48,
+    "shared_input_loads": 6,
+    "shared_input_ms": {
+      "maximum": 55.833417,
+      "mean": 16.969625,
+      "median": 4.8880415,
+      "minimum": 3.62625,
+      "p95": 48.924781499999995
+    },
+    "successful_recipient_outputs_sampled_once": true
+  },
+  "mote_task": "bd-01M2B11A81SP5GJ1XCZP72S6VP",
+  "outcomes": {
+    "C1": {
+      "complete_shared_execution_ms": {
+        "maximum": 2054.340168,
+        "mean": 1014.8576873333333,
+        "median": 1095.9851254999999,
+        "minimum": 331.37003999999996,
+        "p95": 1833.70993825
+      },
+      "denominator": 6,
+      "output_resamplings": 0.0,
+      "stage_total_ms": {
+        "maximum": 2026.1412930000001,
+        "mean": 997.8880623333333,
+        "median": 1065.8227295,
+        "minimum": 326.98691499999995,
+        "p95": 1811.6542195
+      },
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6,
+      "successful_landmark_rms_mm": {
+        "maximum": 0.060676808453061365,
+        "mean": 0.044442199537257254,
+        "median": 0.04112008816070005,
+        "minimum": 0.031629360893298715,
+        "p95": 0.05979764869961857
+      }
+    },
+    "C4": {
+      "complete_shared_execution_ms": {
+        "maximum": 7257.504916999999,
+        "mean": 6884.085881999999,
+        "median": 6935.2257915,
+        "minimum": 6416.486666999999,
+        "p95": 7188.126427249999
+      },
+      "denominator": 6,
+      "output_resamplings": 4.0,
+      "stage_total_ms": {
+        "maximum": 7201.6714999999995,
+        "mean": 6867.116257000001,
+        "median": 6918.484,
+        "minimum": 6411.995292,
+        "p95": 7145.15558325
+      },
+      "statuses": {
+        "inverse-failure": 2,
+        "success": 4
+      },
+      "successes": 4,
+      "successful_landmark_rms_mm": {
+        "maximum": 0.6130669275357331,
+        "mean": 0.563111145960757,
+        "median": 0.5637856163810482,
+        "minimum": 0.5118064235451981,
+        "p95": 0.6064489647075593
+      }
+    },
+    "C5": {
+      "complete_shared_execution_ms": {
+        "maximum": 5357.731377,
+        "mean": 3833.9220834999996,
+        "median": 3675.1506465,
+        "minimum": 2869.003123,
+        "p95": 5156.91166825
+      },
+      "denominator": 6,
+      "output_resamplings": 6.0,
+      "stage_total_ms": {
+        "maximum": 5301.89796,
+        "mean": 3816.9524585,
+        "median": 3671.091834,
+        "minimum": 2863.718415,
+        "p95": 5107.98688675
+      },
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6,
+      "successful_landmark_rms_mm": {
+        "maximum": 0.08801494818214677,
+        "mean": 0.07932211675033689,
+        "median": 0.08010598790859941,
+        "minimum": 0.06675689979398328,
+        "p95": 0.08667952986990402
+      }
+    }
+  },
+  "paired_effect": {
+    "bootstrap_95_percent_interval_mm": [
+      -66.78643430914731,
+      -0.4729566459488933
+    ],
+    "bootstrap_resamples": 46656,
+    "classification": "benefit",
+    "common_success_mean_difference_mm": -0.48348468826564744,
+    "common_success_pairs": 4,
+    "estimand": "paired mean of C5 adjudicated landmark RMS minus C4 adjudicated landmark RMS in mm; lower favors Flashalign initialization",
+    "failure_penalty_mm": 100.0,
+    "interpretation": "Negative values favor the Flashalign-initialized C5 lane. The primary penalty-aware effect includes recipient failures; the common-success effect is descriptive.",
+    "mean_difference_mm": -33.6294186472235,
+    "median_difference_mm": -0.5162919640782409,
+    "subject_differences_mm": [
+      -0.42379147536305134,
+      -0.48627390041473173,
+      -0.4775633495430568,
+      -0.5463100277417499,
+      -99.92172439822448,
+      -99.92084873205394
+    ]
+  },
+  "per_case": [
+    {
+      "C1": {
+        "complete_shared_execution_ms": 1070.646918,
+        "landmark_rms_mm": 0.04116466805769021,
+        "stage_total_ms": 1014.813501,
+        "status": "success"
+      },
+      "C4": {
+        "complete_shared_execution_ms": 7257.504916999999,
+        "failure": null,
+        "landmark_rms_mm": 0.5118064235451981,
+        "stage_total_ms": 7201.6714999999995,
+        "status": "success"
+      },
+      "C5": {
+        "complete_shared_execution_ms": 5357.731377,
+        "failure": null,
+        "landmark_rms_mm": 0.08801494818214677,
+        "stage_total_ms": 5301.89796,
+        "status": "success"
+      },
+      "case_id": "r19-exact-core-affine",
+      "paired_C5_minus_C4_adjudicated_rms_mm": -0.42379147536305134,
+      "shared_input_ms": 55.833417,
+      "subject_id": "r19"
+    },
+    {
+      "C1": {
+        "complete_shared_execution_ms": 2054.340168,
+        "landmark_rms_mm": 0.05716016943929019,
+        "stage_total_ms": 2026.1412930000001,
+        "status": "success"
+      },
+      "C4": {
+        "complete_shared_execution_ms": 6970.367958,
+        "failure": null,
+        "landmark_rms_mm": 0.5689471753479075,
+        "stage_total_ms": 6942.169083,
+        "status": "success"
+      },
+      "C5": {
+        "complete_shared_execution_ms": 4554.452542,
+        "failure": null,
+        "landmark_rms_mm": 0.0826732749331758,
+        "stage_total_ms": 4526.253667,
+        "status": "success"
+      },
+      "case_id": "r20-exact-core-affine",
+      "paired_C5_minus_C4_adjudicated_rms_mm": -0.48627390041473173,
+      "shared_input_ms": 28.198875,
+      "subject_id": "r20"
+    },
+    {
+      "C1": {
+        "complete_shared_execution_ms": 339.646416,
+        "landmark_rms_mm": 0.060676808453061365,
+        "stage_total_ms": 334.36170799999996,
+        "status": "success"
+      },
+      "C4": {
+        "complete_shared_execution_ms": 6900.083625,
+        "failure": null,
+        "landmark_rms_mm": 0.558624057414189,
+        "stage_total_ms": 6894.798917,
+        "status": "success"
+      },
+      "C5": {
+        "complete_shared_execution_ms": 2869.003123,
+        "failure": null,
+        "landmark_rms_mm": 0.08106070787113219,
+        "stage_total_ms": 2863.718415,
+        "status": "success"
+      },
+      "case_id": "r21-exact-core-affine",
+      "paired_C5_minus_C4_adjudicated_rms_mm": -0.4775633495430568,
+      "shared_input_ms": 5.284708,
+      "subject_id": "r21"
+    },
+    {
+      "C1": {
+        "complete_shared_execution_ms": 1121.323333,
+        "landmark_rms_mm": 0.031629360893298715,
+        "stage_total_ms": 1116.831958,
+        "status": "success"
+      },
+      "C4": {
+        "complete_shared_execution_ms": 6416.486666999999,
+        "failure": null,
+        "landmark_rms_mm": 0.6130669275357331,
+        "stage_total_ms": 6411.995292,
+        "status": "success"
+      },
+      "C5": {
+        "complete_shared_execution_ms": 3593.4460839999997,
+        "failure": null,
+        "landmark_rms_mm": 0.06675689979398328,
+        "stage_total_ms": 3588.9547089999996,
+        "status": "success"
+      },
+      "case_id": "r22-exact-core-affine",
+      "paired_C5_minus_C4_adjudicated_rms_mm": -0.5463100277417499,
+      "shared_input_ms": 4.491375,
+      "subject_id": "r22"
+    },
+    {
+      "C1": {
+        "complete_shared_execution_ms": 331.37003999999996,
+        "landmark_rms_mm": 0.04107550826370989,
+        "stage_total_ms": 326.98691499999995,
+        "status": "success"
+      },
+      "C4": {
+        "complete_shared_execution_ms": 6979.990958,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "MovingToFixed export contains 2 non-positive Jacobians (minimum -0.009701797990098529)"
+        },
+        "landmark_rms_mm": null,
+        "stage_total_ms": 6975.607833,
+        "status": "inverse-failure"
+      },
+      "C5": {
+        "complete_shared_execution_ms": 2872.044165999999,
+        "failure": null,
+        "landmark_rms_mm": 0.07827560177551662,
+        "stage_total_ms": 2867.6610409999994,
+        "status": "success"
+      },
+      "case_id": "r23-exact-core-affine",
+      "paired_C5_minus_C4_adjudicated_rms_mm": -99.92172439822448,
+      "shared_input_ms": 4.383125,
+      "subject_id": "r23"
+    },
+    {
+      "C1": {
+        "complete_shared_execution_ms": 1171.819249,
+        "landmark_rms_mm": 0.03494668211649315,
+        "stage_total_ms": 1168.1929989999999,
+        "status": "success"
+      },
+      "C4": {
+        "complete_shared_execution_ms": 6780.081167000001,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving export contains 29 non-positive Jacobians (minimum -0.21644602254370682)"
+        },
+        "landmark_rms_mm": null,
+        "stage_total_ms": 6776.454917000001,
+        "status": "inverse-failure"
+      },
+      "C5": {
+        "complete_shared_execution_ms": 3756.8552090000003,
+        "failure": null,
+        "landmark_rms_mm": 0.07915126794606664,
+        "stage_total_ms": 3753.2289590000005,
+        "status": "success"
+      },
+      "case_id": "r24-exact-core-affine",
+      "paired_C5_minus_C4_adjudicated_rms_mm": -99.92084873205394,
+      "shared_input_ms": 3.62625,
+      "subject_id": "r24"
+    }
+  ],
+  "prior_negative_evidence": {
+    "manifest": {
+      "path": "benchmarks/flashalign/manifests/halfflow-comparison-baseline-v1.json",
+      "sha256": "c69d61a69f6649f4177100882ffe05db9ec3946677d8e0bf9f6bda0fa5753bda"
+    },
+    "receipt": {
+      "path": "benchmarks/flashalign/receipts/halfflow-comparison-baseline-v1.json",
+      "sha256": "cfdf2132149de6f94dd02977b5cc92ab0f92c10f7b3a58fae8dd598735ed531a"
+    },
+    "result": "The single external sub-18 C4 diagnostic failed the frozen fine-stage topology floor; this remains a visible negative result."
+  },
+  "receipt_id": "flashalign-halfflow-affine-transfer-2026-09-13",
+  "schema_version": "flashalign.halfflow-affine-transfer.v1",
+  "status": "completed-benefit-analytic-synthetic",
+  "validation": [
+    {
+      "command": "sbt -Dsbt.supershell=false 'flashalignBenchmarkJVM/test'",
+      "result": "16 passed, 0 failed"
+    },
+    {
+      "command": "sbt -Dsbt.supershell=false 'reframe4s-halfflowJVM/testOnly reframe4s.halfflow.SuppliedAffineAdapterSuite'",
+      "result": "3 passed, 0 failed"
+    },
+    {
+      "command": "sbt -Dsbt.supershell=false 'reframe4s-halfflowJS/testOnly reframe4s.halfflow.SuppliedAffineAdapterSuite'",
+      "result": "3 passed, 0 failed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "summarizer rerun to a temporary receipt followed by byte comparison",
+      "result": "passed"
+    }
+  ]
+}

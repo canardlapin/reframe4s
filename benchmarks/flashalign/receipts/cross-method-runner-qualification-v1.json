@@ -1,0 +1,52 @@
+{
+  "schema_version": "flashalign.cross-method-runner-qualification.v1",
+  "receipt_id": "flashalign-cross-method-runner-qualification-2026-09-12",
+  "mote_task": "bd-01M2B119TA9BS5MQXQRJGXZ3RP",
+  "status": "engineering-runner-gates-passed",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner worktree",
+    "flashalign_source_tree_sha256": "6d00dde079a16e56455c7743f401d31f2340255cee29a0e40aa7cba7a236319b",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929"
+  },
+  "artifacts": {
+    "runner_source": {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/CrossMethodEvidence.scala",
+      "sha256": "e03be8806c7b7d4de895a26ed9984d07f85e6317b60f2d0122b67fde22623d8a"
+    },
+    "runner_tests": {
+      "path": "benchmarks/flashalign/runner/src/test/scala/reframe4s/benchmark/flashalign/CrossMethodEvidenceSuite.scala",
+      "sha256": "e370ac066f8c1a265221d10f6846c349c5ae3ab0028c9e83f8d61a856980a104"
+    },
+    "lane_manifest": {
+      "path": "benchmarks/flashalign/manifests/cross-method-lanes-v1.json",
+      "sha256": "e7f5c1c68107007c7df5759f3401caf3665e3c13764b2b1d37dc887afe349969"
+    },
+    "manifest_schema": {
+      "path": "benchmarks/flashalign/schemas/cross-method-lanes-v1.schema.json",
+      "sha256": "a097fb19391090b4ce7876ab6b12fb4a3a07108880c351051c83edb951eed4e0"
+    }
+  },
+  "contracts": {
+    "lane_identity": "Exactly one C0 through C7 record per pair, in declared order.",
+    "map_semantics": "A complete moving-to-fixed map is scored directly. A residual-after-supplied-affine map is evaluated as residual(affine(moving point)); its effective identity hashes the composition contract and both component identities.",
+    "scoring": "Independent world landmarks and future labels are primary. Method losses remain separately named secondary diagnostics.",
+    "controls": "Every lane records objective, support, mask, model freedom, initialization source and frozen recipient control identity.",
+    "cost": "Canonical inputs load once. Shared input read/decompression, per-lane cold standalone input/preparation, actual shared preparation, method stages, work counts and retained bytes remain distinct.",
+    "failures": "Input failure, adapter failure, typed method failure and unavailable or conditional lanes remain rows in the eight-lane denominator."
+  },
+  "validation": {
+    "command": "sbt -J-Xmx4G -batch 'flashalignBenchmarkJVM/test'",
+    "tests": 9,
+    "failed": 0,
+    "cross_method_tests": 3,
+    "analytic_complete_map_landmark_rms_mm": 0.0,
+    "analytic_residual_after_affine_landmark_rms_mm": 0.0,
+    "declared_rows": 8,
+    "retained_unavailable_rows": 1,
+    "input_load_invocations": 1,
+    "schema_validation": "Draft 2020-12 JSON Schema passed plus exact ordered C0-C7 and independent-score semantic checks.",
+    "diff_check": "git diff --check passed"
+  },
+  "claim_boundary": "This qualifies the comparison evidence machinery and analytic map semantics. It does not admit a HalfFlow baseline, nonlinear image adapter, transfer, shared primitive, MRI accuracy result, or method superiority."
+}

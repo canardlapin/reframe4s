@@ -1,0 +1,135 @@
+{
+  "schema": "flashalign.prd-evidence.v1",
+  "date": "2026-09-12",
+  "scope": "Planning baseline and supplied algebra scripts only; no Scala build, MRI accuracy, or runtime qualification.",
+  "head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+  "worktree": "dirty; source hashes identify inspected bytes",
+  "python": "3.14.7",
+  "numpy": "2.4.3",
+  "supplied_artifact_sha256": {
+    "flashalign_extension_checks.py": "7b6bbdbcce7fe2dac8a13d9efdb32af46a77218db60e1daa119a729af9d4f1b6",
+    "flashalign_extension_check_results.json": "bf730a8b16cd600c486fb0f9befeda38c93dd8e731da24964cf35e0fc9392074",
+    "nuisance_projected_registration_core.py": "5063f18ce98cfc923b97f31c4c5347bcd72a1ade5fbc5ad06dc76beb9bc029bd"
+  },
+  "extension_checks": {
+    "status": "PASS: numerical identities only, not MRI accuracy or timing",
+    "errors": {
+      "streamed_curvature_relative_error": 3.68219787695486e-16,
+      "streamed_rhs_relative_error": 3.3900848103172656e-16,
+      "streamed_correlation_absolute_error": 2.7755575615628914e-17,
+      "matrix_free_hvp_relative_error": 5.573456081449424e-16,
+      "geometry_adjoint_relative_error": 1.879497549861845e-16,
+      "directional_patch_derivative_relative_error": 1.6084006908729337e-10,
+      "soft_norm_corrected_curvature_relative_error": 3.9099829335615425e-16,
+      "pe_determinant_identity_absolute_error": 0.0,
+      "pe_spatial_jacobian_relative_error": 2.0727124937653196e-09,
+      "pose_warp_schur_relative_error": 2.4441058062839556e-16
+    },
+    "illustration": {
+      "incorrect_soft_norm_projector_curvature_relative_error": 0.011531059273689422,
+      "global_vector_field_derivative_bound": 0.35000000000000003,
+      "guaranteed_singular_value_lower_bound": 0.6499999999999999,
+      "minimum_singular_value_at_100_test_points": 0.9137150502591661
+    }
+  },
+  "core_checks": {
+    "normalized_patch_jacobian_relative_error": 8.218165598543836e-11,
+    "robust_sign_mixture_gradient_relative_error": 7.571282284453281e-10,
+    "profiled_regression_identity_absolute_error": 7.105427357601002e-15,
+    "nuisance_projection_absolute_error": 6.26002073027073e-16,
+    "scalar_nuisance_schur_step_absolute_error": 3.255369336802011e-16,
+    "positive_gain_offset_invariance_absolute_error": 0.0
+  },
+  "checks": {
+    "verify-prd": {
+      "exit_code": 0,
+      "output": "PRD valid: 148 unique IDs, 26 artifact nodes, 84 consumer-to-dependency edges, acyclic DAG.\n"
+    },
+    "verify-build-graph": {
+      "exit_code": 1,
+      "output": "Build graph validation failed with 1 error:\n- undeclared build edge 'scalafim-image' -> 'reframe4s-lie'\n"
+    }
+  },
+  "inspected_source_sha256": {
+    "build.sbt": "9c1333a0bddb5a27e9c4dc51ac4fd7bc5871a2e61af789059868119209d09fe5",
+    "project/artifact-graph.tsv": "e9170977c8ab497d0116bdb0392d3cd8eaa942e86d4379bfca06800708928362",
+    "project/build.properties": "bc2e83307ba4a40cb286711cee6f644d9bca62ab2d791053000c7c9ce7a82bb2",
+    "PRD.json": "88bec6bd208a3285e23ba199521129fcb2842846eb9e995979a460cde26be1a0",
+    ".github/workflows/ci.yml": "9c0574b051f937b7690d0eb17a8d6a7a25c8b2b360f72839cee478825099639d",
+    "modules/reframe4s-resample/shared/src/main/scala/reframe4s/resample/ResamplingPlan.scala": "23dd4847a7a12bee4ba2798a97e24a7b77c9f91e5b7a03dc81fb810f389e71da",
+    "modules/reframe4s-resample/shared/src/main/scala/reframe4s/resample/SampledInterpolator.scala": "4b7adbe49a7288055858f48491bbdb24a1c5e3d0f062f3806b6daf2b4e691ec6",
+    "modules/reframe4s-register/shared/src/main/scala/reframe4s/register/Registration.scala": "b8ce708ab2ddd9142158b90c1bb820812102dc568ef9bbd44d92132e78dae4e7",
+    "modules/reframe4s-multiscale/shared/src/main/scala/reframe4s/multiscale/ScalarPyramid3.scala": "f30d6d33270f959da186d0d9f8962d8cb5fdf244dd1cb7ed49d0eec79ae66f1a"
+  },
+  "document": {
+    "path": "docs/plans/flashalign-implementation-prd.md",
+    "version": 2,
+    "sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "sections": 16,
+    "work_packages": [
+      "FA-00",
+      "FA-01",
+      "FA-02",
+      "FA-03",
+      "FA-04",
+      "FA-05",
+      "FA-06",
+      "FA-07",
+      "FA-08",
+      "FA-09",
+      "FA-10L",
+      "FA-11L",
+      "FA-10N",
+      "FA-11N",
+      "FA-12",
+      "FA-13",
+      "FA-14A",
+      "FA-14B"
+    ],
+    "validation": [
+      "All local links resolve",
+      "Markdown code fences and display math delimiters balanced",
+      "Work-package dependency graph is acyclic",
+      "Linear release dependency closure excludes nonlinear and cross-method work",
+      "Inspected implementation/build bytes unchanged",
+      "Supplied script/result hashes unchanged"
+    ],
+    "revision_scope": "Clarify fast-linear product identity, qualified shared code, complementary HalfFlow/BasinBridge benchmarks and composition, and independently releasable linear gates."
+  },
+  "document_history": [
+    {
+      "path": "docs/plans/flashalign-implementation-prd.md",
+      "sha256": "c2ee679a83288fb8dd89a6dbb1f1192bb2ad848466290b0113ddd0dfd5a331a6",
+      "sections": 16,
+      "work_packages": [
+        "FA-00",
+        "FA-01",
+        "FA-02",
+        "FA-03",
+        "FA-04",
+        "FA-05",
+        "FA-06",
+        "FA-07",
+        "FA-08",
+        "FA-09",
+        "FA-10",
+        "FA-11",
+        "FA-12",
+        "FA-13"
+      ],
+      "validation": [
+        "All local links resolve",
+        "Markdown fences and display math delimiters balanced",
+        "Inspected implementation/build bytes unchanged",
+        "Supplied script/result hashes unchanged"
+      ],
+      "version": 1
+    }
+  ],
+  "comparison_adapter_source_sha256": {
+    "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/AffineInitialization.scala": "54fa1d67818594c77d7c4c0ef81905103b43c53fd92eecaf07dc63a4a2e83f00",
+    "docs/halfflow-capability-ledger.md": "022993d0df8e5421fd30793b8cfbdf1c7eedd354e0a6f964fc3bfb0ba70bc891",
+    "docs/plans/basinbridge-b4-decomposition.md": "af783c17f69a66d61a513fae3e62e3d641a8b42a7373946babc441a73a70fc8d"
+  },
+  "revision_2_validation_scope": "Documentation/dependency/link/source-integrity checks only. Algebra results retained from the recorded version-1 execution; no algorithm tests or benchmarks rerun for this prose revision."
+}

@@ -1,0 +1,110 @@
+{
+  "schema_version": "flashalign.linear-accuracy-plateau.v1",
+  "receipt_id": "flashalign-linear-accuracy-plateau-2026-09-13",
+  "mote_task": "bd-01M2DPWRPWEZD1K3XKFD50RED7",
+  "status": "plateau-explained-evaluation-oracle-invalid-release-still-blocked",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "flashalign_source_tree_sha256": "7d5c0959cbe4edd4ee9f8a8a84f3d19660c4a1d360403b2f9d4df1c2b21b9490",
+    "source_tree_files": 72,
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-flashalign, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "production_change": "none",
+    "worktree_state": "uncommitted multi-owner working tree"
+  },
+  "starting_point_snapshot": {
+    "archive": {
+      "path": "benchmarks/flashalign/snapshots/linear-automatic-completion-v1.tar.gz",
+      "sha256": "45a3ea86dd3e834c23ccff27b40c70b4001f1a085a34a4b1e7f6696bda9cfdea",
+      "bytes": 371574,
+      "files": 108
+    },
+    "manifest": {
+      "path": "benchmarks/flashalign/snapshots/linear-automatic-completion-v1.manifest.json",
+      "sha256": "43aa840eb76db37a03258d35dd0e46eaf331fde282a902cbb76d92a06929cb6b"
+    },
+    "verified_receipt_matches": {
+      "flashalign_module": true,
+      "linear_accuracy_runner": true
+    },
+    "providers": {
+      "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+      "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5"
+    }
+  },
+  "artifacts": {
+    "diagnostic_runner": {
+      "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/LinearAccuracyCourt.scala",
+      "sha256": "cc916fceb7fae87763f32c302b9855cd22afc653112e316b85e01c01678f1012"
+    },
+    "frozen_pyramid_truth_start_raw": {
+      "path": "benchmarks/flashalign/raw/linear-ordinary-truth-start-development-2026-09-13.json",
+      "sha256": "8770aa4525e591ee767f96be868779185be43d76fc42fefe9c652be19250e31d",
+      "rows": 4
+    },
+    "native_only_truth_start_raw": {
+      "path": "benchmarks/flashalign/raw/linear-ordinary-truth-start-native-only-development-2026-09-13.json",
+      "sha256": "dd180368db90d83b692b3994476cd1bb7e596fba239204f1b30e7d40d8efbe22",
+      "rows": 4
+    },
+    "independent_analysis_program": {
+      "path": "benchmarks/flashalign/analyze_linear_truth_bias.py",
+      "sha256": "5a5462b6cc1fed1d0bca72c0a4a65e69a38c0d587c442ecbc00891964a41d703"
+    },
+    "independent_analysis_raw": {
+      "path": "benchmarks/flashalign/raw/linear-truth-bias-analysis-2026-09-13.json",
+      "sha256": "acac1b50ba463c254da9cb45904b14ceb63a3da36b7fa92825d1529c2b369e70"
+    },
+    "analysis": {
+      "path": "docs/benchmarks/flashalign-linear-accuracy-plateau.md",
+      "sha256": "06ef0078292a40a2744bb6b45b2f6092ce1fce7752dfda3d4b3cde612455e298"
+    },
+    "cancellation_receipt": {
+      "path": "benchmarks/flashalign/receipts/linear-cancellation-correction-v1.json",
+      "sha256": "57e432b4a0a72797dc3dade2bc3f9d1e7d79204710d30c848f05607b3dd7fae0"
+    },
+    "automatic_completion_receipt": {
+      "path": "benchmarks/flashalign/receipts/linear-automatic-completion-v1.json",
+      "sha256": "02f4eabd3c469f18b545f2cb1e7e41be53059783832332017b6c495f007c9b97"
+    }
+  },
+  "truth_start_experiment": {
+    "common_controls": "the four opened ordinary rigid inputs, independent truth initializer, within-modality patch, sampling, trust, QC and intensity policies",
+    "frozen_pyramid": {
+      "resolutions_mm": [6.0, 3.0, 1.5],
+      "statuses": {"success": 1, "stalled": 3},
+      "selected_landmark_rms_from_truth_mm": [0.8040604796795428, 0.8501441439222215, 0.5679270400508171, 0.3393751023955113]
+    },
+    "native_only": {
+      "resolutions_mm": [1.5],
+      "statuses": {"success": 2, "stalled": 2},
+      "selected_landmark_rms_from_truth_mm": [0.20385608826001478, 0.14053448385671477, 0.0, 0.29439956174481297]
+    },
+    "inference": "Coarse-to-fine propagation contributes materially to the plateau, but native-only refinement still moves three selected checkpoints beyond 0.1 mm."
+  },
+  "independent_proxy": {
+    "contract": "global Pearson correlation over a fixed common full-support voxel set, with SciPy trilinear fixed-image sampling and a bounded translation-only search; this is not the Flashalign sampled patch-mixture objective",
+    "environment": {"python": "3.14.7", "numpy": "2.4.3", "scipy": "1.17.1"},
+    "stored_sqrt_contrast_trilinear_optimum_norm_mm": [0.20912679532171188, 0.21588155435892106, 0.16336556416935558, 0.11599308039787422],
+    "continuous_fixed_optimum_norm_mm": [0.00281759810551868, 0.00029410112943483216, 0.0038500604750386904, 0.0038099869078060925],
+    "affine_contrast_trilinear_optimum_norm_mm": [0.03572137816330289, 0.02825790086476487, 0.03621602393225274, 0.02787592891653641],
+    "inference": "For all four stored sqrt-contrast cases, the independent NCC/trilinear proxy improves outside the 0.1 mm gate. Continuous fixed evaluation and an affine same-modality contrast counterfactual keep the proxy optimum near truth. This falsifies the old court premise for a related estimator without substituting the proxy for Flashalign's exact objective."
+  },
+  "numerical_explanation": "At moving point x the stored moving value is a nonlinear signed-square-root transform of the continuous phantom at T x, while the optimizer samples a trilinear interpolant of separately sampled fixed values at T x. Nonlinear contrast, discrete sampling, hard background support and trilinear interpolation do not commute, so geometric truth need not be an NCC optimum at 0.1 mm.",
+  "validation": {
+    "runner_suite_command": "sbt -J-Xmx4G -Dsbt.supershell=false 'flashalignBenchmarkJVM/testOnly reframe4s.benchmark.flashalign.LinearAccuracyCourtSuite'",
+    "runner_suite_result": "3 passed; no failures or errors",
+    "python_self_test_command": "python3 benchmarks/flashalign/analyze_linear_truth_bias.py --self-test",
+    "python_self_test_result": "seal, NIfTI reader and NCC invariance checks passed",
+    "python_compile_command": "python3 -m py_compile benchmarks/flashalign/analyze_linear_truth_bias.py",
+    "python_compile_result": "passed",
+    "cross_platform_numerical_evidence": "The unchanged exact-Jacobian, streamed-JtJ and finite-difference sources remain qualified on JVM and Scala.js by linear-cancellation-correction-v1."
+  },
+  "release_consequences": {
+    "new_court_task": "bd-01M2DR963G3PH3X3TXPTF0EJ9P",
+    "fresh_accuracy_and_cost_task": "bd-01M2DP6R2EXF4CDGS40GN8M306",
+    "exceptional_failure_evidence_task": "bd-01M2DP6D6GCA48ZNC2STYTMT2X",
+    "gl_release": "blocked",
+    "c04_affine_handoff": "blocked"
+  },
+  "claim_boundary": "The opened-cohort plateau has a reproducible numerical explanation and the old exact-recovery release gate is not admissible because its truth-identifiability precondition was not established. This receipt does not qualify linear accuracy, excuse the native Flashalign drift, create fresh confirmation, qualify whole-pipeline cost, release GL, or authorize C04."
+}

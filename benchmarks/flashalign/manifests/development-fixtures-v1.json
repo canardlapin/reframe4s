@@ -1,0 +1,82 @@
+{
+  "$schema": "../schemas/fixture-manifest-v1.schema.json",
+  "schema_version": "1.0.0",
+  "manifest_id": "flashalign-development-fixtures-v1",
+  "status": "development-open",
+  "prd": {
+    "path": "docs/plans/flashalign-implementation-prd.md",
+    "sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929"
+  },
+  "generator": {
+    "path": "benchmarks/flashalign/fixtures/generate_development_fixtures.py",
+    "sha256": "b7f268a62786ec32d6248247922db82a10c9460d9bb2a3d7ef47e9db95f9ba60",
+    "generator_version": "1.0.0",
+    "independence_contract": "Closed-form world-space phantom, gradients, matrices and landmarks; no candidate library, interpolator, transform basis or optimizer is imported."
+  },
+  "fixture": {
+    "path": "benchmarks/flashalign/fixtures/development-fixtures-v1.json",
+    "sha256": "317280b8f81aa8da4e544a3e06bdcafb73ede18979127bba51695bf651a038d5"
+  },
+  "provenance": {
+    "kind": "analytic-synthetic",
+    "license": "Apache-2.0",
+    "inputs": []
+  },
+  "holdout_policy": {
+    "unit": "fixture-family",
+    "development": ["analytic-header-and-patch-v1"],
+    "selection": [],
+    "audit": [],
+    "leakage_rule": "This manifest is development-only and cannot support an audit or superiority claim. Future selection and audit families receive new immutable manifests before their first use; audit inputs remain unread until settings and thresholds are frozen."
+  },
+  "gates": {
+    "scalar_algebra": {
+      "estimand": "Relative or absolute discrepancy against explicit projected-patch matrices and operator adjoints on well-conditioned Double fixtures.",
+      "threshold": { "absolute": 1e-10, "relative": 1e-9 },
+      "evidence": "Use explicit C, P and J implementations plus the independent Python oracles; retain near-zero exceptions separately."
+    },
+    "directional_finite_difference": {
+      "estimand": "Best stable plateau discrepancy over the declared central-difference step sweep, away from interpolation knots and support gates.",
+      "threshold": { "relative": 1e-6 },
+      "evidence": "Report every step and its error; a single favorable step is insufficient."
+    },
+    "rigid_landmark_rms_mm": {
+      "estimand": "RMS fixed-world landmark distance to known noise-free rigid truth for identifiable core fixtures.",
+      "threshold": 0.1,
+      "evidence": "All landmarks are scored in world millimetres; failures remain in the fixture denominator."
+    },
+    "rigid_rotation_error_degrees": {
+      "estimand": "Geodesic SO(3) error against known noise-free rigid truth for identifiable core fixtures.",
+      "threshold": 0.1,
+      "evidence": "Do not derive the angle from optimizer parameter columns."
+    },
+    "nonlinear_landmark_rms_mm": {
+      "estimand": "RMS landmark error for independently generated, exactly representable nonlinear development truth.",
+      "threshold": 0.1,
+      "evidence": "Out-of-basis and noisy cases are separate approximation distributions."
+    },
+    "nonlinear_inverse_roundtrip_mm": {
+      "estimand": "Maximum forward-inverse world residual over the declared certified scope.",
+      "threshold": 0.01,
+      "evidence": "Failure to bracket or converge is a recorded inverse failure, never a dropped point."
+    }
+  },
+  "failure_accounting": {
+    "denominator": "Every declared fixture-by-initialization run, including crashes, ambiguity, invalid geometry, nonconvergence and unavailable comparator lanes.",
+    "required_statuses": [
+      "success",
+      "stalled",
+      "iteration-limit",
+      "insufficient-overlap",
+      "insufficient-information",
+      "ambiguous",
+      "invalid-geometry",
+      "numerical-failure",
+      "inverse-failure",
+      "solver-breakdown",
+      "search-exhausted",
+      "unavailable"
+    ],
+    "raw_record_schema": "benchmarks/flashalign/schemas/raw-result-v1.schema.json"
+  }
+}

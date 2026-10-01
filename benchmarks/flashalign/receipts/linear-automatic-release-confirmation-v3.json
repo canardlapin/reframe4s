@@ -1,0 +1,202 @@
+{
+  "accuracy_passed": true,
+  "adjudication": {
+    "exact_limits_mm": {
+      "capture-range": 0.25,
+      "exact-core": 0.1,
+      "partial-slab": 0.25
+    },
+    "failure_penalty_mm": 100.0,
+    "nonlinear_contrast": "descriptive approximation distribution; excluded from exact-recovery gates"
+  },
+  "candidate": {
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "flashalign_source_tree_bytes": 1276351,
+    "flashalign_source_tree_files": 73,
+    "flashalign_source_tree_sha256": "5c9dab979c6037eba6c8193813dae1644cf55af2e12dc452b178ce8bbee6d11b",
+    "implementation": "Pack eight real left correlation fields into four complex forward FFTs and four Hermitian output spectra into two complex inverse FFTs; retain the same nine weighted correlation terms.",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "initialization": "CoherentHeaderWorldIdentityThenCapture",
+    "multiscale_source_tree_bytes": 67488,
+    "multiscale_source_tree_files": 6,
+    "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5",
+    "preset": "WithinModality",
+    "public_entry_point": "Flashalign.rigid/affine followed by plan.run(workspace)",
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "resample_source_tree_bytes": 106084,
+    "resample_source_tree_files": 10,
+    "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+    "spectral_source_tree_bytes": 56084,
+    "spectral_source_tree_files": 4,
+    "spectral_source_tree_sha256": "a0b096882a3cff82e44446bb23b7fb615c80291b67c23b097a7ed193a3ad98e9",
+    "threads": 1,
+    "tree_hash_contract": "SHA-256 over every non-target regular file below the named repository path, sorted by repository-relative path, with each UTF-8 path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "worktree_state": "uncommitted multi-owner working tree"
+  },
+  "claim_boundary": "This adjudicates the sealed analytic-synthetic automatic linear court. It does not establish acquired-MRI, anatomical, clinical, cost, publication, or cross-method superiority claims.",
+  "completeness": {
+    "duplicates": [],
+    "expected_rows": 48,
+    "missing": [],
+    "observed_rows": 48,
+    "passed": true,
+    "unexpected": [],
+    "violations": []
+  },
+  "exact_recovery_gates": [
+    {
+      "cohort": "exact-core",
+      "maximum_landmark_rms_mm": 0.1,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "exact-core",
+      "maximum_landmark_rms_mm": 0.1,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "capture-range",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "capture-range",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "rigid",
+      "passed": true,
+      "required_rows": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "maximum_landmark_rms_mm": 0.25,
+      "model": "affine",
+      "passed": true,
+      "required_rows": 6
+    }
+  ],
+  "raw": {
+    "path": "benchmarks/flashalign/raw/linear-automatic-release-confirmation-v3-2026-09-13.jsonl",
+    "rows": 48,
+    "sha256": "ecea9c6300f32bea83ed7da5b888cb8de3661db715c11d0b115456a44d8946a2"
+  },
+  "receipt_id": "flashalign-linear-automatic-confirmation-execution-v1",
+  "schema_version": "flashalign.linear-automatic-confirmation.v1",
+  "seal": {
+    "path": "benchmarks/flashalign/manifests/linear-automatic-release-confirmation-v3.json",
+    "sha256": "dce7fc2e7b44df0f36be6702067ad809ad80a66c7c8c4c71fd5287cbde348b07"
+  },
+  "status": "passed",
+  "summaries": [
+    {
+      "cohort": "exact-core",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.0588356346221668,
+      "median_adjudicated_rms_mm": 0.039089563551526624,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.0588356346221668,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "exact-core",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.07554724634035109,
+      "median_adjudicated_rms_mm": 0.048019091791524984,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.07554724634035109,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "capture-range",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.03398290030313529,
+      "median_adjudicated_rms_mm": 0.019567617888367105,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.03398290030313529,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "capture-range",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.04622926560716223,
+      "median_adjudicated_rms_mm": 0.031198592987478613,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.04622926560716223,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.04043806818900304,
+      "median_adjudicated_rms_mm": 0.028232156958732324,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.04043806818900304,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "partial-slab",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.04139950857682569,
+      "median_adjudicated_rms_mm": 0.03017358569629599,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 0.04139950857682569,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "nonlinear-contrast",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 0.11423656780066968,
+      "median_adjudicated_rms_mm": 0.04640206628943661,
+      "model": "rigid",
+      "p95_adjudicated_rms_mm": 0.11423656780066968,
+      "statuses": {
+        "success": 6
+      },
+      "successes": 6
+    },
+    {
+      "cohort": "nonlinear-contrast",
+      "denominator": 6,
+      "maximum_adjudicated_rms_mm": 100.0,
+      "median_adjudicated_rms_mm": 0.11181730843044049,
+      "model": "affine",
+      "p95_adjudicated_rms_mm": 100.0,
+      "statuses": {
+        "stalled": 1,
+        "success": 5
+      },
+      "successes": 5
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canardlapin.github.io/reframe4s/flashalign/linear-accuracy-receipt-v1.schema.json",
+  "title": "Flashalign linear accuracy qualification receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "status",
+    "scope",
+    "fixture",
+    "raw_evidence",
+    "denominator",
+    "predeclared_policy",
+    "cohort_results",
+    "paired_comparisons",
+    "fixture_release_accuracy",
+    "superiority_claim",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": { "const": "flashalign.linear-accuracy-qualification.v1" },
+    "receipt_id": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["passed", "completed-negative", "failed"] },
+    "scope": { "type": "string", "minLength": 1 },
+    "fixture": { "type": "object" },
+    "raw_evidence": { "type": "object" },
+    "denominator": {
+      "type": "object",
+      "required": ["expected_rows", "observed_rows", "missing", "duplicates", "input_hash_mismatches", "complete"],
+      "properties": { "complete": { "type": "boolean" } }
+    },
+    "predeclared_policy": { "type": "object" },
+    "cohort_results": { "type": "array", "minItems": 1 },
+    "paired_comparisons": { "type": "array", "minItems": 1 },
+    "fixture_release_accuracy": { "type": "object" },
+    "superiority_claim": { "type": "object" },
+    "nonclaims": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canardlapin.github.io/reframe4s/flashalign/linear-accuracy-audit-v1.schema.json",
+  "title": "Flashalign sealed linear accuracy court manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "status",
+    "sealed_before_execution",
+    "scope",
+    "candidate",
+    "fixtures",
+    "comparator",
+    "protocol",
+    "estimands",
+    "failure_accounting",
+    "claims"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schema_version": { "const": "1.0.0" },
+    "manifest_id": { "const": "flashalign-linear-accuracy-audit-v1" },
+    "status": { "const": "audit-sealed" },
+    "sealed_before_execution": { "type": "string", "format": "date-time" },
+    "scope": { "type": "string", "minLength": 1 },
+    "candidate": { "$ref": "#/$defs/object" },
+    "fixtures": { "$ref": "#/$defs/object" },
+    "comparator": { "$ref": "#/$defs/object" },
+    "protocol": { "$ref": "#/$defs/object" },
+    "estimands": { "$ref": "#/$defs/object" },
+    "failure_accounting": { "$ref": "#/$defs/object" },
+    "claims": { "$ref": "#/$defs/object" }
+  },
+  "$defs": {
+    "object": { "type": "object", "minProperties": 1 }
+  }
+}

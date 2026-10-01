@@ -1,0 +1,146 @@
+{
+  "schema": "reframe4s-real-world-registration-visual-qa-receipt-v1",
+  "scope": "reframe4s-methods",
+  "capturedAt": "2026-09-13",
+  "manifest": {
+    "role": "visual-qa-manifest",
+    "owner": "repository",
+    "path": "docs/benchmarks/manifests/real-world-registration-visual-qa-v1.json",
+    "bytes": 3098,
+    "sha256": "9d0c5bc434328f6984dc92f49ae2bfbff087a83aae458577fa07e2aaf7fc4441"
+  },
+  "generator": {
+    "role": "visual-qa-generator",
+    "owner": "repository",
+    "path": "tools/registration/generate_real_world_registration_visual_qa.R",
+    "bytes": 33100,
+    "sha256": "a2023930ad28280d389aa967d7834232c5f8732377375904c252e4b87c333356"
+  },
+  "environment": {
+    "r": "R version 4.5.1 (2025-06-13)",
+    "packages": {
+      "digest": "0.6.39",
+      "jsonlite": "2.0.0",
+      "neuroim2": "0.19.0.9000"
+    }
+  },
+  "renderingContract": {
+    "sliceSelection": "For each anatomical axis, use the 25th, 50th, and 75th percentiles of fixed-mask voxel indices. Every candidate for a row uses the identical fixed-space slice.",
+    "intensityWindow": "Independently clip each volume to its finite nonzero 1st and 99th percentiles, then scale to [0,1]. This is a display transform only.",
+    "edgeOverlay": "Within the fixed mask, fixed-image edges are cyan and candidate-image edges are red. Coincident edges approach white.",
+    "jacobianDisplay": "Within the fixed mask, display log total pullback Jacobian clipped to [-log(2), log(2)]; blue is contraction, white is unit determinant, red is expansion, and magenta is non-positive or non-finite.",
+    "failurePolicy": "A method without a valid exported result receives an explicit NO SAFE METHOD OUTPUT panel. A completed result whose transform is not present in the local evidence bundle receives an explicit OUTPUT NOT LOCAL panel. Comparator output must never occupy the method column.",
+    "interpretation": "Visual QA can reveal orientation errors, gross capture failures, boundary artifacts, and suspicious local deformation. It complements but cannot replace held-out labels, landmarks, topology checks, or retained failure accounting.",
+    "methodOwnership": "Only reframe4s HalfFlow or Flashalign outputs may be method evidence. External fixture storage and ANTs comparators do not establish method ownership. Missing or rejected final outputs provide no method visual pass."
+  },
+  "coverage": {
+    "directReframeCases": 2,
+    "directReframeMethodOutputsRendered": 0,
+    "directReframeMissingOrRejectedOutputsRetained": 2,
+    "detailedPlates": 2,
+    "contactSheets": 0
+  },
+  "courtOutputs": {},
+  "cases": [
+    {
+      "courtId": "basinbridge-public-t1-to-mni",
+      "caseId": "sub-1002-to-MNI152Lin",
+      "qaStatus": "input-geometry-rendered-method-output-unavailable",
+      "methodStatus": "bridge-stage-only-no-exported-volume",
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "data-raw/sub-1002_run-01_res-3_T1w.nii.gz",
+          "bytes": 1674166,
+          "sha256": "e0563a9d227383125ed4b1514bc66f480ed016de68ce1dc4ed6699b436d93692"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_T1w.nii.gz",
+          "bytes": 1448817,
+          "sha256": "5f6e8fc4f60b8e53ec5574d536238034bc340aca01438d7ab32ee9df8ea80b4d"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "data-raw/tpl-MNI152Lin_res-02_desc-brain_mask.nii.gz",
+          "bytes": 25649,
+          "sha256": "7093720d918b40b347c4b02fc08987e69180cc13784a5ff754ec7bf403d1d3a2"
+        },
+        {
+          "role": "result-receipt",
+          "owner": "repository",
+          "path": "docs/benchmarks/receipts/basinbridge-realdata-hodgeflow-2026-08-02.json",
+          "bytes": 3688,
+          "sha256": "c964f726d7a7c20f72ad7e5deb92534588da5a088831f55558093993beec9812"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/visual-qa/v1/basinbridge-public-t1-input-only.png",
+          "bytes": 446595,
+          "sha256": "c5c3b3e01c95375894dbdb353b138f09c02669bce8a60084261713589aaacaa9"
+        }
+      ],
+      "methodOwner": "reframe4s",
+      "methodId": "HalfFlow"
+    },
+    {
+      "courtId": "basinbridge-sub18-to-mni",
+      "caseId": "sub18-to-MNI2009cAsym",
+      "qaStatus": "failure-visible-comparator-rendered-method-output-withheld",
+      "methodStatus": "rejected-fine-topology-and-export",
+      "sources": [
+        {
+          "role": "moving",
+          "owner": "hodgeflow",
+          "path": "tmp/sub18_hodgeflow_vs_ants/ants_synquick_softbrain_fixedmask/moving.nii.gz",
+          "bytes": 7091629,
+          "sha256": "917dd8c4c6cf6fcc96c445fa0e17f88dfad469853e5bc3509bf17b81fb440d06"
+        },
+        {
+          "role": "fixed",
+          "owner": "hodgeflow",
+          "path": "tmp/sub18_hodgeflow_vs_ants/ants_synquick_softbrain_fixedmask/fixed.nii.gz",
+          "bytes": 451810,
+          "sha256": "7b168153a9508f5f116ac37d33835fa44dd168ba7a9ae31a3b33e6f63bd23292"
+        },
+        {
+          "role": "fixed-mask",
+          "owner": "hodgeflow",
+          "path": "tmp/sub18_hodgeflow_vs_ants/ants_synquick_softbrain_fixedmask/fixed_mask.nii.gz",
+          "bytes": 23680,
+          "sha256": "745c970d2b45eb5088446528399b6965c2ce912d37ca7cacb993513a302d5161"
+        },
+        {
+          "role": "saved-ants-comparator",
+          "owner": "hodgeflow",
+          "path": "tmp/sub18_hodgeflow_vs_ants/ants_synquick_softbrain_fixedmask/synquick_Warped.nii.gz",
+          "bytes": 2455211,
+          "sha256": "54e7ff7ea17adb15b8ef99627d64f5cf03f534f67ec9ab26fbdf6654ec39d835"
+        },
+        {
+          "role": "result-receipt",
+          "owner": "repository",
+          "path": "benchmarks/flashalign/receipts/halfflow-comparison-baseline-v1.json",
+          "bytes": 5071,
+          "sha256": "cfdf2132149de6f94dd02977b5cc92ab0f92c10f7b3a58fae8dd598735ed531a"
+        }
+      ],
+      "outputs": [
+        {
+          "role": "detailed-plate",
+          "path": "benchmarks/registration/visual-qa/v1/basinbridge-sub18-retained-failure.png",
+          "bytes": 625199,
+          "sha256": "fb9389e067a64b53f4e767fa0710ab67dd560fe0e324e0e602d0d06750a6c50d"
+        }
+      ],
+      "methodOwner": "reframe4s",
+      "methodId": "HalfFlow"
+    }
+  ],
+  "claimBoundary": "These plates are sampled human-facing diagnostics over nine fixed-space slices per case. They can reveal gross misregistration and deformation artifacts but do not replace the frozen quantitative courts or establish reframe4s acquired-data accuracy."
+}

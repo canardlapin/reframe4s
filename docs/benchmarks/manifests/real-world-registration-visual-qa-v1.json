@@ -1,0 +1,46 @@
+{
+  "schema": "reframe4s-real-world-registration-visual-qa-manifest-v1",
+  "capturedAt": "2026-09-13",
+  "registry": "docs/benchmarks/manifests/real-world-registration-v1.json",
+  "outputRoot": "benchmarks/registration/visual-qa/v1",
+  "receipt": "benchmarks/registration/visual-qa/v1/receipt.json",
+  "review": "benchmarks/registration/visual-qa/v1/review.json",
+  "report": "docs/benchmarks/real-world-registration-visual-qa.md",
+  "contract": {
+    "sliceSelection": "For each anatomical axis, use the 25th, 50th, and 75th percentiles of fixed-mask voxel indices. Every candidate for a row uses the identical fixed-space slice.",
+    "intensityWindow": "Independently clip each volume to its finite nonzero 1st and 99th percentiles, then scale to [0,1]. This is a display transform only.",
+    "edgeOverlay": "Within the fixed mask, fixed-image edges are cyan and candidate-image edges are red. Coincident edges approach white.",
+    "jacobianDisplay": "Within the fixed mask, display log total pullback Jacobian clipped to [-log(2), log(2)]; blue is contraction, white is unit determinant, red is expansion, and magenta is non-positive or non-finite.",
+    "failurePolicy": "A method without a valid exported result receives an explicit NO SAFE METHOD OUTPUT panel. A completed result whose transform is not present in the local evidence bundle receives an explicit OUTPUT NOT LOCAL panel. Comparator output must never occupy the method column.",
+    "interpretation": "Visual QA can reveal orientation errors, gross capture failures, boundary artifacts, and suspicious local deformation. It complements but cannot replace held-out labels, landmarks, topology checks, or retained failure accounting.",
+    "methodOwnership": "Only reframe4s HalfFlow or Flashalign outputs may be method evidence. External fixture storage and ANTs comparators do not establish method ownership. Missing or rejected final outputs provide no method visual pass."
+  },
+  "courts": [
+    {
+      "courtId": "basinbridge-public-t1-to-mni",
+      "mode": "input-only",
+      "caseId": "sub-1002-to-MNI152Lin",
+      "moving": "data-raw/sub-1002_run-01_res-3_T1w.nii.gz",
+      "fixed": "data-raw/tpl-MNI152Lin_res-02_T1w.nii.gz",
+      "fixedMask": "data-raw/tpl-MNI152Lin_res-02_desc-brain_mask.nii.gz",
+      "localReceipt": "docs/benchmarks/receipts/basinbridge-realdata-hodgeflow-2026-08-02.json",
+      "methodOutput": null,
+      "methodStatus": "bridge-stage-only-no-exported-volume",
+      "methodOwner": "reframe4s",
+      "methodId": "HalfFlow"
+    },
+    {
+      "courtId": "basinbridge-sub18-to-mni",
+      "mode": "failed-method-with-comparator",
+      "caseId": "sub18-to-MNI2009cAsym",
+      "directory": "tmp/sub18_hodgeflow_vs_ants/ants_synquick_softbrain_fixedmask",
+      "localReceipt": "benchmarks/flashalign/receipts/halfflow-comparison-baseline-v1.json",
+      "methodOutput": null,
+      "methodStatus": "rejected-fine-topology-and-export",
+      "comparator": "synquick_Warped.nii.gz",
+      "methodOwner": "reframe4s",
+      "methodId": "HalfFlow"
+    }
+  ],
+  "scope": "reframe4s-methods"
+}

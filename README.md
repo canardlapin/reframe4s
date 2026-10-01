@@ -9,6 +9,11 @@ ScalaFIM remains the higher-level neuroimaging suite and owns BIDS discovery,
 reports, command-line programs, parcellation workflows, searchlights, and
 BOLD-specific orchestration.
 
+> **Maturity:** `0.1-development` / pre-release. The typed transformation
+> foundations are executable, while registration, motion, and experimental
+> HalfFlow surfaces remain under active development; APIs and package
+> boundaries may change.
+
 This repository publishes only the reframe4s artifact family. Dependencies
 point from a consumer to its dependency and are checked against the
 cross-repository DAG in `PRD.json`.

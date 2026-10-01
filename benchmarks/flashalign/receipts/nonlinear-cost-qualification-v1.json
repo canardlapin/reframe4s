@@ -1,0 +1,200 @@
+{
+  "schema_version": "flashalign.nonlinear-cost-qualification.v1",
+  "receipt_id": "flashalign-nonlinear-cost-qualification-2026-09-12",
+  "mote_task": "bd-01M2B119HRXM8151BKPCSM85QT",
+  "status": "engineering-cost-gates-passed",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner worktree",
+    "flashalign_source_tree_sha256": "6d00dde079a16e56455c7743f401d31f2340255cee29a0e40aa7cba7a236319b",
+    "flashalign_source_file_count": 70,
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-flashalign, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "matrix_free_operator_sha256": "5757839ceb500c5408bc19a1ea13fd557af64cfe8521078ccba86d092af9749b",
+    "gale_pcg_adapter_sha256": "3fd39c173a43e1502640d80e2457f5df77ca080510dbbdc5ebe68d03eff0a1b8",
+    "geometry_operator_sha256": "493c2ad003c9f2b3a52eb11b36489ffedb40f187ea8baf0274091b2692d7035a",
+    "nonlinear_result_sha256": "d3fbeec5d72eb2138c11bce69b874512cee005eef69709752609ce62c22a52cf",
+    "operator_probe_sha256": "f5e1617369e3f318dc57858c401defec7b93c55b939285f30a783cf3ad0022da",
+    "output_probe_sha256": "3ded335fb5dae44cc29cb63551934eddf2c4ee15df2b0df0d52b57241857d23f"
+  },
+  "environment": {
+    "os": "Mac OS X",
+    "arch": "aarch64",
+    "jdk": "OpenJDK 64-Bit Server VM 25.0.1",
+    "maximum_heap_bytes": 4294967296,
+    "measurement_threads": 1,
+    "timer": "System.nanoTime"
+  },
+  "raw_evidence": {
+    "operator_probe": {
+      "path": "benchmarks/flashalign/raw/nonlinear-cost-probe-2026-09-12.json",
+      "sha256": "5bf4edef8acae917e301e686a41e63ef6458473d5933bbcfddff2404f5f26683"
+    },
+    "output_probe": {
+      "path": "benchmarks/flashalign/raw/nonlinear-output-cost-probe-2026-09-12.json",
+      "sha256": "df61852008834bd60d76b08b3cf13359d2aa7c4aac7759f29963aacc2094b944"
+    },
+    "post_nonlinear_linear_probe": {
+      "path": "benchmarks/flashalign/raw/linear-cost-probe-post-nonlinear-2026-09-12.json",
+      "sha256": "009d50156736624a0de6fd8952ff4a005913b61f646cae59b243e6a019d2e803"
+    },
+    "post_nonlinear_linear_jmh": {
+      "path": "benchmarks/flashalign/raw/linear-jmh-post-nonlinear-2026-09-12.json",
+      "sha256": "59890ec388346cdd6302b4f8a568631f574e6c72749d34b42e4902862d5f308b"
+    },
+    "sealed_linear_probe": {
+      "path": "benchmarks/flashalign/raw/linear-cost-probe-2026-09-12.json",
+      "sha256": "f3eaf72fdaca036c852d9ce8e37be5c78e29a393be6c260d61a92d22cd6d92f2"
+    },
+    "sealed_linear_jmh": {
+      "path": "benchmarks/flashalign/raw/linear-jmh-2026-09-12.json",
+      "sha256": "769a3e35affdc1a307bac41e60e213586568c9aaf146ae0955d12b71164d6334"
+    },
+    "nonlinear_output_contract": {
+      "path": "benchmarks/flashalign/receipts/nonlinear-output-qualification-v1.json",
+      "sha256": "a4a53d38f49c1819c9ddff3571b6b80f96754d65c83f10ab2b93b0fba21504c1"
+    }
+  },
+  "operator_workload": {
+    "unique_points": 1024,
+    "patches": 512,
+    "patch_size": 27,
+    "warmup_products": 5,
+    "measured_products": 25,
+    "accuracy_reference": "independent explicit gather-project-scatter and basis-transpose loop",
+    "cases": [
+      {
+        "nonlinear_coefficients": 32,
+        "parameters_including_pose": 38,
+        "setup_millis": 11.276667,
+        "curvature_product_median_millis": 0.541666,
+        "curvature_product_p95_millis": 0.581167,
+        "maximum_relative_error": 0.0,
+        "retained_evidence_bytes": 354304,
+        "budgeted_basis_table_bytes": 311296
+      },
+      {
+        "nonlinear_coefficients": 64,
+        "parameters_including_pose": 70,
+        "setup_millis": 5.043959,
+        "curvature_product_median_millis": 0.250792,
+        "curvature_product_p95_millis": 0.269291,
+        "maximum_relative_error": 0.0,
+        "retained_evidence_bytes": 354304,
+        "budgeted_basis_table_bytes": 573440
+      },
+      {
+        "nonlinear_coefficients": 128,
+        "parameters_including_pose": 134,
+        "setup_millis": 6.275291,
+        "curvature_product_median_millis": 0.390083,
+        "curvature_product_p95_millis": 0.407541,
+        "maximum_relative_error": 0.0,
+        "retained_evidence_bytes": 354304,
+        "budgeted_basis_table_bytes": 1097728
+      }
+    ],
+    "matrix_and_image_work": {
+      "production_dense_normal_bytes_each_case": 0,
+      "interpolation_calls_at_linearization_each_case": 1024,
+      "gradient_calls_at_linearization_each_case": 1024,
+      "interpolation_calls_per_krylov_product": 0,
+      "gradient_calls_per_krylov_product": 0,
+      "cache_policy": "Retain O(U + patch occurrences) image evidence and explicitly budget the optional O(U*K) basis table; never form a production K-by-K normal matrix."
+    },
+    "timing_interpretation": "The sub-millisecond timings are machine-local samples and are not monotone in K because loop size is small relative to JVM and system noise. The work counters and explicit numerical parity are the admission evidence."
+  },
+  "preconditioner_effectiveness": {
+    "dimension": 134,
+    "diagonal_condition_span": "1e-6 through 1e6",
+    "unpreconditioned": {
+      "termination": "IterationLimit",
+      "iterations": 512,
+      "operator_products": 514,
+      "unpreconditioned_residual_norm": 0.9904048249803429
+    },
+    "prior_data_diagonal": {
+      "termination": "Converged",
+      "iterations": 1,
+      "operator_products": 3,
+      "unpreconditioned_residual_norm": 1.1743432126857736e-10,
+      "retained_bytes": 1072
+    },
+    "interpretation": "This deterministic diagonal stress system isolates preconditioner mechanics. It demonstrates the value and memory cost of a matched prior/data diagonal; it is not a prediction of MRI iteration counts."
+  },
+  "inverse_and_output_scaling": {
+    "moving_shape": [24, 24, 24],
+    "coefficient_counts": [32, 64, 128, 256],
+    "target_shapes": [[8, 8, 8], [16, 16, 16]],
+    "field": "one nonzero 0.05 mm spectral coefficient with the remaining coefficients zero",
+    "output_path": "production numerical PE inverse, NonlinearOutputPlan3, then one ResamplingPlan linear interpolation of the original moving image",
+    "cases": [
+      {"K": 32, "target_voxels": 512, "model_setup_ms": 2.383583, "inverse_median_ms": 5.955042, "inverse_p95_ms": 19.965459, "interpolation_median_ms": 0.040375, "interpolation_p95_ms": 0.041875},
+      {"K": 32, "target_voxels": 4096, "model_setup_ms": 1.928, "inverse_median_ms": 27.287167, "inverse_p95_ms": 34.425125, "interpolation_median_ms": 0.134708, "interpolation_p95_ms": 0.136917},
+      {"K": 64, "target_voxels": 512, "model_setup_ms": 2.789208, "inverse_median_ms": 5.822083, "inverse_p95_ms": 5.916583, "interpolation_median_ms": 0.035416, "interpolation_p95_ms": 0.060292},
+      {"K": 64, "target_voxels": 4096, "model_setup_ms": 1.821959, "inverse_median_ms": 43.333625, "inverse_p95_ms": 51.336875, "interpolation_median_ms": 0.20125, "interpolation_p95_ms": 0.24675},
+      {"K": 128, "target_voxels": 512, "model_setup_ms": 1.764292, "inverse_median_ms": 9.923167, "inverse_p95_ms": 10.200041, "interpolation_median_ms": 0.0265, "interpolation_p95_ms": 0.030458},
+      {"K": 128, "target_voxels": 4096, "model_setup_ms": 1.703584, "inverse_median_ms": 80.909834, "inverse_p95_ms": 81.721959, "interpolation_median_ms": 0.086958, "interpolation_p95_ms": 0.093209},
+      {"K": 256, "target_voxels": 512, "model_setup_ms": 6.678166, "inverse_median_ms": 19.750583, "inverse_p95_ms": 23.59925, "interpolation_median_ms": 0.026209, "interpolation_p95_ms": 0.032708},
+      {"K": 256, "target_voxels": 4096, "model_setup_ms": 2.690459, "inverse_median_ms": 156.568875, "inverse_p95_ms": 163.27575, "interpolation_median_ms": 0.089625, "interpolation_p95_ms": 0.108833}
+    ],
+    "correctness": {
+      "maximum_absolute_output_error": 2.6645352591003757e-15,
+      "all_validity_full": true,
+      "final_interpolation_passes": 1,
+      "source_interpolation_evaluations_equal_target_voxels": true
+    },
+    "memory": {
+      "coordinate_bytes_per_target_voxel": 24,
+      "output_bytes_per_target_voxel": 8,
+      "validity_bytes_per_target_voxel": 8,
+      "incremental_peak_bytes_per_target_voxel": 40,
+      "peak_bytes_at_512_voxels": 20480,
+      "peak_bytes_at_4096_voxels": 163840
+    },
+    "setup_scope": "Frames, grids, a structurally valid synthetic spectral basis, PE model and nonlinear result are timed; source-image construction and the production basis factory/rank computation are excluded."
+  },
+  "linear_fast_path_regression": {
+    "work_counters": {
+      "rigid_nonlinear_coefficients": 0,
+      "rigid_curvature_products": 0,
+      "affine_nonlinear_coefficients": 0,
+      "affine_curvature_products": 0,
+      "parallel_workers": 1
+    },
+    "jmh_post_extension": {
+      "rigid_preparation": {"median_ms": 32.19456, "p95_ms": 33.185792, "allocated_bytes_per_operation": 12266372.127},
+      "rigid_warm_optimize_and_audit": {"median_ms": 3.219456, "p95_ms": 3.695002, "allocated_bytes_per_operation": 629528.682},
+      "rigid_cold_complete": {"median_ms": 34.603008, "p95_ms": 37.637325, "allocated_bytes_per_operation": 13315869.571},
+      "affine_preparation": {"median_ms": 31.064064, "p95_ms": 32.984269, "allocated_bytes_per_operation": 13115990.73},
+      "affine_warm_optimize_and_audit": {"median_ms": 20.217856, "p95_ms": 21.282816, "allocated_bytes_per_operation": 3104531.736},
+      "affine_cold_complete": {"median_ms": 52.068352, "p95_ms": 55.269786, "allocated_bytes_per_operation": 16239069.79}
+    },
+    "maximum_absolute_allocation_change_percent_vs_sealed_court": 0.688,
+    "timing_assessment": "All post-extension timing samples were lower than the sealed court, but no speedup is claimed because these are separate process runs. There is no timing or allocation regression signal, and the exact counters prove no nonlinear state or Krylov work on linear fits.",
+    "hot_loop_allocation_gate": {
+      "small_iterations": 2000,
+      "small_allocated_bytes": 24,
+      "large_iterations": 20000,
+      "large_allocated_bytes": 24,
+      "allocation_growth_bytes": 0,
+      "result": "passed"
+    }
+  },
+  "commands": [
+    "sbt -J-Xmx4G -batch 'flashalignBenchmarkJVM/compile' 'flashalignBenchmarkJVM/runMain reframe4s.flashalign.NonlinearCostProbe /Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/raw/nonlinear-cost-probe-2026-09-12.json'",
+    "sbt -J-Xmx4G -batch 'flashalignBenchmarkJVM/compile' 'flashalignBenchmarkJVM/runMain reframe4s.flashalign.NonlinearOutputCostProbe /Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/raw/nonlinear-output-cost-probe-2026-09-12.json'",
+    "sbt -J-Xmx4G -batch 'flashalignBenchmarkJVM/runMain reframe4s.flashalign.LinearCostProbe /Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/raw/linear-cost-probe-post-nonlinear-2026-09-12.json'",
+    "sbt -J-Xmx4G -batch 'flashalignBenchmarkJVM/Jmh/run -prof gc -rf json -rff /Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/raw/linear-jmh-post-nonlinear-2026-09-12.json reframe4s.flashalign.benchmark.FlashalignLinearBenchmark.*'",
+    "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/testOnly reframe4s.flashalign.LinearHotLoopPerformanceSuite'"
+  ],
+  "admission": {
+    "matrix_free_operator": "passed: exact reference parity, zero interpolation and gradient evaluation per Krylov product, zero production dense-normal bytes",
+    "cache_accounting": "passed: retained evidence and the optional O(U*K) basis table are explicit in every case",
+    "preconditioner": "passed as a mechanics stress gate: 514 products and iteration limit reduced to 3 products and convergence",
+    "inverse_and_output": "passed for the defined coefficient-by-target-size factorial with analytic output parity, full validity, bounded memory and one final interpolation pass",
+    "linear_separation": "passed: exact post-extension court has zero nonlinear coefficients/products and no allocation regression signal",
+    "claim_boundary": "This is an engineering cost and numerical-operator qualification. It does not establish MRI accuracy, nonlinear accuracy benefit, external-comparator superiority, clinical validity, end-to-end compressed-NIfTI latency, or performance on other hardware. Those claims require the separate nonlinear accuracy court."
+  }
+}

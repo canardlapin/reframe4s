@@ -1,0 +1,107 @@
+{
+  "schema_version": "flashalign.halfflow-comparison-baseline-qualification.v1",
+  "receipt_id": "flashalign-halfflow-comparison-baseline-2026-09-12",
+  "mote_task": "bd-01M2B119YT1YVJ9SWD6X4Z38RG",
+  "status": "baseline-reproduced-c4-failed-closed",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner worktree",
+    "halfflow_source_tree_sha256": "795cc836ead44fea9d5822eb36fbff5639e0383dd7f4a31f2e26dcf857ce95cf",
+    "halfflow_source_file_count": 66,
+    "capability_ledger_sha256": "022993d0df8e5421fd30793b8cfbdf1c7eedd354e0a6f964fc3bfb0ba70bc891",
+    "stable_export_admitted": false
+  },
+  "evidence": {
+    "frozen_manifest": {
+      "path": "benchmarks/flashalign/manifests/halfflow-comparison-baseline-v1.json",
+      "sha256": "c69d61a69f6649f4177100882ffe05db9ec3946677d8e0bf9f6bda0fa5753bda",
+      "frozen_before_rerun": true
+    },
+    "raw_log": {
+      "path": "benchmarks/flashalign/raw/halfflow-sub18-baseline-2026-09-12.log",
+      "sha256": "b6f8f5deb0518633f443dab0015fdc62baea6173d05f29298104939babc7330e"
+    },
+    "command": "sbt -J-Xmx4G -batch 'reframe4s-halfflowJVM/Test/runMain reframe4s.halfflow.BasinBridgeSub18AccuracyProbe all'",
+    "process_exit": "success after 221 seconds; method status is assessed independently from process exit"
+  },
+  "C0": {
+    "status": "reproduced",
+    "map": "header/world identity pull map",
+    "observed": {
+      "masked_ncc": 0.12629279168027657,
+      "global_ncc": 0.5678517376638428,
+      "gradient_ncc": -0.10722456158956443,
+      "brain_mask_dice": 0.6609480584043748,
+      "brain_mask_com_distance_vox": 17.720557855282404
+    },
+    "oracle_check": "matched absolute 1e-6 plus relative 1e-6 tolerance"
+  },
+  "saved_ants_oracle": {
+    "status": "reproduced-from-saved-output",
+    "observed": {
+      "masked_ncc": 0.6722980501504529,
+      "global_ncc": 0.9457095651791072,
+      "gradient_ncc": 0.43994560051600695,
+      "brain_mask_dice": 0.9793589557154222,
+      "brain_mask_com_distance_vox": 0.30836844437303096
+    },
+    "recorded_method_runtime_ms": 47800,
+    "runtime_interpretation": "saved prior runtime, not rerun or matched-process timing",
+    "oracle_check": "matched absolute 1e-6 plus relative 1e-6 tolerance"
+  },
+  "C4": {
+    "status": "invalid-geometry-and-fine-stage-failure",
+    "initialization": "unchanged ForwardMidpoint.identity",
+    "bridge": {
+      "status": "accepted internally but not exportable",
+      "anchors_requested": 18,
+      "correspondences_initial": 18,
+      "correspondences_after_rematch": 15,
+      "support_failures_retained": 3,
+      "accepted_alpha": 1.0,
+      "initial_match_error_mm": 15.755849482703288,
+      "final_match_error_mm": 8.765332170357594,
+      "initial_cc_loss": 0.9229897696900153,
+      "final_cc_loss": 0.9149877440475543,
+      "elapsed_ms": 143682
+    },
+    "fine_stage": {
+      "status": "failed",
+      "elapsed_ms": 5029,
+      "failure": "HalfFlow-CC regrid at shrink 1 violates accumulated topology: AccumulatedJacobianTooSmall(Fixed,0.03943797115921224)"
+    },
+    "intermediate_bridge_diagnostics": {
+      "masked_ncc": 0.1379602928496381,
+      "global_ncc": 0.628563548990878,
+      "gradient_ncc": -0.12557698027816408,
+      "brain_mask_dice": 0.7208578251914299,
+      "brain_mask_com_distance_vox": 13.687294707249926,
+      "evaluation_elapsed_ms": 67388,
+      "export_status": "rejected",
+      "maximum_residual_inverse_error_mm": 0.6796445796390174,
+      "allowed_residual_inverse_error_mm": 0.2,
+      "minimum_sampled_jacobian": -0.4890898791741532,
+      "nonpositive_sampled_jacobians": 11434,
+      "sampled_jacobians_evaluated": 1019825,
+      "valid_coordinate_fraction": 1.0
+    },
+    "adjudication": "The bridge metrics are diagnostic stage output. They do not replace the failed C4 row because the bridge map is folded and fails the frozen export inverse tolerance."
+  },
+  "admission": {
+    "pinned_inputs_and_controls": "passed",
+    "C0_reproducibility": "passed",
+    "saved_oracle_reproducibility": "passed",
+    "C4_pipeline_reproducibility": "passed as a retained negative outcome",
+    "C4_valid_output": "failed",
+    "stable_halfflow_export": "not admitted",
+    "ants_parity": "not claimed; one diagnostic pair and saved comparator output cannot establish it",
+    "standalone_flashalign_linear_dependency": "none"
+  },
+  "blockers": [
+    "The HalfFlow capability ledger records 0 checked-in anatomical pairs against a 20-pair, two-dataset gate.",
+    "The frozen sub-18 C4 fine stage fails its topology floor.",
+    "The intermediate BasinBridge map is folded and its inverse residual exceeds the export threshold.",
+    "External data remain user-held diagnostic inputs with no checked-in redistribution or sealed population manifest."
+  ],
+  "claim_boundary": "This freezes and reproduces an unchanged recipient baseline, including its failure. It does not promote the bridge intermediate, admit HalfFlow export, establish ANTs parity, or qualify MRI population accuracy."
+}

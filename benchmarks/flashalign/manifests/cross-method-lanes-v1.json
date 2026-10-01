@@ -1,0 +1,157 @@
+{
+  "$schema": "../schemas/cross-method-lanes-v1.schema.json",
+  "schema_version": "1.0.0",
+  "manifest_id": "flashalign-cross-method-lanes-v1",
+  "status": "development-open",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "flashalign_source_tree_sha256": "6d00dde079a16e56455c7743f401d31f2340255cee29a0e40aa7cba7a236319b",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929"
+  },
+  "court": {
+    "expected_rows_per_pair": 8,
+    "shared_input_loads_per_pair": 1,
+    "common_initialization_contract": "C0, C2 and C3 receive one byte-identified moving-to-fixed world affine. C5 changes only C4 initialization. C6 starts from the same affine as C2/C3 and adds the bounded Flashalign stage before residual HalfFlow fitting.",
+    "heldout_policy": "Subjects and related scans remain in one role. Development comparisons may not be relabeled as sealed accuracy evidence; unavailable lanes remain in the declared denominator."
+  },
+  "lanes": [
+    {
+      "id": "C0",
+      "question": "What does the common input affine explain?",
+      "method_id": "common-affine-control",
+      "model": "affine",
+      "map_interpretation": "complete-moving-to-fixed",
+      "configuration_sha256": "4b0724d7828c6168675f92ceb0473c7cc188708bd111b3323d3db99deae9acf7",
+      "objective_id": "no-nonlinear-objective",
+      "support_policy_id": "shared-court-support-v1",
+      "mask_policy_id": "shared-court-mask-v1",
+      "model_freedom_id": "12-parameter-affine",
+      "initialization_source_id": "common-affine-v1",
+      "recipient_controls_sha256": null,
+      "availability": "available"
+    },
+    {
+      "id": "C1",
+      "question": "What does standalone Flashalign rigid or affine achieve?",
+      "method_id": "flashalign-linear",
+      "model": "rigid-or-affine",
+      "map_interpretation": "complete-moving-to-fixed",
+      "configuration_sha256": "1d18fc19f8fc0dd344f7e643eac2e07fff8d2fd503e1a50f9c9e4350f9fe1a5f",
+      "objective_id": "flashalign-projected-patch-linear",
+      "support_policy_id": "shared-court-support-v1",
+      "mask_policy_id": "shared-court-mask-v1",
+      "model_freedom_id": "6-or-12-global-parameters",
+      "initialization_source_id": "declared-pair-initialization-v1",
+      "recipient_controls_sha256": null,
+      "availability": "available"
+    },
+    {
+      "id": "C2",
+      "question": "What accuracy and cost does the economical small-strain extension add?",
+      "method_id": "flashalign-small-strain96",
+      "model": "affine-plus-bounded-small-strain",
+      "map_interpretation": "residual-after-supplied-affine",
+      "configuration_sha256": "52791c9c533188d99452a16f21e7e72ce96157454352013c2757a45582fda66b",
+      "objective_id": "flashalign-projected-patch-small-strain",
+      "support_policy_id": "shared-court-support-v1",
+      "mask_policy_id": "shared-court-mask-v1",
+      "model_freedom_id": "96-low-frequency-vector-modes-gradient-bounded",
+      "initialization_source_id": "common-affine-v1",
+      "recipient_controls_sha256": null,
+      "availability": "unavailable-pending-adapter"
+    },
+    {
+      "id": "C3",
+      "question": "What additional accuracy and cost does frozen HalfFlow provide from the common affine?",
+      "method_id": "halfflow-common-affine",
+      "model": "frozen-halfflow-basinbridge-nonlinear",
+      "map_interpretation": "residual-after-supplied-affine",
+      "configuration_sha256": "f4ae3f117b43b0172793e447f66eede59f090eff1b3c7ac17b0ec8b8885915b2",
+      "objective_id": "halfflow-frozen-recipient-objective",
+      "support_policy_id": "shared-court-support-v1",
+      "mask_policy_id": "shared-court-mask-v1",
+      "model_freedom_id": "recipient-frozen-nonlinear-model",
+      "initialization_source_id": "common-affine-v1",
+      "recipient_controls_sha256": "115a1b3312ae551e9efb8590d529d319ca34f6f77cb6c19fdfa725b13b6305c2",
+      "availability": "unavailable-pending-adapter"
+    },
+    {
+      "id": "C4",
+      "question": "What does HalfFlow's unchanged complete pipeline achieve?",
+      "method_id": "halfflow-existing-pipeline",
+      "model": "frozen-halfflow-basinbridge-complete",
+      "map_interpretation": "complete-moving-to-fixed",
+      "configuration_sha256": "ee56cd66eb34dff9b255ccdb69d2eaeeec442be653cf116b8017af4af31befc2",
+      "objective_id": "halfflow-frozen-recipient-objective",
+      "support_policy_id": "recipient-existing-support-v1",
+      "mask_policy_id": "recipient-existing-mask-v1",
+      "model_freedom_id": "recipient-frozen-complete-pipeline",
+      "initialization_source_id": "recipient-existing-initializer-v1",
+      "recipient_controls_sha256": "115a1b3312ae551e9efb8590d529d319ca34f6f77cb6c19fdfa725b13b6305c2",
+      "availability": "unavailable-pending-adapter"
+    },
+    {
+      "id": "C5",
+      "question": "Does changing only HalfFlow initialization to Flashalign improve the recipient?",
+      "method_id": "halfflow-flashalign-initialization",
+      "model": "frozen-halfflow-basinbridge-complete",
+      "map_interpretation": "residual-after-supplied-affine",
+      "configuration_sha256": "d2046f6c6351a0445609eaa3a1131b09cc2c9dcf32c0d695a0d63605200cd77f",
+      "objective_id": "halfflow-frozen-recipient-objective",
+      "support_policy_id": "recipient-existing-support-v1",
+      "mask_policy_id": "recipient-existing-mask-v1",
+      "model_freedom_id": "recipient-frozen-complete-pipeline",
+      "initialization_source_id": "flashalign-affine-v1",
+      "recipient_controls_sha256": "115a1b3312ae551e9efb8590d529d319ca34f6f77cb6c19fdfa725b13b6305c2",
+      "availability": "unavailable-pending-adapter"
+    },
+    {
+      "id": "C6",
+      "question": "Does bounded Flashalign pre-refinement help a direct residual HalfFlow run?",
+      "method_id": "flashalign-then-halfflow-residual",
+      "model": "small-strain-then-frozen-halfflow-residual",
+      "map_interpretation": "residual-after-supplied-affine",
+      "configuration_sha256": "f7895a21c52384c97da28d27058027c9a1ac388c5abd7c53b2ea5034d5d66c08",
+      "objective_id": "separate-flashalign-and-halfflow-objectives",
+      "support_policy_id": "shared-court-support-v1",
+      "mask_policy_id": "shared-court-mask-v1",
+      "model_freedom_id": "bounded-prestage-plus-recipient-frozen-residual",
+      "initialization_source_id": "common-affine-v1",
+      "recipient_controls_sha256": "115a1b3312ae551e9efb8590d529d319ca34f6f77cb6c19fdfa725b13b6305c2",
+      "availability": "unavailable-pending-adapter"
+    },
+    {
+      "id": "C7",
+      "question": "Does one supported reverse transfer or shared primitive improve its recipient?",
+      "method_id": "conditional-reverse-transfer",
+      "model": "recipient-specific",
+      "map_interpretation": "residual-after-supplied-affine",
+      "configuration_sha256": "8b0bab2952c6e414be368fdc429486c185c595c67e6fa80b7adf6df1ccc98760",
+      "objective_id": "recipient-objective-unchanged",
+      "support_policy_id": "recipient-support-unchanged",
+      "mask_policy_id": "recipient-mask-unchanged",
+      "model_freedom_id": "recipient-model-unchanged-except-declared-factor",
+      "initialization_source_id": "declared-recipient-baseline",
+      "recipient_controls_sha256": "115a1b3312ae551e9efb8590d529d319ca34f6f77cb6c19fdfa725b13b6305c2",
+      "availability": "conditional"
+    }
+  ],
+  "scoring": {
+    "primary": ["independent world-landmark error", "manual-label Dice", "manual-label HD95", "inverse and topology evidence"],
+    "secondary": ["Flashalign projected-patch loss", "HalfFlow objective", "cross-scored image similarities"],
+    "candidate_loss_is_ground_truth": false,
+    "mask_policy_recorded": true,
+    "model_freedom_recorded": true
+  },
+  "cost_accounting": {
+    "cold_standalone": "Each lane records input plus preparation when invoked independently.",
+    "shared_preparation": "The court loads canonical inputs once and each lane records its actual additional shared preparation.",
+    "stage_costs": ["read", "decompress", "prepare", "capture", "linearize", "solve", "trial", "validate", "output"],
+    "complete_pipeline": "Initialization and intermediate resampling costs remain in total cost even when reported separately by stage."
+  },
+  "failure_accounting": {
+    "unavailable_lanes_are_rows": true,
+    "failed_lanes_are_rows": true,
+    "denominator": "Eight rows per declared pair. Crashes, typed failures, missing adapters and conditional lanes remain explicit."
+  }
+}

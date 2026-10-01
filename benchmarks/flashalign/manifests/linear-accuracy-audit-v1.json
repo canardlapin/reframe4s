@@ -1,0 +1,68 @@
+{
+  "$schema": "../schemas/linear-accuracy-audit-v1.schema.json",
+  "schema_version": "1.0.0",
+  "manifest_id": "flashalign-linear-accuracy-audit-v1",
+  "status": "audit-sealed",
+  "sealed_before_execution": "2026-09-12T22:40:00Z",
+  "scope": "Repository-authored analytic synthetic engineering court. It tests linear world-space recovery and failure accounting; it cannot establish acquired-MRI, clinical, or general superiority claims.",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "flashalign_source_tree_sha256": "dc043f5fde4e4ebd40aa328e2b4702e94c2aae673ee6c923b4431fded33e2f89",
+    "source_tree_hash_contract": "SHA-256 over every non-target regular file below modules/reframe4s-flashalign, sorted by repository-relative path, with each path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "runner_path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/LinearAccuracyCourt.scala",
+    "runner_sha256": "3bf601e99c9407dbb573b686c42cadef9f3edaa71d16ace3b7b18cb9790748ba",
+    "preset": "within-modality",
+    "initialization_policy": "supplied-world-transform"
+  },
+  "fixtures": {
+    "generator_path": "benchmarks/flashalign/fixtures/generate_linear_accuracy_audit.py",
+    "generator_sha256": "f3f26e5ca92599010063d7ef277edb8a797ce32dc5cd7d17e48227085f17c956",
+    "descriptor_path": "benchmarks/flashalign/fixtures/linear-accuracy-audit-v1.json",
+    "descriptor_sha256": "7b9e2387701b9138cff66697a37b5a1c8d45c691d336ab9917eebba8a55ade0a",
+    "case_table_path": "benchmarks/flashalign/fixtures/linear-accuracy-audit-v1.cases.tsv",
+    "case_table_sha256": "c39c7c20b28c768ad548cfa3d7d83cc7f48e3cbfc959689b61c8bf220a79bf0e",
+    "license": "Apache-2.0",
+    "case_count": 32,
+    "subject_clusters": 4,
+    "cohorts": ["ordinary-same-subject", "large-initialization-error", "partial-slab", "dropout-or-low-signal"],
+    "models": ["rigid", "affine"],
+    "independence_contract": "A standard-library Python generator samples a closed-form continuous phantom directly on each physical grid; no candidate transform, interpolation, objective, or optimizer code generates truth."
+  },
+  "comparator": {
+    "name": "3dAllineate",
+    "version": "AFNI_26.1.04 (Jun 2 2026) [64-bit]",
+    "official_container": "afni/afni_make_build@sha256:6bc2b04e92e0874d7cf252006be35f2671438904c233f844633c40a8fc7cf9bf",
+    "platform": "linux/amd64",
+    "cost": "lpa+ZZ",
+    "rigid_warp": "shift_rotate",
+    "affine_warp": "affine_general",
+    "pass": "onepass",
+    "matrix_contract": "AFNI base-to-source DICOM/RAI matrix is inverted and conjugated by diag(-1,-1,1,1) to obtain source/moving-to-base/fixed RAS world geometry."
+  },
+  "protocol": {
+    "initialization": "The exact 4x4 world identity is supplied to Flashalign and is AFNI onepass default. No capture, center-of-mass shift, or twopass search is permitted in either lane.",
+    "comparison_classes": ["rigid versus rigid", "affine versus affine"],
+    "thread_count": 1,
+    "case_order": "case table order; Flashalign then 3dAllineate for each case",
+    "raw_schema": "benchmarks/flashalign/schemas/raw-result-v1.schema.json",
+    "raw_output": "benchmarks/flashalign/raw/linear-accuracy-audit-2026-09-12.json"
+  },
+  "estimands": {
+    "primary_error": "Independent world-landmark RMS in millimetres. A non-success receives the predeclared 100 mm adjudication penalty.",
+    "median_difference": "Flashalign minus 3dAllineate median adjudicated RMS within cohort and model.",
+    "p95_difference": "Flashalign minus 3dAllineate p95 adjudicated RMS within cohort and model.",
+    "catastrophic_difference": "Flashalign minus 3dAllineate rate of non-success or landmark RMS greater than 5 mm.",
+    "uncertainty": "Paired nonparametric bootstrap of four subject clusters, 10000 replicates, seed 20260912.",
+    "superiority_rule": "The upper endpoint of every subject-clustered 95% interval for median, p95, and catastrophic-rate difference must be strictly below zero within every declared cohort/model cell.",
+    "fixture_accuracy_gate": "All four ordinary rigid Flashalign cases must succeed with independent landmark RMS <= 0.1 mm."
+  },
+  "failure_accounting": {
+    "expected_rows": 64,
+    "rule": "Every one of 32 cases produces one Flashalign and one 3dAllineate row. Crashes, timeout, ambiguity, nonconvergence, invalid geometry, insufficient overlap/information, and unavailable execution remain in the original cohort denominator.",
+    "early_stopping": "none"
+  },
+  "claims": {
+    "permitted": ["sealed analytic synthetic engineering accuracy", "complete failure denominator", "matched local rigid and affine comparison"],
+    "prohibited": ["acquired-MRI superiority", "clinical accuracy", "capture-range superiority", "runtime superiority from this court"]
+  }
+}

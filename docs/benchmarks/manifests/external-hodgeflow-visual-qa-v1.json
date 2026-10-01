@@ -1,0 +1,59 @@
+{
+  "schema": "reframe4s-real-world-registration-visual-qa-manifest-v1",
+  "capturedAt": "2026-09-13",
+  "registry": "docs/benchmarks/manifests/real-world-registration-v1.json",
+  "outputRoot": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1",
+  "receipt": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/receipt.json",
+  "review": "benchmarks/registration/external-references/hodgeflow/visual-qa/v1/review.json",
+  "report": "docs/benchmarks/external-hodgeflow-visual-qa.md",
+  "contract": {
+    "sliceSelection": "For each anatomical axis, use the 25th, 50th, and 75th percentiles of fixed-mask voxel indices. Every candidate for a row uses the identical fixed-space slice.",
+    "intensityWindow": "Independently clip each volume to its finite nonzero 1st and 99th percentiles, then scale to [0,1]. This is a display transform only.",
+    "edgeOverlay": "Within the fixed mask, fixed-image edges are cyan and candidate-image edges are red. Coincident edges approach white.",
+    "jacobianDisplay": "Within the fixed mask, display log total pullback Jacobian clipped to [-log(2), log(2)]; blue is contraction, white is unit determinant, red is expansion, and magenta is non-positive or non-finite.",
+    "failurePolicy": "A method without a valid exported result receives an explicit NO SAFE METHOD OUTPUT panel. A completed result whose transform is not present in the local evidence bundle receives an explicit OUTPUT NOT LOCAL panel. Comparator output must never occupy the method column.",
+    "interpretation": "Visual QA can reveal orientation errors, gross capture failures, boundary artifacts, and suspicious local deformation. It complements but cannot replace held-out labels, landmarks, topology checks, or retained failure accounting.",
+    "methodOwnership": "All method outputs in this bundle were produced by the external HodgeFlow project. They are reference evidence only and cannot validate reframe4s HalfFlow or Flashalign."
+  },
+  "courts": [
+    {
+      "courtId": "hodgeflow-openneuro-ds000102-t1-to-mni",
+      "mode": "hodgeflow-rds-cohort",
+      "directory": "tmp/openneuro_t1_validation_ds000102_v1",
+      "manifest": "manifest.csv",
+      "metrics": "results/hodgeflow_metrics.csv",
+      "caseIds": [
+        "ds000102_sub-01",
+        "ds000102_sub-02",
+        "ds000102_sub-03",
+        "ds000102_sub-04",
+        "ds000102_sub-05",
+        "ds000102_sub-06"
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    },
+    {
+      "courtId": "hodgeflow-ibsr18-labeled-t1",
+      "mode": "portable-transform-cohort",
+      "directory": "tmp/ibsr18-heldout",
+      "metrics": "cloud/final-metadata/snapshot/tmp/ibsr18-heldout/scores/pairs.csv",
+      "metadataDirectory": "cloud/final-metadata/snapshot/tmp/ibsr18-heldout/runs",
+      "localArchive": "cloud/results.tar.gz",
+      "pairIds": [
+        "IBSR_01_to_IBSR_02",
+        "IBSR_03_to_IBSR_04",
+        "IBSR_05_to_IBSR_06",
+        "IBSR_07_to_IBSR_08",
+        "IBSR_09_to_IBSR_10",
+        "IBSR_11_to_IBSR_12",
+        "IBSR_13_to_IBSR_14",
+        "IBSR_15_to_IBSR_16",
+        "IBSR_17_to_IBSR_18"
+      ],
+      "methodOwner": "external-hodgeflow",
+      "methodId": "HodgeFlow"
+    }
+  ],
+  "scope": "external-hodgeflow-reference"
+}

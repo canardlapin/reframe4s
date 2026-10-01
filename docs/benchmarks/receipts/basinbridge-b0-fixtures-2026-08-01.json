@@ -1,0 +1,57 @@
+{
+  "schema": "reframe4s-basinbridge-b0-fixtures-receipt-v1",
+  "status": "synthetic-contract-complete-external-anatomical-oracle-pending",
+  "capturedAtUtc": "2026-08-01",
+  "repository": {
+    "head": "e7f469c",
+    "moteIssue": "sf-01ky5p1xx2k8abtnqp9vdxhdhq"
+  },
+  "fixture": {
+    "path": "modules/reframe4s-halfflow/fixtures/v1/basin-bridge-v1.json",
+    "sha256": "a2ba1f0208d009f475fbaf7456b707ded31e86504b0219bbfb1fc14b9cce377e",
+    "cases": 6,
+    "correspondences": 750,
+    "seedSpacingMm": 8.0,
+    "grid": [49, 49, 49]
+  },
+  "generator": {
+    "path": "tools/registration/generate_basinbridge_fixtures.py",
+    "sha256": "d025d63c443159e4845c577ae47b5ff780a5f744fbbbe0c1662cbe120085baa2"
+  },
+  "lanes": [
+    "oracle-to-bridge",
+    "oracle-to-bridge-to-halfflow",
+    "block-to-bridge-to-halfflow"
+  ],
+  "verification": [
+    {
+      "command": "python3 tools/registration/generate_basinbridge_fixtures.py --check",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -m json.tool modules/reframe4s-halfflow/fixtures/v1/basin-bridge-v1.json",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/test\" \"reframe4s-halfflowJS/test\"",
+      "status": "passed",
+      "jvm": {
+        "passed": 100,
+        "failed": 0
+      },
+      "scalaJs": {
+        "passed": 100,
+        "failed": 0
+      }
+    }
+  ],
+  "limitations": [
+    "The licensed same-affine ANTs deformation and five-pair anatomical cohort are not checked in.",
+    "No anatomical accuracy, ANTs parity, or HalfFlow improvement claim is admitted by this receipt.",
+    "The next implementation gate remains typed correspondence confidence followed by background-plus-residual projection."
+  ]
+}

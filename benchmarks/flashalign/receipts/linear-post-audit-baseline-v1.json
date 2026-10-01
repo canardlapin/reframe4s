@@ -1,0 +1,48 @@
+{
+  "schema_version": "flashalign.linear-post-audit-baseline.v1",
+  "receipt_id": "flashalign-linear-post-audit-baseline-2026-09-13",
+  "mote_task": "bd-01M2DFKCRWPQ3YRHFC9RWMZEH3",
+  "status": "working-snapshot-captured",
+  "repository": {
+    "head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "branch": "main",
+    "tracking_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "porcelain_status_sha256": "9a78ced2729257cc8071d05a0dead8c4e04411d123de03780f2bef0bd0482a10",
+    "tracked_modified_entries": 13,
+    "untracked_status_entries": 39,
+    "worktree_state": "uncommitted multi-owner working tree; this receipt identifies the Flashalign slice and does not claim ownership of unrelated paths"
+  },
+  "providers": {
+    "scala": "3.7.4",
+    "sbt_observed": "1.11.7",
+    "jdk_observed": "Homebrew Java 25.0.1",
+    "ravel_revision": "9c5669399ab8e2a11402e71973dd5f1e2f2c13f4",
+    "gale_revision": "83cac90a678d1b8a31c590e0c1b8fc8bf3427161",
+    "image4s_revision": "ec56b34806c22e26c28ecbd366ef2e323195fc88"
+  },
+  "post_l23_candidate_before_l24_edits": {
+    "flashalign_source_tree_sha256": "6d00dde079a16e56455c7743f401d31f2340255cee29a0e40aa7cba7a236319b",
+    "flashalign_source_file_count": 70,
+    "patch_linearization_sha256": "a2cd9b9681b3cea16ef83fa644ff416a5f8eb63332d5909b1d638d69e887d160",
+    "patch_linearization_suite_sha256": "eabf1cb2cd8f7cf3a8ec3cec6493e36b73dac25deb184734702ab724f92f5adf"
+  },
+  "historical_evidence": {
+    "l23_accuracy_receipt": {
+      "path": "benchmarks/flashalign/receipts/linear-accuracy-qualification-v1.json",
+      "sha256": "6fa43b00e4dab3e6410dfef6927f34e24cd118e8b5ec1bdf092a7d74f7574013",
+      "audited_source_tree_sha256": "dc043f5fde4e4ebd40aa328e2b4702e94c2aae673ee6c923b4431fded33e2f89",
+      "result": "completed-negative: Flashalign succeeded in 1 of 32 cases; 3dAllineate succeeded in 32 of 32"
+    },
+    "l22_cost_receipt": {
+      "path": "benchmarks/flashalign/receipts/linear-cost-qualification-v1.json",
+      "sha256": "c7fe59ecce22ef9377c23ade99e44682a759055e140ccf609c4619b219d5a036",
+      "audited_source_tree_sha256": "dc043f5fde4e4ebd40aa328e2b4702e94c2aae673ee6c923b4431fded33e2f89",
+      "result": "historical engineering cost pass; stale for the corrected source tree"
+    }
+  },
+  "baseline_validation": {
+    "command": "sbt -J-Xmx4G -batch 'reframe4s-flashalignJVM/testOnly reframe4s.flashalign.PatchLinearizationSuite' 'reframe4s-flashalignJS/testOnly reframe4s.flashalign.PatchLinearizationSuite'",
+    "result": "before L24 edits: 5 passed on JVM and 5 passed on Scala.js"
+  },
+  "claim_boundary": "This is a reproducibility anchor for continuing work in the existing dirty checkout. It is not a release, accuracy, cost, public-pipeline, or owner-isolation qualification. The opened L23 cohort may be reused only as development evidence; a new immutable confirmation court is required for admission."
+}

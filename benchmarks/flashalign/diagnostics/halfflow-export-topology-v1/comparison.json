@@ -1,0 +1,1600 @@
+{
+  "schema_version": "halfflow.export-topology-diagnosis.v1",
+  "optimized_residual_fields_identical": 24,
+  "original_sealed_raw_unchanged": true,
+  "baseline": {
+    "r19-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9320101009096133,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "8c1029f80d30652d2d070f0ac7291e620236efbebddb5d3a1c7b3b9a74fd5465",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9192020119517661,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "1fe63f28fc065434bfd4356c08615e87ace4fc126d4a105f850f2c5ceffeb72e",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.923912720297096,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "20d62124672f0ec6bc0a5e852241225f185f217d24f0b28d2013f717df26d0bd",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.894363587508609,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "915693b71a65dff5ee6b3a970a9a9fffee683eb386221faabab61d999feefb70",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.8816731368264344,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "3af3172d6d31b60298699b66feec31b0bfdc3e29f7b06a951ef0a11038214627",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.9484920545009892,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "1956783084ec95be09e0bced6414bbe5dc03f58979c39082f82d44e4db04da06",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.0006039805528837219,
+            "maximum_interior_vox": 0.00030199027644186097,
+            "all_maximum_mm": 0.16709679939157698,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0005971108866914732,
+            "maximum_interior_vox": 0.0002985554433457366,
+            "all_maximum_mm": 0.4104423517658738,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44717,5936,Some(0.011682232034820276),Some(0.40946476316954816),Some(0.005841116017410138),Some(0.20473238158477408)),InverseErrorSummary(44349,6304,Some(0.009640879569976203),Some(0.14957773153033554),Some(0.004820439784988102),Some(0.07478886576516777)))",
+        "rms_mm": 0.08801494818214677,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.49386208350160743,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "0e628b3f00e571518720befd5c923e069a8d6dba3ece6f816de037daa707eba9",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.6165541564287919,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "ed10049c04634181d7ccbee5a7a7700738e5280bab84be4356b2d88e32c5cee7",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.548842730153857,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "fc0cb9ce62be66e2725f1514c74cadd298e011469933e84fc0a2deeede743909",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.30365099595064504,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "8cb111e4b7518e6f14b474a73a796fd233b312086cf7f7db80c050866014ced2",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.38437880408754294,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "b452cd1d830da26156ef24de4d75471b8615c91ec1e2254e3a2433935b7cec7d",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.16437466046873875,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "d5fbd42f803be1744e509a705a2e6e9308a2cd03f63a531945af7be8b6482067",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.02950249814849178,
+            "maximum_interior_vox": 0.01475124907424589,
+            "all_maximum_mm": 1.7008533464882802,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.03326437358522713,
+            "maximum_interior_vox": 0.016632186792613565,
+            "all_maximum_mm": 2.722107414657466,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(47155,3498,Some(0.11233401084965232),Some(1.724493443206859),Some(0.05616700542482616),Some(0.8622467216034295)),InverseErrorSummary(46504,4149,Some(0.10539325497997921),Some(1.6337318425570413),Some(0.05269662748998961),Some(0.8168659212785206)))",
+        "rms_mm": 0.5118064235451981,
+        "status": "success"
+      }
+    },
+    "r20-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9314423524104484,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "6bf1a36c40da220559f7fe2eac2f65e458e78cd506a9a2e7c937421d1656c20f",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9137923400954203,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "c63179b25a60b57d27ba78a0979e92762e6d95d8b2854925e1d6a1f07004f031",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.9339227300065518,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "439e8a5e3f3c62ebafc8cd6fba1a5286b91c3d3d86e75d53f6da002ffb2c0a33",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.9142369896494396,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "6a200fe3a128f9ccd00630dbcded4fed22687071213cb37ec8050502dec4106f",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.8980702878223789,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "b21c1f82cf46702f2e5abdd0ac792a425d2eb1d22282d9c63260b1dbe75d218d",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.878782596681424,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "16070433b7e39a257049ed27b20936bef66e58635778596ae8a02d59bb110111",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.0005686573790154062,
+            "maximum_interior_vox": 0.0002843286895077031,
+            "all_maximum_mm": 0.24802113120123898,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0005777492658636158,
+            "maximum_interior_vox": 0.0002888746329318079,
+            "all_maximum_mm": 0.3762900863396025,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44707,5946,Some(0.012911092136937027),Some(0.2774619456108007),Some(0.006455546068468513),Some(0.13873097280540034)),InverseErrorSummary(44390,6263,Some(0.010374933035030306),Some(0.13266117354913304),Some(0.005187466517515153),Some(0.06633058677456652)))",
+        "rms_mm": 0.0826732749331758,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.5870954315480509,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "3cceff8f9eb12daa01d235b3e33c9c8a31df7aaed20ecdcd7edd8fb1f01cce07",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.4073771589746517,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "7697f0dc005a3328ab346cfe94c4dcccb5e2331d352b36731d8f6db74242d4e7",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.12507712468145743,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "ddd4391a440f00a41bb380a033ab9e37dfef735c1ad7b44e11effe76d8ce8cfd",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.28750106333711944,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "53e577fb04bdd89bbac1c71439f59bac11b5a780a057f85613575df1ac79779b",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.09630491549560186,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "3ace43ae1c4b924832140291a918e531ffd17f987f08b14227daf2db4ebf390d",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.19331329254993634,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "7a6e75446e9d12c2cb879abd164c8a0a54e64964896caecbd74e43f01958e348",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.03823266489221475,
+            "maximum_interior_vox": 0.019116332446107377,
+            "all_maximum_mm": 3.455673171685694,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.03468499454952093,
+            "maximum_interior_vox": 0.017342497274760466,
+            "all_maximum_mm": 1.7388146879747302,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(47195,3458,Some(0.12443181558512241),Some(1.8662321741546002),Some(0.062215907792561205),Some(0.9331160870773001)),InverseErrorSummary(46261,4392,Some(0.13039957768436503),Some(1.516852175658139),Some(0.06519978884218251),Some(0.7584260878290695)))",
+        "rms_mm": 0.5689471753479075,
+        "status": "success"
+      }
+    },
+    "r21-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9076306687478785,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "5a50358f0828cce0160fd268d46027c43010ba8846e729954402f28770686d2c",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9287026938721705,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "064068109c7a922d441bdda88dc80d3d7fc9cb6a4c74ed17b24cb0dde38e1707",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.9327190639058491,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "212674f98b79f000689b8379353ac416c9bc2c4747fd38876614a8e2725ddeb6",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.8584932249430849,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "abc8eeae809b8a5f5376bb23f9802f3198c6ec1005a2f909eeff2e1a2eb5a53a",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.9059249305267392,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "867a5c80a3d7a0467fb6794e9deb847796e7571d3166e990e77e1fe306a282e4",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.8781883107064177,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "2f99782fc3af8b4bc57aa02e0f9ccb7577793f40e383d2079f1ed28a1209e3ee",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.00048117342076951233,
+            "maximum_interior_vox": 0.00024058671038475616,
+            "all_maximum_mm": 0.1568346908642285,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0004834684950996383,
+            "maximum_interior_vox": 0.00024173424754981914,
+            "all_maximum_mm": 0.48461988740028683,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44729,5924,Some(0.009713486848950808),Some(0.1540068736509357),Some(0.004856743424475404),Some(0.07700343682546786)),InverseErrorSummary(44407,6246,Some(0.008346853261828567),Some(0.17736900416818022),Some(0.0041734266309142835),Some(0.08868450208409011)))",
+        "rms_mm": 0.08106070787113219,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.4755844430460091,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "31025b49a3e7f070b06a5528beeb2367645ecb2cca48a589126b6a82be2d4cae",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.5941709980319427,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "e667cc7a86396b8812199cdb89edd237186c3d76c9b0541e239fefba5bce2d1a",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.4633217542117099,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "837f0151738796926bb509773c4ada860652df845e7177d2edd02e4c8a50cccd",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.5224496654349713,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "ba8df1857e512fb6d435385142a0248ae49741f24490986f0d0ae83490f66742",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.3381976155832251,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "ee58fec53fd57f0ca57436b0471442471593988126257f59f5515bcf21e4dd28",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.23653346989236876,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "0bdee7da00b87a2988c5a2df107cbc591b3cb39a522707f55784f8cd73855a7e",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.033031396622977965,
+            "maximum_interior_vox": 0.016515698311488983,
+            "all_maximum_mm": 1.2974028022000135,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.03149143357836991,
+            "maximum_interior_vox": 0.015745716789184953,
+            "all_maximum_mm": 2.0433700482999453,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(47599,3054,Some(0.12112474815269125),Some(1.860368326756905),Some(0.060562374076345626),Some(0.9301841633784526)),InverseErrorSummary(46231,4422,Some(0.09619461995429326),Some(1.130256096026837),Some(0.04809730997714663),Some(0.5651280480134185)))",
+        "rms_mm": 0.558624057414189,
+        "status": "success"
+      }
+    },
+    "r22-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9424749573537369,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "a1be9b5e828003db0eabf6092f446453bbfe2495e7bfdd9863fe187211017fd2",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9314667932762731,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "9cb51d8f81ba7243c07b7f36029664fd9cf392a424dafd2f48ee98a2a2a5e2eb",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.9332910782512547,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "7e23a247da2e0f4cf4e91f3aee6aedbe6b461abf2d49d0dab8c11eb6283dc89c",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.9395181230574109,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "c3aef3fdc49c90a4c71fcc2c0ef5c4bbf9168e936c399c713125a26c0e1e9a3c",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.903981516483164,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "00983d18d754861d3321107f70b601f3c7bf0498e85de6404394d520ef3d1bda",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.9146749530282863,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "796163455e6731ae328ba2b9f18f3b4271ea27e7c70125e6acd2f36abef8c130",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.0002839310038367597,
+            "maximum_interior_vox": 0.00014196550191837985,
+            "all_maximum_mm": 0.2644911008857968,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0002789674701759203,
+            "maximum_interior_vox": 0.00013948373508796015,
+            "all_maximum_mm": 0.2598650986823095,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44674,5979,Some(0.011773983757019744),Some(0.21298055512517652),Some(0.005886991878509872),Some(0.10649027756258826)),InverseErrorSummary(44387,6266,Some(0.010894794821046605),Some(0.14416351290074508),Some(0.0054473974105233025),Some(0.07208175645037254)))",
+        "rms_mm": 0.06675689979398328,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.619072262387135,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "4e537c06ae25f06ea4e5148963298851cdd2cbd0fc0810fa86c59eecc18be66d",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.3827880224513473,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "e7a61f63228f610650c2ac75f3cfe9a9604ea0756820e69c91b685472cc3ccb8",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.13620739066152307,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "a8c1ee0db9ab4466d933f598b896fe3f7a6f50dbd6cb730b2f4015c4fc3fd680",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.32108723489808316,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "8a813a159bd9da9fb50aff8a576cdccf76387f31d0c8ad4f866b8540c53e1a6b",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.056424591754212154,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "5bbd46d890248dbecabfadcd28d3189cf288f30d5c36c298e30b9786dda9cb46",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.2414210466466827,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "0c6ff9fef4318f20da4a11db1da6b10b5ab1b3e881bf83af949f60915b7f72bc",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.07131035668945855,
+            "maximum_interior_vox": 0.035655178344729276,
+            "all_maximum_mm": 3.3339182897935533,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.06881769391032215,
+            "maximum_interior_vox": 0.034408846955161075,
+            "all_maximum_mm": 1.898014211105396,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(47159,3494,Some(0.14792181646170477),Some(2.0080477957006),Some(0.07396090823085238),Some(1.0040238978503)),InverseErrorSummary(46348,4305,Some(0.14066097130752797),Some(1.6416990691637476),Some(0.07033048565376399),Some(0.8208495345818738)))",
+        "rms_mm": 0.6130669275357331,
+        "status": "success"
+      }
+    },
+    "r23-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9123884412472048,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "e8b31092987e700e9d8b357d5d082ae8425bb3e2bf05ac3d822d66587095c46d",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9166693590905738,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "06018b03c115cd1a4ecdab8e51dcb1379dee6dddddfdb49b814e18ddc36c615b",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.9076242608355446,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "480d3aace5c1de32526a8b4e3714551274f6a6493d18002ca7a7091a5cd2a2a5",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.8645459175565544,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "9b5a12f2e36bb60c6da931b0e6cefc2fe1a117d8229af8e945ea7877fb963aea",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.9133959162956807,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "9046579214aba7003ded57dad544b046a71e30e9f53e70744d30696408985e53",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.933307127036306,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "2d61c6e05f788bd4d600e8779050abd240eb60547210b21c2546f58b628badf9",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.0005548413117325052,
+            "maximum_interior_vox": 0.0002774206558662526,
+            "all_maximum_mm": 0.3214088565715096,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0005586854249432156,
+            "maximum_interior_vox": 0.0002793427124716078,
+            "all_maximum_mm": 0.39479049831198604,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44676,5977,Some(0.01083754583099114),Some(0.24158145880041607),Some(0.00541877291549557),Some(0.12079072940020803)),InverseErrorSummary(44396,6257,Some(0.009913974909278969),Some(0.1416863707975521),Some(0.004956987454639484),Some(0.07084318539877606)))",
+        "rms_mm": 0.07827560177551662,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.44444886220088353,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "dd88b5c797c9721bca8e4677d670a1c22c8942520b244d20270c12d8d375f0d1",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.5340842637184565,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "0140daa1dea372911ecd1da49f94405030056647278e8b225ce524a21d51f746",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.247927027780454,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "96832ae435211232305b218235843c40dc5fed9b6fe79de4bbff27a6df338b4e",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": -0.005241662196326227,
+            "nonpositive": 1,
+            "evaluated": 42875,
+            "field_sha256": "7518f3b7bd62a1fbdc90d55830d26c9b59e04907b42b9b9a0c86071b504b631e",
+            "nonpositive_locations": "(35,7,11):-0.005241662196326227"
+          },
+          "endpoint-forward": {
+            "minimum": 0.11897787034187474,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "7544ee6f30f9f067c6c9c08626cc504cc0f009e72b8ced3d460be3e1119e3846",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": -0.009701797990098529,
+            "nonpositive": 2,
+            "evaluated": 42875,
+            "field_sha256": "a4c187f9f622fb2f4c73257a64464fdf25304f07a589ef5cb85babe48633e372",
+            "nonpositive_locations": "(35,7,11):-0.009701797990098529,(35,5,13):-0.004938177509465774"
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.035848911695273315,
+            "maximum_interior_vox": 0.017924455847636658,
+            "all_maximum_mm": 2.5768335289276534,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.03512144447671706,
+            "maximum_interior_vox": 0.01756072223835853,
+            "all_maximum_mm": 2.6556517661064585,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(46925,3728,Some(0.12688638363130933),Some(1.5955044507117373),Some(0.06344319181565466),Some(0.7977522253558686)),InverseErrorSummary(46666,3987,Some(0.18220385242490558),Some(2.274541436879414),Some(0.09110192621245279),Some(1.137270718439707)))",
+        "rms_mm": null,
+        "status": "inverse-failure"
+      }
+    },
+    "r24-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9371469171790634,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "a737d84813e8ab2797287436fb80375b5ae5d9503bfc568fa331a3c0e1606ef7",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9254270502909626,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "f74b3784ac14c3368ba7da89baf373573d2b458de4cd7c99a35694bdeb0c1028",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.9016235297454974,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "2ca732cb8f7693139268c421b603f0d87e6ef21ff9b1cce08b66951aa99d7524",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.9387295968575481,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "e66275ff5a87636f114b37fac41131d4a35c89a848ea0a81c0f3bfce726507f1",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.8883778598436425,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "a4b83575c9afc74983201386746c62d28b311ec1920e91e616f0ac5ea6b7a4b0",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.9150507393308269,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "bc4392930bec143ddb2e9e616a0a43f9b705d61409c26d678cb40de55d2aa286",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.0007600953395491628,
+            "maximum_interior_vox": 0.0003800476697745814,
+            "all_maximum_mm": 0.29115913740193844,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0007424175828898552,
+            "maximum_interior_vox": 0.0003712087914449276,
+            "all_maximum_mm": 0.2982876101317636,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44636,6017,Some(0.011551175622751072),Some(0.1891172926860789),Some(0.005775587811375536),Some(0.09455864634303945)),InverseErrorSummary(44333,6320,Some(0.011617767080132131),Some(0.13064517232942058),Some(0.005808883540066066),Some(0.06532258616471029)))",
+        "rms_mm": 0.07915126794606664,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.6123036032942829,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "014656807f2e9a09089b7cd890ca8ebd576a31508fed1e1c379e3492a27625dd",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.2893693109490843,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "ddd4747edf5253dec1232521e9e93d3024966dad00bbcb176635a7883ba9695f",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": -0.29643833290087546,
+            "nonpositive": 22,
+            "evaluated": 42875,
+            "field_sha256": "5e62b9e9f1c3e767e9bbfa5599f1fc4034cd24179b69790eb82741b4375a52af",
+            "nonpositive_locations": "(35,3,25):-0.027881271510898503,(35,3,26):-0.18278315242557347,(35,2,28):-0.061172892100279395,(35,4,28):-0.030064951418375292,(35,2,29):-0.08018744091012978,(35,5,29):-0.1011178670556852,(35,3,30):-0.16074389909411946,(35,4,30):-0.12185937967165371,(35,5,30):-0.2751603387073365,(34,5,31):-0.007762406922949388,(35,5,31):-0.1315847892325349,(35,8,31):-0.02338890387045481,(35,3,32):-0.037521278172258005,(35,4,32):-0.053782406765944264,(35,8,32):-0.29643833290087546,(35,9,32):-0.004102313974082366,(35,2,33):-0.17818942708973645,(34,3,33):-0.021824392422421138,(35,7,33):-0.07576966175505451,(35,8,33):-0.27295846295472487,(35,4,34):-0.07323181954487766,(35,8,34):-0.0855900676991215"
+          },
+          "moving-inverse": {
+            "minimum": -0.5446848446743626,
+            "nonpositive": 8,
+            "evaluated": 42875,
+            "field_sha256": "2609ac13941ac892b606701bbfbb5742b2275b231e3d514b066cd582b0a76d7f",
+            "nonpositive_locations": "(25,1,32):-0.19194312737247615,(26,1,32):-0.3792040558761791,(24,1,33):-0.06724175075513528,(27,1,33):-0.1946457239336022,(25,1,34):-0.19823581490405118,(28,1,34):-0.3103988176009601,(29,1,35):-0.026505019755362083,(32,1,35):-0.5446848446743626"
+          },
+          "endpoint-forward": {
+            "minimum": -0.21644602254370682,
+            "nonpositive": 29,
+            "evaluated": 42875,
+            "field_sha256": "229e592eeceb2af58d9de5b32c4e7bfa0b87592d98e2bb821ccaee6e7feae218",
+            "nonpositive_locations": "(35,3,26):-0.10960657084930903,(35,2,28):-0.0683882747815495,(35,4,28):-0.028923991716792156,(35,2,29):-0.0830801753611986,(34,3,29):-0.02775990576964538,(35,5,29):-0.06243570598252301,(35,3,30):-0.1541220231459115,(35,4,30):-0.1204411047029198,(35,5,30):-0.20874405468962087,(35,6,30):-0.004954764630899614,(34,5,31):-0.0038892230785209326,(35,5,31):-0.1243325913584062,(35,7,31):-0.020079697990208086,(35,8,31):-0.016852080786830023,(35,3,32):-0.022493033456438383,(35,4,32):-0.038178806327006494,(35,6,32):-0.026616532597044128,(35,8,32):-0.21644602254370682,(35,9,32):-0.005784260073789375,(35,2,33):-0.18591033020539988,(34,3,33):-0.057959620109579696,(35,3,33):-0.0038087700360145025,(35,7,33):-0.10204628879603202,(35,8,33):-0.19217941716394546,(35,2,34):-0.00691232428636677,(35,4,34):-0.0880831393384837,(34,5,34):-0.018913269854824097,(35,8,34):-0.05603272451155365,(35,2,35):-0.004878871534342242"
+          },
+          "endpoint-backward": {
+            "minimum": -0.44970571808381327,
+            "nonpositive": 8,
+            "evaluated": 42875,
+            "field_sha256": "edb4f3170882e7df91c67ce10293c383caa7546e551c257d12351b1fd77139d1",
+            "nonpositive_locations": "(25,1,32):-0.11321139217446674,(26,1,32):-0.23097680460614087,(24,1,33):-0.03741166405344385,(27,1,33):-0.12087494035887722,(25,1,34):-0.11405867864120034,(28,1,34):-0.19653959979633304,(29,1,35):-0.05154392664845263,(32,1,35):-0.44970571808381327"
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.0437881067429321,
+            "maximum_interior_vox": 0.02189405337146605,
+            "all_maximum_mm": 5.012991451169667,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.060772038146314294,
+            "maximum_interior_vox": 0.030386019073157147,
+            "all_maximum_mm": 5.042581917914488,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(47706,2947,Some(0.2598678004346261),Some(3.5149299122296607),Some(0.12993390021731305),Some(1.7574649561148303)),InverseErrorSummary(45939,4714,Some(0.174831443565667),Some(2.916616269598793),Some(0.0874157217828335),Some(1.4583081347993965)))",
+        "rms_mm": null,
+        "status": "inverse-failure"
+      }
+    }
+  },
+  "current": {
+    "r19-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9320101009096133,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "8c1029f80d30652d2d070f0ac7291e620236efbebddb5d3a1c7b3b9a74fd5465",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9192020119517661,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "1fe63f28fc065434bfd4356c08615e87ace4fc126d4a105f850f2c5ceffeb72e",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.9424112914842283,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "48ad3330f5c180a856409cfda6b087249bef259caafbecb75fa9eb163fae4c67",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.9669765713570249,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "a50c337d61dc149b5636d86e03ee09c4b79acde0a56b24a9f467455de90cde52",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.8843848901072585,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "996237b4689fca3b798b1ae0557e9d7dc4db0fe809927e2acf3413eb786b0e88",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.921384259362404,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "c7b73bc486be5028999f357004cf18470d30f7c5f5276e0a25abc893eb3bb6e1",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.0006039805528837219,
+            "maximum_interior_vox": 0.00030199027644186097,
+            "all_maximum_mm": 0.026859078128314662,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0005971108866914732,
+            "maximum_interior_vox": 0.0002985554433457366,
+            "all_maximum_mm": 0.016502020233814852,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44726,5927,Some(0.005843131131543761),Some(0.0995657544693771),Some(0.0029215655657718804),Some(0.04978287723468855)),InverseErrorSummary(44337,6316,Some(0.0057189556314479984),Some(0.08936639395275789),Some(0.0028594778157239992),Some(0.044683196976378944)))",
+        "rms_mm": 0.08801494818214677,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.49386208350160743,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "0e628b3f00e571518720befd5c923e069a8d6dba3ece6f816de037daa707eba9",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.6165541564287919,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "ed10049c04634181d7ccbee5a7a7700738e5280bab84be4356b2d88e32c5cee7",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.607286730949787,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "cad72a6d32ca54c2d21f231edfaf9a4596fd1da1b8c7d4f17e42bbe709bad812",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.3997183164917347,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "78e141e1b2fc146faa968e2d7e6b0848b15cbfb01bcf8c9f3e17a51c7226f27c",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.394387306838924,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "f01abdd40c63ff7c6cc13705a03925c54d488e400493580a0f78e0d3a5f6eed0",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.21113983106924356,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "6e715bbc85f3383508e4cb0cfe4c9f1054510b0608700f86539666d9bdc1abb0",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.029502498829921814,
+            "maximum_interior_vox": 0.014751249414960907,
+            "all_maximum_mm": 2.6318045598486504,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.03326436535136748,
+            "maximum_interior_vox": 0.01663218267568374,
+            "all_maximum_mm": 0.7600974064045124,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(46987,3666,Some(0.07042031356526293),Some(0.6510303668918468),Some(0.035210156782631466),Some(0.3255151834459234)),InverseErrorSummary(46342,4311,Some(0.0734807475426035),Some(2.1991837932927476),Some(0.03674037377130175),Some(1.0995918966463738)))",
+        "rms_mm": 0.5118064235451989,
+        "status": "success"
+      }
+    },
+    "r20-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9314423524104484,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "6bf1a36c40da220559f7fe2eac2f65e458e78cd506a9a2e7c937421d1656c20f",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9137923400954203,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "c63179b25a60b57d27ba78a0979e92762e6d95d8b2854925e1d6a1f07004f031",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.9443863820575276,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "475f6bd86c459cd7f55c3f5fd03f833686ac694e3bfd894eb7aca9ed15d5215c",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.9512992144808122,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "2f7400acdb77b86e121c3370342c38a9681da3e2c3e7038b80a0d9e104d8b5c1",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.9001359024005762,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "6e9c382ce325c055345cdf901ee2d4cafcca00059b8824398201a5245a89e197",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.9144667022715759,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "e72858b4ee5c7a4e47a90cc6b4ad4440201ab6ccc1084d41a619c66b0e3cc228",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.0005686553398140531,
+            "maximum_interior_vox": 0.00028432766990702657,
+            "all_maximum_mm": 0.03626318241643931,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0005777494760430682,
+            "maximum_interior_vox": 0.0002888747380215341,
+            "all_maximum_mm": 0.03024585598586644,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44719,5934,Some(0.006560672380041631),Some(0.1140442111106288),Some(0.0032803361900208155),Some(0.0570221055553144)),InverseErrorSummary(44378,6275,Some(0.006385491822566393),Some(0.08654445911032206),Some(0.0031927459112831963),Some(0.04327222955516103)))",
+        "rms_mm": 0.0826732749331758,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.5870954315480509,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "3cceff8f9eb12daa01d235b3e33c9c8a31df7aaed20ecdcd7edd8fb1f01cce07",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.4073771589746517,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "7697f0dc005a3328ab346cfe94c4dcccb5e2331d352b36731d8f6db74242d4e7",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.5436531789596772,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "79b9b62d9cf47ad7d661323f33054c7a28f8e3dc003ae2a025050f73ba9678da",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.5502138223985528,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "82e0d20b988ef9cc04df6c4834a5fb85f683eccd20be9043d20991abb35428e1",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.22176515649155423,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "e1e752dd2a4c1d6a08460a9a1eccb3ad0daf8fa03227952ca0400cb79e4ea308",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.35830603453377574,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "3bbbfcbdd87382d621ad896ef890755d2ec92a6b6cb6b4fc6972687c3500c260",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.03823266493200657,
+            "maximum_interior_vox": 0.019116332466003284,
+            "all_maximum_mm": 0.3635953663500524,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.034684994608026716,
+            "maximum_interior_vox": 0.017342497304013358,
+            "all_maximum_mm": 3.200648372903787,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(47134,3519,Some(0.10237760920812568),Some(2.302651695047004),Some(0.05118880460406284),Some(1.151325847523502)),InverseErrorSummary(46218,4435,Some(0.09904638142119032),Some(1.0543585638332476),Some(0.04952319071059516),Some(0.5271792819166238)))",
+        "rms_mm": 0.5689471753479065,
+        "status": "success"
+      }
+    },
+    "r21-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9076306687478785,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "5a50358f0828cce0160fd268d46027c43010ba8846e729954402f28770686d2c",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9287026938721705,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "064068109c7a922d441bdda88dc80d3d7fc9cb6a4c74ed17b24cb0dde38e1707",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.9339568672339871,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "d5f4543aa46c42bc134e118c5a96c0b2d8982af5f62b2f145c6e0c38d4142a89",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.9393471147443403,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "d33725b65e9b5a48bff08239874bc2abb3f90a8069d0082fea158b8148e05eed",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.9069261096617198,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "e5a5910d7ba5d894488fbf2badf219cc5d622e178a6de358e1d4e2d7bff59d91",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.9400659431279231,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "2475094a1aa670b60375a8f2dfe1c76abecff5d1ab35c43d444f8d99eb6d0094",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.00048117342076951233,
+            "maximum_interior_vox": 0.00024058671038475616,
+            "all_maximum_mm": 0.08729643075029743,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0004834684950996383,
+            "maximum_interior_vox": 0.00024173424754981914,
+            "all_maximum_mm": 0.02114058268377147,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44732,5921,Some(0.0059806605193382795),Some(0.08209806268060421),Some(0.0029903302596691397),Some(0.041049031340302106)),InverseErrorSummary(44401,6252,Some(0.005955022259873018),Some(0.07528716389849456),Some(0.002977511129936509),Some(0.03764358194924728)))",
+        "rms_mm": 0.08106070787113219,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.4755844430460091,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "31025b49a3e7f070b06a5528beeb2367645ecb2cca48a589126b6a82be2d4cae",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.5941709980319427,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "e667cc7a86396b8812199cdb89edd237186c3d76c9b0541e239fefba5bce2d1a",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.6150576078135878,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "5e41bec4a7233836c6fcd2fc4a61c376aa72a744474efc5a6415f1d9c788da62",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.5357606479357352,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "3e24b8f6c59314e146144097b1acf5e12d3cc76ab61c00e9a5a5b4948d23f2a1",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.4006353252784714,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "f2c4a8be3ab04cf40da7bdc4e7656aebd4be52e343e978410decfbde02ef0631",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.24959880129882636,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "b9888e7c2c7de21d73d28955ea588cc067c570e1d813ca555874f33d6b8d8861",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.03303139662317215,
+            "maximum_interior_vox": 0.016515698311586075,
+            "all_maximum_mm": 0.5043777062884347,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.031491419310370944,
+            "maximum_interior_vox": 0.015745709655185472,
+            "all_maximum_mm": 1.0202707421208552,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(47381,3272,Some(0.07884463043723465),Some(0.9005920948731845),Some(0.039422315218617325),Some(0.45029604743659224)),InverseErrorSummary(45958,4695,Some(0.07722355787864497),Some(0.7674444248710048),Some(0.03861177893932249),Some(0.3837222124355024)))",
+        "rms_mm": 0.5586240574141896,
+        "status": "success"
+      }
+    },
+    "r22-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9424749573537369,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "a1be9b5e828003db0eabf6092f446453bbfe2495e7bfdd9863fe187211017fd2",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9314667932762731,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "9cb51d8f81ba7243c07b7f36029664fd9cf392a424dafd2f48ee98a2a2a5e2eb",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.9371742381153578,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "edf3535ac895ccbfbde4c4a24a8e969c0c41beb5bd23dab57bad492e26ce9fb2",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.9433743096043941,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "94c969ea9035cf0a61ef3356b0e1ed8f90e4042b031171b8056976e000cc3daa",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.9057518958214122,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "d41f35b05512a88e39214e96bf4d0a7eb7ce09e88c41832c88b1caa5a60219fc",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.9223116547689064,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "b086dece6aeb82314ceefddfc37691b3d36c35fd6e5c65d509af18d7c5b723f9",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.0002839310038367597,
+            "maximum_interior_vox": 0.00014196550191837985,
+            "all_maximum_mm": 0.02524913779615572,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0002789674701759203,
+            "maximum_interior_vox": 0.00013948373508796015,
+            "all_maximum_mm": 0.019420352584157224,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44675,5978,Some(0.006321313154858562),Some(0.08075905112781102),Some(0.003160656577429281),Some(0.04037952556390551)),InverseErrorSummary(44374,6279,Some(0.006471965511328778),Some(0.08767365537401273),Some(0.003235982755664389),Some(0.04383682768700636)))",
+        "rms_mm": 0.06675689979398328,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.619072262387135,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "4e537c06ae25f06ea4e5148963298851cdd2cbd0fc0810fa86c59eecc18be66d",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.3827880224513473,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "e7a61f63228f610650c2ac75f3cfe9a9604ea0756820e69c91b685472cc3ccb8",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.5271485686697417,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "27fc20cc6f5fe6dbea69f066afd0516911814d432522c9ef11d36071d65d2133",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.5606140764557221,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "4043236ab7e63d810b4ce0f5837cac44874e4d9c97d98c8521d6cdd75024ad96",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.19057314835529776,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "032afea170edd796cfc56373249265a8876e0e2a3dcf13e6f932d0571647b99c",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.36512614679119554,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "00dfd7ac122b44a741a5ca394ef0e628b8f5ed9c14d83c9ff9504f3db42c7ad2",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.07131035669282854,
+            "maximum_interior_vox": 0.03565517834641427,
+            "all_maximum_mm": 1.1801964502379554,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.06881769391172314,
+            "maximum_interior_vox": 0.03440884695586157,
+            "all_maximum_mm": 3.49787072866794,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(47058,3595,Some(0.11411116054818485),Some(2.58403477889133),Some(0.057055580274092424),Some(1.292017389445665)),InverseErrorSummary(46253,4400,Some(0.1073508547573214),Some(1.2311671657506031),Some(0.0536754273786607),Some(0.6155835828753016)))",
+        "rms_mm": 0.6130669275357338,
+        "status": "success"
+      }
+    },
+    "r23-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9123884412472048,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "e8b31092987e700e9d8b357d5d082ae8425bb3e2bf05ac3d822d66587095c46d",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9166693590905738,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "06018b03c115cd1a4ecdab8e51dcb1379dee6dddddfdb49b814e18ddc36c615b",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.9116710946965847,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "6e91b3fb858aabe2446984e77b6e74327ccc6f5085ee6dd90958b4e5183f344a",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.8723437102135779,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "12e8cf641e1164f64242727ead4c63a98139a5fc8cbeaa6f3f1844cada6614c1",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.9135626532288025,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "f446d20c9efadca14ba195ed0e94378657473f2e002eb98449a4f830933b881f",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.8382445800459914,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "8a3d2f5f45c041c050643d6a10a6beead67f8ef26b73893d0de6f8203ef329dc",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.0005548413117325052,
+            "maximum_interior_vox": 0.0002774206558662526,
+            "all_maximum_mm": 0.055206927240496285,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0005586854249432156,
+            "maximum_interior_vox": 0.0002793427124716078,
+            "all_maximum_mm": 0.06807670941693016,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44669,5984,Some(0.007334384288897109),Some(0.08701526682136096),Some(0.0036671921444485544),Some(0.04350763341068048)),InverseErrorSummary(44395,6258,Some(0.007551453653944493),Some(0.1501034545692487),Some(0.0037757268269722464),Some(0.07505172728462435)))",
+        "rms_mm": 0.07827560177551662,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.44444886220088353,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "dd88b5c797c9721bca8e4677d670a1c22c8942520b244d20270c12d8d375f0d1",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.5340842637184565,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "0140daa1dea372911ecd1da49f94405030056647278e8b225ce524a21d51f746",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.5629827468523902,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "fc912571503bdfc97f066ac417c0abf3b59de23117e3ec59db09656f9ae4f245",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.37162968283885384,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "fb4ac8067cae3f0da2c8e29f95f3b01e2f2532433579450314bae00e06024179",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.3815601468455547,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "ce113ba3be32566f45ad97bc16278a9924f807cd7cad9bfbbec0d70ef1d9c452",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.1513987565663113,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "5937e3d5b660cbc1786dab8cd385c290f78bfb2a5e9cec16fd919bbd20734808",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.03584891169560977,
+            "maximum_interior_vox": 0.017924455847804884,
+            "all_maximum_mm": 2.9608641581480497,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.03512143943717169,
+            "maximum_interior_vox": 0.017560719718585846,
+            "all_maximum_mm": 0.9646791483678558,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(46747,3906,Some(0.08372178048992028),Some(0.8378752786511772),Some(0.04186089024496014),Some(0.4189376393255886)),InverseErrorSummary(46351,4302,Some(0.12420491599489303),Some(2.5627583704094516),Some(0.062102457997446514),Some(1.2813791852047258)))",
+        "rms_mm": 0.5627197352839621,
+        "status": "success"
+      }
+    },
+    "r24-exact-core-affine": {
+      "C5": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.9371469171790634,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "a737d84813e8ab2797287436fb80375b5ae5d9503bfc568fa331a3c0e1606ef7",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.9254270502909626,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "f74b3784ac14c3368ba7da89baf373573d2b458de4cd7c99a35694bdeb0c1028",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.9376250241310494,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "2842930705493aed920403a4c02a166b07929a1aa795f8ad522648234c4849f9",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.9451814095815776,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "376faef1b52947ec54b247343ecb5a6b69997c0ca28a2ecba2f059908cdd9c76",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.8912792805278855,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "f1c00a7868ebe62342db71b1bb8a0abac954b0cb343e9c7f6db10f387d131813",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.8693644079343894,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "0f191e48755fbf51b78e7b654aa8a08b96107eb9d1c81253494287421c6453f4",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.0007600953395491628,
+            "maximum_interior_vox": 0.0003800476697745814,
+            "all_maximum_mm": 0.04380917297262243,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.0007424175828898552,
+            "maximum_interior_vox": 0.0003712087914449276,
+            "all_maximum_mm": 0.028136043450438353,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(44633,6020,Some(0.006828066519295916),Some(0.1160704339835382),Some(0.003414033259647958),Some(0.0580352169917691)),InverseErrorSummary(44318,6335,Some(0.006992840302071555),Some(0.08199421628447694),Some(0.0034964201510357773),Some(0.04099710814223847)))",
+        "rms_mm": 0.07915126794606664,
+        "status": "success"
+      },
+      "C4": {
+        "topology": {
+          "fixed-arm": {
+            "minimum": 0.6123036032942829,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "014656807f2e9a09089b7cd890ca8ebd576a31508fed1e1c379e3492a27625dd",
+            "nonpositive_locations": ""
+          },
+          "moving-arm": {
+            "minimum": 0.2893693109490843,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "ddd4747edf5253dec1232521e9e93d3024966dad00bbcb176635a7883ba9695f",
+            "nonpositive_locations": ""
+          },
+          "fixed-inverse": {
+            "minimum": 0.14586975059588422,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "a43695f47a7cb30820df47fac8aa2fbcf7566e0cb29901de094f02cf876b2abf",
+            "nonpositive_locations": ""
+          },
+          "moving-inverse": {
+            "minimum": 0.10435684284069072,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "c5400107fe0ea3b0882646aa2ecaecc3f944ded052399dab58c733eaf15292fa",
+            "nonpositive_locations": ""
+          },
+          "endpoint-forward": {
+            "minimum": 0.05472098800752714,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "2f549f740ee0353177a306c763de1908f91148a370d9ce1dcf3aa3346cea67e8",
+            "nonpositive_locations": ""
+          },
+          "endpoint-backward": {
+            "minimum": 0.05820496371527159,
+            "nonpositive": 0,
+            "evaluated": 42875,
+            "field_sha256": "a36cc2a0c93f61373b8f54866a3e820c465464a781f77918bf74bf1809ef8683",
+            "nonpositive_locations": ""
+          }
+        },
+        "inverse": {
+          "fixed": {
+            "maximum_interior_mm": 0.04378810639359324,
+            "maximum_interior_vox": 0.02189405319679662,
+            "all_maximum_mm": 3.4179991315706726,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          },
+          "moving": {
+            "maximum_interior_mm": 0.06077203879961972,
+            "maximum_interior_vox": 0.03038601939980986,
+            "all_maximum_mm": 8.086229814794342,
+            "forward_valid_fraction": 1.0,
+            "backward_valid_fraction": 1.0
+          }
+        },
+        "endpoint_round_trip": "InversePairSummary(InverseErrorSummary(47261,3392,Some(0.16637561676440119),Some(4.653884879417581),Some(0.08318780838220059),Some(2.3269424397087906)),InverseErrorSummary(45818,4835,Some(0.13831893964837388),Some(4.627191334401186),Some(0.06915946982418694),Some(2.313595667200593)))",
+        "rms_mm": 0.7681757398889864,
+        "status": "success"
+      }
+    }
+  },
+  "validation": {
+    "jvm_passed": 64,
+    "scalajs_passed": 64,
+    "failed": 0,
+    "log_sha256": "d8dd9ca355519953c09058f4457f1a8d7d137f66211e20f18787d32adfdf3304"
+  },
+  "remaining_boundary_accuracy_issue": "bd-01M2EG25H20DR7CXNHK22ZF4VE"
+}

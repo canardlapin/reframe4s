@@ -1,0 +1,125 @@
+{
+  "accuracy_gates": {
+    "capture_range": {
+      "maximum_landmark_rms_mm": 0.25,
+      "required_successes_per_model": 6
+    },
+    "denominator_policy": "Every row exactly once; any non-success receives 100 mm adjudicated error.",
+    "exact_core": {
+      "maximum_landmark_rms_mm": 0.1,
+      "required_successes_per_model": 6
+    },
+    "nonlinear_contrast": "descriptive only",
+    "partial_slab": {
+      "maximum_landmark_rms_mm": 0.25,
+      "required_successes_per_model": 6
+    }
+  },
+  "candidate": {
+    "artifact_graph_sha256": "2f6be731383dd87370c7186b2d10291c6ae158ecc57b14e5e0a00dc0e4077b47",
+    "build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "flashalign_source_tree_bytes": 1276351,
+    "flashalign_source_tree_files": 73,
+    "flashalign_source_tree_sha256": "5c9dab979c6037eba6c8193813dae1644cf55af2e12dc452b178ce8bbee6d11b",
+    "implementation": "Pack eight real left correlation fields into four complex forward FFTs and four Hermitian output spectra into two complex inverse FFTs; retain the same nine weighted correlation terms.",
+    "implementation_prd_sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929",
+    "initialization": "CoherentHeaderWorldIdentityThenCapture",
+    "multiscale_source_tree_bytes": 67488,
+    "multiscale_source_tree_files": 6,
+    "multiscale_source_tree_sha256": "e61ec09607857757e428e863caca0371f3bad8e38917aee5ea4e074404509bb5",
+    "preset": "WithinModality",
+    "public_entry_point": "Flashalign.rigid/affine followed by plan.run(workspace)",
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "resample_source_tree_bytes": 106084,
+    "resample_source_tree_files": 10,
+    "resample_source_tree_sha256": "252b9f431839d933d4442c14f8b7f58bfe784d88812199cd45574eb7d4a9db92",
+    "spectral_source_tree_bytes": 56084,
+    "spectral_source_tree_files": 4,
+    "spectral_source_tree_sha256": "a0b096882a3cff82e44446bb23b7fb615c80291b67c23b097a7ed193a3ad98e9",
+    "threads": 1,
+    "tree_hash_contract": "SHA-256 over every non-target regular file below the named repository path, sorted by repository-relative path, with each UTF-8 path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "worktree_state": "uncommitted multi-owner working tree"
+  },
+  "candidate_executed_before_seal": false,
+  "claim_boundary": "This is an unopened analytic-synthetic seal. It contains no Flashalign result and makes no accuracy, latency, MRI, clinical, release, or cross-method claim.",
+  "construction": {
+    "descriptive_rows": 12,
+    "exact_rows": 36,
+    "fixed_images": "Six new independent analytic phantoms r07-r12, stored as float32 NIfTI on a 2 mm grid.",
+    "independence": "The v3 generator imports no Reframe4s code and did not execute Flashalign. Subject image parameters are distinct from the exposed v2 court; transform cohorts retain the sealed release ranges.",
+    "interpolant_exact_rows": "Moving voxels come from an independent standard-library trilinear sampler over stored fixed voxels at declared moving-to-fixed truth, then intensity = 80 + 1.17 * fixedSample.",
+    "nonlinear_contrast_boundary": "Signed-square-root intensity mapping; descriptive only and excluded from exact-recovery admission."
+  },
+  "cost_evidence_requirement": {
+    "affine_desirable_total_ms": 2000.0,
+    "ordinary_rows": "exact-core rigid and affine, six rows each",
+    "rigid_desirable_total_ms": 1000.0,
+    "scope": "read, decompression, preparation including fixed-spectrum preparation, capture, refinement, audit, and final output"
+  },
+  "execution_policy": {
+    "candidate_has_not_seen_fixtures": true,
+    "next_step": "Execute once, preserve all rows, and adjudicate accuracy and cost without tuning.",
+    "no_candidate_aware_tuning_after_seal": true,
+    "permitted_post_seal_changes": "Evidence-integrity fixes only, with disclosed reseal and no candidate, fixture, transform, threshold, or adjudication change."
+  },
+  "fixtures": {
+    "case_count": 48,
+    "case_table": {
+      "path": "benchmarks/flashalign/fixtures/linear-automatic-release-confirmation-v3.cases.tsv",
+      "sha256": "2e689da5069a68e38a429f704dab15ba2a37fa7c23e5ae8874c48503c1b53cd8"
+    },
+    "cohorts": [
+      "exact-core",
+      "capture-range",
+      "partial-slab",
+      "nonlinear-contrast"
+    ],
+    "descriptor": {
+      "path": "benchmarks/flashalign/fixtures/linear-automatic-release-confirmation-v3.json",
+      "sha256": "c8757bd27f76da0ff9947dbe68204836636bf531c72db24f87c63a8ab193622e"
+    },
+    "generator": {
+      "path": "benchmarks/flashalign/fixtures/generate_linear_automatic_release_confirmation_v3.py",
+      "sha256": "23b6b938f5aa7e426fb59c20cc1ce4790e12ebb630164691a4a77b2a8a465992"
+    },
+    "image_tree": {
+      "bytes": 7275858,
+      "files": 54,
+      "path": "benchmarks/flashalign/fixtures/linear-automatic-release-confirmation-v3",
+      "sha256": "e307ba2bf37dd03e494b51b24d9a9a02ad812a08620d24b641263b7791a82ea6"
+    },
+    "input_binding": "Every table row carries expected moving and fixed hashes; the runner rejects mismatch before execution.",
+    "models": [
+      "rigid",
+      "affine"
+    ],
+    "rows_per_cohort_and_model": 6,
+    "subjects": 6
+  },
+  "manifest_id": "flashalign-linear-automatic-release-confirmation-v3",
+  "mote_task": "bd-01M2DZHXDE77HX947X8EV6PJ44",
+  "preexecution_oracle": {
+    "all_passed": true,
+    "exact_rows": 36,
+    "maximum_points_per_case": 4096,
+    "minimum_observed_perturbation_drop": 1.5267289430354047e-05,
+    "minimum_observed_truth_correlation": 0.9999999999999406,
+    "minimum_perturbation_drop": 1e-08,
+    "minimum_truth_correlation": 0.999999999,
+    "perturbations": "plus/minus 0.1 mm translations and 0.3 degree target-frame rotations; affine rows also include plus/minus 0.5 percent axis scales"
+  },
+  "runner": {
+    "candidate_mode": "automatic public run only; explicit sealed descriptor and table identities",
+    "output_stage": "Materialize one linear FlashalignOutput from the original moving image on the fixed grid and charge its complete interval.",
+    "path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/LinearAutomaticConfirmationCourt.scala",
+    "row_schema_version": "1.1.0",
+    "sha256": "8c4d8b2f38aa2dca19b1699b982e89530e144ec10451f21f5a6adb719781338e",
+    "suite_path": "benchmarks/flashalign/runner/src/test/scala/reframe4s/benchmark/flashalign/LinearAutomaticConfirmationCourtSuite.scala",
+    "suite_sha256": "656409e1527e33956d10ca50471775578dbd9f254205f8cef181648cc703198f",
+    "summarizer_path": "benchmarks/flashalign/summarize_linear_automatic_confirmation.py",
+    "summarizer_sha256": "6b5f81f9928b4a9d21feb5525b341c7abfcc97d3c2b0cf1fbf28f6a30a9256ce"
+  },
+  "schema_version": "flashalign.linear-automatic-release-confirmation-seal.v3",
+  "sealed_before_candidate_execution": "2026-09-13T18:29:45.487630Z",
+  "status": "sealed-unopened"
+}

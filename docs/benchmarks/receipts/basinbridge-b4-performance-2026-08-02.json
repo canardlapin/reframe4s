@@ -1,0 +1,161 @@
+{
+  "schema": "reframe4s-basinbridge-b4-performance-receipt-v1",
+  "status": "jvm-allocation-and-cross-platform-runtime-baseline-complete-process-envelope-qualified",
+  "capturedAtUtc": "2026-08-02",
+  "moteIssue": "sf-01ky5p210dbhc1st4vr73nyd5c",
+  "benchmark": {
+    "source": "benchmarks/halfflow-jvm/src/main/scala/reframe4s/halfflow/BasinBridgeBenchmark.scala",
+    "project": "halfflowBenchJVM",
+    "grid": [25, 25, 25],
+    "spacingMm": [1.0, 1.0, 1.0],
+    "fixture": "deterministic analytic same-grid 2 mm translation",
+    "jmhVersion": "1.37",
+    "javaVersion": "25.0.1",
+    "forks": 1,
+    "warmupIterations": 1,
+    "measurementIterations": 3,
+    "secondsPerIteration": 10,
+    "threads": 1
+  },
+  "setupOracle": {
+    "nativeBridge": "accepted",
+    "nativeRematch": "present",
+    "oracleBridge": "accepted",
+    "oraclePostMatchErrorMm": "less-than-1e-6"
+  },
+  "jvmGcProfile": {
+    "command": "sbt halfflowBenchJVM/Jmh/run -wi 1 -i 3 -f 1 -prof gc .*BasinBridgeBenchmark.*",
+    "nativeRound": {
+      "averageMsPerOp": 226.719,
+      "errorMsPerOp99_9": 14.227,
+      "allocationBytesPerOp": 135036265.719,
+      "allocationErrorBytesPerOp99_9": 64557.915,
+      "gcCountSum": 53.0,
+      "gcTimeMsSum": 35.0
+    },
+    "oracleRound": {
+      "averageMsPerOp": 198.493,
+      "errorMsPerOp99_9": 3.960,
+      "allocationBytesPerOp": 247486836.810,
+      "allocationErrorBytesPerOp99_9": 75958.642,
+      "gcCountSum": 108.0,
+      "gcTimeMsSum": 75.0
+    }
+  },
+ "jvmNoProfilerControl": {
+   "command": "sbt halfflowBenchJVM/Jmh/run -wi 1 -i 3 -f 1 .*BasinBridgeBenchmark.*",
+   "nativeAverageMsPerOp": 228.084,
+   "nativeErrorMsPerOp99_9": 2.986,
+   "oracleAverageMsPerOp": 197.904,
+   "oracleErrorMsPerOp99_9": 2.703
+ },
+  "crossPlatformProbe": {
+    "schema": "reframe4s-basinbridge-performance-probe-v1",
+    "grid": [25, 25, 25],
+    "warmups": 1,
+    "samples": 3,
+    "jvm": {
+      "command": "sbt \"reframe4s-halfflowJVM/Test/runMain reframe4s.halfflow.BasinBridgePerformanceProbe 25 1 3\"",
+      "platform": "OpenJDK 64-Bit Server VM 25.0.1 on Mac OS X aarch64",
+      "nativeRound": {
+        "medianNanos": 220549333,
+        "p95Nanos": 247160625,
+        "medianAllocatedBytes": 143965240,
+        "checksum": 21.00000000157036
+      },
+      "oracleRound": {
+        "medianNanos": 219089625,
+        "p95Nanos": 226827625,
+        "medianAllocatedBytes": 131966008,
+        "checksum": 21.00000000521376
+      }
+    },
+    "scalaJs": {
+      "command": "sbt \"project reframe4s-halfflowJS\" \"set Test / mainClass := Some(\\\"reframe4s.halfflow.BasinBridgePerformanceJsProbe\\\")\" \"set Test / scalaJSUseTestModuleInitializer := false\" \"set Test / scalaJSUseMainModuleInitializer := true\" \"Test/run\"",
+      "platform": "scalajs-node",
+      "nativeRound": {
+        "medianMillis": 1731,
+        "p95Millis": 1764,
+        "checksum": 21.00000000157036
+      },
+      "oracleRound": {
+        "medianMillis": 1619,
+        "p95Millis": 1629,
+        "checksum": 21.00000000521376
+      }
+    },
+    "interpretation": "The JVM probe adds per-thread allocation accounting; the Scala.js probe records runtime only. Checksums agree across platforms and native/oracle setup checks passed before sampling."
+  },
+  "verification": [
+   {
+     "command": "sbt halfflowBenchJVM/compile",
+     "status": "passed"
+   },
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/Test/compile\" \"reframe4s-halfflowJS/Test/compile\"",
+      "status": "passed",
+      "scope": "cross-platform performance probe compilation"
+    },
+   {
+     "command": "sbt halfflowBenchJVM/Jmh/run -wi 1 -i 3 -f 1 .*BasinBridgeBenchmark.*",
+     "status": "passed",
+     "scope": "JVM runtime baseline"
+   },
+   {
+     "command": "sbt halfflowBenchJVM/Jmh/run -wi 1 -i 3 -f 1 -prof gc .*BasinBridgeBenchmark.*",
+     "status": "passed",
+     "scope": "JVM allocation baseline"
+   },
+    {
+      "command": "sbt \"reframe4s-halfflowJVM/Test/runMain reframe4s.halfflow.BasinBridgePerformanceProbe 25 1 3\"",
+      "status": "passed",
+      "scope": "JVM cross-platform probe"
+    },
+    {
+      "command": "sbt \"project reframe4s-halfflowJS\" \"set Test / mainClass := Some(\\\"reframe4s.halfflow.BasinBridgePerformanceJsProbe\\\")\" \"set Test / scalaJSUseTestModuleInitializer := false\" \"set Test / scalaJSUseMainModuleInitializer := true\" \"Test/run\"",
+      "status": "passed",
+      "scope": "Scala.js/Node cross-platform probe"
+    },
+    {
+      "command": "/usr/bin/time -l sbt \"reframe4s-halfflowJVM/Test/runMain reframe4s.halfflow.BasinBridgePerformanceProbe 25 1 3\"",
+     "status": "passed",
+      "scope": "JVM process-level RSS envelope",
+     "maximumResidentSetSizeBytes": 1597718528
+   },
+    {
+      "command": "/usr/bin/time -l sbt \"project reframe4s-halfflowJS\" ... \"Test/run\"",
+     "status": "passed",
+      "scope": "Scala.js/Node process-level RSS envelope",
+      "maximumResidentSetSizeBytes": 1692876800,
+      "note": "The ellipsis abbreviates the two temporary initializer settings recorded in crossPlatformProbe.scalaJs.command."
+    },
+   {
+     "command": "python3 tools/registration/validate_basinbridge_b4_performance_receipt.py",
+     "status": "passed"
+   }
+ ],
+  "scalaJs": {
+    "runtime": "captured-in-cross-platform-probe",
+    "allocation": "not-instrumented"
+  },
+  "peakResidentMemory": {
+    "status": "process-envelope-captured",
+    "unit": "bytes",
+    "scope": "process envelope: maximum resident set size of the /usr/bin/time -l sbt invocation, including sbt project loading/linking and its child runtime",
+    "jvm": 1597718528,
+    "scalaJs": 1692876800
+  },
+  "decision": {
+    "status": "baseline-only",
+    "nativeVsOracle": "native block-search round is approximately 28.2 ms slower than the supplied-match round in the no-profiler control; this is a decomposition observation, not a superiority claim",
+    "accuracy": "delegated to basinbridge-b4-decomposition-2026-08-02.json",
+    "promotion": "not a promotion result"
+  },
+ "limitations": [
+   "One local JVM host and one 25^3 fixture are a guardrail baseline, not a scaling law.",
+   "JMH GC allocation-rate evidence is not peak resident memory.",
+    "The three-sample JVM probe is diagnostic and does not replace the longer JMH receipt; Scala.js timing uses millisecond Date.now measurements in Node and has no allocation instrumentation.",
+    "The recorded RSS values are process envelopes that include sbt setup/linking and are not method-level peak memory.",
+   "No ANTs parity, anatomical accuracy, or production performance claim is made."
+ ]
+}

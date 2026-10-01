@@ -1,0 +1,556 @@
+{
+  "all_declared_training_checks_pass": true,
+  "candidate_source": {
+    "kind": "explicit-reviewed-grid",
+    "script_defaults_automatically_adopted": false,
+    "statement": "The script evaluates the frozen candidates below. Values were reviewed against PRD constraints, component validators, training stress cases and work budgets; the generator does not rewrite product source."
+  },
+  "claim_boundary": "Does not establish MRI accuracy, clinical validity, external superiority or runtime targets.",
+  "decisions": [
+    "EPI-T1 retains a polarity mixture biased toward negative correlation; EPI-T2 retains a polarity mixture biased toward positive correlation; within-modality uses a strong but non-degenerate positive prior.",
+    "The robust scale and outlier floor retain a finite bounded invalid-patch cost and positive aligned-versus-displaced loss margin in every declared training cohort.",
+    "A uniform sampling component of at least 0.25 protects against transform-dependent information screening; optimization, selection and audit draws remain separate immutable roles.",
+    "Candidate populations remain in the PRD production range. Slab mode spends more samples and uses lower overlap and coverage gates because partial support is part of its declared use.",
+    "Capture schedules cover the declared training rotation envelope. Trust limits remain physical millimetre controls and damping does not enter the objective.",
+    "QC limits are gates on overlap, spatial coverage and data-only conditioning. Priors and damping cannot manufacture data information."
+  ],
+  "evidence_scope": "analytic-synthetic-training-only",
+  "frozen_presets": {
+    "epi-t1": {
+      "affine_trust": {
+        "acceptance_ratio": 0.1,
+        "condition_limit": 1000000000000.0,
+        "gradient_tolerance": 1e-07,
+        "initial_damping": 0.01,
+        "maximum_damping": 100000000.0,
+        "maximum_displacement_mm": 3.0,
+        "maximum_linearizations": 50,
+        "maximum_trial_attempts": 8,
+        "minimum_damping": 1e-08,
+        "objective_tolerance": 1e-08,
+        "step_tolerance_rms_mm": 1e-06,
+        "trust_radius_rms_mm": 1.5
+      },
+      "audit_draws": 2000,
+      "audit_fraction": 0.15,
+      "candidate_patches": 20000,
+      "capture_maximum_angle_degrees": 30.0,
+      "capture_maximum_retained_candidates": 4,
+      "capture_maximum_rotations": 256,
+      "capture_minimum_candidate_displacement_mm": 8.0,
+      "capture_minimum_candidates_to_stop": 2,
+      "capture_minimum_overlap_fraction": 0.2,
+      "capture_minimum_peak_separation_mm": 8.0,
+      "capture_minimum_structural_energy": 1e-10,
+      "capture_minimum_structural_score": 0.1,
+      "capture_peaks_per_rotation": 2,
+      "capture_seed_hex": "1475b8a31c9de620",
+      "capture_stages": [
+        [
+          15.0,
+          5.0
+        ],
+        [
+          30.0,
+          10.0
+        ]
+      ],
+      "correlation_rounding_tolerance": 1e-12,
+      "effective_resolution_mm": [
+        6.0,
+        3.0,
+        2.0
+      ],
+      "maximum_candidates_per_cell": 16,
+      "maximum_centers_to_screen": 120000,
+      "maximum_data_condition_number": 10000000000.0,
+      "maximum_regional_refit_displacement_mm": 3.0,
+      "minimum_contrast_energy": 1e-12,
+      "minimum_overlap_fraction": 0.3,
+      "minimum_patch_inlier_weight": 0.5,
+      "minimum_spatial_inlier_coverage": 0.25,
+      "near_equal_objective_tolerance": 0.001,
+      "optimization_draws": 4000,
+      "outlier_floor": 0.02,
+      "positive_polarity_prior": 0.15,
+      "rigid_trust": {
+        "acceptance_ratio": 0.1,
+        "condition_limit": 1000000000000.0,
+        "gradient_tolerance": 1e-07,
+        "initial_damping": 0.01,
+        "maximum_damping": 100000000.0,
+        "maximum_displacement_mm": 4.0,
+        "maximum_linearizations": 40,
+        "maximum_trial_attempts": 8,
+        "minimum_damping": 1e-08,
+        "objective_tolerance": 1e-08,
+        "step_tolerance_rms_mm": 1e-06,
+        "trust_radius_rms_mm": 2.0
+      },
+      "sampling_seed_hex": "4f1bbcdc6762c9d5",
+      "selection_draws": 2000,
+      "selection_fraction": 0.15,
+      "stencil_spacing_mm": [
+        6.0,
+        3.0,
+        2.0
+      ],
+      "tau": 0.55,
+      "uniform_probability_mixture": 0.3,
+      "world_cell_size_mm": 12.0
+    },
+    "epi-t2": {
+      "affine_trust": {
+        "acceptance_ratio": 0.1,
+        "condition_limit": 1000000000000.0,
+        "gradient_tolerance": 1e-07,
+        "initial_damping": 0.01,
+        "maximum_damping": 100000000.0,
+        "maximum_displacement_mm": 3.0,
+        "maximum_linearizations": 50,
+        "maximum_trial_attempts": 8,
+        "minimum_damping": 1e-08,
+        "objective_tolerance": 1e-08,
+        "step_tolerance_rms_mm": 1e-06,
+        "trust_radius_rms_mm": 1.5
+      },
+      "audit_draws": 2000,
+      "audit_fraction": 0.15,
+      "candidate_patches": 20000,
+      "capture_maximum_angle_degrees": 30.0,
+      "capture_maximum_retained_candidates": 4,
+      "capture_maximum_rotations": 256,
+      "capture_minimum_candidate_displacement_mm": 8.0,
+      "capture_minimum_candidates_to_stop": 2,
+      "capture_minimum_overlap_fraction": 0.2,
+      "capture_minimum_peak_separation_mm": 8.0,
+      "capture_minimum_structural_energy": 1e-10,
+      "capture_minimum_structural_score": 0.1,
+      "capture_peaks_per_rotation": 2,
+      "capture_seed_hex": "3a51cb90e74d826f",
+      "capture_stages": [
+        [
+          15.0,
+          5.0
+        ],
+        [
+          30.0,
+          10.0
+        ]
+      ],
+      "correlation_rounding_tolerance": 1e-12,
+      "effective_resolution_mm": [
+        6.0,
+        3.0,
+        2.0
+      ],
+      "maximum_candidates_per_cell": 16,
+      "maximum_centers_to_screen": 120000,
+      "maximum_data_condition_number": 10000000000.0,
+      "maximum_regional_refit_displacement_mm": 3.0,
+      "minimum_contrast_energy": 1e-12,
+      "minimum_overlap_fraction": 0.3,
+      "minimum_patch_inlier_weight": 0.5,
+      "minimum_spatial_inlier_coverage": 0.25,
+      "near_equal_objective_tolerance": 0.001,
+      "optimization_draws": 4000,
+      "outlier_floor": 0.02,
+      "positive_polarity_prior": 0.8,
+      "rigid_trust": {
+        "acceptance_ratio": 0.1,
+        "condition_limit": 1000000000000.0,
+        "gradient_tolerance": 1e-07,
+        "initial_damping": 0.01,
+        "maximum_damping": 100000000.0,
+        "maximum_displacement_mm": 4.0,
+        "maximum_linearizations": 40,
+        "maximum_trial_attempts": 8,
+        "minimum_damping": 1e-08,
+        "objective_tolerance": 1e-08,
+        "step_tolerance_rms_mm": 1e-06,
+        "trust_radius_rms_mm": 2.0
+      },
+      "sampling_seed_hex": "59d6e147b20ca83f",
+      "selection_draws": 2000,
+      "selection_fraction": 0.15,
+      "stencil_spacing_mm": [
+        6.0,
+        3.0,
+        2.0
+      ],
+      "tau": 0.55,
+      "uniform_probability_mixture": 0.3,
+      "world_cell_size_mm": 12.0
+    },
+    "slab-to-anatomy": {
+      "affine_trust": {
+        "acceptance_ratio": 0.1,
+        "condition_limit": 1000000000000.0,
+        "gradient_tolerance": 1e-07,
+        "initial_damping": 0.01,
+        "maximum_damping": 100000000.0,
+        "maximum_displacement_mm": 3.0,
+        "maximum_linearizations": 50,
+        "maximum_trial_attempts": 8,
+        "minimum_damping": 1e-08,
+        "objective_tolerance": 1e-08,
+        "step_tolerance_rms_mm": 1e-06,
+        "trust_radius_rms_mm": 1.5
+      },
+      "audit_draws": 2500,
+      "audit_fraction": 0.15,
+      "candidate_patches": 30000,
+      "capture_maximum_angle_degrees": 40.0,
+      "capture_maximum_retained_candidates": 4,
+      "capture_maximum_rotations": 384,
+      "capture_minimum_candidate_displacement_mm": 8.0,
+      "capture_minimum_candidates_to_stop": 2,
+      "capture_minimum_overlap_fraction": 0.15,
+      "capture_minimum_peak_separation_mm": 8.0,
+      "capture_minimum_structural_energy": 1e-10,
+      "capture_minimum_structural_score": 0.08,
+      "capture_peaks_per_rotation": 2,
+      "capture_seed_hex": "6e25c0a91f7b483d",
+      "capture_stages": [
+        [
+          20.0,
+          10.0
+        ],
+        [
+          40.0,
+          20.0
+        ]
+      ],
+      "correlation_rounding_tolerance": 1e-12,
+      "effective_resolution_mm": [
+        8.0,
+        4.0,
+        2.5
+      ],
+      "maximum_candidates_per_cell": 20,
+      "maximum_centers_to_screen": 180000,
+      "maximum_data_condition_number": 10000000000.0,
+      "maximum_regional_refit_displacement_mm": 4.0,
+      "minimum_contrast_energy": 1e-12,
+      "minimum_overlap_fraction": 0.2,
+      "minimum_patch_inlier_weight": 0.45,
+      "minimum_spatial_inlier_coverage": 0.15,
+      "near_equal_objective_tolerance": 0.002,
+      "optimization_draws": 6000,
+      "outlier_floor": 0.04,
+      "positive_polarity_prior": 0.15,
+      "rigid_trust": {
+        "acceptance_ratio": 0.1,
+        "condition_limit": 1000000000000.0,
+        "gradient_tolerance": 1e-07,
+        "initial_damping": 0.01,
+        "maximum_damping": 100000000.0,
+        "maximum_displacement_mm": 4.0,
+        "maximum_linearizations": 40,
+        "maximum_trial_attempts": 8,
+        "minimum_damping": 1e-08,
+        "objective_tolerance": 1e-08,
+        "step_tolerance_rms_mm": 1e-06,
+        "trust_radius_rms_mm": 2.0
+      },
+      "sampling_seed_hex": "73ad48e910bf265c",
+      "selection_draws": 2500,
+      "selection_fraction": 0.15,
+      "stencil_spacing_mm": [
+        8.0,
+        4.0,
+        2.5
+      ],
+      "tau": 0.65,
+      "uniform_probability_mixture": 0.4,
+      "world_cell_size_mm": 12.0
+    },
+    "within-modality": {
+      "affine_trust": {
+        "acceptance_ratio": 0.1,
+        "condition_limit": 1000000000000.0,
+        "gradient_tolerance": 1e-07,
+        "initial_damping": 0.01,
+        "maximum_damping": 100000000.0,
+        "maximum_displacement_mm": 3.0,
+        "maximum_linearizations": 50,
+        "maximum_trial_attempts": 8,
+        "minimum_damping": 1e-08,
+        "objective_tolerance": 1e-08,
+        "step_tolerance_rms_mm": 1e-06,
+        "trust_radius_rms_mm": 1.5
+      },
+      "audit_draws": 1500,
+      "audit_fraction": 0.15,
+      "candidate_patches": 15000,
+      "capture_maximum_angle_degrees": 30.0,
+      "capture_maximum_retained_candidates": 4,
+      "capture_maximum_rotations": 192,
+      "capture_minimum_candidate_displacement_mm": 8.0,
+      "capture_minimum_candidates_to_stop": 2,
+      "capture_minimum_overlap_fraction": 0.3,
+      "capture_minimum_peak_separation_mm": 8.0,
+      "capture_minimum_structural_energy": 1e-10,
+      "capture_minimum_structural_score": 0.15,
+      "capture_peaks_per_rotation": 2,
+      "capture_seed_hex": "527cd36e9810ab4f",
+      "capture_stages": [
+        [
+          10.0,
+          5.0
+        ],
+        [
+          30.0,
+          10.0
+        ]
+      ],
+      "correlation_rounding_tolerance": 1e-12,
+      "effective_resolution_mm": [
+        6.0,
+        3.0,
+        1.5
+      ],
+      "maximum_candidates_per_cell": 16,
+      "maximum_centers_to_screen": 90000,
+      "maximum_data_condition_number": 1000000000.0,
+      "maximum_regional_refit_displacement_mm": 2.0,
+      "minimum_contrast_energy": 1e-12,
+      "minimum_overlap_fraction": 0.4,
+      "minimum_patch_inlier_weight": 0.6,
+      "minimum_spatial_inlier_coverage": 0.35,
+      "near_equal_objective_tolerance": 0.0005,
+      "optimization_draws": 2500,
+      "outlier_floor": 0.01,
+      "positive_polarity_prior": 0.995,
+      "rigid_trust": {
+        "acceptance_ratio": 0.1,
+        "condition_limit": 1000000000000.0,
+        "gradient_tolerance": 1e-07,
+        "initial_damping": 0.01,
+        "maximum_damping": 100000000.0,
+        "maximum_displacement_mm": 4.0,
+        "maximum_linearizations": 40,
+        "maximum_trial_attempts": 8,
+        "minimum_damping": 1e-08,
+        "objective_tolerance": 1e-08,
+        "step_tolerance_rms_mm": 1e-06,
+        "trust_radius_rms_mm": 2.0
+      },
+      "sampling_seed_hex": "2c9277b5a6e41d03",
+      "selection_draws": 1500,
+      "selection_fraction": 0.15,
+      "stencil_spacing_mm": [
+        6.0,
+        3.0,
+        1.5
+      ],
+      "tau": 0.4,
+      "uniform_probability_mixture": 0.25,
+      "world_cell_size_mm": 12.0
+    }
+  },
+  "oracle_inputs": [
+    {
+      "path": "docs/plans/flashalign/nuisance_projected_registration_core.py",
+      "sha256": "5063f18ce98cfc923b97f31c4c5347bcd72a1ade5fbc5ad06dc76beb9bc029bd"
+    },
+    {
+      "path": "docs/plans/flashalign/flashalign_extension_checks.py",
+      "sha256": "7b6bbdbcce7fe2dac8a13d9efdb32af46a77218db60e1daa119a729af9d4f1b6"
+    },
+    {
+      "path": "docs/plans/flashalign/flashalign_extension_check_results.json",
+      "sha256": "bf730a8b16cd600c486fb0f9befeda38c93dd8e731da24964cf35e0fc9392074"
+    }
+  ],
+  "receipt_id": "flashalign-linear-preset-calibration-v1",
+  "sample_roles": {
+    "commitments": {
+      "audit": {
+        "status": "reserved-unopened-role",
+        "subject_ids": [
+          "fa-audit-01",
+          "fa-audit-02",
+          "fa-audit-03",
+          "fa-audit-04",
+          "fa-audit-05",
+          "fa-audit-06",
+          "fa-audit-07",
+          "fa-audit-08",
+          "fa-audit-09",
+          "fa-audit-10",
+          "fa-audit-11",
+          "fa-audit-12"
+        ],
+        "subject_ids_sha256": "82df2e5bd3b7f7d9b30b5ec3ac99a931ff338aee2c47f03e2feb987763fee524"
+      },
+      "selection": {
+        "status": "reserved-unopened-role",
+        "subject_ids": [
+          "fa-select-01",
+          "fa-select-02",
+          "fa-select-03",
+          "fa-select-04",
+          "fa-select-05",
+          "fa-select-06",
+          "fa-select-07",
+          "fa-select-08",
+          "fa-select-09",
+          "fa-select-10",
+          "fa-select-11",
+          "fa-select-12"
+        ],
+        "subject_ids_sha256": "d8991125c7969706014176cbcaafb022f559f9c235c18ee0ba18ba2aca5db870"
+      },
+      "test": {
+        "status": "reserved-unopened-role",
+        "subject_ids": [
+          "fa-test-01",
+          "fa-test-02",
+          "fa-test-03",
+          "fa-test-04",
+          "fa-test-05",
+          "fa-test-06",
+          "fa-test-07",
+          "fa-test-08",
+          "fa-test-09",
+          "fa-test-10",
+          "fa-test-11",
+          "fa-test-12"
+        ],
+        "subject_ids_sha256": "5106d1b426429e95dd0db8a2b01c81fff0da15cef975eac4adf3548d54eec80d"
+      },
+      "training": {
+        "status": "open-training-input",
+        "subject_ids": [
+          "fa-train-01",
+          "fa-train-02",
+          "fa-train-03",
+          "fa-train-04",
+          "fa-train-05",
+          "fa-train-06",
+          "fa-train-07",
+          "fa-train-08",
+          "fa-train-09",
+          "fa-train-10",
+          "fa-train-11",
+          "fa-train-12",
+          "fa-train-13",
+          "fa-train-14",
+          "fa-train-15",
+          "fa-train-16",
+          "fa-train-17",
+          "fa-train-18",
+          "fa-train-19",
+          "fa-train-20",
+          "fa-train-21",
+          "fa-train-22",
+          "fa-train-23",
+          "fa-train-24"
+        ],
+        "subject_ids_sha256": "aa869bdc23269af249ba3ebc5bd49ac03ce89f294aeb3ef6305918b7679a3adc"
+      }
+    },
+    "leakage_rule": "Only training observations are present. Selection, audit and test identities are committed but their future inputs and outcomes are absent; new immutable input manifests must bind those identities before use.",
+    "selection_audit_test_inputs_opened": false,
+    "subject_disjoint": true,
+    "unit": "synthetic-subject"
+  },
+  "schema_version": "1.0.0",
+  "status": "engineering-presets-frozen",
+  "training_fixture_sha256": "ecb3bbf393c07a3af8d272c42e14cd3ee5be19b4b84c6c0e5e686900da612d03",
+  "training_summary": {
+    "epi-t1": {
+      "capture_envelope_covered": true,
+      "checks": {
+        "capture_envelope": true,
+        "finite_bounded_outlier_cost": true,
+        "positive_loss_margin": true,
+        "production_candidate_budget": true,
+        "qc_accepts_ordinary": true,
+        "qc_flags_stress_case": true,
+        "sampling_uniform_component": true
+      },
+      "minimum_aligned_vs_displaced_loss_margin": 0.2413889931530674,
+      "minimum_mean_patch_inlier_weight": 0.838189082002144,
+      "minimum_spatial_inlier_coverage": 0.12,
+      "minimum_valid_overlap_fraction": 0.18,
+      "qc_accepted_by_cohort": {
+        "dropout-low-signal": 0,
+        "large-initialization": 2,
+        "ordinary": 2,
+        "partial-slab": 2
+      },
+      "training_subjects": 8
+    },
+    "epi-t2": {
+      "capture_envelope_covered": true,
+      "checks": {
+        "capture_envelope": true,
+        "finite_bounded_outlier_cost": true,
+        "positive_loss_margin": true,
+        "production_candidate_budget": true,
+        "qc_accepts_ordinary": true,
+        "qc_flags_stress_case": true,
+        "sampling_uniform_component": true
+      },
+      "minimum_aligned_vs_displaced_loss_margin": 0.25565943333007024,
+      "minimum_mean_patch_inlier_weight": 0.8376703939938737,
+      "minimum_spatial_inlier_coverage": 0.12,
+      "minimum_valid_overlap_fraction": 0.18,
+      "qc_accepted_by_cohort": {
+        "dropout-low-signal": 0,
+        "large-initialization": 2,
+        "ordinary": 2,
+        "partial-slab": 2
+      },
+      "training_subjects": 8
+    },
+    "slab-to-anatomy": {
+      "capture_envelope_covered": true,
+      "checks": {
+        "capture_envelope": true,
+        "finite_bounded_outlier_cost": true,
+        "positive_loss_margin": true,
+        "production_candidate_budget": true,
+        "qc_accepts_ordinary": true,
+        "qc_flags_stress_case": true,
+        "sampling_uniform_component": true
+      },
+      "minimum_aligned_vs_displaced_loss_margin": 0.23861252631405594,
+      "minimum_mean_patch_inlier_weight": 0.827641835242507,
+      "minimum_spatial_inlier_coverage": 0.12,
+      "minimum_valid_overlap_fraction": 0.18,
+      "qc_accepted_by_cohort": {
+        "dropout-low-signal": 0,
+        "large-initialization": 2,
+        "ordinary": 2,
+        "partial-slab": 2
+      },
+      "training_subjects": 8
+    },
+    "within-modality": {
+      "capture_envelope_covered": true,
+      "checks": {
+        "capture_envelope": true,
+        "finite_bounded_outlier_cost": true,
+        "positive_loss_margin": true,
+        "production_candidate_budget": true,
+        "qc_accepts_ordinary": true,
+        "qc_flags_stress_case": true,
+        "sampling_uniform_component": true
+      },
+      "minimum_aligned_vs_displaced_loss_margin": 0.1718539407705585,
+      "minimum_mean_patch_inlier_weight": 0.6795813429331538,
+      "minimum_spatial_inlier_coverage": 0.12,
+      "minimum_valid_overlap_fraction": 0.18,
+      "qc_accepted_by_cohort": {
+        "dropout-low-signal": 0,
+        "large-initialization": 2,
+        "ordinary": 2,
+        "partial-slab": 0
+      },
+      "training_subjects": 8
+    }
+  }
+}

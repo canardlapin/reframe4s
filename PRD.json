@@ -275,7 +275,9 @@
         "reframe4s-register",
         "reframe4s-multiscale",
         "reframe4s-motion",
-        "reframe4s-halfflow"
+        "reframe4s-halfflow",
+        "reframe4s-spectral",
+        "reframe4s-flashalign"
       ],
       "artifactBoundaries": [
         "reframe4s is a dependency-only stable runtime bundle and owns no competing symbols",
@@ -446,6 +448,14 @@
       },
       {
         "artifact": "reframe4s-halfflow",
+        "kind": "internal-experimental"
+      },
+      {
+        "artifact": "reframe4s-spectral",
+        "kind": "internal-experimental"
+      },
+      {
+        "artifact": "reframe4s-flashalign",
         "kind": "internal-experimental"
       },
       {
@@ -723,6 +733,46 @@
         "to": "reframe4s-flow"
       },
       {
+        "from": "reframe4s-flashalign",
+        "to": "reframe4s-core"
+      },
+      {
+        "from": "reframe4s-flashalign",
+        "to": "reframe4s-lie"
+      },
+      {
+        "from": "reframe4s-flashalign",
+        "to": "reframe4s-register"
+      },
+      {
+        "from": "reframe4s-flashalign",
+        "to": "reframe4s-resample"
+      },
+      {
+        "from": "reframe4s-flashalign",
+        "to": "reframe4s-multiscale"
+      },
+      {
+        "from": "reframe4s-flashalign",
+        "to": "reframe4s-spectral"
+      },
+      {
+        "from": "reframe4s-flashalign",
+        "to": "image4s-geometry"
+      },
+      {
+        "from": "reframe4s-flashalign",
+        "to": "image4s-core"
+      },
+      {
+        "from": "reframe4s-flashalign",
+        "to": "ravel-core"
+      },
+      {
+        "from": "reframe4s-flashalign",
+        "to": "gale-core"
+      },
+      {
         "from": "reframe4s",
         "to": "image4s-geometry"
       },
@@ -773,6 +823,10 @@
       {
         "from": "scalafim-image",
         "to": "image4s-nifti"
+      },
+      {
+        "from": "scalafim-image",
+        "to": "reframe4s-lie"
       },
       {
         "from": "scalafim-image",

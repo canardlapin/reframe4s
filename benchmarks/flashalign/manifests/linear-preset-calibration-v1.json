@@ -1,0 +1,42 @@
+{
+  "$schema": "../schemas/linear-preset-calibration-v1.schema.json",
+  "artifacts": {
+    "fixture": {
+      "path": "benchmarks/flashalign/fixtures/linear-preset-training-v1.json",
+      "sha256": "ecb3bbf393c07a3af8d272c42e14cd3ee5be19b4b84c6c0e5e686900da612d03"
+    },
+    "generator": {
+      "path": "benchmarks/flashalign/fixtures/generate_linear_preset_training.py",
+      "sha256": "a8530d6123591df0faf37f514b877d5b7218e0609a8b06bcc34dad4b78072b13"
+    },
+    "prd": {
+      "path": "docs/plans/flashalign-implementation-prd.md",
+      "sha256": "a66500fec106a0df0f6635bb81329f44cca0a031cab32958c6c370f2ca6fc929"
+    },
+    "preset_source": {
+      "path": "modules/reframe4s-flashalign/shared/src/main/scala/reframe4s/flashalign/LinearPreset.scala",
+      "sha256": "ca6e8ed664adea6a3a32f4856bd11c5ecb2c9155d0f877c35546de2bd942f6f8"
+    },
+    "receipt": {
+      "path": "benchmarks/flashalign/receipts/linear-preset-calibration-v1.json",
+      "sha256": "79c258b0da0a825650d57f74f95ecd69da17e3fa8bbd4145771f9708ea141dba"
+    }
+  },
+  "claim_boundary": "Synthetic engineering calibration only. External MRI qualification remains a separate sealed benchmark gate.",
+  "manifest_id": "flashalign-linear-preset-calibration-v1",
+  "roles": {
+    "all_roles_subject_disjoint": true,
+    "audit_subject_ids_sha256": "82df2e5bd3b7f7d9b30b5ec3ac99a931ff338aee2c47f03e2feb987763fee524",
+    "selection_subject_ids_sha256": "d8991125c7969706014176cbcaafb022f559f9c235c18ee0ba18ba2aca5db870",
+    "test_subject_ids_sha256": "5106d1b426429e95dd0db8a2b01c81fff0da15cef975eac4adf3548d54eec80d",
+    "training_subject_ids_sha256": "aa869bdc23269af249ba3ebc5bd49ac03ce89f294aeb3ef6305918b7679a3adc",
+    "unit": "synthetic-subject",
+    "unopened_roles": [
+      "selection",
+      "audit",
+      "test"
+    ]
+  },
+  "schema_version": "1.0.0",
+  "status": "training-frozen-holdouts-reserved"
+}

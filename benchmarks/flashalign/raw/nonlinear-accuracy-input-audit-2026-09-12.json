@@ -1,0 +1,102 @@
+{
+  "schema_version": "flashalign.nonlinear-accuracy-input-audit.v1",
+  "audit_id": "flashalign-nonlinear-accuracy-input-audit-2026-09-12",
+  "captured_at": "2026-09-12T23:58:14Z",
+  "candidate_source_tree_sha256": "6d00dde079a16e56455c7743f401d31f2340255cee29a0e40aa7cba7a236319b",
+  "search_contract": {
+    "extensions": [".nii", ".nii.gz", ".mgz", ".mgh", ".nrrd"],
+    "metadata_terms": ["fieldmap", "phasediff", "phase", "epi", "bold", "dwi", "landmark", "label", "segmentation"],
+    "roots": [
+      "/Users/bbuchsbaum/code/scala/reframe4s",
+      "/Users/bbuchsbaum/Downloads",
+      "/Users/bbuchsbaum/code/hodgeflow",
+      "/Users/bbuchsbaum/.cache/templateflow"
+    ]
+  },
+  "inventories": [
+    {
+      "root": "/Users/bbuchsbaum/code/scala/reframe4s",
+      "image_files": 36,
+      "finding": "All images are repository-authored linear analytic court fixtures. They contain rigid/affine truth only and are already development-open; they do not provide nonlinear PE truth, acquired-data labels, or a sealed nonlinear cohort.",
+      "admissible_runs": 0
+    },
+    {
+      "root": "/Users/bbuchsbaum/Downloads",
+      "image_files": 0,
+      "finding": "The supplied Flashalign Python scripts and numerical check JSON are algebra oracles, not MRI inputs. The previously documented IBSR archive is absent from Downloads.",
+      "admissible_runs": 0
+    },
+    {
+      "root": "/Users/bbuchsbaum/.cache/templateflow",
+      "image_files": 1,
+      "finding": "One MNI T1w template is present. A template alone supplies neither subject pairing nor independent deformation truth, labels, PE metadata, reverse-PE data, or fieldmap data.",
+      "admissible_runs": 0
+    },
+    {
+      "root": "/Users/bbuchsbaum/code/hodgeflow/data-raw",
+      "image_files": 74,
+      "finding": "The top-level assets are a small set of T1/template images and one single-subject BOLD example plus derived exploratory outputs. There are no BIDS sidecars, reverse-PE pairs, fieldmaps, independent PE landmarks, or a sealed subject-disjoint Flashalign cohort.",
+      "admissible_runs": 0
+    },
+    {
+      "root": "/Users/bbuchsbaum/code/hodgeflow/tmp",
+      "image_files": 3975,
+      "finding": "This is an explicitly dirty exploratory work area containing repeated derived outputs. Its IBSR18 subcourt has 18 labeled T1 subjects and nine disjoint pairs, but it was unblinded on 2026-09-08, is documented as one diagnostic cohort, and has already informed HodgeFlow assessment. It has no PE acquisition strata and cannot serve as an unopened multi-cohort Flashalign audit.",
+      "ibsr18": {
+        "subjects": 18,
+        "pairs": 9,
+        "labels_opened": true,
+        "existing_methods": ["shared affine", "HodgeFlow", "ANTs SyN"],
+        "existing_mean_macro_dice": {"shared_affine": 0.5644, "hodgeflow": 0.6483, "ants_syn": 0.7216},
+        "existing_mean_hd95_mm": {"shared_affine": 13.2243, "hodgeflow": 12.5759, "ants_syn": 11.9874},
+        "role_for_flashalign": "future development/comparison input only after a separately frozen adapter and manifest; not sealed nonlinear accuracy evidence"
+      },
+      "admissible_runs": 0
+    }
+  ],
+  "implementation_ingress_audit": {
+    "query": "Scala definitions extending PeProjectedPatchObjective3 or SmallStrainProjectedPatchObjective3",
+    "matches": [
+      "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/PeFieldOptimizerSuite.scala",
+      "modules/reframe4s-flashalign/shared/src/test/scala/reframe4s/flashalign/SmallStrainOptimizerSuite.scala"
+    ],
+    "production_or_benchmark_matches": 0,
+    "finding": "The optimizer and matrix-free kernels exist, but only synthetic test objectives currently connect image evidence to the nonlinear objective interfaces. The benchmark runner therefore has no frozen image-backed nonlinear fit lane to execute against acquired volumes."
+  },
+  "blockers": [
+    {
+      "code": "PE_EXTERNAL_COHORT_UNAVAILABLE",
+      "scope": "PE accuracy",
+      "detail": "No subject-disjoint EPI-to-anatomy cohort with PE direction, independent geometric evaluation, and the required ordinary, large-initialization, partial-slab and low-signal strata is present."
+    },
+    {
+      "code": "PE_ASSISTED_STRATA_UNAVAILABLE",
+      "scope": "reverse-PE and fieldmap claims",
+      "detail": "No reverse-PE common-domain or fieldmap-assisted data and metadata are present; these claims remain separate and unavailable."
+    },
+    {
+      "code": "ANATOMY_SEALED_MULTI_COHORT_UNAVAILABLE",
+      "scope": "small-strain anatomical accuracy",
+      "detail": "IBSR18 is a useful labeled development/comparison cohort, but it is already unblinded, contains one cohort and lacks the required failure-tail strata and independent untouched confirmation cohort."
+    },
+    {
+      "code": "IMAGE_BACKED_NONLINEAR_OBJECTIVE_UNAVAILABLE",
+      "scope": "Flashalign nonlinear execution",
+      "detail": "No production or benchmark implementation supplies acquired image values and gradients through the frozen projected-patch nonlinear objective interfaces."
+    }
+  ],
+  "execution": {
+    "declared_registration_rows": 0,
+    "executed_registration_rows": 0,
+    "missing_registration_rows": 0,
+    "accuracy_distributions": [],
+    "subject_level_intervals": [],
+    "decision": "reject-before-execution",
+    "reason": "Opening a nominal court with missing acquisition metadata, inadmissible evaluation roles, or no executable image objective would produce a different and scientifically invalid estimand."
+  },
+  "commands": [
+    "Python pathlib recursive extension and metadata inventory over the four declared roots",
+    "rg -n 'extends (SmallStrainProjectedPatchObjective3|PeProjectedPatchObjective3)|new (SmallStrainProjectedPatchObjective3|PeProjectedPatchObjective3)' modules/reframe4s-flashalign benchmarks/flashalign --glob '*.scala'",
+    "inspection of /Users/bbuchsbaum/code/hodgeflow/tmp/ibsr18-heldout/PLAN.md, cloud/ASSESSMENT.md, cloud/RESULTS.md and acquisition/input/preflight receipts"
+  ]
+}
