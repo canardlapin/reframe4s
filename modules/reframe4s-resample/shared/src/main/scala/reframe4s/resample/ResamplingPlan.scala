@@ -109,6 +109,11 @@ object ResamplingError:
     val message: String =
       s"cannot sample $requested points from coordinate lengths ($xCoordinates, $yCoordinates, $zCoordinates) into capacity $outputCapacity"
 
+  final case class DegenerateModulationAxis(axis: Int, extent: Int)
+      extends ResamplingError:
+    val message: String =
+      s"modulation needs at least two target samples on axis $axis, got $extent"
+
   case object WorkspaceInUse extends ResamplingError:
     val message: String =
       "a resampling workspace cannot be shared by concurrent executions"

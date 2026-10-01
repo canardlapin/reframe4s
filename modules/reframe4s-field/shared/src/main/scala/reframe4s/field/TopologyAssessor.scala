@@ -32,6 +32,16 @@ object TopologyAssessmentError:
       extends TopologyAssessmentError:
     val message: String = error.message
 
+  final case class DegenerateAxis(axis: Int, extent: Int)
+      extends TopologyAssessmentError:
+    val message: String =
+      s"finite differences need at least two samples on axis $axis, got $extent"
+
+  final case class LatticeTooLarge(shape: Vector[Int])
+      extends TopologyAssessmentError:
+    val message: String =
+      s"lattice ${shape.mkString("x")} exceeds the addressable array size"
+
   final case class NonFiniteJacobian(
       cell: Vector[Int],
       localSample: Vector[Double],
@@ -97,6 +107,85 @@ object TopologyAssessor:
         .left
         .map(TopologyAssessmentError.Evidence.apply)
     yield certificate
+
+  /** Jacobian determinants of `map` at every point of its own lattice.
+    *
+    * Derivatives of the sampled target coordinates use central differences
+    * in the interior and one-sided differences on the lattice boundary, then
+    * the chain rule through the grid's index-to-frame affine converts them
+    * to physical units: `det(dy/dx) = det(dy/di) / det(A)`.
+    */
+  def determinantField[
+      From <: Frame[D],
+      To <: Frame[D],
+      D <: Dim,
+      R <: AnyRank
+  ](
+      map: DenseMap[From, To, D, R],
+      direction: DeterminantDirection = DeterminantDirection.Pull
+  )(using dimension: Dimension[D])
+      : Either[TopologyAssessmentError, DeterminantField[From, D]] =
+    val shape = map.grid.shape
+    val rank = dimension.rank
+    shape.indices.find(axis => shape(axis) < 2) match
+      case Some(axis) =>
+        Left(TopologyAssessmentError.DegenerateAxis(axis, shape(axis)))
+      case None =>
+        val coordinates = new Array[Double](shape.product * rank)
+        var flat = 0
+        map.coordinates.data.foreachElement: value =>
+          coordinates(flat) = value
+          flat += 1
+        val basis = Array.tabulate(rank * rank) { entry =>
+          map.grid.indexToFrame.matrix(entry / rank, entry % rank)
+        }
+        val basisDeterminant = determinantOf(basis, rank)
+        val strides = new Array[Int](rank)
+        var stride = 1
+        var axis = rank - 1
+        while axis >= 0 do
+          strides(axis) = stride
+          stride *= shape(axis)
+          axis -= 1
+        val count = shape.product
+        val determinants = new Array[Double](count)
+        val derivative = new Array[Double](rank * rank)
+        val index = new Array[Int](rank)
+        var linear = 0
+        var failure = Option.empty[TopologyAssessmentError]
+        while linear < count && failure.isEmpty do
+          var column = 0
+          while column < rank do
+            val extent = shape(column)
+            val position = index(column)
+            val lower = if position == 0 then linear else linear - strides(column)
+            val upper =
+              if position == extent - 1 then linear
+              else linear + strides(column)
+            val step =
+              if position == 0 || position == extent - 1 then 1.0 else 2.0
+            var row = 0
+            while row < rank do
+              derivative(row * rank + column) =
+                (coordinates(upper * rank + row) -
+                  coordinates(lower * rank + row)) / step
+              row += 1
+            column += 1
+          val value = determinantOf(derivative, rank) / basisDeterminant
+          if !value.isFinite then
+            failure = Some(
+              TopologyAssessmentError.NonFiniteJacobian(
+                index.toVector,
+                Vector.fill(rank)(0.0),
+                value
+              )
+            )
+          else determinants(linear) = value
+          linear += 1
+          FieldComposition.advance(index, shape)
+        failure.toLeft(()).flatMap(_ =>
+          DeterminantField.create(map.grid, direction, determinants)
+        )
 
   private def evaluateCells[
       From <: Frame[D],

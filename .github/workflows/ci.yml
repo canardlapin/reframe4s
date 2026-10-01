@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: canardlapin/image4s
-          ref: ec56b34806c22e26c28ecbd366ef2e323195fc88
+          ref: 26a74ad99b9ee49a9555344e19b82d69a2ba50e4
           path: .ci/image4s
 
       - name: Check out immutable locus4s source
@@ -49,4 +49,4 @@ jobs:
           node scripts/verify-symbol-ownership.mjs
 
       - name: Compile and test JVM and Scala.js
-        run: sbt -J-Xmx4G -batch compileAll testAll
+        run: sbt -J-Xmx4G -batch root/compile root/test
