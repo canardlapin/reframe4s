@@ -36,6 +36,11 @@ iteration budgets, expected topology failures, and five-minute per-test timeout
 are preserved. A failure identifies the individual case instead of timing a
 whole matrix as one test.
 
+The small-strain optimizer suite also reports each fixed noise seed separately
+from the omitted-mode distribution. All three noise seeds and all three omitted
+mode amplitudes remain covered, including the comparison between the smallest
+and largest omitted-mode errors. Its default per-test timeout is unchanged.
+
 `reframe4sTestRunners` runs `flashalignBenchmarkJVM/test` and compiles
 `halfflowBenchJVM`. It does not run performance benchmarks or establish timing
 claims.

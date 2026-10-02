@@ -34,15 +34,19 @@ final class SmallStrainOptimizerSuite extends munit.FunSuite:
     assertEquals(result.work.imageGradientEvaluationsInKrylovProducts, 0L)
     assert(result.fieldSemantics.contains("not measured tissue mechanics"))
 
-  test("noise and omitted modes produce observable landmark-error distributions"):
-    val fixture = makeFixture("distribution", maximumGradient = 0.65)
-    val baseTruth = state(fixture, Vector(0.10, -0.07, 0.05, 0.06, -0.04, 0.03))
-    val initial = small(fixture.model.zeroState(fixture.pose))
-    val noiseErrors = Vector(3L, 11L, 29L).map { seed =>
+  Vector(3L, 11L, 29L).foreach: seed =>
+    test(s"noise seed $seed produces an observable landmark error"):
+      val fixture = makeFixture("distribution", maximumGradient = 0.65)
+      val baseTruth = state(fixture, Vector(0.10, -0.07, 0.05, 0.06, -0.04, 0.03))
+      val initial = small(fixture.model.zeroState(fixture.pose))
       val objective = new AnalyticAnatomicalObjective(fixture, baseTruth, noiseScale = 0.006, noiseSeed = seed)
       val result = optimizer(fixture, objective).fit(initial, fixture.pose)
-      mapRms(fixture, result.nonlinearState.getOrElse(initial), baseTruth)
-    }
+      val error = mapRms(fixture, result.nonlinearState.getOrElse(initial), baseTruth)
+      assert(error.isFinite && error >= 0.0)
+
+  test("omitted modes produce an observable landmark-error distribution"):
+    val fixture = makeFixture("distribution", maximumGradient = 0.65)
+    val initial = small(fixture.model.zeroState(fixture.pose))
     val outOfBasisErrors = Vector(0.18, 0.28, 0.38).map { scale =>
       val omitted = (x: Double, y: Double, z: Double) => Vector(
         0.2 * scale * math.sin(0.47 * x),
@@ -53,9 +57,7 @@ final class SmallStrainOptimizerSuite extends munit.FunSuite:
       val result = optimizer(fixture, objective).fit(initial, fixture.pose)
       outOfBasisRms(fixture, result.nonlinearState.getOrElse(initial), omitted)
     }
-    assertEquals(noiseErrors.length, 3)
     assertEquals(outOfBasisErrors.length, 3)
-    assert(noiseErrors.forall(value => value.isFinite && value >= 0.0))
     assert(outOfBasisErrors.forall(value => value.isFinite && value > 0.03))
     assert(outOfBasisErrors.last > outOfBasisErrors.head)
 
