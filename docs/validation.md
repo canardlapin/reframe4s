@@ -8,9 +8,9 @@ sbt -J-Xmx4G -batch reframe4sTestAll reframe4sTestRunners
 ```
 
 The build uses the immutable dependency revisions in `build.sbt`. The checked-in
-CI environment uses Java 22 and Node.js 22. Each test command compiles its module
-and dependencies before running tests; `root/compile` is also available for a
-compile-only check.
+CI environment uses Ubuntu 24.04, Java 22, and Node.js 22. Each test command
+compiles its module and dependencies before running tests; `root/compile` is
+also available for a compile-only check.
 
 ## Test scheduling
 
