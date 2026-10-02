@@ -44,20 +44,12 @@ final class SmallStrainOptimizerSuite extends munit.FunSuite:
       val error = mapRms(fixture, result.nonlinearState.getOrElse(initial), baseTruth)
       assert(error.isFinite && error >= 0.0)
 
-  test("omitted modes produce an observable landmark-error distribution"):
-    val fixture = makeFixture("distribution", maximumGradient = 0.65)
-    val initial = small(fixture.model.zeroState(fixture.pose))
-    val outOfBasisErrors = Vector(0.18, 0.28, 0.38).map { scale =>
-      val omitted = (x: Double, y: Double, z: Double) => Vector(
-        0.2 * scale * math.sin(0.47 * x),
-        scale * math.sin(0.63 * y) * math.cos(0.41 * z),
-        0.7 * scale * math.sin(0.51 * z)
-      )
-      val objective = new AnalyticAnatomicalObjective(fixture, initial, omittedDisplacement = omitted)
-      val result = optimizer(fixture, objective).fit(initial, fixture.pose)
-      outOfBasisRms(fixture, result.nonlinearState.getOrElse(initial), omitted)
-    }
-    assertEquals(outOfBasisErrors.length, 3)
+  test("the middle omitted-mode amplitude produces an observable landmark error"):
+    val error = omittedModeError(0.28)
+    assert(error.isFinite && error > 0.03)
+
+  test("larger omitted modes increase the landmark error between distribution endpoints"):
+    val outOfBasisErrors = Vector(0.18, 0.38).map(omittedModeError)
     assert(outOfBasisErrors.forall(value => value.isFinite && value > 0.03))
     assert(outOfBasisErrors.last > outOfBasisErrors.head)
 
@@ -87,6 +79,18 @@ final class SmallStrainOptimizerSuite extends munit.FunSuite:
     assertEquals(result.nonlinearState, None)
     assertEquals(result.validatedBaseFallback.operator.rowMajor, fixture.pose.operator.rowMajor)
     assert(!result.successfulNonlinearFit)
+
+  private def omittedModeError(scale: Double): Double =
+    val fixture = makeFixture("distribution", maximumGradient = 0.65)
+    val initial = small(fixture.model.zeroState(fixture.pose))
+    val omitted = (x: Double, y: Double, z: Double) => Vector(
+      0.2 * scale * math.sin(0.47 * x),
+      scale * math.sin(0.63 * y) * math.cos(0.41 * z),
+      0.7 * scale * math.sin(0.51 * z)
+    )
+    val objective = new AnalyticAnatomicalObjective(fixture, initial, omittedDisplacement = omitted)
+    val result = optimizer(fixture, objective).fit(initial, fixture.pose)
+    outOfBasisRms(fixture, result.nonlinearState.getOrElse(initial), omitted)
 
   private final case class Fixture[Moving <: Frame[D3], Fixed <: Frame[D3]](
       moving: Moving,
