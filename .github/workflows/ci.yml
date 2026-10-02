@@ -11,11 +11,15 @@ jobs:
   verify:
     name: Verify ${{ matrix.platform }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: ${{ matrix.timeout }}
     strategy:
       fail-fast: false
       matrix:
-        platform: [JVM, JS]
+        include:
+          - platform: JVM
+            timeout: 45
+          - platform: JS
+            timeout: 60
     steps:
       - name: Check out reframe4s
         uses: actions/checkout@v7.0.1

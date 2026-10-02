@@ -30,6 +30,11 @@ also avoid collisions with `testAll` and `compileAll` aliases in source
 dependencies. Use these commands for full validation; an aggregate `root/test`
 does not guarantee that different projects finish in sequence.
 
+The JVM CI job has a 45-minute wall-clock budget; Scala.js has 60 minutes for
+compilation, linking, and the full numerical suite. On a hosted runner the B4
+matrix alone took about 35 minutes while passing all cases, so a 45-minute job
+budget could stop the remaining suites. Individual test deadlines are unchanged.
+
 The BasinBridge B4 decomposition suite gives each native translation and each
 oracle translation/lane its own test result. The 2/4/8/12 mm fixtures, grid sizes,
 iteration budgets, expected topology failures, and five-minute per-test timeout
