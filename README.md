@@ -131,9 +131,12 @@ IMAGE4S_ROOT=/path/to/image4s LOCUS4S_ROOT=/path/to/locus4s \
   node scripts/verify-symbol-ownership.mjs
 ```
 
-Run the complete cross-platform suite with a heap large enough for concurrent
+Run the complete cross-platform suite sequentially, with enough heap for
 Scala.js linking:
 
 ```text
-sbt -J-Xmx4G -batch testAll
+sbt -J-Xmx4G -batch reframe4sTestAll reframe4sTestRunners
 ```
+
+See [validation](docs/validation.md) for platform-specific commands, tooling
+checks, and the boundary between regression tests and scientific qualification.

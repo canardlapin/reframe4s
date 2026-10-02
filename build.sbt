@@ -228,3 +228,20 @@ lazy val root =
 
 addCommandAlias("compileAll", ";root/compile")
 addCommandAlias("testAll", ";root/test")
+
+// Source dependencies also define generic aliases such as testAll. Repository-
+// specific names avoid that collision. Separate commands finish each module's
+// tests before starting the next, including asynchronous Scala.js runners.
+addCommandAlias(
+  "reframe4sTestJVM",
+  internalArtifactIds.map(id => s"${id}JVM/test").mkString(";", ";", "")
+)
+addCommandAlias(
+  "reframe4sTestJS",
+  internalArtifactIds.map(id => s"${id}JS/test").mkString(";", ";", "")
+)
+addCommandAlias("reframe4sTestAll", ";reframe4sTestJVM;reframe4sTestJS")
+addCommandAlias(
+  "reframe4sTestRunners",
+  ";flashalignBenchmarkJVM/test;halfflowBenchJVM/compile"
+)

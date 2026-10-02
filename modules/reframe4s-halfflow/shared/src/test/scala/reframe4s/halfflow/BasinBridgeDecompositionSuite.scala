@@ -97,8 +97,8 @@ class BasinBridgeDecompositionSuite extends munit.FunSuite:
     assertEqualsDouble(percentiles.p95Mm, 10.0, 0.0)
     assertEqualsDouble(percentiles.weightedMeanMm, 2.7, 1e-12)
 
-  test("native B4 lane captures the frozen 2/4/8/12 mm translation matrix"):
-    Vector(2.0, 4.0, 8.0, 12.0).foreach: shiftMm =>
+  Vector(2.0, 4.0, 8.0, 12.0).foreach: shiftMm =>
+    test(s"native B4 lane captures the frozen $shiftMm mm translation"):
       val grid = GridSpec.identity(Vector(49, 49, 49))
       val fixedFrame = Frame[Fixed](SpatialDomainId(s"matrix-fixed-$shiftMm"), grid)
       val movingFrame = Frame[Moving](SpatialDomainId(s"matrix-moving-$shiftMm"), grid)
@@ -253,38 +253,29 @@ class BasinBridgeDecompositionSuite extends munit.FunSuite:
     )
     assertEquals(bridgeAndFine.finalState, bridgeAndFine.bridge.state)
 
-  test("oracle B4 budget2x lane covers the complete 2/4/8/12 mm matrix"):
-    Vector(2.0, 4.0, 8.0, 12.0).foreach: shiftMm =>
-      val input = oracleCase(side = 49, shiftMm, s"oracle-matrix-$shiftMm")
-      val config = BasinBridgeDecompositionConfig(
-        wideRoundConfig(),
-        budget2xPlan(),
-        ForwardGeometryConfig(interiorMargin = 3)
-      )
-      val bridgeOnly = right(
-        BasinBridgeDecomposition.runCase(
-          input,
-          BasinBridgeDecompositionLane.OracleToBridge,
-          config
+  Vector(2.0, 4.0, 8.0, 12.0).foreach: shiftMm =>
+    Vector(
+      BasinBridgeDecompositionLane.OracleToBridge,
+      BasinBridgeDecompositionLane.OracleToBridgeToHalfFlow
+    ).foreach: lane =>
+      test(s"oracle B4 budget2x $lane covers the frozen $shiftMm mm translation"):
+        val input = oracleCase(side = 49, shiftMm, s"oracle-matrix-$shiftMm")
+        val config = BasinBridgeDecompositionConfig(
+          wideRoundConfig(),
+          budget2xPlan(),
+          ForwardGeometryConfig(interiorMargin = 3)
         )
-      )
-      val bridgeAndFine = right(
-        BasinBridgeDecomposition.runCase(
-          input,
-          BasinBridgeDecompositionLane.OracleToBridgeToHalfFlow,
-          config
+        val result = right(
+          BasinBridgeDecomposition.runCase(input, lane, config)
         )
-      )
-      assert(bridgeOnly.bridge.assimilation.accepted, s"oracle $shiftMm mm bridge rejected")
-      assert(bridgeOnly.fineFailure.isEmpty)
-      assert(bridgeAndFine.bridge.assimilation.accepted)
-      if shiftMm >= 8.0 then
-        assert(
-          bridgeAndFine.fineFailure.exists(_.isInstanceOf[HalfFlowCcError.RegriddedTopologyInvalid]),
-          s"oracle $shiftMm mm should retain a fine topology failure"
-        )
-      else
-        assert(bridgeAndFine.fineFailure.isEmpty, s"oracle $shiftMm mm fine failure: ${bridgeAndFine.fineFailure}")
+        assert(result.bridge.assimilation.accepted, s"oracle $shiftMm mm bridge rejected")
+        if lane == BasinBridgeDecompositionLane.OracleToBridgeToHalfFlow && shiftMm >= 8.0 then
+          assert(
+            result.fineFailure.exists(_.isInstanceOf[HalfFlowCcError.RegriddedTopologyInvalid]),
+            s"oracle $shiftMm mm should retain a fine topology failure"
+          )
+        else
+          assert(result.fineFailure.isEmpty, s"oracle $shiftMm mm fine failure: ${result.fineFailure}")
 
   private def correspondence(
       x: Double,

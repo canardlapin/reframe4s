@@ -9,8 +9,13 @@ permissions:
 
 jobs:
   verify:
+    name: Verify ${{ matrix.platform }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [JVM, JS]
     steps:
       - name: Check out reframe4s
         uses: actions/checkout@v4
@@ -39,7 +44,13 @@ jobs:
       - name: Set up sbt
         uses: sbt/setup-sbt@v1
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: Verify contracts and ownership
+        if: matrix.platform == 'JVM'
         env:
           IMAGE4S_ROOT: ${{ github.workspace }}/.ci/image4s
           LOCUS4S_ROOT: ${{ github.workspace }}/.ci/locus4s
@@ -47,6 +58,15 @@ jobs:
           node scripts/verify-prd.mjs
           node scripts/verify-build-graph.mjs
           node scripts/verify-symbol-ownership.mjs
+          python3 tools/registration/validate_real_world_registration_registry.py
 
-      - name: Compile and test JVM and Scala.js
-        run: sbt -J-Xmx4G -batch root/compile root/test
+      - name: Test validation tools
+        if: matrix.platform == 'JVM'
+        run: node --test scripts/*.test.mjs
+
+      - name: Compile and test ${{ matrix.platform }} modules sequentially
+        run: sbt -J-Xmx4G -batch reframe4sTest${{ matrix.platform }}
+
+      - name: Verify benchmark runners
+        if: matrix.platform == 'JVM'
+        run: sbt -J-Xmx4G -batch reframe4sTestRunners
