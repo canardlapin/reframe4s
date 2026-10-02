@@ -1,6 +1,88 @@
 package reframe4s.flashalign
 
 final class ProjectedPatchOptimizerSuite extends munit.FunSuite:
+  for early <- Vector(true, false) do
+    test(s"objective rejection contracts the physical trial step even at minimum damping (early=$early)"):
+      // Independent nonlinear least squares: F(x,y)=((x*x-1)^2+y*y)/2.
+      // At x=.1, its exact Gauss-Newton proposal overshoots; damping-only retries
+      // stay clipped to the same 1.5mm step. A .75mm step gives x=.85 and descends.
+      val data = new ProjectedPatchDataProblem[Vector[Double]]:
+        val parameterCount = 2
+        val optimizationObjectiveId = 1L
+        val selectionObjectiveId = 2L
+        private def value(s: Vector[Double]): Double =
+          val residual = s(0) * s(0) - 1.0
+          0.5 * (residual * residual + s(1) * s(1))
+        def linearize(s: Vector[Double], out: ProjectedPatchQuadraticBuffer)
+            : Either[ProjectedPatchOptimizerError, Unit] =
+          out.setObjective(value(s))
+          out.gradient(0) = 2.0 * s(0) * (s(0) * s(0) - 1.0)
+          out.gradient(1) = s(1)
+          out.setCurvature(0, 0, 4.0 * s(0) * s(0))
+          out.setCurvature(0, 1, 0.0)
+          out.setCurvature(1, 1, 1.0)
+          Right(())
+        def trialDataObjective(s: Vector[Double], limit: Double)
+            : Either[ProjectedPatchOptimizerError, ProjectedPatchTrialData] =
+          val objective = value(s)
+          Right(if early && objective > limit then ProjectedPatchTrialData.RejectedEarly(objective)
+            else ProjectedPatchTrialData.Complete(objective))
+        def selectionObjective(s: Vector[Double])
+            : Either[ProjectedPatchOptimizerError, ProjectedPatchSelection] =
+          Right(ProjectedPatchSelection(selectionObjectiveId, value(s)))
+      val prior = new QuadraticPrior(matrix(0.0, 0.0, 0.0, 0.0), Vector(0.0, 0.0))
+      val geometry = new VectorGeometry(matrix(1.0, 0.0, 0.0, 1.0))
+      val optimizer = compiled(data, prior, geometry, optimizerConfig(
+        maximumLinearizations = 1, maximumTrialAttempts = 8,
+        initialDamping = 1e-8, minimumDamping = 1e-8,
+        trustRadiusRms = 1.5, maximumDisplacement = 2.0,
+        objectiveTolerance = 0.0, gradientTolerance = 0.0, stepToleranceRms = 0.0
+      ))
+      val result = optimized(optimizer.optimize(Vector(0.1, 0.0), optimizer.newWorkspace()))
+      assertEquals(result.counters.acceptedSteps, 1)
+      assertEquals(result.counters.rejectedSteps, 1)
+      assertEquals(result.counters.linearSolverCalls, 2)
+      assertEquals(result.counters.trialEvaluations, 2)
+      assertEqualsDouble(result.lastValidState.head, 0.85, 1e-12)
+      val accepted = result.attempts.find(_.accepted).get
+      assertEqualsDouble(accepted.rmsStep, 0.75, 1e-12)
+      assert(accepted.actualReduction.get > 0.45)
+      assert(accepted.gainRatio.get >= optimizer.config.acceptanceRatio)
+
+  test("a small step caused by damping alone is not convergence"):
+    // Exact F(x,y) = (x*x + y*y)/2, one unit from its minimum.
+    // lambda=1e7 makes the proposed step tiny without making the state stationary.
+    val data = new QuadraticData(matrix(1.0, 0.0, 0.0, 1.0), Vector(0.0, 0.0))
+    val prior = new QuadraticPrior(matrix(0.0, 0.0, 0.0, 0.0), Vector(0.0, 0.0))
+    val geometry = new VectorGeometry(matrix(1.0, 0.0, 0.0, 1.0))
+    val optimizer = compiled(data, prior, geometry, optimizerConfig(
+      initialDamping = 1e7, maximumDamping = 1e8,
+      stepToleranceRms = 1e-6, gradientTolerance = 1e-9
+    ))
+    val result = optimized(optimizer.optimize(Vector(1.0, 0.0), optimizer.newWorkspace()))
+    assertEquals(result.termination, ProjectedPatchTermination.DampingLimited)
+    assert(!result.termination.converged)
+    assertEquals(result.lastValidState, Vector(1.0, 0.0))
+    assertEquals(result.counters.acceptedSteps, 0)
+    assertEquals(result.counters.linearSolverCalls, 2)
+    assertEquals(result.counters.dataLinearizations, 1)
+    assertEquals(result.counters.trialEvaluations, 0)
+
+  test("stationarity reached on the last allowed update is recognized"):
+    val data = new QuadraticData(matrix(1.0, 0.0, 0.0, 1.0), Vector(0.0, 0.0))
+    val prior = new QuadraticPrior(matrix(0.0, 0.0, 0.0, 0.0), Vector(0.0, 0.0))
+    val geometry = new VectorGeometry(matrix(1.0, 0.0, 0.0, 1.0))
+    val optimizer = compiled(data, prior, geometry, optimizerConfig(
+      maximumLinearizations = 1, initialDamping = 0.01,
+      gradientTolerance = 0.01, objectiveTolerance = 0.0,
+      stepToleranceRms = 1e-12, trustRadiusRms = 2.0, maximumDisplacement = 2.0
+    ))
+    val result = optimized(optimizer.optimize(Vector(1.0, 0.0), optimizer.newWorkspace()))
+    assertEqualsDouble(result.lastValidState.head, 1.0 / 101.0, 1e-14)
+    assertEquals(result.termination, ProjectedPatchTermination.GradientConverged)
+    assertEquals(result.counters.acceptedSteps, 1)
+    assertEquals(result.counters.dataLinearizations, 2)
+
   test("quadratic data and full prior converge with correct gradient signs"):
     val data = new QuadraticData(
       matrix(2.0, 0.0, 0.0, 4.0),

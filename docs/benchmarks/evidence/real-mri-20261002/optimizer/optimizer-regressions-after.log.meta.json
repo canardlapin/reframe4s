@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-10-02T12:09:58.033320+00:00",
+  "finished_utc": "2026-10-02T12:10:47.523393+00:00",
+  "duration_seconds": 49.479579,
+  "command": [
+    "sbt",
+    "-J-Xmx6G",
+    "-Dsbt.global.base=/private/tmp/reframe4s-real-mri/sbt-global",
+    "-Dsbt.supershell=false",
+    "reframe4s-flashalignJVM/testOnly reframe4s.flashalign.ProjectedPatchOptimizerSuite",
+    "reframe4s-flashalignJS/testOnly reframe4s.flashalign.ProjectedPatchOptimizerSuite"
+  ],
+  "cwd": "/Users/bbuchsbaum/code/scala/reframe4s",
+  "log": "/private/tmp/reframe4s-real-mri/optimizer-regressions-after.log",
+  "exit_code": 0,
+  "child_returncode": 0,
+  "reason": "exited",
+  "detail": null,
+  "timeout_seconds": 600.0,
+  "log_bytes": 4606
+}

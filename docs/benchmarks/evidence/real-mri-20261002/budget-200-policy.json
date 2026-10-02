@@ -1,0 +1,12 @@
+{
+  "id": "real-mri-within-modality-budget-200-v1",
+  "base_policy": "flashalign-linear-within-modality-v1",
+  "change": {
+    "affineTrust.maximumLinearizations": {
+      "from": 50,
+      "to": 200
+    }
+  },
+  "acceptance_thresholds_changed": false,
+  "calibration": "Uncalibrated development budget extension after all four 1.5mm candidates exhausted50 accepted updates at the3mm pyramid level. No label scores are used for acceptance."
+}

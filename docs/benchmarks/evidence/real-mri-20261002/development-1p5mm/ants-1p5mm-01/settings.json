@@ -1,0 +1,38 @@
+{
+  "antspyx_version": "0.6.3",
+  "settings": {
+    "type_of_transform": "SyN",
+    "mask_all_stages": true,
+    "aff_metric": "mattes",
+    "aff_sampling": 32,
+    "aff_random_sampling_rate": 1.0,
+    "aff_iterations": [
+      1000,
+      500,
+      250,
+      0
+    ],
+    "aff_shrink_factors": [
+      6,
+      4,
+      2,
+      1
+    ],
+    "aff_smoothing_sigmas": [
+      3,
+      2,
+      1,
+      0
+    ],
+    "syn_metric": "CC",
+    "syn_sampling": 2,
+    "reg_iterations": [
+      40,
+      20,
+      0
+    ],
+    "random_seed": 20261002
+  },
+  "fixed_sha256": "d88afbbd2e7b5d6f632820010a1d9cbe6bee53210b1f58bf8179a0b16fb43cfe",
+  "moving_sha256": "e9867080d449808c0f81c297a5d6ee3c0b41ece64681d78029df33f79915b569"
+}

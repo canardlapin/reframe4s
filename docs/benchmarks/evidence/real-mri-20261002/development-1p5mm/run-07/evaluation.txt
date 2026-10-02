@@ -1,0 +1,148 @@
+{
+  "lane": "affine",
+  "geometry_pass": true,
+  "directions": {
+    "fixed-to-moving": {
+      "target": "fixed",
+      "source": "moving",
+      "map_sha256": "69548b13edd2c4fd8f439bf00330c75c01049e81f6c51076de744cd87a311a77",
+      "all_map_values_finite": true,
+      "grid_jacobian_invalid": 0,
+      "grid_jacobian_nonfinite": 0,
+      "reload_max_abs": 4.440892098500626e-16,
+      "reload_evaluated": 1952142,
+      "reload_excluded": 241563,
+      "ncc": 0.5291951338727248,
+      "brain_mask_dice": 0.8629024299065421,
+      "brain_sampling_coverage": 1.0,
+      "grid_jacobian_min": 1.2078950816709122,
+      "grid_jacobian_nonpositive": 0,
+      "grid_jacobian_evaluated": 2093663,
+      "brain_jacobian_min": 1.2078950816709242,
+      "brain_roundtrip_coverage": 1.0,
+      "brain_roundtrip_max_mm": 5.884140135155706e-14,
+      "brain_roundtrip_p95_mm": 2.2748467065386707e-14,
+      "whole_valid_roundtrip_max_mm": 8.303399491552627e-14,
+      "geometry_pass": true,
+      "anatomy": {
+        "label_count": 62,
+        "missing_labels": 0,
+        "macro_dice": 0.35792427995936066,
+        "median_hd95_mm": 5.612486080160912
+      }
+    },
+    "moving-to-fixed": {
+      "target": "moving",
+      "source": "fixed",
+      "map_sha256": "bf7f5e7b03d06c21947be94f9b49df0b55b0ac0859ac904a1de685c4862042b7",
+      "all_map_values_finite": true,
+      "grid_jacobian_invalid": 0,
+      "grid_jacobian_nonfinite": 0,
+      "reload_max_abs": 5.551115123125783e-16,
+      "reload_evaluated": 2373577,
+      "reload_excluded": 109673,
+      "ncc": 0.572345573521446,
+      "brain_mask_dice": 0.8630627731082035,
+      "brain_sampling_coverage": 1.0,
+      "grid_jacobian_min": 0.827886473895264,
+      "grid_jacobian_nonpositive": 0,
+      "grid_jacobian_evaluated": 2374392,
+      "brain_jacobian_min": 0.8278864738952669,
+      "brain_roundtrip_coverage": 1.0,
+      "brain_roundtrip_max_mm": 5.772476473450155e-14,
+      "brain_roundtrip_p95_mm": 2.6586074758753436e-14,
+      "whole_valid_roundtrip_max_mm": 9.015776598495165e-14,
+      "geometry_pass": true,
+      "anatomy": {
+        "label_count": 62,
+        "missing_labels": 0,
+        "macro_dice": 0.3678945782437767,
+        "median_hd95_mm": 6.0
+      }
+    }
+  }
+}
+{
+  "lane": "halfflow",
+  "geometry_pass": true,
+  "directions": {
+    "fixed-to-moving": {
+      "target": "fixed",
+      "source": "moving",
+      "map_sha256": "744d262a5c594799cab1450de8eb588821dbe3c5d6aa42c1312ae99cbb757f54",
+      "all_map_values_finite": true,
+      "grid_jacobian_invalid": 0,
+      "grid_jacobian_nonfinite": 0,
+      "reload_max_abs": 6.661338147750939e-16,
+      "reload_evaluated": 1952425,
+      "reload_excluded": 241280,
+      "ncc": 0.6096927310014437,
+      "brain_mask_dice": 0.8738380729812338,
+      "brain_sampling_coverage": 1.0,
+      "grid_jacobian_min": 0.6652714554091351,
+      "grid_jacobian_nonpositive": 0,
+      "grid_jacobian_evaluated": 2093663,
+      "brain_jacobian_min": 0.7303680977682017,
+      "brain_roundtrip_coverage": 1.0,
+      "brain_roundtrip_max_mm": 0.052199398495622745,
+      "brain_roundtrip_p95_mm": 0.016052272211474726,
+      "whole_valid_roundtrip_max_mm": 0.2838444030330522,
+      "geometry_pass": true,
+      "anatomy": {
+        "label_count": 62,
+        "missing_labels": 0,
+        "macro_dice": 0.4127002317006603,
+        "median_hd95_mm": 5.302239667951309
+      }
+    },
+    "moving-to-fixed": {
+      "target": "moving",
+      "source": "fixed",
+      "map_sha256": "b4508169e21716f4349a540ebf6af69b6113bf8a2efa3b5c71ea041fe57d93b0",
+      "all_map_values_finite": true,
+      "grid_jacobian_invalid": 0,
+      "grid_jacobian_nonfinite": 0,
+      "reload_max_abs": 4.440892098500626e-16,
+      "reload_evaluated": 2373577,
+      "reload_excluded": 109673,
+      "ncc": 0.6319922969692806,
+      "brain_mask_dice": 0.8727656348361229,
+      "brain_sampling_coverage": 1.0,
+      "grid_jacobian_min": 0.45998844680043655,
+      "grid_jacobian_nonpositive": 0,
+      "grid_jacobian_evaluated": 2374392,
+      "brain_jacobian_min": 0.4725422664057034,
+      "brain_roundtrip_coverage": 1.0,
+      "brain_roundtrip_max_mm": 0.07116891193231609,
+      "brain_roundtrip_p95_mm": 0.01967038504782155,
+      "whole_valid_roundtrip_max_mm": 0.26107303518815095,
+      "geometry_pass": true,
+      "anatomy": {
+        "label_count": 62,
+        "missing_labels": 0,
+        "macro_dice": 0.4282177454974092,
+        "median_hd95_mm": 5.408326913195984
+      }
+    }
+  }
+}
+{
+  "pass": true,
+  "directions": {
+    "fixed-to-moving": {
+      "dice_gain": 0.05477595174129962,
+      "median_hd95_reduction_mm": 0.3102464122096036,
+      "anatomy_pass": true
+    },
+    "moving-to-fixed": {
+      "dice_gain": 0.060323167253632515,
+      "median_hd95_reduction_mm": 0.5916730868040156,
+      "anatomy_pass": true
+    }
+  },
+  "frozen_recipe_sha256": "36794587ab7ce14520dd431cdd724ecfaed5a2d4baf8246383b4ecbaf58edb43",
+  "report_sha256": {
+    "/private/tmp/reframe4s-real-mri/oasis-1-to-10/run-07/affine-evaluation.json": "d84497bccb633bb2c9df5c5e5342313a67ba34843b364289817fdac8692bb642",
+    "/private/tmp/reframe4s-real-mri/oasis-1-to-10/run-07/halfflow-evaluation.json": "ef15f848065aa64e3687f743d7ad82f4b69698a82a569d627f29e949d98c70ab"
+  }
+}

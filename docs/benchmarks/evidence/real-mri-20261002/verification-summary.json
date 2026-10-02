@@ -1,0 +1,40 @@
+{
+  "checks": [
+    {
+      "name": "flashalign-final-clean-tests",
+      "exit_code": 0,
+      "log_sha256": "2a76f1193a65146d5b5b9b57a38c8d0859ba20fac592caabd63cbe9d6c2e4d47",
+      "sbt_pass_totals": [
+        169,
+        168
+      ]
+    },
+    {
+      "name": "halfflow-final-tests",
+      "exit_code": 0,
+      "log_sha256": "ef649533ff4e64aae2b82c6595843c32b56423cdcca1896b2577908536d87a8d",
+      "sbt_pass_totals": [
+        166,
+        163,
+        16
+      ]
+    },
+    {
+      "name": "python-final-tests",
+      "exit_code": 0,
+      "log_sha256": "22d87b30f5f15fd27ec20179828b77d16967ff3a5f323b46e9d37b7e0538bf59",
+      "sbt_pass_totals": []
+    },
+    {
+      "name": "contracts-final",
+      "exit_code": 0,
+      "log_sha256": "65e72ac64684685b8ea6559da609a95f250c1ca76bd45e609301fcce508a88e4",
+      "sbt_pass_totals": []
+    }
+  ],
+  "python_tests": 5,
+  "staged_diff_check": "passed",
+  "development_court": "passed",
+  "transfer_court": "failed before HalfFlow; preserved",
+  "broad_admission": "not established"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-10-02T12:34:27.488078+00:00",
+  "finished_utc": "2026-10-02T12:45:54.865964+00:00",
+  "duration_seconds": 687.34031,
+  "command": [
+    "sbt",
+    "-J-Xmx6G",
+    "-Dsbt.global.base=/private/tmp/reframe4s-real-mri/sbt-global",
+    "-Dsbt.supershell=false",
+    "flashalignBenchmarkJVM/runMain reframe4s.halfflow.RealImageRegistration /private/tmp/reframe4s-real-mri/oasis-1-to-10/data-1p5mm/moving.nii.gz /private/tmp/reframe4s-real-mri/oasis-1-to-10/data-1p5mm/fixed.nii.gz /private/tmp/reframe4s-real-mri/oasis-1-to-10/data-1p5mm/fixed-mask.nii.gz /private/tmp/reframe4s-real-mri/oasis-1-to-10/run-06 fine-taper-long"
+  ],
+  "cwd": "/Users/bbuchsbaum/code/scala/reframe4s",
+  "log": "/private/tmp/reframe4s-real-mri/oasis-1-to-10/run-06.log",
+  "exit_code": 1,
+  "child_returncode": 1,
+  "reason": "exited",
+  "detail": null,
+  "timeout_seconds": 1800.0,
+  "log_bytes": 4558
+}

@@ -39,6 +39,12 @@ directly; no adapter image or geometry hierarchy exists here.
 evidence ledger. It is not part of the default bundle and cannot mint an exact
 inverse capability.
 
+For an acquired-MRI example, see the [Flashalign and HalfFlow development
+court](docs/benchmarks/real-image-development.md): pinned public images, saved
+maps, independent geometry and cortical-label evaluation, and a same-input
+ANTs reference. One development pair passes; an untuned second pair currently
+fails affine convergence. This is bounded example evidence, not general admission.
+
 `MIG-410` is replacing the initial centroid-only motion foundation with the
 canonical reusable engine. The port uses complete physical grid affines,
 validated frame-directed rigid transforms, SE(3) updates and interpolation,

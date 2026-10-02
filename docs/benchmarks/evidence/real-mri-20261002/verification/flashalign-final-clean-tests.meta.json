@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-10-02T13:22:47.652620+00:00",
+  "finished_utc": "2026-10-02T13:26:47.177749+00:00",
+  "duration_seconds": 239.526764,
+  "command": [
+    "sbt",
+    "-J-Xmx4G",
+    "-Dsbt.global.base=/private/tmp/reframe4s-real-mri/sbt-global",
+    "-Dsbt.supershell=false",
+    "reframe4s-flashalignJVM/test",
+    "reframe4s-flashalignJS/test"
+  ],
+  "cwd": "/Users/bbuchsbaum/code/scala/reframe4s",
+  "log": "/private/tmp/reframe4s-real-mri/flashalign-final-clean-tests.log",
+  "exit_code": 0,
+  "child_returncode": 0,
+  "reason": "exited",
+  "detail": null,
+  "timeout_seconds": 900.0,
+  "log_bytes": 18152
+}

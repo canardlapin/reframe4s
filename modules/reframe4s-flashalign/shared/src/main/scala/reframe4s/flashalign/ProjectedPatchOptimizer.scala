@@ -609,6 +609,7 @@ private[flashalign] final class ProjectedPatchOptimizer[State] private (
 
           var accepted = false
           var attempt = 0
+          var trialRadius = config.trustRadiusRms
           val trialEvaluationsBefore = trialEvaluations
           var lastSolverFailure = Option.empty[String]
           while attempt < config.maximumTrialAttempts && !accepted do
@@ -675,9 +676,9 @@ private[flashalign] final class ProjectedPatchOptimizer[State] private (
                   workspace.physicalMetric,
                   config.parameterCount
                 )
-                val clipped = rmsStep > config.trustRadiusRms
+                val clipped = rmsStep > trialRadius
                 if clipped then
-                  val scale = config.trustRadiusRms / rmsStep
+                  val scale = trialRadius / rmsStep
                   scaleInPlace(workspace.step, scale)
                   rmsStep = metricNorm(
                     workspace.step,
@@ -694,10 +695,30 @@ private[flashalign] final class ProjectedPatchOptimizer[State] private (
                 val severeDamping =
                   damping >= 0.5 * config.maximumDamping
                 if rmsStep <= config.stepToleranceRms then
+                  // Damping or retry clipping can make any proposal tiny. Only
+                  // an undamped, unclipped small model step can justify this stop.
+                  val smallModelStep =
+                    if severeDamping then false
+                    else
+                      solverCalls += 1
+                      SmallProjectedPatchSystem.solve(
+                        workspace.combinedCurvature,
+                        workspace.physicalMetric,
+                        workspace.rightHandSide,
+                        0.0,
+                        config.parameterCount,
+                        config.conditionLimit,
+                        workspace.factor,
+                        workspace.forward,
+                        workspace.step
+                      ).isRight && metricNorm(
+                        workspace.step,
+                        workspace.physicalMetric,
+                        config.parameterCount
+                      ) <= config.stepToleranceRms
                   val termination =
-                    if severeDamping then
-                      ProjectedPatchTermination.DampingLimited
-                    else ProjectedPatchTermination.StepConverged
+                    if smallModelStep then ProjectedPatchTermination.StepConverged
+                    else ProjectedPatchTermination.DampingLimited
                   return Right(
                     finish(
                       bestCheckpoint,
@@ -840,6 +861,9 @@ private[flashalign] final class ProjectedPatchOptimizer[State] private (
                                       ProjectedPatchRejection.EarlyObjectiveBound
                                     )
                                   )
+                                // Contract relative to the rejected physical
+                                // step, even when damping is near its floor.
+                                trialRadius = math.min(trialRadius, 0.5 * rmsStep)
                                 damping = increasedDamping(damping)
                               case Right(
                                     ProjectedPatchTrialData.Complete(candidateData)
@@ -964,6 +988,7 @@ private[flashalign] final class ProjectedPatchOptimizer[State] private (
                                           .InsufficientActualReduction
                                       )
                                     )
+                                  trialRadius = math.min(trialRadius, 0.5 * rmsStep)
                                   damping = increasedDamping(damping)
             attempt += 1
 
@@ -1003,13 +1028,28 @@ private[flashalign] final class ProjectedPatchOptimizer[State] private (
               return exceptionalFailure(error)
             case Right(_) =>
               priorLinearizations += 1
+        // The last accepted update already has a fresh linearization. Apply
+        // the same rank and gradient checks before declaring budget exhaustion.
+        combine(workspace)
+        val finalRank = SmallProjectedPatchSystem.numericalRank(
+          workspace.data.curvatureUpper,
+          config.parameterCount,
+          config.rankRelativeTolerance,
+          workspace.rankMatrix
+        )
+        val finalTermination =
+          if finalRank < config.minimumDataRank then
+            ProjectedPatchTermination.RankDeficient(finalRank, config.minimumDataRank)
+          else if euclideanNorm(workspace.combinedGradient) <= config.gradientTolerance then
+            ProjectedPatchTermination.GradientConverged
+          else ProjectedPatchTermination.LinearizationLimit
         Right(
           finish(
             bestCheckpoint,
             state,
             initialObjective,
             currentObjective,
-            ProjectedPatchTermination.LinearizationLimit,
+            finalTermination,
             dataLinearizations,
             priorLinearizations,
             solverCalls,

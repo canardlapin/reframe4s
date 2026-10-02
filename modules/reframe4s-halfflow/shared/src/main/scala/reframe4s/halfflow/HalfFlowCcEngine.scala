@@ -64,7 +64,9 @@ final case class HalfFlowCcPlan private (
     geometry: ForwardGeometryConfig,
     control: HalfFlowCcControlConfig,
     exportConfig: ResidualInverseConfig,
-    action: HalfFlowCcAction
+    action: HalfFlowCcAction,
+    velocitySupportFloor: Double,
+    velocityBoundaryWidthMm: Double
 )
 
 /** Experimental action axis used by the G5 architecture falsification.
@@ -89,13 +91,17 @@ object HalfFlowCcPlan:
       geometry: ForwardGeometryConfig = ForwardGeometryConfig(),
       control: HalfFlowCcControlConfig = HalfFlowCcControlConfig.default,
       exportConfig: ResidualInverseConfig = ResidualInverseConfig.default,
-      action: HalfFlowCcAction = HalfFlowCcAction.SymmetricMidpoint
+      action: HalfFlowCcAction = HalfFlowCcAction.SymmetricMidpoint,
+      velocitySupportFloor: Double = 0.0,
+      velocityBoundaryWidthMm: Double = 0.0
   ): Either[RegistrationError, HalfFlowCcPlan] =
     val ordered = levels.nonEmpty && levels.last.shrink == 1 &&
       levels.indices.drop(1).forall(index => levels(index - 1).shrink > levels(index).shrink)
     val numeric =
       supportSigmaMm.isFinite && supportSigmaMm >= 0.0 &&
         minimumSupportWeight.isFinite && minimumSupportWeight > 0.0 &&
+        velocitySupportFloor.isFinite && velocitySupportFloor >= 0.0 &&
+        velocityBoundaryWidthMm.isFinite && velocityBoundaryWidthMm >= 0.0 &&
         rankOneEnergyEpsilon.isFinite && rankOneEnergyEpsilon > 0.0 &&
         minimumUsefulStepMm.isFinite && minimumUsefulStepMm >= 0.0 &&
         maximumIntegrationInverseErrorMm.isFinite && maximumIntegrationInverseErrorMm >= 0.0
@@ -113,7 +119,9 @@ object HalfFlowCcPlan:
           geometry,
           control,
           exportConfig,
-          action
+          action,
+          velocitySupportFloor,
+          velocityBoundaryWidthMm
         )
       )
 
@@ -866,16 +874,16 @@ object HalfFlowCc:
         while index < n do
           workspace.component(index) = workspace.raw(component * n + index)
           index += 1
-        Gaussian3D.normalizedInto(
+        SupportedVelocitySmoothing.apply(
           workspace.component,
           objective.smoothingWeight,
           frame.grid,
           level.smoothSigmaMm,
           plan.minimumSupportWeight,
+          plan.velocitySupportFloor,
           workspace.componentSmoothed,
           workspace.smoothedWeight,
           workspace.gaussian,
-          GaussianBoundary.Zero,
           workspace.gaussianReduction
         )
         index = 0
@@ -884,6 +892,7 @@ object HalfFlowCc:
           index += 1
         component += 1
 
+      VelocityBoundaryTaper.inPlace(workspace.velocity, frame.grid, plan.velocityBoundaryWidthMm)
       var maximum = maximumNorm(workspace.velocity, n)
       if maximum > level.maximumStepMm then
         val scale = level.maximumStepMm / maximum
@@ -1078,3 +1087,60 @@ object HalfFlowCc:
       destination.values(index) = source.values(index)
       destination.valid(index) = source.valid(index)
       index += 1
+
+/** Zero-anchored velocity extension: N/(W+floor), where N and W are the
+  * Gaussian-weighted velocity numerator and support. A positive floor tapers
+  * unsupported tails continuously. Zero retains the historical normalized
+  * filter for explicitly named ablations; image filtering is unchanged.
+  */
+private[halfflow] object SupportedVelocitySmoothing:
+  def apply(
+      source: Array[Double], support: Array[Double], grid: GridSpec,
+      sigmaMm: Double, minimumWeight: Double, supportFloor: Double,
+      destination: Array[Double], destinationWeight: Array[Double],
+      workspace: GaussianWorkspace, reduction: GaussianReduction
+  ): Unit =
+    require(supportFloor.isFinite && supportFloor >= 0.0)
+    Gaussian3D.normalizedInto(
+      source, support, grid, sigmaMm,
+      if supportFloor > 0.0 then Double.MinPositiveValue else minimumWeight,
+      destination, destinationWeight, workspace, GaussianBoundary.Zero, reduction
+    )
+    if supportFloor > 0.0 then
+      var index = 0
+      while index < grid.nVoxels do
+        val weight = destinationWeight(index)
+        destination(index) *= weight / (weight + supportFloor)
+        index += 1
+
+/** A C1 product window leaves two outer lattice nodes at zero on every face.
+  * Their zero slope makes the residual's boundary-cell linear extension identity.
+  * Width is measured perpendicular to each physical grid face, including shear.
+  * Zero width preserves the historical unconstrained boundary behavior.
+  */
+private[halfflow] object VelocityBoundaryTaper:
+  def inPlace(velocity: Array[Double], grid: GridSpec, widthMm: Double): Unit =
+    require(widthMm.isFinite && widthMm >= 0.0)
+    require(velocity.length >= 3 * grid.nVoxels)
+    if widthMm > 0.0 then
+      val inverse = DMat.invert(grid.affine).fold(reason => throw new IllegalArgumentException(reason), identity)
+      val spacing = Array.tabulate(3): axis =>
+        1.0 / math.sqrt((0 until 3).map(c => inverse(axis, c) * inverse(axis, c)).sum)
+      def faceWindow(distance: Double): Double =
+        val t = math.max(0.0, math.min(1.0, distance / widthMm))
+        t * t * (3.0 - 2.0 * t)
+      def window(coordinate: Int, extent: Int, axis: Int): Double =
+        faceWindow((coordinate - 1).toDouble * spacing(axis)) *
+          faceWindow((extent - 2 - coordinate).toDouble * spacing(axis))
+      val n = grid.nVoxels
+      var index = 0
+      while index < n do
+        val x = index % grid.shape.x
+        val yz = index / grid.shape.x
+        val y = yz % grid.shape.y
+        val z = yz / grid.shape.y
+        val weight = window(x, grid.shape.x, 0) * window(y, grid.shape.y, 1) * window(z, grid.shape.z, 2)
+        velocity(index) *= weight
+        velocity(index + n) *= weight
+        velocity(index + 2 * n) *= weight
+        index += 1

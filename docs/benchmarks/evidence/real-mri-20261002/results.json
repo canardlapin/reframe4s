@@ -1,0 +1,86 @@
+{
+  "development": {
+    "pair": [
+      "OASIS-TRT-20-1",
+      "OASIS-TRT-20-10"
+    ],
+    "accepted": true,
+    "directions": {
+      "fixed-to-moving": {
+        "affine": {
+          "label_count": 62,
+          "missing_labels": 0,
+          "macro_dice": 0.35792427995936066,
+          "median_hd95_mm": 5.612486080160912
+        },
+        "halfflow": {
+          "label_count": 62,
+          "missing_labels": 0,
+          "macro_dice": 0.4127002317006603,
+          "median_hd95_mm": 5.302239667951309
+        },
+        "ants": {
+          "label_count": 62,
+          "missing_labels": 0,
+          "macro_dice": 0.49698336296960177,
+          "median_hd95_mm": 4.743416490252569
+        },
+        "target": "fixed",
+        "source": "moving",
+        "geometry": {
+          "grid_jacobian_min": 0.6652714554091351,
+          "grid_jacobian_nonpositive": 0,
+          "grid_jacobian_invalid": 0,
+          "brain_sampling_coverage": 1.0,
+          "brain_roundtrip_coverage": 1.0,
+          "brain_roundtrip_max_mm": 0.052199398495622745,
+          "reload_max_abs": 6.661338147750939e-16
+        }
+      },
+      "moving-to-fixed": {
+        "affine": {
+          "label_count": 62,
+          "missing_labels": 0,
+          "macro_dice": 0.3678945782437767,
+          "median_hd95_mm": 6.0
+        },
+        "halfflow": {
+          "label_count": 62,
+          "missing_labels": 0,
+          "macro_dice": 0.4282177454974092,
+          "median_hd95_mm": 5.408326913195984
+        },
+        "ants": {
+          "label_count": 62,
+          "missing_labels": 0,
+          "macro_dice": 0.5049385408348825,
+          "median_hd95_mm": 4.743416490252569
+        },
+        "target": "moving",
+        "source": "fixed",
+        "geometry": {
+          "grid_jacobian_min": 0.45998844680043655,
+          "grid_jacobian_nonpositive": 0,
+          "grid_jacobian_invalid": 0,
+          "brain_sampling_coverage": 1.0,
+          "brain_roundtrip_coverage": 1.0,
+          "brain_roundtrip_max_mm": 0.07116891193231609,
+          "reload_max_abs": 4.440892098500626e-16
+        }
+      }
+    }
+  },
+  "transfer": {
+    "pair": [
+      "OASIS-TRT-20-11",
+      "OASIS-TRT-20-12"
+    ],
+    "frozen_mode_and_plan_match": true,
+    "status": "Flashalign all four capture candidates TrialAttemptLimit",
+    "halfflow_executed": false,
+    "followup_issue": "bd-01M3YCH2ZBB63SFMBYFHWCQGDV"
+  },
+  "broad_halfflow_admission": false,
+  "ants_superiority_claim": false,
+  "runtime_comparison_claim": false
+}

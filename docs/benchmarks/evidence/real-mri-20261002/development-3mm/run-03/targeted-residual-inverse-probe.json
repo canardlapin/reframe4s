@@ -1,0 +1,364 @@
+{
+  "schema": "targeted-residual-inverse-probe-v1",
+  "numpy": "2.4.3",
+  "scipy": "1.17.1",
+  "limitation": "Four targeted locations only; sampled local Jacobians and multistart roots are not a global injectivity proof.",
+  "inputs": {
+    "/private/tmp/reframe4s-real-mri/oasis-1-to-10/run-03/midpoint-fixed-residual.json": "12880b0f755ff0015b59b744df2b4361a21dc6c431c2c424601aedd8ae1a50d8",
+    "/private/tmp/reframe4s-real-mri/oasis-1-to-10/run-03/midpoint-fixed-residual.f64": "3ca89bd5ea43f39cfced09b2d170440a40da819f1c1d00ed734ce86f4e79f425",
+    "/private/tmp/reframe4s-real-mri/oasis-1-to-10/run-03/midpoint-fixed-residual.valid-u8": "4c377dbeb5b238f61425c54483dacab30d76661e8db20dee43bbdc82fa234899",
+    "/private/tmp/reframe4s-real-mri/oasis-1-to-10/run-03/midpoint-moving-residual.json": "12880b0f755ff0015b59b744df2b4361a21dc6c431c2c424601aedd8ae1a50d8",
+    "/private/tmp/reframe4s-real-mri/oasis-1-to-10/run-03/midpoint-moving-residual.f64": "d96d76c97bba8c00355327964d75a8699767b30cf51efe43beb8fa6534a3ad14",
+    "/private/tmp/reframe4s-real-mri/oasis-1-to-10/run-03/midpoint-moving-residual.valid-u8": "4c377dbeb5b238f61425c54483dacab30d76661e8db20dee43bbdc82fa234899"
+  },
+  "probes": [
+    {
+      "arm": "fixed",
+      "index": 224552,
+      "voxel": [
+        50,
+        44,
+        49
+      ],
+      "world": [
+        57.0,
+        6.0,
+        54.0
+      ],
+      "forward_at_world": [
+        58.143428496380906,
+        4.614534443395071,
+        54.32580498429733
+      ],
+      "pointwise_inverse_at_world": [
+        56.17369849831685,
+        6.96179145977693,
+        53.74011234798253
+      ],
+      "pointwise_forward_of_inverse_residual_mm": 7.570615282279868e-13,
+      "pointwise_inverse_of_forward_error_mm": 0.0,
+      "forward_cell_jacobian_det": 0.991250840733102,
+      "root_cell_jacobian_det": 1.2215355697428052,
+      "root_cell_singular_values": [
+        1.3936821218801625,
+        0.946046342956735,
+        0.9264670485256294
+      ],
+      "inverse_interpolation_experiment": [
+        {
+          "inverse_grid_axis_spacing_mm": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "inverse_of_forward_error_mm": 1.0110030589664643,
+          "maximum_corner_root_residual_mm": 7.570615282279868e-13
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            1.5,
+            1.5,
+            1.5
+          ],
+          "inverse_of_forward_error_mm": 0.5333029181447128,
+          "maximum_corner_root_residual_mm": 7.570615282279868e-13
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            0.75,
+            0.75,
+            0.75
+          ],
+          "inverse_of_forward_error_mm": 0.39417239910319746,
+          "maximum_corner_root_residual_mm": 5.643813040047837e-13
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            0.375,
+            0.375,
+            0.375
+          ],
+          "inverse_of_forward_error_mm": 0.09865615448790012,
+          "maximum_corner_root_residual_mm": 1.978147020385064e-13
+        }
+      ],
+      "local_cell_jacobian_minimum": 0.5042279741298308,
+      "local_minimum_at_voxel": [
+        50.0000001,
+        42.7500001,
+        49.0000001
+      ],
+      "local_nonpositive_samples": 0,
+      "local_jacobian_sample_count": 4913,
+      "root_multistart_count": 27,
+      "distinct_roots_of_forward_at_world": [
+        [
+          56.99999999999999,
+          6.000000000000008,
+          54.00000000000002
+        ]
+      ]
+    },
+    {
+      "arm": "fixed",
+      "index": 228705,
+      "voxel": [
+        49,
+        38,
+        50
+      ],
+      "world": [
+        54.0,
+        -12.0,
+        57.0
+      ],
+      "forward_at_world": [
+        54.914780834268214,
+        -13.165850683894353,
+        57.33245719803284
+      ],
+      "pointwise_inverse_at_world": [
+        53.2623789070663,
+        -10.995822562130398,
+        56.77122983502204
+      ],
+      "pointwise_forward_of_inverse_residual_mm": 4.662725227577869e-14,
+      "pointwise_inverse_of_forward_error_mm": 0.0,
+      "forward_cell_jacobian_det": 0.6014509290520512,
+      "root_cell_jacobian_det": 1.135331197623041,
+      "root_cell_singular_values": [
+        1.3645201186699747,
+        0.9915741513849541,
+        0.8391071691994443
+      ],
+      "inverse_interpolation_experiment": [
+        {
+          "inverse_grid_axis_spacing_mm": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "inverse_of_forward_error_mm": 0.96521248163827,
+          "maximum_corner_root_residual_mm": 6.08375636391872e-13
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            1.5,
+            1.5,
+            1.5
+          ],
+          "inverse_of_forward_error_mm": 0.7508427414052952,
+          "maximum_corner_root_residual_mm": 7.912767534016889e-13
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            0.75,
+            0.75,
+            0.75
+          ],
+          "inverse_of_forward_error_mm": 0.44527516148644253,
+          "maximum_corner_root_residual_mm": 7.912767534016889e-13
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            0.375,
+            0.375,
+            0.375
+          ],
+          "inverse_of_forward_error_mm": 0.21903814554439413,
+          "maximum_corner_root_residual_mm": 1.4652521420047492e-13
+        }
+      ],
+      "local_cell_jacobian_minimum": 0.3609718037742981,
+      "local_minimum_at_voxel": [
+        49.0000001,
+        37.7500001,
+        50.0000001
+      ],
+      "local_nonpositive_samples": 0,
+      "local_jacobian_sample_count": 4913,
+      "root_multistart_count": 27,
+      "distinct_roots_of_forward_at_world": [
+        [
+          54.000000000000014,
+          -11.999999999999986,
+          56.999999999999986
+        ]
+      ]
+    },
+    {
+      "arm": "moving",
+      "index": 224552,
+      "voxel": [
+        50,
+        44,
+        49
+      ],
+      "world": [
+        57.0,
+        6.0,
+        54.0
+      ],
+      "forward_at_world": [
+        55.92969868482292,
+        7.329322542237707,
+        53.69859457327742
+      ],
+      "pointwise_inverse_at_world": [
+        57.78813591100821,
+        5.065131505199232,
+        54.236685912889065
+      ],
+      "pointwise_forward_of_inverse_residual_mm": 1.6304788408914756e-14,
+      "pointwise_inverse_of_forward_error_mm": 0.0,
+      "forward_cell_jacobian_det": 1.0149662878641479,
+      "root_cell_jacobian_det": 1.374489602442975,
+      "root_cell_singular_values": [
+        1.5962188156619082,
+        1.0086838520838435,
+        0.8536777549726198
+      ],
+      "inverse_interpolation_experiment": [
+        {
+          "inverse_grid_axis_spacing_mm": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "inverse_of_forward_error_mm": 0.7818977199583215,
+          "maximum_corner_root_residual_mm": 1.5062762339807128e-12
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            1.5,
+            1.5,
+            1.5
+          ],
+          "inverse_of_forward_error_mm": 0.45945056064631545,
+          "maximum_corner_root_residual_mm": 3.201399657450145e-13
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            0.75,
+            0.75,
+            0.75
+          ],
+          "inverse_of_forward_error_mm": 0.32537989713769394,
+          "maximum_corner_root_residual_mm": 3.201399657450145e-13
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            0.375,
+            0.375,
+            0.375
+          ],
+          "inverse_of_forward_error_mm": 0.15887920831676508,
+          "maximum_corner_root_residual_mm": 9.89111793080781e-13
+        }
+      ],
+      "local_cell_jacobian_minimum": 0.6788147983192503,
+      "local_minimum_at_voxel": [
+        49.7500001,
+        44.0000001,
+        49.0000001
+      ],
+      "local_nonpositive_samples": 0,
+      "local_jacobian_sample_count": 4913,
+      "root_multistart_count": 27,
+      "distinct_roots_of_forward_at_world": [
+        [
+          57.00000000000001,
+          5.9999999999999964,
+          54.0
+        ]
+      ]
+    },
+    {
+      "arm": "moving",
+      "index": 228705,
+      "voxel": [
+        49,
+        38,
+        50
+      ],
+      "world": [
+        54.0,
+        -12.0,
+        57.0
+      ],
+      "forward_at_world": [
+        52.89389241511653,
+        -10.412741491246496,
+        56.683167727492076
+      ],
+      "pointwise_inverse_at_world": [
+        54.655757112660204,
+        -12.812587857186408,
+        57.23839963761145
+      ],
+      "pointwise_forward_of_inverse_residual_mm": 3.197442310920451e-14,
+      "pointwise_inverse_of_forward_error_mm": 0.0,
+      "forward_cell_jacobian_det": 1.4122620334952427,
+      "root_cell_jacobian_det": 1.644193792070381,
+      "root_cell_singular_values": [
+        1.6860086207399396,
+        1.0042113322059865,
+        0.9711092598654619
+      ],
+      "inverse_interpolation_experiment": [
+        {
+          "inverse_grid_axis_spacing_mm": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "inverse_of_forward_error_mm": 1.0170373592557382,
+          "maximum_corner_root_residual_mm": 1.4197525788040426e-12
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            1.5,
+            1.5,
+            1.5
+          ],
+          "inverse_of_forward_error_mm": 0.585963792731296,
+          "maximum_corner_root_residual_mm": 2.44621815925001e-13
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            0.75,
+            0.75,
+            0.75
+          ],
+          "inverse_of_forward_error_mm": 0.40731867513478726,
+          "maximum_corner_root_residual_mm": 1.1708064817827273e-12
+        },
+        {
+          "inverse_grid_axis_spacing_mm": [
+            0.375,
+            0.375,
+            0.375
+          ],
+          "inverse_of_forward_error_mm": 0.10862901614991494,
+          "maximum_corner_root_residual_mm": 7.289234350071071e-13
+        }
+      ],
+      "local_cell_jacobian_minimum": 0.753424450777219,
+      "local_minimum_at_voxel": [
+        48.0000001,
+        38.0000001,
+        50.0000001
+      ],
+      "local_nonpositive_samples": 0,
+      "local_jacobian_sample_count": 4913,
+      "root_multistart_count": 27,
+      "distinct_roots_of_forward_at_world": [
+        [
+          54.00000000000001,
+          -12.000000000000021,
+          57.0
+        ]
+      ]
+    }
+  ]
+}

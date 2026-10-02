@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-10-02T13:04:47.113582+00:00",
+  "finished_utc": "2026-10-02T13:45:19.014383+00:00",
+  "duration_seconds": 2431.93111,
+  "command": [
+    "sbt",
+    "-J-Xmx6G",
+    "-Dsbt.global.base=/private/tmp/reframe4s-real-mri/sbt-global",
+    "-Dsbt.supershell=false",
+    "reframe4s-halfflowJVM/test",
+    "reframe4s-halfflowJS/test",
+    "flashalignBenchmarkJVM/test"
+  ],
+  "cwd": "/Users/bbuchsbaum/code/scala/reframe4s",
+  "log": "/private/tmp/reframe4s-real-mri/halfflow-final-tests.log",
+  "exit_code": 0,
+  "child_returncode": 0,
+  "reason": "exited",
+  "detail": null,
+  "timeout_seconds": 3600.0,
+  "log_bytes": 14804
+}

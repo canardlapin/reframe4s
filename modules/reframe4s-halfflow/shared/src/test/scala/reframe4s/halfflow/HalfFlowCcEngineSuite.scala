@@ -7,6 +7,98 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
   private sealed trait Fixed
   private sealed trait Moving
 
+  test("boundary identity survives half-flow integration, accumulation and pyramid transfer"):
+    val grid = GridSpec.identity(Vector(17, 17, 17))
+    val work = Frame[Work](SpatialDomainId("collar-work"), grid)
+    val fixed = Frame[Fixed](SpatialDomainId("collar-fixed"), grid)
+    val moving = Frame[Moving](SpatialDomainId("collar-moving"), grid)
+    val values = Array.fill(3 * grid.nVoxels)(0.2)
+    VelocityBoundaryTaper.inPlace(values, grid, 3.0)
+    val velocity = Velocity.make(work, DenseVectorField.fromLegacyPlanar(
+      grid, values, DenseVectorFieldKind.Displacement)).fold(e => fail(e.message), identity)
+    val half = HalfStep.fromPairedFlow(PairedScalingAndSquaring.expHalfPair(velocity)
+      .fold(e => fail(e.message), identity))
+    var state = ForwardMidpoint.identity(work, fixed, moving).fold(e => fail(e.message), identity)
+    for _ <- 0 until 3 do
+      state = state.advance(half).fold(e => fail(e.message), identity)
+    val fine = GridSpec(Vector(33, 33, 33), DMat.fromRows(Vector(
+      Vector(0.5, 0.0, 0.0, 0.0), Vector(0.0, 0.5, 0.0, 0.0),
+      Vector(0.0, 0.0, 0.5, 0.0), Vector(0.0, 0.0, 0.0, 1.0))))
+    val transferred = state.regrid(Frame[Work](work.domain, fine), fixed, moving)
+      .fold(e => fail(e.message), identity)
+    for current <- Vector(state, transferred); pull <- Vector(current.fixed.residual, current.moving.residual) do
+      val g = pull.from.grid
+      val identityMap = DensePull.identity(pull.from)
+      for index <- 0 until g.nVoxels do
+        val x = index % g.shape.x
+        val y = index / g.shape.x % g.shape.y
+        val z = index / (g.shape.x * g.shape.y)
+        if x <= 1 || x >= g.shape.x - 2 || y <= 1 || y >= g.shape.y - 2 || z <= 1 || z >= g.shape.z - 2 then
+          for component <- 0 until 3 do
+            assertEqualsDouble(pull.sourceCoordinates.linearComponent(index, component),
+              identityMap.sourceCoordinates.linearComponent(index, component), 1e-12)
+
+  test("velocity boundary collar has zero outer slope and uses physical face distance"):
+    val grid = GridSpec(Vector(17, 17, 17), DMat.fromRows(Vector(
+      Vector(2.0, 1.0, 0.0, 7.0), Vector(0.0, 2.0, 0.0, -4.0),
+      Vector(0.0, 0.0, 3.0, 9.0), Vector(0.0, 0.0, 0.0, 1.0)
+    )))
+    val n = grid.nVoxels
+    val velocity = Array.fill(3 * n)(2.0)
+    // The x-face normal is parallel to (2,-1,0), so adjacent x planes
+    // are 4/sqrt(5) mm apart. x=2 is half way through this taper.
+    val width = 8.0 / math.sqrt(5.0)
+    VelocityBoundaryTaper.inPlace(velocity, grid, width)
+    for component <- 0 until 3 do
+      for x <- Vector(0, 1, 15, 16) do
+        assertEqualsDouble(velocity(x + 17 * (8 + 17 * 8) + component * n), 0.0, 0.0)
+      assertEqualsDouble(velocity(2 + 17 * (8 + 17 * 8) + component * n), 1.0, 1e-14)
+      assertEqualsDouble(velocity(8 + 17 * (8 + 17 * 8) + component * n), 2.0, 0.0)
+    val unchanged = Array.tabulate(3 * n)(_.toDouble)
+    val before = unchanged.toVector
+    VelocityBoundaryTaper.inPlace(unchanged, grid, 0.0)
+    assertEquals(unchanged.toVector, before)
+
+  test("opposing boundary collars multiply smoothly when their widths overlap"):
+    val grid = GridSpec.identity(Vector(9, 25, 25))
+    val velocity = Array.fill(3 * grid.nVoxels)(1.0)
+    VelocityBoundaryTaper.inPlace(velocity, grid, 6.0)
+    // Both x faces contribute 1/2 at the midpoint. The other four faces
+    // are beyond the collar. A nearest-face window would incorrectly give 1/2.
+    assertEqualsDouble(velocity(4 + 9 * (12 + 25 * 12)), 0.25, 0.0)
+    assertEqualsDouble(velocity(3 + 9 * (12 + 25 * 12)),
+      velocity(5 + 9 * (12 + 25 * 12)), 0.0)
+
+  test("velocity support taper matches an independent Gaussian impulse and vanishes in unsupported tails"):
+    val grid = GridSpec.identity(Vector(11, 11, 11))
+    val source = Array.fill(grid.nVoxels)(7.0)
+    val support = Array.fill(grid.nVoxels)(0.0)
+    support(5 + 11 * (5 + 11 * 5)) = 1.0
+    val output = Array.fill(grid.nVoxels)(Double.NaN)
+    val weight = new Array[Double](grid.nVoxels)
+    val floor = 1e-3
+    SupportedVelocitySmoothing(source, support, grid, 1.0, 1e-6, floor,
+      output, weight, GaussianWorkspace(grid), GaussianReduction())
+    // Direct separable convolution of a unit impulse, independent of filter code.
+    val normalization = (-3 to 3).map(i => math.exp(-0.5 * i * i)).sum
+    for x <- 0 until 11; y <- 0 until 11; z <- 0 until 11 do
+      val index = x + 11 * (y + 11 * z)
+      val offsets = Vector(x - 5, y - 5, z - 5)
+      val w = if offsets.forall(i => math.abs(i) <= 3) then
+        math.exp(-0.5 * offsets.map(i => i * i).sum) / math.pow(normalization, 3)
+      else 0.0
+      assertEqualsDouble(output(index), 7.0 * w / (w + floor), 2e-14)
+    val tail = output(8 + 11 * (8 + 11 * 8))
+    assert(tail > 0.0 && tail < 1e-3, s"tiny support retained an untapered velocity: $tail")
+    val legacy = new Array[Double](grid.nVoxels)
+    val legacyWeight = new Array[Double](grid.nVoxels)
+    Gaussian3D.normalizedInto(source, support, grid, 1.0, 1e-6,
+      legacy, legacyWeight, GaussianWorkspace(grid), GaussianBoundary.Zero, GaussianReduction())
+    SupportedVelocitySmoothing(source, support, grid, 1.0, 1e-6, 0.0,
+      output, weight, GaussianWorkspace(grid), GaussianReduction())
+    assertEquals(output.toVector, legacy.toVector)
+    assertEquals(weight.toVector, legacyWeight.toVector)
+
   test("pointwise rank-one step matches its scalar closed form"):
     val gradient = PrimitiveBuffers.ofSize[Double](6)
     gradient(0) = 3.0
