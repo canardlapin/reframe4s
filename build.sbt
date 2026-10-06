@@ -48,7 +48,7 @@ lazy val galeCoreJS = ProjectRef(galeBuild, "coreJS")
 // image4s is an independently owned foundation. Ordinary builds clone the
 // exact reviewed revision; the property admits an audited local checkout for
 // coordinated cross-repository development.
-lazy val image4sRevision = "26a74ad99b9ee49a9555344e19b82d69a2ba50e4"
+lazy val image4sRevision = "03288b6d5c4e8c24d3fcfa22df1e977839f007d0"
 lazy val image4sBuild =
   sys.props
     .get("reframe4s.image4s.build")

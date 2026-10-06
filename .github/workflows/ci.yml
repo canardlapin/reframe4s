@@ -28,14 +28,14 @@ jobs:
         uses: actions/checkout@v7.0.1
         with:
           repository: canardlapin/image4s
-          ref: 26a74ad99b9ee49a9555344e19b82d69a2ba50e4
+          ref: 03288b6d5c4e8c24d3fcfa22df1e977839f007d0
           path: .ci/image4s
 
       - name: Check out immutable locus4s source
         uses: actions/checkout@v7.0.1
         with:
           repository: canardlapin/locus4s
-          ref: 58c9739be51345ad9adc4bc9c9e7335023254ec9
+          ref: a67bc87c33b5da8a5dc2cad49919c015b59f3050
           path: .ci/locus4s
 
       - name: Set up Java
