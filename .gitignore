@@ -2,7 +2,12 @@
 .bsp/
 .bootstrap/
 .metals/
-.mote/
+.mote/*
+!.mote/FORMAT.json
+!.mote/README.md
+!.mote/ops/
+.mote/ops/*
+!.mote/ops/*.json
 .scala-build/
 .vscode/
 project/project/

@@ -128,6 +128,21 @@ Start with [the foundation guide](docs/foundation-guide.md). The implementation
 and blocker state is recorded in
 [implementation-status.md](docs/implementation-status.md).
 
+Current tickets, decisions, and work history live in [Mote](.mote/README.md).
+The canonical journal is tracked in Git; actor settings and temporary files
+stay local. After cloning, choose a unique actor for your machine or workstream:
+
+```sh
+mkdir -p .mote/local .mote/tmp
+mote actor set reframe4s-my-machine
+mote doctor
+mote ready
+```
+
+Pull the latest journal before taking up work, and commit journal updates with
+the changes they describe. See the [Mote workflow](.mote/README.md) for history,
+claims, and cross-machine coordination.
+
 Run the architecture checks with:
 
 ```text
