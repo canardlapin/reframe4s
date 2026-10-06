@@ -75,3 +75,7 @@ object MapError:
 
   final case class Geometry(error: GeometryError) extends MapError:
     val message: String = error.message
+
+  object Geometry:
+    def apply(error: GeometryError | spatial4s.SpatialError): Geometry =
+      new Geometry(GeometryError.fromCoordinate(error))

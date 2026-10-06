@@ -391,7 +391,7 @@ final class LinearResultRecordSuite extends munit.FunSuite:
     val alignment = geometry(
       Frame.alignOwners[D3, frame.type, Frame[D3]](frame, frame)
     )
-    geometry(alignment.pointToRight(exact))
+    geometry(alignment.pointToRight(exact).left.map(GeometryError.fromSpatial))
 
   private def geometry[A](value: Either[GeometryError, A]): A =
     value.fold(error => fail(error.message), identity)

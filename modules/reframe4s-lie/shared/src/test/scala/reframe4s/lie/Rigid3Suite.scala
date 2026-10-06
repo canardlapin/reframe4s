@@ -192,7 +192,7 @@ final class Rigid3Suite extends munit.FunSuite:
     val frameId = geometry(FrameId.parse("target"))
     val seed =
       geometry(Frame.persistentNamed[D3](frameId, "target"))
-    val record = geometry(seed.record)
+    val record = geometry(seed.record.left.map(image4s.geometry.GeometryError.fromSpatial))
     val firstRegistry = FrameRegistry.empty
     val secondRegistry = FrameRegistry.empty
     val source: Frame[D3] = geometry(Frame.named[D3]("source"))

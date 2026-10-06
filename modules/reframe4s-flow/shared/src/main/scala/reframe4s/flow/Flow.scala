@@ -34,6 +34,10 @@ object FlowError:
   final case class Field(error: FieldError) extends FlowError:
     val message: String = error.message
 
+  object Geometry:
+    def apply(error: GeometryError | spatial4s.SpatialError): Geometry =
+      new Geometry(image4s.geometry.GeometryError.fromCoordinate(error))
+
   final case class Geometry(error: GeometryError) extends FlowError:
     val message: String = error.message
 

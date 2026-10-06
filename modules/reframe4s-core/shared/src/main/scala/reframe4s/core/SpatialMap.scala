@@ -7,6 +7,7 @@ import image4s.geometry.Dimension
 import image4s.geometry.Frame
 import image4s.geometry.GeometryError
 import image4s.geometry.Point
+import scala.annotation.unused
 
 trait SpatialMap[
     From <: Frame[D],
@@ -191,7 +192,7 @@ object SpatialMap:
       D <: Dim
   ](
       val underlying: SpatialMap[From, To, D]
-  )(using Dimension[D]) extends FrameErasedMap[D]:
+  )(using @unused dimension: Dimension[D]) extends FrameErasedMap[D]:
     type UnderlyingFrom = From
     type UnderlyingTo = To
     private val map = underlying
@@ -296,7 +297,7 @@ object SpatialMap:
       left: F,
       right: F,
       point: Point[F, D]
-  )(using Dimension[D]): Either[MapError, Point[F, D]] =
+  )(using @unused dimension: Dimension[D]): Either[MapError, Point[F, D]] =
     for
       _ <- validateResultPoint(left, point)
       alignment <- Frame

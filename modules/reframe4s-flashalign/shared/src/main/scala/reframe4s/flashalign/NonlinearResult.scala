@@ -151,6 +151,10 @@ object FlashalignNonlinearRecordError:
       extends FlashalignNonlinearRecordError:
     val message = s"$endpoint nonlinear result grid does not belong to the result frame owner"
 
+  object Geometry:
+    def apply(error: GeometryError | spatial4s.SpatialError): Geometry =
+      new Geometry(image4s.geometry.GeometryError.fromCoordinate(error))
+
   final case class Geometry(error: GeometryError)
       extends FlashalignNonlinearRecordError:
     val message = error.message

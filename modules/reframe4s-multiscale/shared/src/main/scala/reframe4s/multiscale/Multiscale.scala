@@ -44,6 +44,10 @@ object MultiscaleError:
     val message: String =
       s"the final level must use unit shrink, got ${shrink.mkString("x")}"
 
+  object Geometry:
+    def apply(error: GeometryError | spatial4s.SpatialError): Geometry =
+      new Geometry(image4s.geometry.GeometryError.fromCoordinate(error))
+
   final case class Geometry(error: GeometryError) extends MultiscaleError:
     val message: String = error.message
 
@@ -314,6 +318,10 @@ object TransferError:
   final case class Unsupported(operation: TransferOperation)
       extends TransferError:
     val message: String = s"$operation is not supported for this state"
+
+  object Geometry:
+    def apply(error: GeometryError | spatial4s.SpatialError): Geometry =
+      new Geometry(image4s.geometry.GeometryError.fromCoordinate(error))
 
   final case class Geometry(error: GeometryError) extends TransferError:
     val message: String = error.message

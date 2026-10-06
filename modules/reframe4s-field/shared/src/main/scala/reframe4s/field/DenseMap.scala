@@ -104,7 +104,7 @@ object CoverageReportingMap:
   ](
       first: CoverageReportingMap[A, B, D],
       second: CoverageReportingMap[B, C, D]
-  )(using Dimension[D]) extends CoverageReportingMap[A, C, D]:
+  )(using @scala.annotation.unused dimension: Dimension[D]) extends CoverageReportingMap[A, C, D]:
     val source: A = first.source
     val target: C = second.target
 

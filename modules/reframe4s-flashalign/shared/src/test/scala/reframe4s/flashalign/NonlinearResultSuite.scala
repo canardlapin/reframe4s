@@ -381,7 +381,7 @@ final class NonlinearResultSuite extends munit.FunSuite:
   ): Point[Frame[D3], D3] =
     val exact = geometry(Point.fromVector(frame, coordinates))
     val alignment = geometry(Frame.alignOwners[D3, frame.type, Frame[D3]](frame, frame))
-    geometry(alignment.pointToRight(exact))
+    geometry(alignment.pointToRight(exact).left.map(GeometryError.fromSpatial))
 
   private def analytic(world: Vector[Double]): Double =
     4.0 + 0.3 * world(0) - 0.2 * world(1) + 0.1 * world(2)

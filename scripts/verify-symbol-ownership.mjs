@@ -19,18 +19,20 @@ const locus4sRoot = resolve(
   process.env.LOCUS4S_ROOT ?? join(root, "..", "locus4s"),
 );
 const locus4sModulesRoot = resolve(locus4sRoot, "modules");
+const spatial4sRoot = resolve(process.env.SPATIAL4S_ROOT ?? join(root, "..", "spatial4s"));
+const spatial4sModulesRoot = resolve(spatial4sRoot, "modules");
 const declarations = new Map();
 const errors = [];
 
 const canonicalOwners = new Map([
-  ["image4s.geometry.Dim", "image4s-geometry"],
-  ["image4s.geometry.D2", "image4s-geometry"],
-  ["image4s.geometry.D3", "image4s-geometry"],
-  ["image4s.geometry.Dimension", "image4s-geometry"],
-  ["image4s.geometry.Frame", "image4s-geometry"],
-  ["image4s.geometry.FrameId", "image4s-geometry"],
-  ["image4s.geometry.Point", "image4s-geometry"],
-  ["image4s.geometry.Vec", "image4s-geometry"],
+  ["spatial4s.Dim", "spatial4s-core"],
+  ["spatial4s.D2", "spatial4s-core"],
+  ["spatial4s.D3", "spatial4s-core"],
+  ["spatial4s.Dimension", "spatial4s-core"],
+  ["spatial4s.Frame", "spatial4s-core"],
+  ["spatial4s.FrameId", "spatial4s-core"],
+  ["spatial4s.Point", "spatial4s-core"],
+  ["spatial4s.Vec", "spatial4s-core"],
   ["image4s.geometry.Grid", "image4s-geometry"],
   ["image4s.geometry.GridId", "image4s-geometry"],
   ["image4s.geometry.Affine", "image4s-geometry"],
@@ -112,6 +114,13 @@ const artifactRoots = readdirSync(modulesRoot).map((artifact) => [
   artifact,
   join(modulesRoot, artifact),
 ]);
+
+const spatialArtifactRoot = join(spatial4sModulesRoot, "spatial4s-core");
+try {
+  if (statSync(spatialArtifactRoot).isDirectory()) artifactRoots.push(["spatial4s-core", spatialArtifactRoot]);
+} catch {
+  errors.push(`standalone spatial4s core is missing at ${relative(root, spatialArtifactRoot)}`);
+}
 
 for (const artifact of [
   "image4s-geometry",
@@ -214,6 +223,21 @@ for (const [qualifiedName, expectedArtifact] of canonicalOwners) {
       `canonical symbol ${qualifiedName} must be owned only by ` +
         `${expectedArtifact}; found ${[...byArtifact.keys()].sort().join(", ")}`,
     );
+  }
+}
+
+for (const [file, names] of [
+  ["Dimension.scala", ["Dim", "D2", "D3", "Dimension"]],
+  ["Identity.scala", ["Frame", "FrameId", "FrameKey", "FrameRecord", "FrameRegistry", "FrameAlignment", "SomeFrame"]],
+  ["Coordinates.scala", ["Point", "Vec"]],
+]) {
+  const source = join(image4sModulesRoot, "image4s-geometry", "shared", "src", "main", "scala", "image4s", "geometry", file);
+  let text;
+  try { text = readFileSync(source, "utf8"); } catch { continue; }
+  for (const name of names) {
+    const alias = new RegExp(`^type ${name}(?:\\[[^\\n]*\\])?\\s*=\\s*spatial4s\\.${name}\\b`, "mu");
+    const owner = new RegExp(`^(?:sealed |abstract |final |case )*(?:class|trait|enum|opaque type) ${name}\\b`, "mu");
+    if (!alias.test(text) || owner.test(text)) errors.push(`image4s.geometry.${name} must alias Spatial4s instead of declaring a coordinate owner`);
   }
 }
 

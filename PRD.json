@@ -28,7 +28,8 @@
     "implementationAmendment": "image4s-locus declares its direct image4s-geometry dependency because its sole public bridge names the geometry-owned Grid type; image4s-core and locus4s-core remain its integration dependencies.",
     "ioAmendment": "The user approved a format-free SomeSampled dynamic boundary in image4s-core and a separate JVM-and-Node image4s-nifti artifact for basic NIfTI I/O. Basic I/O includes uncompressed and gzip-compressed single-file and pair-file NIfTI-1, extension preservation, and selectable UInt8, Int16, Int32, Float32, or Float64 output. The Scala.js artifact targets Node.js filesystem and gzip facilities and does not claim browser I/O. BIDS discovery, acquisition semantics, random-access staging policy, and workflow-level I/O remain in ScalaFIM.",
     "bundleAmendment": "The user approved a concrete published reframe4s umbrella artifact so ordinary consumers can select one browser-safe dependency instead of reconstructing the granular runtime DAG. Granular artifacts remain public; laws, reference oracles, experimental modules, and Node-only NIfTI I/O are excluded from the default bundle.",
-    "repositoryAmendment": "On 2026-07-29 the user authorized image4s as an independent repository and release boundary. image4s-geometry replaces reframe4s-geometry as the sole geometry authority, image4s owns all image4s-* artifacts, and reframe4s plus ScalaFIM consume image4s only through immutable coordinates or explicit audited development overrides."
+    "repositoryAmendment": "On 2026-07-29 the user authorized image4s as an independent repository and release boundary. image4s-geometry replaces reframe4s-geometry as the sole geometry authority, image4s owns all image4s-* artifacts, and reframe4s plus ScalaFIM consume image4s only through immutable coordinates or explicit audited development overrides.",
+    "spatialAuthorityAmendment": "On 2026-10-06 the user authorized unifying provider frame authority before concrete Reframe4s consumer integration; Spatial4s now owns frame and coordinate identities."
   },
   "authority": {
     "implementationContract": "PRD.json",
@@ -149,7 +150,7 @@
       "id": "DEC-014",
       "title": "Establish one geometry and affine authority",
       "status": "accepted",
-      "decision": "image4s-geometry exclusively owns Dim, Frame, FrameId, runtime frame identity, Point, Vec, GridId, Grid, and the immutable validated Affine[D] coordinate operator. A grid stores exactly one index-to-frame Affine[D]. Framed affine maps wrap that same value without copying or reimplementing affine mathematics.",
+      "decision": "Spatial4s owns Dim, Frame, FrameId, runtime frame ownership, Point, Vec, units, conventions and raw coordinate coefficients. Image4s geometry exposes type aliases for shared coordinate identities and owns GridId, Grid and index-to-world Affine operators. Reframe4s consumes the same Spatial4s owners through those aliases and owns typed maps, composition and inversion policy. This supersedes older Image4s exclusive frame-authority wording.",
       "rationale": "Neither image4s-core nor reframe4s-core may introduce a second grid, coordinate, matrix, inverse, or affine algebra."
     },
     {
@@ -306,7 +307,7 @@
         "image4s-locus"
       ],
       "artifactBoundaries": [
-        "image4s-geometry is the sole geometry and affine authority",
+        "image4s-geometry owns grid identity and index-to-world affine geometry and aliases Spatial4s-owned coordinate types",
         "image4s-core owns the sole sampled-image representation over Ravel storage",
         "image4s-nifti owns shared NIfTI-1 mechanics plus JVM and Node filesystem/gzip adapters",
         "image4s-reference and image4s-laws own correctness oracles and reusable laws",
@@ -368,6 +369,10 @@
       },
       {
         "artifact": "ravel-core",
+        "kind": "external"
+      },
+      {
+        "artifact": "spatial4s-core",
         "kind": "external"
       },
       {
@@ -476,6 +481,10 @@
       }
     ],
     "edges": [
+      {
+        "from": "image4s-geometry",
+        "to": "spatial4s-core"
+      },
       {
         "from": "image4s-geometry",
         "to": "gale-core"
@@ -1760,5 +1769,9 @@
       "source": "../scalafim/modules/locus-*",
       "role": "Extant finite-domain modules and identity behavior"
     }
-  ]
+  ],
+  "spatialAuthorityAmendment": {
+    "date": "2026-10-06",
+    "decision": "Spatial4s owns Dim, Frame, FrameId, runtime frame ownership, Point, Vec, units, conventions and raw coordinate coefficients. Image4s geometry exposes type aliases for shared coordinate identities and owns GridId, Grid and index-to-world Affine operators. Reframe4s consumes the same Spatial4s owners through those aliases and owns typed maps, composition and inversion policy. This supersedes older Image4s exclusive frame-authority wording."
+  }
 }

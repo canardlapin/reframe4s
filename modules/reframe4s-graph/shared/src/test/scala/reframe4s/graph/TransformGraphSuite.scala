@@ -84,7 +84,7 @@ final class TransformGraphSuite extends munit.FunSuite:
           "original-label"
         )
       )
-    val record = geometry(original.record)
+    val record = geometry(original.record.left.map(image4s.geometry.GeometryError.fromSpatial))
     val first =
       geometry(Frame.restore[D2](record, Frame.Registry.empty)).frame
     val second =
