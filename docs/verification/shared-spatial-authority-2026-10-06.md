@@ -38,3 +38,24 @@ These are engineering regression checks. No ephys4s scientific workflow or
 complete-workload performance qualification is claimed. Root Mote records:
 ephys4s-provider-reframe-spatial-closure and ephys4s-0-spatial. Provider record:
 reframe4s-ephys4s-spatial-closure.
+
+## Completed admission
+
+Reframe4s PR4 is integrated: `47eae3f5514d6618add6ab137c9280005e011064`
+via main merge `a113193bbb332500a27e617ab772552f72f58297`. Full local JVM/JS
+regressions pass: 1,064 tests across 189 suites (537 JVM, 527 JS). An isolated
+clean checkout also passes all16 lie tests per platform using default remote
+pins, no overrides. The completed PR workflow passes full JVM/JS on JDK22 and
+Node22, architecture, validation tools and benchmark runners. A duplicate push
+workflow at the same head was still running when the qualified PR merged.
+
+ephys4s admits the exact main-reachable revision above. Fresh unpublished
+verification snapshot `56f4a4023ff48c68cd176fe13f4b5c787ef325fb` passes every
+engineering/reference check, including24 spatial/locus/Reframe tests per JVM/JS
+and portable examples, plus three scoped JVM micro-observations. All caches
+start fresh; there are no local provider/sibling checkouts or overrides. Source
+stays stable and the checkout remains clean. Each runtime has exactly one
+Spatial4s frame, Gale and Ravel implementation. Required scientific and
+complete-workload checks are explicitly skipped; overall qualification remains
+incomplete with expected exit2. This receipt closes the provider Mote record;
+code admission remains pinned to the qualified implementation revision.
