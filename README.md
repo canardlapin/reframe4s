@@ -161,3 +161,8 @@ sbt -J-Xmx4G -batch reframe4sTestAll reframe4sTestRunners
 
 See [validation](docs/validation.md) for platform-specific commands, tooling
 checks, and the boundary between regression tests and scientific qualification.
+
+Real datasets are opt-in. Use `python3 tools/datasets.py list` to see current
+inputs and sizes, then explicitly fetch or import only the datasets that a
+machine needs. [Dataset migration](docs/datasets.md) documents cache locations,
+hash verification, private transfer bundles, and optional real-data test setup.

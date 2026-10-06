@@ -62,6 +62,7 @@ node scripts/verify-build-graph.mjs
 IMAGE4S_ROOT=/path/to/image4s LOCUS4S_ROOT=/path/to/locus4s \
   node scripts/verify-symbol-ownership.mjs
 node --test scripts/*.test.mjs
+python3 -m unittest discover -s tools -p 'test_datasets.py'
 python3 tools/registration/validate_real_world_registration_registry.py
 ```
 
@@ -70,3 +71,7 @@ documentation. It does not rerun the historical experiments. Optional acquired
 data tests report a skip when their external fixture is absent; record those
 skips alongside the test totals. Passing the regression suite does not establish
 anatomical registration accuracy, ANTs parity, or benchmark superiority.
+
+Existing real-data inputs can be fetched or migrated explicitly using
+[dataset caches](datasets.md). Builds and tests never initiate those downloads;
+machines can omit the cache or store it on a larger disk.

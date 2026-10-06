@@ -7,11 +7,8 @@ No evaluation labels enter prepare() or the Scala registration runner.
 import argparse
 import hashlib
 import json
-import struct
-import tarfile
+import importlib.util
 import time
-import urllib.request
-import zlib
 from pathlib import Path
 
 import nibabel as nib
@@ -41,65 +38,11 @@ def save_image(path, values, affine, dtype=np.float64):
 
 def fetch(args):
     """Retrieve only the pinned public processed OASIS subset, never raw MRI."""
-    evidence = Path(__file__).resolve().parents[2] / "docs/benchmarks/evidence/real-mri-20261002"
-    acquisition = json.loads((evidence / "acquisition.json").read_text())
-    selection = json.loads((evidence / "selection.json").read_text())
-    out = Path(args.output)
-    out.mkdir(parents=True, exist_ok=False)
-    archive = Path(args.archive) if args.archive else out / "OASIS-TRT-20_volumes.tar.gz"
-    if not args.archive:
-        start, end = acquisition["http_range"]
-        request = urllib.request.Request(acquisition["archive_url"], headers={"Range": f"bytes={start}-{end}"})
-        partial = archive.with_suffix(archive.suffix + ".partial")
-        with urllib.request.urlopen(request, timeout=120) as response, partial.open("xb") as stream:
-            if response.status != 206:
-                raise RuntimeError("publisher did not honor the archive-member byte range")
-            header = response.read(30)
-            if header[:4] != b"PK\x03\x04" or struct.unpack_from("<H", header, 8)[0] != 8:
-                raise RuntimeError("unexpected ZIP entry header or compression")
-            name_size, extra_size = struct.unpack_from("<HH", header, 26)
-            name = response.read(name_size).decode()
-            response.read(extra_size)
-            if name != acquisition["entry"]:
-                raise RuntimeError("archive member identity differs from pinned receipt")
-            decoder = zlib.decompressobj(-15)
-            remaining = acquisition["compressed_bytes"]
-            while remaining:
-                chunk = response.read(min(1024 * 1024, remaining))
-                if not chunk:
-                    raise RuntimeError("truncated archive member")
-                remaining -= len(chunk)
-                stream.write(decoder.decompress(chunk))
-            stream.write(decoder.flush())
-            if not decoder.eof:
-                raise RuntimeError("incomplete compressed archive member")
-        if sha(partial) != acquisition["sha256"]:
-            raise RuntimeError("downloaded archive SHA-256 differs from pinned receipt")
-        partial.rename(archive)
-    if sha(archive) != acquisition["sha256"]:
-        raise RuntimeError("archive SHA-256 differs from pinned receipt")
-    with tarfile.open(archive, "r:gz") as tar:
-        members = tar.getmembers()
-        for subject in selection["subjects"]:
-            target = out / "selected" / subject
-            target.mkdir(parents=True)
-            for name in ("t1weighted_brain.nii.gz", "labels.DKT31.manual.nii.gz"):
-                suffix = subject + "/" + name
-                matches = [m for m in members if m.isfile() and (m.name == suffix or m.name.endswith("/" + suffix))]
-                if len(matches) != 1:
-                    raise RuntimeError(f"expected exactly one processed member {suffix}")
-                path = target / name
-                path.write_bytes(tar.extractfile(matches[0]).read())
-                if sha(path) != selection["files"]["selected/" + suffix]:
-                    raise RuntimeError(f"processed image hash mismatch: {suffix}")
-            image = nib.load(target / "t1weighted_brain.nii.gz")
-            mask_path = target / "positive-intensity-mask.nii.gz"
-            save_image(mask_path, image.get_fdata() > 0, image.affine, dtype=np.uint8)
-            if sha(mask_path) != selection["files"]["selected/" + subject + "/" + mask_path.name]:
-                raise RuntimeError(f"derived mask differs from pinned receipt: {subject}")
-    for name in ("acquisition.json", "selection.json", "LICENSE"):
-        (out / name).write_bytes((evidence / name).read_bytes())
-    print(f"Verified four processed subjects and manual cortical labels in {out / 'selected'}")
+    script = Path(__file__).resolve().parents[2] / "tools/datasets.py"
+    spec = importlib.util.spec_from_file_location("reframe4s_datasets", script)
+    datasets = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(datasets)
+    datasets.fetch_oasis_legacy(args.output, args.archive)
 
 
 def prepare(args):

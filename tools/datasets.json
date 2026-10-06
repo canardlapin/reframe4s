@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "datasets": [
+    {
+      "id": "oasis-development",
+      "description": "Four frozen Mindboggle OASIS-TRT-20 subjects for registration development and transfer",
+      "kind": "oasis",
+      "license": "CC-BY-4.0",
+      "source": "doi:10.5281/zenodo.22070005",
+      "acquisition": "docs/benchmarks/evidence/real-mri-20261002/acquisition.json",
+      "selection": "docs/benchmarks/evidence/real-mri-20261002/selection.json",
+      "license_file": "docs/benchmarks/evidence/real-mri-20261002/LICENSE",
+      "selected_file_bytes": {
+        "selected/OASIS-TRT-20-1/labels.DKT31.manual.nii.gz": 671903,
+        "selected/OASIS-TRT-20-1/positive-intensity-mask.nii.gz": 264074,
+        "selected/OASIS-TRT-20-1/t1weighted_brain.nii.gz": 2320300,
+        "selected/OASIS-TRT-20-10/labels.DKT31.manual.nii.gz": 606665,
+        "selected/OASIS-TRT-20-10/positive-intensity-mask.nii.gz": 235561,
+        "selected/OASIS-TRT-20-10/t1weighted_brain.nii.gz": 1902144,
+        "selected/OASIS-TRT-20-11/labels.DKT31.manual.nii.gz": 653619,
+        "selected/OASIS-TRT-20-11/positive-intensity-mask.nii.gz": 241358,
+        "selected/OASIS-TRT-20-11/t1weighted_brain.nii.gz": 2161936,
+        "selected/OASIS-TRT-20-12/labels.DKT31.manual.nii.gz": 635433,
+        "selected/OASIS-TRT-20-12/positive-intensity-mask.nii.gz": 243495,
+        "selected/OASIS-TRT-20-12/t1weighted_brain.nii.gz": 2078755
+      },
+      "usage": "Use selected/ with the recipe in docs/benchmarks/real-image-development.md. This is anatomical development evidence, not a new fMRI benchmark or generalization claim."
+    },
+    {
+      "id": "hodgeflow-public-t1",
+      "description": "Exact two-image fixture used by the optional BasinBridgeRealDataSuite",
+      "kind": "files",
+      "license": null,
+      "source": "docs/benchmarks/receipts/basinbridge-realdata-hodgeflow-2026-08-02.json",
+      "download_unavailable": "No accessible pinned public download or dataset-license evidence is recorded. Import the existing Hodgeflow checkout or a privately transferred bundle.",
+      "usage": "Set HODGEFLOW_ROOT to this dataset directory and run reframe4s-halfflowJVM/testOnly reframe4s.halfflow.BasinBridgeRealDataSuite. Retains the existing diagnostic court; licensing and anatomical admission remain unqualified.",
+      "files": [
+        {"path": "data-raw/sub-1002_run-01_res-3_T1w.nii.gz", "bytes": 1674166, "sha256": "e0563a9d227383125ed4b1514bc66f480ed016de68ce1dc4ed6699b436d93692"},
+        {"path": "data-raw/tpl-MNI152Lin_res-02_T1w.nii.gz", "bytes": 1448817, "sha256": "5f6e8fc4f60b8e53ec5574d536238034bc340aca01438d7ab32ee9df8ea80b4d"}
+      ]
+    },
+    {
+      "id": "motion-exploratory-fmri",
+      "description": "Existing Volregger exploratory functional runs, excluded from motion superiority claims",
+      "kind": "files",
+      "license": null,
+      "source": "benchmarks/motion/protocol-v2.json exploratoryInputsExcludedFromClaims",
+      "download_unavailable": "The retained protocol records unknown provenance and licensing. Import existing files or a privately transferred bundle; no remote source is guessed.",
+      "usage": "Exploratory inputs only. These files do not fill the unresolved real-anatomy manifest or satisfy a release/scientific admission gate.",
+      "files": [
+        {"path": "data-raw/sub-01_task-freerecall_bold.nii.gz", "bytes": 70954024, "sha256": "f71341998e1431a3f38f0c7f76506e6ab1a3a79bdf5fe6d98e27d3ceafeab5c5"},
+        {"path": "data-raw/sub-CC221565_task-movie_run-01_echo-2_bold.nii.gz", "bytes": 28794136, "sha256": "5b775a14341964b6ec3137054d45e19538c61f533c0cd139e2c9e021e1b6e442"}
+      ]
+    }
+  ]
+}

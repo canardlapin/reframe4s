@@ -50,5 +50,6 @@ Source, plans, compact scientific evidence, and reproduction instructions are
 tracked elsewhere in this repository. Large MRI/map binaries under
 `benchmarks/flashalign/local-results/` and local `.agent-work/` archives need
 separate transfer or reproduction when a task requires them. See
+[dataset retrieval and migration](../docs/datasets.md),
 [validation](../docs/validation.md) and
 [acquired-image reproduction](../docs/benchmarks/real-image-development.md).

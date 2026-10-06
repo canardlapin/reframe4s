@@ -66,7 +66,9 @@ jobs:
 
       - name: Test validation tools
         if: matrix.platform == 'JVM'
-        run: node --test scripts/*.test.mjs
+        run: |
+          node --test scripts/*.test.mjs
+          python3 -m unittest discover -s tools -p 'test_datasets.py'
 
       - name: Compile and test ${{ matrix.platform }} modules sequentially
         run: sbt -J-Xmx4G -batch reframe4sTest${{ matrix.platform }}
