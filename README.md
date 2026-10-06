@@ -2,7 +2,8 @@
 
 reframe4s provides lawful typed spatial transformations, resampling,
 registration, fields, flows, and motion for Scala on the JVM and Scala.js.
-Spatial geometry and sampled images live in the independent
+Coordinate ownership lives in [Spatial4s](https://github.com/canardlapin/spatial4s).
+Grids and sampled images live in the independent
 [image4s](https://github.com/canardlapin/image4s) repository. Identity-safe
 finite domains live in [locus4s](https://github.com/canardlapin/locus4s).
 ScalaFIM remains the higher-level neuroimaging suite and owns BIDS discovery,
@@ -30,8 +31,9 @@ cross-repository DAG in `PRD.json`.
 | Registration | `reframe4s-register` | optimizer protocols and capability-precise registration results |
 | Motion | `reframe4s-motion` | canonical rigid estimation, pose trajectories, acquisition timing, application, and pose-derived diagnostics |
 
-The external `image4s-geometry` artifact owns dimensions, frames, points,
-vectors, grids, and affine coordinates. `image4s-core` owns the single
+Spatial4s owns dimensions, frames, points, vectors, units and conventions.
+The external `image4s-geometry` artifact exposes aliases for those exact types
+and owns grids and index-to-world affine coordinates. `image4s-core` owns the single
 `Sampled[F,D,A,Role,R]` representation. Reframe modules consume those values
 directly; no adapter image or geometry hierarchy exists here.
 
@@ -166,3 +168,10 @@ Real datasets are opt-in. Use `python3 tools/datasets.py list` to see current
 inputs and sizes, then explicitly fetch or import only the datasets that a
 machine needs. [Dataset migration](docs/datasets.md) documents cache locations,
 hash verification, private transfer bundles, and optional real-data test setup.
+
+Shared frame and point instance operations return Spatial4s errors. Reframe
+module error wrappers explicitly accept either GeometryError or SpatialError
+through Image4s's `GeometryError.fromCoordinate` bridge. No implicit coordinate
+conversion or second frame owner is introduced. Granular consumers that only
+need typed affine maps can select `reframe4s-lie` (and its core/geometry
+dependencies) without selecting image IO or registration modules.

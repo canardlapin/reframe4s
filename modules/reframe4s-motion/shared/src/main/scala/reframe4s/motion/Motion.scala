@@ -112,6 +112,10 @@ object MotionError:
       s"motion intensity at ${spatialIndex.mkString("(", ",", ")")} " +
         s"must be finite, got $value"
 
+  object Geometry:
+    def apply(error: GeometryError | spatial4s.SpatialError): Geometry =
+      new Geometry(image4s.geometry.GeometryError.fromCoordinate(error))
+
   final case class Geometry(error: GeometryError) extends MotionError:
     val message: String = error.message
 

@@ -85,7 +85,7 @@ final class MapLawsSuite extends munit.FunSuite:
         erasedSource
       )
     )
-    val point = rightGeometry(alignment.pointToRight(raw))
+    val point = rightGeometry(alignment.pointToRight(raw).left.map(GeometryError.fromSpatial))
     val result = rightMap(erased(point))
 
     assert(erased.source eq source)
@@ -104,7 +104,7 @@ final class MapLawsSuite extends munit.FunSuite:
         foreignFrame
       )
     )
-    val foreignPoint = rightGeometry(foreignAlignment.pointToRight(foreignRaw))
+    val foreignPoint = rightGeometry(foreignAlignment.pointToRight(foreignRaw).left.map(GeometryError.fromSpatial))
     erased(foreignPoint) match
       case Left(_: MapError.SourceFrameMismatch) => ()
       case other => fail(s"expected a typed source-owner failure, got $other")
@@ -434,7 +434,7 @@ final class MapLawsSuite extends munit.FunSuite:
     val frameId = rightGeometry(FrameId.parse("shared"))
     val original =
       rightGeometry(Frame.persistentNamed[D2](frameId, "shared"))
-    val record = rightGeometry(original.record)
+    val record = rightGeometry(original.record.left.map(image4s.geometry.GeometryError.fromSpatial))
     val first: Frame[D2] = rightGeometry(
       Frame.restore[D2](
         record,

@@ -79,6 +79,10 @@ private[flashalign] object AffineModelError:
     val message: String =
       s"affine strain prior requires a 12-parameter output, got $actual"
 
+  object Geometry:
+    def apply(error: GeometryError | spatial4s.SpatialError): Geometry =
+      new Geometry(image4s.geometry.GeometryError.fromCoordinate(error))
+
   final case class Geometry(error: GeometryError) extends AffineModelError:
     val message: String = error.message
 

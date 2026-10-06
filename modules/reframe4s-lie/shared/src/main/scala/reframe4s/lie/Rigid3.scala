@@ -15,6 +15,10 @@ sealed trait RigidError derives CanEqual:
   def message: String
 
 object RigidError:
+  object Geometry:
+    def apply(error: GeometryError | spatial4s.SpatialError): Geometry =
+      new Geometry(image4s.geometry.GeometryError.fromCoordinate(error))
+
   final case class Geometry(error: GeometryError) extends RigidError:
     val message: String = error.message
 

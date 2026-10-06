@@ -1,6 +1,7 @@
 # node	kind	artifact
 node	external	gale-core
 node	external	ravel-core
+node	external	spatial4s-core
 node	external	image4s-geometry
 node	external	image4s-core
 node	external	image4s-nifti
@@ -28,6 +29,7 @@ node	downstream	scalafim-image
 node	downstream	scalafim-motion
 node	downstream	scalafim-locus
 # edge	consumer	dependency
+edge	image4s-geometry	spatial4s-core
 edge	image4s-geometry	gale-core
 edge	image4s-core	image4s-geometry
 edge	image4s-core	ravel-core
