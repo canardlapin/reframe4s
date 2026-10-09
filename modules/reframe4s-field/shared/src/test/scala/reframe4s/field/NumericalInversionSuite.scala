@@ -88,6 +88,32 @@ final class NumericalInversionSuite extends munit.FunSuite:
       assertEqualsDouble(pushed(axis), expected(axis), bound + 0.02)
     )
 
+  test("lattice face nodes evaluate despite frame-to-index roundoff"):
+    val pull = denseMap(pullGrid, s)(sinusoid(amplitude, omega))
+    // Spacing 0.3 and origin 1.1 are not exactly representable, so mapping
+    // some face nodes back to index space lands a few ulps off the lattice.
+    val lattice =
+      persistentGrid(s, "inverse-face-roundoff", Vector(20, 16, 12), affine[D3](Vector(1.1, 1.1, 1.1), Vector(0.3, 0.3, 0.3)))
+    val gates = right(InversionGates.create(1.0, 0.05, 0.05, interiorMargin = 1))
+    val inverse = right(NumericalInversion.invert(pull, lattice, settings, gates, revision))
+    var offLattice = 0
+    for (index, point) <- latticePoints(lattice) do
+      val continuous = right(lattice.continuousIndexOf(point)).values
+      if continuous.zip(lattice.shape).exists((value, size) => value < 0.0 || value > size - 1.0) then
+        offLattice += 1
+      val query = right(Point.fromVector(s, point.coordinates))
+      val pushed = right(inverse.estimate.value(widen(query))).coordinates
+      pushed.indices.foreach: component =>
+        val stored = right(inverse.samples.coordinates.valueAt(index, Vector(component)))
+        assertEqualsDouble(pushed(component), stored, 1e-9)
+    assert(offLattice > 0, "fixture no longer exercises face roundoff")
+
+    // A query a measurable distance past the face is still rejected.
+    val beyond = right(Point.fromVector(s, Vector(1.1 - 1e-6, 2.0, 2.0)))
+    inverse.estimate.value(widen(beyond)) match
+      case Left(MapError.OutsideDomain(_)) => ()
+      case other => fail(s"expected a point past the face to be rejected, got $other")
+
   test("coverage below the gate is a typed failure carrying the evidence"):
     val pull = denseMap(pullGrid, s)(sinusoid(amplitude, omega))
     // This lattice reaches past the pull's support on every axis.
