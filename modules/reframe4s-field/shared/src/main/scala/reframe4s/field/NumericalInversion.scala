@@ -253,7 +253,7 @@ object NumericalInversion:
       iterations <- solve(pull, lattice, settings, statuses, estimates, residuals)
       samples <- sampleMap(lattice, pull.source, estimates)
       mask <- domainMask(lattice, statuses)
-      push = new DomainRestrictedMap(samples, statuses)
+      push = new DomainRestrictedMap(samples, statuses, estimates)
       reverse <- reverseResiduals(pull, push, gates.interiorMargin)
       evidence = buildEvidence(
         lattice,
@@ -641,12 +641,19 @@ object NumericalInversion:
     status == InversePointStatus.Converged.ordinal.toByte ||
       status == InversePointStatus.MaxIterations.ordinal.toByte
 
+  /** Continuous-index distance within which a query is treated as lying on
+    * a lattice face. It absorbs only the roundoff of the frame-to-index
+    * affine, so an exact face point is not rejected one ulp outside.
+    */
+  private val FaceSnapTolerance = 1e-9
+
   /** Linear interpolation of the estimate that rejects any point whose
     * stencil reaches a sample outside the evaluation domain.
     */
   private final class DomainRestrictedMap[S <: Frame[D], T <: Frame[D], D <: Dim](
       samples: DenseMap[S, T, D, AnyRank],
-      statuses: Array[Byte]
+      statuses: Array[Byte],
+      estimates: Array[Double]
   )(using dimension: Dimension[D])
       extends SpatialMap[S, T, D]:
     val source: S = samples.source
@@ -660,11 +667,53 @@ object NumericalInversion:
           .continuousIndexOf(point)
           .left
           .map(MapError.Geometry.apply)
+        snapped = snapToFaces(continuous.values)
         _ <-
-          if stencilInDomain(continuous.values) then Right(())
+          if stencilInDomain(snapped) then Right(())
           else Left(MapError.OutsideDomain(point.coordinates))
-        result <- samples(point)
+        result <-
+          if snapped == continuous.values then samples(point)
+          else interpolateAt(snapped)
       yield result
+
+    /** Move a coordinate within `FaceSnapTolerance` of a lattice face onto
+      * that face. Interior coordinates are left unchanged.
+      */
+    private def snapToFaces(values: Vector[Double]): Vector[Double] =
+      values.zipWithIndex.map: (value, axis) =>
+        if math.abs(value) <= FaceSnapTolerance then 0.0
+        else if math.abs(value - (shape(axis) - 1)) <= FaceSnapTolerance then (shape(axis) - 1).toDouble
+        else value
+
+    /** Linear interpolation of the estimate at a continuous index whose
+      * stencil has already been checked against the evaluation domain.
+      */
+    private def interpolateAt(values: Vector[Double]): Either[MapError, Point[T, D]] =
+      val rank = dimension.rank
+      val coordinates = new Array[Double](rank)
+      var corner = 0
+      while corner < (1 << rank) do
+        var weight = 1.0
+        var linear = 0
+        var axis = 0
+        while axis < rank do
+          val lower = math.floor(values(axis)).toInt
+          val fraction = values(axis) - lower
+          val upper = ((corner >> axis) & 1) == 1
+          weight *= (if upper then fraction else 1.0 - fraction)
+          linear = linear * shape(axis) + (if upper then lower + 1 else lower)
+          axis += 1
+        if weight > 0.0 then
+          var component = 0
+          while component < rank do
+            coordinates(component) += weight * estimates(linear * rank + component)
+            component += 1
+        corner += 1
+      Point.fromVector(target, coordinates.toVector)
+        .flatMap(value =>
+          Frame.alignOwners[D, target.type, T](target, target)
+            .flatMap(_.pointToRight(value))
+        ).left.map(MapError.Geometry.apply)
 
     /** Every linear-interpolation corner with positive weight must be a
       * lattice sample inside the evaluation domain.
