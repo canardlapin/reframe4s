@@ -508,23 +508,23 @@ object NeighborhoodCc:
       x * x * (3.0 - 2.0 * x)
 
   private def availableWindowSamples(grid: GridSpec, radius: VoxelWindowRadius, index: Int): Int =
-    val x = index % grid.shape.x
-    val yz = index / grid.shape.x
-    val y = yz % grid.shape.y
-    val z = yz / grid.shape.y
-    val nx = math.min(grid.shape.x - 1, x + radius.x) - math.max(0, x - radius.x) + 1
-    val ny = math.min(grid.shape.y - 1, y + radius.y) - math.max(0, y - radius.y) + 1
-    val nz = math.min(grid.shape.z - 1, z + radius.z) - math.max(0, z - radius.z) + 1
+    val x = index % grid.shape(0)
+    val yz = index / grid.shape(0)
+    val y = yz % grid.shape(1)
+    val z = yz / grid.shape(1)
+    val nx = math.min(grid.shape(0) - 1, x + radius.x) - math.max(0, x - radius.x) + 1
+    val ny = math.min(grid.shape(1) - 1, y + radius.y) - math.max(0, y - radius.y) + 1
+    val nz = math.min(grid.shape(2) - 1, z + radius.z) - math.max(0, z - radius.z) + 1
     nx * ny * nz
 
   private def inEdgeBand(grid: GridSpec, radius: VoxelWindowRadius, index: Int): Boolean =
-    val x = index % grid.shape.x
-    val yz = index / grid.shape.x
-    val y = yz % grid.shape.y
-    val z = yz / grid.shape.y
-    x <= radius.x || x >= grid.shape.x - radius.x - 1 ||
-      y <= radius.y || y >= grid.shape.y - radius.y - 1 ||
-      z <= radius.z || z >= grid.shape.z - radius.z - 1
+    val x = index % grid.shape(0)
+    val yz = index / grid.shape(0)
+    val y = yz % grid.shape(1)
+    val z = yz / grid.shape(1)
+    x <= radius.x || x >= grid.shape(0) - radius.x - 1 ||
+      y <= radius.y || y >= grid.shape(1) - radius.y - 1 ||
+      z <= radius.z || z >= grid.shape(2) - radius.z - 1
 
   private inline def fill(values: Array[Double], size: Int)(inline value: Int => Double): Unit =
     var index = 0

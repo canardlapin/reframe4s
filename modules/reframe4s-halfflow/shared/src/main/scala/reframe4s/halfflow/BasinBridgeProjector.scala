@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 /** Errors raised while projecting sparse BasinBridge observations. */
@@ -171,106 +172,104 @@ object BasinBridgeProjector:
       Left(BasinBridgeProjectorError.InvalidDestination(grid.nVoxels * 3, destination.length))
     else if workspace.grid != grid then Left(BasinBridgeProjectorError.InvalidWorkspace)
     else
-      DMat.invert(grid.affine) match
-        case Left(reason) => Left(BasinBridgeProjectorError.SingularGrid(reason))
-        case Right(inverse) =>
-          val initial = weightedMean(correspondences, BasinBridgePoint.unsafe(0.0, 0.0, 0.0))
-          val robust = robustMean(correspondences, initial.point, config.cauchyScaleMm)
-          clearWorkspace(workspace, config.zeroResidualPriorWeight)
+      val inverse = grid.inverseAffine
+      val initial = weightedMean(correspondences, BasinBridgePoint.unsafe(0.0, 0.0, 0.0))
+      val robust = robustMean(correspondences, initial.point, config.cauchyScaleMm)
+      clearWorkspace(workspace, config.zeroResidualPriorWeight)
 
-          var index = 0
-          var seedsInsideGrid = 0
-          var failure = Option.empty[BasinBridgeProjectorError]
-          while index < correspondences.length && failure.isEmpty do
-            val correspondence = correspondences(index)
-            val tangentX = correspondence.moving.x - correspondence.fixed.x
-            val tangentY = correspondence.moving.y - correspondence.fixed.y
-            val tangentZ = correspondence.moving.z - correspondence.fixed.z
-            val robustWeight =
-              correspondence.confidence * cauchyWeight(
-                tangentX,
-                tangentY,
-                tangentZ,
-                initial.point,
-                config.cauchyScaleMm
-              )
-            val midpointX = (correspondence.fixed.x + correspondence.moving.x) * 0.5
-            val midpointY = (correspondence.fixed.y + correspondence.moving.y) * 0.5
-            val midpointZ = (correspondence.fixed.z + correspondence.moving.z) * 0.5
-            val residualX = tangentX - robust.point.x
-            val residualY = tangentY - robust.point.y
-            val residualZ = tangentZ - robust.point.z
-            splat(
-              index,
-              midpointX,
-              midpointY,
-              midpointZ,
-              residualX,
-              residualY,
-              residualZ,
-              robustWeight,
-              inverse,
-              grid,
-              workspace
-            ) match
-              case Left(error) => failure = Some(error)
-              case Right(inside) => if inside then seedsInsideGrid += 1
-            index += 1
+      var index = 0
+      var seedsInsideGrid = 0
+      var failure = Option.empty[BasinBridgeProjectorError]
+      while index < correspondences.length && failure.isEmpty do
+        val correspondence = correspondences(index)
+        val tangentX = correspondence.moving.x - correspondence.fixed.x
+        val tangentY = correspondence.moving.y - correspondence.fixed.y
+        val tangentZ = correspondence.moving.z - correspondence.fixed.z
+        val robustWeight =
+          correspondence.confidence * cauchyWeight(
+            tangentX,
+            tangentY,
+            tangentZ,
+            initial.point,
+            config.cauchyScaleMm
+          )
+        val midpointX = (correspondence.fixed.x + correspondence.moving.x) * 0.5
+        val midpointY = (correspondence.fixed.y + correspondence.moving.y) * 0.5
+        val midpointZ = (correspondence.fixed.z + correspondence.moving.z) * 0.5
+        val residualX = tangentX - robust.point.x
+        val residualY = tangentY - robust.point.y
+        val residualZ = tangentZ - robust.point.z
+        splat(
+          index,
+          midpointX,
+          midpointY,
+          midpointZ,
+          residualX,
+          residualY,
+          residualZ,
+          robustWeight,
+          inverse,
+          grid,
+          workspace
+        ) match
+          case Left(error) => failure = Some(error)
+          case Right(inside) => if inside then seedsInsideGrid += 1
+        index += 1
 
-          failure match
+      failure match
+        case Some(error) => Left(error)
+        case None =>
+          normalizeSeedResiduals(workspace)
+          Gaussian3D.normalizedInto(
+            workspace.residualX,
+            workspace.support,
+            grid,
+            config.sigmaMm,
+            config.minimumGaussianWeight,
+            workspace.smoothX,
+            workspace.smoothWeight,
+            workspace.gaussian,
+            GaussianBoundary.Reflect
+          )
+          Gaussian3D.normalizedInto(
+            workspace.residualY,
+            workspace.support,
+            grid,
+            config.sigmaMm,
+            config.minimumGaussianWeight,
+            workspace.smoothY,
+            workspace.smoothWeight,
+            workspace.gaussian,
+            GaussianBoundary.Reflect
+          )
+          Gaussian3D.normalizedInto(
+            workspace.residualZ,
+            workspace.support,
+            grid,
+            config.sigmaMm,
+            config.minimumGaussianWeight,
+            workspace.smoothZ,
+            workspace.smoothWeight,
+            workspace.gaussian,
+            GaussianBoundary.Reflect
+          )
+          writeOutput(
+            grid,
+            robust.point,
+            config,
+            destination,
+            workspace,
+            failure
+          ) match
             case Some(error) => Left(error)
             case None =>
-              normalizeSeedResiduals(workspace)
-              Gaussian3D.normalizedInto(
-                workspace.residualX,
-                workspace.support,
-                grid,
-                config.sigmaMm,
-                config.minimumGaussianWeight,
-                workspace.smoothX,
-                workspace.smoothWeight,
-                workspace.gaussian,
-                GaussianBoundary.Reflect
+              Right(
+                BasinBridgeProjectionSummary(
+                  robust.point,
+                  robust.totalWeight,
+                  seedsInsideGrid
+                )
               )
-              Gaussian3D.normalizedInto(
-                workspace.residualY,
-                workspace.support,
-                grid,
-                config.sigmaMm,
-                config.minimumGaussianWeight,
-                workspace.smoothY,
-                workspace.smoothWeight,
-                workspace.gaussian,
-                GaussianBoundary.Reflect
-              )
-              Gaussian3D.normalizedInto(
-                workspace.residualZ,
-                workspace.support,
-                grid,
-                config.sigmaMm,
-                config.minimumGaussianWeight,
-                workspace.smoothZ,
-                workspace.smoothWeight,
-                workspace.gaussian,
-                GaussianBoundary.Reflect
-              )
-              writeOutput(
-                grid,
-                robust.point,
-                config,
-                destination,
-                workspace,
-                failure
-              ) match
-                case Some(error) => Left(error)
-                case None =>
-                  Right(
-                    BasinBridgeProjectionSummary(
-                      robust.point,
-                      robust.totalWeight,
-                      seedsInsideGrid
-                    )
-                  )
 
   private def weightedMean(
       correspondences: Vector[BasinBridgeCorrespondence],
@@ -387,17 +386,17 @@ object BasinBridgeProjector:
         var dx = 0
         while dx <= 1 do
           val x = x0 + dx
-          if x >= 0 && x < grid.shape.x then
+          if x >= 0 && x < grid.shape(0) then
             val wx = if dx == 0 then 1.0 - fx else fx
             var dy = 0
             while dy <= 1 do
               val y = y0 + dy
-              if y >= 0 && y < grid.shape.y then
+              if y >= 0 && y < grid.shape(1) then
                 val wy = if dy == 0 then 1.0 - fy else fy
                 var dz = 0
                 while dz <= 1 do
                   val z = z0 + dz
-                  if z >= 0 && z < grid.shape.z then
+                  if z >= 0 && z < grid.shape(2) then
                     val wz = if dz == 0 then 1.0 - fz else fz
                     normalization += wx * wy * wz
                   dz += 1
@@ -408,20 +407,20 @@ object BasinBridgeProjector:
           dx = 0
           while dx <= 1 do
             val x = x0 + dx
-            if x >= 0 && x < grid.shape.x then
+            if x >= 0 && x < grid.shape(0) then
               val wx = if dx == 0 then 1.0 - fx else fx
               var dy = 0
               while dy <= 1 do
                 val y = y0 + dy
-                if y >= 0 && y < grid.shape.y then
+                if y >= 0 && y < grid.shape(1) then
                   val wy = if dy == 0 then 1.0 - fy else fy
                   var dz = 0
                   while dz <= 1 do
                     val z = z0 + dz
-                    if z >= 0 && z < grid.shape.z then
+                    if z >= 0 && z < grid.shape(2) then
                       val wz = if dz == 0 then 1.0 - fz else fz
                       val splatWeight = weight * wx * wy * wz / normalization
-                      val index = x + grid.shape.x * y + grid.shape.x * grid.shape.y * z
+                      val index = x + grid.shape(0) * y + grid.shape(0) * grid.shape(1) * z
                       workspace.support(index) += splatWeight
                       workspace.residualX(index) += splatWeight * residualX
                       workspace.residualY(index) += splatWeight * residualY

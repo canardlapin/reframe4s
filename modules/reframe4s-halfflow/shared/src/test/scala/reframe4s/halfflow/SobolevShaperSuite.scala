@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import gale.linalg.DMat
 import gale.linalg.MutableDVec
 import reframe4s.halfflow.internal.*
 
@@ -9,14 +10,12 @@ class SobolevShaperSuite extends munit.FunSuite:
   test("masked Helmholtz application matches an independent no-flux stencil") {
     val grid = GridSpec(
       Vector(5, 4, 3),
-      DMat.fromRows(
-        Vector(
+      DMat.dense(4, 4, (Vector(
           Vector(1.0, 0.0, 0.0, 0.0),
           Vector(0.0, 2.0, 0.0, 0.0),
           Vector(0.0, 0.0, 3.0, 0.0),
           Vector(0.0, 0.0, 0.0, 1.0)
-        )
-      )
+        )).flatten)
     )
     val active = PrimitiveBuffers.fill[Boolean](grid.nVoxels)(true)
     active(0) = false
@@ -35,7 +34,7 @@ class SobolevShaperSuite extends munit.FunSuite:
   test("power-two solve matches the discrete Neumann cosine response") {
     val side = 12
     val grid = GridSpec.identity(Vector(side, side, side))
-    val frame = Frame[Work](SpatialDomainId("sobolev-frequency"), grid)
+    val frame = RegistrationFrame[Work](SpatialDomainId("sobolev-frequency"), grid)
     val values = PrimitiveBuffers.ofSize[Double](grid.nVoxels * 3)
     val frequency = 2
     var index = 0
@@ -67,12 +66,12 @@ class SobolevShaperSuite extends munit.FunSuite:
 
   test("constant fields are preserved, masks project exactly, and caps are enforced") {
     val grid = GridSpec.identity(Vector(9, 8, 7))
-    val frame = Frame[Work](SpatialDomainId("sobolev-mask"), grid)
+    val frame = RegistrationFrame[Work](SpatialDomainId("sobolev-mask"), grid)
     val values = PrimitiveBuffers.ofSize[Double](grid.nVoxels * 3)
     val valid = PrimitiveBuffers.fill[Boolean](grid.nVoxels)(true)
     var index = 0
     while index < grid.nVoxels do
-      values(index) = 4.0 + 0.5 * (index % grid.shape.x)
+      values(index) = 4.0 + 0.5 * (index % grid.shape(0))
       values(index + grid.nVoxels) = -2.0
       values(index + 2 * grid.nVoxels) = 1.0
       if index % 11 == 0 then valid(index) = false
@@ -102,7 +101,7 @@ class SobolevShaperSuite extends munit.FunSuite:
 
   test("in-place LM storage reuse matches disjoint Sobolev storage") {
     val grid = GridSpec.identity(Vector(8, 7, 6))
-    val frame = Frame[Work](SpatialDomainId("sobolev-alias"), grid)
+    val frame = RegistrationFrame[Work](SpatialDomainId("sobolev-alias"), grid)
     val values = PrimitiveBuffers.ofSize[Double](grid.nVoxels * 3)
     var index = 0
     while index < values.length do
@@ -152,7 +151,7 @@ class SobolevShaperSuite extends munit.FunSuite:
     assertEquals(actual.diagnostics.totalIterations, reference.diagnostics.totalIterations)
   }
 
-  private def velocity[A](frame: Frame[A], values: Array[Double]): Velocity[A] =
+  private def velocity[A](frame: RegistrationFrame[A], values: Array[Double]): Velocity[A] =
     val field = DenseVectorField.fromLegacyPlanar(
       frame.grid,
       values,
@@ -166,25 +165,25 @@ class SobolevShaperSuite extends munit.FunSuite:
       active: Array[Boolean],
       length: Double
   ): Array[Double] =
-    val spacing = Affine.voxelSizes(grid.affine)
+    val spacing = grid.spacing
     val alpha = Array.tabulate(3)(axis => length * length / (spacing(axis) * spacing(axis)))
-    val offsets = Array(1, grid.shape.x, grid.shape.x * grid.shape.y)
+    val offsets = Array(1, grid.shape(0), grid.shape(0) * grid.shape(1))
     val output = Array.ofDim[Double](grid.nVoxels)
     var index = 0
     while index < grid.nVoxels do
       if !active(index) then output(index) = input(index)
       else
-        val x = index % grid.shape.x
-        val yz = index / grid.shape.x
-        val y = yz % grid.shape.y
-        val z = yz / grid.shape.y
+        val x = index % grid.shape(0)
+        val yz = index / grid.shape(0)
+        val y = yz % grid.shape(1)
+        val z = yz / grid.shape(1)
         val coordinate = Array(x, y, z)
         var value = input(index)
         var axis = 0
         while axis < 3 do
           if coordinate(axis) > 0 && active(index - offsets(axis)) then
             value += alpha(axis) * (input(index) - input(index - offsets(axis)))
-          val limit = if axis == 0 then grid.shape.x else if axis == 1 then grid.shape.y else grid.shape.z
+          val limit = if axis == 0 then grid.shape(0) else if axis == 1 then grid.shape(1) else grid.shape(2)
           if coordinate(axis) + 1 < limit && active(index + offsets(axis)) then
             value += alpha(axis) * (input(index) - input(index + offsets(axis)))
           axis += 1

@@ -59,7 +59,7 @@ object HalfFlowImageKernelProbe:
         )
       }
     val referencePlan =
-      DenseFieldInterpolationPlan.make(grid, points, Resample.Method.Linear)
+      MapExecution.prepare(grid, points)
         .fold(err => throw new IllegalArgumentException(err.message), plan => plan)
     val destination = PrimitiveBuffers.ofSize[Double](grid.nVoxels * 3)
     val destinationValid = PrimitiveBuffers.ofSize[Boolean](grid.nVoxels)
@@ -77,16 +77,16 @@ object HalfFlowImageKernelProbe:
 
     val preparedReference = measure(warmups, samples) {
       referenceResult =
-        referencePlan.sample(right.values, DenseFieldOutside.QueryPoint)
+        referencePlan.sample(right.values)
           .fold(err => throw new IllegalArgumentException(err.message), values => values)
       checksumReference(referenceResult, destinationValid)
     }
     val dynamicReference = measure(warmups, samples) {
       val plan =
-        DenseFieldInterpolationPlan.make(grid, points, Resample.Method.Linear)
+        MapExecution.prepare(grid, points)
           .fold(err => throw new IllegalArgumentException(err.message), value => value)
       referenceResult =
-        plan.sample(right.values, DenseFieldOutside.QueryPoint)
+        plan.sample(right.values)
           .fold(err => throw new IllegalArgumentException(err.message), values => values)
       checksumReference(referenceResult, destinationValid)
     }
@@ -196,9 +196,9 @@ object HalfFlowImageKernelProbe:
   ): DenseVectorField =
     val values =
       RavelArray.tabulate[Double](
-        grid.shape.x,
-        grid.shape.y,
-        grid.shape.z,
+        grid.shape(0),
+        grid.shape(1),
+        grid.shape(2),
         3
       ) { (x, y, z, component) =>
           val mapped = f(x.toDouble, y.toDouble, z.toDouble)

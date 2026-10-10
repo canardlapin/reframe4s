@@ -18,7 +18,7 @@ class HalfFlowRegistrationBenchmark:
 
   private val amplitude = 0.8
   private val flowConfig = FlowConfig(maximumInitialGradient = 0.012)
-  private var frame: Frame[Work] = uninitialized
+  private var frame: RegistrationFrame[Work] = uninitialized
   private var velocity: Velocity[Work] = uninitialized
   private var workspace: PairedFlowWorkspace[Work] = uninitialized
   private var guardWorkspace: TopologyGuardWorkspace[Work, Work] = uninitialized
@@ -54,7 +54,7 @@ class HalfFlowRegistrationBenchmark:
   @Setup(Level.Trial)
   def setup(): Unit =
     val grid = GridSpec.identity(Vector(side, side, side))
-    frame = Frame[Work](SpatialDomainId("half-flow-benchmark"), grid)
+    frame = RegistrationFrame[Work](SpatialDomainId("half-flow-benchmark"), grid)
     val values = PrimitiveBuffers.ofSize[Double](grid.nVoxels * 3)
     val denominator = (side - 1).toDouble
     var z = 0
@@ -319,8 +319,8 @@ class HalfFlowRegistrationBenchmark:
     require(sobolevChecksum(sobolevResult).isFinite, "Sobolev checksum must be finite")
 
   private def setupRegistration(grid: GridSpec): Unit =
-    val fixedFrame = Frame[Fixed](SpatialDomainId("half-flow-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("half-flow-moving"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("half-flow-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("half-flow-moving"), grid)
     val fixedValues = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     val movingValues = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     val shift = 0.35

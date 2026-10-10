@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import image4s.geometry.{Affine, D3}
 import reframe4s.halfflow.internal.*
 
 class ForwardMidpointSuite extends munit.FunSuite:
@@ -127,9 +128,9 @@ class ForwardMidpointSuite extends munit.FunSuite:
 
   test("multiresolution residual inversion exports a round-trip pair"):
     val grid = GridSpec.identity(Vector(13, 13, 13))
-    val work = Frame[Work](SpatialDomainId("export-work"), grid)
-    val fixed = Frame[Fixed](SpatialDomainId("export-fixed"), grid)
-    val moving = Frame[Moving](SpatialDomainId("export-moving"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("export-work"), grid)
+    val fixed = RegistrationFrame[Fixed](SpatialDomainId("export-fixed"), grid)
+    val moving = RegistrationFrame[Moving](SpatialDomainId("export-moving"), grid)
     val state = ForwardMidpoint.identity(work, fixed, moving).fold(error => fail(error.message), identity)
     val velocity = smoothVelocity(work, amplitude = 0.35)
     val flow = PairedScalingAndSquaring.expHalfPair(velocity).fold(error => fail(error.message), identity)
@@ -158,9 +159,9 @@ class ForwardMidpointSuite extends munit.FunSuite:
 
   test("residual refinement enforces both inverse compositions after accumulated nonlinear updates"):
     val grid = GridSpec.identity(Vector(25, 25, 25))
-    val work = Frame[Work](SpatialDomainId("two-sided-inverse-work"), grid)
-    val fixed = Frame[Fixed](SpatialDomainId("two-sided-inverse-fixed"), grid)
-    val moving = Frame[Moving](SpatialDomainId("two-sided-inverse-moving"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("two-sided-inverse-work"), grid)
+    val fixed = RegistrationFrame[Fixed](SpatialDomainId("two-sided-inverse-fixed"), grid)
+    val moving = RegistrationFrame[Moving](SpatialDomainId("two-sided-inverse-moving"), grid)
     var state = ForwardMidpoint.identity(work, fixed, moving).fold(error => fail(error.message), identity)
     var update = 0
     while update < 6 do
@@ -185,7 +186,7 @@ class ForwardMidpointSuite extends munit.FunSuite:
 
   test("residual refinement updates every voxel without a parity checkerboard"):
     val grid = GridSpec.identity(Vector(11, 11, 11))
-    val work = Frame[Work](SpatialDomainId("inverse-parity-work"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("inverse-parity-work"), grid)
     val forward = affinePull(work, scale = 1.05, translation = 0.0)
     val config = ResidualInverseConfig
       .make(
@@ -208,9 +209,9 @@ class ForwardMidpointSuite extends munit.FunSuite:
 
   test("export returns a typed failure when its inverse tolerance is impossible"):
     val grid = GridSpec.identity(Vector(11, 11, 11))
-    val work = Frame[Work](SpatialDomainId("failure-work"), grid)
-    val fixed = Frame[Fixed](SpatialDomainId("failure-fixed"), grid)
-    val moving = Frame[Moving](SpatialDomainId("failure-moving"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("failure-work"), grid)
+    val fixed = RegistrationFrame[Fixed](SpatialDomainId("failure-fixed"), grid)
+    val moving = RegistrationFrame[Moving](SpatialDomainId("failure-moving"), grid)
     val state = ForwardMidpoint.identity(work, fixed, moving).fold(error => fail(error.message), identity)
     val flow = PairedScalingAndSquaring
       .expHalfPair(smoothVelocity(work, amplitude = 0.4))
@@ -235,7 +236,7 @@ class ForwardMidpointSuite extends munit.FunSuite:
 
   test("approximate inverse caches are explicitly refreshable numerical state"):
     val grid = GridSpec.identity(Vector(11, 11, 11))
-    val work = Frame[Work](SpatialDomainId("cache-work"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("cache-work"), grid)
     val flow = PairedScalingAndSquaring
       .expHalfPair(smoothVelocity(work, amplitude = 0.25))
       .fold(error => fail(error.message), identity)
@@ -251,26 +252,26 @@ class ForwardMidpointSuite extends munit.FunSuite:
     assertEquals(cache.refreshes, 3)
     assert(cache.measuredErrorMm <= 0.01)
 
-  private final case class Frames(work: Frame[Work], fixed: Frame[Fixed], moving: Frame[Moving])
+  private final case class Frames(work: RegistrationFrame[Work], fixed: RegistrationFrame[Fixed], moving: RegistrationFrame[Moving])
 
   private def fixture(): Frames =
     val grid = GridSpec.identity(Vector(7, 7, 7))
     Frames(
-      Frame[Work](SpatialDomainId("forward-work"), grid),
-      Frame[Fixed](SpatialDomainId("forward-fixed"), grid),
-      Frame[Moving](SpatialDomainId("forward-moving"), grid)
+      RegistrationFrame[Work](SpatialDomainId("forward-work"), grid),
+      RegistrationFrame[Fixed](SpatialDomainId("forward-fixed"), grid),
+      RegistrationFrame[Moving](SpatialDomainId("forward-moving"), grid)
     )
 
-  private def affinePull[A](frame: Frame[A], scale: Double, translation: Double): DensePull[A, A] =
+  private def affinePull[A](frame: RegistrationFrame[A], scale: Double, translation: Double): DensePull[A, A] =
     val grid = frame.grid
     val n = grid.nVoxels
     val values = PrimitiveBuffers.ofSize[Double](3 * n)
     var index = 0
     while index < n do
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       values(index) = scale * x.toDouble + translation
       values(index + n) = y.toDouble
       values(index + 2 * n) = z.toDouble
@@ -283,33 +284,27 @@ class ForwardMidpointSuite extends munit.FunSuite:
       )
       .fold(error => fail(error.message), identity)
 
-  private def affine(scale: Double, translation: Double): Affine3D =
-    Affine3D
-      .make(
-        DMat.fromRows(
-          Vector(
-            Vector(scale, 0.0, 0.0, translation),
-            Vector(0.0, 1.0, 0.0, 0.0),
-            Vector(0.0, 0.0, 1.0, 0.0),
-            Vector(0.0, 0.0, 0.0, 1.0)
-          )
-        )
-      )
-      .fold(error => fail(error.message), identity)
+  private def affine(scale: Double, translation: Double): Affine[D3] =
+    Affine.fromRowMajor[D3](Vector(
+      scale, 0.0, 0.0, translation,
+      0.0, 1.0, 0.0, 0.0,
+      0.0, 0.0, 1.0, 0.0,
+      0.0, 0.0, 0.0, 1.0
+    )).fold(error => fail(error.message), identity)
 
-  private def smoothVelocity[A](frame: Frame[A], amplitude: Double): Velocity[A] =
+  private def smoothVelocity[A](frame: RegistrationFrame[A], amplitude: Double): Velocity[A] =
     val grid = frame.grid
     val n = grid.nVoxels
     val values = PrimitiveBuffers.ofSize[Double](3 * n)
-    val dx = (grid.shape.x - 1).toDouble
-    val dy = (grid.shape.y - 1).toDouble
-    val dz = (grid.shape.z - 1).toDouble
+    val dx = (grid.shape(0) - 1).toDouble
+    val dy = (grid.shape(1) - 1).toDouble
+    val dz = (grid.shape(2) - 1).toDouble
     var index = 0
     while index < n do
-      val x = (index % grid.shape.x).toDouble
-      val yz = index / grid.shape.x
-      val y = (yz % grid.shape.y).toDouble
-      val z = (yz / grid.shape.y).toDouble
+      val x = (index % grid.shape(0)).toDouble
+      val yz = index / grid.shape(0)
+      val y = (yz % grid.shape(1)).toDouble
+      val z = (yz / grid.shape(1)).toDouble
       val envelope = math.sin(math.Pi * x / dx) * math.sin(math.Pi * y / dy) * math.sin(math.Pi * z / dz)
       values(index) = amplitude * envelope * math.sin(2.0 * math.Pi * y / dy)
       values(index + n) = 0.6 * amplitude * envelope * math.sin(2.0 * math.Pi * z / dz)
@@ -335,4 +330,4 @@ class ForwardMidpointSuite extends munit.FunSuite:
     assert(reduction.minimumOrNaN > 0.0)
 
   private def at(grid: GridSpec, x: Int, y: Int, z: Int): Int =
-    x + grid.shape.x * y + grid.shape.x * grid.shape.y * z
+    x + grid.shape(0) * y + grid.shape(0) * grid.shape(1) * z

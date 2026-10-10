@@ -258,27 +258,28 @@ object BasinBridgeRound:
         Right(Vector.empty[BasinBridgeCorrespondence]): Either[BasinBridgeRoundError, Vector[BasinBridgeCorrespondence]]
       ) { case (accumulator, (correspondence, index)) =>
         accumulator.flatMap: collected =>
-          val fixedPoint = fixed.transform(
-            WorldPoint(correspondence.fixed.x, correspondence.fixed.y, correspondence.fixed.z)
-          )
-          val movingPoint = moving.transform(
-            WorldPoint(correspondence.moving.x, correspondence.moving.y, correspondence.moving.z)
-          )
-          BasinBridgePoint
-            .make(fixedPoint.x, fixedPoint.y, fixedPoint.z, s"fixed endpoint $index")
-            .left
-            .map(BasinBridgeRoundError.Evidence.apply)
-            .flatMap: endpointFixed =>
+          for
+            fixedPoint <- MapExecution.coordinates(fixed, Vector(correspondence.fixed.x, correspondence.fixed.y, correspondence.fixed.z))
+              .left.map(error => BasinBridgeRoundError.Registration(RegistrationError.MorphismExportFailed("fixed endpoint", error.message)))
+            movingPoint <- MapExecution.coordinates(moving, Vector(correspondence.moving.x, correspondence.moving.y, correspondence.moving.z))
+              .left.map(error => BasinBridgeRoundError.Registration(RegistrationError.MorphismExportFailed("moving endpoint", error.message)))
+            result <-
               BasinBridgePoint
-                .make(movingPoint.x, movingPoint.y, movingPoint.z, s"moving endpoint $index")
+                .make(fixedPoint(0), fixedPoint(1), fixedPoint(2), s"fixed endpoint $index")
                 .left
                 .map(BasinBridgeRoundError.Evidence.apply)
-                .map: endpointMoving =>
-                  collected :+ BasinBridgeCorrespondence.fromConfidence(
-                    endpointFixed,
-                    endpointMoving,
-                    correspondence.confidenceEvidence
-                  )
+                .flatMap: endpointFixed =>
+                  BasinBridgePoint
+                    .make(movingPoint(0), movingPoint(1), movingPoint(2), s"moving endpoint $index")
+                    .left
+                    .map(BasinBridgeRoundError.Evidence.apply)
+                    .map: endpointMoving =>
+                      collected :+ BasinBridgeCorrespondence.fromConfidence(
+                        endpointFixed,
+                        endpointMoving,
+                        correspondence.confidenceEvidence
+                      )
+          yield result
       }
       result <- BasinBridgeEndpointMatches
         .fromVector(values)
@@ -289,18 +290,7 @@ object BasinBridgeRound:
   private def morphism[A, B](
       pull: DensePull[A, B],
       context: String
-  ): Either[BasinBridgeRoundError, DenseFieldMorphism] =
-    DenseFieldMorphism
-      .coordinates(
-        pull.from.domain,
-        pull.to.domain,
-        pull.from.grid,
-        pull.sourceCoordinates.values,
-        Resample.Method.Linear,
-        cost = 0.0,
-        methodTag = "basinbridge-round-endpoint-lift"
-      )
-      .left
-      .map(error => BasinBridgeRoundError.Registration(
-        RegistrationError.MorphismExportFailed(context, error.message)
-      ))
+  ): Either[BasinBridgeRoundError, reframe4s.field.DenseMap[?, ?, image4s.geometry.D3, ravel.Rank[4]]] =
+    pull.toMap.left.map(error => BasinBridgeRoundError.Registration(
+      RegistrationError.MorphismExportFailed(context, error.message)
+    ))

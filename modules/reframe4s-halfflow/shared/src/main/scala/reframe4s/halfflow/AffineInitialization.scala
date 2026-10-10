@@ -1,5 +1,8 @@
 package reframe4s.halfflow
 
+import image4s.geometry.{Affine, D3}
+import reframe4s.lie.FramedAffine
+import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 enum AffineInitializationOrigin:
@@ -93,26 +96,30 @@ final case class AffineInitializationDiagnostics(
 )
 
 final case class AffineIso[A, B] private (
-    from: Frame[A],
-    to: Frame[B],
-    transform: Affine3D
+    from: RegistrationFrame[A],
+    to: RegistrationFrame[B],
+    private val canonicalMap: FramedAffine[?, ?, D3]
 ):
+  def transform: Affine[D3] = canonicalMap.operator
+  def map: FramedAffine[?, ?, D3] = canonicalMap
   val determinant: Double =
     AffineMatrices.linearDeterminant(transform.matrix)
 
   def inverse: AffineIso[B, A] =
-    AffineIso.unsafe(to, from, transform.inverseAffine)
+    AffineIso.unsafe(to, from, transform.inverse)
 
   def dense: InversePair[A, B] =
     InversePair.unsafe(
       AffineIso.densePull(from, to, transform.matrix),
-      AffineIso.densePull(to, from, transform.inverse)
+      AffineIso.densePull(to, from, transform.inverse.matrix)
     )
 
   /** Apply this affine exactly after a sampled pull map. */
   private[halfflow] def after[X](pull: DensePull[X, A]): Either[RegistrationError, DensePull[X, B]] =
     if pull.to.domain != from.domain then
       Left(RegistrationError.FrameMismatch("affine-after-pull", from.domain, pull.to.domain))
+    else if !pull.to.canonical.sameRuntimeOwnerAs(from.canonical) then
+      Left(RegistrationError.PhysicalFrameMismatch("affine-after-pull"))
     else
       val source = pull.sourceCoordinates
       val n = source.grid.nVoxels
@@ -141,20 +148,23 @@ final case class AffineIso[A, B] private (
       )
 
   private[halfflow] def reframe(
-      newFrom: Frame[A],
-      newTo: Frame[B]
+      newFrom: RegistrationFrame[A],
+      newTo: RegistrationFrame[B]
   ): Either[RegistrationError, AffineIso[A, B]] =
     if newFrom.domain != from.domain then
       Left(RegistrationError.FrameMismatch("affine reframe source", from.domain, newFrom.domain))
     else if newTo.domain != to.domain then
       Left(RegistrationError.FrameMismatch("affine reframe target", to.domain, newTo.domain))
+    else if !newFrom.canonical.sameRuntimeOwnerAs(from.canonical) ||
+        !newTo.canonical.sameRuntimeOwnerAs(to.canonical) then
+      Left(RegistrationError.PhysicalFrameMismatch("affine reframe"))
     else Right(AffineIso.unsafe(newFrom, newTo, transform))
 
-  def splitAt[W](work: Frame[W]): Either[RegistrationError, Midpoint[W, A, B]] =
+  def splitAt[W](work: RegistrationFrame[W]): Either[RegistrationError, Midpoint[W, A, B]] =
     for
       rootMatrix <- AffineMatrices.squareRoot(transform.matrix)
-      root <- Affine3D.make(rootMatrix).left.map(error => RegistrationError.InvalidAffine("affine half", error.message))
-      fixedAffine <- AffineIso.make(work, from, root.inverseAffine)
+      root <- Affine.fromRowMajor[D3](Vector.tabulate(16)(i => rootMatrix(i / 4, i % 4))).left.map(error => RegistrationError.InvalidAffine("affine half", error.message))
+      fixedAffine <- AffineIso.make(work, from, root.inverse)
       movingAffine <- AffineIso.make(work, to, root)
       fixed <- MidpointArm.identity(fixedAffine)
       moving <- MidpointArm.identity(movingAffine)
@@ -163,9 +173,9 @@ final case class AffineIso[A, B] private (
 
 object AffineIso:
   def make[A, B](
-      from: Frame[A],
-      to: Frame[B],
-      transform: Affine3D
+      from: RegistrationFrame[A],
+      to: RegistrationFrame[B],
+      transform: Affine[D3]
   ): Either[RegistrationError, AffineIso[A, B]] =
     val determinant = AffineMatrices.linearDeterminant(transform.matrix)
     if !determinant.isFinite || determinant <= 1e-8 then
@@ -173,19 +183,19 @@ object AffineIso:
     else Right(unsafe(from, to, transform))
 
   private[halfflow] def unsafe[A, B](
-      from: Frame[A],
-      to: Frame[B],
-      transform: Affine3D
+      from: RegistrationFrame[A],
+      to: RegistrationFrame[B],
+      transform: Affine[D3]
   ): AffineIso[A, B] =
-    new AffineIso(from, to, transform)
+    new AffineIso(from, to, FramedAffine.between(from.canonical, to.canonical)(transform))
 
-  private def densePull[A, B](from: Frame[A], to: Frame[B], matrix: DMat): DensePull[A, B] =
+  private def densePull[A, B](from: RegistrationFrame[A], to: RegistrationFrame[B], matrix: DMat): DensePull[A, B] =
     val grid = from.grid
     val n = grid.nVoxels
     val coordinates = PrimitiveBuffers.ofSize[Double](3 * n)
     val sourceWorld = grid.affine
-    val nx = grid.shape.x
-    val ny = grid.shape.y
+    val nx = grid.shape(0)
+    val ny = grid.shape(1)
     var index = 0
     while index < n do
       val x = (index % nx).toDouble
@@ -219,8 +229,8 @@ object AffineInitializer:
   def supplied[W, F, M](
       fixed: RegistrationImage[F],
       moving: RegistrationImage[M],
-      work: Frame[W],
-      fixedToMoving: Affine3D
+      work: RegistrationFrame[W],
+      fixedToMoving: Affine[D3]
   ): Either[RegistrationError, AffineInitializationResult[W, F, M]] =
     for
       affine <- AffineIso.make(fixed.frame, moving.frame, fixedToMoving)
@@ -244,7 +254,7 @@ object AffineInitializer:
   def estimate[W, F, M](
       fixed: RegistrationImage[F],
       moving: RegistrationImage[M],
-      work: Frame[W],
+      work: RegistrationFrame[W],
       config: AffineInitializationConfig = AffineInitializationConfig.default
   ): Either[RegistrationError, AffineInitializationResult[W, F, M]] =
     for
@@ -256,7 +266,7 @@ object AffineInitializer:
   private def estimatePrepared[W, F, M](
       fixed: RegistrationImage[F],
       moving: RegistrationImage[M],
-      work: Frame[W],
+      work: RegistrationFrame[W],
       fixedLevels: Vector[PreparedImage],
       movingLevels: Vector[PreparedImage],
       config: AffineInitializationConfig
@@ -270,7 +280,7 @@ object AffineInitializer:
       relative = AffineMatrices.multiply(forwardInverse, reverseInverse)
       correction <- AffineMatrices.squareRoot(relative)
       reconciled = AffineMatrices.multiply(forward.matrix, correction)
-      transform <- Affine3D.make(reconciled).left.map(error => RegistrationError.InvalidAffine("estimated affine", error.message))
+      transform <- Affine.fromRowMajor[D3](Vector.tabulate(16)(i => reconciled(i / 4, i % 4))).left.map(error => RegistrationError.InvalidAffine("estimated affine", error.message))
       affine <- AffineIso.make(fixed.frame, moving.frame, transform)
       midpoint <- affine.splitAt(work)
       finalScore = symmetricScore(reconciled, fixedLevels.last, movingLevels.last, config, counter)
@@ -563,9 +573,9 @@ private final class PreparedImage private (
     val x = affineCoordinate(inverse, 0, worldX, worldY, worldZ)
     val y = affineCoordinate(inverse, 1, worldX, worldY, worldZ)
     val z = affineCoordinate(inverse, 2, worldX, worldY, worldZ)
-    val nx = grid.shape.x
-    val ny = grid.shape.y
-    val nz = grid.shape.z
+    val nx = grid.shape(0)
+    val ny = grid.shape(1)
+    val nz = grid.shape(2)
     if !x.isFinite || !y.isFinite || !z.isFinite || x < 0.0 || y < 0.0 || z < 0.0 ||
         x > (nx - 1).toDouble || y > (ny - 1).toDouble || z > (nz - 1).toDouble
     then false
@@ -649,8 +659,8 @@ private object PreparedImage:
       else
         val normalizationScale = 1.0 / (high - low)
         val affine = grid.affine
-        val nx = grid.shape.x
-        val ny = grid.shape.y
+        val nx = grid.shape(0)
+        val ny = grid.shape(1)
         var weightSum = 0.0
         val centroid = Array(0.0, 0.0, 0.0)
         var eligible = 0
@@ -710,22 +720,19 @@ private object PreparedImage:
             if sampleIndex == capacity then worldZ else worldZ.take(sampleIndex),
             if sampleIndex == capacity then sampleValues else sampleValues.take(sampleIndex)
           )
-          DMat.invert(affine) match
-            case Left(reason) => Left(RegistrationError.InvalidAffine("affine sampling grid", reason))
-            case Right(inverse) =>
-              Right(
-                new PreparedImage(
-                  shrink,
-                  grid,
-                  volume,
-                  validity,
-                  low,
-                  normalizationScale,
-                  centroid,
-                  samples,
-                  inverse
-                )
-              )
+          Right(
+            new PreparedImage(
+              shrink,
+              grid,
+              volume,
+              validity,
+              low,
+              normalizationScale,
+              centroid,
+              samples,
+              grid.inverseAffine
+            )
+          )
 
   private def histogramQuantile(
       histogram: Array[Int],
@@ -779,13 +786,13 @@ private object AffineMatrices:
     while index < 16 do
       data(index) = values(index)
       index += 1
-    DMat.fromRowMajorOwned(4, 4, data)
+    DMat.dense(4, 4, (data).toVector)
 
   def copyArray(matrix: DMat): Array[Double] =
     val out = Array.ofDim[Double](16)
     var index = 0
     while index < 16 do
-      out(index) = matrix.data(index)
+      out(index) = matrix(index / 4, index % 4)
       index += 1
     out
 
@@ -803,10 +810,10 @@ private object AffineMatrices:
         out(row * 4 + col) = sum
         col += 1
       row += 1
-    DMat.fromRowMajorOwned(4, 4, out)
+    DMat.dense(4, 4, (out).toVector)
 
   def inverse(matrix: DMat): Either[RegistrationError, DMat] =
-    DMat.invert(matrix).left.map(reason => RegistrationError.InvalidAffine("matrix inverse", reason))
+    matrix.solve(DMat.eye(matrix.cols)).left.map(_.getMessage).left.map(reason => RegistrationError.InvalidAffine("matrix inverse", reason))
 
   def squareRoot(matrix: DMat): Either[RegistrationError, DMat] =
     var y = matrix
@@ -815,7 +822,7 @@ private object AffineMatrices:
     var iteration = 0
     var residual = Double.PositiveInfinity
     while iteration < 24 && residual > 1e-10 do
-      (DMat.invert(z), DMat.invert(y)) match
+      (z.solve(DMat.eye(z.cols)).left.map(_.getMessage), y.solve(DMat.eye(y.cols)).left.map(_.getMessage)) match
         case (Right(inverseZ), Right(inverseY)) =>
           y = average(y, inverseZ)
           z = average(z, inverseY)
@@ -849,15 +856,15 @@ private object AffineMatrices:
     val out = PrimitiveBuffers.ofSize[Double](16)
     var index = 0
     while index < 16 do
-      out(index) = 0.5 * (left.data(index) + right.data(index))
+      out(index) = 0.5 * (left(index / 4, index % 4) + right(index / 4, index % 4))
       index += 1
-    DMat.fromRowMajorOwned(4, 4, out)
+    DMat.dense(4, 4, (out).toVector)
 
   private def frobenius(matrix: DMat): Double =
     var sum = 0.0
     var index = 0
     while index < 16 do
-      sum += matrix.data(index) * matrix.data(index)
+      sum += matrix(index / 4, index % 4) * matrix(index / 4, index % 4)
       index += 1
     math.sqrt(sum)
 
@@ -865,7 +872,7 @@ private object AffineMatrices:
     var sum = 0.0
     var index = 0
     while index < 16 do
-      val difference = left.data(index) - right.data(index)
+      val difference = left(index / 4, index % 4) - right(index / 4, index % 4)
       sum += difference * difference
       index += 1
     math.sqrt(sum)

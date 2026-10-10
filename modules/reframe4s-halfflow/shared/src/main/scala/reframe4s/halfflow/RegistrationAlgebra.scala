@@ -1,9 +1,12 @@
 package reframe4s.halfflow
 
+import image4s.geometry.{Affine, D3}
+import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 enum RegistrationError:
   case FrameMismatch(context: String, expected: SpatialDomainId, actual: SpatialDomainId)
+  case PhysicalFrameMismatch(context: String)
   case GridMismatch(context: String)
   case InvalidField(context: String)
   case InvalidFlowParameter(context: String, value: Double)
@@ -21,6 +24,7 @@ enum RegistrationError:
     this match
       case FrameMismatch(context, expected, actual) =>
         s"$context domain '${actual.value}' does not match '${expected.value}'"
+      case PhysicalFrameMismatch(context) => s"$context physical frame owner mismatch"
       case GridMismatch(context) => s"$context grid mismatch"
       case InvalidField(context) => s"invalid $context field"
       case InvalidFlowParameter(context, value) => s"invalid $context: $value"
@@ -39,14 +43,21 @@ enum RegistrationError:
       case AffineSquareRootDidNotConverge(iterations, residual) =>
         s"affine square root did not converge after $iterations iterations (relative residual $residual)"
 
-final case class Frame[A](domain: SpatialDomainId, grid: GridSpec)
+/** A registration role on a canonical physical frame and execution lattice. */
+final case class RegistrationFrame[A](domain: SpatialDomainId, grid: GridSpec):
+  val canonical = grid.canonical.grid.frame
 
 final case class DensePull[A, B] private (
-    from: Frame[A],
-    to: Frame[B],
+    from: RegistrationFrame[A],
+    to: RegistrationFrame[B],
     sourceCoordinates: DenseVectorField,
     validity: FieldValidity
 ):
+  def toMap: Either[RegistrationError, reframe4s.field.DenseMap[?, ?, D3, ravel.Rank[4]]] =
+    sourceCoordinates.toMap(to.canonical).left.map(error =>
+      RegistrationError.MorphismExportFailed("dense pull", error.message)
+    )
+
   def >>>[C](that: DensePull[B, C]): Either[RegistrationError, DensePull[A, C]] =
     DensePull.compose(this, that)
 
@@ -57,21 +68,24 @@ final case class DensePull[A, B] private (
     DensePull.compose(this, that, outside)
 
   def regrid(
-      newFrom: Frame[A],
-      newTo: Frame[B]
+      newFrom: RegistrationFrame[A],
+      newTo: RegistrationFrame[B]
   ): Either[RegistrationError, DensePull[A, B]] =
     if newFrom.domain != from.domain then
       Left(RegistrationError.FrameMismatch("pull regrid source", from.domain, newFrom.domain))
     else if newTo.domain != to.domain then
       Left(RegistrationError.FrameMismatch("pull regrid target", to.domain, newTo.domain))
+    else if !newFrom.canonical.sameRuntimeOwnerAs(from.canonical) ||
+        !newTo.canonical.sameRuntimeOwnerAs(to.canonical) then
+      Left(RegistrationError.PhysicalFrameMismatch("pull regrid"))
     else
       val result = HalfFlowKernels.regridPull(sourceCoordinates, newFrom.grid, validity)
       Right(DensePull.unsafe(newFrom, newTo, result.field, FieldValidity.copyMask(result.valid)))
 
 object DensePull:
   def make[A, B](
-      from: Frame[A],
-      to: Frame[B],
+      from: RegistrationFrame[A],
+      to: RegistrationFrame[B],
       sourceCoordinates: DenseVectorField,
       validity: FieldValidity = FieldValidity.All
   ): Either[RegistrationError, DensePull[A, B]] =
@@ -84,13 +98,13 @@ object DensePull:
       Left(RegistrationError.InvalidField("dense pull coordinates"))
     else Right(unsafe(from, to, sourceCoordinates, validity))
 
-  def identity[A](frame: Frame[A]): DensePull[A, A] =
+  def identity[A](frame: RegistrationFrame[A]): DensePull[A, A] =
     val result = HalfFlowKernels.identity(frame.grid)
     unsafe(frame, frame, result.field, FieldValidity.All)
 
   private[halfflow] def unsafe[A, B](
-      from: Frame[A],
-      to: Frame[B],
+      from: RegistrationFrame[A],
+      to: RegistrationFrame[B],
       sourceCoordinates: DenseVectorField,
       validity: FieldValidity
   ): DensePull[A, B] =
@@ -144,48 +158,24 @@ final case class InversePair[A, B] private (
     yield InversePair.unsafe(nextForward, nextBackward)
 
   def regrid(
-      newFrom: Frame[A],
-      newTo: Frame[B]
+      newFrom: RegistrationFrame[A],
+      newTo: RegistrationFrame[B]
   ): Either[RegistrationError, InversePair[A, B]] =
     for
       nextForward <- forward.regrid(newFrom, newTo)
       nextBackward <- backward.regrid(newTo, newFrom)
     yield InversePair.unsafe(nextForward, nextBackward)
 
-  def toDenseFieldMorphisms(
-      cost: Double = 10.0,
-      methodTag: String = "half-flow-lm"
-  ): Either[RegistrationError, DenseMorphismPair] =
+  def toDenseMaps: Either[RegistrationError, DenseMapPair] =
     for
-      nextForward <- DenseFieldMorphism
-        .coordinates(
-          forward.from.domain,
-          forward.to.domain,
-          forward.from.grid,
-          forward.sourceCoordinates.values,
-          Resample.Method.Linear,
-          cost,
-          methodTag
-        )
-        .left
-        .map(error => RegistrationError.MorphismExportFailed("forward", error.message))
-      nextBackward <- DenseFieldMorphism
-        .coordinates(
-          backward.from.domain,
-          backward.to.domain,
-          backward.from.grid,
-          backward.sourceCoordinates.values,
-          Resample.Method.Linear,
-          cost,
-          methodTag
-        )
-        .left
-        .map(error => RegistrationError.MorphismExportFailed("backward", error.message))
-    yield DenseMorphismPair(nextForward, nextBackward, forward.validity, backward.validity)
+      nextForward <- forward.toMap
+      nextBackward <- backward.toMap
+    yield DenseMapPair(nextForward, nextBackward, forward.validity, backward.validity)
 
-final case class DenseMorphismPair(
-    forward: DenseFieldMorphism,
-    backward: DenseFieldMorphism,
+/** Independently estimated maps and validity; this does not assert an exact inverse. */
+final case class DenseMapPair(
+    forward: reframe4s.field.DenseMap[?, ?, D3, ravel.Rank[4]],
+    backward: reframe4s.field.DenseMap[?, ?, D3, ravel.Rank[4]],
     forwardValidity: FieldValidity,
     backwardValidity: FieldValidity
 )
@@ -213,7 +203,7 @@ object InversePair:
     else if forward.to.grid != backward.from.grid then Left(RegistrationError.GridMismatch("inverse-pair B endpoint"))
     else Right(unsafe(forward, backward))
 
-  def identity[A](frame: Frame[A]): InversePair[A, A] =
+  def identity[A](frame: RegistrationFrame[A]): InversePair[A, A] =
     val pull = DensePull.identity(frame)
     unsafe(pull, pull)
 
@@ -228,8 +218,8 @@ final case class MidpointArm[W, E] private (
     residual: InversePair[W, W],
     affine: AffineIso[W, E]
 ):
-  def work: Frame[W] = residual.forward.from
-  def endpoint: Frame[E] = affine.to
+  def work: RegistrationFrame[W] = residual.forward.from
+  def endpoint: RegistrationFrame[E] = affine.to
 
   def dense: Either[RegistrationError, InversePair[W, E]] =
     for
@@ -245,8 +235,8 @@ final case class MidpointArm[W, E] private (
     InversePair.composeSelfExtended(left, residual).flatMap(MidpointArm.make(_, affine))
 
   private[halfflow] def regrid(
-      newWork: Frame[W],
-      newEndpoint: Frame[E]
+      newWork: RegistrationFrame[W],
+      newEndpoint: RegistrationFrame[E]
   ): Either[RegistrationError, MidpointArm[W, E]] =
     val nextForwardResult = HalfFlowKernels.regridPull(
       residual.forward.sourceCoordinates,
@@ -305,7 +295,7 @@ final case class Midpoint[W, F, M] private (
     fixed: MidpointArm[W, F],
     moving: MidpointArm[W, M]
 ):
-  def work: Frame[W] = fixed.work
+  def work: RegistrationFrame[W] = fixed.work
 
   def advance(halfFlow: InversePair[W, W]): Either[RegistrationError, Midpoint[W, F, M]] =
     for
@@ -352,9 +342,9 @@ final case class Midpoint[W, F, M] private (
     yield pair
 
   def regrid(
-      newWork: Frame[W],
-      newFixed: Frame[F],
-      newMoving: Frame[M]
+      newWork: RegistrationFrame[W],
+      newFixed: RegistrationFrame[F],
+      newMoving: RegistrationFrame[M]
   ): Either[RegistrationError, Midpoint[W, F, M]] =
     for
       nextFixed <- fixed.regrid(newWork, newFixed)
@@ -375,13 +365,13 @@ object Midpoint:
     else Right(new Midpoint(fixed, moving))
 
   def identity[W, F, M](
-      work: Frame[W],
-      fixed: Frame[F],
-      moving: Frame[M]
+      work: RegistrationFrame[W],
+      fixed: RegistrationFrame[F],
+      moving: RegistrationFrame[M]
   ): Either[RegistrationError, Midpoint[W, F, M]] =
     for
-      fixedAffine <- AffineIso.make(work, fixed, Affine3D.identity)
-      movingAffine <- AffineIso.make(work, moving, Affine3D.identity)
+      fixedAffine <- AffineIso.make(work, fixed, Affine.identity[D3])
+      movingAffine <- AffineIso.make(work, moving, Affine.identity[D3])
       fixedArm <- MidpointArm.identity(fixedAffine)
       movingArm <- MidpointArm.identity(movingAffine)
       midpoint <- make(fixedArm, movingArm)
@@ -392,14 +382,8 @@ private object AffineGuardScale:
     inducedNormBound(affine.transform.matrix)
 
   def voxel[A, B](affine: AffineIso[A, B]): Double =
-    val endpointInverse = affine.to.grid.affine3D.fold(
-      error => throw new IllegalArgumentException(error.message),
-      identity
-    ).inverse
-    val workToEndpointVoxel = Affine.multiply(
-      endpointInverse,
-      Affine.multiply(affine.transform.matrix, affine.from.grid.affine)
-    )
+    val endpointInverse = affine.to.grid.inverseAffine
+    val workToEndpointVoxel = (endpointInverse * (affine.transform.matrix * affine.from.grid.affine))
     inducedNormBound(workToEndpointVoxel)
 
   private def inducedNormBound(matrix: DMat): Double =
@@ -420,7 +404,7 @@ private object AffineGuardScale:
     math.sqrt(maximumRowSum * maximumColumnSum)
 
 private[halfflow] final class MidpointAdvanceBuffer[W, F, M] private (
-    val work: Frame[W],
+    val work: RegistrationFrame[W],
     private val fixedForward: MidpointPullBuffer,
     private val fixedBackward: MidpointPullBuffer,
     private val movingForward: MidpointPullBuffer,
@@ -490,7 +474,7 @@ private[halfflow] object MidpointAdvanceBuffer:
     )
 
 private[halfflow] final class SelfPairComposeBuffer[A] private (
-    val frame: Frame[A],
+    val frame: RegistrationFrame[A],
     private val forward: MidpointPullBuffer,
     private val backward: MidpointPullBuffer,
     private val sampler: DenseFieldSampler
@@ -538,7 +522,7 @@ private[halfflow] final class SelfPairComposeBuffer[A] private (
     )
 
 private[halfflow] object SelfPairComposeBuffer:
-  def apply[A](frame: Frame[A]): SelfPairComposeBuffer[A] =
+  def apply[A](frame: RegistrationFrame[A]): SelfPairComposeBuffer[A] =
     new SelfPairComposeBuffer(
       frame,
       MidpointPullBuffer(frame.grid),

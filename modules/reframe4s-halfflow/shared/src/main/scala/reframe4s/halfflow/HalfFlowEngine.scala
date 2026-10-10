@@ -5,14 +5,14 @@ import scala.util.boundary.break
 import reframe4s.halfflow.internal.*
 
 final case class RegistrationImage[A] private (
-    frame: Frame[A],
+    frame: RegistrationFrame[A],
     volume: NeuroVol[Double],
     validity: FieldValidity
 )
 
 object RegistrationImage:
   def make[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       volume: NeuroVol[Double],
       validity: FieldValidity = FieldValidity.All
   ): Either[RegistrationError, RegistrationImage[A]] =
@@ -150,7 +150,7 @@ object HalfFlowLm:
       var failure: Option[RegistrationError] = None
       while levelIndex < plan.levels.length && failure.isEmpty do
         val level = plan.levels(levelIndex)
-        val workFrame = Frame[W](
+        val workFrame = RegistrationFrame[W](
           initial.work.domain,
           HalfFlowKernels.pyramidGrid(initial.work.grid, level.shrink)
         )
@@ -506,7 +506,7 @@ object HalfFlowLm:
         valid,
         source.validity
       )
-      val frame = Frame[A](source.frame.domain, targetGrid)
+      val frame = RegistrationFrame[A](source.frame.domain, targetGrid)
       val volume = NeuroVol.fromLinear[Double](values, targetGrid.toNeuroSpace, source.volume.label)
       RegistrationImage.make(frame, volume, FieldValidity.copyMask(valid)).map: image =>
         LevelImages(image, DenseFieldSampler(targetGrid))

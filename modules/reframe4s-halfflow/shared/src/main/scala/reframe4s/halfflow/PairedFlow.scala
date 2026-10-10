@@ -1,33 +1,25 @@
 package reframe4s.halfflow
 
+import gale.linalg.DMat
 import ravel.MutableNDArray as MutableRavelArray
 import ravel.Rank
 import ravel.Shape
 import reframe4s.halfflow.internal.*
 
 final case class Velocity[A] private (
-    frame: Frame[A],
-    field: DenseVectorField
+    frame: RegistrationFrame[A],
+    field: DenseVectorField,
+    canonical: reframe4s.field.Velocity[?, image4s.geometry.D3, Rank[4]]
 )
 
 object Velocity:
-  def make[A](frame: Frame[A], field: DenseVectorField): Either[RegistrationError, Velocity[A]] =
+  def make[A](frame: RegistrationFrame[A], field: DenseVectorField): Either[RegistrationError, Velocity[A]] =
     if field.grid != frame.grid then Left(RegistrationError.GridMismatch("velocity"))
     else if field.kind != DenseVectorFieldKind.Displacement then
       Left(RegistrationError.InvalidField("velocity kind"))
-    else if !allFinite(field) then Left(RegistrationError.InvalidField("velocity"))
-    else Right(new Velocity(frame, field))
-
-  private def allFinite(field: DenseVectorField): Boolean =
-    var finite = true
-    var index = 0
-    while index < field.grid.nVoxels && finite do
-      var component = 0
-      while component < 3 && finite do
-        finite = field.linearComponent(index, component).isFinite
-        component += 1
-      index += 1
-    finite
+    else field.velocity
+      .left.map(error => RegistrationError.InvalidField(error.message))
+      .map(canonical => new Velocity(frame, field, canonical))
 
 final case class FlowConfig(
     maximumInitialDisplacementMm: Double = 0.4,
@@ -57,7 +49,7 @@ final case class PairedFlow[A](
 )
 
 final class PairedFlowWorkspace[A] private[halfflow] (
-    val frame: Frame[A],
+    val frame: RegistrationFrame[A],
     private[halfflow] val plus: PairedFlowBuffers,
     private[halfflow] val minus: PairedFlowBuffers,
     private[halfflow] val inverseAffine: DMat
@@ -66,11 +58,8 @@ final class PairedFlowWorkspace[A] private[halfflow] (
   val ownedValidityBuffers: Int = 4
 
 object PairedFlowWorkspace:
-  def apply[A](frame: Frame[A]): PairedFlowWorkspace[A] =
-    val inverse = DMat.invert(frame.grid.affine).fold(
-      reason => throw new IllegalArgumentException(s"velocity grid affine is singular: $reason"),
-      identity
-    )
+  def apply[A](frame: RegistrationFrame[A]): PairedFlowWorkspace[A] =
+    val inverse = frame.grid.inverseAffine
     new PairedFlowWorkspace(frame, buffers(frame.grid), buffers(frame.grid), inverse)
 
   private def buffers(grid: GridSpec): PairedFlowBuffers =
@@ -267,11 +256,11 @@ object PairedScalingAndSquaring:
   /** Frobenius norm is a conservative upper bound on the local operator norm. */
   private def maximumGradientBound(field: DenseVectorField, inverse: DMat): Double =
     val grid = field.grid
-    if grid.shape.x < 3 || grid.shape.y < 3 || grid.shape.z < 3 then 0.0
+    if grid.shape(0) < 3 || grid.shape(1) < 3 || grid.shape(2) < 3 then 0.0
     else
-      val nx = grid.shape.x
-      val ny = grid.shape.y
-      val nz = grid.shape.z
+      val nx = grid.shape(0)
+      val ny = grid.shape(1)
+      val nz = grid.shape(2)
       var maximum = 0.0
       var z = 1
       while z < nz - 1 do

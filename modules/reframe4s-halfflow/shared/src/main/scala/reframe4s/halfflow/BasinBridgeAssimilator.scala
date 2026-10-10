@@ -70,34 +70,28 @@ object BasinBridgeObjective:
         .map(error => RegistrationError.MorphismExportFailed("BasinBridge correspondence objective", error.message))
         .flatMap: candidate =>
           val pair = candidate.transform
-          DenseFieldMorphism
-            .coordinates(
-              pair.forward.from.domain,
-              pair.forward.to.domain,
-              pair.forward.from.grid,
-              pair.forward.sourceCoordinates.values,
-              Resample.Method.Linear,
-              cost = 0.0,
-              methodTag = "basinbridge-correspondence-objective"
-            )
-            .left
-            .map(error => RegistrationError.MorphismExportFailed("BasinBridge correspondence objective", error.message))
+          pair.forward.toMap
             .flatMap: morphism =>
               val residuals = Vector.newBuilder[BasinBridgeMatchResidual]
               var index = 0
-              while index < correspondences.length do
+              var failure = Option.empty[RegistrationError]
+              while index < correspondences.length && failure.isEmpty do
                 val correspondence = correspondences(index)
-                val fixed = WorldPoint(correspondence.fixed.x, correspondence.fixed.y, correspondence.fixed.z)
-                val moving = morphism.transform(fixed)
-                val dx = moving.x - correspondence.moving.x
-                val dy = moving.y - correspondence.moving.y
-                val dz = moving.z - correspondence.moving.z
-                residuals += BasinBridgeMatchResidual(
-                  math.sqrt(dx * dx + dy * dy + dz * dz),
-                  correspondence.confidence
-                )
+                MapExecution.coordinates(morphism,
+                  Vector(correspondence.fixed.x, correspondence.fixed.y, correspondence.fixed.z)
+                ) match
+                  case Left(error) =>
+                    failure = Some(RegistrationError.MorphismExportFailed("correspondence residual", error.message))
+                  case Right(moving) =>
+                    val dx = moving(0) - correspondence.moving.x
+                    val dy = moving(1) - correspondence.moving.y
+                    val dz = moving(2) - correspondence.moving.z
+                    residuals += BasinBridgeMatchResidual(
+                      math.sqrt(dx * dx + dy * dy + dz * dz),
+                      correspondence.confidence
+                    )
                 index += 1
-              Right(residuals.result())
+              failure.toLeft(residuals.result())
 
   /** Builds a synthetic or externally supplied objective from one state.
     *
@@ -545,7 +539,7 @@ object BasinBridgeAssimilator:
     else
       val grid = velocity.frame.grid
       val values =
-        RavelArray.tabulate[Double](grid.shape.x, grid.shape.y, grid.shape.z, 3):
+        RavelArray.tabulate[Double](grid.shape(0), grid.shape(1), grid.shape(2), 3):
           (x, y, z, component) => velocity.field(x, y, z, component) * scale
       Velocity.make(
         velocity.frame,
@@ -556,63 +550,61 @@ object BasinBridgeAssimilator:
       field: DenseVectorField,
       config: BasinBridgeAssimilationConfig
   ): Either[RegistrationError, Double] =
-    DMat.invert(field.grid.affine) match
-      case Left(reason) => Left(RegistrationError.InvalidAffine("BasinBridge strain", reason))
-      case Right(inverse) =>
-        val grid = field.grid
-        val eligible =
-          math.max(0, grid.shape.x - 2) * math.max(0, grid.shape.y - 2) * math.max(0, grid.shape.z - 2)
-        if eligible == 0 then Right(1.0)
-        else
-          val strains = new Array[Double](eligible)
-          var count = 0
-          var z = 1
-          while z < grid.shape.z - 1 do
-            var y = 1
-            while y < grid.shape.y - 1 do
-              var x = 1
-              while x < grid.shape.x - 1 do
-                val gradient = Array.ofDim[Double](3, 3)
-                var component = 0
-                while component < 3 do
-                  val dx = 0.5 * (field(x + 1, y, z, component) - field(x - 1, y, z, component))
-                  val dy = 0.5 * (field(x, y + 1, z, component) - field(x, y - 1, z, component))
-                  val dz = 0.5 * (field(x, y, z + 1, component) - field(x, y, z - 1, component))
-                  var axis = 0
-                  while axis < 3 do
-                    gradient(component)(axis) =
-                      dx * inverse(0, axis) + dy * inverse(1, axis) + dz * inverse(2, axis)
-                    axis += 1
-                  component += 1
-                var squared = 0.0
-                var row = 0
-                while row < 3 do
-                  var column = 0
-                  while column < 3 do
-                    val value = 0.5 * (gradient(row)(column) + gradient(column)(row))
-                    squared += value * value
-                    column += 1
-                  row += 1
-                val strain = math.sqrt(squared)
-                if !strain.isFinite then return Left(RegistrationError.InvalidField("BasinBridge strain"))
-                strains(count) = strain
-                count += 1
-                x += 1
-              y += 1
-            z += 1
-          scala.util.Sorting.quickSort(strains)
-          val position = config.symmetricStrainPercentile * (count - 1).toDouble
-          val lower = math.floor(position).toInt
-          val upper = math.ceil(position).toInt
-          val fraction = position - lower.toDouble
-          val percentile = strains(lower) + fraction * (strains(upper) - strains(lower))
-          if percentile <= 1e-12 then Right(1.0)
-          else
-            val alpha = math.max(
-              config.minimumAlpha,
-              math.min(1.0, config.targetSymmetricStrain / percentile)
-            )
-            Right(alpha)
+    val inverse = field.grid.inverseAffine
+    val grid = field.grid
+    val eligible =
+      math.max(0, grid.shape(0) - 2) * math.max(0, grid.shape(1) - 2) * math.max(0, grid.shape(2) - 2)
+    if eligible == 0 then Right(1.0)
+    else
+      val strains = new Array[Double](eligible)
+      var count = 0
+      var z = 1
+      while z < grid.shape(2) - 1 do
+        var y = 1
+        while y < grid.shape(1) - 1 do
+          var x = 1
+          while x < grid.shape(0) - 1 do
+            val gradient = Array.ofDim[Double](3, 3)
+            var component = 0
+            while component < 3 do
+              val dx = 0.5 * (field(x + 1, y, z, component) - field(x - 1, y, z, component))
+              val dy = 0.5 * (field(x, y + 1, z, component) - field(x, y - 1, z, component))
+              val dz = 0.5 * (field(x, y, z + 1, component) - field(x, y, z - 1, component))
+              var axis = 0
+              while axis < 3 do
+                gradient(component)(axis) =
+                  dx * inverse(0, axis) + dy * inverse(1, axis) + dz * inverse(2, axis)
+                axis += 1
+              component += 1
+            var squared = 0.0
+            var row = 0
+            while row < 3 do
+              var column = 0
+              while column < 3 do
+                val value = 0.5 * (gradient(row)(column) + gradient(column)(row))
+                squared += value * value
+                column += 1
+              row += 1
+            val strain = math.sqrt(squared)
+            if !strain.isFinite then return Left(RegistrationError.InvalidField("BasinBridge strain"))
+            strains(count) = strain
+            count += 1
+            x += 1
+          y += 1
+        z += 1
+      scala.util.Sorting.quickSort(strains)
+      val position = config.symmetricStrainPercentile * (count - 1).toDouble
+      val lower = math.floor(position).toInt
+      val upper = math.ceil(position).toInt
+      val fraction = position - lower.toDouble
+      val percentile = strains(lower) + fraction * (strains(upper) - strains(lower))
+      if percentile <= 1e-12 then Right(1.0)
+      else
+        val alpha = math.max(
+          config.minimumAlpha,
+          math.min(1.0, config.targetSymmetricStrain / percentile)
+        )
+        Right(alpha)
 
   /** Keep boundary fallback outside the inverse-pair error sample.
     *
@@ -623,19 +615,17 @@ object BasinBridgeAssimilator:
     * integration error.
     */
   private def integrationInteriorMargin(grid: GridSpec, maximumVelocityMm: Double): Int =
-    DMat.invert(grid.affine) match
-      case Left(_) => 2
-      case Right(inverse) =>
-        var maximumVoxelRowNorm = 0.0
-        var row = 0
-        while row < 3 do
-          var squared = 0.0
-          var column = 0
-          while column < 3 do
-            val value = inverse(row, column)
-            squared += value * value
-            column += 1
-          maximumVoxelRowNorm = math.max(maximumVoxelRowNorm, math.sqrt(squared))
-          row += 1
-        val halfDisplacementVoxels = 0.5 * maximumVelocityMm * maximumVoxelRowNorm
-        math.max(2, math.ceil(halfDisplacementVoxels).toInt + 2)
+    val inverse = grid.inverseAffine
+    var maximumVoxelRowNorm = 0.0
+    var row = 0
+    while row < 3 do
+      var squared = 0.0
+      var column = 0
+      while column < 3 do
+        val value = inverse(row, column)
+        squared += value * value
+        column += 1
+      maximumVoxelRowNorm = math.max(maximumVoxelRowNorm, math.sqrt(squared))
+      row += 1
+    val halfDisplacementVoxels = 0.5 * maximumVelocityMm * maximumVoxelRowNorm
+    math.max(2, math.ceil(halfDisplacementVoxels).toInt + 2)

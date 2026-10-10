@@ -25,7 +25,7 @@ class HalfFlowImageKernelBenchmark:
   private var left: DenseVectorField = uninitialized
   private var right: DenseVectorField = uninitialized
   private var points: Vector[Vector[Double]] = uninitialized
-  private var preparedPlan: DenseFieldInterpolationPlan = uninitialized
+  private var preparedPlan: MapExecution.QueryBatch = uninitialized
   private var destination: Array[Double] = uninitialized
   private var valid: Array[Boolean] = uninitialized
   private var sampler: DenseFieldSampler = uninitialized
@@ -86,7 +86,7 @@ class HalfFlowImageKernelBenchmark:
         )
       }
     preparedPlan =
-      DenseFieldInterpolationPlan.make(grid, points, Resample.Method.Linear)
+      MapExecution.prepare(grid, points)
         .fold(err => throw new IllegalArgumentException(err.message), value => value)
     destination = PrimitiveBuffers.ofSize[Double](grid.nVoxels * 3)
     valid = PrimitiveBuffers.ofSize[Boolean](grid.nVoxels)
@@ -101,7 +101,7 @@ class HalfFlowImageKernelBenchmark:
       FieldValidity.All
     )
     val reference =
-      preparedPlan.sample(right.values, DenseFieldOutside.QueryPoint)
+      preparedPlan.sample(right.values)
         .fold(err => throw new IllegalArgumentException(err.message), value => value)
     val referenceChecksum = checksumReference(reference)
     val primitiveChecksum = checksumPrimitive()
@@ -298,17 +298,17 @@ class HalfFlowImageKernelBenchmark:
   @Benchmark
   def referencePlanAndSample(): Double =
     val plan =
-      DenseFieldInterpolationPlan.make(grid, points, Resample.Method.Linear)
+      MapExecution.prepare(grid, points)
         .fold(err => throw new IllegalArgumentException(err.message), value => value)
     val values =
-      plan.sample(right.values, DenseFieldOutside.QueryPoint)
+      plan.sample(right.values)
         .fold(err => throw new IllegalArgumentException(err.message), value => value)
     values(grid.nVoxels / 2)(0)
 
   @Benchmark
   def referencePreparedSample(): Double =
     val values =
-      preparedPlan.sample(right.values, DenseFieldOutside.QueryPoint)
+      preparedPlan.sample(right.values)
         .fold(err => throw new IllegalArgumentException(err.message), value => value)
     values(grid.nVoxels / 2)(0)
 
@@ -510,16 +510,16 @@ class HalfFlowImageKernelBenchmark:
   ): DenseVectorField =
     val values =
       RavelArray.tabulate[Double](
-        grid.shape.x,
-        grid.shape.y,
-        grid.shape.z,
+        grid.shape(0),
+        grid.shape(1),
+        grid.shape(2),
         3
       ) { (x, y, z, component) =>
         val world =
           grid.voxelToWorld(
-            SpatialPoint(x.toDouble, y.toDouble, z.toDouble)
+            Vector(x.toDouble, y.toDouble, z.toDouble)
           )
-        val mapped = f(world.x, world.y, world.z)
+        val mapped = f(world(0), world(1), world(2))
         component match
           case 0 => mapped._1
           case 1 => mapped._2
@@ -534,14 +534,14 @@ class HalfFlowImageKernelBenchmark:
   private def analyticScalarVolume(grid: GridSpec): NeuroVol[Double] =
     val values = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     var z = 0
-    while z < grid.shape.z do
+    while z < grid.shape(2) do
       var y = 0
-      while y < grid.shape.y do
+      while y < grid.shape(1) do
         var x = 0
-        while x < grid.shape.x do
-          val i = x + y * grid.shape.x + z * grid.shape.x * grid.shape.y
-          val world = grid.voxelToWorld(SpatialPoint(x.toDouble, y.toDouble, z.toDouble))
-          values(i) = analyticScalar(world.x, world.y, world.z)
+        while x < grid.shape(0) do
+          val i = x + y * grid.shape(0) + z * grid.shape(0) * grid.shape(1)
+          val world = grid.voxelToWorld(Vector(x.toDouble, y.toDouble, z.toDouble))
+          values(i) = analyticScalar(world(0), world(1), world(2))
           x += 1
         y += 1
       z += 1
@@ -558,20 +558,20 @@ class HalfFlowImageKernelBenchmark:
     )
 
   private def centerIndex(grid: GridSpec): Int =
-    val x = grid.shape.x / 2
-    val y = grid.shape.y / 2
-    val z = grid.shape.z / 2
-    x + y * grid.shape.x + z * grid.shape.x * grid.shape.y
+    val x = grid.shape(0) / 2
+    val y = grid.shape(1) / 2
+    val z = grid.shape(2) / 2
+    x + y * grid.shape(0) + z * grid.shape(0) * grid.shape(1)
 
   private def maximumRegridCenterError(index: Int): Double =
-    val x = index % grid.shape.x
-    val yz = index / grid.shape.x
-    val y = yz % grid.shape.y
-    val z = yz / grid.shape.y
-    val world = grid.voxelToWorld(SpatialPoint(x.toDouble, y.toDouble, z.toDouble))
-    val expectedX = 1.02 * world.x + 0.01 * world.y + 0.2
-    val expectedY = 0.98 * world.y + 0.015 * world.z - 0.1
-    val expectedZ = 1.01 * world.z + 0.005 * world.x
+    val x = index % grid.shape(0)
+    val yz = index / grid.shape(0)
+    val y = yz % grid.shape(1)
+    val z = yz / grid.shape(1)
+    val world = grid.voxelToWorld(Vector(x.toDouble, y.toDouble, z.toDouble))
+    val expectedX = 1.02 * world(0) + 0.01 * world(1) + 0.2
+    val expectedY = 0.98 * world(1) + 0.015 * world(2) - 0.1
+    val expectedZ = 1.01 * world(2) + 0.005 * world(0)
     math.max(
       math.abs(regridDestination(index) - expectedX),
       math.max(
@@ -627,11 +627,11 @@ class HalfFlowImageKernelBenchmark:
         s"self-composition validity mismatch at voxel $i"
       )
       if workspaceDestinationValid(i) then
-        val x = i % grid.shape.x
-        val yz = i / grid.shape.x
-        val y = yz % grid.shape.y
-        val z = yz / grid.shape.y
-        val storageBase = 3 * (z + grid.shape.z * (y + grid.shape.y * x))
+        val x = i % grid.shape(0)
+        val yz = i / grid.shape(0)
+        val y = yz % grid.shape(1)
+        val z = yz / grid.shape(1)
+        val storageBase = 3 * (z + grid.shape(2) * (y + grid.shape(1) * x))
         require(
           destination(i) == workspaceDestination(storageBase) &&
             destination(i + grid.nVoxels) == workspaceDestination(storageBase + 1) &&

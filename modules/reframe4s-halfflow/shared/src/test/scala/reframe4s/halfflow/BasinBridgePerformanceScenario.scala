@@ -27,9 +27,9 @@ object BasinBridgePerformanceScenario:
   def make(side: Int): Setup =
     require(side >= 9, "performance scenario side must be at least nine")
     val grid = GridSpec.identity(Vector(side, side, side))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("basin-bridge-performance-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("basin-bridge-performance-moving"), grid)
-    val workFrame = Frame[Work](SpatialDomainId("basin-bridge-performance-work"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("basin-bridge-performance-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("basin-bridge-performance-moving"), grid)
+    val workFrame = RegistrationFrame[Work](SpatialDomainId("basin-bridge-performance-work"), grid)
     val fixed = image(fixedFrame, shiftX = 0.0, "basin-bridge-performance-fixed")
     val moving = image(movingFrame, shiftX = 2.0, "basin-bridge-performance-moving")
     val initial = right(ForwardMidpoint.identity(workFrame, fixedFrame, movingFrame))
@@ -102,13 +102,13 @@ object BasinBridgePerformanceScenario:
       result.diagnostics.finalObjective.weightedMatchErrorMm +
       result.assimilation.acceptedAlpha.getOrElse(0.0)
 
-  private def image[A](frame: Frame[A], shiftX: Double, label: String): RegistrationImage[A] =
+  private def image[A](frame: RegistrationFrame[A], shiftX: Double, label: String): RegistrationImage[A] =
     val grid = frame.grid
     val values = Array.tabulate[Double](grid.nVoxels): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       pattern(x.toDouble - shiftX, y.toDouble, z.toDouble)
     right(
       RegistrationImage.make(

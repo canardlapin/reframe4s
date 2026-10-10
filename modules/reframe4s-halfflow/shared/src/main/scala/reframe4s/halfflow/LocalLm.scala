@@ -86,7 +86,7 @@ final case class LocalLmResult[A](
 )
 
 final class LocalLmBuffer[A] private (
-    val frame: Frame[A],
+    val frame: RegistrationFrame[A],
     private[halfflow] val step: Array[Double],
     private[halfflow] val valid: Array[Boolean]
 ):
@@ -94,7 +94,7 @@ final class LocalLmBuffer[A] private (
   val ownedValidityBuffers: Int = 1
 
 object LocalLmBuffer:
-  def apply[A](frame: Frame[A]): LocalLmBuffer[A] =
+  def apply[A](frame: RegistrationFrame[A]): LocalLmBuffer[A] =
     new LocalLmBuffer(
       frame,
       PrimitiveBuffers.ofSize[Double](frame.grid.nVoxels * 3),
@@ -102,14 +102,14 @@ object LocalLmBuffer:
     )
 
 final class LocalLmWorkspace[A] private (
-    val frame: Frame[A],
+    val frame: RegistrationFrame[A],
     private[halfflow] val residualScratch: Array[Double],
     private[halfflow] val channelScratch: LocalLmChannelScratch
 ):
   val ownedScalarBuffers: Int = 1
 
 object LocalLmWorkspace:
-  def apply[A](frame: Frame[A]): LocalLmWorkspace[A] =
+  def apply[A](frame: RegistrationFrame[A]): LocalLmWorkspace[A] =
     new LocalLmWorkspace(frame, new Array[Double](frame.grid.nVoxels), new LocalLmChannelScratch())
 
 private[halfflow] final class LocalLmChannelScratch:

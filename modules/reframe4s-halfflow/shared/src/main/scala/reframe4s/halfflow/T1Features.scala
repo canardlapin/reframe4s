@@ -58,7 +58,7 @@ object T1FeatureConfig:
       .fold(error => throw new IllegalStateException(error.message), identity)
 
 final case class T1FeatureVolume[A] private (
-    frame: Frame[A],
+    frame: RegistrationFrame[A],
     radiiMm: Vector[Double],
     radiiVox: Vector[VoxelWindowRadius],
     epsilonPerChannel: Vector[Double],
@@ -70,7 +70,7 @@ final case class T1FeatureVolume[A] private (
 
 object T1FeatureVolume:
   def make[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       radiiMm: Vector[Double],
       radiiVox: Vector[VoxelWindowRadius],
       epsilonPerChannel: Vector[Double],
@@ -111,7 +111,7 @@ object T1FeatureVolume:
     finite
 
 final class T1FeatureBuffer[A] private (
-    val frame: Frame[A],
+    val frame: RegistrationFrame[A],
     val radiiMm: Vector[Double],
     val radiiVox: Vector[VoxelWindowRadius],
     private[halfflow] val values: Array[Double],
@@ -124,7 +124,7 @@ final class T1FeatureBuffer[A] private (
   val ownedValidityBuffers: Int = 2
 
 object T1FeatureBuffer:
-  def apply[A](frame: Frame[A], config: T1FeatureConfig): T1FeatureBuffer[A] =
+  def apply[A](frame: RegistrationFrame[A], config: T1FeatureConfig): T1FeatureBuffer[A] =
     val radiiVox = T1Features.voxelRadii(frame.grid, config.radii)
     val scalarSize = frame.grid.nVoxels * config.radii.length
     new T1FeatureBuffer(
@@ -138,7 +138,7 @@ object T1FeatureBuffer:
     )
 
 final class T1FeatureWorkspace[A] private (
-    val frame: Frame[A],
+    val frame: RegistrationFrame[A],
     val channels: Int,
     private[halfflow] val localStats: MaskedLocalStatsWorkspace,
     private[halfflow] val robustScratch: Array[Double]
@@ -146,7 +146,7 @@ final class T1FeatureWorkspace[A] private (
   val ownedScalarBuffers: Int = localStats.ownedScalarBuffers + 1
 
 object T1FeatureWorkspace:
-  def apply[A](frame: Frame[A], channels: Int): T1FeatureWorkspace[A] =
+  def apply[A](frame: RegistrationFrame[A], channels: Int): T1FeatureWorkspace[A] =
     require(channels > 0, "T1 feature workspace channel count must be positive")
     new T1FeatureWorkspace(
       frame,
@@ -157,7 +157,7 @@ object T1FeatureWorkspace:
 
 object T1Features:
   def compute[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       source: Array[Double],
       sourceValidity: FieldValidity,
       config: T1FeatureConfig = T1FeatureConfig.default
@@ -165,7 +165,7 @@ object T1Features:
     computeWith(frame, source, sourceValidity, config, T1FeatureWorkspace(frame, config.radii.length))
 
   def computeWith[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       source: Array[Double],
       sourceValidity: FieldValidity,
       config: T1FeatureConfig,
@@ -178,7 +178,7 @@ object T1Features:
     * The returned feature volume borrows `destination` until its next reuse.
     */
   def computeInto[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       source: Array[Double],
       sourceValidity: FieldValidity,
       config: T1FeatureConfig,
@@ -241,7 +241,7 @@ object T1Features:
       grid: GridSpec,
       radii: Vector[FeatureRadiusMm]
   ): Vector[VoxelWindowRadius] =
-    val spacing = Affine.voxelSizes(grid.affine)
+    val spacing = grid.spacing
     radii.map { radius =>
       VoxelWindowRadius(
         math.max(1, math.ceil(radius.toDouble / spacing(0)).toInt),

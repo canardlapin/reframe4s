@@ -1,5 +1,7 @@
 package reframe4s.halfflow
 
+import image4s.geometry.{Affine, D3}
+import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 class AffineInitializationSuite extends munit.FunSuite:
@@ -12,10 +14,10 @@ class AffineInitializationSuite extends munit.FunSuite:
     val frames = makeFrames(grid)
     val images = analyticImages(grid, frames, knownTransform)
     val initial = AffineInitializer
-      .supplied(images._1, images._2, frames._1, Affine3D(knownTransform))
+      .supplied(images._1, images._2, frames._1, Affine.fromRowMajor[D3](Vector.tabulate(16)(i => knownTransform(i / 4, i % 4))).toOption.get)
       .fold(error => fail(error.message), identity)
     val swapped = AffineInitializer
-      .supplied(images._2, images._1, frames._1, Affine3D(knownTransform).inverseAffine)
+      .supplied(images._2, images._1, frames._1, Affine.fromRowMajor[D3](Vector.tabulate(16)(i => knownTransform(i / 4, i % 4))).toOption.get.inverse)
       .fold(error => fail(error.message), identity)
 
     assertEquals(initial.diagnostics.origin, AffineInitializationOrigin.Supplied)
@@ -32,7 +34,7 @@ class AffineInitializationSuite extends munit.FunSuite:
 
     val result = initial.midpoint.result.fold(error => fail(error.message), identity)
     assertMappedPoint(result.forward, 9, 8, 8, knownTransform, 2e-8)
-    assertMappedPoint(result.backward, 9, 8, 8, Affine3D(knownTransform).inverse, 2e-8)
+    assertMappedPoint(result.backward, 9, 8, 8, Affine.fromRowMajor[D3](Vector.tabulate(16)(i => knownTransform(i / 4, i % 4))).toOption.get.inverse.matrix, 2e-8)
   }
 
   test("bidirectional robust affine initialization recovers an analytic physical transform") {
@@ -62,15 +64,15 @@ class AffineInitializationSuite extends munit.FunSuite:
     assert(result.diagnostics.overlap > 0.75)
     assert(result.diagnostics.determinant > 0.8)
     val landmarks = Vector(
-      WorldPoint(8.0, 9.0, 7.0),
-      WorldPoint(22.0, 9.0, 18.0),
-      WorldPoint(12.0, 22.0, 20.0),
-      WorldPoint(24.0, 21.0, 8.0)
+      Vector(8.0, 9.0, 7.0),
+      Vector(22.0, 9.0, 18.0),
+      Vector(12.0, 22.0, 20.0),
+      Vector(24.0, 21.0, 8.0)
     )
     val error = landmarkRms(result.affine.transform.matrix, knownTransform, landmarks)
     assert(
       error < 0.8,
-      s"affine landmark RMS error=$error, actual=${result.affine.transform.matrix.toRows}, expected=${knownTransform.toRows}, diagnostics=${result.diagnostics}"
+      s"affine landmark RMS error=$error, actual=${Vector.tabulate(4)(r => Vector.tabulate(4)(c => result.affine.transform.matrix(r, c)))}, expected=${Vector.tabulate(4)(r => Vector.tabulate(4)(c => knownTransform(r, c)))}, diagnostics=${result.diagnostics}"
     )
   }
 
@@ -98,12 +100,12 @@ class AffineInitializationSuite extends munit.FunSuite:
       .estimate(images._2, images._1, frames._1, config)
       .fold(error => fail(error.message), identity)
     val landmarks = Vector(
-      WorldPoint(7.0, 8.0, 6.0),
-      WorldPoint(19.0, 8.0, 17.0),
-      WorldPoint(11.0, 19.0, 18.0),
-      WorldPoint(21.0, 18.0, 7.0)
+      Vector(7.0, 8.0, 6.0),
+      Vector(19.0, 8.0, 17.0),
+      Vector(11.0, 19.0, 18.0),
+      Vector(21.0, 18.0, 7.0)
     )
-    val error = landmarkRms(forward.affine.transform.matrix, reverse.affine.transform.inverse, landmarks)
+    val error = landmarkRms(forward.affine.transform.matrix, reverse.affine.transform.inverse.matrix, landmarks)
     assert(error < 2e-6, s"swap inverse RMS error=$error")
     assertFieldsClose(
       forward.midpoint.fixed.dense.fold(error => fail(error.message), identity).forward,
@@ -131,45 +133,43 @@ class AffineInitializationSuite extends munit.FunSuite:
     val angle = 3.0 * math.Pi / 180.0
     val c = math.cos(angle)
     val s = math.sin(angle)
-    DMat.fromRows(
-      Vector(
+    DMat.dense(4, 4, (Vector(
         Vector(1.015 * c, -0.990 * s + 0.010, 0.008, 1.15),
         Vector(1.015 * s, 0.990 * c, -0.006, -0.75),
         Vector(0.004, 0.007, 1.010, 0.55),
         Vector(0.0, 0.0, 0.0, 1.0)
-      )
-    )
+      )).flatten)
 
   private def makeFrames(
       grid: GridSpec
-  ): (Frame[Work], Frame[Fixed], Frame[Moving]) =
+  ): (RegistrationFrame[Work], RegistrationFrame[Fixed], RegistrationFrame[Moving]) =
     (
-      Frame[Work](SpatialDomainId("affine-work"), grid),
-      Frame[Fixed](SpatialDomainId("affine-fixed"), grid),
-      Frame[Moving](SpatialDomainId("affine-moving"), grid)
+      RegistrationFrame[Work](SpatialDomainId("affine-work"), grid),
+      RegistrationFrame[Fixed](SpatialDomainId("affine-fixed"), grid),
+      RegistrationFrame[Moving](SpatialDomainId("affine-moving"), grid)
     )
 
   private def analyticImages(
       grid: GridSpec,
-      frames: (Frame[Work], Frame[Fixed], Frame[Moving]),
+      frames: (RegistrationFrame[Work], RegistrationFrame[Fixed], RegistrationFrame[Moving]),
       fixedToMoving: DMat
   ): (RegistrationImage[Fixed], RegistrationImage[Moving]) =
-    val inverse = DMat.invert(fixedToMoving).fold(reason => fail(reason), identity)
+    val inverse = fixedToMoving.solve(DMat.eye(fixedToMoving.cols)).left.map(_.getMessage).fold(reason => fail(reason), identity)
     val fixedValues = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     val movingValues = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     val affine = grid.affine
-    val nx = grid.shape.x
-    val ny = grid.shape.y
+    val nx = grid.shape(0)
+    val ny = grid.shape(1)
     var index = 0
     while index < grid.nVoxels do
       val x = (index % nx).toDouble
       val yz = index / nx
       val y = (yz % ny).toDouble
       val z = (yz / ny).toDouble
-      val world = apply(affine, WorldPoint(x, y, z))
+      val world = apply(affine, Vector(x, y, z))
       val fixedWorld = apply(inverse, world)
-      fixedValues(index) = signal(world.x, world.y, world.z, grid)
-      movingValues(index) = signal(fixedWorld.x, fixedWorld.y, fixedWorld.z, grid)
+      fixedValues(index) = signal(world(0), world(1), world(2), grid)
+      movingValues(index) = signal(fixedWorld(0), fixedWorld(1), fixedWorld(2), grid)
       index += 1
     val fixedVolume = NeuroVol.fromLinear[Double](fixedValues, grid.toNeuroSpace, "fixed")
     val movingVolume = NeuroVol.fromLinear[Double](movingValues, grid.toNeuroSpace, "moving")
@@ -179,9 +179,9 @@ class AffineInitializationSuite extends munit.FunSuite:
     )
 
   private def signal(x: Double, y: Double, z: Double, grid: GridSpec): Double =
-    val cx = 0.48 * (grid.shape.x - 1).toDouble
-    val cy = 0.51 * (grid.shape.y - 1).toDouble
-    val cz = 0.46 * (grid.shape.z - 1).toDouble
+    val cx = 0.48 * (grid.shape(0) - 1).toDouble
+    val cy = 0.51 * (grid.shape(1) - 1).toDouble
+    val cz = 0.46 * (grid.shape(2) - 1).toDouble
     val main = 105.0 * gaussian(x, y, z, cx, cy, cz, 7.2, 6.2, 6.8)
     val first = 42.0 * gaussian(x, y, z, cx - 4.8, cy + 2.6, cz + 3.2, 2.4, 3.0, 2.1)
     val second = 31.0 * gaussian(x, y, z, cx + 5.2, cy - 3.8, cz - 2.5, 3.1, 2.0, 2.8)
@@ -214,11 +214,11 @@ class AffineInitializationSuite extends munit.FunSuite:
       expectedMatrix: DMat,
       tolerance: Double
   ): Unit =
-    val index = x + pull.from.grid.shape.x * (y + pull.from.grid.shape.y * z)
-    val expected = apply(expectedMatrix, WorldPoint(x.toDouble, y.toDouble, z.toDouble))
-    assertEqualsDouble(pull.sourceCoordinates.linearComponent(index, 0), expected.x, tolerance)
-    assertEqualsDouble(pull.sourceCoordinates.linearComponent(index, 1), expected.y, tolerance)
-    assertEqualsDouble(pull.sourceCoordinates.linearComponent(index, 2), expected.z, tolerance)
+    val index = x + pull.from.grid.shape(0) * (y + pull.from.grid.shape(1) * z)
+    val expected = apply(expectedMatrix, Vector(x.toDouble, y.toDouble, z.toDouble))
+    assertEqualsDouble(pull.sourceCoordinates.linearComponent(index, 0), expected(0), tolerance)
+    assertEqualsDouble(pull.sourceCoordinates.linearComponent(index, 1), expected(1), tolerance)
+    assertEqualsDouble(pull.sourceCoordinates.linearComponent(index, 2), expected(2), tolerance)
 
   private def assertFieldsClose[A, B, C, D](
       left: DensePull[A, B],
@@ -238,22 +238,22 @@ class AffineInitializationSuite extends munit.FunSuite:
         component += 1
       index += 1
 
-  private def landmarkRms(actual: DMat, expected: DMat, landmarks: Vector[WorldPoint]): Double =
+  private def landmarkRms(actual: DMat, expected: DMat, landmarks: Vector[Vector[Double]]): Double =
     var sum = 0.0
     var index = 0
     while index < landmarks.length do
       val a = apply(actual, landmarks(index))
       val b = apply(expected, landmarks(index))
-      val dx = a.x - b.x
-      val dy = a.y - b.y
-      val dz = a.z - b.z
+      val dx = a(0) - b(0)
+      val dy = a(1) - b(1)
+      val dz = a(2) - b(2)
       sum += dx * dx + dy * dy + dz * dz
       index += 1
     math.sqrt(sum / landmarks.length.toDouble)
 
-  private def apply(matrix: DMat, point: WorldPoint): WorldPoint =
-    WorldPoint(
-      matrix(0, 0) * point.x + matrix(0, 1) * point.y + matrix(0, 2) * point.z + matrix(0, 3),
-      matrix(1, 0) * point.x + matrix(1, 1) * point.y + matrix(1, 2) * point.z + matrix(1, 3),
-      matrix(2, 0) * point.x + matrix(2, 1) * point.y + matrix(2, 2) * point.z + matrix(2, 3)
+  private def apply(matrix: DMat, point: Vector[Double]): Vector[Double] =
+    Vector(
+      matrix(0, 0) * point(0) + matrix(0, 1) * point(1) + matrix(0, 2) * point(2) + matrix(0, 3),
+      matrix(1, 0) * point(0) + matrix(1, 1) * point(1) + matrix(1, 2) * point(2) + matrix(1, 3),
+      matrix(2, 0) * point(0) + matrix(2, 1) * point(1) + matrix(2, 2) * point(2) + matrix(2, 3)
     )

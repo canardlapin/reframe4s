@@ -15,8 +15,8 @@ class NeighborhoodCcSuite extends munit.FunSuite:
       anticorrelated(index) = 4.0 - 1.8 * anticorrelated(index)
       index += 1
     val support = values(grid): index =>
-      val x = index % grid.shape.x
-      val y = (index / grid.shape.x) % grid.shape.y
+      val x = index % grid.shape(0)
+      val y = (index / grid.shape(0)) % grid.shape(1)
       if x == 0 then 0.0
       else if y == 0 then 0.35
       else if (index % 11) == 0 then 0.6
@@ -63,11 +63,11 @@ class NeighborhoodCcSuite extends munit.FunSuite:
     val fixed = smoothSignal(grid, phase = 0.03)
     val moving = smoothSignal(grid, phase = -0.13)
     val support = values(grid): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
-      if x == 0 || z == grid.shape.z - 1 then 0.0
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
+      if x == 0 || z == grid.shape(2) - 1 then 0.0
       else if y <= 1 || (index % 13) == 0 then 0.4
       else 1.0
     assertDerivativeLadder(
@@ -83,16 +83,16 @@ class NeighborhoodCcSuite extends munit.FunSuite:
 
   test("paired half-flow warp-to-CC directional derivative passes at identity"):
     val grid = GridSpec.identity(Vector(11, 10, 9))
-    val frame = Frame[Work](SpatialDomainId("cc-derivative-work"), grid)
+    val frame = RegistrationFrame[Work](SpatialDomainId("cc-derivative-work"), grid)
     val fixed = smoothSignal(grid, phase = 0.02)
     val moving = smoothSignal(grid, phase = -0.16)
     val support = values(grid): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
-      if x <= 2 || x >= grid.shape.x - 3 || y <= 2 || y >= grid.shape.y - 3 ||
-          z <= 2 || z >= grid.shape.z - 3
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
+      if x <= 2 || x >= grid.shape(0) - 3 || y <= 2 || y >= grid.shape(1) - 3 ||
+          z <= 2 || z >= grid.shape(2) - 3
       then 0.0
       else 1.0
     val frozen = NeighborhoodCc
@@ -255,9 +255,9 @@ class NeighborhoodCcSuite extends munit.FunSuite:
   ): Double =
     val grid = frozen.grid
     val radius = frozen.config.radius
-    val nx = grid.shape.x
-    val ny = grid.shape.y
-    val nz = grid.shape.z
+    val nx = grid.shape(0)
+    val ny = grid.shape(1)
+    val nz = grid.shape(2)
     val plane = nx * ny
     var loss = 0.0
     var z = 0
@@ -324,29 +324,29 @@ class NeighborhoodCcSuite extends munit.FunSuite:
 
   private def smoothSignal(grid: GridSpec, phase: Double): Array[Double] =
     values(grid): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       4.0 + 0.8 * math.sin(0.31 * x + phase) + 0.5 * math.cos(0.27 * y - 0.3 * phase) +
         0.35 * math.sin(0.21 * z + 0.11 * x - phase)
 
   private def smoothDirection(grid: GridSpec, phase: Double): Array[Double] =
     values(grid): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       0.2 * math.sin(0.17 * x + 0.13 * y + phase) - 0.15 * math.cos(0.19 * z - phase)
 
   private def velocityDirection(grid: GridSpec): Array[Double] =
     val result = PrimitiveBuffers.ofSize[Double](grid.nVoxels * 3)
     var index = 0
     while index < grid.nVoxels do
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       result(index) = 0.13 * math.sin(0.19 * x + 0.11 * y)
       result(index + grid.nVoxels) = -0.09 * math.cos(0.17 * y + 0.07 * z)
       result(index + 2 * grid.nVoxels) = 0.08 * math.sin(0.13 * z - 0.05 * x)
@@ -375,7 +375,7 @@ class NeighborhoodCcSuite extends munit.FunSuite:
   private def pairedWarpLoss(
       fixed: NeuroVol[Double],
       moving: NeuroVol[Double],
-      frame: Frame[Work],
+      frame: RegistrationFrame[Work],
       direction: Array[Double],
       scale: Double,
       frozen: FrozenCcWeights
@@ -459,7 +459,7 @@ class NeighborhoodCcSuite extends munit.FunSuite:
       while y <= y1 do
         var x = x0
         while x <= x1 do
-          destination(x + grid.shape.x * y + grid.shape.x * grid.shape.y * z) = value
+          destination(x + grid.shape(0) * y + grid.shape(0) * grid.shape(1) * z) = value
           x += 1
         y += 1
       z += 1

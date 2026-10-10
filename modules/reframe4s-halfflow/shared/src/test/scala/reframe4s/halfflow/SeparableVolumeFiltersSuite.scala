@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 class SeparableVolumeFiltersSuite extends munit.FunSuite:
@@ -33,14 +34,12 @@ class SeparableVolumeFiltersSuite extends munit.FunSuite:
     assertEqualsDouble(dot(boxLeft, right), dot(left, boxRight), 1e-10)
 
   test("physical Gaussian reflection preserves constants and anisotropic scale"):
-    val affine = DMat.fromRows(
-      Vector(
+    val affine = DMat.dense(4, 4, (Vector(
         Vector(-1.0, 0.2, 0.0, 12.0),
         Vector(0.0, 2.0, 0.1, -3.0),
         Vector(0.0, 0.0, 4.0, 5.0),
         Vector(0.0, 0.0, 0.0, 1.0)
-      )
-    )
+      )).flatten)
     val grid = GridSpec(Vector(13, 11, 9), affine)
     val constant = values(grid)(_ => 7.25)
     val smooth = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
@@ -52,9 +51,9 @@ class SeparableVolumeFiltersSuite extends munit.FunSuite:
       index += 1
 
     val impulse = values(grid)(_ => 0.0)
-    val cx = grid.shape.x / 2
-    val cy = grid.shape.y / 2
-    val cz = grid.shape.z / 2
+    val cx = grid.shape(0) / 2
+    val cy = grid.shape(1) / 2
+    val cz = grid.shape(2) / 2
     val center = at(grid, cx, cy, cz)
     impulse(center) = 1.0
     Gaussian3D.smoothInto(impulse, grid, 2.0, smooth, workspace)
@@ -97,14 +96,12 @@ class SeparableVolumeFiltersSuite extends munit.FunSuite:
       index += 1
 
   test("native oblique pyramid sampling preserves a world-linear field and gradient"):
-    val affine = DMat.fromRows(
-      Vector(
+    val affine = DMat.dense(4, 4, (Vector(
         Vector(-1.1, 0.2, 0.0, 20.0),
         Vector(0.1, 1.7, 0.25, -8.0),
         Vector(0.0, 0.15, 2.3, 4.0),
         Vector(0.0, 0.0, 0.0, 1.0)
-      )
-    )
+      )).flatten)
     val sourceGrid = GridSpec(Vector(17, 15, 13), affine)
     val sourceValues = PrimitiveBuffers.ofSize[Double](sourceGrid.nVoxels)
     fillWorldLinear(sourceGrid, sourceValues)
@@ -138,7 +135,7 @@ class SeparableVolumeFiltersSuite extends munit.FunSuite:
       gradientValid,
       MaskedLocalStatsWorkspace(target)
     )
-    val center = at(target, target.shape.x / 2, target.shape.y / 2, target.shape.z / 2)
+    val center = at(target, target.shape(0) / 2, target.shape(1) / 2, target.shape(2) / 2)
     assert(gradientValid(center))
     assertEqualsDouble(gradients(center), 0.7, 1e-10)
     assertEqualsDouble(gradients(center + target.nVoxels), -0.4, 1e-10)
@@ -158,18 +155,18 @@ class SeparableVolumeFiltersSuite extends munit.FunSuite:
       destination(index) = linear(voxelPoint(grid, index))
       index += 1
 
-  private def voxelPoint(grid: GridSpec, index: Int): SpatialPoint =
-    val x = index % grid.shape.x
-    val yz = index / grid.shape.x
-    val y = yz % grid.shape.y
-    val z = yz / grid.shape.y
-    grid.voxelToWorld(SpatialPoint(x.toDouble, y.toDouble, z.toDouble))
+  private def voxelPoint(grid: GridSpec, index: Int): Vector[Double] =
+    val x = index % grid.shape(0)
+    val yz = index / grid.shape(0)
+    val y = yz % grid.shape(1)
+    val z = yz / grid.shape(1)
+    grid.voxelToWorld(Vector(x.toDouble, y.toDouble, z.toDouble))
 
-  private def linear(point: SpatialPoint): Double =
-    1.3 + 0.7 * point.x - 0.4 * point.y + 0.2 * point.z
+  private def linear(point: Vector[Double]): Double =
+    1.3 + 0.7 * point(0) - 0.4 * point(1) + 0.2 * point(2)
 
   private def at(grid: GridSpec, x: Int, y: Int, z: Int): Int =
-    x + grid.shape.x * y + grid.shape.x * grid.shape.y * z
+    x + grid.shape(0) * y + grid.shape(0) * grid.shape(1) * z
 
   private def dot(left: Array[Double], right: Array[Double]): Double =
     var total = 0.0

@@ -5,6 +5,7 @@ import {
   readFileSync,
   statSync,
 } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -23,6 +24,30 @@ const spatial4sRoot = resolve(process.env.SPATIAL4S_ROOT ?? join(root, "..", "sp
 const spatial4sModulesRoot = resolve(spatial4sRoot, "modules");
 const declarations = new Map();
 const errors = [];
+
+function pinnedRevision(build, dependency) {
+  return readFileSync(build, "utf8").match(new RegExp(`lazy val ${dependency}Revision = "([0-9a-f]{40})"`, "u"))?.[1];
+}
+
+function verifyProvider(directory, name, expected) {
+  try {
+    const actual = execFileSync("git", ["-C", directory, "rev-parse", "HEAD"], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
+    if (!expected || actual !== expected) errors.push(`${name} ownership source is ${actual}; expected pinned revision ${expected}`);
+    const changes = execFileSync("git", ["-C", directory, "status", "--porcelain", "--untracked-files=normal"], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
+    if (changes) errors.push(`${name} ownership source has uncommitted changes`);
+  } catch (error) {
+    errors.push(`cannot verify pinned ${name} ownership source at ${directory}: ${error.message}`);
+  }
+}
+
+verifyProvider(image4sRoot, "image4s", pinnedRevision(join(root, "build.sbt"), "image4s"));
+try {
+  const imageBuild = join(image4sRoot, "build.sbt");
+  verifyProvider(spatial4sRoot, "spatial4s", pinnedRevision(imageBuild, "spatial4s"));
+  verifyProvider(locus4sRoot, "locus4s", pinnedRevision(imageBuild, "locus4s"));
+} catch (error) {
+  errors.push(`cannot read image4s provider pins: ${error.message}`);
+}
 
 const canonicalOwners = new Map([
   ["spatial4s.Dim", "spatial4s-core"],
@@ -177,6 +202,14 @@ for (const [artifact, artifactRoot] of artifactRoots) {
   for (const sourceRoot of sourceRoots) {
     for (const source of scalaSources(sourceRoot)) {
       const text = readFileSync(source, "utf8");
+      // Experimental execution adapters must not recreate provider geometry,
+      // even under a private declaration or an unqualified legacy alias.
+      if (artifact === "reframe4s-halfflow") {
+        const legacyOwner = /\b(?:class|trait|object|enum|type)\s+(Affine3D|Affine3DError|DMat|Affine|Frame|SpatialAxis|SpatialDimSize|SpatialDims|SpatialPoint|VoxelCoord|VoxelPoint|WorldPoint|WorldVector|DenseFieldMorphism|DenseFieldInterpolationPlan|Resample)\b/gu;
+        for (const match of text.matchAll(legacyOwner)) {
+          errors.push(`${relative(root, source)} recreates removed HalfFlow geometry owner ${match[1]}`);
+        }
+      }
       const packageMatch = text.match(
         /^\s*package\s+([A-Za-z_][A-Za-z0-9_.]*)\s*$/mu,
       );

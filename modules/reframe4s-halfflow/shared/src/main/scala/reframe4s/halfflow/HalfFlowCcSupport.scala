@@ -61,11 +61,11 @@ private[halfflow] object HalfFlowCcSupport:
   ): Unit =
     require(source.length >= grid.nVoxels)
     require(destination.length >= grid.nVoxels)
-    val minimumSpacingMm = Affine.voxelSizes(grid.affine).min
+    val minimumSpacingMm = grid.spacing.min
     val safeMargin = math.max(1, math.ceil(0.5 * maximumStepMm / minimumSpacingMm).toInt)
-    val nx = grid.shape.x
-    val ny = grid.shape.y
-    val nz = grid.shape.z
+    val nx = grid.shape(0)
+    val ny = grid.shape(1)
+    val nz = grid.shape(2)
     var index = 0
     while index < grid.nVoxels do
       val x = index % nx

@@ -36,9 +36,9 @@ class BasinBridgeBenchmark:
   @Setup(Level.Trial)
   def setup(): Unit =
     grid = GridSpec.identity(Vector(side, side, side))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("basin-bridge-benchmark-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("basin-bridge-benchmark-moving"), grid)
-    val workFrame = Frame[Work](SpatialDomainId("basin-bridge-benchmark-work"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("basin-bridge-benchmark-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("basin-bridge-benchmark-moving"), grid)
+    val workFrame = RegistrationFrame[Work](SpatialDomainId("basin-bridge-benchmark-work"), grid)
     fixed = image(fixedFrame, shiftX = 0.0, "basin-bridge-benchmark-fixed")
     moving = image(movingFrame, shiftX = 2.0, "basin-bridge-benchmark-moving")
     initial = right(ForwardMidpoint.identity(workFrame, fixedFrame, movingFrame))
@@ -89,12 +89,12 @@ class BasinBridgeBenchmark:
       result.diagnostics.finalObjective.weightedMatchErrorMm +
       result.assimilation.acceptedAlpha.getOrElse(0.0)
 
-  private def image[A](frame: Frame[A], shiftX: Double, label: String): RegistrationImage[A] =
+  private def image[A](frame: RegistrationFrame[A], shiftX: Double, label: String): RegistrationImage[A] =
     val values = Array.tabulate[Double](grid.nVoxels): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       pattern(x.toDouble - shiftX, y.toDouble, z.toDouble)
     right(
       RegistrationImage.make(

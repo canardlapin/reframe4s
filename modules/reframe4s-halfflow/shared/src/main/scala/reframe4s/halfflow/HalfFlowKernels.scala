@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import gale.linalg.DMat
 import ravel.ArrayBuilder
 import ravel.MutableCanonicalArray
 import ravel.MutableNDArray as MutableRavelArray
@@ -217,10 +218,7 @@ final class DenseFieldSampler private (
 object DenseFieldSampler:
   def apply(grid: GridSpec): DenseFieldSampler =
     val inverse =
-      DMat.invert(grid.affine).fold(
-        reason => throw new IllegalArgumentException(s"grid affine is singular: $reason"),
-        matrix => matrix
-      )
+      grid.inverseAffine
     new DenseFieldSampler(grid, inverse)
 
 /** Primitive, structure-of-arrays kernels for physical-coordinate pull maps.
@@ -243,16 +241,16 @@ private[halfflow] object HalfFlowKernels:
 
   private final class RavelChannelDestination(
       builder: ArrayBuilder[Double],
-      shape: SpatialDims,
+      shape: Vector[Int],
       channels: Int
   ) extends ChannelDestination:
     def write(targetIndex: Int, channel: Int, value: Double): Unit =
-      val x = targetIndex % shape.x
-      val yz = targetIndex / shape.x
-      val y = yz % shape.y
-      val z = yz / shape.y
+      val x = targetIndex % shape(0)
+      val yz = targetIndex / shape(0)
+      val y = yz % shape(1)
+      val z = yz / shape(1)
       val ravelIndex =
-        channel + channels * (z + shape.z * (y + shape.y * x))
+        channel + channels * (z + shape(2) * (y + shape(1) * x))
       builder.writeLinear(ravelIndex, value)
 
   def identity(grid: GridSpec): DensePullResult =
@@ -379,7 +377,7 @@ private[halfflow] object HalfFlowKernels:
       sourceValidity,
       outside,
       channels = 1,
-      worldToVoxel = Affine.multiply(sourceSampler.inverse, coordinateAffine)
+      worldToVoxel = (sourceSampler.inverse * coordinateAffine)
     )
 
   def pullScalarNearest(
@@ -500,7 +498,7 @@ private[halfflow] object HalfFlowKernels:
     val sourceSampler = DenseFieldSampler(sourceGrid)
     val values =
       RavelArray.build[Double, Rank[4]](
-        Shape(targetShape.x, targetShape.y, targetShape.z, channels)
+        Shape(targetShape(0), targetShape(1), targetShape(2), channels)
       ): builder =>
         pullChannelsIntoKnownChannels(
           source,
@@ -1451,21 +1449,21 @@ private[halfflow] object HalfFlowKernels:
   def pyramidGrid(source: GridSpec, shrink: Int): GridSpec =
     require(shrink >= 1, "pyramid shrink must be at least one")
     val dims = Vector(
-      (source.shape.x - 1) / shrink + 1,
-      (source.shape.y - 1) / shrink + 1,
-      (source.shape.z - 1) / shrink + 1
+      (source.shape(0) - 1) / shrink + 1,
+      (source.shape(1) - 1) / shrink + 1,
+      (source.shape(2) - 1) / shrink + 1
     )
     val a = source.affine
     val scale = shrink.toDouble
-    val affine = DMat.fromRows(
-      Vector(
+    val affine = DMat.dense(4, 4, (Vector(
         Vector(a(0, 0) * scale, a(0, 1) * scale, a(0, 2) * scale, a(0, 3)),
         Vector(a(1, 0) * scale, a(1, 1) * scale, a(1, 2) * scale, a(1, 3)),
         Vector(a(2, 0) * scale, a(2, 1) * scale, a(2, 2) * scale, a(2, 3)),
         Vector(0.0, 0.0, 0.0, 1.0)
-      )
-    )
-    GridSpec(dims, affine)
+      )).flatten)
+    source.withGeometry(dims, image4s.geometry.Affine.fromRowMajor[image4s.geometry.D3](
+      Vector.tabulate(16)(i => affine(i / 4, i % 4))
+    ).fold(error => throw new IllegalArgumentException(error.message), value => value))
 
   def buildPyramidLevel(
       source: NeuroVol[Double],
@@ -1780,13 +1778,13 @@ private[halfflow] object HalfFlowKernels:
   private def convolveAxis(
       source: Array[Double],
       destination: Array[Double],
-      dims: SpatialDims,
+      dims: Vector[Int],
       weights: Array[Double],
       axis: Int
   ): Unit =
-    val nx = dims.x
-    val ny = dims.y
-    val nz = dims.z
+    val nx = dims(0)
+    val ny = dims(1)
+    val nz = dims(2)
     val radius = weights.length / 2
     var z = 0
     while z < nz do
@@ -1810,7 +1808,7 @@ private[halfflow] object HalfFlowKernels:
 
   private def samplePartialLinear(
       source: Array[Double],
-      dims: SpatialDims,
+      dims: Vector[Int],
       x: Double,
       y: Double,
       z: Double
@@ -1840,8 +1838,8 @@ private[halfflow] object HalfFlowKernels:
             val wx = if dx == 0 then 1.0 - fx else fx
             val xx = x0 + dx
             val weight = wx * wy * wz
-            if weight != 0.0 && inBounds(xx, yy, zz, dims.x, dims.y, dims.z) then
-              sum += weight * source(xx + yy * dims.x + zz * dims.x * dims.y)
+            if weight != 0.0 && inBounds(xx, yy, zz, dims(0), dims(1), dims(2)) then
+              sum += weight * source(xx + yy * dims(0) + zz * dims(0) * dims(1))
             dx += 1
           dy += 1
         dz += 1

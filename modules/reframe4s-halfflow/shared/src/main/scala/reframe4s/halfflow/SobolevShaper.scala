@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import gale.linalg.DMat
 import gale.linalg.{DVec, DoubleLinearOperator, MutableDVec, MutableVec}
 import gale.solvers.{IterativeSolvers, Preconditioner, SolverConfig, ToleranceMode}
 import reframe4s.halfflow.internal.*
@@ -77,7 +78,7 @@ final case class SobolevResult[A](
 )
 
 final class SobolevBuffer[A] private (
-    val frame: Frame[A],
+    val frame: RegistrationFrame[A],
     private[halfflow] val values: Array[Double],
     private[halfflow] val valid: Array[Boolean],
     val ownedVelocityBuffers: Int,
@@ -85,7 +86,7 @@ final class SobolevBuffer[A] private (
 )
 
 object SobolevBuffer:
-  def apply[A](frame: Frame[A]): SobolevBuffer[A] =
+  def apply[A](frame: RegistrationFrame[A]): SobolevBuffer[A] =
     new SobolevBuffer(
       frame,
       PrimitiveBuffers.ofSize[Double](frame.grid.nVoxels * 3),
@@ -104,7 +105,7 @@ object SobolevBuffer:
     )
 
 final class SobolevWorkspace[A] private (
-    val frame: Frame[A],
+    val frame: RegistrationFrame[A],
     private[halfflow] val rhs: MutableDVec,
     private[halfflow] val inverseDiagonal: Array[Double],
     private[halfflow] val inverseAffine: DMat,
@@ -113,18 +114,15 @@ final class SobolevWorkspace[A] private (
   val ownedGaleScalarBuffers: Int = 1
 
 object SobolevWorkspace:
-  def apply[A](frame: Frame[A]): SobolevWorkspace[A] =
+  def apply[A](frame: RegistrationFrame[A]): SobolevWorkspace[A] =
     make(frame, PrimitiveBuffers.ofSize[Double](frame.grid.nVoxels), ownedOperatorScalarBuffers = 1)
 
   private def make[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       inverseDiagonal: Array[Double],
       ownedOperatorScalarBuffers: Int
   ): SobolevWorkspace[A] =
-    val inverse = DMat.invert(frame.grid.affine).fold(
-      reason => throw new IllegalArgumentException(s"Sobolev grid affine is singular: $reason"),
-      identity
-    )
+    val inverse = frame.grid.inverseAffine
     val rhs = MutableDVec.zeros(frame.grid.nVoxels)
     new SobolevWorkspace(
       frame,
@@ -139,11 +137,11 @@ private[halfflow] final class MaskedHelmholtzOperator(
     val active: Array[Boolean],
     val lengthMm: Double
 ) extends DoubleLinearOperator:
-  private val nx = grid.shape.x
-  private val ny = grid.shape.y
-  private val nz = grid.shape.z
+  private val nx = grid.shape(0)
+  private val ny = grid.shape(1)
+  private val nz = grid.shape(2)
   private val plane = nx * ny
-  private val spacing = Affine.voxelSizes(grid.affine)
+  private val spacing = grid.spacing
   private val ax = lengthMm * lengthMm / (spacing(0) * spacing(0))
   private val ay = lengthMm * lengthMm / (spacing(1) * spacing(1))
   private val az = lengthMm * lengthMm / (spacing(2) * spacing(2))
@@ -381,9 +379,9 @@ object SobolevShaper:
       grid: GridSpec,
       inverse: DMat
   ): Double =
-    val nx = grid.shape.x
-    val ny = grid.shape.y
-    val nz = grid.shape.z
+    val nx = grid.shape(0)
+    val ny = grid.shape(1)
+    val nz = grid.shape(2)
     val plane = nx * ny
     val n = grid.nVoxels
     var maximum = 0.0

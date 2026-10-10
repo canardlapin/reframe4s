@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import gale.linalg.DMat
 import image4s.nifti.Nifti
 import java.nio.file.Files
 import java.nio.file.Path
@@ -110,7 +111,7 @@ object BasinBridgeRealDataSupport:
         d3 =>
           val shape = d3.value.sampleSpace.grid.shape
           val rowMajor = decoded.affineSelection.affine.rowMajor
-          val affine = DMat.fromRowMajorOwned(4, 4, rowMajor.toArray)
+          val affine = DMat.dense(4, 4, (rowMajor.toArray).toVector)
           val grid = GridSpec(shape, affine)
           if d3.value.nonSpatialAxes.size != 0 then
             Left(s"$label must not contain non-spatial axes")
@@ -140,9 +141,9 @@ object BasinBridgeRealDataSupport:
       fixed: LoadedVolume,
       moving: LoadedVolume
   ): Either[String, RealDataReport] =
-    val fixedFrame = Frame[Fixed](SpatialDomainId("hodgeflow-real-fixed"), fixed.grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("hodgeflow-real-moving"), moving.grid)
-    val workFrame = Frame[Work](SpatialDomainId("hodgeflow-real-work"), fixed.grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("hodgeflow-real-fixed"), fixed.grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("hodgeflow-real-moving"), moving.grid)
+    val workFrame = RegistrationFrame[Work](SpatialDomainId("hodgeflow-real-work"), fixed.grid)
     for
       fixedImage <- RegistrationImage
         .make(fixedFrame, fixed.volume)
@@ -202,9 +203,9 @@ object BasinBridgeRealDataSupport:
       ).distinct
 
     for
-      x <- interior(grid.shape.x)
-      y <- interior(grid.shape.y)
-      z <- Vector(interior(grid.shape.z).head, interior(grid.shape.z).last)
+      x <- interior(grid.shape(0))
+      y <- interior(grid.shape(1))
+      z <- Vector(interior(grid.shape(2)).head, interior(grid.shape(2)).last)
     yield
       val world = grid.voxelToWorld(Vector(x.toDouble, y.toDouble, z.toDouble))
       BasinBridgePoint.unsafe(world(0), world(1), world(2))

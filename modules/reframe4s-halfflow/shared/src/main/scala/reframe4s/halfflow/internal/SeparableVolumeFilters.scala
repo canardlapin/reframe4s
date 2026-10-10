@@ -1,5 +1,6 @@
 package reframe4s.halfflow.internal
 
+import gale.linalg.DMat
 
 enum BoxBoundary:
   /** Sum only samples inside the finite lattice. */
@@ -51,9 +52,9 @@ object BoxSum3D:
     require(destination.length >= grid.nVoxels, "reference box-sum destination is too small")
     boundary match
       case BoxBoundary.Truncate =>
-        val nx = grid.shape.x
-        val ny = grid.shape.y
-        val nz = grid.shape.z
+        val nx = grid.shape(0)
+        val ny = grid.shape(1)
+        val nz = grid.shape(2)
         val plane = nx * ny
         var z = 0
         while z < nz do
@@ -86,12 +87,12 @@ object BoxSum3D:
   private def sumX(
       source: Array[Double],
       destination: Array[Double],
-      dims: SpatialDims,
+      dims: Vector[Int],
       radius: Int
   ): Unit =
-    val nx = dims.x
-    val ny = dims.y
-    val nz = dims.z
+    val nx = dims(0)
+    val ny = dims(1)
+    val nz = dims(2)
     val plane = nx * ny
     var z = 0
     while z < nz do
@@ -118,12 +119,12 @@ object BoxSum3D:
   private def sumY(
       source: Array[Double],
       destination: Array[Double],
-      dims: SpatialDims,
+      dims: Vector[Int],
       radius: Int
   ): Unit =
-    val nx = dims.x
-    val ny = dims.y
-    val nz = dims.z
+    val nx = dims(0)
+    val ny = dims(1)
+    val nz = dims(2)
     val plane = nx * ny
     var z = 0
     while z < nz do
@@ -150,12 +151,12 @@ object BoxSum3D:
   private def sumZ(
       source: Array[Double],
       destination: Array[Double],
-      dims: SpatialDims,
+      dims: Vector[Int],
       radius: Int
   ): Unit =
-    val nx = dims.x
-    val ny = dims.y
-    val nz = dims.z
+    val nx = dims(0)
+    val ny = dims(1)
+    val nz = dims(2)
     val plane = nx * ny
     var y = 0
     while y < ny do
@@ -396,14 +397,14 @@ object Gaussian3D:
   private def convolveAxis(
       source: Array[Double],
       destination: Array[Double],
-      dims: SpatialDims,
+      dims: Vector[Int],
       weights: Array[Double],
       axis: Int,
       boundary: GaussianBoundary
   ): Unit =
-    val nx = dims.x
-    val ny = dims.y
-    val nz = dims.z
+    val nx = dims(0)
+    val ny = dims(1)
+    val nz = dims(2)
     val radius = weights.length / 2
     var z = 0
     while z < nz do

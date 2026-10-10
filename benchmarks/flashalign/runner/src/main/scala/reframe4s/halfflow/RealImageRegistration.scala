@@ -1,8 +1,9 @@
 package reframe4s.halfflow
 
+import image4s.geometry.{Affine, D3}
+import gale.linalg.DMat
 import image4s.ContinuousImage
 import image4s.SampleSpace
-import image4s.geometry.D3
 import image4s.geometry.Frame as CanonicalFrame
 import image4s.nifti.Nifti
 import java.io.BufferedOutputStream
@@ -60,12 +61,12 @@ object RealImageRegistration:
     val started = System.nanoTime()
     def grid[A <: CanonicalFrame[D3], S <: SampleSpace[A, D3]](
         image: ContinuousImage[S, Double, Rank[3]]): GridSpec =
-      GridSpec(image.grid.shape, DMat.fromRowMajorOwned(4, 4, image.grid.indexToFrame.rowMajor.toArray))
+      GridSpec.fromGrid(image.grid)
     val mg = grid(moving)
     val fg = grid(fixed)
-    val mf = Frame[Moving](SpatialDomainId("real-mri-moving"), mg)
-    val ff = Frame[Fixed](SpatialDomainId("real-mri-fixed"), fg)
-    val wf = Frame[Work](SpatialDomainId("real-mri-work"), fg)
+    val mf = RegistrationFrame[Moving](SpatialDomainId("real-mri-moving"), mg)
+    val ff = RegistrationFrame[Fixed](SpatialDomainId("real-mri-fixed"), fg)
+    val wf = RegistrationFrame[Work](SpatialDomainId("real-mri-work"), fg)
     val mv = NeuroVol.fromRavel(moving.data, mg, "moving")
     val fv = NeuroVol.fromRavel(fixed.data, fg, "fixed")
     require(mv.copyLegacyLinear.forall(_.isFinite) && fv.copyLegacyLinear.forall(_.isFinite), "nonfinite input")
@@ -80,8 +81,8 @@ object RealImageRegistration:
       else if savedAffine.nonEmpty then
         val values = Files.readString(savedAffine.get).trim.stripPrefix("[").stripSuffix("]").split(",").map(_.trim.toDouble)
         require(values.length == 16, "saved affine requires 16 row-major numbers")
-        val affine = Affine3D.make(DMat.fromRowMajorOwned(4, 4, values)).fold(e => fail(e.message), identity)
-        val supplied = AffineInitializer.supplied(fi, mi, wf, affine.inverseAffine).fold(e => fail(e.message), identity)
+        val affine = Affine.fromRowMajor[D3](values.toVector).fold(e => fail(e.message), identity)
+        val supplied = AffineInitializer.supplied(fi, mi, wf, affine.inverse).fold(e => fail(e.message), identity)
         savePair("affine", supplied.affine.dense, mv, fv, out)
         println(s"REAL_MRI stage=affine-initialization status=supplied hash=${EvidenceHash.file(savedAffine.get).hex}")
         ForwardMidpoint.fromLegacy(supplied.midpoint)
@@ -169,7 +170,7 @@ object RealImageRegistration:
       pull.validity, FieldValidity.All, 0.0)
     writeDoubles(out.resolve(name + "-warped.f64"), warped.values.copyLegacyLinear)
     val matrix = (0 until 16).map(i => grid.affine(i / 4, i % 4)).mkString("[", ",", "]")
-    val shape = Vector(grid.shape.x, grid.shape.y, grid.shape.z).mkString("[", ",", "]")
+    val shape = Vector(grid.shape(0), grid.shape(1), grid.shape(2)).mkString("[", ",", "]")
     val _ = Files.writeString(out.resolve(name + ".json"),
       s"{\"shape\":$shape,\"index_to_ras_mm\":$matrix,\"dtype\":\">f8\",\"voxel_order\":\"x-fastest\",\"components\":\"interleaved-xyz\",\"map\":\"absolute-source-RAS-mm\"}\n")
 
@@ -182,7 +183,7 @@ object RealImageRegistration:
     val decoded = Nifti.readScaledDouble(path).fold(e => fail(e.message), identity)
     decoded.image.fold(_ => fail("mask must be D3"), d =>
       val shape = d.value.grid.shape
-      val grid = GridSpec(shape, DMat.fromRowMajorOwned(4, 4, decoded.affineSelection.affine.rowMajor.toArray))
+      val grid = GridSpec(shape, DMat.dense(4, 4, (decoded.affineSelection.affine.rowMajor.toArray).toVector))
       require(grid == expected, "fixed mask grid differs from fixed image")
       val data = d.value.data.reshapeView(ravel.Shape(shape(0), shape(1), shape(2)))
       val values = NeuroVol.fromRavel(data, grid, "fixed mask").copyLegacyLinear

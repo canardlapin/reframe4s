@@ -8,8 +8,8 @@ class BasinBridgeBlockMatcherSuite extends munit.FunSuite:
 
   test("same-grid translation recovers the forward tangent and reverse cycle"):
     val grid = GridSpec.identity(Vector(17, 17, 17))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("matcher-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("matcher-moving"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("matcher-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("matcher-moving"), grid)
     val fixed = image(fixedFrame, grid, shiftX = 0.0, "fixed")
     val moving = image(movingFrame, grid, shiftX = 2.0, "moving")
     val config = right(
@@ -33,8 +33,8 @@ class BasinBridgeBlockMatcherSuite extends munit.FunSuite:
 
   test("swapping image roles recovers the negated tangent"):
     val grid = GridSpec.identity(Vector(17, 17, 17))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("swap-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("swap-moving"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("swap-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("swap-moving"), grid)
     val fixed = image(fixedFrame, grid, shiftX = 0.0, "fixed")
     val moving = image(movingFrame, grid, shiftX = 2.0, "moving")
     val config = right(
@@ -66,8 +66,8 @@ class BasinBridgeBlockMatcherSuite extends munit.FunSuite:
 
   test("repeated search is deterministic"):
     val grid = GridSpec.identity(Vector(15, 15, 15))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("det-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("det-moving"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("det-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("det-moving"), grid)
     val fixed = image(fixedFrame, grid, shiftX = 0.0, "fixed")
     val moving = image(movingFrame, grid, shiftX = 1.0, "moving")
     val config = right(
@@ -89,8 +89,8 @@ class BasinBridgeBlockMatcherSuite extends munit.FunSuite:
 
   test("flat blocks remain emitted with a low finite confidence"):
     val grid = GridSpec.identity(Vector(11, 11, 11))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("flat-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("flat-moving"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("flat-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("flat-moving"), grid)
     val fixed = constantImage(fixedFrame, grid, 3.0, "fixed")
     val moving = constantImage(movingFrame, grid, 3.0, "moving")
     val config = right(
@@ -116,8 +116,8 @@ class BasinBridgeBlockMatcherSuite extends munit.FunSuite:
 
   test("boundary blocks fail closed when the declared support is unavailable"):
     val grid = GridSpec.identity(Vector(9, 9, 9))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("edge-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("edge-moving"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("edge-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("edge-moving"), grid)
     val fixed = image(fixedFrame, grid, shiftX = 0.0, "fixed")
     val moving = image(movingFrame, grid, shiftX = 1.0, "moving")
     val config = right(
@@ -143,8 +143,8 @@ class BasinBridgeBlockMatcherSuite extends munit.FunSuite:
 
   test("rematch search retains usable anchors without changing strict search semantics"):
     val grid = GridSpec.identity(Vector(15, 15, 15))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("retained-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("retained-moving"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("retained-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("retained-moving"), grid)
     val fixed = image(fixedFrame, grid, shiftX = 0.0, "fixed")
     val moving = image(movingFrame, grid, shiftX = 1.0, "moving")
     val config = right(
@@ -200,8 +200,8 @@ class BasinBridgeBlockMatcherSuite extends munit.FunSuite:
 
   test("rematch search fails with a typed error below the retention floor"):
     val grid = GridSpec.identity(Vector(15, 15, 15))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("retention-floor-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("retention-floor-moving"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("retention-floor-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("retention-floor-moving"), grid)
     val fixed = image(fixedFrame, grid, shiftX = 0.0, "fixed")
     val moving = image(movingFrame, grid, shiftX = 1.0, "moving")
     val config = right(
@@ -251,8 +251,8 @@ class BasinBridgeBlockMatcherSuite extends munit.FunSuite:
 
     val fixedGrid = GridSpec.identity(Vector(9, 9, 9))
     val movingGrid = GridSpec.identity(Vector(11, 11, 11))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("mismatch-fixed"), fixedGrid)
-    val movingFrame = Frame[Moving](SpatialDomainId("mismatch-moving"), movingGrid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("mismatch-fixed"), fixedGrid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("mismatch-moving"), movingGrid)
     val fixed = image(fixedFrame, fixedGrid, shiftX = 0.0, "fixed")
     val moving = image(movingFrame, movingGrid, shiftX = 0.0, "moving")
     val config = right(
@@ -266,21 +266,21 @@ class BasinBridgeBlockMatcherSuite extends munit.FunSuite:
       case Right(_) => fail("mismatched grids should fail before search")
 
   private def image[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       grid: GridSpec,
       shiftX: Double,
       label: String
   ): RegistrationImage[A] =
     val values = Array.tabulate[Double](grid.nVoxels): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       pattern(x.toDouble - shiftX, y.toDouble, z.toDouble)
     val volume = NeuroVol.fromLinear[Double](values, grid.toNeuroSpace, label)
     right(RegistrationImage.make(frame, volume))
 
-  private def constantImage[A](frame: Frame[A], grid: GridSpec, value: Double, label: String): RegistrationImage[A] =
+  private def constantImage[A](frame: RegistrationFrame[A], grid: GridSpec, value: Double, label: String): RegistrationImage[A] =
     val volume = NeuroVol.fromLinear[Double](Array.fill(grid.nVoxels)(value), grid.toNeuroSpace, label)
     right(RegistrationImage.make(frame, volume))
 

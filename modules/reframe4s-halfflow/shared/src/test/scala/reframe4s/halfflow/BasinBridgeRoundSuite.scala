@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import image4s.geometry.{Affine, D3}
 import reframe4s.halfflow.internal.*
 
 class BasinBridgeRoundSuite extends munit.FunSuite:
@@ -9,35 +10,31 @@ class BasinBridgeRoundSuite extends munit.FunSuite:
 
   test("endpoint lifting preserves distinct fixed and moving affine frames"):
     val grid = GridSpec.identity(Vector(17, 17, 17))
-    val work = Frame[Work](SpatialDomainId("round-work"), grid)
-    val fixed = Frame[Fixed](SpatialDomainId("round-fixed"), grid)
-    val moving = Frame[Moving](SpatialDomainId("round-moving"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("round-work"), grid)
+    val fixed = RegistrationFrame[Fixed](SpatialDomainId("round-fixed"), grid)
+    val moving = RegistrationFrame[Moving](SpatialDomainId("round-moving"), grid)
     val fixedAffine = right(
       AffineIso.make(
         work,
         fixed,
-        Affine3D.fromRows(
-          Vector(
+        Affine.fromRowMajor[D3]((Vector(
             Vector(1.0, 0.0, 0.0, 2.0),
             Vector(0.0, 1.0, 0.0, 0.0),
             Vector(0.0, 0.0, 1.0, 0.0),
             Vector(0.0, 0.0, 0.0, 1.0)
-          )
-        ).fold(error => fail(error.message), identity)
+          )).flatten).fold(error => fail(error.message), identity)
       )
     )
     val movingAffine = right(
       AffineIso.make(
         work,
         moving,
-        Affine3D.fromRows(
-          Vector(
+        Affine.fromRowMajor[D3]((Vector(
             Vector(1.0, 0.0, 0.0, 5.0),
             Vector(0.0, 1.0, 0.0, 0.0),
             Vector(0.0, 0.0, 1.0, 0.0),
             Vector(0.0, 0.0, 0.0, 1.0)
-          )
-        ).fold(error => fail(error.message), identity)
+          )).flatten).fold(error => fail(error.message), identity)
       )
     )
     val state = right(
@@ -63,13 +60,13 @@ class BasinBridgeRoundSuite extends munit.FunSuite:
 
   test("native round uses true frozen CC and rematches after acceptance"):
     val grid = GridSpec.identity(Vector(25, 25, 25))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("round-fixed-image"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("round-moving-image"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("round-fixed-image"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("round-moving-image"), grid)
     val fixed = image(fixedFrame, grid, shiftX = 0.0, "round-fixed")
     val moving = image(movingFrame, grid, shiftX = 2.0, "round-moving")
     val state = right(
       ForwardMidpoint.identity(
-        Frame[Work](SpatialDomainId("round-image-work"), grid),
+        RegistrationFrame[Work](SpatialDomainId("round-image-work"), grid),
         fixedFrame,
         movingFrame
       )
@@ -116,13 +113,13 @@ class BasinBridgeRoundSuite extends munit.FunSuite:
 
   test("actual frozen CC rejects a sparse proposal that points away from the native alignment"):
     val grid = GridSpec.identity(Vector(25, 25, 25))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("round-reject-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("round-reject-moving"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("round-reject-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("round-reject-moving"), grid)
     val fixed = image(fixedFrame, grid, shiftX = 0.0, "round-reject-fixed")
     val moving = image(movingFrame, grid, shiftX = 2.0, "round-reject-moving")
     val state = right(
       ForwardMidpoint.identity(
-        Frame[Work](SpatialDomainId("round-reject-work"), grid),
+        RegistrationFrame[Work](SpatialDomainId("round-reject-work"), grid),
         fixedFrame,
         movingFrame
       )
@@ -172,16 +169,16 @@ class BasinBridgeRoundSuite extends munit.FunSuite:
     assertEquals(result.state, state)
 
   private def image[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       grid: GridSpec,
       shiftX: Double,
       label: String
   ): RegistrationImage[A] =
     val values = Array.tabulate[Double](grid.nVoxels): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       pattern(x.toDouble - shiftX, y.toDouble, z.toDouble)
     right(RegistrationImage.make(
       frame,

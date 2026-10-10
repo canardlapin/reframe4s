@@ -715,6 +715,18 @@
       },
       {
         "from": "reframe4s-halfflow",
+        "to": "reframe4s-resample"
+      },
+      {
+        "from": "reframe4s-halfflow",
+        "to": "reframe4s-field"
+      },
+      {
+        "from": "reframe4s-halfflow",
+        "to": "reframe4s-lie"
+      },
+      {
+        "from": "reframe4s-halfflow",
         "to": "reframe4s-core"
       },
       {
@@ -1036,7 +1048,7 @@
     {
       "id": "API-022",
       "name": "Experimental HalfFlow boundary",
-      "contract": "reframe4s-halfflow owns the concrete experimental HalfFlow engine, kernels, controls, and evidence ledger. Half steps are independently integrated estimates, not analytic inverses. Admission to a RegistrationResult requires separately checked inverse residual and scoped topology evidence; a rejected candidate remains inspectable and no HalfFlow value is promoted to SmoothIso or included in the stable umbrella."
+      "contract": "reframe4s-halfflow owns the concrete experimental HalfFlow engine, kernels, controls, and evidence ledger. Half steps are independently integrated estimates, not analytic inverses. Admission to a RegistrationResult requires separately checked inverse residual and scoped topology evidence; a rejected candidate remains inspectable and no HalfFlow value is promoted to SmoothIso or included in the stable umbrella. Its execution adapters use image4s/Spatial4s frame and grid owners, image4s Affine, reframe4s-lie FramedAffine, and reframe4s-field maps and dense fields; no private geometry or matrix hierarchy remains. Numerical and structural migration evidence must match the exact source candidate and immutable dependency pins."
     },
     {
       "id": "API-023",

@@ -19,7 +19,7 @@ class LocalLmSuite extends munit.FunSuite:
 
   test("T1 features are invariant to positive common gain and offset on stable support"):
     val grid = GridSpec.identity(Vector(17, 17, 17))
-    val frame = Frame[W](SpatialDomainId("work"), grid)
+    val frame = RegistrationFrame[W](SpatialDomainId("work"), grid)
     val source = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     val transformed = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     var z = 0
@@ -61,7 +61,7 @@ class LocalLmSuite extends munit.FunSuite:
 
   test("rank-one LM matches its closed form and tighter damping shrinks the step"):
     val grid = GridSpec.identity(Vector(5, 5, 5))
-    val frame = Frame[W](SpatialDomainId("work"), grid)
+    val frame = RegistrationFrame[W](SpatialDomainId("work"), grid)
     val fixed = feature(frame, Vector(0.2), Vector((1.0, 2.0, -1.0)))
     val moving = feature(frame, Vector(0.0), Vector((1.0, 2.0, -1.0)))
     val looseConfig = right(
@@ -84,7 +84,7 @@ class LocalLmSuite extends munit.FunSuite:
 
   test("multi-channel LM satisfies the original damped system and shaped prediction oracle"):
     val grid = GridSpec.identity(Vector(5, 5, 5))
-    val frame = Frame[W](SpatialDomainId("work"), grid)
+    val frame = RegistrationFrame[W](SpatialDomainId("work"), grid)
     val residuals = Vector(0.1, -0.2, 0.3)
     val axes = Vector((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0))
     val fixed = feature(frame, residuals, axes)
@@ -121,7 +121,7 @@ class LocalLmSuite extends munit.FunSuite:
 
   test("candidate objective keeps the reference support fixed"):
     val grid = GridSpec.identity(Vector(5, 5, 5))
-    val frame = Frame[W](SpatialDomainId("work"), grid)
+    val frame = RegistrationFrame[W](SpatialDomainId("work"), grid)
     val fixed = feature(frame, Vector(0.2, -0.1), Vector((1.0, 0.0, 0.0), (0.0, 1.0, 0.0)))
     val moving = feature(frame, Vector(0.0, 0.0), Vector((1.0, 0.0, 0.0), (0.0, 1.0, 0.0)))
     val config = right(
@@ -139,7 +139,7 @@ class LocalLmSuite extends munit.FunSuite:
       case Right(value) => fail(s"candidate with missing reference support was accepted: $value")
 
   private def feature(
-      frame: Frame[W],
+      frame: RegistrationFrame[W],
       channelValues: Vector[Double],
       channelGradients: Vector[(Double, Double, Double)]
   ): T1FeatureVolume[W] =
@@ -205,15 +205,15 @@ class LocalLmSuite extends munit.FunSuite:
     energy
 
   private def scaledVelocity(
-      frame: Frame[W],
+      frame: RegistrationFrame[W],
       source: Velocity[W],
       scale: Double
   ): Velocity[W] =
     val output =
       ravel.NDArray.tabulate[Double](
-        frame.grid.shape.x,
-        frame.grid.shape.y,
-        frame.grid.shape.z,
+        frame.grid.shape(0),
+        frame.grid.shape(1),
+        frame.grid.shape(2),
         3
       ) { (x, y, z, component) =>
         scale * source.field(x, y, z, component)

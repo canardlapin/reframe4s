@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 class BasinBridgeProjectorSuite extends munit.FunSuite:
@@ -59,14 +60,12 @@ class BasinBridgeProjectorSuite extends munit.FunSuite:
     val baseGrid = GridSpec.identity(Vector(9, 9, 9))
     val translatedGrid = GridSpec(
       Vector(9, 9, 9),
-      DMat.fromRows(
-        Vector(
+      DMat.dense(4, 4, (Vector(
           Vector(1.0, 0.0, 0.0, 31.0),
           Vector(0.0, 1.0, 0.0, -12.0),
           Vector(0.0, 0.0, 1.0, 7.0),
           Vector(0.0, 0.0, 0.0, 1.0)
-        )
-      )
+        )).flatten)
     )
     val observations = Vector(
       (point(1.0, 1.0, 1.0), point(4.0, -1.0, 0.5), 1.0),
@@ -106,10 +105,10 @@ class BasinBridgeProjectorSuite extends munit.FunSuite:
     val omega = 0.01
     val center = point(4.0, 4.0, 4.0)
     val correspondences = Vector.tabulate(grid.nVoxels): index =>
-      val x = (index % grid.shape.x).toDouble
-      val yz = index / grid.shape.x
-      val y = (yz % grid.shape.y).toDouble
-      val z = (yz / grid.shape.y).toDouble
+      val x = (index % grid.shape(0)).toDouble
+      val yz = index / grid.shape(0)
+      val y = (yz % grid.shape(1)).toDouble
+      val z = (yz / grid.shape(1)).toDouble
       val position = point(x, y, z)
       val tangent = point(
         -omega * (y - center.y),
@@ -121,9 +120,9 @@ class BasinBridgeProjectorSuite extends munit.FunSuite:
 
     var index = 0
     while index < grid.nVoxels do
-      val x = (index % grid.shape.x).toDouble
-      val yz = index / grid.shape.x
-      val y = (yz % grid.shape.y).toDouble
+      val x = (index % grid.shape(0)).toDouble
+      val yz = index / grid.shape(0)
+      val y = (yz % grid.shape(1)).toDouble
       val expected = point(-omega * (y - center.y), omega * (x - center.x), 0.0)
       assertEqualsDouble(projection.field.linearComponent(index, 0), expected.x, 1e-10)
       assertEqualsDouble(projection.field.linearComponent(index, 1), expected.y, 1e-10)
@@ -236,11 +235,11 @@ class BasinBridgeProjectorSuite extends munit.FunSuite:
     val radius = math.ceil(3.0 * config.sigmaMm).toInt
     val kernel = gaussianKernel(config.sigmaMm, radius)
     var z = 0
-    while z < grid.shape.z do
+    while z < grid.shape(2) do
       var y = 0
-      while y < grid.shape.y do
+      while y < grid.shape(1) do
         var x = 0
-        while x < grid.shape.x do
+        while x < grid.shape(0) do
           var sumX = 0.0
           var sumY = 0.0
           var sumZ = 0.0
@@ -251,10 +250,10 @@ class BasinBridgeProjectorSuite extends munit.FunSuite:
             while dy <= radius do
               var dx = -radius
               while dx <= radius do
-                val sourceX = reflect(x + dx, grid.shape.x)
-                val sourceY = reflect(y + dy, grid.shape.y)
-                val sourceZ = reflect(z + dz, grid.shape.z)
-                val source = sourceX + grid.shape.x * sourceY + grid.shape.x * grid.shape.y * sourceZ
+                val sourceX = reflect(x + dx, grid.shape(0))
+                val sourceY = reflect(y + dy, grid.shape(1))
+                val sourceZ = reflect(z + dz, grid.shape(2))
+                val source = sourceX + grid.shape(0) * sourceY + grid.shape(0) * grid.shape(1) * sourceZ
                 val weight = kernel(dx + radius) * kernel(dy + radius) * kernel(dz + radius)
                 sumX += weight * support(source) * numeratorX(source)
                 sumY += weight * support(source) * numeratorY(source)
@@ -263,7 +262,7 @@ class BasinBridgeProjectorSuite extends munit.FunSuite:
                 dx += 1
               dy += 1
             dz += 1
-          val target = x + grid.shape.x * y + grid.shape.x * grid.shape.y * z
+          val target = x + grid.shape(0) * y + grid.shape(0) * grid.shape(1) * z
           result(target) = backgroundX + sumX / denominator
           result(target + n) = backgroundY + sumY / denominator
           result(target + 2 * n) = backgroundZ + sumZ / denominator
@@ -298,7 +297,7 @@ class BasinBridgeProjectorSuite extends munit.FunSuite:
       reflected
 
   private def linearIndex(grid: GridSpec, point: BasinBridgePoint): Int =
-    point.x.toInt + grid.shape.x * point.y.toInt + grid.shape.x * grid.shape.y * point.z.toInt
+    point.x.toInt + grid.shape(0) * point.y.toInt + grid.shape(0) * grid.shape(1) * point.z.toInt
 
   private def right[A](value: Either[?, A]): A =
     value match

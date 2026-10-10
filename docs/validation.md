@@ -52,14 +52,16 @@ claims.
 
 ## Contracts and validation tools
 
-Use checkouts matching the image4s revision in `build.sbt` and its pinned locus4s
-revision for the ownership audit. CI checks out these exact revisions under
-`.ci/`.
+Use clean checkouts matching the image4s revision in `build.sbt` and its pinned
+Spatial4s and locus4s revisions for the ownership audit. The audit rejects
+mismatched revisions or uncommitted provider changes. CI checks out these exact
+revisions under `.ci/`.
 
 ```sh
 node scripts/verify-prd.mjs
 node scripts/verify-build-graph.mjs
-IMAGE4S_ROOT=/path/to/image4s LOCUS4S_ROOT=/path/to/locus4s \
+IMAGE4S_ROOT=/path/to/image4s SPATIAL4S_ROOT=/path/to/spatial4s \
+  LOCUS4S_ROOT=/path/to/locus4s \
   node scripts/verify-symbol-ownership.mjs
 node --test scripts/*.test.mjs
 python3 -m unittest discover -s tools -p 'test_datasets.py'

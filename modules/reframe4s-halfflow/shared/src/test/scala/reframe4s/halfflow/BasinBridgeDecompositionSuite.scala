@@ -12,9 +12,9 @@ class BasinBridgeDecompositionSuite extends munit.FunSuite:
 
   test("B4 runner executes all three frozen lanes and retains stage metrics"):
     val grid = GridSpec.identity(Vector(25, 25, 25))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("decomp-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("decomp-moving"), grid)
-    val workFrame = Frame[Work](SpatialDomainId("decomp-work"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("decomp-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("decomp-moving"), grid)
+    val workFrame = RegistrationFrame[Work](SpatialDomainId("decomp-work"), grid)
     val fixed = image(fixedFrame, grid, 0.0, "decomp-fixed")
     val moving = image(movingFrame, grid, 2.0, "decomp-moving")
     val initial = right(ForwardMidpoint.identity(workFrame, fixedFrame, movingFrame))
@@ -100,9 +100,9 @@ class BasinBridgeDecompositionSuite extends munit.FunSuite:
   Vector(2.0, 4.0, 8.0, 12.0).foreach: shiftMm =>
     test(s"native B4 lane captures the frozen $shiftMm mm translation"):
       val grid = GridSpec.identity(Vector(49, 49, 49))
-      val fixedFrame = Frame[Fixed](SpatialDomainId(s"matrix-fixed-$shiftMm"), grid)
-      val movingFrame = Frame[Moving](SpatialDomainId(s"matrix-moving-$shiftMm"), grid)
-      val workFrame = Frame[Work](SpatialDomainId(s"matrix-work-$shiftMm"), grid)
+      val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId(s"matrix-fixed-$shiftMm"), grid)
+      val movingFrame = RegistrationFrame[Moving](SpatialDomainId(s"matrix-moving-$shiftMm"), grid)
+      val workFrame = RegistrationFrame[Work](SpatialDomainId(s"matrix-work-$shiftMm"), grid)
       val fixed = image(fixedFrame, grid, 0.0, s"matrix-fixed-$shiftMm")
       val moving = image(movingFrame, grid, shiftMm, s"matrix-moving-$shiftMm")
       val initial = right(ForwardMidpoint.identity(workFrame, fixedFrame, movingFrame))
@@ -191,9 +191,9 @@ class BasinBridgeDecompositionSuite extends munit.FunSuite:
   test("exact 12 mm oracle separates bridge success from fine-stage topology rejection"):
     val shiftMm = 12.0
     val grid = GridSpec.identity(Vector(33, 33, 33))
-    val fixedFrame = Frame[Fixed](SpatialDomainId("oracle-12-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("oracle-12-moving"), grid)
-    val workFrame = Frame[Work](SpatialDomainId("oracle-12-work"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("oracle-12-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("oracle-12-moving"), grid)
+    val workFrame = RegistrationFrame[Work](SpatialDomainId("oracle-12-work"), grid)
     val fixed = image(fixedFrame, grid, 0.0, "oracle-12-fixed")
     val moving = image(movingFrame, grid, shiftMm, "oracle-12-moving")
     val initial = right(ForwardMidpoint.identity(workFrame, fixedFrame, movingFrame))
@@ -297,9 +297,9 @@ class BasinBridgeDecompositionSuite extends munit.FunSuite:
       tag: String
   ): BasinBridgeDecompositionCase[Work, Fixed, Moving] =
     val grid = GridSpec.identity(Vector(side, side, side))
-    val fixedFrame = Frame[Fixed](SpatialDomainId(s"$tag-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId(s"$tag-moving"), grid)
-    val workFrame = Frame[Work](SpatialDomainId(s"$tag-work"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId(s"$tag-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId(s"$tag-moving"), grid)
+    val workFrame = RegistrationFrame[Work](SpatialDomainId(s"$tag-work"), grid)
     val fixed = image(fixedFrame, grid, 0.0, s"$tag-fixed")
     val moving = image(movingFrame, grid, shiftMm, s"$tag-moving")
     val initial = right(ForwardMidpoint.identity(workFrame, fixedFrame, movingFrame))
@@ -333,16 +333,16 @@ class BasinBridgeDecompositionSuite extends munit.FunSuite:
     )
 
   private def image[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       grid: GridSpec,
       shiftX: Double,
       label: String
   ): RegistrationImage[A] =
     val values = Array.tabulate[Double](grid.nVoxels): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       pattern(x.toDouble - shiftX, y.toDouble, z.toDouble)
     right(RegistrationImage.make(
       frame,

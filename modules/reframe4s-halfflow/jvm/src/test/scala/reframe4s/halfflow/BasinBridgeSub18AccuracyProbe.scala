@@ -1,5 +1,7 @@
 package reframe4s.halfflow
 
+import image4s.geometry.{Affine, D3}
+import gale.linalg.DMat
 import image4s.nifti.Nifti
 import java.nio.file.Files
 import java.nio.file.Path
@@ -123,9 +125,9 @@ object BasinBridgeSub18AccuracyProbe:
     requireSameGrid(fixed, fixedMaskVolume, "fixed mask")
     val fixedMask = fixedMaskVolume.values.map(_ > 0.0)
 
-    val fixedFrame = Frame[Fixed](SpatialDomainId("hodgeflow-sub18-fixed"), fixed.grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("hodgeflow-sub18-moving"), moving.grid)
-    val workFrame = Frame[Work](SpatialDomainId("hodgeflow-sub18-work"), fixed.grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("hodgeflow-sub18-fixed"), fixed.grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("hodgeflow-sub18-moving"), moving.grid)
+    val workFrame = RegistrationFrame[Work](SpatialDomainId("hodgeflow-sub18-work"), fixed.grid)
     val fixedImage = right(
       RegistrationImage.make(
         fixedFrame,
@@ -204,7 +206,7 @@ object BasinBridgeSub18AccuracyProbe:
     requireSameGrid(fixed, antsMaskWarped, "ANTs warped mask")
     val metricCourt = MetricCourt(fixed.values, fixedMask, fixed.grid)
 
-    val identityPull = right(AffineIso.make(fixedFrame, movingFrame, Affine3D.identity)).dense.forward
+    val identityPull = right(AffineIso.make(fixedFrame, movingFrame, Affine.identity[D3])).dense.forward
     val initialWarped = warp(identityPull, moving.volume, movingMaskVolume.volume)
     val initialMetrics = metricCourt.evaluate(initialWarped._1, initialWarped._2)
     printMetrics("initial", initialMetrics, methodElapsedMillis = 0L, evaluationMillis = 0L)
@@ -296,7 +298,7 @@ object BasinBridgeSub18AccuracyProbe:
       fixedMask: Array[Boolean],
       grid: GridSpec
   ):
-    private val spacing = Affine.voxelSizes(grid.affine)
+    private val spacing = grid.spacing
     private val fixedGradientMagnitude = gradientMagnitude(fixed, grid, spacing)
 
     def evaluate(warped: Array[Double], warpedMask: Array[Boolean]): AccuracyMetrics =
@@ -349,9 +351,9 @@ object BasinBridgeSub18AccuracyProbe:
       grid: GridSpec,
       spacing: Vector[Double]
   ): Array[Double] =
-    val nx = grid.shape.x
-    val ny = grid.shape.y
-    val nz = grid.shape.z
+    val nx = grid.shape(0)
+    val ny = grid.shape(1)
+    val nz = grid.shape(2)
     val xy = nx * ny
     val result = new Array[Double](values.length)
     var z = 0
@@ -404,10 +406,10 @@ object BasinBridgeSub18AccuracyProbe:
       var index = 0
       while index < mask.length do
         if mask(index) then
-          val x = index % grid.shape.x
-          val yz = index / grid.shape.x
-          val y = yz % grid.shape.y
-          val z = yz / grid.shape.y
+          val x = index % grid.shape(0)
+          val yz = index / grid.shape(0)
+          val y = yz % grid.shape(1)
+          val z = yz / grid.shape(1)
           count += 1L
           sumX += x.toDouble
           sumY += y.toDouble
@@ -436,9 +438,9 @@ object BasinBridgeSub18AccuracyProbe:
       reduction,
       interiorMargin
     )
-    val eligible = math.max(0, grid.shape.x - 2 * interiorMargin) *
-      math.max(0, grid.shape.y - 2 * interiorMargin) *
-      math.max(0, grid.shape.z - 2 * interiorMargin)
+    val eligible = math.max(0, grid.shape(0) - 2 * interiorMargin) *
+      math.max(0, grid.shape(1) - 2 * interiorMargin) *
+      math.max(0, grid.shape(2) - 2 * interiorMargin)
     val selected = new Array[Double](math.max(1, reduction.evaluated))
     var count = 0
     var index = 0
@@ -471,9 +473,9 @@ object BasinBridgeSub18AccuracyProbe:
     def positions(extent: Int): Vector[Int] =
       fractions.map(fraction => math.round((extent - 1).toDouble * fraction).toInt).distinct
     val candidates = (for
-      x <- positions(grid.shape.x)
-      y <- positions(grid.shape.y)
-      z <- positions(grid.shape.z)
+      x <- positions(grid.shape(0))
+      y <- positions(grid.shape(1))
+      z <- positions(grid.shape(2))
       world = grid.voxelToWorld(Vector(x.toDouble, y.toDouble, z.toDouble))
       if referenceSupport(reference, world) == 27
     yield
@@ -491,14 +493,14 @@ object BasinBridgeSub18AccuracyProbe:
       val dz = left.world(2) - right.world(2)
       dx * dx + dy * dy + dz * dz
     val center = Candidate(
-      grid.shape.x / 2,
-      grid.shape.y / 2,
-      grid.shape.z / 2,
+      grid.shape(0) / 2,
+      grid.shape(1) / 2,
+      grid.shape(2) / 2,
       grid.voxelToWorld(
         Vector(
-          (grid.shape.x - 1).toDouble / 2.0,
-          (grid.shape.y - 1).toDouble / 2.0,
-          (grid.shape.z - 1).toDouble / 2.0
+          (grid.shape(0) - 1).toDouble / 2.0,
+          (grid.shape(1) - 1).toDouble / 2.0,
+          (grid.shape(2) - 1).toDouble / 2.0
         )
       )
     )
@@ -515,24 +517,20 @@ object BasinBridgeSub18AccuracyProbe:
   /** Mirror the matcher's trilinear validity rule without evaluating scores. */
   private def referenceSupport(image: RegistrationImage[?], world: Vector[Double]): Int =
     val grid = image.frame.grid
-    val inverse = DMat.invert(grid.affine).fold(
-      reason => throw new IllegalStateException(reason),
-      identity
-    )
-    val center = Affine.applyAffine(inverse, world)
+    val center = grid.indexToFrame.inverse(world).toOption.get
     def sampleValid(voxelX: Double, voxelY: Double, voxelZ: Double): Boolean =
       val inside = voxelX.isFinite && voxelY.isFinite && voxelZ.isFinite &&
-        voxelX >= 0.0 && voxelX <= grid.shape.x.toDouble - 1.0 &&
-        voxelY >= 0.0 && voxelY <= grid.shape.y.toDouble - 1.0 &&
-        voxelZ >= 0.0 && voxelZ <= grid.shape.z.toDouble - 1.0
+        voxelX >= 0.0 && voxelX <= grid.shape(0).toDouble - 1.0 &&
+        voxelY >= 0.0 && voxelY <= grid.shape(1).toDouble - 1.0 &&
+        voxelZ >= 0.0 && voxelZ <= grid.shape(2).toDouble - 1.0
       if !inside then false
       else
         val x0 = math.floor(voxelX).toInt
         val y0 = math.floor(voxelY).toInt
         val z0 = math.floor(voxelZ).toInt
-        val x1 = math.min(grid.shape.x - 1, x0 + 1)
-        val y1 = math.min(grid.shape.y - 1, y0 + 1)
-        val z1 = math.min(grid.shape.z - 1, z0 + 1)
+        val x1 = math.min(grid.shape(0) - 1, x0 + 1)
+        val y1 = math.min(grid.shape(1) - 1, y0 + 1)
+        val z1 = math.min(grid.shape(2) - 1, z0 + 1)
         val fx = voxelX - x0.toDouble
         val fy = voxelY - y0.toDouble
         val fz = voxelZ - z0.toDouble
@@ -550,7 +548,7 @@ object BasinBridgeSub18AccuracyProbe:
               val x = if dx == 0 then x0 else x1
               val wx = if dx == 0 then 1.0 - fx else fx
               if wx * wy * wz != 0.0 then
-                val linear = x + grid.shape.x * y + grid.shape.x * grid.shape.y * z
+                val linear = x + grid.shape(0) * y + grid.shape(0) * grid.shape(1) * z
                 valid = image.validity.contains(linear) && image.volume(x, y, z).isFinite
               dx += 1
             dy += 1
@@ -697,7 +695,7 @@ object BasinBridgeSub18AccuracyProbe:
           _ => throw new IllegalStateException(s"$label must be a 3D scalar NIfTI"),
           d3 =>
             val shape = d3.value.sampleSpace.grid.shape
-            val affine = DMat.fromRowMajorOwned(4, 4, decoded.affineSelection.affine.rowMajor.toArray)
+            val affine = DMat.dense(4, 4, (decoded.affineSelection.affine.rowMajor.toArray).toVector)
             val grid = GridSpec(shape, affine)
             require(d3.value.nonSpatialAxes.size == 0, s"$label must not contain non-spatial axes")
             val data3 = d3.value.data.reshapeView(ravel.Shape(shape(0), shape(1), shape(2)))

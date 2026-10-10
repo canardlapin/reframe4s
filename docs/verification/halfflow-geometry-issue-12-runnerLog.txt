@@ -1,0 +1,52 @@
+sbt tasks: reframe4sTestRunners; halfflowBenchJVM/compile
+Includes the preceding targeted HalfFlow JVM regression run in the same session.
+
+[info] compiling 2 Scala sources to /Users/bbuchsbaum/code/scala/reframe4s/modules/reframe4s-halfflow/jvm/target/scala-3.7.4/classes ...
+[info] done compiling
+[info] compiling 3 Scala sources to /Users/bbuchsbaum/code/scala/reframe4s/modules/reframe4s-halfflow/jvm/target/scala-3.7.4/test-classes ...
+[info] done compiling
+Test run reframe4s.halfflow.HalfFlowCcEngineSuite started
+reframe4s.halfflow.HalfFlowCcEngineSuite: finished 45.082s
+Test run reframe4s.halfflow.HalfFlowCcEngineSuite finished: 0 failed, 0 ignored, 15 total 45.086s
+Test run reframe4s.halfflow.BasinBridgeAssimilatorSuite started
+reframe4s.halfflow.BasinBridgeAssimilatorSuite: finished 7.014s
+Test run reframe4s.halfflow.BasinBridgeAssimilatorSuite finished: 0 failed, 0 ignored, 4 total 7.014s
+Test run reframe4s.halfflow.AffineInitializationSuite started
+reframe4s.halfflow.AffineInitializationSuite: finished 1.028s
+Test run reframe4s.halfflow.AffineInitializationSuite finished: 0 failed, 0 ignored, 4 total 1.03s
+Test run reframe4s.halfflow.ForwardMidpointSuite started
+reframe4s.halfflow.ForwardMidpointSuite: finished 0.6s
+Test run reframe4s.halfflow.ForwardMidpointSuite finished: 0 failed, 0 ignored, 11 total 0.6s
+Test run reframe4s.halfflow.CanonicalGeometrySuite started
+reframe4s.halfflow.CanonicalGeometrySuite: finished 0.007s
+Test run reframe4s.halfflow.CanonicalGeometrySuite finished: 0 failed, 0 ignored, 6 total 0.007s
+[info] Passed: Total 40, Failed 0, Errors 0, Passed 40
+[success] Total time: 61 s (0:01:01.0), completed Oct 10, 2026, 11:46:42 a.m.
+[info] compiling 2 Scala sources to /Users/bbuchsbaum/code/scala/reframe4s/modules/reframe4s-spectral/jvm/target/scala-3.7.4/classes ...
+[info] done compiling
+[info] compiling 36 Scala sources to /Users/bbuchsbaum/code/scala/reframe4s/modules/reframe4s-flashalign/jvm/target/scala-3.7.4/classes ...
+[info] done compiling
+[info] compiling 16 Scala sources to /Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/runner/target/scala-3.7.4/classes ...
+[info] done compiling
+[info] compiling 5 Scala sources to /Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/runner/target/scala-3.7.4/test-classes ...
+[info] done compiling
+Test run reframe4s.benchmark.flashalign.LinearAccuracyCourtSuite started
+reframe4s.benchmark.flashalign.LinearAccuracyCourtSuite: finished 0.094s
+Test run reframe4s.benchmark.flashalign.LinearAccuracyCourtSuite finished: 0 failed, 0 ignored, 3 total 0.098s
+Test run reframe4s.benchmark.flashalign.LinearAutomaticConfirmationCourtSuite started
+reframe4s.benchmark.flashalign.LinearAutomaticConfirmationCourtSuite: finished 0.063s
+Test run reframe4s.benchmark.flashalign.LinearAutomaticConfirmationCourtSuite finished: 0 failed, 0 ignored, 3 total 0.064s
+Test run reframe4s.benchmark.flashalign.CrossMethodEvidenceSuite started
+reframe4s.benchmark.flashalign.CrossMethodEvidenceSuite: finished 0.044s
+Test run reframe4s.benchmark.flashalign.CrossMethodEvidenceSuite finished: 0 failed, 0 ignored, 3 total 0.044s
+Test run reframe4s.benchmark.flashalign.PairBenchmarkRunnerSuite started
+reframe4s.benchmark.flashalign.PairBenchmarkRunnerSuite: finished 0.019s
+Test run reframe4s.benchmark.flashalign.PairBenchmarkRunnerSuite finished: 0 failed, 0 ignored, 4 total 0.019s
+Test run reframe4s.benchmark.flashalign.FlashalignHalfFlowResidualSuite started
+reframe4s.benchmark.flashalign.FlashalignHalfFlowResidualSuite: finished 0.011s
+Test run reframe4s.benchmark.flashalign.FlashalignHalfFlowResidualSuite finished: 0 failed, 0 ignored, 3 total 0.012s
+[info] Passed: Total 16, Failed 0, Errors 0, Passed 16
+[success] Total time: 12 s, completed Oct 10, 2026, 11:46:54 a.m.
+[info] compiling 3 Scala sources to /Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow-jvm/target/scala-3.7.4/classes ...
+[info] done compiling
+[success] Total time: 2 s, completed Oct 10, 2026, 11:46:56 a.m.

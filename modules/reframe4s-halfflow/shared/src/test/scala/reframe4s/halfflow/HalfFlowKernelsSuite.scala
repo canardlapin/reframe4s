@@ -1,16 +1,16 @@
 package reframe4s.halfflow
 
+import image4s.geometry.{Affine, D3}
+import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 import ravel.NDArray as RavelArray
 
 class HalfFlowKernelsSuite extends munit.FunSuite:
 
-  private val fixed = SpatialDomainId("fixed")
-  private val moving = SpatialDomainId("moving")
 
   private def index(grid: GridSpec, x: Int, y: Int, z: Int): Int =
-    x + y * grid.shape.x + z * grid.shape.x * grid.shape.y
+    x + y * grid.shape(0) + z * grid.shape(0) * grid.shape(1)
 
   private def assertClose(actual: Double, expected: Double, tolerance: Double = 1e-10): Unit =
     assertEqualsDouble(actual, expected, tolerance)
@@ -18,34 +18,32 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
   private def affineGrid(dims: Vector[Int]): GridSpec =
     GridSpec(
       dims,
-      DMat.fromRows(
-        Vector(
+      DMat.dense(4, 4, (Vector(
           Vector(1.5, 0.2, 0.0, 10.0),
           Vector(0.0, 2.0, 0.1, -4.0),
           Vector(0.0, 0.0, 2.5, 3.0),
           Vector(0.0, 0.0, 0.0, 1.0)
-        )
-      )
+        )).flatten)
     )
 
   private def field(
       grid: GridSpec
   )(
-      transform: WorldPoint => WorldPoint
+      transform: Vector[Double] => Vector[Double]
   ): DenseVectorField =
     val values =
       RavelArray.tabulate[Double](
-        grid.shape.x,
-        grid.shape.y,
-        grid.shape.z,
+        grid.shape(0),
+        grid.shape(1),
+        grid.shape(2),
         3
       ) { (x, y, z, component) =>
-          val world = grid.voxelToWorld(SpatialPoint(x.toDouble, y.toDouble, z.toDouble))
-          val mapped = transform(WorldPoint.fromSpatialPoint(world))
+          val world = grid.voxelToWorld(Vector(x.toDouble, y.toDouble, z.toDouble))
+          val mapped = transform((world))
           component match
-            case 0 => mapped.x
-            case 1 => mapped.y
-            case _ => mapped.z
+            case 0 => mapped(0)
+            case 1 => mapped(1)
+            case _ => mapped(2)
       }
     DenseVectorField(
       grid,
@@ -57,18 +55,18 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
       grid: GridSpec,
       label: String = "source"
   )(
-      value: WorldPoint => Double
+      value: Vector[Double] => Double
   ): NeuroVol[Double] =
     val values = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     var z = 0
-    while z < grid.shape.z do
+    while z < grid.shape(2) do
       var y = 0
-      while y < grid.shape.y do
+      while y < grid.shape(1) do
         var x = 0
-        while x < grid.shape.x do
+        while x < grid.shape(0) do
           val i = index(grid, x, y, z)
-          val world = grid.voxelToWorld(SpatialPoint(x.toDouble, y.toDouble, z.toDouble))
-          values(i) = value(WorldPoint.fromSpatialPoint(world))
+          val world = grid.voxelToWorld(Vector(x.toDouble, y.toDouble, z.toDouble))
+          values(i) = value((world))
           x += 1
         y += 1
       z += 1
@@ -84,7 +82,7 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
 
   test("identity and scalar pull preserve a physical world-linear volume") {
     val grid = affineGrid(Vector(4, 5, 3))
-    val source = volume(grid)(p => 2.0 * p.x - 0.5 * p.y + 0.25 * p.z + 7.0)
+    val source = volume(grid)(p => 2.0 * p(0) - 0.5 * p(1) + 0.25 * p(2) + 7.0)
     val identity = HalfFlowKernels.identity(grid)
     val pulled = HalfFlowKernels.pullScalar(
       source,
@@ -105,9 +103,9 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
     val channels = 2
     val source =
       RavelArray.tabulate[Double](
-        grid.shape.x,
-        grid.shape.y,
-        grid.shape.z,
+        grid.shape(0),
+        grid.shape(1),
+        grid.shape(2),
         channels
       ) { (x, y, z, channel) =>
         val linear = index(grid, x, y, z)
@@ -125,10 +123,10 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
     assert(allTrue(pulled.valid))
     var i = 0
     while i < grid.nVoxels do
-      val x = i % grid.shape.x
-      val yz = i / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = i % grid.shape(0)
+      val yz = i / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       assertClose(pulled.values(x, y, z, 0), i.toDouble)
       assertClose(
         pulled.values(x, y, z, 1),
@@ -139,13 +137,13 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
 
   test("pull validity rejects masked, non-finite, and outside interpolation support") {
     val grid = GridSpec.identity(Vector(3, 3, 3))
-    val source = volume(grid)(p => p.x + p.y + p.z)
+    val source = volume(grid)(p => p(0) + p(1) + p(2))
     val map =
       field(grid) { point =>
-        if point == WorldPoint(0.0, 0.0, 0.0) then
-          WorldPoint(0.5, 0.5, 0.5)
-        else if point == WorldPoint(1.0, 0.0, 0.0) then
-          WorldPoint(-0.25, 0.0, 0.0)
+        if point == Vector(0.0, 0.0, 0.0) then
+          Vector(0.5, 0.5, 0.5)
+        else if point == Vector(1.0, 0.0, 0.0) then
+          Vector(-0.25, 0.0, 0.0)
         else point
       }
     val sourceMask = PrimitiveBuffers.fillConst[Boolean](grid.nVoxels, true)
@@ -170,20 +168,18 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
 
   test("affine-fused scalar pull matches an explicitly transformed coordinate field") {
     val grid = affineGrid(Vector(5, 5, 5))
-    val source = volume(grid)(p => 1.5 * p.x - 0.75 * p.y + 0.4 * p.z + 3.0)
-    val residual = field(grid)(p => WorldPoint(p.x + 0.15, p.y - 0.10, p.z + 0.05))
-    val transform = DMat.fromRows(
-      Vector(
+    val source = volume(grid)(p => 1.5 * p(0) - 0.75 * p(1) + 0.4 * p(2) + 3.0)
+    val residual = field(grid)(p => Vector(p(0) + 0.15, p(1) - 0.10, p(2) + 0.05))
+    val transform = DMat.dense(4, 4, (Vector(
         Vector(1.0, 0.02, 0.0, 0.20),
         Vector(-0.01, 1.0, 0.0, -0.15),
         Vector(0.0, 0.0, 1.0, 0.10),
         Vector(0.0, 0.0, 0.0, 1.0)
-      )
-    )
+      )).flatten)
     val explicit = field(grid): point =>
-      val residualPoint = WorldPoint(point.x + 0.15, point.y - 0.10, point.z + 0.05)
-      val mapped = Affine.applyAffine(transform, residualPoint.toVector)
-      WorldPoint(mapped(0), mapped(1), mapped(2))
+      val residualPoint = Vector(point(0) + 0.15, point(1) - 0.10, point(2) + 0.05)
+      val mapped = Affine.fromRowMajor[D3](Vector.tabulate(16)(i => transform(i / 4, i % 4))).toOption.get(residualPoint).toOption.get
+      Vector(mapped(0), mapped(1), mapped(2))
     val expected = HalfFlowKernels.pullScalar(source, explicit, outside = -1.0)
     val actual = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     val actualValid = PrimitiveBuffers.ofSize[Boolean](grid.nVoxels)
@@ -209,31 +205,27 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
 
   test("nearest scalar pull preserves labels on an oblique grid and propagates validity") {
     val grid = affineGrid(Vector(4, 4, 3))
-    val geometry = grid.affine3D.fold(error => fail(error.message), identity)
+    val geometry = grid.indexToFrame
     val source = volume(grid)(p =>
-      val voxel = geometry.worldToVoxel(p)
-      math.round(voxel.x).toDouble + 10.0 * math.round(voxel.y).toDouble +
-        100.0 * math.round(voxel.z).toDouble
+      val voxel = geometry.inverse(p).fold(error => fail(error.message), identity)
+      math.round(voxel(0)).toDouble + 10.0 * math.round(voxel(1)).toDouble +
+        100.0 * math.round(voxel(2)).toDouble
     )
     val first = index(grid, 0, 0, 0)
     val second = index(grid, 1, 0, 0)
     val third = index(grid, 2, 0, 0)
-    val firstSource = grid.voxelToWorld(SpatialPoint(2.49, 1.49, 1.49))
-    val secondSource = grid.voxelToWorld(SpatialPoint(3.0, 2.0, 1.0))
+    val firstSource = grid.voxelToWorld(Vector(2.49, 1.49, 1.49))
+    val secondSource = grid.voxelToWorld(Vector(3.0, 2.0, 1.0))
     val firstTarget =
-      WorldPoint.fromSpatialPoint(
-        grid.voxelToWorld(SpatialPoint(0.0, 0.0, 0.0))
-      )
+      (grid.voxelToWorld(Vector(0.0, 0.0, 0.0)))
     val secondTarget =
-      WorldPoint.fromSpatialPoint(
-        grid.voxelToWorld(SpatialPoint(1.0, 0.0, 0.0))
-      )
+      (grid.voxelToWorld(Vector(1.0, 0.0, 0.0)))
     val map =
       field(grid) { point =>
         if point == firstTarget then
-          WorldPoint.fromSpatialPoint(firstSource)
+          (firstSource)
         else if point == secondTarget then
-          WorldPoint.fromSpatialPoint(secondSource)
+          (secondSource)
         else point
       }
     val sourceValidity = PrimitiveBuffers.fillConst[Boolean](grid.nVoxels, true)
@@ -259,26 +251,26 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
 
   test("dense pull composition matches analytic affine composition and existing morphism sampling") {
     val grid = GridSpec.identity(Vector(7, 6, 5))
-    val left = field(grid)(p => WorldPoint(p.x + 0.25, p.y + 0.5, p.z))
-    val right = field(grid)(p => WorldPoint(1.2 * p.x + 0.3 * p.y + 0.1, 0.8 * p.y, 1.1 * p.z - 0.2))
+    val left = field(grid)(p => Vector(p(0) + 0.25, p(1) + 0.5, p(2)))
+    val right = field(grid)(p => Vector(1.2 * p(0) + 0.3 * p(1) + 0.1, 0.8 * p(1), 1.1 * p(2) - 0.2))
     val composed = HalfFlowKernels.composePull(left, right)
     val rightMorphism =
-      DenseFieldMorphism.coordinates(fixed, moving, grid, right.values)
+      right.toMap(grid.canonical.grid.frame)
         .fold(err => fail(err.message), value => value)
 
     var z = 1
-    while z < grid.shape.z - 1 do
+    while z < grid.shape(2) - 1 do
       var y = 1
-      while y < grid.shape.y - 1 do
+      while y < grid.shape(1) - 1 do
         var x = 1
-        while x < grid.shape.x - 2 do
+        while x < grid.shape(0) - 2 do
           val i = index(grid, x, y, z)
-          val query = WorldPoint(x.toDouble + 0.25, y.toDouble + 0.5, z.toDouble)
-          val expected = rightMorphism.transform(query)
+          val query = Vector(x.toDouble + 0.25, y.toDouble + 0.5, z.toDouble)
+          val expected = MapExecution.coordinates(rightMorphism, query).toOption.get
           assert(composed.valid(i))
-          assertClose(composed.field.linearComponent(i, 0), expected.x, 1e-10)
-          assertClose(composed.field.linearComponent(i, 1), expected.y, 1e-10)
-          assertClose(composed.field.linearComponent(i, 2), expected.z, 1e-10)
+          assertClose(composed.field.linearComponent(i, 0), expected(0), 1e-10)
+          assertClose(composed.field.linearComponent(i, 1), expected(1), 1e-10)
+          assertClose(composed.field.linearComponent(i, 2), expected(2), 1e-10)
           x += 1
         y += 1
       z += 1
@@ -286,8 +278,8 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
 
   test("composition invalidity does not clamp and writes an identity fallback") {
     val grid = GridSpec.identity(Vector(3, 3, 3))
-    val left = field(grid)(p => WorldPoint(p.x - 0.25, p.y, p.z))
-    val right = field(grid)(p => WorldPoint(p.x + 10.0, p.y, p.z))
+    val left = field(grid)(p => Vector(p(0) - 0.25, p(1), p(2)))
+    val right = field(grid)(p => Vector(p(0) + 10.0, p(1), p(2)))
     val composed = HalfFlowKernels.composePull(left, right)
     val i = index(grid, 0, 1, 1)
 
@@ -299,7 +291,7 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
 
   test("identity extension preserves an out-of-grid self-map query") {
     val grid = GridSpec.identity(Vector(3, 3, 3))
-    val left = field(grid)(p => WorldPoint(p.x - 0.25, p.y, p.z))
+    val left = field(grid)(p => Vector(p(0) - 0.25, p(1), p(2)))
     val identity = HalfFlowKernels.identity(grid)
     val composed = HalfFlowKernels.composePull(
       left,
@@ -316,36 +308,34 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
   }
 
   test("linear regridding preserves an affine physical-coordinate field") {
-    val coarseAffine = DMat.fromRows(
-      Vector(
+    val coarseAffine = DMat.dense(4, 4, (Vector(
         Vector(2.0, 0.0, 0.0, 0.0),
         Vector(0.0, 2.0, 0.0, 0.0),
         Vector(0.0, 0.0, 2.0, 0.0),
         Vector(0.0, 0.0, 0.0, 1.0)
-      )
-    )
+      )).flatten)
     val coarse = GridSpec(Vector(4, 4, 4), coarseAffine)
     val fine = GridSpec.identity(Vector(7, 7, 7))
-    val source = field(coarse)(p => WorldPoint(1.1 * p.x + 0.2 * p.y, p.y - 0.3 * p.z, 0.9 * p.z + 2.0))
+    val source = field(coarse)(p => Vector(1.1 * p(0) + 0.2 * p(1), p(1) - 0.3 * p(2), 0.9 * p(2) + 2.0))
     val regridded = HalfFlowKernels.regridPull(source, fine)
     val reference =
-      DenseFieldInterpolationPlan.make(coarse, fine.worldCoords, Resample.Method.Linear)
+      MapExecution.prepare(coarse, fine.worldCoords)
         .fold(err => fail(err.message), value => value)
-        .sample(source.values, DenseFieldOutside.QueryPoint)
+        .sample(source.values)
         .fold(err => fail(err.message), value => value)
 
     assert(allTrue(regridded.valid))
     var i = 0
     while i < fine.nVoxels do
-      val point = fine.voxelToWorld(SpatialPoint(
-        (i % fine.shape.x).toDouble,
-        ((i / fine.shape.x) % fine.shape.y).toDouble,
-        (i / (fine.shape.x * fine.shape.y)).toDouble
+      val point = fine.voxelToWorld(Vector(
+        (i % fine.shape(0)).toDouble,
+        ((i / fine.shape(0)) % fine.shape(1)).toDouble,
+        (i / (fine.shape(0) * fine.shape(1))).toDouble
       ))
-      val expected = WorldPoint(1.1 * point.x + 0.2 * point.y, point.y - 0.3 * point.z, 0.9 * point.z + 2.0)
-      assertClose(regridded.field.linearComponent(i, 0), expected.x, 1e-10)
-      assertClose(regridded.field.linearComponent(i, 1), expected.y, 1e-10)
-      assertClose(regridded.field.linearComponent(i, 2), expected.z, 1e-10)
+      val expected = Vector(1.1 * point(0) + 0.2 * point(1), point(1) - 0.3 * point(2), 0.9 * point(2) + 2.0)
+      assertClose(regridded.field.linearComponent(i, 0), expected(0), 1e-10)
+      assertClose(regridded.field.linearComponent(i, 1), expected(1), 1e-10)
+      assertClose(regridded.field.linearComponent(i, 2), expected(2), 1e-10)
       assertClose(regridded.field.linearComponent(i, 0), reference(i)(0), 1e-10)
       i += 1
   }
@@ -372,10 +362,10 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
   test("Jacobian determinants are physical-coordinate correct on an oblique grid") {
     val grid = affineGrid(Vector(6, 5, 4))
     val map = field(grid) { p =>
-      WorldPoint(
-        1.2 * p.x + 0.3 * p.y,
-        0.8 * p.y + 0.2 * p.z,
-        1.5 * p.z
+      Vector(
+        1.2 * p(0) + 0.3 * p(1),
+        0.8 * p(1) + 0.2 * p(2),
+        1.5 * p(2)
       )
     }
     val determinants = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
@@ -383,7 +373,7 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
     val summary = HalfFlowKernels.jacobianDeterminantsInto(map, determinants, valid)
     val expected = 1.2 * 0.8 * 1.5
 
-    assertEquals(summary.evaluated, (grid.shape.x - 2) * (grid.shape.y - 2) * (grid.shape.z - 2))
+    assertEquals(summary.evaluated, (grid.shape(0) - 2) * (grid.shape(1) - 2) * (grid.shape(2) - 2))
     assertEquals(summary.nonPositive, 0)
     assertClose(summary.minimum.getOrElse(fail("missing minimum")), expected, 1e-10)
     assertClose(summary.maximum.getOrElse(fail("missing maximum")), expected, 1e-10)
@@ -393,7 +383,7 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
 
   test("Jacobian reduction detects a folded field and validity erosion") {
     val grid = GridSpec.identity(Vector(5, 5, 5))
-    val folded = field(grid)(p => WorldPoint(-p.x, p.y, p.z))
+    val folded = field(grid)(p => Vector(-p(0), p(1), p(2)))
     val fieldMask = PrimitiveBuffers.fillConst[Boolean](grid.nVoxels, true)
     fieldMask(index(grid, 2, 2, 2)) = false
     val determinants = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
@@ -414,8 +404,8 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
 
   test("paired inverse error is zero for opposite sub-voxel translations") {
     val grid = GridSpec.identity(Vector(8, 7, 6))
-    val forward = field(grid)(p => WorldPoint(p.x + 0.25, p.y + 0.25, p.z))
-    val backward = field(grid)(p => WorldPoint(p.x - 0.25, p.y - 0.25, p.z))
+    val forward = field(grid)(p => Vector(p(0) + 0.25, p(1) + 0.25, p(2)))
+    val backward = field(grid)(p => Vector(p(0) - 0.25, p(1) - 0.25, p(2)))
     val summary = HalfFlowKernels.inversePairError(forward, backward)
 
     assert(summary.forwardThenBackward.evaluated > 0)
@@ -428,17 +418,15 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
   test("inverse error reports a known physical and voxel-space bias") {
     val grid = GridSpec(
       Vector(6, 6, 6),
-      DMat.fromRows(
-        Vector(
+      DMat.dense(4, 4, (Vector(
           Vector(2.0, 0.0, 0.0, 0.0),
           Vector(0.0, 2.0, 0.0, 0.0),
           Vector(0.0, 0.0, 2.0, 0.0),
           Vector(0.0, 0.0, 0.0, 1.0)
-        )
-      )
+        )).flatten)
     )
     val first = field(grid)(p => p)
-    val second = field(grid)(p => WorldPoint(p.x + 0.2, p.y, p.z))
+    val second = field(grid)(p => Vector(p(0) + 0.2, p(1), p(2)))
     val summary = HalfFlowKernels.inverseErrorReduce(first, second)
 
     assertClose(summary.rmsMm.getOrElse(fail("missing RMS")), 0.2, 1e-10)
@@ -450,11 +438,11 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
     val grid = GridSpec.identity(Vector(17, 17, 17))
     val sourceValues = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     var z = 0
-    while z < grid.shape.z do
+    while z < grid.shape(2) do
       var y = 0
-      while y < grid.shape.y do
+      while y < grid.shape(1) do
         var x = 0
-        while x < grid.shape.x do
+        while x < grid.shape(0) do
           sourceValues(index(grid, x, y, z)) = if ((x + y + z) & 1) == 0 then 0.0 else 1.0
           x += 1
         y += 1
@@ -528,7 +516,7 @@ class HalfFlowKernelsSuite extends munit.FunSuite:
   test("prepared samplers preserve pull, Jacobian, inverse, and pyramid results") {
     val grid = affineGrid(Vector(5, 5, 5))
     val identity = HalfFlowKernels.identity(grid)
-    val source = volume(grid)(p => p.x - 2.0 * p.y + 0.5 * p.z)
+    val source = volume(grid)(p => p(0) - 2.0 * p(1) + 0.5 * p(2))
     val sampler = DenseFieldSampler(grid)
     val pulled = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     val pullValid = PrimitiveBuffers.ofSize[Boolean](grid.nVoxels)

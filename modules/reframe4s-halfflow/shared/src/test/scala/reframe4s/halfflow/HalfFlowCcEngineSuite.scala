@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 class HalfFlowCcEngineSuite extends munit.FunSuite:
@@ -9,9 +10,9 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
 
   test("boundary identity survives half-flow integration, accumulation and pyramid transfer"):
     val grid = GridSpec.identity(Vector(17, 17, 17))
-    val work = Frame[Work](SpatialDomainId("collar-work"), grid)
-    val fixed = Frame[Fixed](SpatialDomainId("collar-fixed"), grid)
-    val moving = Frame[Moving](SpatialDomainId("collar-moving"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("collar-work"), grid)
+    val fixed = RegistrationFrame[Fixed](SpatialDomainId("collar-fixed"), grid)
+    val moving = RegistrationFrame[Moving](SpatialDomainId("collar-moving"), grid)
     val values = Array.fill(3 * grid.nVoxels)(0.2)
     VelocityBoundaryTaper.inPlace(values, grid, 3.0)
     val velocity = Velocity.make(work, DenseVectorField.fromLegacyPlanar(
@@ -21,28 +22,31 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
     var state = ForwardMidpoint.identity(work, fixed, moving).fold(e => fail(e.message), identity)
     for _ <- 0 until 3 do
       state = state.advance(half).fold(e => fail(e.message), identity)
-    val fine = GridSpec(Vector(33, 33, 33), DMat.fromRows(Vector(
-      Vector(0.5, 0.0, 0.0, 0.0), Vector(0.0, 0.5, 0.0, 0.0),
-      Vector(0.0, 0.0, 0.5, 0.0), Vector(0.0, 0.0, 0.0, 1.0))))
-    val transferred = state.regrid(Frame[Work](work.domain, fine), fixed, moving)
+    val fine = grid.withGeometry(Vector(33, 33, 33), image4s.geometry.Affine.fromRowMajor[image4s.geometry.D3](Vector(
+      0.5, 0.0, 0.0, 0.0,
+      0.0, 0.5, 0.0, 0.0,
+      0.0, 0.0, 0.5, 0.0,
+      0.0, 0.0, 0.0, 1.0
+    )).fold(error => fail(error.message), identity))
+    val transferred = state.regrid(RegistrationFrame[Work](work.domain, fine), fixed, moving)
       .fold(e => fail(e.message), identity)
     for current <- Vector(state, transferred); pull <- Vector(current.fixed.residual, current.moving.residual) do
       val g = pull.from.grid
       val identityMap = DensePull.identity(pull.from)
       for index <- 0 until g.nVoxels do
-        val x = index % g.shape.x
-        val y = index / g.shape.x % g.shape.y
-        val z = index / (g.shape.x * g.shape.y)
-        if x <= 1 || x >= g.shape.x - 2 || y <= 1 || y >= g.shape.y - 2 || z <= 1 || z >= g.shape.z - 2 then
+        val x = index % g.shape(0)
+        val y = index / g.shape(0) % g.shape(1)
+        val z = index / (g.shape(0) * g.shape(1))
+        if x <= 1 || x >= g.shape(0) - 2 || y <= 1 || y >= g.shape(1) - 2 || z <= 1 || z >= g.shape(2) - 2 then
           for component <- 0 until 3 do
             assertEqualsDouble(pull.sourceCoordinates.linearComponent(index, component),
               identityMap.sourceCoordinates.linearComponent(index, component), 1e-12)
 
   test("velocity boundary collar has zero outer slope and uses physical face distance"):
-    val grid = GridSpec(Vector(17, 17, 17), DMat.fromRows(Vector(
+    val grid = GridSpec(Vector(17, 17, 17), DMat.dense(4, 4, (Vector(
       Vector(2.0, 1.0, 0.0, 7.0), Vector(0.0, 2.0, 0.0, -4.0),
       Vector(0.0, 0.0, 3.0, 9.0), Vector(0.0, 0.0, 0.0, 1.0)
-    )))
+    )).flatten))
     val n = grid.nVoxels
     val velocity = Array.fill(3 * n)(2.0)
     // The x-face normal is parallel to (2,-1,0), so adjacent x planes
@@ -155,11 +159,11 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
 
   test("paired flow applies opposite physical half translations"):
     val grid = GridSpec.identity(Vector(9, 9, 9))
-    val frame = Frame[Work](SpatialDomainId("cc-half-translation"), grid)
+    val frame = RegistrationFrame[Work](SpatialDomainId("cc-half-translation"), grid)
     val velocity = constantVelocity(frame, 2.0, 0.0, 0.0)
     val flow = PairedScalingAndSquaring.expHalfPair(velocity).fold(error => fail(error.message), identity)
     val center = 4 + 9 * 4 + 81 * 4
-    val identityX = grid.voxelToWorld(SpatialPoint(4.0, 4.0, 4.0)).x
+    val identityX = grid.voxelToWorld(Vector(4.0, 4.0, 4.0))(0)
     val plusX = flow.pair.forward.sourceCoordinates.linearComponent(center, 0)
     val minusX = flow.pair.backward.sourceCoordinates.linearComponent(center, 0)
     assertEqualsDouble(plusX - identityX, 1.0, 1e-12)
@@ -219,14 +223,12 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
 
   test("production directional derivative passes identity, nonidentity, swap, and pyramid spacings"):
     Vector(1.0, 2.0, 4.0).foreach: spacing =>
-      val affine = DMat.fromRows(
-        Vector(
+      val affine = DMat.dense(4, 4, (Vector(
           Vector(spacing, 0.0, 0.0, 0.0),
           Vector(0.0, spacing, 0.0, 0.0),
           Vector(0.0, 0.0, spacing, 0.0),
           Vector(0.0, 0.0, 0.0, 1.0)
-        )
-      )
+        )).flatten)
       val fixture = derivativeFixture(GridSpec(Vector(13, 13, 13), affine), s"spacing-$spacing")
       assertProductionDerivative(fixture.fixed, fixture.moving, fixture.initial, s"identity-$spacing")
       val displaced = fixture.initial
@@ -240,14 +242,12 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
       assertProductionDerivative(fixture.moving, fixture.fixed, displaced.swap, s"swapped-$spacing")
 
   test("production directional derivative passes on an anisotropic oblique grid"):
-    val affine = DMat.fromRows(
-      Vector(
+    val affine = DMat.dense(4, 4, (Vector(
         Vector(2.0, 0.3, 0.0, 10.0),
         Vector(0.0, 1.5, 0.2, -4.0),
         Vector(0.1, 0.0, 2.5, 3.0),
         Vector(0.0, 0.0, 0.0, 1.0)
-      )
-    )
+      )).flatten)
     val fixture = derivativeFixture(GridSpec(Vector(13, 13, 13), affine), "oblique")
     assertProductionDerivative(fixture.fixed, fixture.moving, fixture.initial, "oblique")
 
@@ -279,16 +279,16 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
   )
 
   private def derivativeFixture(grid: GridSpec, tag: String): TranslationFixture =
-    val work = Frame[Work](SpatialDomainId(s"cc-derivative-work-$tag"), grid)
-    val fixedFrame = Frame[Fixed](SpatialDomainId(s"cc-derivative-fixed-$tag"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId(s"cc-derivative-moving-$tag"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId(s"cc-derivative-work-$tag"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId(s"cc-derivative-fixed-$tag"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId(s"cc-derivative-moving-$tag"), grid)
     val fixedValues = values(grid): index =>
       val point = voxel(grid, index)
-      3.0 + math.sin(0.17 * point.x + 0.09 * point.y) + 0.6 * math.cos(0.13 * point.z - 0.05 * point.x)
+      3.0 + math.sin(0.17 * point(0) + 0.09 * point(1)) + 0.6 * math.cos(0.13 * point(2) - 0.05 * point(0))
     val movingValues = values(grid): index =>
       val point = voxel(grid, index)
-      2.0 + 1.2 * math.sin(0.17 * point.x + 0.09 * point.y + 0.23) +
-        0.5 * math.cos(0.13 * point.z - 0.05 * point.x - 0.19)
+      2.0 + 1.2 * math.sin(0.17 * point(0) + 0.09 * point(1) + 0.23) +
+        0.5 * math.cos(0.13 * point(2) - 0.05 * point(0) - 0.19)
     val fixedVolume = NeuroVol.fromLinear[Double](fixedValues, grid.toNeuroSpace, "fixed-derivative")
     val movingVolume = NeuroVol.fromLinear[Double](movingValues, grid.toNeuroSpace, "moving-derivative")
     val fixed = RegistrationImage.make(fixedFrame, fixedVolume).fold(error => fail(error.message), identity)
@@ -328,15 +328,15 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
 
   private def translationFixture(side: Int, shiftMm: Double): TranslationFixture =
     val grid = GridSpec.identity(Vector(side, side, side))
-    val work = Frame[Work](SpatialDomainId(s"cc-work-$side-$shiftMm"), grid)
-    val fixedFrame = Frame[Fixed](SpatialDomainId(s"cc-fixed-$side-$shiftMm"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId(s"cc-moving-$side-$shiftMm"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId(s"cc-work-$side-$shiftMm"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId(s"cc-fixed-$side-$shiftMm"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId(s"cc-moving-$side-$shiftMm"), grid)
     val fixedValues = values(grid): index =>
       val point = voxel(grid, index)
-      signal(point.x, point.y, point.z, side)
+      signal(point(0), point(1), point(2), side)
     val movingValues = values(grid): index =>
       val point = voxel(grid, index)
-      signal(point.x - shiftMm, point.y, point.z, side)
+      signal(point(0) - shiftMm, point(1), point(2), side)
     val fixedVolume = NeuroVol.fromLinear[Double](fixedValues, grid.toNeuroSpace, "fixed")
     val movingVolume = NeuroVol.fromLinear[Double](movingValues, grid.toNeuroSpace, "moving")
     val fixed = RegistrationImage.make(fixedFrame, fixedVolume).fold(error => fail(error.message), identity)
@@ -421,12 +421,12 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
     val currentFixed = warpNative(fixed, state.fixed)
     val currentMoving = warpNative(moving, state.moving)
     val support = values(grid): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
-      if x >= 3 && x < grid.shape.x - 3 && y >= 3 && y < grid.shape.y - 3 &&
-          z >= 3 && z < grid.shape.z - 3 && currentFixed.valid(index) && currentMoving.valid(index)
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
+      if x >= 3 && x < grid.shape(0) - 3 && y >= 3 && y < grid.shape(1) - 3 &&
+          z >= 3 && z < grid.shape(2) - 3 && currentFixed.valid(index) && currentMoving.valid(index)
       then 1.0
       else 0.0
     val config = compactPlan().levels.last.cc
@@ -453,7 +453,7 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
           analytic += velocityGradient * direction(offset + index)
         index += 1
       component += 1
-    val epsilonScaleMm = Affine.voxelSizes(grid.affine).min
+    val epsilonScaleMm = grid.spacing.min
     val epsilons = Vector(1.0, 5e-1, 2e-1, 1e-1, 5e-2, 2e-2, 1e-2, 5e-3, 2e-3, 1e-3)
       .map(_ * epsilonScaleMm)
     val errors = epsilons.map: epsilon =>
@@ -532,7 +532,7 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
     values
 
   private def constantVelocity[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       x: Double,
       y: Double,
       z: Double
@@ -540,7 +540,7 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
     scaledVelocity(frame, constantDirection(frame.grid, x, y, z), 1.0)
 
   private def scaledVelocity[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       direction: Array[Double],
       scale: Double
   ): Velocity[A] =
@@ -589,12 +589,12 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
     var count = 0
     var index = 0
     while index < n do
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
-      if x >= margin && x < grid.shape.x - margin && y >= margin && y < grid.shape.y - margin &&
-          z >= margin && z < grid.shape.z - margin
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
+      if x >= margin && x < grid.shape(0) - margin && y >= margin && y < grid.shape(1) - margin &&
+          z >= margin && z < grid.shape(2) - margin
       then
         val dx =
           moving.sourceCoordinates.linearComponent(index, 0) -
@@ -626,16 +626,16 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
     )
     assertEquals(reduction.nonPositive, 0)
 
-  private def foldedPull[A](frame: Frame[A]): DensePull[A, A] =
+  private def foldedPull[A](frame: RegistrationFrame[A]): DensePull[A, A] =
     val grid = frame.grid
     val n = grid.nVoxels
     val coordinates = PrimitiveBuffers.ofSize[Double](3 * n)
     var index = 0
     while index < n do
       val point = voxel(grid, index)
-      coordinates(index) = -point.x
-      coordinates(index + n) = point.y
-      coordinates(index + 2 * n) = point.z
+      coordinates(index) = -point(0)
+      coordinates(index + n) = point(1)
+      coordinates(index + 2 * n) = point(2)
       index += 1
     DensePull
       .make(
@@ -671,9 +671,9 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
       index += 1
     result
 
-  private def voxel(grid: GridSpec, index: Int): SpatialPoint =
-    val x = index % grid.shape.x
-    val yz = index / grid.shape.x
-    val y = yz % grid.shape.y
-    val z = yz / grid.shape.y
-    grid.voxelToWorld(SpatialPoint(x.toDouble, y.toDouble, z.toDouble))
+  private def voxel(grid: GridSpec, index: Int): Vector[Double] =
+    val x = index % grid.shape(0)
+    val yz = index / grid.shape(0)
+    val y = yz % grid.shape(1)
+    val z = yz / grid.shape(1)
+    grid.voxelToWorld(Vector(x.toDouble, y.toDouble, z.toDouble))

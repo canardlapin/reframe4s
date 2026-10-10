@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import image4s.geometry.{Affine, D3}
 import reframe4s.halfflow.internal.*
 
 /** Paired sampled increments. Neither map is claimed to be the exact inverse of the other. */
@@ -80,19 +81,19 @@ object HalfStepNumerics:
     val identityValid = PrimitiveBuffers.ofSize[Boolean](n)
     HalfFlowKernels.identityInto(grid, identity, identityValid)
     val eligible =
-      math.max(0, grid.shape.x - 2 * margin) * math.max(0, grid.shape.y - 2 * margin) *
-        math.max(0, grid.shape.z - 2 * margin)
+      math.max(0, grid.shape(0) - 2 * margin) * math.max(0, grid.shape(1) - 2 * margin) *
+        math.max(0, grid.shape(2) - 2 * margin)
     val capacity = math.max(1, eligible)
     val errors = new Array[Double](capacity)
     var count = 0
     var index = 0
     while index < n do
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
-      val interior = x >= margin && x < grid.shape.x - margin && y >= margin &&
-        y < grid.shape.y - margin && z >= margin && z < grid.shape.z - margin
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
+      val interior = x >= margin && x < grid.shape(0) - margin && y >= margin &&
+        y < grid.shape(1) - margin && z >= margin && z < grid.shape(2) - margin
       if interior && valid(index) then
         val dx = composed(index) - identity(index)
         val dy = composed(index + n) - identity(index + n)
@@ -192,9 +193,9 @@ object ForwardGeometry:
       interiorMargin
     )
     val eligible =
-      math.max(0, workspace.grid.shape.x - 2 * interiorMargin) *
-        math.max(0, workspace.grid.shape.y - 2 * interiorMargin) *
-        math.max(0, workspace.grid.shape.z - 2 * interiorMargin)
+      math.max(0, workspace.grid.shape(0) - 2 * interiorMargin) *
+        math.max(0, workspace.grid.shape(1) - 2 * interiorMargin) *
+        math.max(0, workspace.grid.shape(2) - 2 * interiorMargin)
     ForwardJacobianReport(
       workspace.reduction.minimumOrNaN,
       workspace.reduction.evaluated,
@@ -212,8 +213,8 @@ final case class ForwardMidpointArm[W, E] private (
     residual: DensePull[W, W],
     affine: AffineIso[W, E]
 ):
-  def work: Frame[W] = residual.from
-  def endpoint: Frame[E] = affine.to
+  def work: RegistrationFrame[W] = residual.from
+  def endpoint: RegistrationFrame[E] = affine.to
 
   def denseForward: Either[RegistrationError, DensePull[W, E]] =
     affine.after(residual)
@@ -224,8 +225,8 @@ final case class ForwardMidpointArm[W, E] private (
     increment.thenSelfExtended(residual).flatMap(ForwardMidpointArm.make(_, affine))
 
   def regrid(
-      newWork: Frame[W],
-      newEndpoint: Frame[E]
+      newWork: RegistrationFrame[W],
+      newEndpoint: RegistrationFrame[E]
   ): Either[RegistrationError, ForwardMidpointArm[W, E]] =
     val regridded = HalfFlowKernels.regridPull(
       residual.sourceCoordinates,
@@ -264,7 +265,7 @@ final case class ForwardMidpoint[W, F, M] private (
     fixed: ForwardMidpointArm[W, F],
     moving: ForwardMidpointArm[W, M]
 ):
-  def work: Frame[W] = fixed.work
+  def work: RegistrationFrame[W] = fixed.work
 
   def advance(step: HalfStep[W]): Either[RegistrationError, ForwardMidpoint[W, F, M]] =
     for
@@ -277,9 +278,9 @@ final case class ForwardMidpoint[W, F, M] private (
     ForwardMidpoint.unsafe(moving, fixed)
 
   def regrid(
-      newWork: Frame[W],
-      newFixed: Frame[F],
-      newMoving: Frame[M]
+      newWork: RegistrationFrame[W],
+      newFixed: RegistrationFrame[F],
+      newMoving: RegistrationFrame[M]
   ): Either[RegistrationError, ForwardMidpoint[W, F, M]] =
     for
       nextFixed <- fixed.regrid(newWork, newFixed)
@@ -304,13 +305,13 @@ object ForwardMidpoint:
     )
 
   def identity[W, F, M](
-      work: Frame[W],
-      fixed: Frame[F],
-      moving: Frame[M]
+      work: RegistrationFrame[W],
+      fixed: RegistrationFrame[F],
+      moving: RegistrationFrame[M]
   ): Either[RegistrationError, ForwardMidpoint[W, F, M]] =
     for
-      fixedAffine <- AffineIso.make(work, fixed, Affine3D.identity)
-      movingAffine <- AffineIso.make(work, moving, Affine3D.identity)
+      fixedAffine <- AffineIso.make(work, fixed, Affine.identity[D3])
+      movingAffine <- AffineIso.make(work, moving, Affine.identity[D3])
       state <- make(ForwardMidpointArm.identity(fixedAffine), ForwardMidpointArm.identity(movingAffine))
     yield state
 

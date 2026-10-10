@@ -1,10 +1,8 @@
 package reframe4s.halfflow
 
-import image4s.geometry.D3
+import image4s.geometry.{Affine, D3}
 import image4s.geometry.Frame as CanonicalFrame
 import reframe4s.core.AffineMap
-import reframe4s.halfflow.internal.Affine3D
-import reframe4s.halfflow.internal.DMat as HalfFlowDMat
 
 /** The direction in which a canonical affine was supplied to HalfFlow. */
 enum SuppliedAffineDirection:
@@ -41,16 +39,20 @@ object SuppliedAffineInitialization:
   ](
       fixed: RegistrationImage[F],
       moving: RegistrationImage[M],
-      work: Frame[W],
+      work: RegistrationFrame[W],
       movingToFixed: AffineMap[MovingFrame, FixedFrame, D3]
   ): Either[RegistrationError, SuppliedAffineInitialization[W, F, M]] =
-    compile(
-      fixed,
-      moving,
-      work,
-      movingToFixed.operator.inverse.matrix,
-      SuppliedAffineDirection.MovingToFixed
-    )
+    if !movingToFixed.source.sameRuntimeOwnerAs(moving.frame.canonical) ||
+        !movingToFixed.target.sameRuntimeOwnerAs(fixed.frame.canonical) then
+      Left(RegistrationError.PhysicalFrameMismatch("supplied movingToFixed"))
+    else
+      compile(
+        fixed,
+        moving,
+        work,
+        movingToFixed.operator.inverse,
+        SuppliedAffineDirection.MovingToFixed
+      )
 
   /** Compile an already pull-directed canonical fixed-to-moving affine. */
   def fromFixedToMoving[
@@ -62,35 +64,30 @@ object SuppliedAffineInitialization:
   ](
       fixed: RegistrationImage[F],
       moving: RegistrationImage[M],
-      work: Frame[W],
+      work: RegistrationFrame[W],
       fixedToMoving: AffineMap[FixedFrame, MovingFrame, D3]
   ): Either[RegistrationError, SuppliedAffineInitialization[W, F, M]] =
-    compile(
-      fixed,
-      moving,
-      work,
-      fixedToMoving.operator.matrix,
-      SuppliedAffineDirection.FixedToMoving
-    )
+    if !fixedToMoving.source.sameRuntimeOwnerAs(fixed.frame.canonical) ||
+        !fixedToMoving.target.sameRuntimeOwnerAs(moving.frame.canonical) then
+      Left(RegistrationError.PhysicalFrameMismatch("supplied fixedToMoving"))
+    else
+      compile(
+        fixed,
+        moving,
+        work,
+        fixedToMoving.operator,
+        SuppliedAffineDirection.FixedToMoving
+      )
 
   private def compile[W, F, M](
       fixed: RegistrationImage[F],
       moving: RegistrationImage[M],
-      work: Frame[W],
-      fixedToMovingMatrix: gale.linalg.DMat,
+      work: RegistrationFrame[W],
+      fixedToMoving: Affine[D3],
       suppliedDirection: SuppliedAffineDirection
   ): Either[RegistrationError, SuppliedAffineInitialization[W, F, M]] =
-    val copied = Array.tabulate(fixedToMovingMatrix.rows * fixedToMovingMatrix.cols) { index =>
-      fixedToMovingMatrix(index / fixedToMovingMatrix.cols, index % fixedToMovingMatrix.cols)
-    }
-    val internalMatrix =
-      HalfFlowDMat.fromRowMajorOwned(fixedToMovingMatrix.rows, fixedToMovingMatrix.cols, copied)
     for
-      internal <- Affine3D
-        .make(internalMatrix)
-        .left
-        .map(error => RegistrationError.InvalidAffine("canonical fixed-to-moving", error.message))
-      legacy <- AffineInitializer.supplied(fixed, moving, work, internal)
+      legacy <- AffineInitializer.supplied(fixed, moving, work, fixedToMoving)
     yield
       new SuppliedAffineInitialization(
         legacy.affine,

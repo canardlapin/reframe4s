@@ -54,8 +54,8 @@ final case class MidpointGuardReport(
 )
 
 final class TopologyGuardWorkspace[A, B] private[halfflow] (
-    val from: Frame[A],
-    val to: Frame[B],
+    val from: RegistrationFrame[A],
+    val to: RegistrationFrame[B],
     private[halfflow] val forward: MapGuardBuffers,
     private[halfflow] val backward: MapGuardBuffers,
     private[halfflow] val forwardInverse: InverseErrorReduction,
@@ -75,7 +75,7 @@ private[halfflow] object TopologyGuardScratch:
     require(grids.nonEmpty, "topology scratch requires at least one grid")
     val capacity = grids.map(_.nVoxels).max
     val eligible = grids.map: grid =>
-      math.max(0, grid.shape.x - 2) * math.max(0, grid.shape.y - 2) * math.max(0, grid.shape.z - 2)
+      math.max(0, grid.shape(0) - 2) * math.max(0, grid.shape(1) - 2) * math.max(0, grid.shape(2) - 2)
     new TopologyGuardScratch(
       PrimitiveBuffers.ofSize[Double](capacity),
       PrimitiveBuffers.ofSize[Boolean](capacity),
@@ -102,7 +102,7 @@ object TopologyGuardWorkspace:
 
   private def buffers(grid: GridSpec, scratch: TopologyGuardScratch): MapGuardBuffers =
     val eligible =
-      math.max(0, grid.shape.x - 2) * math.max(0, grid.shape.y - 2) * math.max(0, grid.shape.z - 2)
+      math.max(0, grid.shape(0) - 2) * math.max(0, grid.shape(1) - 2) * math.max(0, grid.shape(2) - 2)
     require(scratch.determinants.length >= grid.nVoxels, "topology determinant scratch is too small")
     require(scratch.valid.length >= grid.nVoxels, "topology validity scratch is too small")
     require(scratch.sorted.length >= eligible, "topology quantile scratch is too small")
@@ -224,7 +224,7 @@ object TopologyGuard:
       unused += 1
     scala.util.Sorting.quickSort(buffers.sorted)
     val eligible =
-      math.max(0, grid.shape.x - 2) * math.max(0, grid.shape.y - 2) * math.max(0, grid.shape.z - 2)
+      math.max(0, grid.shape(0) - 2) * math.max(0, grid.shape(1) - 2) * math.max(0, grid.shape(2) - 2)
     MapGuardSummary(
       finite && fieldFinite(pull.sourceCoordinates),
       buffers.reduction.evaluated,

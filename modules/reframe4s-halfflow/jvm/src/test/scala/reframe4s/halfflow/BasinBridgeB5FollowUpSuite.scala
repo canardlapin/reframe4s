@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 /** JVM-only B5 experiment: compute on a true halo and evaluate the core only
@@ -66,9 +67,9 @@ class BasinBridgeB5FollowUpSuite extends munit.FunSuite:
       tag: String
   ): BasinBridgeDecompositionCase[Work, Fixed, Moving] =
     val grid = paddedGrid(coreSide, halo)
-    val fixedFrame = Frame[Fixed](SpatialDomainId(s"$tag-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId(s"$tag-moving"), grid)
-    val workFrame = Frame[Work](SpatialDomainId(s"$tag-work"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId(s"$tag-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId(s"$tag-moving"), grid)
+    val workFrame = RegistrationFrame[Work](SpatialDomainId(s"$tag-work"), grid)
     val fixed = image(
       fixedFrame,
       grid,
@@ -91,37 +92,35 @@ class BasinBridgeB5FollowUpSuite extends munit.FunSuite:
     val shift = -halo.toDouble
     GridSpec(
       Vector(coreSide + 2 * halo, coreSide + 2 * halo, coreSide + 2 * halo),
-      DMat.fromRows(
-        Vector(
+      DMat.dense(4, 4, (Vector(
           Vector(1.0, 0.0, 0.0, shift),
           Vector(0.0, 1.0, 0.0, shift),
           Vector(0.0, 0.0, 1.0, shift),
           Vector(0.0, 0.0, 0.0, 1.0)
-        )
-      )
+        )).flatten)
     )
 
   private def fixedMask(coreSide: Int, halo: Int, grid: GridSpec): Array[Boolean] =
     Array.tabulate(grid.nVoxels): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       x >= halo && x < halo + coreSide && y >= halo && y < halo + coreSide &&
         z >= halo && z < halo + coreSide
 
   private def image[A](
-      frame: Frame[A],
+      frame: RegistrationFrame[A],
       grid: GridSpec,
       shiftMm: Double,
       validity: FieldValidity,
       label: String
   ): RegistrationImage[A] =
     val values = Array.tabulate[Double](grid.nVoxels): index =>
-      val x = index % grid.shape.x
-      val yz = index / grid.shape.x
-      val y = yz % grid.shape.y
-      val z = yz / grid.shape.y
+      val x = index % grid.shape(0)
+      val yz = index / grid.shape(0)
+      val y = yz % grid.shape(1)
+      val z = yz / grid.shape(1)
       val world = grid.voxelToWorld(Vector(x.toDouble, y.toDouble, z.toDouble))
       pattern(world(0) - shiftMm, world(1), world(2))
     right(

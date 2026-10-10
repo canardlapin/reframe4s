@@ -197,7 +197,7 @@ private final case class LegacyInverseGate[W, F, M](
 )
 
 private final class CcStepWorkspace[A] private (
-    val frame: Frame[A],
+    val frame: RegistrationFrame[A],
     val spatial: MaskedLocalStatsWorkspace,
     val fixedSpatialGradient: Array[Double],
     val movingSpatialGradient: Array[Double],
@@ -213,7 +213,7 @@ private final class CcStepWorkspace[A] private (
 )
 
 private object CcStepWorkspace:
-  def apply[A](frame: Frame[A]): CcStepWorkspace[A] =
+  def apply[A](frame: RegistrationFrame[A]): CcStepWorkspace[A] =
     val n = frame.grid.nVoxels
     new CcStepWorkspace(
       frame,
@@ -291,7 +291,7 @@ object HalfFlowCc:
     ): Either[RegistrationError, Unit]
 
   private final class TrueCcSession[W](
-      frame: Frame[W],
+      frame: RegistrationFrame[W],
       level: HalfFlowCcLevel,
       plan: HalfFlowCcPlan
   ) extends ObjectiveSession[W]:
@@ -377,7 +377,7 @@ object HalfFlowCc:
       Right(())
 
   private final class StandardizedCenterSession[W](
-      frame: Frame[W],
+      frame: RegistrationFrame[W],
       featureConfig: T1FeatureConfig,
       action: HalfFlowCcAction
   ) extends ObjectiveSession[W]:
@@ -505,7 +505,7 @@ object HalfFlowCc:
       else Right(value / active.toDouble)
 
   private def objectiveSession[W](
-      frame: Frame[W],
+      frame: RegistrationFrame[W],
       level: HalfFlowCcLevel,
       plan: HalfFlowCcPlan
   ): ObjectiveSession[W] =
@@ -580,7 +580,7 @@ object HalfFlowCc:
           var failure = Option.empty[HalfFlowCcError]
           while levelIndex < plan.levels.length && failure.isEmpty do
             val level = plan.levels(levelIndex)
-            val work = Frame[W](initial.work.domain, HalfFlowKernels.pyramidGrid(initial.work.grid, level.shrink))
+            val work = RegistrationFrame[W](initial.work.domain, HalfFlowKernels.pyramidGrid(initial.work.grid, level.shrink))
             val fixedLevel = pyramid(fixed, level, pyramidWorkspace)
             val movingLevel = pyramid(moving, level, pyramidWorkspace)
             (fixedLevel, movingLevel) match
@@ -849,7 +849,7 @@ object HalfFlowCc:
       fixed: CcWarpBuffer,
       moving: CcWarpBuffer,
       objective: ObjectiveSession[W],
-      frame: Frame[W],
+      frame: RegistrationFrame[W],
       level: HalfFlowCcLevel,
       plan: HalfFlowCcPlan,
       control: HalfFlowCcControlState,
@@ -906,14 +906,14 @@ object HalfFlowCc:
         while index < workspace.velocity.length do
           workspace.velocity(index) *= 2.0
           index += 1
-      val nx = frame.grid.shape.x
-      val ny = frame.grid.shape.y
+      val nx = frame.grid.shape(0)
+      val ny = frame.grid.shape(1)
       val field = DenseVectorField(
         frame.grid,
         RavelArray.tabulate[Double](
           nx,
           ny,
-          frame.grid.shape.z,
+          frame.grid.shape(2),
           3
         ) { (x, y, z, component) =>
           workspace.velocity(
@@ -974,7 +974,7 @@ object HalfFlowCc:
         valid,
         source.validity
       )
-      val frame = Frame[A](source.frame.domain, grid)
+      val frame = RegistrationFrame[A](source.frame.domain, grid)
       val volume = NeuroVol.fromLinear[Double](values, grid.toNeuroSpace, source.volume.label)
       RegistrationImage.make(frame, volume, FieldValidity.copyMask(valid)).map: image =>
         CcLevelImage(image, DenseFieldSampler(grid))
@@ -1034,7 +1034,7 @@ object HalfFlowCc:
   private def spatialGradients[W](
       fixed: CcWarpBuffer,
       moving: CcWarpBuffer,
-      frame: Frame[W],
+      frame: RegistrationFrame[W],
       workspace: CcStepWorkspace[W]
   ): Unit =
     val _ = MaskedLocalStats.physicalGradientChannelsInto(
@@ -1057,17 +1057,17 @@ object HalfFlowCc:
     )
 
   private def isEdge(grid: GridSpec, index: Int): Boolean =
-    val x = index % grid.shape.x
-    val yz = index / grid.shape.x
-    val y = yz % grid.shape.y
-    val z = yz / grid.shape.y
-    x == 0 || x == grid.shape.x - 1 || y == 0 || y == grid.shape.y - 1 ||
-      z == 0 || z == grid.shape.z - 1
+    val x = index % grid.shape(0)
+    val yz = index / grid.shape(0)
+    val y = yz % grid.shape(1)
+    val z = yz / grid.shape(1)
+    x == 0 || x == grid.shape(0) - 1 || y == 0 || y == grid.shape(1) - 1 ||
+      z == 0 || z == grid.shape(2) - 1
 
   private def edgeVoxelCount(grid: GridSpec): Int =
-    val nx = grid.shape.x
-    val ny = grid.shape.y
-    val nz = grid.shape.z
+    val nx = grid.shape(0)
+    val ny = grid.shape(1)
+    val nz = grid.shape(2)
     grid.nVoxels - math.max(0, nx - 2) * math.max(0, ny - 2) * math.max(0, nz - 2)
 
   private def maximumNorm(values: Array[Double], n: Int): Double =
@@ -1123,7 +1123,7 @@ private[halfflow] object VelocityBoundaryTaper:
     require(widthMm.isFinite && widthMm >= 0.0)
     require(velocity.length >= 3 * grid.nVoxels)
     if widthMm > 0.0 then
-      val inverse = DMat.invert(grid.affine).fold(reason => throw new IllegalArgumentException(reason), identity)
+      val inverse = grid.inverseAffine
       val spacing = Array.tabulate(3): axis =>
         1.0 / math.sqrt((0 until 3).map(c => inverse(axis, c) * inverse(axis, c)).sum)
       def faceWindow(distance: Double): Double =
@@ -1135,11 +1135,11 @@ private[halfflow] object VelocityBoundaryTaper:
       val n = grid.nVoxels
       var index = 0
       while index < n do
-        val x = index % grid.shape.x
-        val yz = index / grid.shape.x
-        val y = yz % grid.shape.y
-        val z = yz / grid.shape.y
-        val weight = window(x, grid.shape.x, 0) * window(y, grid.shape.y, 1) * window(z, grid.shape.z, 2)
+        val x = index % grid.shape(0)
+        val yz = index / grid.shape(0)
+        val y = yz % grid.shape(1)
+        val z = yz / grid.shape(1)
+        val weight = window(x, grid.shape(0), 0) * window(y, grid.shape(1), 1) * window(z, grid.shape(2), 2)
         velocity(index) *= weight
         velocity(index + n) *= weight
         velocity(index + 2 * n) *= weight

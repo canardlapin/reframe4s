@@ -1,5 +1,6 @@
 package reframe4s.halfflow.internal
 
+import gale.linalg.DMat
 
 final case class VoxelWindowRadius(x: Int, y: Int, z: Int):
   require(x >= 0 && y >= 0 && z >= 0, "voxel window radii must be non-negative")
@@ -18,11 +19,8 @@ final class MaskedLocalStatsWorkspace private (
 
 object MaskedLocalStatsWorkspace:
   def apply(grid: GridSpec): MaskedLocalStatsWorkspace =
-    val padded = (grid.shape.x + 1) * (grid.shape.y + 1) * (grid.shape.z + 1)
-    val inverse = DMat.invert(grid.affine).fold(
-      reason => throw new IllegalArgumentException(s"local-statistics grid affine is singular: $reason"),
-      identity
-    )
+    val padded = (grid.shape(0) + 1) * (grid.shape(1) + 1) * (grid.shape(2) + 1)
+    val inverse = grid.inverseAffine
     new MaskedLocalStatsWorkspace(
       grid,
       PrimitiveBuffers.ofSize[Double](padded),
@@ -120,9 +118,9 @@ object MaskedLocalStats:
     clear(workspace.sum)
     clear(workspace.sumSquares)
     clear(workspace.weights)
-    val nx = grid.shape.x
-    val ny = grid.shape.y
-    val nz = grid.shape.z
+    val nx = grid.shape(0)
+    val ny = grid.shape(1)
+    val nz = grid.shape(2)
     val px = nx + 1
     val py = ny + 1
     var z = 1
@@ -169,9 +167,9 @@ object MaskedLocalStats:
       destinationValidity: Array[Boolean],
       workspace: MaskedLocalStatsWorkspace
   ): Int =
-    val nx = grid.shape.x
-    val ny = grid.shape.y
-    val nz = grid.shape.z
+    val nx = grid.shape(0)
+    val ny = grid.shape(1)
+    val nz = grid.shape(2)
     val nominal = (2 * radius.x + 1) * (2 * radius.y + 1) * (2 * radius.z + 1)
     val minimumCount = math.max(2, math.ceil(minimumValidFraction * nominal.toDouble).toInt)
     var validCount = 0
@@ -221,9 +219,9 @@ object MaskedLocalStats:
       destinationValidity: Array[Boolean],
       inverse: DMat
   ): Int =
-    val nx = grid.shape.x
-    val ny = grid.shape.y
-    val nz = grid.shape.z
+    val nx = grid.shape(0)
+    val ny = grid.shape(1)
+    val nz = grid.shape(2)
     val n = grid.nVoxels
     val plane = nx * ny
     val sourceOffset = channel * n

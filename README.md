@@ -40,6 +40,9 @@ directly; no adapter image or geometry hierarchy exists here.
 `reframe4s-halfflow` owns the concrete experimental HalfFlow engine and its
 evidence ledger. It is not part of the default bundle and cannot mint an exact
 inverse capability.
+Its execution adapters use canonical image4s geometry, Gale matrices, and
+reframe4s maps and fields. See the [geometry migration and candidate evidence](docs/verification/halfflow-geometry-issue-12.md)
+for the experimental API changes and verification commands.
 
 For an acquired-MRI example, see the [Flashalign and HalfFlow development
 court](docs/benchmarks/real-image-development.md): pinned public images, saved
@@ -150,7 +153,8 @@ Run the architecture checks with:
 ```text
 node scripts/verify-prd.mjs
 node scripts/verify-build-graph.mjs
-IMAGE4S_ROOT=/path/to/image4s LOCUS4S_ROOT=/path/to/locus4s \
+IMAGE4S_ROOT=/path/to/image4s SPATIAL4S_ROOT=/path/to/spatial4s \
+  LOCUS4S_ROOT=/path/to/locus4s \
   node scripts/verify-symbol-ownership.mjs
 ```
 

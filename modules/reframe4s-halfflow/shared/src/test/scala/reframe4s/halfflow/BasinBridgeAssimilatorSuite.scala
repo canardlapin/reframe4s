@@ -10,9 +10,9 @@ class BasinBridgeAssimilatorSuite extends munit.FunSuite:
 
   test("constant 12 mm tangent accepts alpha one with unit topology"):
     val grid = GridSpec.identity(Vector(33, 33, 33))
-    val work = Frame[Work](SpatialDomainId("b3-work"), grid)
-    val fixed = Frame[Fixed](SpatialDomainId("b3-fixed"), grid)
-    val moving = Frame[Moving](SpatialDomainId("b3-moving"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("b3-work"), grid)
+    val fixed = RegistrationFrame[Fixed](SpatialDomainId("b3-fixed"), grid)
+    val moving = RegistrationFrame[Moving](SpatialDomainId("b3-moving"), grid)
     val initial = right(ForwardMidpoint.identity(work, fixed, moving))
     val correspondences = Vector(
       correspondence(point(10.0, 8.0, 8.0), point(12.0, 0.0, 0.0)),
@@ -53,12 +53,12 @@ class BasinBridgeAssimilatorSuite extends munit.FunSuite:
     val minimum = reports.map(_.minimum).min
     assertEqualsDouble(minimum, 1.0, 1e-10)
 
-    val fineGrid = GridSpec.identity(Vector(35, 35, 35))
+    val fineGrid = result.state.work.grid.withGeometry(Vector(35, 35, 35), image4s.geometry.Affine.identity[image4s.geometry.D3])
     val regridded = right(
       result.state.regrid(
-        Frame[Work](SpatialDomainId("b3-work"), fineGrid),
-        Frame[Fixed](SpatialDomainId("b3-fixed"), fineGrid),
-        Frame[Moving](SpatialDomainId("b3-moving"), fineGrid)
+        RegistrationFrame[Work](SpatialDomainId("b3-work"), fineGrid),
+        RegistrationFrame[Fixed](SpatialDomainId("b3-fixed"), fineGrid),
+        RegistrationFrame[Moving](SpatialDomainId("b3-moving"), fineGrid)
       )
     )
     val (_, regridReports) = ForwardGeometry.accumulated(
@@ -69,9 +69,9 @@ class BasinBridgeAssimilatorSuite extends munit.FunSuite:
 
   test("compressive field backtracks globally before it can fold"):
     val grid = GridSpec.identity(Vector(33, 33, 33))
-    val work = Frame[Work](SpatialDomainId("b3-compress-work"), grid)
-    val fixed = Frame[Fixed](SpatialDomainId("b3-compress-fixed"), grid)
-    val moving = Frame[Moving](SpatialDomainId("b3-compress-moving"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("b3-compress-work"), grid)
+    val fixed = RegistrationFrame[Fixed](SpatialDomainId("b3-compress-fixed"), grid)
+    val moving = RegistrationFrame[Moving](SpatialDomainId("b3-compress-moving"), grid)
     val initial = right(ForwardMidpoint.identity(work, fixed, moving))
     val center = 16.0
     val rate = -1.4
@@ -118,9 +118,9 @@ class BasinBridgeAssimilatorSuite extends munit.FunSuite:
 
   test("CC increase rejects every candidate and leaves the state untouched"):
     val grid = GridSpec.identity(Vector(25, 25, 25))
-    val work = Frame[Work](SpatialDomainId("b3-reject-work"), grid)
-    val fixed = Frame[Fixed](SpatialDomainId("b3-reject-fixed"), grid)
-    val moving = Frame[Moving](SpatialDomainId("b3-reject-moving"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("b3-reject-work"), grid)
+    val fixed = RegistrationFrame[Fixed](SpatialDomainId("b3-reject-fixed"), grid)
+    val moving = RegistrationFrame[Moving](SpatialDomainId("b3-reject-moving"), grid)
     val initial = right(ForwardMidpoint.identity(work, fixed, moving))
     val correspondences = Vector(
       correspondence(point(10.0, 8.0, 8.0), point(12.0, 0.0, 0.0)),
@@ -157,9 +157,9 @@ class BasinBridgeAssimilatorSuite extends munit.FunSuite:
 
   test("swapping endpoints and negating the tangent preserves the accepted alpha"):
     val grid = GridSpec.identity(Vector(25, 25, 25))
-    val work = Frame[Work](SpatialDomainId("b3-swap-work"), grid)
-    val fixed = Frame[Fixed](SpatialDomainId("b3-swap-fixed"), grid)
-    val moving = Frame[Moving](SpatialDomainId("b3-swap-moving"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("b3-swap-work"), grid)
+    val fixed = RegistrationFrame[Fixed](SpatialDomainId("b3-swap-fixed"), grid)
+    val moving = RegistrationFrame[Moving](SpatialDomainId("b3-swap-moving"), grid)
     val initial = right(ForwardMidpoint.identity(work, fixed, moving))
     val correspondences = Vector(
       correspondence(point(10.0, 8.0, 8.0), point(12.0, 0.0, 0.0)),
@@ -227,7 +227,7 @@ class BasinBridgeAssimilatorSuite extends munit.FunSuite:
   ): DenseVectorField =
     DenseVectorField(
       grid,
-      RavelArray.tabulate[Double](grid.shape.x, grid.shape.y, grid.shape.z, 3) { (x, y, z, component) =>
+      RavelArray.tabulate[Double](grid.shape(0), grid.shape(1), grid.shape(2), 3) { (x, y, z, component) =>
         val point = value(x.toDouble, y.toDouble, z.toDouble)
         component match
           case 0 => point.x

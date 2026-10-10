@@ -137,7 +137,7 @@ object ResidualInverseRefiner:
     while levelIndex < config.shrinks.length do
       val shrink = config.shrinks(levelIndex)
       val levelGrid = HalfFlowKernels.pyramidGrid(fullFrame.grid, shrink)
-      val levelFrame = Frame[A](fullFrame.domain, levelGrid)
+      val levelFrame = RegistrationFrame[A](fullFrame.domain, levelGrid)
       val forwardLevelResult = HalfFlowKernels.regridPull(
         forward.sourceCoordinates,
         levelGrid,
@@ -313,10 +313,7 @@ object ResidualInverseRefiner:
     val identity = PrimitiveBuffers.ofSize[Double](3 * n)
     val identityValid = PrimitiveBuffers.ofSize[Boolean](n)
     HalfFlowKernels.identityInto(grid, identity, identityValid)
-    val inverseAffine = DMat.invert(grid.affine).fold(
-      reason => throw new IllegalArgumentException(s"inverse-error grid is singular: $reason"),
-      matrix => matrix
-    )
+    val inverseAffine = grid.inverseAffine
     val eligible = interiorCount(grid, margin)
     val errors = new Array[Double](math.max(1, eligible))
     var evaluated = 0
@@ -381,16 +378,16 @@ object ResidualInverseRefiner:
     result
 
   private def interior(grid: GridSpec, index: Int, margin: Int): Boolean =
-    val x = index % grid.shape.x
-    val yz = index / grid.shape.x
-    val y = yz % grid.shape.y
-    val z = yz / grid.shape.y
-    x >= margin && x < grid.shape.x - margin && y >= margin && y < grid.shape.y - margin &&
-      z >= margin && z < grid.shape.z - margin
+    val x = index % grid.shape(0)
+    val yz = index / grid.shape(0)
+    val y = yz % grid.shape(1)
+    val z = yz / grid.shape(1)
+    x >= margin && x < grid.shape(0) - margin && y >= margin && y < grid.shape(1) - margin &&
+      z >= margin && z < grid.shape(2) - margin
 
   private def interiorCount(grid: GridSpec, margin: Int): Int =
-    math.max(0, grid.shape.x - 2 * margin) * math.max(0, grid.shape.y - 2 * margin) *
-      math.max(0, grid.shape.z - 2 * margin)
+    math.max(0, grid.shape(0) - 2 * margin) * math.max(0, grid.shape(1) - 2 * margin) *
+      math.max(0, grid.shape(2) - 2 * margin)
 
 object ForwardMidpointExporter:
   def build[W, F, M](

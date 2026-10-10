@@ -187,25 +187,23 @@ object BasinBridgeBlockMatcher:
     else if fixed.frame.grid != moving.frame.grid then Left(BasinBridgeBlockMatcherError.GridMismatch)
     else
       val grid = fixed.frame.grid
-      DMat.invert(grid.affine) match
-        case Left(reason) => Left(BasinBridgeBlockMatcherError.SingularGrid(reason))
-        case Right(inverse) =>
-          val observations = Vector.newBuilder[BasinBridgeSearchObservation]
-          var index = 0
-          var failure = Option.empty[BasinBridgeBlockMatcherError]
-          while index < anchors.length && failure.isEmpty do
-            observation(fixed, moving, anchors(index), grid, inverse, config, index) match
-              case Left(error) => failure = Some(error)
-              case Right(value) => observations += value
-            index += 1
 
-          failure match
-            case Some(error) => Left(error)
-            case None =>
-              BasinBridgeSearchAdapter
-                .fromForwardReverse(observations.result(), confidenceConfig)
-                .left
-                .map(BasinBridgeBlockMatcherError.AdapterFailure.apply)
+      val observations = Vector.newBuilder[BasinBridgeSearchObservation]
+      var index = 0
+      var failure = Option.empty[BasinBridgeBlockMatcherError]
+      while index < anchors.length && failure.isEmpty do
+        observation(fixed, moving, anchors(index), grid, config, index) match
+          case Left(error) => failure = Some(error)
+          case Right(value) => observations += value
+        index += 1
+
+      failure match
+        case Some(error) => Left(error)
+        case None =>
+          BasinBridgeSearchAdapter
+            .fromForwardReverse(observations.result(), confidenceConfig)
+            .left
+            .map(BasinBridgeBlockMatcherError.AdapterFailure.apply)
 
   /** Rematch-only search that retains usable anchors and reports every drop.
     *
@@ -225,62 +223,59 @@ object BasinBridgeBlockMatcher:
     else if fixed.frame.grid != moving.frame.grid then Left(BasinBridgeBlockMatcherError.GridMismatch)
     else
       val grid = fixed.frame.grid
-      DMat.invert(grid.affine) match
-        case Left(reason) => Left(BasinBridgeBlockMatcherError.SingularGrid(reason))
-        case Right(inverse) =>
-          val observations = Vector.newBuilder[BasinBridgeSearchObservation]
-          val retained = Vector.newBuilder[Int]
-          val dropped = Vector.newBuilder[BasinBridgeDroppedAnchor]
-          var index = 0
-          var fatal = Option.empty[BasinBridgeBlockMatcherError]
-          while index < anchors.length && fatal.isEmpty do
-            observation(fixed, moving, anchors(index), grid, inverse, config, index) match
-              case Right(value) =>
-                observations += value
-                retained += index
-              case Left(error) if droppable(error) =>
-                dropped += BasinBridgeDroppedAnchor(index, error)
-              case Left(error) => fatal = Some(error)
-            index += 1
-          fatal match
-            case Some(error) => Left(error)
-            case None =>
-              val retainedIndices = retained.result()
-              val required = math.min(
-                anchors.length,
-                math.max(
-                  retention.minimumRetainedAnchors,
-                  math.ceil(retention.minimumRetainedFraction * anchors.length.toDouble).toInt
+
+      val observations = Vector.newBuilder[BasinBridgeSearchObservation]
+      val retained = Vector.newBuilder[Int]
+      val dropped = Vector.newBuilder[BasinBridgeDroppedAnchor]
+      var index = 0
+      var fatal = Option.empty[BasinBridgeBlockMatcherError]
+      while index < anchors.length && fatal.isEmpty do
+        observation(fixed, moving, anchors(index), grid, config, index) match
+          case Right(value) =>
+            observations += value
+            retained += index
+          case Left(error) if droppable(error) =>
+            dropped += BasinBridgeDroppedAnchor(index, error)
+          case Left(error) => fatal = Some(error)
+        index += 1
+      fatal match
+        case Some(error) => Left(error)
+        case None =>
+          val retainedIndices = retained.result()
+          val required = math.min(
+            anchors.length,
+            math.max(
+              retention.minimumRetainedAnchors,
+              math.ceil(retention.minimumRetainedFraction * anchors.length.toDouble).toInt
+            )
+          )
+          if retainedIndices.length < required then
+            Left(
+              BasinBridgeBlockMatcherError.InsufficientRetainedAnchors(
+                retainedIndices.length,
+                required,
+                anchors.length
+              )
+            )
+          else
+            BasinBridgeSearchAdapter
+              .fromForwardReverse(observations.result(), confidenceConfig)
+              .left
+              .map(BasinBridgeBlockMatcherError.AdapterFailure.apply)
+              .map(result =>
+                BasinBridgeRetainedSearch(
+                  result,
+                  anchors.length,
+                  retainedIndices,
+                  dropped.result()
                 )
               )
-              if retainedIndices.length < required then
-                Left(
-                  BasinBridgeBlockMatcherError.InsufficientRetainedAnchors(
-                    retainedIndices.length,
-                    required,
-                    anchors.length
-                  )
-                )
-              else
-                BasinBridgeSearchAdapter
-                  .fromForwardReverse(observations.result(), confidenceConfig)
-                  .left
-                  .map(BasinBridgeBlockMatcherError.AdapterFailure.apply)
-                  .map(result =>
-                    BasinBridgeRetainedSearch(
-                      result,
-                      anchors.length,
-                      retainedIndices,
-                      dropped.result()
-                    )
-                  )
 
   private def observation(
       fixed: RegistrationImage[?],
       moving: RegistrationImage[?],
       fixedPoint: BasinBridgePoint,
       grid: GridSpec,
-      inverse: DMat,
       config: BasinBridgeBlockSearchConfig,
       index: Int
   ): Either[BasinBridgeBlockMatcherError, BasinBridgeSearchObservation] =
@@ -289,7 +284,6 @@ object BasinBridgeBlockMatcher:
       moving,
       fixedPoint,
       grid,
-      inverse,
       config,
       index,
       BasinBridgeSearchDirection.Forward
@@ -299,7 +293,6 @@ object BasinBridgeBlockMatcher:
         fixed,
         forward.point,
         grid,
-        inverse,
         config,
         index,
         BasinBridgeSearchDirection.Reverse
@@ -327,12 +320,11 @@ object BasinBridgeBlockMatcher:
       source: RegistrationImage[?],
       center: BasinBridgePoint,
       grid: GridSpec,
-      inverse: DMat,
       config: BasinBridgeBlockSearchConfig,
       anchorIndex: Int,
       direction: BasinBridgeSearchDirection
   ): Either[BasinBridgeBlockMatcherError, DirectionResult] =
-    val centerVoxel = Affine.applyAffine(inverse, Vector(center.x, center.y, center.z))
+    val centerVoxel = grid.indexToFrame.inverse(Vector(center.x, center.y, center.z)).toOption.get
     if !centerVoxel.forall(_.isFinite) then
       Left(BasinBridgeBlockMatcherError.InvalidAnchor(anchorIndex, direction, "voxel coordinate is non-finite"))
     else if !inside(centerVoxel(0), centerVoxel(1), centerVoxel(2), grid) then
@@ -418,7 +410,7 @@ object BasinBridgeBlockMatcher:
         if !bestScore.isFinite || bestScore <= 0.0 then
           Left(BasinBridgeBlockMatcherError.NoUsableCandidate(anchorIndex, direction))
         else
-          val world = Affine.applyAffine(grid.affine, Vector(bestX, bestY, bestZ))
+          val world = grid.voxelToWorld(Vector(bestX, bestY, bestZ))
           BasinBridgePoint
             .make(world(0), world(1), world(2), s"${direction.label} block-search point")
             .left
@@ -529,9 +521,9 @@ object BasinBridgeBlockMatcher:
       val x0 = math.floor(voxelX).toInt
       val y0 = math.floor(voxelY).toInt
       val z0 = math.floor(voxelZ).toInt
-      val x1 = math.min(grid.shape.x - 1, x0 + 1)
-      val y1 = math.min(grid.shape.y - 1, y0 + 1)
-      val z1 = math.min(grid.shape.z - 1, z0 + 1)
+      val x1 = math.min(grid.shape(0) - 1, x0 + 1)
+      val y1 = math.min(grid.shape(1) - 1, y0 + 1)
+      val z1 = math.min(grid.shape(2) - 1, z0 + 1)
       val fx = voxelX - x0.toDouble
       val fy = voxelY - y0.toDouble
       val fz = voxelZ - z0.toDouble
@@ -551,7 +543,7 @@ object BasinBridgeBlockMatcher:
             val wx = if dx == 0 then 1.0 - fx else fx
             val weight = wx * wy * wz
             if weight != 0.0 then
-              val linear = x + grid.shape.x * y + grid.shape.x * grid.shape.y * z
+              val linear = x + grid.shape(0) * y + grid.shape(0) * grid.shape(1) * z
               val value = image.volume(x, y, z)
               if !image.validity.contains(linear) || !value.isFinite then ok = false
               else sum += weight * value
@@ -563,6 +555,6 @@ object BasinBridgeBlockMatcher:
 
   private def inside(x: Double, y: Double, z: Double, grid: GridSpec): Boolean =
     x.isFinite && y.isFinite && z.isFinite &&
-      x >= 0.0 && x <= grid.shape.x.toDouble - 1.0 &&
-      y >= 0.0 && y <= grid.shape.y.toDouble - 1.0 &&
-      z >= 0.0 && z <= grid.shape.z.toDouble - 1.0
+      x >= 0.0 && x <= grid.shape(0).toDouble - 1.0 &&
+      y >= 0.0 && y <= grid.shape(1).toDouble - 1.0 &&
+      z >= 0.0 && z <= grid.shape(2).toDouble - 1.0

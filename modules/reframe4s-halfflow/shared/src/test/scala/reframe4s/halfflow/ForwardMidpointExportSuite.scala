@@ -1,11 +1,13 @@
 package reframe4s.halfflow
 
+import image4s.geometry.{Affine, D3}
+import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 class ForwardMidpointExportSuite extends munit.FunSuite:
   test("a translated residual has the analytic inverse through the boundary"):
     val grid = GridSpec.identity(Vector(25, 25, 25))
-    val frame = Frame[Unit](SpatialDomainId("export-translation"), grid)
+    val frame = RegistrationFrame[Unit](SpatialDomainId("export-translation"), grid)
     val forward = affinePull(frame, 1.0, 3.0)
     val config = right(ResidualInverseConfig.make(
       shrinks = Vector(2, 1),
@@ -25,8 +27,8 @@ class ForwardMidpointExportSuite extends munit.FunSuite:
 
   test("affine residual endpoint maps agree with analytic composition over the full grid"):
     val grid = GridSpec.identity(Vector(25, 25, 25))
-    val frame = Frame[Unit](SpatialDomainId("export-affine"), grid)
-    val affine = right(AffineIso.make(frame, frame, Affine3D.identity))
+    val frame = RegistrationFrame[Unit](SpatialDomainId("export-affine"), grid)
+    val affine = right(AffineIso.make(frame, frame, Affine.identity[D3]))
     val state = right(ForwardMidpoint.make(
       right(ForwardMidpointArm.make(affinePull(frame, 1.05, 3.0), affine)),
       right(ForwardMidpointArm.make(affinePull(frame, 0.96, -2.0), affine))
@@ -48,13 +50,13 @@ class ForwardMidpointExportSuite extends munit.FunSuite:
         1.05 * (x + 2.0) / 0.96 + 3.0, 1e-6)
 
   test("boundary continuation preserves world affine fields on an oblique anisotropic grid"):
-    val grid = GridSpec(Vector(7, 7, 7), DMat.fromRows(Vector(
+    val grid = GridSpec(Vector(7, 7, 7), DMat.dense(4, 4, (Vector(
       Vector(1.2, -0.4, 0.1, -3.0),
       Vector(0.3, 1.5, 0.2, 2.0),
       Vector(0.0, 0.1, 2.0, -1.0),
       Vector(0.0, 0.0, 0.0, 1.0)
-    )))
-    val frame = Frame[Unit](SpatialDomainId("export-oblique"), grid)
+    )).flatten))
+    val frame = RegistrationFrame[Unit](SpatialDomainId("export-oblique"), grid)
     val forward = affinePull(frame, 1.05, 3.0)
     val target = GridSpec.identity(Vector(15, 15, 15))
     val sampled = HalfFlowKernels.regridPull(forward.sourceCoordinates, target,
@@ -70,12 +72,12 @@ class ForwardMidpointExportSuite extends munit.FunSuite:
 
   test("boundary continuation does not turn invalid contributing samples into valid ones"):
     val grid = GridSpec.identity(Vector(5, 5, 5))
-    val target = GridSpec(Vector(5, 5, 5), DMat.fromRows(Vector(
+    val target = GridSpec(Vector(5, 5, 5), DMat.dense(4, 4, (Vector(
       Vector(1.0, 0.0, 0.0, -0.5),
       Vector(0.0, 1.0, 0.0, 0.0),
       Vector(0.0, 0.0, 1.0, 0.0),
       Vector(0.0, 0.0, 0.0, 1.0)
-    )))
+    )).flatten))
     val mask = Array.fill(grid.nVoxels)(true)
     mask(5 * 2 + 25 * 2) = false
     val sampled = HalfFlowKernels.regridPull(HalfFlowKernels.identity(grid).field,
@@ -107,7 +109,7 @@ class ForwardMidpointExportSuite extends munit.FunSuite:
 
   test("export admission still rejects a folded endpoint in either direction"):
     val grid = GridSpec.identity(Vector(9, 9, 9))
-    val frame = Frame[Unit](SpatialDomainId("export-fold"), grid)
+    val frame = RegistrationFrame[Unit](SpatialDomainId("export-fold"), grid)
     val state = right(ForwardMidpoint.identity(frame, frame, frame))
     val config = right(ResidualInverseConfig.make(shrinks = Vector(1), interiorMargin = 2))
     val candidate = right(ForwardMidpointExporter.inspect(state, config))
@@ -123,7 +125,7 @@ class ForwardMidpointExportSuite extends munit.FunSuite:
           assertEquals(count, 7 * 7 * 7)
         case other => fail(s"fold was not rejected: $other")
 
-  private def affinePull[A](frame: Frame[A], scale: Double, shift: Double): DensePull[A, A] =
+  private def affinePull[A](frame: RegistrationFrame[A], scale: Double, shift: Double): DensePull[A, A] =
     val coordinates = HalfFlowKernels.identity(frame.grid).field.copyLegacyPlanar
     for index <- 0 until frame.grid.nVoxels do
       coordinates(index) = scale * coordinates(index) + shift

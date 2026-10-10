@@ -1,5 +1,6 @@
 package reframe4s.halfflow
 
+import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 class HalfFlowEngineSuite extends munit.FunSuite:
@@ -37,9 +38,9 @@ class HalfFlowEngineSuite extends munit.FunSuite:
     assert(result.diagnostics.levels.exists(level => level.finalValue < level.initialValue))
     val map = result.transform.forward.sourceCoordinates
     val grid = result.transform.forward.from.grid
-    val center = grid.shape.x / 2 + grid.shape.x * (grid.shape.y / 2) +
-      grid.shape.x * grid.shape.y * (grid.shape.z / 2)
-    val identityX = grid.affine(0, 0) * (grid.shape.x / 2).toDouble + grid.affine(0, 3)
+    val center = grid.shape(0) / 2 + grid.shape(0) * (grid.shape(1) / 2) +
+      grid.shape(0) * grid.shape(1) * (grid.shape(2) / 2)
+    val identityX = grid.affine(0, 0) * (grid.shape(0) / 2).toDouble + grid.affine(0, 3)
     val recovered = map.linearComponent(center, 0) - identityX
     assert(recovered > 0.02, s"recovered fixed-to-moving shift=$recovered")
     assert(recovered < 0.8, s"recovered fixed-to-moving shift=$recovered")
@@ -89,29 +90,25 @@ class HalfFlowEngineSuite extends munit.FunSuite:
   test("independent native endpoint pyramids retain distinct physical grids"):
     val fixedGrid = GridSpec(
       Vector(13, 13, 13),
-      DMat.fromRows(
-        Vector(
+      DMat.dense(4, 4, (Vector(
           Vector(2.0, 0.2, 0.0, 0.0),
           Vector(0.0, 2.0, 0.1, 0.0),
           Vector(0.0, 0.0, 2.0, 0.0),
           Vector(0.0, 0.0, 0.0, 1.0)
-        )
-      )
+        )).flatten)
     )
     val movingGrid = GridSpec(
       Vector(25, 25, 25),
-      DMat.fromRows(
-        Vector(
+      DMat.dense(4, 4, (Vector(
           Vector(1.0, 0.1, 0.0, 0.0),
           Vector(0.0, 1.0, 0.05, 0.0),
           Vector(0.0, 0.0, 1.0, 0.0),
           Vector(0.0, 0.0, 0.0, 1.0)
-        )
-      )
+        )).flatten)
     )
-    val work = Frame[Work](SpatialDomainId("native-work"), fixedGrid)
-    val fixedFrame = Frame[Fixed](SpatialDomainId("native-fixed"), fixedGrid)
-    val movingFrame = Frame[Moving](SpatialDomainId("native-moving"), movingGrid)
+    val work = RegistrationFrame[Work](SpatialDomainId("native-work"), fixedGrid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("native-fixed"), fixedGrid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("native-moving"), movingGrid)
     val fixedVolume = constantVolume(fixedGrid, "fixed-native", 12.0)
     val movingVolume = constantVolume(movingGrid, "moving-native", 12.0)
     val fixed = RegistrationImage.make(fixedFrame, fixedVolume).fold(error => fail(error.message), identity)
@@ -137,9 +134,9 @@ class HalfFlowEngineSuite extends munit.FunSuite:
 
   private def fixture(side: Int, shift: Double): Fixture =
     val grid = GridSpec.identity(Vector(side, side, side))
-    val work = Frame[Work](SpatialDomainId("engine-work"), grid)
-    val fixedFrame = Frame[Fixed](SpatialDomainId("engine-fixed"), grid)
-    val movingFrame = Frame[Moving](SpatialDomainId("engine-moving"), grid)
+    val work = RegistrationFrame[Work](SpatialDomainId("engine-work"), grid)
+    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("engine-fixed"), grid)
+    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("engine-moving"), grid)
     val fixedValues = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     val movingValues = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
     var z = 0

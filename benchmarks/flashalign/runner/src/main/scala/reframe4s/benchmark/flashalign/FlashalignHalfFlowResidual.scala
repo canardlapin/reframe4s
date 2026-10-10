@@ -19,7 +19,7 @@ import reframe4s.halfflow.BasinBridgeProjectorConfig
 import reframe4s.halfflow.BasinBridgeRound
 import reframe4s.halfflow.BasinBridgeRoundConfig
 import reframe4s.halfflow.DensePull
-import reframe4s.halfflow.Frame as HalfFlowFrame
+import reframe4s.halfflow.RegistrationFrame as HalfFlowFrame
 import reframe4s.halfflow.ForwardMidpoint
 import reframe4s.halfflow.ForwardMidpointExporter
 import reframe4s.halfflow.HalfFlowCc
@@ -31,8 +31,6 @@ import reframe4s.halfflow.NeighborhoodCcConfig
 import reframe4s.halfflow.RegistrationImage
 import reframe4s.halfflow.ResidualInverseConfig
 import reframe4s.halfflow.SuppliedAffineInitialization
-import reframe4s.halfflow.internal.Affine as HalfFlowAffine
-import reframe4s.halfflow.internal.DMat as HalfFlowMatrix
 import reframe4s.halfflow.internal.FieldValidity
 import reframe4s.halfflow.internal.GridSpec
 import reframe4s.halfflow.internal.NeuroVol
@@ -733,14 +731,7 @@ private[flashalign] object FrozenHalfFlowRecipient:
   ](
       image: ContinuousImage[S, Double, Rank[3]]
   ): GridSpec =
-    GridSpec(
-      image.grid.shape,
-      HalfFlowMatrix.fromRowMajorOwned(
-        4,
-        4,
-        image.grid.indexToFrame.rowMajor.toArray
-      )
-    )
+    GridSpec.fromGrid(image.grid)
 
   private def anchors(reference: RegistrationImage[Fixed]): Vector[BasinBridgePoint] =
     final case class Candidate(world: Vector[Double])
@@ -751,16 +742,16 @@ private[flashalign] object FrozenHalfFlowRecipient:
         .map(fraction => math.round((extent - 1).toDouble * fraction).toInt)
         .distinct
     val candidates = (for
-      x <- positions(grid.shape.x)
-      y <- positions(grid.shape.y)
-      z <- positions(grid.shape.z)
+      x <- positions(grid.shape(0))
+      y <- positions(grid.shape(1))
+      z <- positions(grid.shape(2))
     yield Candidate(grid.voxelToWorld(Vector(x.toDouble, y.toDouble, z.toDouble)))).toVector
     val center = Candidate(
       grid.voxelToWorld(
         Vector(
-          (grid.shape.x - 1).toDouble / 2.0,
-          (grid.shape.y - 1).toDouble / 2.0,
-          (grid.shape.z - 1).toDouble / 2.0
+          (grid.shape(0) - 1).toDouble / 2.0,
+          (grid.shape(1) - 1).toDouble / 2.0,
+          (grid.shape(2) - 1).toDouble / 2.0
         )
       )
     )
@@ -1013,11 +1004,8 @@ private[flashalign] object FrozenHalfFlowRecipient:
       volume: NeuroVol[Double],
       world: Vector[Double]
   ): Option[Double] =
-    HalfFlowMatrix.invert(volume.space.affine) match
-      case Left(_) => None
-      case Right(inverse) =>
-        val voxel = HalfFlowAffine.applyAffine(inverse, world)
-        trilinear(volume.space, voxel) { index => volume.linear(index) }
+    volume.space.indexToFrame.inverse(world).toOption.flatMap: voxel =>
+      trilinear(volume.space, voxel) { index => volume.linear(index) }
 
   private def elapsed(started: Long): Double =
     math.max(0L, System.nanoTime() - started).toDouble / 1000000.0
@@ -1377,16 +1365,11 @@ private final class AffineEvidenceMap(matrix: Vector[Double])
 
 private final class DensePullEvidenceMap[A, B](pull: DensePull[A, B])
     extends EvidenceWorldMap3:
-  private val inverse = HalfFlowMatrix.invert(pull.from.grid.affine)
-
   def movingToFixed(
       worldMm: Vector[Double]
   ): Either[String, Vector[Double]] =
-    inverse
-      .left
-      .map(reason => s"dense moving-to-fixed grid is singular: $reason")
-      .flatMap: matrix =>
-        val voxel = HalfFlowAffine.applyAffine(matrix, worldMm)
+    pull.from.grid.indexToFrame.inverse(worldMm).left.map(_.message)
+      .flatMap: voxel =>
         trilinear(pull.from.grid, voxel) { index =>
           if fieldValid(pull.validity, index) then
             Vector(
@@ -1420,17 +1403,17 @@ private def trilinear[A](
     val y = voxel(1)
     val z = voxel(2)
     if x < 0.0 || y < 0.0 || z < 0.0 ||
-      x > grid.shape.x.toDouble - 1.0 ||
-      y > grid.shape.y.toDouble - 1.0 ||
-      z > grid.shape.z.toDouble - 1.0
+      x > grid.shape(0).toDouble - 1.0 ||
+      y > grid.shape(1).toDouble - 1.0 ||
+      z > grid.shape(2).toDouble - 1.0
     then None
     else
       val x0 = math.floor(x).toInt
       val y0 = math.floor(y).toInt
       val z0 = math.floor(z).toInt
-      val x1 = math.min(grid.shape.x - 1, x0 + 1)
-      val y1 = math.min(grid.shape.y - 1, y0 + 1)
-      val z1 = math.min(grid.shape.z - 1, z0 + 1)
+      val x1 = math.min(grid.shape(0) - 1, x0 + 1)
+      val y1 = math.min(grid.shape(1) - 1, y0 + 1)
+      val z1 = math.min(grid.shape(2) - 1, z0 + 1)
       val fx = x - x0.toDouble
       val fy = y - y0.toDouble
       val fz = z - z0.toDouble
@@ -1449,7 +1432,7 @@ private def trilinear[A](
             val wx = if dx == 0 then 1.0 - fx else fx
             val weight = wx * wy * wz
             if weight != 0.0 then
-              samples += read(ix + grid.shape.x * (iy + grid.shape.y * iz)) -> weight
+              samples += read(ix + grid.shape(0) * (iy + grid.shape(1) * iz)) -> weight
             dx += 1
           dy += 1
         dz += 1
@@ -1483,7 +1466,7 @@ private def densePullHash[A, B](pull: DensePull[A, B]): Sha256 =
     digest.update(value.getBytes(StandardCharsets.UTF_8))
     digest.update('\n'.toByte)
   pull.from.grid.dims.foreach(value => add(value.toString))
-  pull.from.grid.affine.data.foreach(value => add(java.lang.Double.toHexString(value)))
+  pull.from.grid.indexToFrame.rowMajor.foreach(value => add(java.lang.Double.toHexString(value)))
   var index = 0
   while index < pull.from.grid.nVoxels do
     add(if fieldValid(pull.validity, index) then "1" else "0")
