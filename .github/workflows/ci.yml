@@ -24,11 +24,22 @@ jobs:
       - name: Check out reframe4s
         uses: actions/checkout@v7.0.1
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v7.0.0
+        with:
+          node-version: "22"
+
+      - name: Read immutable Image pin
+        id: image-pin
+        run: |
+          image_revision="$(node scripts/provider-pin.mjs image4s build.sbt)"
+          echo "revision=$image_revision" >> "$GITHUB_OUTPUT"
+
       - name: Check out immutable image4s source
         uses: actions/checkout@v7.0.1
         with:
           repository: canardlapin/image4s
-          ref: 674bb56314aa6bbb00be1a15ea608264e2e73737
+          ref: ${{ steps.image-pin.outputs.revision }}
           path: .ci/image4s
 
       - name: Check out immutable spatial4s source
@@ -54,11 +65,6 @@ jobs:
 
       - name: Set up sbt
         uses: sbt/setup-sbt@v1
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v7.0.0
-        with:
-          node-version: "22"
 
       - name: Verify contracts and ownership
         if: matrix.platform == 'JVM'
