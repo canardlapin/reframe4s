@@ -27,3 +27,17 @@ test("real CI Image checkout derives the owning pin instead of carrying a second
   assert.match(workflow, /node scripts\/provider-pin\.mjs image4s build\.sbt/u);
   assert.match(workflow, /repository: canardlapin\/image4s\s+ref: \$\{\{ steps\.image-pin\.outputs\.revision \}\}/u);
 });
+
+test("CI transitive ownership checkouts follow Image's immutable pins", () => {
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+  const workflow = readFileSync(resolve(root, ".github/workflows/ci.yml"), "utf8");
+  for (const provider of ["spatial4s", "locus4s"]) {
+    const first = `lazy val ${provider}Revision = "${"1".repeat(40)}"`;
+    const changed = first.replace("1".repeat(40), "2".repeat(40));
+    assert.equal(providerPin(first, provider), "1".repeat(40));
+    assert.equal(providerPin(changed, provider), "2".repeat(40));
+    assert.ok(workflow.includes(`node scripts/provider-pin.mjs ${provider} .ci/image4s/build.sbt`));
+    const checkout = workflow.split(`repository: canardlapin/${provider}`)[1]?.split("path:")[0];
+    assert.equal(checkout?.trim(), "ref: ${{ steps.image-provider-pins.outputs.PROVIDER }}".replace("PROVIDER", provider));
+  }
+});
