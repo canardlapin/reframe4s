@@ -28,7 +28,7 @@ Global / concurrentRestrictions += Tags.limit(Tags.Test, 1)
 lazy val reframe4sBuildRoot =
   ReframeBuildRoot.resolve("reframe4s.build.root")
 
-lazy val ravelRevision = "9c5669399ab8e2a11402e71973dd5f1e2f2c13f4"
+lazy val ravelRevision = "195d71027423d5bda1c53ef1baa17e07670fe290"
 // Immutable by default; the explicit property admits an audited local Ravel
 // checkout for cross-repository development and performance verification.
 lazy val ravelBuild =
@@ -39,7 +39,7 @@ lazy val ravelBuild =
 lazy val ravelCoreJVM = ProjectRef(ravelBuild, "coreJVM")
 lazy val ravelCoreJS = ProjectRef(ravelBuild, "coreJS")
 
-lazy val galeRevision = "be709f1e2458e6b58e902862f9e868c4da27e4fe"
+lazy val galeRevision = "9f72048d3ad4274b329aba24076829d078c4bf1a"
 lazy val galeBuild =
   sys.props.get("reframe4s.gale.build")
     .map(path => file(path).getCanonicalFile.toURI)
@@ -50,7 +50,7 @@ lazy val galeCoreJS = ProjectRef(galeBuild, "coreJS")
 // image4s is an independently owned foundation. Ordinary builds clone the
 // exact reviewed revision; the property admits an audited local checkout for
 // coordinated cross-repository development.
-lazy val image4sRevision = "d963ab5be1c916da055750b9f92f1e57e94df4ac"
+lazy val image4sRevision = "f71cec05843515269fb8783cffa2ea2c4da6f7d8"
 lazy val image4sBuild =
   sys.props
     .get("reframe4s.image4s.build")

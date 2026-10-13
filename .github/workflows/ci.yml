@@ -42,18 +42,26 @@ jobs:
           ref: ${{ steps.image-pin.outputs.revision }}
           path: .ci/image4s
 
+      - name: Read immutable Image provider pins
+        id: image-provider-pins
+        run: |
+          spatial_revision="$(node scripts/provider-pin.mjs spatial4s .ci/image4s/build.sbt)"
+          locus_revision="$(node scripts/provider-pin.mjs locus4s .ci/image4s/build.sbt)"
+          echo "spatial4s=$spatial_revision" >> "$GITHUB_OUTPUT"
+          echo "locus4s=$locus_revision" >> "$GITHUB_OUTPUT"
+
       - name: Check out immutable spatial4s source
         uses: actions/checkout@v7.0.1
         with:
           repository: canardlapin/spatial4s
-          ref: 2eca2b379c1985881e4ca152b2a6c63a763277b0
+          ref: ${{ steps.image-provider-pins.outputs.spatial4s }}
           path: .ci/spatial4s
 
       - name: Check out immutable locus4s source
         uses: actions/checkout@v7.0.1
         with:
           repository: canardlapin/locus4s
-          ref: a67bc87c33b5da8a5dc2cad49919c015b59f3050
+          ref: ${{ steps.image-provider-pins.outputs.locus4s }}
           path: .ci/locus4s
 
       - name: Set up Java
