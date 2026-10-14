@@ -1,0 +1,34 @@
+{
+  "schema": "hfq-inverse-cleanup-receipt-v1",
+  "protocol_sha256": "429170b3caf0ddb7ecf117a1f88aa7fa984530ed7a11e782fb9c3162f8c71696",
+  "driver_seal_sha256": "a7a5c7c656e7ef02bd4e506413f8f36a5f4014d3e693742a962256eaf38c73ec",
+  "case": "oasis-11-to-12",
+  "original_forward_unchanged": true,
+  "original": {
+    "mean_dice": 0.4908618535832299,
+    "mean_hd95_mm": 5.138588426742205,
+    "maximum_brain_roundtrip_mm": 0.43543879377394196,
+    "geometry_pass": false,
+    "cells_pass": true
+  },
+  "cleaned": {
+    "geometry_pass": false,
+    "cells_pass": true,
+    "anatomy_complete": true,
+    "mean_dice": 0.4910528739593217,
+    "mean_hd95_mm": 5.138588426742205,
+    "maximum_brain_roundtrip_mm": 0.3306833766306885,
+    "minimum_cell_jacobian": 0.28075201896310437,
+    "folded_cells": 0,
+    "minimum_brain_coverage": 1.0,
+    "maximum_reload_error": 1.6209256159527285e-14,
+    "geometry_audit_seconds": 11.547114541754127,
+    "total_audit_seconds": 51.81534874998033
+  },
+  "all_grid_residual_tolerance_met": false,
+  "maximum_grid_residual_mm": 0.1522736697093893,
+  "conversion_seconds": 9.263287874870002,
+  "total_diagnostic_seconds": 62.71143400017172,
+  "qualification_claim": false,
+  "reference_promoted": false
+}

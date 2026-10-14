@@ -1,0 +1,46 @@
+{
+  "rows": [
+    {
+      "pair": "oasis-13-to-14",
+      "lane": "syn-matched",
+      "method": "ants",
+      "command": [
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/.venv/bin/python",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/fit_reference.py",
+        "--data",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data",
+        "--affine",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-13-to-14/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+        "--output",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/matched-budget-v1/run-oasis-13-to-14/oasis-13-to-14/syn-matched",
+        "--iterations",
+        "100,70,36"
+      ],
+      "protocol_sha256": "e1ba5b7a4f5d3f350b9031d2aaa0a805b139e4d1b2ec0623d824cdc4d7fc41a9",
+      "exit_code": 0,
+      "fit_process_seconds": 467.64055045926943,
+      "fit_peak_rss_bytes": 1211777024,
+      "measured_child_exit_code": 0,
+      "measured_child_wall_seconds": 467.52622520783916,
+      "conversion_pass": true,
+      "geometry_pass": false,
+      "cells_pass": true,
+      "anatomy_complete": true,
+      "mean_dice": 0.5334828923182183,
+      "mean_hd95_mm": 4.371320343559642,
+      "maximum_brain_roundtrip_mm": 0.5950363832473914,
+      "minimum_cell_jacobian": 0.19411792623942892,
+      "folded_cells": 0,
+      "minimum_brain_coverage": 1.0,
+      "maximum_reload_error": 2.55351295663786e-14,
+      "geometry_audit_seconds": 5.899855749681592,
+      "total_audit_seconds": 32.83783633308485,
+      "conversion_seconds": 2.8540540831163526,
+      "nonlinear_and_geometry_seconds": 476.3944602920674,
+      "audit_completed": true,
+      "fit_log_sha256": "c962235bf414afbe5bd2232d6060ff0f833c20517645bb650488552ed38eef22",
+      "audit_log_sha256": "6c4fb64e4301843baf5161b01f4cbcaf8b46e622f1200f94294b5a1089f20df1"
+    }
+  ],
+  "qualification_claim": false
+}

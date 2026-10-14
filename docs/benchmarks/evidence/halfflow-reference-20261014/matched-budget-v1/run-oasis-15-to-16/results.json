@@ -1,0 +1,46 @@
+{
+  "rows": [
+    {
+      "pair": "oasis-15-to-16",
+      "lane": "syn-matched",
+      "method": "ants",
+      "command": [
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/.venv/bin/python",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/fit_reference.py",
+        "--data",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-15-to-16/data",
+        "--affine",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-15-to-16/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+        "--output",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/matched-budget-v1/run-oasis-15-to-16/oasis-15-to-16/syn-matched",
+        "--iterations",
+        "100,70,24"
+      ],
+      "protocol_sha256": "55e7ee72c3e824c26277e56601dce96f6acdfea073250ca6cb161324d395afa0",
+      "exit_code": 0,
+      "fit_process_seconds": 304.1347500830889,
+      "fit_peak_rss_bytes": 1160675328,
+      "measured_child_exit_code": 0,
+      "measured_child_wall_seconds": 304.004729332868,
+      "conversion_pass": true,
+      "geometry_pass": false,
+      "cells_pass": true,
+      "anatomy_complete": true,
+      "mean_dice": 0.533483723199455,
+      "mean_hd95_mm": 5.17795128520674,
+      "maximum_brain_roundtrip_mm": 0.7761195739397445,
+      "minimum_cell_jacobian": 0.1273071529566213,
+      "folded_cells": 0,
+      "minimum_brain_coverage": 1.0,
+      "maximum_reload_error": 2.5646151868841116e-14,
+      "geometry_audit_seconds": 6.094165832735598,
+      "total_audit_seconds": 30.98600258305669,
+      "conversion_seconds": 2.7085690828971565,
+      "nonlinear_and_geometry_seconds": 312.93748499872163,
+      "audit_completed": true,
+      "fit_log_sha256": "c7a9c7fef681321a229ce9fcd0b10e7c48b04edf187ed3db31a5e37b6182c140",
+      "audit_log_sha256": "a7bc06988e6da045053b85de01deb302be214ca5bba9d491150a87713fc839ca"
+    }
+  ],
+  "qualification_claim": false
+}

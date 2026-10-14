@@ -1,0 +1,454 @@
+{
+  "schema": "hfq-budget-summary-v1",
+  "protocol_sha256": "c927e139be40722c57489788173e8501990ed9cd14b66ec09d9cd01a6156529d",
+  "results_sha256": "925dc7aac2f816c3a4b5d760f5cab24f035ea36f5eb5ead0a3732a7f257f6dc4",
+  "source_sha256": "7e8e9e62295cb42ad6c98aef0ab9f0b20558d16c3cc7235bbf45f9abe738dfa9",
+  "studies": [
+    {
+      "protocol_sha256": "c927e139be40722c57489788173e8501990ed9cd14b66ec09d9cd01a6156529d",
+      "results_sha256": "925dc7aac2f816c3a4b5d760f5cab24f035ea36f5eb5ead0a3732a7f257f6dc4"
+    }
+  ],
+  "estimand": "Raw anatomy on observed development outputs, including geometry failures; not failure-penalized qualification scores",
+  "lanes": {
+    "halfflow-selected": {
+      "attempts": 3,
+      "complete_audits": 3,
+      "common_geometry_valid": 3,
+      "mean_dice": {
+        "mean": 0.4139430545482569,
+        "median": 0.42078732557012044,
+        "minimum": 0.39835884550661704,
+        "maximum": 0.4226829925680332
+      },
+      "mean_hd95_mm": {
+        "mean": 5.2536674064665965,
+        "median": 5.246935858657926,
+        "minimum": 4.6217082451262845,
+        "maximum": 5.892358115615579
+      },
+      "nonlinear_and_geometry_seconds": {
+        "mean": 319.30486886187765,
+        "median": 319.79088645940647,
+        "minimum": 222.51448812475428,
+        "maximum": 415.60923200147226
+      },
+      "fit_peak_rss_bytes": {
+        "mean": 5356432042.666667,
+        "median": 5295652864,
+        "minimum": 5001920512,
+        "maximum": 5771722752
+      }
+    },
+    "syn-short": {
+      "attempts": 3,
+      "complete_audits": 3,
+      "common_geometry_valid": 0,
+      "mean_dice": {
+        "mean": 0.47154700287170515,
+        "median": 0.47531928271598206,
+        "minimum": 0.4582348522878703,
+        "maximum": 0.4810868736112631
+      },
+      "mean_hd95_mm": {
+        "mean": 4.9257933792811315,
+        "median": 5.083284617448821,
+        "minimum": 4.371320343559642,
+        "maximum": 5.3227751768349325
+      },
+      "nonlinear_and_geometry_seconds": {
+        "mean": 29.371185458575685,
+        "median": 27.4399318350479,
+        "minimum": 25.56774187507108,
+        "maximum": 35.10588266560808
+      },
+      "fit_peak_rss_bytes": {
+        "mean": 890426709.3333334,
+        "median": 896335872,
+        "minimum": 859242496,
+        "maximum": 915701760
+      }
+    },
+    "syn-standard": {
+      "attempts": 3,
+      "complete_audits": 3,
+      "common_geometry_valid": 0,
+      "mean_dice": {
+        "mean": 0.48521906310647456,
+        "median": 0.4908618535832299,
+        "minimum": 0.47390301764383924,
+        "maximum": 0.49089231809235456
+      },
+      "mean_hd95_mm": {
+        "mean": 4.915246743109573,
+        "median": 5.138588426742205,
+        "minimum": 4.371320343559642,
+        "maximum": 5.235831459026873
+      },
+      "nonlinear_and_geometry_seconds": {
+        "mean": 38.13888161086167,
+        "median": 37.1613414590247,
+        "minimum": 37.02673304080963,
+        "maximum": 40.22857033275068
+      },
+      "fit_peak_rss_bytes": {
+        "mean": 900475562.6666666,
+        "median": 901595136,
+        "minimum": 891224064,
+        "maximum": 908607488
+      }
+    },
+    "syn-generous": {
+      "attempts": 3,
+      "complete_audits": 3,
+      "common_geometry_valid": 0,
+      "mean_dice": {
+        "mean": 0.5423581260061862,
+        "median": 0.538632315032286,
+        "minimum": 0.5332517836601118,
+        "maximum": 0.5551902793261607
+      },
+      "mean_hd95_mm": {
+        "mean": 4.9768696398622465,
+        "median": 5.235831459026873,
+        "minimum": 4.371320343559642,
+        "maximum": 5.323457117000224
+      },
+      "nonlinear_and_geometry_seconds": {
+        "mean": 477.81697681903216,
+        "median": 490.6533479155041,
+        "minimum": 449.3267380823381,
+        "maximum": 493.4708444592543
+      },
+      "fit_peak_rss_bytes": {
+        "mean": 1259214165.3333333,
+        "median": 1271119872,
+        "minimum": 1230700544,
+        "maximum": 1275822080
+      }
+    }
+  },
+  "matched_budget": [
+    {
+      "pair": "oasis-11-to-12",
+      "nearest_lane": "syn-generous",
+      "reference_over_halfflow_runtime": 2.205040004587998,
+      "comparable": false,
+      "reference_common_geometry_valid": false
+    },
+    {
+      "pair": "oasis-15-to-16",
+      "nearest_lane": "syn-generous",
+      "reference_over_halfflow_runtime": 1.5431047767582156,
+      "comparable": false,
+      "reference_common_geometry_valid": false
+    },
+    {
+      "pair": "oasis-13-to-14",
+      "nearest_lane": "syn-generous",
+      "reference_over_halfflow_runtime": 1.0811279044945432,
+      "comparable": true,
+      "reference_common_geometry_valid": false
+    }
+  ],
+  "stopping": {
+    "oasis-11-to-12/halfflow-selected": {
+      "levels": [
+        {
+          "shrink": 2,
+          "accepted_steps": 20,
+          "attempts": 20,
+          "status": "AcceptedStepBudget"
+        },
+        {
+          "shrink": 1,
+          "accepted_steps": 0,
+          "attempts": 6,
+          "status": "ControllerExhausted"
+        }
+      ],
+      "qualifying_convergence_established": false
+    },
+    "oasis-15-to-16/halfflow-selected": {
+      "levels": [
+        {
+          "shrink": 2,
+          "accepted_steps": 20,
+          "attempts": 20,
+          "status": "AcceptedStepBudget"
+        },
+        {
+          "shrink": 1,
+          "accepted_steps": 0,
+          "attempts": 6,
+          "status": "ControllerExhausted"
+        }
+      ],
+      "qualifying_convergence_established": false
+    },
+    "oasis-13-to-14/halfflow-selected": {
+      "levels": [
+        {
+          "shrink": 2,
+          "accepted_steps": 20,
+          "attempts": 20,
+          "status": "AcceptedStepBudget"
+        },
+        {
+          "shrink": 1,
+          "accepted_steps": 20,
+          "attempts": 20,
+          "status": "AcceptedStepBudget"
+        }
+      ],
+      "qualifying_convergence_established": false
+    },
+    "oasis-11-to-12/syn-short": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 20,
+          "iterations": 20,
+          "last_convergence_value": -6.107900844654e-05,
+          "status": "iteration_cap"
+        },
+        {
+          "level": 1,
+          "limit": 10,
+          "iterations": 10,
+          "last_convergence_value": 0.007626363541931,
+          "status": "iteration_cap"
+        },
+        {
+          "level": 2,
+          "limit": 0,
+          "iterations": 0,
+          "status": "disabled"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": false,
+      "full_resolution_enabled": false
+    },
+    "oasis-15-to-16/syn-short": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 20,
+          "iterations": 20,
+          "last_convergence_value": 7.402899427689e-06,
+          "status": "iteration_cap"
+        },
+        {
+          "level": 1,
+          "limit": 10,
+          "iterations": 10,
+          "last_convergence_value": 0.009657605551183,
+          "status": "iteration_cap"
+        },
+        {
+          "level": 2,
+          "limit": 0,
+          "iterations": 0,
+          "status": "disabled"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": false,
+      "full_resolution_enabled": false
+    },
+    "oasis-13-to-14/syn-short": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 20,
+          "iterations": 20,
+          "last_convergence_value": 2.709919317567e-05,
+          "status": "iteration_cap"
+        },
+        {
+          "level": 1,
+          "limit": 10,
+          "iterations": 10,
+          "last_convergence_value": 0.008995242416859,
+          "status": "iteration_cap"
+        },
+        {
+          "level": 2,
+          "limit": 0,
+          "iterations": 0,
+          "status": "disabled"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": false,
+      "full_resolution_enabled": false
+    },
+    "oasis-11-to-12/syn-standard": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 40,
+          "iterations": 20,
+          "last_convergence_value": -6.107900844654e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 1,
+          "limit": 20,
+          "iterations": 20,
+          "last_convergence_value": 0.0008204660261981,
+          "status": "iteration_cap"
+        },
+        {
+          "level": 2,
+          "limit": 0,
+          "iterations": 0,
+          "status": "disabled"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": false,
+      "full_resolution_enabled": false
+    },
+    "oasis-15-to-16/syn-standard": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 40,
+          "iterations": 21,
+          "last_convergence_value": -3.399840716156e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 1,
+          "limit": 20,
+          "iterations": 20,
+          "last_convergence_value": 0.000926609733142,
+          "status": "iteration_cap"
+        },
+        {
+          "level": 2,
+          "limit": 0,
+          "iterations": 0,
+          "status": "disabled"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": false,
+      "full_resolution_enabled": false
+    },
+    "oasis-13-to-14/syn-standard": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 40,
+          "iterations": 21,
+          "last_convergence_value": -2.146914812329e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 1,
+          "limit": 20,
+          "iterations": 20,
+          "last_convergence_value": 0.001156963873655,
+          "status": "iteration_cap"
+        },
+        {
+          "level": 2,
+          "limit": 0,
+          "iterations": 0,
+          "status": "disabled"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": false,
+      "full_resolution_enabled": false
+    },
+    "oasis-11-to-12/syn-generous": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 100,
+          "iterations": 20,
+          "last_convergence_value": -6.107900844654e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 1,
+          "limit": 70,
+          "iterations": 49,
+          "last_convergence_value": -2.026576112257e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 2,
+          "limit": 40,
+          "iterations": 40,
+          "last_convergence_value": 0.0002582677698229,
+          "status": "iteration_cap"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": false,
+      "full_resolution_enabled": true
+    },
+    "oasis-15-to-16/syn-generous": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 100,
+          "iterations": 21,
+          "last_convergence_value": -3.399840716156e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 1,
+          "limit": 70,
+          "iterations": 37,
+          "last_convergence_value": -1.607245167179e-06,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 2,
+          "limit": 40,
+          "iterations": 40,
+          "last_convergence_value": 0.000276524835499,
+          "status": "iteration_cap"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": false,
+      "full_resolution_enabled": true
+    },
+    "oasis-13-to-14/syn-generous": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 100,
+          "iterations": 21,
+          "last_convergence_value": -2.146914812329e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 1,
+          "limit": 70,
+          "iterations": 39,
+          "last_convergence_value": -2.738377588685e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 2,
+          "limit": 40,
+          "iterations": 40,
+          "last_convergence_value": 7.535683107562e-05,
+          "status": "iteration_cap"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": false,
+      "full_resolution_enabled": true
+    }
+  },
+  "qualification_claim": false
+}

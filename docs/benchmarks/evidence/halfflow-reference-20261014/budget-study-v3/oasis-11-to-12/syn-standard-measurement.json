@@ -1,0 +1,22 @@
+{
+  "schema": "hfq-process-measurement-v1",
+  "command": [
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/.venv/bin/python",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/fit_reference.py",
+    "--data",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data",
+    "--affine",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+    "--output",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/budget-study-v3/oasis-11-to-12/syn-standard",
+    "--iterations",
+    "40,20,0"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 30.947231417056173,
+  "user_seconds": 29.553527,
+  "system_seconds": 0.634667,
+  "peak_rss_bytes": 908607488,
+  "measurement": "wait4 direct child; Darwin ru_maxrss is bytes; Linux is KiB",
+  "scope": "child registration process, excluding parent conversion and evaluation"
+}

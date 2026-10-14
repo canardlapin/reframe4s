@@ -1,0 +1,11 @@
+{
+  "command": "MPLCONFIGDIR=/private/tmp/hfq-mpl OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=1 benchmarks/flashalign/local-results/real-mri-20261010/.venv/bin/python -m unittest discover -s benchmarks/halfflow/reference -p test_*.py -v",
+  "result": "13 passed",
+  "log_sha256": "144d4d58fc5fbee5632c9191266f8fb0e097acc25fbf773305e92e193d71420e",
+  "tests": {
+    "benchmarks/halfflow/reference/test_canonical_ants.py": "0c766e67330c4e882930ac7ab87e77fd8e78a3f76a730f733eaf3539f66d74d8",
+    "benchmarks/halfflow/reference/test_inverse_cleanup.py": "8a4f01cc362b642fe477155484cf6ae67b15b2ebb7e630efee8982aa414f726c",
+    "benchmarks/halfflow/reference/test_measure_process.py": "e9e8cc003ca88270941bb468bbf15581e868b50bd43d8f9b1d7fb5e4f28da73a",
+    "benchmarks/halfflow/reference/test_stopping.py": "17629610b4409c1c97848c68aa7bef2bb32252cf84bc914207fd6dc3dc8e8252"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "hfq-reference-inverse-cleanup-probe-v1",
+  "cases": [
+    {
+      "id": "oasis-11-to-12",
+      "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data",
+      "saved_affine": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+      "moving_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-11/labels.DKT31.manual.nii.gz",
+      "fixed_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-12/labels.DKT31.manual.nii.gz",
+      "baseline_report": "benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/affine-evaluation.json",
+      "reference": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-calibration-20261011/oasis-11-to-12/ants-same-affine",
+      "halfflow": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/sentinels/oasis-11-to-12/hf40-total1.5-boundary6",
+      "halfflow_source_sha256": "44823c325ffb7ac9b9c1b99e1284b0efa63aeb201b7ec626d625acd57431b8f5"
+    }
+  ],
+  "sources": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/inverse_cleanup.py": "113e5b2bf95b801d74663630f8f82671bda066434aef216580a8122ac047fbdc",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/test_inverse_cleanup.py": "8a4f01cc362b642fe477155484cf6ae67b15b2ebb7e630efee8982aa414f726c",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/native_inverse_probe.py": "9754553df793a7a5de82a79ee089a9e63983ba277bc566476c401d2936268efa",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/canonical_ants.py": "b79677e3595ec2d417806b8544e4d874b9ca2b2d9ea349698b6f17c5b5129d69",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/audit_study.py": "5ddcdb40ef0ce79bb4c38950898989988b65c69ca75190f462f4388f82b6e064",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/real_image_court.py": "78aeac693e7d8ed83df7f403c3e3af269c40dd712cbfd7ace6a6ee4e8b60c55c",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/real_mri_cell_topology.py": "83f41aa020a2ceb8dd427b169cb2a7c49830ad95cd024a423aa026bdb51e5bc1"
+  },
+  "original": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/historical-audit-v2/oasis-11-to-12/ants",
+  "policy": {
+    "iterations": 40,
+    "backtracking_trials": 8,
+    "residual_tolerance_mm": 1e-05,
+    "maximum_update_mm": 1.0
+  },
+  "purpose": "Isolate approximate native inverse versus exported-grid interpolation. Preserve forward map exactly; numerically solve reverse over its entire original grid, then run all unchanged common checks and report all residuals. No annotations enter inversion.",
+  "selection": "One predeclared observed pair, no parameter sweep or promotion. If it fails, retain failure. Even a pass does not establish a converged strong reference or full boundary contract.",
+  "run_order": "Only after the controlled timing batch has fully completed; do not compete with timed fits.",
+  "qualification_claim": false
+}

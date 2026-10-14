@@ -1,0 +1,51 @@
+{
+  "schema": "hfq-native-inverse-probe-v1",
+  "case": "oasis-11-to-12",
+  "source_sha256": "9754553df793a7a5de82a79ee089a9e63983ba277bc566476c401d2936268efa",
+  "transforms": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-calibration-20261011/oasis-11-to-12/ants-same-affine/ants-1Warp.nii.gz": "869ad1e44696f3eed6f8f6c67365bc045f8090c2094d62c188cc878e8b587d0e",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-calibration-20261011/oasis-11-to-12/ants-same-affine/ants-0GenericAffine.mat": "4bae5c1fae81540fdf1455aa6db4c823d1ad2829bb0d5c0cf8cd3ee00ccee093",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-calibration-20261011/oasis-11-to-12/ants-same-affine/ants-1InverseWarp.nii.gz": "0718d30abf8f2cb313a49671fbde639d477493ccfabd75e910d66b4156f163da"
+  },
+  "directions": {
+    "fixed": {
+      "mask_sha256": "4a7744c33777e384e288e714710ff332d9c3e38643c55c79711d5a0dd2407011",
+      "points": 365983,
+      "maximum_mm": 0.3665778208622701,
+      "p95_mm": 0.08992572955658414,
+      "mean_mm": 0.03543839517311465,
+      "extrapolation": [
+        {
+          "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-calibration-20261011/oasis-11-to-12/ants-same-affine/ants-1Warp.nii.gz",
+          "outside_field_points": 0,
+          "total_points": 365983
+        },
+        {
+          "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-calibration-20261011/oasis-11-to-12/ants-same-affine/ants-1InverseWarp.nii.gz",
+          "outside_field_points": 0,
+          "total_points": 365983
+        }
+      ]
+    },
+    "moving": {
+      "mask_sha256": "efc960c8c94eb91d09ffd78c25b5540fdf19413d83ec4096281dfe8ab8b78cab",
+      "points": 380353,
+      "maximum_mm": 0.29472286737539316,
+      "p95_mm": 0.07819754090193098,
+      "mean_mm": 0.031164309588651837,
+      "extrapolation": [
+        {
+          "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-calibration-20261011/oasis-11-to-12/ants-same-affine/ants-1InverseWarp.nii.gz",
+          "outside_field_points": 0,
+          "total_points": 380353
+        },
+        {
+          "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-calibration-20261011/oasis-11-to-12/ants-same-affine/ants-1Warp.nii.gz",
+          "outside_field_points": 0,
+          "total_points": 380353
+        }
+      ]
+    }
+  },
+  "qualification_claim": false
+}

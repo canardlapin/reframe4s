@@ -1,0 +1,24 @@
+{
+  "pair": "oasis-11-to-12",
+  "lane": "syn-short",
+  "method": "ants",
+  "command": [
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/.venv/bin/python",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/fit_reference.py",
+    "--data",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data",
+    "--affine",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+    "--output",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/budget-study-v2/oasis-11-to-12/syn-short",
+    "--iterations",
+    "20,10,0"
+  ],
+  "protocol_sha256": "49e8280f529eaea50cc431e4e14cadc6ae16bbadfc42d20753e14444b2d8a8b9",
+  "exit_code": 1,
+  "fit_process_seconds": 18.559682500083,
+  "fit_peak_rss_bytes": null,
+  "audit_completed": false,
+  "error": "RuntimeError: Fit failed; diagnostic artifacts retained",
+  "fit_log_sha256": "7ada008d24df917912267a6602ead9981f934ed3fc4ca5bb33f4432bd7461213"
+}
