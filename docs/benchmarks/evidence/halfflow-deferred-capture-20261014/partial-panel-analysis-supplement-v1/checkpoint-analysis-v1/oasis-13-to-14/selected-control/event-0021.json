@@ -1,0 +1,326 @@
+{
+  "pair": "oasis-13-to-14",
+  "policy": "selected-control",
+  "event": {
+    "capture_status": "Captured",
+    "diagnostic_only": true,
+    "directory": "0021-level00-accepted-attempt0020",
+    "export_status": "native export gate accepted",
+    "info": {
+      "kind": "Accepted",
+      "levelIndex": 0,
+      "shrink": 2,
+      "acceptedSteps": 20,
+      "attempts": 20,
+      "before": {
+        "loss": 0.43571146586530624,
+        "activeFraction": 0.17245331069609507,
+        "edgeActiveFraction": 0.0,
+        "support": {
+          "count": 282720,
+          "nonFinite": 0,
+          "positive": 39112,
+          "sum": 38141.285944973126,
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "reliability": {
+          "count": 282720,
+          "nonFinite": 0,
+          "positive": 48756,
+          "sum": 0.9999999999992457,
+          "minimum": 0.0,
+          "maximum": 2.519443526443648e-05
+        },
+        "stabilization": {
+          "count": 282720,
+          "nonFinite": 0,
+          "positive": 282720,
+          "sum": 0.05408015715481221,
+          "minimum": 5e-324,
+          "maximum": 1.6501668478884923e-06
+        },
+        "neighborhood": {
+          "loss": 0.43571146586530624,
+          "activeWindows": 48756,
+          "totalWindows": 282720,
+          "support": {
+            "minimumFraction": -1.0969003483296547e-15,
+            "meanFraction": 0.134908340212837,
+            "maximumFraction": 1.0000000000000004,
+            "activeFraction": 0.17245331069609507,
+            "edgeBandActiveFraction": 0.0
+          },
+          "variance": {
+            "fixedGlobalVariance": 0.026652881567580132,
+            "movingGlobalVariance": 0.03962448788026188,
+            "fixedReliabilityMean": 0.2464624048522497,
+            "movingReliabilityMean": 0.2437317085139206,
+            "jointReliabilityMean": 0.14039086173280974
+          }
+        }
+      },
+      "after": {
+        "loss": 0.4298887368294965,
+        "activeFraction": 0.17242147707979627,
+        "edgeActiveFraction": 0.0,
+        "support": {
+          "count": 282720,
+          "nonFinite": 0,
+          "positive": 39083,
+          "sum": 38110.33039724159,
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "reliability": {
+          "count": 282720,
+          "nonFinite": 0,
+          "positive": 48747,
+          "sum": 0.999999999999238,
+          "minimum": 0.0,
+          "maximum": 2.5212780045020274e-05
+        },
+        "stabilization": {
+          "count": 282720,
+          "nonFinite": 0,
+          "positive": 282720,
+          "sum": 0.053849630773457356,
+          "minimum": 5e-324,
+          "maximum": 1.6450917598329974e-06
+        },
+        "neighborhood": {
+          "loss": 0.4298887368294965,
+          "activeWindows": 48747,
+          "totalWindows": 282720,
+          "support": {
+            "minimumFraction": -1.2908193032975154e-15,
+            "meanFraction": 0.13479884832074804,
+            "maximumFraction": 1.0000000000000007,
+            "activeFraction": 0.17242147707979627,
+            "edgeBandActiveFraction": 0.0
+          },
+          "variance": {
+            "fixedGlobalVariance": 0.026606496556471966,
+            "movingGlobalVariance": 0.03957149052143852,
+            "fixedReliabilityMean": 0.24710097615411117,
+            "movingReliabilityMean": 0.2498475654770512,
+            "jointReliabilityMean": 0.1402887135543915
+          }
+        }
+      },
+      "control": {
+        "damping": 1e-08,
+        "stepScale": 1.0,
+        "squarings": 0,
+        "objectiveRetries": 0,
+        "geometryRetries": 0,
+        "integrationRetries": 0
+      },
+      "trial": {
+        "attempt": 20,
+        "accepted": true,
+        "currentLoss": 0.43571146586530624,
+        "candidateLoss": 0.42979128271998573,
+        "maximumStepMm": 1.0,
+        "activeFraction": 0.17245331069609507,
+        "edgeActiveFraction": 0.0,
+        "geometry": "Valid",
+        "numerical": "Accurate",
+        "legacyInverseSafe": null,
+        "legacyInverseMaximumMm": null,
+        "controlTransitions": [
+          {
+            "observation": {
+              "verdict": "Accurate"
+            },
+            "action": "AcceptIntegration",
+            "before": {
+              "damping": 1e-08,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            },
+            "after": {
+              "damping": 1e-08,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            }
+          },
+          {
+            "observation": {
+              "verdict": "Valid"
+            },
+            "action": "AcceptGeometry",
+            "before": {
+              "damping": 1e-08,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            },
+            "after": {
+              "damping": 1e-08,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            }
+          },
+          {
+            "observation": {
+              "verdict": {
+                "actualDrop": 0.005920183145320501
+              }
+            },
+            "action": "AcceptObjective",
+            "before": {
+              "damping": 1e-08,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            },
+            "after": {
+              "damping": 1e-08,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            }
+          }
+        ]
+      },
+      "termination": null,
+      "stateAvailable": true
+    },
+    "manifest_sha256": "e4e929d2f165c3432d0cd4b3401140506a80db29967e5a792a1e77874587f07f",
+    "schema": "halfflow-checkpoint-v1",
+    "serial": 21
+  },
+  "protocol_sha256": "fb6248bb6c98af228890e622a8beac6d8bacb006ed728906a8a61b4bb89256ef",
+  "fit_receipt_sha256": "107c6d41ee627a4332f69292cca64eca5d4332c143dab552f5b40d44b64b1278",
+  "status": "scored",
+  "qualification_claim": false,
+  "regularity": {
+    "fixed": {
+      "grid_voxels": 282720,
+      "valid_center_voxels": 282720,
+      "valid_interior_stencil_voxels": 257520,
+      "stencil_coverage": 0.9108658743633277,
+      "rms_displacement_mm": 1.1752744236017216,
+      "maximum_displacement_mm": 4.669907038125983,
+      "rms_displacement_gradient_frobenius": 0.12417148249592701,
+      "maximum_displacement_gradient_frobenius": 0.460874917455565,
+      "scope": "All valid central-difference stencils on the original midpoint grid; no mask or affine arm; counts explicit",
+      "continuous_invertibility_claim": false
+    },
+    "moving": {
+      "grid_voxels": 282720,
+      "valid_center_voxels": 282720,
+      "valid_interior_stencil_voxels": 257520,
+      "stencil_coverage": 0.9108658743633277,
+      "rms_displacement_mm": 1.1771389758061324,
+      "maximum_displacement_mm": 4.758515789772696,
+      "rms_displacement_gradient_frobenius": 0.12420184234385433,
+      "maximum_displacement_gradient_frobenius": 0.4312723433610365,
+      "scope": "All valid central-difference stencils on the original midpoint grid; no mask or affine arm; counts explicit",
+      "continuous_invertibility_claim": false
+    }
+  },
+  "map_inputs": {
+    "halfflow-fixed-to-moving.f64": "24234e8294ac1ec7fd1249abd0ffa35df599ecf0bb6b9e177d164cd357a601de",
+    "halfflow-fixed-to-moving.json": "4c7ed7827eded24df74a925aef972baf451994402c09ca291d8f59fdf0d43008",
+    "halfflow-fixed-to-moving.valid-u8": "fc5af34087f26f59c9d091b6eeff1c3a2dcb9994f5e8df39ee93c6f609118dd3",
+    "halfflow-fixed-to-moving-warped.f64": "4a7f6d87e9acc8cdccbd549144c066f38d63ea8492524c363c99ff62353e70cd",
+    "halfflow-moving-to-fixed.f64": "b3a1e1e7eeb82e76efe3e588baca5f024776455f200ef1f0ad8e2c0ef7cef09b",
+    "halfflow-moving-to-fixed.json": "a14a77a452e18f004bfa46c15e3ded4da44eb4f21ea230aa880fd6ec27d01f37",
+    "halfflow-moving-to-fixed.valid-u8": "1b4172c7b022494535ec050d49b5d68917be6a9fc0c1bf5cffb0ae24a1e4af1b",
+    "halfflow-moving-to-fixed-warped.f64": "9615c0d9bb07a0c2a93222db38c402c2ad35ea64fb2e3932e501c3770eb13305"
+  },
+  "fixed_intensity": {
+    "schema": "hfq-fixed-intensity-audit-v1",
+    "source_sha256": "e0855cd0f6b472b9c5cf07ac51c7f8ea1092a0947fb95c9efe732e5bab2540a9",
+    "directions": {
+      "fixed-to-moving": {
+        "declared_target_voxels": 335401,
+        "valid_center_voxels": 335401,
+        "valid_window_voxels": 335401,
+        "nonfinite_warped_target_voxels": 0,
+        "center_coverage": 1.0,
+        "window_coverage": 1.0,
+        "mean_penalized_squared_cc_loss": 0.6475334726046189,
+        "mean_penalized_signed_correlation": 0.502006553940554,
+        "target_variance": 0.04344614625572089,
+        "denominator_epsilon": 1.8875676244734905e-11,
+        "box_window_radius_mm": 3.0,
+        "window_size_voxels": [
+          5,
+          5,
+          5
+        ],
+        "variance_fraction": 0.0001,
+        "rule": "All target-mask voxels; invalid windows receive loss 1 and signed correlation -1; no moving-dependent exclusion",
+        "inputs": {
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed.nii.gz": "38c41fe1b4e3c9399b35dee9a36b085095291401b1c25742bfaf592138b388a8",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/moving.nii.gz": "bdebc36677cccda1c03a12b0bc86a249b8ec990020c1a2303553e760ea6d9245",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed-mask.nii.gz": "af648c2f055b6c7663c5af58cf9e7315a8359f66fcfbc4ab10a61300f891684f",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/checkpoint-analysis-v1/oasis-13-to-14/selected-control/0021-level00-accepted-attempt0020/halfflow-fixed-to-moving.f64": "24234e8294ac1ec7fd1249abd0ffa35df599ecf0bb6b9e177d164cd357a601de"
+        }
+      },
+      "moving-to-fixed": {
+        "declared_target_voxels": 308862,
+        "valid_center_voxels": 308862,
+        "valid_window_voxels": 308862,
+        "nonfinite_warped_target_voxels": 0,
+        "center_coverage": 1.0,
+        "window_coverage": 1.0,
+        "mean_penalized_squared_cc_loss": 0.6638306418615783,
+        "mean_penalized_signed_correlation": 0.4922342945353189,
+        "target_variance": 0.03992725423424696,
+        "denominator_epsilon": 1.5941856306861916e-11,
+        "box_window_radius_mm": 3.0,
+        "window_size_voxels": [
+          5,
+          5,
+          5
+        ],
+        "variance_fraction": 0.0001,
+        "rule": "All target-mask voxels; invalid windows receive loss 1 and signed correlation -1; no moving-dependent exclusion",
+        "inputs": {
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/moving.nii.gz": "bdebc36677cccda1c03a12b0bc86a249b8ec990020c1a2303553e760ea6d9245",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed.nii.gz": "38c41fe1b4e3c9399b35dee9a36b085095291401b1c25742bfaf592138b388a8",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/moving-mask.nii.gz": "425a0dbb4269e2cf39d44a5fc30222efcca3db73ba3b81bda2e06c58f55696c3",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/checkpoint-analysis-v1/oasis-13-to-14/selected-control/0021-level00-accepted-attempt0020/halfflow-moving-to-fixed.f64": "b3a1e1e7eeb82e76efe3e588baca5f024776455f200ef1f0ad8e2c0ef7cef09b"
+        }
+      }
+    },
+    "diagnostic_only": true,
+    "used_for_runtime_stopping": false,
+    "mean_bidirectional_loss": 0.6556820572330986
+  },
+  "geometry_and_anatomy": {
+    "geometry_pass": true,
+    "cells_pass": true,
+    "anatomy_complete": true,
+    "mean_dice": 0.42321743166466524,
+    "mean_hd95_mm": 4.618734296383275,
+    "maximum_brain_roundtrip_mm": 0.0741030617629815,
+    "minimum_cell_jacobian": 0.3476865924457801,
+    "folded_cells": 0,
+    "minimum_brain_coverage": 1.0,
+    "maximum_reload_error": 4.440892098500626e-16,
+    "geometry_audit_seconds": 19.376837083138525,
+    "total_audit_seconds": 72.20965845836326
+  },
+  "native_export_accepted": true,
+  "log_sha256": "cb4af29b55406026894d70cdcbfd6dbd2a84e60ca7825502933791f53c9eb761"
+}

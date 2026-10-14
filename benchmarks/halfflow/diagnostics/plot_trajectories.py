@@ -17,6 +17,10 @@ def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 def plot_case(study,analysis,case,policy,output):
     base=study/case/policy
+    fit_path=base.parent/(policy+'-fit-receipt.json')
+    fit=read(fit_path)
+    fit_status=('completed' if fit['exit_code']==0 else 'timed out' if fit['exit_code']==124 else 'failed/cancelled')
+    fit_caption=f"Source fit {fit_status} (exit {fit['exit_code']}); committed checkpoints only"
     events=[json.loads(line) for line in (base/'checkpoints/events.jsonl').read_text().splitlines()]
     receipts=sorted((analysis/case/policy).glob('event-*.json'))
     rows=[read(path) for path in receipts]
@@ -74,7 +78,7 @@ def plot_case(study,analysis,case,policy,output):
     failures=sum(r['status'] in ['analysis_failed','export_unavailable'] for r in rows)
     pending=len(events)-len(rows)
     figure.suptitle(f'{case} · {policy}\nObserved diagnostics · orange ×: rejected candidate · red ring: failed geometry/export\n'
-                   f'{len(states)} scored states; {failures} export/analysis failures; {pending} pending events',fontsize=12)
+                   f'{len(states)} scored states; {failures} export/analysis failures; {pending} pending events\n{fit_caption}',fontsize=12)
     figure.savefig(output/'trajectory.png',dpi=160);figure.savefig(output/'trajectory.svg');plt.close(figure)
     # Each structure retains its own score. No intersection-based structure filtering.
     anatomy=[]
@@ -101,11 +105,12 @@ def plot_case(study,analysis,case,policy,output):
         heat.colorbar(im,ax=ax,shrink=.6)
     heat_axes[0].set_ylabel('Anatomical label ID · gray means missing, never silently excluded')
     heat.suptitle(f'{case} · {policy} · all scored states, including rejected/invalid candidates\n'
-                  'L: pyramid level; A: accepted updates; T: attempted updates · labels used only for diagnosis',fontsize=12)
+                  'L: pyramid level; A: accepted updates; T: attempted updates · labels used only for diagnosis\n'+fit_caption,fontsize=12)
     heat.savefig(output/'per-structure.png',dpi=150);heat.savefig(output/'per-structure.svg');plt.close(heat)
     accepted=[r for r in events if r['info']['kind']=='Accepted']
     summary={'schema':'hfq-trajectory-plot-v1','case':case,'policy':policy,'source_sha256':sha(Path(__file__)),
              'events_sha256':sha(base/'checkpoints/events.jsonl'),'receipt_sha256':{str(p):sha(p) for p in receipts},
+             'fit_receipt_sha256':sha(fit_path),'fit_exit_code':fit['exit_code'],
              'event_count':len(events),'scored_states':len(states),'export_or_analysis_failures':failures,'pending_events':pending,
              'accepted_steps':len(accepted),'accepted_steps_with_rebuilt_loss_above_previous_loss':
                  sum(r['info']['after']['loss']>r['info']['before']['loss'] for r in accepted),

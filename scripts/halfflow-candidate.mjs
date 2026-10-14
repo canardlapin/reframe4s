@@ -14,7 +14,8 @@ const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
  * candidate it describes. Dependency revisions are included via build.sbt.
  */
 export function candidateSnapshot() {
-  const files = execFileSync("git", ["ls-files", "-z", "--cached", "--others", "--exclude-standard"], { cwd: root })
+  const files = execFileSync("git", ["ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+    { cwd: root, maxBuffer: 16 * 1024 * 1024 })
     .toString().split("\0").filter(Boolean);
   const manifest = {};
   for (const file of [...new Set(files)].sort()) {

@@ -1,0 +1,700 @@
+--- /dev/null
++++ b/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageCheckpointExport.scala
+@@ -0,0 +1,107 @@
++package reframe4s.halfflow
++
++import image4s.{ContinuousImage, SampleSpace}
++import image4s.geometry.{Affine, D3}
++import image4s.geometry.Frame as CanonicalFrame
++import image4s.nifti.Nifti
++import java.nio.file.{Files, Path, Paths, StandardOpenOption}
++import ravel.Rank
++import reframe4s.benchmark.flashalign.EvidenceHash
++import reframe4s.halfflow.internal.*
++
++/** Offline export of a committed raw checkpoint. Source captures are immutable;
++  * export construction, admission and failures are written to a separate tree.
++  */
++object RealImageCheckpointExport:
++  private sealed trait Work
++  private sealed trait Fixed
++  private sealed trait Moving
++  private def right[E, A](value: Either[E, A]): A =
++    value.fold(error => throw new IllegalArgumentException(error.toString), identity)
++
++  def main(args: Array[String]): Unit =
++    require(args.length == 5, "moving fixed fixed-mask committed-checkpoint output")
++    val moving = right(Nifti.readScaledDouble(Paths.get(args(0))))
++    val fixed = right(Nifti.readScaledDouble(Paths.get(args(1))))
++    moving.image.fold(_ => throw new IllegalArgumentException("scalar D3 moving required"),
++      m => fixed.image.fold(_ => throw new IllegalArgumentException("scalar D3 fixed required"),
++        f => run(right(m.value.requireDataRank[3]), right(f.value.requireDataRank[3]),
++          Paths.get(args(2)), Paths.get(args(3)), Paths.get(args(4)), args.take(3).map(Paths.get(_)).toVector)))
++
++  private[halfflow] def workGrid(checkpoint: Path, native: GridSpec): GridSpec =
++    val metadata = Files.readString(checkpoint.resolve("midpoint-fixed-residual.json"))
++    def array(key: String): Vector[Double] =
++      val pattern = ("\"" + key + "\"\\s*:\\s*\\[([^\\]]+)\\]").r
++      pattern.findFirstMatchIn(metadata).getOrElse(
++        throw new IllegalArgumentException("missing checkpoint grid " + key)).group(1)
++        .split(",").map(_.trim.toDouble).toVector
++    val shape = array("shape")
++    require(shape.length == 3 && shape.forall(n => n.isFinite && n > 0 && n == n.toInt.toDouble),
++      "invalid checkpoint grid shape")
++    native.withGeometry(shape.map(_.toInt), right(Affine.fromRowMajor[D3](array("index_to_ras_mm"))))
++
++  private[halfflow] def loadState[W, F, M](checkpoint: Path, work: RegistrationFrame[W],
++      fixed: RegistrationFrame[F], moving: RegistrationFrame[M]): ForwardMidpoint[W, F, M] =
++    val fixedArm = RealImageObjectiveAudit.loadArm(checkpoint, "fixed", work, fixed)
++    val movingArm = RealImageObjectiveAudit.loadArm(checkpoint, "moving", work, moving)
++    // The runner's splitAt creates (root.inverse, root). Affine stores both
++    // matrices, so independently inverting the serialized fixed matrix would
++    // lose the exact cached root. Rebuild the same pair, checking every saved
++    // forward coefficient before using that construction.
++    val fixedOperator = movingArm.affine.transform.inverse
++    require(fixedOperator.rowMajor == fixedArm.affine.transform.rowMajor,
++      "checkpoint affine arms do not match the runner's declared midpoint split")
++    val exactFixed = right(ForwardMidpointArm.make(fixedArm.residual,
++      right(AffineIso.make(work, fixed, fixedOperator))))
++    right(ForwardMidpoint.make(exactFixed, movingArm))
++
++  private def run[M <: CanonicalFrame[D3], F <: CanonicalFrame[D3],
++      MS <: SampleSpace[M, D3], FS <: SampleSpace[F, D3]](
++      moving: ContinuousImage[MS, Double, Rank[3]], fixed: ContinuousImage[FS, Double, Rank[3]],
++      maskPath: Path, checkpoint: Path, output: Path, imagePaths: Vector[Path]
++  ): Unit =
++    require(!Files.exists(output), "refusing to overwrite checkpoint export")
++    require(Files.isRegularFile(checkpoint.resolve("checkpoint.json")), "uncommitted checkpoint")
++    val fg = GridSpec.fromGrid(fixed.grid)
++    val mg = GridSpec.fromGrid(moving.grid)
++    val ff = RegistrationFrame[Fixed](SpatialDomainId("checkpoint-fixed"), fg)
++    val mf = RegistrationFrame[Moving](SpatialDomainId("checkpoint-moving"), mg)
++    val nativeWork = RegistrationFrame[Work](SpatialDomainId("checkpoint-work"), fg)
++    val capturedWork = RegistrationFrame[Work](nativeWork.domain, workGrid(checkpoint, fg))
++    val fv = NeuroVol.fromRavel(fixed.data, fg, "fixed")
++    val mv = NeuroVol.fromRavel(moving.data, mg, "moving")
++    val mask = FieldValidity.copyMask(RealImageRegistration.loadMask(maskPath, fg))
++    val movingMask = FieldValidity.copyMask(mv.copyLegacyLinear.map(_ > 0.0))
++    val state = loadState(checkpoint, capturedWork, ff, mf)
++    val config = RealImageRegistration.finePlan(50, 1e-3, 6.0).exportConfig
++    val files = Vector("fixed", "moving").flatMap: arm =>
++      Vector(".json", ".f64", ".valid-u8").map(s => checkpoint.resolve(s"midpoint-$arm-residual$s")) :+
++        checkpoint.resolve(s"midpoint-$arm-affine.json")
++    Files.createDirectories(output)
++    val inputs = (files ++ imagePaths :+ checkpoint.resolve("checkpoint.json"))
++      .map(p => p.toAbsolutePath.toString -> EvidenceHash.file(p).hex).toMap
++    write(output.resolve("inputs.json"), inputs)
++    Files.writeString(output.resolve("export-config.txt"), config.toString + "\n", StandardOpenOption.CREATE_NEW)
++    var lane: Option[String] = None
++    val status = state.regrid(nativeWork, ff, mf) match
++      case Left(error) => s"regrid failed: ${error.message}"
++      case Right(native) =>
++        ForwardMidpointExporter.inspect(native, config, Some(mask), Some(movingMask)) match
++          case Left(error) => s"export construction failed: ${error.message}"
++          case Right(candidate) =>
++            val admitted = ForwardMidpointExporter.admit(candidate, config)
++            lane = Some(if admitted.isRight then "halfflow" else "halfflow-rejected")
++            RealImageRegistration.savePair(lane.get, candidate.transform, mv, fv, output)
++            Files.writeString(output.resolve("export-diagnostics.txt"),
++              s"${candidate.fixedResidualInverse}\n${candidate.movingResidualInverse}\n${candidate.endpointRoundTrip}\n",
++              StandardOpenOption.CREATE_NEW)
++            admitted.fold(error => s"rejected: ${error.message}", _ => "native export gate accepted")
++    Files.writeString(output.resolve("export-status.txt"), status + "\n", StandardOpenOption.CREATE_NEW)
++    write(output.resolve("result.json"), Map("schema" -> "halfflow-offline-checkpoint-export-v1",
++      "checkpoint_sha256" -> EvidenceHash.file(checkpoint.resolve("checkpoint.json")).hex,
++      "status" -> status, "lane" -> lane, "native_export_admitted" -> (status == "native export gate accepted"),
++      "diagnostic_only" -> true, "qualification_claim" -> false))
++
++  private def write(path: Path, value: Any): Unit =
++    Files.writeString(path, RealImageCheckpointJson.encode(value) + "\n", StandardOpenOption.CREATE_NEW)
++    ()
+--- a/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageCheckpoints.scala
++++ b/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageCheckpoints.scala
+@@ -8,7 +8,8 @@
+     acceptedSteps: Vector[Int],
+     rejectedAttempts: Vector[Int],
+     maximumStates: Int,
+-    manifest: Path
++    manifest: Path,
++    deferNativeExport: Boolean = false
+ )
+ 
+ /** Diagnostics are saved on native prepared-image grids for common scoring.
+@@ -50,7 +51,23 @@
+                                   "moving" -> state.moving.affine.transform.matrix) do
+         Files.writeString(directory.resolve(s"midpoint-$arm-affine.json"),
+           (0 until 16).map(i => matrix(i / 4, i % 4)).mkString("[", ",", "]"), StandardOpenOption.CREATE_NEW)
+-      val status = state.regrid(initial.work, initial.fixed.endpoint, initial.moving.endpoint) match
++      val status = if policy.deferNativeExport then "deferred: raw midpoint captured; native export pending"
++      else exportNative(state, directory)
++      Files.writeString(directory.resolve("export-status.txt"), status + "\n", StandardOpenOption.CREATE_NEW)
++      name -> status
++    val record = Map[String, Any](
++      "schema" -> "halfflow-checkpoint-v1", "diagnostic_only" -> true,
++      "serial" -> serial, "manifest_sha256" -> manifestHash,
++      "info" -> info, "capture_status" -> checkpoint.captureStatus,
++      "directory" -> saved.map(_._1), "export_status" -> saved.map(_._2))
++    val json = RealImageCheckpointJson.encode(record)
++    saved.foreach: (directory, _) =>
++      Files.writeString(root.resolve(directory).resolve("checkpoint.json"), json + "\n", StandardOpenOption.CREATE_NEW)
++    Files.writeString(root.resolve("events.jsonl"), json + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND)
++    ()
++
++  private def exportNative(state: ForwardMidpoint[W, F, M], directory: Path): String =
++    state.regrid(initial.work, initial.fixed.endpoint, initial.moving.endpoint) match
+         case Left(error) => s"regrid failed: ${error.message}"
+         case Right(native) =>
+           ForwardMidpointExporter.inspect(native, plan.exportConfig,
+@@ -64,18 +81,6 @@
+                 s"${candidate.fixedResidualInverse}\n${candidate.movingResidualInverse}\n${candidate.endpointRoundTrip}\n",
+                 StandardOpenOption.CREATE_NEW)
+               admitted.fold(error => s"rejected: ${error.message}", _ => "native export gate accepted")
+-      Files.writeString(directory.resolve("export-status.txt"), status + "\n", StandardOpenOption.CREATE_NEW)
+-      name -> status
+-    val record = Map[String, Any](
+-      "schema" -> "halfflow-checkpoint-v1", "diagnostic_only" -> true,
+-      "serial" -> serial, "manifest_sha256" -> manifestHash,
+-      "info" -> info, "capture_status" -> checkpoint.captureStatus,
+-      "directory" -> saved.map(_._1), "export_status" -> saved.map(_._2))
+-    val json = RealImageCheckpointJson.encode(record)
+-    saved.foreach: (directory, _) =>
+-      Files.writeString(root.resolve(directory).resolve("checkpoint.json"), json + "\n", StandardOpenOption.CREATE_NEW)
+-    Files.writeString(root.resolve("events.jsonl"), json + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND)
+-    ()
+ 
+ private[halfflow] object RealImageCheckpointJson:
+   def encode(value: Any): String = value match
+--- /dev/null
++++ b/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageObjectiveAudit.scala
+@@ -0,0 +1,165 @@
++package reframe4s.halfflow
++
++import image4s.{ContinuousImage, SampleSpace}
++import image4s.geometry.{Affine, D3}
++import image4s.geometry.Frame as CanonicalFrame
++import image4s.nifti.Nifti
++import java.io.{BufferedInputStream, DataInputStream}
++import java.nio.file.{Files, Path, Paths, StandardOpenOption}
++import ravel.Rank
++import reframe4s.benchmark.flashalign.EvidenceHash
++import reframe4s.halfflow.internal.*
++
++/** Read-only fine-level checkpoint audit. No labels, fitting or export admission.
++  * The objective/gradient come from the production session; perturbations use
++  * the actual paired integration, residual composition and image interpolation.
++  */
++object RealImageObjectiveAudit:
++  private sealed trait Work
++  private sealed trait Fixed
++  private sealed trait Moving
++  private def right[E, A](value: Either[E, A]): A =
++    value.fold(error => throw new IllegalArgumentException(error.toString), identity)
++
++  def main(args: Array[String]): Unit =
++    require(args.length == 7,
++      "moving fixed fixed-mask fine-checkpoint output expected-loss checkpoint-damping")
++    val moving = right(Nifti.readScaledDouble(Paths.get(args(0))))
++    val fixed = right(Nifti.readScaledDouble(Paths.get(args(1))))
++    moving.image.fold(_ => throw new IllegalArgumentException("scalar D3 moving required"),
++      m => fixed.image.fold(_ => throw new IllegalArgumentException("scalar D3 fixed required"),
++        f => run(right(m.value.requireDataRank[3]), right(f.value.requireDataRank[3]),
++          Paths.get(args(2)), Paths.get(args(3)), Paths.get(args(4)), args(5).toDouble, args(6).toDouble)))
++
++  private def run[M <: CanonicalFrame[D3], F <: CanonicalFrame[D3],
++      MS <: SampleSpace[M, D3], FS <: SampleSpace[F, D3]](
++      moving: ContinuousImage[MS, Double, Rank[3]], fixed: ContinuousImage[FS, Double, Rank[3]],
++      maskPath: Path, checkpoint: Path, output: Path, expectedLoss: Double, damping: Double
++  ): Unit =
++    require(!Files.exists(output), "refusing to overwrite objective audit")
++    require(expectedLoss.isFinite && damping.isFinite && damping > 0.0)
++    val fg = GridSpec.fromGrid(fixed.grid)
++    val mg = GridSpec.fromGrid(moving.grid)
++    val ff = RegistrationFrame[Fixed](SpatialDomainId("objective-audit-fixed"), fg)
++    val mf = RegistrationFrame[Moving](SpatialDomainId("objective-audit-moving"), mg)
++    val wf = RegistrationFrame[Work](SpatialDomainId("objective-audit-work"), fg)
++    val fv = NeuroVol.fromRavel(fixed.data, fg, "fixed")
++    val mv = NeuroVol.fromRavel(moving.data, mg, "moving")
++    val fi = right(RegistrationImage.make(ff, fv,
++      FieldValidity.copyMask(RealImageRegistration.loadMask(maskPath, fg))))
++    val mi = right(RegistrationImage.make(mf, mv))
++    val state = right(ForwardMidpoint.make(loadArm(checkpoint, "fixed", wf, ff),
++      loadArm(checkpoint, "moving", wf, mf)))
++    val plan = RealImageRegistration.finePlan(50, 1e-3, 6.0, 20, 6.0, 1.5)
++    val probe = right(HalfFlowCc.probeObjectiveAtLevel(fi, mi, state, plan.levels.last, plan))
++    val sampledIntensity = probe.sampledIntensity.getOrElse(
++      throw new IllegalArgumentException("CC intensity-space diagnostic required"))
++    require(math.abs(probe.audit.loss - expectedLoss) <= 1e-12,
++      s"saved objective not reproduced: ${probe.audit.loss} versus $expectedLoss")
++    require(math.abs(right(probe.value(state)) - expectedLoss) <= 1e-12, "frozen current value mismatch")
++    val n = fg.nVoxels
++    val norms = Array.tabulate(n): i =>
++      math.sqrt((0 until 3).map(c => math.pow(probe.gradient(i + c * n), 2)).sum)
++    val maximum = norms.max
++    require(maximum.isFinite && maximum > 0.0, "missing finite nonzero gradient")
++    val crossover = math.sqrt(damping * (2.0 * probe.audit.loss + plan.rankOneEnergyEpsilon))
++    Files.createDirectories(output)
++    val files = Vector("fixed", "moving").flatMap: arm =>
++      Vector(".json", ".f64", ".valid-u8").map(s => checkpoint.resolve(s"midpoint-$arm-residual$s")) :+
++        checkpoint.resolve(s"midpoint-$arm-affine.json")
++    val inputs = (files :+ maskPath :+ checkpoint.resolve("checkpoint.json"))
++      .map(p => p.toAbsolutePath.toString -> EvidenceHash.file(p).hex).toMap
++    write(output.resolve("initial.json"), Map("schema" -> "halfflow-objective-probe-v2",
++      "audit" -> probe.audit, "expected_loss" -> expectedLoss, "inputs" -> inputs,
++      "damping" -> damping, "gradient_maximum" -> maximum,
++      "gradient_valid" -> probe.gradientValid.count(identity), "gradient_nonzero" -> norms.count(_ > 0.0),
++      "rank_one_crossover" -> crossover, "gradient_above_crossover" -> norms.count(_ > crossover),
++      "scope" -> "Frozen objective before accumulated regularization; no convergence or qualification claim"))
++    val epsilons = Vector(0.5, 0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002)
++    val results = Vector.newBuilder[Map[String, Any]]
++    for name <- Vector("translation", "smooth-wave", "negative-gradient") do
++      val direction = new Array[Double](3 * n)
++      var i = 0
++      while i < n do
++        val x = i % fg.extentX
++        val y = (i / fg.extentX) % fg.extentY
++        val z = i / (fg.extentX * fg.extentY)
++        val wave = math.sin(2.0 * math.Pi * x / (fg.extentX - 1)) *
++          math.sin(math.Pi * y / (fg.extentY - 1)) * math.sin(math.Pi * z / (fg.extentZ - 1))
++        for c <- 0 until 3 do
++          direction(i + c * n) = name match
++            case "translation" => Vector(0.73, -0.21, 0.16)(c)
++            case "smooth-wave" => wave * Vector(0.73, -0.21, 0.16)(c)
++            case _ => -probe.gradient(i + c * n) / maximum
++        i += 1
++      VelocityBoundaryTaper.inPlace(direction, fg, plan.velocityBoundaryWidthMm)
++      var analytic = 0.0
++      i = 0
++      while i < direction.length do
++        analytic += probe.gradient(i) * direction(i)
++        i += 1
++      val rows = epsilons.map: epsilon =>
++        def value(scale: Double): HalfFlowSampledIntensityProbe =
++          val velocity = right(Velocity.make(wf, DenseVectorField.fromLegacyPlanar(fg,
++            direction.map(_ * scale), DenseVectorFieldKind.Displacement)))
++          val half = HalfStep.fromPairedFlow(right(PairedScalingAndSquaring.expHalfPair(velocity)))
++          val candidate = right(state.advance(half))
++          right(sampledIntensity(candidate))
++        val plus = value(epsilon)
++        val minus = value(-epsilon)
++        val numerical = (plus.loss - minus.loss) / (2.0 * epsilon)
++        val intensityChain = (plus.linearizedChange - minus.linearizedChange) / (2.0 * epsilon)
++        val chainError = math.abs(numerical - intensityChain) /
++          math.max(1e-12, math.abs(numerical) + math.abs(intensityChain))
++        val error = math.abs(numerical - analytic) / math.max(1e-12, math.abs(numerical) + math.abs(analytic))
++        val row = Map[String, Any]("direction" -> name, "epsilon_mm" -> epsilon,
++          "analytic" -> analytic, "finite_difference" -> numerical, "relative_error" -> error,
++          "plus_loss" -> plus.loss, "minus_loss" -> minus.loss,
++          "intensity_chain_derivative" -> intensityChain, "intensity_chain_relative_error" -> chainError)
++        Files.writeString(output.resolve("curve.jsonl"), RealImageCheckpointJson.encode(row) + "\n",
++          StandardOpenOption.CREATE, StandardOpenOption.APPEND)
++        println(RealImageCheckpointJson.encode(row))
++        row
++      results += Map("direction" -> name, "analytic" -> analytic, "rows" -> rows)
++    require(math.abs(right(probe.value(state)) - expectedLoss) <= 1e-12, "probe mutated frozen objective")
++    write(output.resolve("result.json"), Map("directions" -> results.result(),
++      "current_loss_unchanged" -> true, "qualification_claim" -> false))
++
++  private[halfflow] def loadArm[W, E](directory: Path, arm: String, work: RegistrationFrame[W],
++      endpoint: RegistrationFrame[E]): ForwardMidpointArm[W, E] =
++    val name = s"midpoint-$arm-residual"
++    val metadata = Files.readString(directory.resolve(name + ".json"))
++    def array(key: String): Vector[Double] =
++      val pattern = ("\"" + key + "\"\\s*:\\s*\\[([^\\]]+)\\]").r
++      pattern.findFirstMatchIn(metadata).getOrElse(throw new IllegalArgumentException(s"missing $key"))
++        .group(1).split(",").map(_.trim.toDouble).toVector
++    require(array("shape") == work.grid.shape.map(_.toDouble), "checkpoint is not on the native fine work grid")
++    val matrix = right(Affine.fromRowMajor[D3](array("index_to_ras_mm")))
++    require((0 until 16).forall(i => matrix.matrix(i / 4, i % 4) == work.grid.affine(i / 4, i % 4)),
++      "checkpoint work affine coefficients differ")
++    require(metadata.contains("\"dtype\":\">f8\"") && metadata.contains("\"voxel_order\":\"x-fastest\"") &&
++      metadata.contains("\"components\":\"interleaved-xyz\"") && metadata.contains("\"map\":\"absolute-source-RAS-mm\""))
++    val n = work.grid.nVoxels
++    val binary = directory.resolve(name + ".f64")
++    require(Files.size(binary) == n.toLong * 24, "wrong checkpoint coordinate length")
++    val stream = new DataInputStream(new BufferedInputStream(Files.newInputStream(binary)))
++    val coordinates = new Array[Double](3 * n)
++    try
++      var i = 0
++      while i < n do
++        for c <- 0 until 3 do coordinates(i + c * n) = stream.readDouble()
++        i += 1
++    finally stream.close()
++    val validity = Files.readAllBytes(directory.resolve(name + ".valid-u8"))
++    require(validity.length == n && validity.forall(v => v == 0 || v == 1), "invalid validity buffer")
++    val residual = right(DensePull.make(work, work,
++      DenseVectorField.fromLegacyPlanar(work.grid, coordinates, DenseVectorFieldKind.SourceCoordinates),
++      FieldValidity.copyMask(validity.map(_ == 1))))
++    val values = Files.readString(directory.resolve(s"midpoint-$arm-affine.json"))
++      .stripPrefix("[").stripSuffix("]").split(",").map(_.trim.toDouble).toVector
++    right(ForwardMidpointArm.make(residual, right(AffineIso.make(work, endpoint,
++      right(Affine.fromRowMajor[D3](values))))))
++
++  private def write(path: Path, value: Any): Unit =
++    Files.writeString(path, RealImageCheckpointJson.encode(value) + "\n", StandardOpenOption.CREATE_NEW)
++    ()
+--- a/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageRegistration.scala
++++ b/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageRegistration.scala
+@@ -45,7 +45,7 @@
+     require(flags.length % 2 == 0, "development flags require values")
+     val pairs = flags.grouped(2).map(p => p(0) -> p(1)).toVector
+     require(pairs.map(_._1).distinct.size == pairs.size, "duplicate development flag")
+-    val checkpointFlags = Set("--checkpoint-accepted", "--checkpoint-rejected", "--checkpoint-max-states", "--checkpoint-manifest")
++    val checkpointFlags = Set("--checkpoint-accepted", "--checkpoint-rejected", "--checkpoint-max-states", "--checkpoint-manifest", "--checkpoint-defer-export")
+     require(pairs.forall(p => (Set("--steps-per-level", "--fine-smoothing-mm", "--affine-budget", "--policy-receipt", "--total-smoothing-mm", "--boundary-width-mm", "--fine-total-smoothing-mm", "--scale-total-smoothing-by-step", "--affine-trials", "--fine-cc-radius") ++ checkpointFlags).contains(p._1)), "unknown development flag")
+     val values = pairs.toMap
+     val checkpoints =
+@@ -61,7 +61,8 @@
+         require(accepted.nonEmpty && accepted.distinct == accepted && accepted.forall(_ >= 0), "invalid accepted checkpoint indices")
+         require(rejected.distinct == rejected && rejected.forall(n => n > 0 && n <= 10000), "invalid rejected checkpoint indices")
+         require(maximum >= 0 && maximum <= 128, "checkpoint state budget must lie in [0,128]")
+-        Some(RealImageCheckpointPolicy(accepted, rejected, maximum, Paths.get(values("--checkpoint-manifest"))))
++        Some(RealImageCheckpointPolicy(accepted, rejected, maximum, Paths.get(values("--checkpoint-manifest")),
++          values.get("--checkpoint-defer-export").fold(false)(_.toBoolean)))
+     val result = RunOptions(
+       values.get("--steps-per-level").fold(10)(_.toInt),
+       values.get("--fine-smoothing-mm").fold(6.0)(_.toDouble),
+--- /dev/null
++++ b/benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageCheckpointExportSuite.scala
+@@ -0,0 +1,57 @@
++package reframe4s.halfflow
++
++import image4s.geometry.{Affine, D3}
++import java.nio.file.Files
++import reframe4s.halfflow.internal.*
++
++final class RealImageCheckpointExportSuite extends munit.FunSuite:
++  private sealed trait Work
++  private sealed trait Fixed
++  private sealed trait Moving
++
++  test("midpoint affine reload preserves both cached directions and rejects an inconsistent pair"):
++    val grid = GridSpec.identity(Vector(3, 4, 5))
++    val work = RegistrationFrame[Work](SpatialDomainId("export-work"), grid)
++    val fixed = RegistrationFrame[Fixed](SpatialDomainId("export-fixed"), grid)
++    val moving = RegistrationFrame[Moving](SpatialDomainId("export-moving"), grid)
++    val root = Affine.fromRowMajor[D3](Vector(
++      1.13, 0.027, -0.019, 3.17, -0.013, 0.97, 0.031, -1.23,
++      0.017, -0.023, 1.07, 2.19, 0.0, 0.0, 0.0, 1.0)).toOption.get
++    val directory = Files.createTempDirectory("halfflow-offline-pair-")
++    try
++      val volume = NeuroVol.fromLinear(Array.fill(grid.nVoxels)(1.0), grid)
++      for (name, operator) <- Vector("fixed" -> root.inverse, "moving" -> root) do
++        RealImageRegistration.savePull("midpoint-"+name+"-residual", DensePull.identity(work), volume, directory)
++        Files.writeString(directory.resolve("midpoint-"+name+"-affine.json"), operator.rowMajor.mkString("[", ",", "]"))
++      val loaded = RealImageCheckpointExport.loadState(directory, work, fixed, moving)
++      assertEquals(loaded.fixed.affine.transform.rowMajor, root.inverse.rowMajor)
++      assertEquals(loaded.fixed.affine.transform.inverse.rowMajor, root.rowMajor)
++      assertEquals(loaded.moving.affine.transform.inverse.rowMajor, root.inverse.rowMajor)
++      Files.writeString(directory.resolve("midpoint-fixed-affine.json"), Affine.identity[D3].rowMajor.mkString("[", ",", "]"))
++      val _ = intercept[IllegalArgumentException](RealImageCheckpointExport.loadState(directory, work, fixed, moving))
++    finally
++      val files = Files.list(directory)
++      try files.forEach(path => { Files.delete(path); () })
++      finally files.close()
++      Files.delete(directory)
++
++  test("captured coarse geometry binds to the native live owner and preserves oblique coefficients"):
++    val native = GridSpec.identity(Vector(13, 15, 17))
++    val affine = Affine.fromRowMajor[D3](Vector(
++      2.0, 0.25, 0.0, -7.125,
++      0.0, 3.0, 0.125, 2.375,
++      0.0, 0.0, 4.0, -9.625,
++      0.0, 0.0, 0.0, 1.0)).toOption.get
++    val expected = native.withGeometry(Vector(7, 8, 9), affine)
++    val directory = Files.createTempDirectory("halfflow-offline-grid-")
++    val path = directory.resolve("midpoint-fixed-residual.json")
++    try
++      Files.writeString(path, s"""{"shape":[7,8,9],"index_to_ras_mm":${affine.rowMajor.mkString("[", ",", "]")}}""")
++      val loaded = RealImageCheckpointExport.workGrid(directory, native)
++      assertEquals(loaded, expected)
++      assert(loaded.canonical.grid.frame.sameRuntimeOwnerAs(native.canonical.grid.frame))
++      Files.writeString(path, """{"shape":[7,8.5,9],"index_to_ras_mm":[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]}""")
++      val _ = intercept[IllegalArgumentException](RealImageCheckpointExport.workGrid(directory, native))
++    finally
++      Files.deleteIfExists(path)
++      Files.delete(directory)
+--- /dev/null
++++ b/benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageObjectiveAuditSuite.scala
+@@ -0,0 +1,44 @@
++package reframe4s.halfflow
++
++import java.io.DataOutputStream
++import java.nio.file.Files
++import reframe4s.halfflow.internal.*
++
++class RealImageObjectiveAuditSuite extends munit.FunSuite:
++  private sealed trait Work
++  private sealed trait Endpoint
++
++  test("checkpoint loader preserves interleaved physical coordinates and compares affine coefficients"):
++    val directory = Files.createTempDirectory("halfflow-checkpoint-load-")
++    val grid = GridSpec.identity(Vector(3, 4, 5))
++    val work = RegistrationFrame[Work](SpatialDomainId("loader-work"), grid)
++    val endpoint = RegistrationFrame[Endpoint](SpatialDomainId("loader-endpoint"), grid)
++    val name = "midpoint-fixed-residual"
++    val affine = "[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]"
++    def metadata(matrix: String): String =
++      s"""{"shape":[3,4,5],"index_to_ras_mm":$matrix,"dtype":">f8","voxel_order":"x-fastest","components":"interleaved-xyz","map":"absolute-source-RAS-mm"}"""
++    val meta = directory.resolve(name + ".json")
++    val coordinates = directory.resolve(name + ".f64")
++    val validity = directory.resolve(name + ".valid-u8")
++    val armAffine = directory.resolve("midpoint-fixed-affine.json")
++    try
++      Files.writeString(meta, metadata(affine))
++      Files.writeString(armAffine, affine)
++      Files.write(validity, Array.fill[Byte](grid.nVoxels)(1))
++      val stream = new DataOutputStream(Files.newOutputStream(coordinates))
++      try
++        for i <- 0 until grid.nVoxels do
++          stream.writeDouble(i % 3 + 0.125)
++          stream.writeDouble((i / 3) % 4 - 0.25)
++          stream.writeDouble(i / 12 + 0.5)
++      finally stream.close()
++      val loaded = RealImageObjectiveAudit.loadArm(directory, "fixed", work, endpoint)
++      for i <- 0 until grid.nVoxels do
++        assertEqualsDouble(loaded.residual.sourceCoordinates.linearComponent(i, 0), i % 3 + 0.125, 0.0)
++        assertEqualsDouble(loaded.residual.sourceCoordinates.linearComponent(i, 1), (i / 3) % 4 - 0.25, 0.0)
++        assertEqualsDouble(loaded.residual.sourceCoordinates.linearComponent(i, 2), i / 12 + 0.5, 0.0)
++      Files.writeString(meta, metadata("[1,0,0,0.25,0,1,0,0,0,0,1,0,0,0,0,1]"))
++      val _ = intercept[IllegalArgumentException](RealImageObjectiveAudit.loadArm(directory, "fixed", work, endpoint))
++    finally
++      Vector(meta, coordinates, validity, armAffine).foreach(Files.delete)
++      Files.delete(directory)
+--- a/benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageRegistrationSuite.scala
++++ b/benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageRegistrationSuite.scala
+@@ -16,11 +16,15 @@
+     assertEquals(selected.acceptedSteps, Vector(0, 1, 2, 5, 10))
+     assertEquals(selected.rejectedAttempts, Vector(1, 2, 6))
+     assertEquals(selected.maximumStates, 24)
++    assertEquals(selected.deferNativeExport, false)
++    assertEquals(RealImageRegistration.parseOptions(flags ++ Vector("--checkpoint-defer-export", "true"))
++      .checkpoints.get.deferNativeExport, true)
+     assertEquals(selected.manifest, java.nio.file.Paths.get("protocol.json"))
+     for invalid <- Vector(
+       Vector("--checkpoint-max-states", "1"),
+       flags.updated(1, "-1"), flags.updated(1, "1,1"), flags.updated(1, "11"),
+-      flags.updated(3, "0"), flags.updated(5, "129"), flags.updated(5, "-1")
++      flags.updated(3, "0"), flags.updated(5, "129"), flags.updated(5, "-1"),
++      flags ++ Vector("--checkpoint-defer-export", "maybe")
+     ) do
+       val _ = intercept[IllegalArgumentException](RealImageRegistration.parseOptions(invalid))
+ 
+--- a/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala
++++ b/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala
+@@ -291,6 +291,7 @@
+     def edgeActiveFraction: Double
+     def smoothingWeight: Array[Double]
+     def audit: HalfFlowCcObjectiveAudit
++    def intensityGradientSnapshot: Option[(Array[Double], Array[Double])] = None
+     def initialize(fixed: CcWarpBuffer, moving: CcWarpBuffer): Either[RegistrationError, Unit]
+     def candidateValue(fixed: CcWarpBuffer, moving: CcWarpBuffer): Either[RegistrationError, Double]
+     def gradientInto(
+@@ -316,6 +317,8 @@
+     def activeFraction: Double = evaluation.diagnostics.support.activeFraction
+     def edgeActiveFraction: Double = evaluation.diagnostics.support.edgeBandActiveFraction
+     def smoothingWeight: Array[Double] = frozen.support
++    override def intensityGradientSnapshot: Option[(Array[Double], Array[Double])] =
++      Some((evaluation.fixedIntensityGradient.clone(), evaluation.movingIntensityGradient.clone()))
+     def audit: HalfFlowCcObjectiveAudit =
+       HalfFlowCcObjectiveAudit(loss, activeFraction, edgeActiveFraction,
+         HalfFlowCcWeightSummary.from(frozen.support),
+@@ -529,6 +532,59 @@
+     level.metric match
+       case HalfFlowCcMetric.TrueNeighborhoodCc => TrueCcSession(frame, level, plan)
+       case HalfFlowCcMetric.StandardizedCenter(feature) => StandardizedCenterSession(frame, feature, plan.action)
++
++  /** Inspect one already-prepared pyramid level using the production objective
++    * and gradient path. Callers supply the exact level images and saved state;
++    * this method performs no resampling, optimization or label-based selection.
++    */
++  private[halfflow] def probeObjectiveAtLevel[W, F, M](
++      fixed: RegistrationImage[F],
++      moving: RegistrationImage[M],
++      state: ForwardMidpoint[W, F, M],
++      level: HalfFlowCcLevel,
++      plan: HalfFlowCcPlan
++  ): Either[RegistrationError, HalfFlowCcObjectiveProbe[W, F, M]] =
++    if state.fixed.endpoint != fixed.frame || state.moving.endpoint != moving.frame then
++      Left(RegistrationError.GridMismatch("objective probe level endpoint frames"))
++    else
++      val fixedLevel = CcLevelImage(fixed, DenseFieldSampler(fixed.frame.grid))
++      val movingLevel = CcLevelImage(moving, DenseFieldSampler(moving.frame.grid))
++      val fixedWarp = CcWarpBuffer(state.work.grid.nVoxels)
++      val movingWarp = CcWarpBuffer(state.work.grid.nVoxels)
++      val workspace = CcStepWorkspace(state.work)
++      val objective = objectiveSession(state.work, level, plan)
++      warp(fixedLevel, movingLevel, state, fixedWarp, movingWarp)
++      for
++        _ <- objective.initialize(fixedWarp, movingWarp)
++        _ <- objective.gradientInto(fixedWarp, movingWarp, workspace)
++      yield
++        def compatible(candidate: ForwardMidpoint[W, F, M]): Boolean =
++          candidate.work == state.work && candidate.fixed.endpoint == fixed.frame &&
++            candidate.moving.endpoint == moving.frame
++        val sampledIntensity = objective.intensityGradientSnapshot.map: (fixedDerivative, movingDerivative) =>
++          val initialFixed = fixedWarp.values.clone()
++          val initialMoving = movingWarp.values.clone()
++          (candidate: ForwardMidpoint[W, F, M]) =>
++            if !compatible(candidate) then
++              Left(RegistrationError.GridMismatch("objective probe candidate frames"))
++            else
++              warp(fixedLevel, movingLevel, candidate, fixedWarp, movingWarp)
++              var change = 0.0
++              var index = 0
++              while index < initialFixed.length do
++                change += fixedDerivative(index) * (fixedWarp.values(index) - initialFixed(index)) +
++                  movingDerivative(index) * (movingWarp.values(index) - initialMoving(index))
++                index += 1
++              objective.candidateValue(fixedWarp, movingWarp).map(loss => HalfFlowSampledIntensityProbe(loss, change))
++        HalfFlowCcObjectiveProbe(objective.audit, workspace.raw.clone(), workspace.movingGradientValid.clone(),
++          candidate =>
++            if !compatible(candidate) then
++              Left(RegistrationError.GridMismatch("objective probe candidate frames"))
++            else
++              warp(fixedLevel, movingLevel, candidate, fixedWarp, movingWarp)
++              objective.candidateValue(fixedWarp, movingWarp),
++          sampledIntensity
++        )
+ 
+   def register[W, F, M](
+       fixed: RegistrationImage[F],
+--- /dev/null
++++ b/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcObjectiveProbe.scala
+@@ -0,0 +1,20 @@
++package reframe4s.halfflow
++
++/** Detached diagnostics plus a single-threaded frozen-objective evaluator.
++  * This opt-in probe does not advance state or participate in optimization.
++  * `gradient` is the production physical velocity gradient, before the
++  * pointwise solver, smoothing, clipping, integration and regularization.
++  */
++private[halfflow] final case class HalfFlowCcObjectiveProbe[W, F, M](
++    audit: HalfFlowCcObjectiveAudit,
++    gradient: Array[Double],
++    gradientValid: Array[Boolean],
++    value: ForwardMidpoint[W, F, M] => Either[RegistrationError, Double],
++    sampledIntensity: Option[ForwardMidpoint[W, F, M] => Either[RegistrationError, HalfFlowSampledIntensityProbe]] = None
++)
++
++/** Frozen loss and its intensity-space linearization at the original state.
++  * Actual candidate warps are used; no spatial-gradient approximation enters
++  * the intensity-space dot product.
++  */
++private[halfflow] final case class HalfFlowSampledIntensityProbe(loss: Double, linearizedChange: Double)
+--- a/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcEngineSuite.scala
++++ b/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcEngineSuite.scala
+@@ -4,6 +4,8 @@
+ import reframe4s.halfflow.internal.*
+ 
+ class HalfFlowCcEngineSuite extends munit.FunSuite:
++  // Dense inverse/export checks exceed MUnit's 30 s default on loaded hosts.
++  override val munitTimeout: scala.concurrent.duration.Duration = scala.concurrent.duration.Duration(120, "s")
+   private sealed trait Work
+   private sealed trait Fixed
+   private sealed trait Moving
+--- /dev/null
++++ b/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcObjectiveProbeSuite.scala
+@@ -0,0 +1,91 @@
++package reframe4s.halfflow
++
++import reframe4s.halfflow.internal.*
++
++class HalfFlowCcObjectiveProbeSuite extends munit.FunSuite:
++  private sealed trait Work
++  private sealed trait Fixed
++  private sealed trait Moving
++  private def right[E, A](value: Either[E, A]): A = value.fold(e => fail(e.toString), identity)
++
++  test("probe reproduces production initialization and retains frozen value after candidate evaluation"):
++    val (fixed, moving, state, plan) = fixture()
++    val probe = right(HalfFlowCc.probeObjectiveAtLevel(fixed, moving, state, plan.levels.head, plan))
++    var recorded = Option.empty[HalfFlowCcObjectiveAudit]
++    val observer = new HalfFlowCcObserver[Work, Fixed, Moving]:
++      def wantsState(info: HalfFlowCcCheckpointInfo): Boolean = false
++      def observe(checkpoint: HalfFlowCcCheckpoint[Work, Fixed, Moving]): Unit =
++        if checkpoint.info.kind == HalfFlowCcCheckpointKind.LevelStart then recorded = Some(checkpoint.info.after)
++    val _ = right(HalfFlowCc.optimizeObserved(fixed, moving, state, plan, HalfFlowCcObservation(observer, 0)))
++    assertEquals(Some(probe.audit), recorded)
++    val beforeFixed = state.fixed.residual.sourceCoordinates.copyLegacyPlanar.toVector
++    val beforeMoving = state.moving.residual.sourceCoordinates.copyLegacyPlanar.toVector
++    val direction = Array.fill(3 * state.work.grid.nVoxels)(0.0)
++    java.util.Arrays.fill(direction, 0, state.work.grid.nVoxels, 0.1)
++    val velocity = right(Velocity.make(state.work,
++      DenseVectorField.fromLegacyPlanar(state.work.grid, direction, DenseVectorFieldKind.Displacement)))
++    val candidate = right(state.advance(HalfStep.fromPairedFlow(right(PairedScalingAndSquaring.expHalfPair(velocity)))))
++    val changed = right(probe.value(candidate))
++    assert(math.abs(changed - probe.audit.loss) > 1e-8)
++    assertEqualsDouble(right(probe.value(state)), probe.audit.loss, 0.0)
++    assertEquals(state.fixed.residual.sourceCoordinates.copyLegacyPlanar.toVector, beforeFixed)
++    assertEquals(state.moving.residual.sourceCoordinates.copyLegacyPlanar.toVector, beforeMoving)
++    java.util.Arrays.fill(probe.gradient, 123.0)
++    assertEqualsDouble(right(probe.value(candidate)), changed, 0.0)
++
++  test("probe refuses mismatched endpoint frames"):
++    val (fixed, moving, state, plan) = fixture()
++    val wrongFrame = RegistrationFrame[Fixed](SpatialDomainId("unrelated-fixed"), fixed.frame.grid)
++    val wrong = right(RegistrationImage.make(wrongFrame, fixed.volume, fixed.validity))
++    assert(HalfFlowCc.probeObjectiveAtLevel(wrong, moving, state, plan.levels.head, plan).isLeft)
++
++  test("sampled intensity linearization agrees with frozen-objective finite differences and is repeatable"):
++    val (fixed, moving, state, plan) = fixture()
++    val probe = right(HalfFlowCc.probeObjectiveAtLevel(fixed, moving, state, plan.levels.head, plan))
++    val sampled = probe.sampledIntensity.get
++    val initial = right(sampled(state))
++    assertEqualsDouble(initial.loss, probe.audit.loss, 0.0)
++    assertEqualsDouble(initial.linearizedChange, 0.0, 0.0)
++    val grid = state.work.grid
++    def sample(step: Double): HalfFlowSampledIntensityProbe =
++      val direction = Array.fill(3 * grid.nVoxels)(0.0)
++      java.util.Arrays.fill(direction, 0, grid.nVoxels, step)
++      VelocityBoundaryTaper.inPlace(direction, grid, 3.0)
++      val velocity = right(Velocity.make(state.work,
++        DenseVectorField.fromLegacyPlanar(grid, direction, DenseVectorFieldKind.Displacement)))
++      val candidate = right(state.advance(HalfStep.fromPairedFlow(right(PairedScalingAndSquaring.expHalfPair(velocity)))))
++      val result = right(sampled(candidate))
++      assertEqualsDouble(result.loss, right(probe.value(candidate)), 0.0)
++      result
++    val errors = Vector(0.02, 0.01, 0.005).map: epsilon =>
++      val plus = sample(epsilon)
++      val minus = sample(-epsilon)
++      val finiteDifference = (plus.loss - minus.loss) / (2.0 * epsilon)
++      val chain = (plus.linearizedChange - minus.linearizedChange) / (2.0 * epsilon)
++      math.abs(chain - finiteDifference) / math.max(1e-12, math.abs(chain) + math.abs(finiteDifference))
++    assert(errors.last < 0.005, errors.toString)
++    assert(errors.sliding(2).forall(pair => pair(1) < pair(0)), errors.toString)
++    assertEquals(right(sampled(state)), initial)
++    java.util.Arrays.fill(probe.gradient, 123.0)
++    assertEquals(right(sampled(state)), initial)
++
++  private def fixture(): (RegistrationImage[Fixed], RegistrationImage[Moving],
++      ForwardMidpoint[Work, Fixed, Moving], HalfFlowCcPlan) =
++    val grid = GridSpec.identity(Vector(17, 17, 17))
++    val work = RegistrationFrame[Work](SpatialDomainId("probe-work"), grid)
++    val ff = RegistrationFrame[Fixed](SpatialDomainId("probe-fixed"), grid)
++    val mf = RegistrationFrame[Moving](SpatialDomainId("probe-moving"), grid)
++    def volume(shift: Double): NeuroVol[Double] =
++      val values = Array.tabulate(grid.nVoxels): i =>
++        val x = i % 17 - shift
++        val y = (i / 17) % 17
++        val z = i / (17 * 17)
++        math.sin(0.27 * x) + math.cos(0.21 * y) + 0.4 * math.sin(0.19 * (x + z))
++      NeuroVol.fromLinear[Double](values, grid.toNeuroSpace, "probe-fixture")
++    val fixed = right(RegistrationImage.make(ff, volume(0.0)))
++    val moving = right(RegistrationImage.make(mf, volume(0.7)))
++    val state = right(ForwardMidpoint.identity(work, ff, mf))
++    val level = right(HalfFlowCcLevel.make(1, 0.0, smoothSigmaMm = 2.0,
++      maximumStepMm = 0.2, targetAcceptedSteps = 1, maximumAttempts = 2))
++    val plan = right(HalfFlowCcPlan.make(Vector(level)))
++    (fixed, moving, state, plan)
+--- a/scripts/halfflow-candidate.mjs
++++ b/scripts/halfflow-candidate.mjs
+@@ -14,7 +14,8 @@
+  * candidate it describes. Dependency revisions are included via build.sbt.
+  */
+ export function candidateSnapshot() {
+-  const files = execFileSync("git", ["ls-files", "-z", "--cached", "--others", "--exclude-standard"], { cwd: root })
++  const files = execFileSync("git", ["ls-files", "-z", "--cached", "--others", "--exclude-standard"],
++    { cwd: root, maxBuffer: 16 * 1024 * 1024 })
+     .toString().split("\0").filter(Boolean);
+   const manifest = {};
+   for (const file of [...new Set(files)].sort()) {

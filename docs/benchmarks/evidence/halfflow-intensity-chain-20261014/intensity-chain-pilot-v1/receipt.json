@@ -1,0 +1,55 @@
+{
+  "schema": "hfq-objective-probe-receipt-v1",
+  "exit_code": 0,
+  "diagnostic_wall_seconds": 324.92495574988425,
+  "source_sha256": "9c223081759c599574ba1c1bab82fe39f24dc0e112979325b0ed207900e0c475",
+  "protocol_sha256": "cc5d1531762ba47ef1cbf92d91e50a956622eddd50d64c0e52bb94993390482e",
+  "run_log_sha256": "3ce0e54de60cfec1a41438ec97dfa204a6ef1a924821002e488f9dcb35ec3b2f",
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false,
+  "directions": [
+    {
+      "direction": "translation",
+      "minimum_relative_error": 0.0589615177278194,
+      "two_step_convergence_region": false,
+      "pass": false
+    },
+    {
+      "direction": "smooth-wave",
+      "minimum_relative_error": 0.15028399153496314,
+      "two_step_convergence_region": true,
+      "pass": false
+    },
+    {
+      "direction": "negative-gradient",
+      "minimum_relative_error": 0.04192723779911525,
+      "two_step_convergence_region": true,
+      "pass": false
+    }
+  ],
+  "gradient_criterion_pass": false,
+  "intensity_chain_directions": [
+    {
+      "direction": "translation",
+      "minimum_relative_error": 2.9911011796830548e-06,
+      "two_step_convergence_region": true,
+      "pass": true
+    },
+    {
+      "direction": "smooth-wave",
+      "minimum_relative_error": 8.943449267832127e-06,
+      "two_step_convergence_region": true,
+      "pass": true
+    },
+    {
+      "direction": "negative-gradient",
+      "minimum_relative_error": 1.9732307521303777e-08,
+      "two_step_convergence_region": true,
+      "pass": true
+    }
+  ],
+  "intensity_chain_criterion_pass": true,
+  "result_sha256": "75e19791567535a5d3903d794d85378457fc9c7aa507466e5e8eeaca46f9f100",
+  "initial_sha256": "ab6d1b8ff7de6df703926f2f03411fe3ca6326a21d3e847546a3010f4749d4a4",
+  "baseline_numerics_reproduced_exactly": true
+}

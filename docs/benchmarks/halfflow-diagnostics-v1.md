@@ -12,10 +12,12 @@ This is HFQ-D01 (`bd-01M4X4DY7DQCVK33MCK3T17NA1`) under the
 [qualification contract](halfflow-qualification-protocol-v1.md). The remaining
 nine declared case/policy replays ended with two diagnostic timeouts and seven
 explicit cancellations. All 13 pilot checkpoints have completed independent
-scoring; partial captures from the other attempts are being scored separately.
+scoring; partial captures from the other attempts are scored separately.
 The [objective-probe follow-up](halfflow-objective-probe-v1.md) records the complete
-attempt ledger and the required capture redesign. D01 and the qualification
-epic remain open.
+attempt ledger. The [deferred-export follow-up](halfflow-deferred-capture-v1.md)
+implements that redesign, verifies exact pilot neutrality and reports the
+committed step-scaled trajectory's intensity/anatomy divergence. A new sealed
+panel replay is running. D01 and the qualification epic remain open.
 
 ## Capture and independent checks
 

@@ -1,0 +1,21 @@
+{
+  "base_source_sha256": "c6958633836fb428ec82d2b128007816967699c567a0c7169300718a48145e50",
+  "source_sha256": "57e03c8b5d3f0af6f65c38e3603f811292c1715065b8127afc12b1e9f8884ad6",
+  "patch_sha256": "4a7ed66b44420388f5fd644b235394149cfe436d8ff78fcceb3523d1a69eff94",
+  "base_reproduction": "P01 control-source.tar.gz plus halfflow-diagnostics-pilot-20261014/instrumentation.patch",
+  "changed_files": {
+    "benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageCheckpointExport.scala": "04812da1d6b49124850620c53a61dcbe5d25ba3fafd8ee88411d170d34951b09",
+    "benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageCheckpoints.scala": "031efcf3a981192415d0df87303f3391189893faaae8cbcffe474b95d8ffd674",
+    "benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageObjectiveAudit.scala": "1be1262e72a48eb5bb64a620d1ed6eb462fba8b26b89266aa06b733aa7b9728f",
+    "benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageRegistration.scala": "942859316f71b33c1a275b2d6303f81ec084047b88ee8a74d317f5eb9848a452",
+    "benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageCheckpointExportSuite.scala": "f15373c0c39582e2bc057b4f817e2fd78d72921a8fbdd03f50957b6aad0c26ed",
+    "benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageObjectiveAuditSuite.scala": "75e7e4941371929e025abf2bfdcdde220f03bca345c96a02177f510647234c3e",
+    "benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageRegistrationSuite.scala": "738b26a82d6f2e7d950da59a0bfd1f6c8af15bd0361bb944eb0760dfed2a9214",
+    "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala": "9045ac0c36714adb67a29ce7669d12bbf9e5471cd7735851797d140cbad6c9f4",
+    "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcObjectiveProbe.scala": "79f8ee03fd7f5dd3515c6fc4cf32cc6913a37ac324fdce0dddffd23788c27374",
+    "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcEngineSuite.scala": "3e8ff7f0f4596e63094a58507e4f574a189d318e2f08b3fc34187131257605de",
+    "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcObjectiveProbeSuite.scala": "452d6b54e950a7b3a5b3eebdbbc305ab8396b8d0487cda58df4cf2b243a64fc1",
+    "scripts/halfflow-candidate.mjs": "0c1c2f22626b95ecd43d3f69f079f193f3c55dad914a4aae02d44e75ec26c167"
+  },
+  "scratch_reconstruction_verified": true
+}

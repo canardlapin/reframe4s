@@ -1,0 +1,64 @@
+{
+  "lane": "halfflow",
+  "directions": {
+    "fixed-to-moving": {
+      "target": "fixed",
+      "source": "moving",
+      "map_sha256": "e699f33d544f98e7334f0ff37a90dd7be23f83cedd56abae243cb85d2d6a2f1d",
+      "all_map_values_finite": true,
+      "grid_jacobian_invalid": 0,
+      "grid_jacobian_nonfinite": 0,
+      "reload_max_abs": 4.440892098500626e-16,
+      "reload_evaluated": 2052237,
+      "reload_excluded": 224403,
+      "ncc": 0.6248886673103302,
+      "brain_mask_dice": 0.8803670629074682,
+      "brain_sampling_coverage": 1.0,
+      "grid_jacobian_min": 0.7506056960257478,
+      "grid_jacobian_nonpositive": 0,
+      "grid_jacobian_evaluated": 2173796,
+      "brain_jacobian_min": 0.7606622888421856,
+      "brain_roundtrip_coverage": 1.0,
+      "brain_roundtrip_max_mm": 0.03496883893321992,
+      "brain_roundtrip_p95_mm": 0.009425397707883953,
+      "whole_valid_roundtrip_max_mm": 0.061099721282586325,
+      "geometry_pass": true
+    },
+    "moving-to-fixed": {
+      "target": "moving",
+      "source": "fixed",
+      "map_sha256": "662ab49b8ec5a470fabadd5edb010cb93f8bdfd0b5cf136b94c7d0c942ea86ce",
+      "all_map_values_finite": true,
+      "grid_jacobian_invalid": 0,
+      "grid_jacobian_nonfinite": 0,
+      "reload_max_abs": 4.440892098500626e-16,
+      "reload_evaluated": 2041356,
+      "reload_excluded": 234144,
+      "ncc": 0.6124408437407626,
+      "brain_mask_dice": 0.8792176432710882,
+      "brain_sampling_coverage": 1.0,
+      "grid_jacobian_min": 0.6051091598601794,
+      "grid_jacobian_nonpositive": 0,
+      "grid_jacobian_evaluated": 2172918,
+      "brain_jacobian_min": 0.7644738761796336,
+      "brain_roundtrip_coverage": 1.0,
+      "brain_roundtrip_max_mm": 0.03373184494667667,
+      "brain_roundtrip_p95_mm": 0.009457373838991414,
+      "whole_valid_roundtrip_max_mm": 0.13513149636872518,
+      "geometry_pass": true
+    }
+  },
+  "anatomical_labels": "not supplied",
+  "input_sha256": {
+    "fixed": "0019d8b7378280aa57de500e26681d9bfc57b88f2644ae68ad9054a87f16d207",
+    "moving": "8058e830973af7d8ef63397ed020ef5232fef9376b558fbfadd4c307c4025df7",
+    "fixed-mask": "4a7744c33777e384e288e714710ff332d9c3e38643c55c79711d5a0dd2407011",
+    "moving-mask": "efc960c8c94eb91d09ffd78c25b5540fdf19413d83ec4096281dfe8ab8b78cab"
+  },
+  "native_export_accepted": true,
+  "recipe": {
+    "mode": "fine-taper-boundary",
+    "plan_sha256": "8f9059da180058f32d633712383574cd6a8f66ef7c1a11befda3cdf7a6bba702"
+  },
+  "geometry_pass": true
+}

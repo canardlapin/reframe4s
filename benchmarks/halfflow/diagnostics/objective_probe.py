@@ -32,7 +32,7 @@ def write(path, value):
         stream.write('\n')
 
 
-def freeze(study, trajectories, classpath):
+def freeze(study, trajectories, classpath, derivative_baseline=None):
     if study.exists():
         raise FileExistsError(study)
     base = trajectories/'oasis-11-to-12/selected-control'
@@ -60,7 +60,7 @@ def freeze(study, trajectories, classpath):
         inputs[str(path)] = sha(path)
     inputs[str(checkpoint/'checkpoint.json')] = sha(checkpoint/'checkpoint.json')
     case = next(c for c in read(trajectories/'engine/protocol.json')['cases'] if c['id'] == 'oasis-11-to-12')
-    protocol = {'schema': 'hfq-objective-probe-pilot-v1', 'created_at': datetime.now(timezone.utc).isoformat(),
+    protocol = {'schema': 'hfq-objective-chain-pilot-v1', 'created_at': datetime.now(timezone.utc).isoformat(),
         'cases': [case], 'checkpoint': str(checkpoint), 'checkpoint_inputs': inputs,
         'pilot_fit_sha256': sha(fit), 'pilot_verification_sha256': sha(check),
         'expected_loss': event['info']['after']['loss'], 'damping': event['info']['control']['damping'],
@@ -68,11 +68,19 @@ def freeze(study, trajectories, classpath):
         'epsilons_mm': [0.5, 0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002],
         'expected_loss_tolerance': 1e-12, 'maximum_minimum_relative_derivative_error': 0.005,
         'convergence_rule': 'At least three consecutive epsilon entries with strictly decreasing relative error',
+        'intensity_chain_criterion': 'Apply the same 0.005 minimum symmetric relative error and three-point decreasing-error rule to CC intensity-gradient dot actual sampled-image differences versus the frozen-objective finite difference',
+        'interpretation': 'If the intensity chain passes while the production velocity gradient fails, the discrepancy lies between sampled-image changes and the production spatial/composition gradient. This does not establish an anatomical fix.',
         'criterion_source': 'Existing HalfFlowCcEngineSuite synthetic production directional-derivative criterion',
         'scope': 'Actual frozen production objective and gradient; actual paired integration/composition/interpolation before accumulated smoothing',
         'remaining_scope': 'This pilot does not close D01/D02; other checkpoints, scales, image order, mixed grids and regularization remain',
         'java_heap': '6G', 'java_active_processors': 1, 'timeout_seconds': 3600,
         'runtime_comparison_allowed': False, 'qualification_claim': False}
+    if derivative_baseline is not None:
+        if read(derivative_baseline/'receipt.json')['exit_code'] != 0:
+            raise ValueError('Derivative baseline must have completed')
+        protocol['derivative_baseline'] = str(derivative_baseline)
+        protocol['derivative_baseline_inputs'] = {str(p):sha(p) for p in
+            [derivative_baseline/'receipt.json', derivative_baseline/'audit/result.json']}
     study.mkdir(parents=True)
     write(study/'declared-protocol.json', protocol)
     freeze_engine(study/'engine', study/'declared-protocol.json', classpath)
@@ -92,6 +100,9 @@ def run(study):
     for name, digest in protocol['checkpoint_inputs'].items():
         if sha(name) != digest:
             raise ValueError('Checkpoint input changed: '+name)
+    for name, digest in protocol.get('derivative_baseline_inputs', {}).items():
+        if sha(name) != digest:
+            raise ValueError('Original derivative evidence changed: '+name)
     case = protocol['cases'][0]
     output = study/'audit'
     if output.exists() or (study/'receipt.json').exists() or (study/'run.log').exists():
@@ -122,6 +133,7 @@ def run(study):
         if [r['direction'] for r in result['directions']] != protocol['directions']:
             raise ValueError('Unexpected probe direction ledger')
         verdicts = []
+        chain_verdicts = []
         for direction in result['directions']:
             if [r['epsilon_mm'] for r in direction['rows']] != protocol['epsilons_mm']:
                 raise ValueError('Unexpected epsilon ledger')
@@ -130,8 +142,21 @@ def run(study):
             verdicts.append({'direction': direction['direction'], 'minimum_relative_error': min(errors),
                 'two_step_convergence_region': converges,
                 'pass': converges and min(errors) <= protocol['maximum_minimum_relative_derivative_error']})
+            chain_errors = [r['intensity_chain_relative_error'] for r in direction['rows']]
+            chain_converges = any(c < b < a for a,b,c in zip(chain_errors, chain_errors[1:], chain_errors[2:]))
+            chain_verdicts.append({'direction':direction['direction'], 'minimum_relative_error':min(chain_errors),
+                'two_step_convergence_region':chain_converges,
+                'pass':chain_converges and min(chain_errors)<=protocol['maximum_minimum_relative_derivative_error']})
         row.update(directions=verdicts, gradient_criterion_pass=all(r['pass'] for r in verdicts),
+            intensity_chain_directions=chain_verdicts,
+            intensity_chain_criterion_pass=all(r['pass'] for r in chain_verdicts),
             result_sha256=sha(output/'result.json'), initial_sha256=sha(output/'initial.json'))
+        if 'derivative_baseline' in protocol:
+            old=read(Path(protocol['derivative_baseline'])/'audit/result.json')['directions']
+            keys=['direction','epsilon_mm','analytic','finite_difference','relative_error','plus_loss','minus_loss']
+            before=[{k:r[k] for k in keys} for d in old for r in d['rows']]
+            after=[{k:r[k] for k in keys} for d in result['directions'] for r in d['rows']]
+            row['baseline_numerics_reproduced_exactly']=before==after
     write(study/'receipt.json', row)
     print(json.dumps(row, indent=2), flush=True)
 
@@ -142,10 +167,12 @@ if __name__ == '__main__':
     parser.add_argument('--study', type=Path, required=True)
     parser.add_argument('--trajectories', type=Path)
     parser.add_argument('--classpath', type=Path)
+    parser.add_argument('--derivative-baseline', type=Path)
     args = parser.parse_args()
     if args.command == 'freeze':
         if args.trajectories is None or args.classpath is None:
             parser.error('--trajectories and --classpath required')
-        freeze(args.study.resolve(), args.trajectories.resolve(), args.classpath.resolve())
+        freeze(args.study.resolve(), args.trajectories.resolve(), args.classpath.resolve(),
+               args.derivative_baseline.resolve() if args.derivative_baseline else None)
     else:
         run(args.study.resolve())

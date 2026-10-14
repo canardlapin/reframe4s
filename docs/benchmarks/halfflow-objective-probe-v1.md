@@ -107,3 +107,8 @@ checkout. Library/API integration remains separate unfinished work.
 
 No source MRI or annotation volume is redistributed. This is observed-data
 diagnostic evidence and does not satisfy fresh-cohort qualification.
+
+The [sampled-intensity follow-up](halfflow-intensity-chain-v1.md) reproduces all
+24 measurements exactly and localizes this checkpoint's derivative discrepancy
+to the spatial/composition chain. The [deferred-capture follow-up](halfflow-deferred-capture-v1.md)
+implements and verifies the diagnostic export redesign before restarting the panel.

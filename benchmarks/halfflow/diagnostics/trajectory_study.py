@@ -64,7 +64,7 @@ def declared_panel():
     return cases, lanes
 
 
-def freeze(study, classpath):
+def freeze(study, classpath, prior_study=None):
     if study.exists():
         raise FileExistsError(study)
     cases, lanes = declared_panel()
@@ -83,6 +83,19 @@ def freeze(study, classpath):
         'selection':'All declared states and failures retained. Label-selected best checkpoints are post-hoc diagnostics only, never runtime selection.',
         'qualification_claim':False, 'candidate_policies_added':0,
     }
+    if prior_study is not None:
+        prior, _ = verify(prior_study)
+        if prior['cases'] != cases or prior['lanes'] != lanes or prior['checkpoint_policy'] != protocol['checkpoint_policy']:
+            raise ValueError('Deferred-export replay must retain the original panel and capture policy')
+        receipts = [prior_study/c['id']/(lane['id']+'-fit-receipt.json') for c in cases for lane in lanes]
+        if not all(path.exists() for path in receipts):
+            raise ValueError('Original attempt ledger must be terminal before replay')
+        protocol.update(schema='hfq-d01-deferred-trajectories-v1', defer_native_export=True,
+            original_protocol_sha256=sha(prior_study/'engine/protocol.json'),
+            original_attempts={str(path):sha(path) for path in receipts},
+            timing_scope='Raw diagnostic capture within fit; native checkpoint export deferred to a separate receipted phase. All times excluded from production comparisons.',
+            export_policy='Ordinary final export remains within the unchanged one-hour fit deadline. Every captured state receives an independent offline export receipt; deferred states are not admitted maps.',
+            runtime_comparison_allowed=False)
     declared = study/'declared-protocol.json'; write(declared, protocol)
     engine = study/'engine'
     freeze_engine(engine, declared, classpath)
@@ -164,12 +177,14 @@ def run(study, limit=None):
                  '--checkpoint-rejected',','.join(map(str,capture['rejected_attempts'])),
                  '--checkpoint-max-states',str(capture['maximum_states']),
                  '--checkpoint-manifest',str(study/'checkpoint-manifest.json')]
+            if protocol.get('defer_native_export'):
+                cmd += ['--checkpoint-defer-export','true']
             measurement=parent/(lane['id']+'-measurement.json')
             wrapper=frozen/'benchmarks/halfflow/reference/measure_process.py'
             log=parent/(lane['id']+'-fit.log')
             row={'schema':'hfq-trajectory-fit-v1','pair':case['id'],'lane':lane['id'],'command':cmd,
                  'protocol_sha256':sha(engine/'protocol.json'),'diagnostic_seal_sha256':sha(study/'diagnostic-seal.json'),
-                 'source_sha256':source['sha256'],'qualification_claim':False}
+                 'source_sha256':source['sha256'],'qualification_claim':False,'runtime_comparison_allowed':False}
             print('START',case['id'],lane['id'],flush=True)
             start=time.monotonic()
             with log.open('x') as stream:
@@ -209,9 +224,10 @@ if __name__=='__main__':
     parser.add_argument('--study',type=Path,required=True)
     parser.add_argument('--classpath',type=Path)
     parser.add_argument('--limit',type=int)
+    parser.add_argument('--prior-study',type=Path,help='Replay a terminal panel with native checkpoint export deferred')
     args=parser.parse_args()
     if args.limit is not None and args.limit<1:parser.error('--limit must be positive')
     if args.command=='freeze':
         if args.classpath is None:parser.error('--classpath required to freeze')
-        freeze(args.study.resolve(),args.classpath.resolve())
+        freeze(args.study.resolve(),args.classpath.resolve(),args.prior_study.resolve() if args.prior_study else None)
     else:run(args.study.resolve(),args.limit)
