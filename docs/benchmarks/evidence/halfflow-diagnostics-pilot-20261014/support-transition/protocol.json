@@ -1,0 +1,35 @@
+{
+  "schema": "hfq-pilot-support-audit-v1",
+  "created_at": "2026-10-14T15:08:30.572148+00:00",
+  "source_sha256": "4261f06a88591beda3b676915caff5ae1c5d4b767da3e4ff81c785b214535ad8",
+  "inputs": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/events.jsonl": "5a9bd22007e888761f9254dcbc5f6c98e6cc5928ecede027ebc932f6565fb867",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed.nii.gz": "0019d8b7378280aa57de500e26681d9bfc57b88f2644ae68ad9054a87f16d207",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed-mask.nii.gz": "4a7744c33777e384e288e714710ff332d9c3e38643c55c79711d5a0dd2407011",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/moving.nii.gz": "8058e830973af7d8ef63397ed020ef5232fef9376b558fbfadd4c307c4025df7"
+  },
+  "levels": [
+    [
+      22,
+      2,
+      1.0,
+      1.0
+    ],
+    [
+      23,
+      1,
+      0.0,
+      0.6
+    ]
+  ],
+  "source_validity": {
+    "fixed": "prepared fixed mask",
+    "moving": "all finite input voxels"
+  },
+  "support_sigma_mm": 1.5,
+  "pyramid_minimum_weight": 1e-08,
+  "support_sum_absolute_tolerance": 1e-07,
+  "support_count_tolerance": 0,
+  "scope": "Descriptive reconstruction; no fitting, labels or policy selection"
+}

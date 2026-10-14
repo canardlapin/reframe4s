@@ -104,7 +104,21 @@ At the coarse-to-fine transition, optimizer loss changes from 0.431497 to
 0.529267 while the exported maps, anatomical scores and fixed-region audit
 remain unchanged. Support summaries also change substantially. This establishes
 that optimizer loss is not directly comparable across these levels; it does
-not yet identify whether the support change is expected or defective.
+not establish that the support change is defective.
+
+An [independent support reconstruction](evidence/halfflow-diagnostics-pilot-20261014/support-transition/result.json)
+reproduces both positive-support counts exactly and both support sums within
+2.5 × 10⁻⁹ (declared tolerance 10⁻⁷). At the fine level, the fixed input mask
+occupies 365,983 of 2,276,640 voxels. Trilinear interpolation requires every
+contributing source voxel to be valid, leaving 290,387 warped valid locations;
+the one-voxel safety margin leaves 149,189, or about 6.6% of the grid. The
+mask-normalized coarse pyramid admits locations with Gaussian weight at least
+10⁻⁸, expanding the valid mask; about 15.9% of its grid survives the safety
+margin. The frozen runner also supplies the fixed image mask while constructing
+the moving image with default full-grid validity. Moving validity does not
+further restrict the joint support in these two checkpoints. These are confirmed
+population and input-handling differences, not yet a causal explanation of the
+anatomical regression. D02 must test image order and pyramid consistency.
 
 ![Pilot scalar and independently scored trajectories](evidence/halfflow-diagnostics-pilot-20261014/scoring/pilot-figures-v1/trajectory.png)
 
