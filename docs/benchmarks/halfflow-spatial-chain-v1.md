@@ -106,3 +106,60 @@ improving both the optimizer intensity objective and an independent fixed-region
 intensity audit can worsen anatomical overlap. A more faithful gradient alone
 therefore remains an unproven anatomical remedy. D01's full trajectory panel,
 D02's broader audit and the qualification epic all remain open.
+
+## Declared replication at additional acquired-image states
+
+The [follow-up declaration](evidence/halfflow-spatial-chain-20261014/followup-declaration-v1/protocol.json)
+uses the same compiled engine on three fixed states: OASIS 11 → 12's
+step-scaled fine endpoint, and OASIS 13 → 14's selected-control fine start and
+endpoint. Their saved losses are respectively 0.437374690028, 0.530643266102 and
+0.416309794869. Each must reproduce its original loss within `1e-12` before
+the same 24 perturbations are evaluated. Every attempt remains in the denominator;
+no state is replaced after its derivative outcome is observed.
+
+Four additional validator tests pass. The validator independently recomputes
+finite differences from the two losses and each relative-error formula, and
+reproduces the completed pilot's verdicts and support summaries exactly. The
+[declaration archive](evidence/halfflow-spatial-chain-20261014/followup-declaration-v1/artifact-manifest.json)
+contains those checks, frozen input/source identities and source-checkpoint
+metadata. It includes no follow-up outcomes. This remains observed OASIS
+fine-scale evidence; it adds neither a new optimizer policy nor a qualification
+cohort.
+
+## Replication outcome: two states pass, one fails
+
+All three declared attempts completed and reproduced their saved losses within
+`1e-12`. The unchanged production gradient fails all nine directional criteria;
+the CC intensity chain passes all nine. The diagnostic spatial chain passes
+eight directions, but fails translation at the OASIS 13 → 14 control endpoint.
+The declared all-state replication therefore **fails**. The failed state remains
+in the [complete results](evidence/halfflow-spatial-chain-20261014/followup-outcomes-v1/results.json).
+
+| State | Translation minimum error | Smooth-wave minimum error | Negative-gradient minimum error | Spatial verdict |
+| --- | ---: | ---: | ---: | --- |
+| OASIS 11 → 12, step-scaled fine end | 0.02175% | 0.42047% | 0.000486% | pass |
+| OASIS 13 → 14, control fine start | 0.04725% | 0.003575% | 0.001013% | pass |
+| OASIS 13 → 14, control fine end | **3.58912%** | 0.19130% | 0.001263% | **fail** |
+
+These are minima over the eight predeclared perturbations, not errors chosen
+from an expanded search. Passing also requires the declared three-point
+decreasing-error region. All six image arms have complete derivative support
+and zero counted source interpolation knots. Neither missing support nor an
+exact source-grid knot accounts for this failure.
+
+At the failing endpoint and `ε=0.002 mm`, the actual objective finite difference
+is `-0.000127239475`, the spatial-chain derivative is `-0.000118422387`, and the
+production derivative is `+0.000457672159`. The CC intensity-chain discrepancy is
+0.07011%, while the spatial discrepancy is 3.58912%. The finite difference still
+varies with step size. Smaller-step diagnostics are needed to distinguish
+crossings of nearby interpolation cells from a remaining chain-rule defect;
+the present result establishes neither explanation. Any extension must be a
+separate declared experiment and preserve this failed replication.
+
+![All three states and perturbation curves](evidence/halfflow-spatial-chain-20261014/followup-outcomes-v1/figures/derivative-errors.png)
+
+The [outcome archive](evidence/halfflow-spatial-chain-20261014/followup-outcomes-v1/artifact-manifest.json)
+verifies every source/input identity, recomputes the directional verdicts and
+retains all logs and results. Its nine-panel plot was visually checked. This
+supports further diagnosis, not promotion to the production optimizer or a
+claim of improved anatomical registration.

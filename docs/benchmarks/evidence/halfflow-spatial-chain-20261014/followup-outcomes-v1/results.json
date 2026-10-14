@@ -1,0 +1,404 @@
+{
+  "rows": [
+    {
+      "task": {
+        "id": "oasis-11-to-12-step-scaled-fine1.5-levelend",
+        "pair": "oasis-11-to-12",
+        "policy": "step-scaled-fine1.5",
+        "event": 44,
+        "kind": "LevelEnd",
+        "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0044-level01-levelend-attempt0020",
+        "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data",
+        "source_fit_exit_code": 0,
+        "source_fit_receipt_sha256": "00acddcc11c22315c5064b7b823a632485fb764052d82798fc1666b231c33686",
+        "source_lane": {
+          "id": "step-scaled-fine1.5",
+          "mode": "fine-taper-boundary",
+          "flags": [
+            "--steps-per-level",
+            "20",
+            "--total-smoothing-mm",
+            "1.5",
+            "--fine-total-smoothing-mm",
+            "1.5",
+            "--boundary-width-mm",
+            "6",
+            "--scale-total-smoothing-by-step",
+            "true"
+          ]
+        },
+        "expected_loss": 0.43737469002775886,
+        "damping": 1e-08
+      },
+      "command": [
+        "/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/temurin-21.0.12.1+1.jdk/Contents/Home/bin/java",
+        "-Xmx6G",
+        "-XX:ActiveProcessorCount=1",
+        "-cp",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/0:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/1:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/2:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/3:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/4:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/5:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/6:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/7:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/8:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/9:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/10:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/11:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/12:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/13:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/14:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/15:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/16:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/17:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.4/scala3-library_3-3.7.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-bytecode/1.37/jmh-generator-bytecode-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-reflection/1.37/jmh-generator-reflection-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-asm/1.37/jmh-generator-asm-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar",
+        "reframe4s.halfflow.RealImageObjectiveAudit",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/moving.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed-mask.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0044-level01-levelend-attempt0020",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-followup-v1/oasis-11-to-12-step-scaled-fine1.5-levelend",
+        "0.43737469002775886",
+        "1e-08"
+      ],
+      "protocol_sha256": "492b84c7099ccf18ae0a6921082537d9cef174fe8c0a2761a2981bf8e27f1aa1",
+      "analysis_completed": true,
+      "qualification_claim": false,
+      "runtime_comparison_allowed": false,
+      "exit_code": 0,
+      "diagnostic_wall_seconds": 395.08102233335376,
+      "log_sha256": "f8d6722f17196b6253cd6121308d83f2ac3de523c4f2314b4440154ff89268b6",
+      "directions": {
+        "production": [
+          {
+            "direction": "translation",
+            "minimum_relative_error": 0.7789309771182609,
+            "two_step_convergence_region": true,
+            "passed": false
+          },
+          {
+            "direction": "smooth-wave",
+            "minimum_relative_error": 0.4486412440071447,
+            "two_step_convergence_region": true,
+            "passed": false
+          },
+          {
+            "direction": "negative-gradient",
+            "minimum_relative_error": 0.04187504357974258,
+            "two_step_convergence_region": false,
+            "passed": false
+          }
+        ],
+        "intensity": [
+          {
+            "direction": "translation",
+            "minimum_relative_error": 5.2388861157821404e-05,
+            "two_step_convergence_region": true,
+            "passed": true
+          },
+          {
+            "direction": "smooth-wave",
+            "minimum_relative_error": 0.00018904517208586974,
+            "two_step_convergence_region": true,
+            "passed": true
+          },
+          {
+            "direction": "negative-gradient",
+            "minimum_relative_error": 3.973759633453784e-07,
+            "two_step_convergence_region": true,
+            "passed": true
+          }
+        ],
+        "spatial": [
+          {
+            "direction": "translation",
+            "minimum_relative_error": 0.0002174722425566706,
+            "two_step_convergence_region": true,
+            "passed": true
+          },
+          {
+            "direction": "smooth-wave",
+            "minimum_relative_error": 0.004204699002474185,
+            "two_step_convergence_region": true,
+            "passed": true
+          },
+          {
+            "direction": "negative-gradient",
+            "minimum_relative_error": 4.85551492806866e-06,
+            "two_step_convergence_region": true,
+            "passed": true
+          }
+        ]
+      },
+      "support": {
+        "fixed": {
+          "nonzeroIntensityDerivatives": 148386,
+          "evaluated": 148386,
+          "unavailable": 0,
+          "interpolationKnotVoxels": 0
+        },
+        "moving": {
+          "nonzeroIntensityDerivatives": 148387,
+          "evaluated": 148387,
+          "unavailable": 0,
+          "interpolationKnotVoxels": 0
+        }
+      },
+      "complete_spatial_support": true,
+      "production_criterion_pass": false,
+      "intensity_criterion_pass": true,
+      "spatial_criterion_pass": true,
+      "initial_sha256": "1309f051c939f769c34b5a980b7fcdf1ebaf1dadd4eec2fb4feaeeed6496fc58",
+      "result_sha256": "7fa1669d0b18ef528918402f2505f13c903333283afabde0ed9d791eb230d57f"
+    },
+    {
+      "task": {
+        "id": "oasis-13-to-14-selected-control-levelstart",
+        "pair": "oasis-13-to-14",
+        "policy": "selected-control",
+        "event": 23,
+        "kind": "LevelStart",
+        "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-13-to-14/selected-control/checkpoints/0023-level01-levelstart-attempt0000",
+        "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data",
+        "source_fit_exit_code": 0,
+        "source_fit_receipt_sha256": "adb546f2d3b207adf979235e4e8d9617b592dce3b3e0ccbdca520bfae664172f",
+        "source_lane": {
+          "id": "selected-control",
+          "mode": "fine-taper-boundary",
+          "flags": [
+            "--steps-per-level",
+            "20",
+            "--total-smoothing-mm",
+            "1.5",
+            "--boundary-width-mm",
+            "6"
+          ]
+        },
+        "expected_loss": 0.5306432661019224,
+        "damping": 0.0001
+      },
+      "command": [
+        "/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/temurin-21.0.12.1+1.jdk/Contents/Home/bin/java",
+        "-Xmx6G",
+        "-XX:ActiveProcessorCount=1",
+        "-cp",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/0:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/1:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/2:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/3:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/4:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/5:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/6:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/7:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/8:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/9:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/10:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/11:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/12:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/13:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/14:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/15:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/16:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/17:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.4/scala3-library_3-3.7.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-bytecode/1.37/jmh-generator-bytecode-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-reflection/1.37/jmh-generator-reflection-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-asm/1.37/jmh-generator-asm-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar",
+        "reframe4s.halfflow.RealImageObjectiveAudit",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/moving.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed-mask.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-13-to-14/selected-control/checkpoints/0023-level01-levelstart-attempt0000",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-followup-v1/oasis-13-to-14-selected-control-levelstart",
+        "0.5306432661019224",
+        "0.0001"
+      ],
+      "protocol_sha256": "492b84c7099ccf18ae0a6921082537d9cef174fe8c0a2761a2981bf8e27f1aa1",
+      "analysis_completed": true,
+      "qualification_claim": false,
+      "runtime_comparison_allowed": false,
+      "exit_code": 0,
+      "diagnostic_wall_seconds": 208.05144825018942,
+      "log_sha256": "7ab66e4a880411f47788f65b71e0f0fc72cceadaa587047204bd4eeee0ff1d3f",
+      "directions": {
+        "production": [
+          {
+            "direction": "translation",
+            "minimum_relative_error": 0.12327203643984758,
+            "two_step_convergence_region": true,
+            "passed": false
+          },
+          {
+            "direction": "smooth-wave",
+            "minimum_relative_error": 0.15452056578209628,
+            "two_step_convergence_region": false,
+            "passed": false
+          },
+          {
+            "direction": "negative-gradient",
+            "minimum_relative_error": 0.03290831288286296,
+            "two_step_convergence_region": true,
+            "passed": false
+          }
+        ],
+        "intensity": [
+          {
+            "direction": "translation",
+            "minimum_relative_error": 8.513595304081364e-06,
+            "two_step_convergence_region": true,
+            "passed": true
+          },
+          {
+            "direction": "smooth-wave",
+            "minimum_relative_error": 1.429988958389857e-05,
+            "two_step_convergence_region": true,
+            "passed": true
+          },
+          {
+            "direction": "negative-gradient",
+            "minimum_relative_error": 1.720296336631385e-08,
+            "two_step_convergence_region": true,
+            "passed": true
+          }
+        ],
+        "spatial": [
+          {
+            "direction": "translation",
+            "minimum_relative_error": 0.0004725051221354063,
+            "two_step_convergence_region": true,
+            "passed": true
+          },
+          {
+            "direction": "smooth-wave",
+            "minimum_relative_error": 3.574516294098793e-05,
+            "two_step_convergence_region": true,
+            "passed": true
+          },
+          {
+            "direction": "negative-gradient",
+            "minimum_relative_error": 1.0133025153038902e-05,
+            "two_step_convergence_region": true,
+            "passed": true
+          }
+        ]
+      },
+      "support": {
+        "fixed": {
+          "nonzeroIntensityDerivatives": 117961,
+          "evaluated": 117961,
+          "unavailable": 0,
+          "interpolationKnotVoxels": 0
+        },
+        "moving": {
+          "nonzeroIntensityDerivatives": 117961,
+          "evaluated": 117961,
+          "unavailable": 0,
+          "interpolationKnotVoxels": 0
+        }
+      },
+      "complete_spatial_support": true,
+      "production_criterion_pass": false,
+      "intensity_criterion_pass": true,
+      "spatial_criterion_pass": true,
+      "initial_sha256": "46532f5d370eda225399c6ed63bf1611c22fa4e3d7f97deba0890c8c097b95d4",
+      "result_sha256": "a944f9b5f969206c1a9744c4ae43100e575fa90b7172260bd2f7d2bf7d3579df"
+    },
+    {
+      "task": {
+        "id": "oasis-13-to-14-selected-control-levelend",
+        "pair": "oasis-13-to-14",
+        "policy": "selected-control",
+        "event": 44,
+        "kind": "LevelEnd",
+        "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-13-to-14/selected-control/checkpoints/0044-level01-levelend-attempt0020",
+        "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data",
+        "source_fit_exit_code": 0,
+        "source_fit_receipt_sha256": "adb546f2d3b207adf979235e4e8d9617b592dce3b3e0ccbdca520bfae664172f",
+        "source_lane": {
+          "id": "selected-control",
+          "mode": "fine-taper-boundary",
+          "flags": [
+            "--steps-per-level",
+            "20",
+            "--total-smoothing-mm",
+            "1.5",
+            "--boundary-width-mm",
+            "6"
+          ]
+        },
+        "expected_loss": 0.41630979486853564,
+        "damping": 1e-08
+      },
+      "command": [
+        "/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/temurin-21.0.12.1+1.jdk/Contents/Home/bin/java",
+        "-Xmx6G",
+        "-XX:ActiveProcessorCount=1",
+        "-cp",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/0:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/1:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/2:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/3:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/4:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/5:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/6:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/7:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/8:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/9:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/10:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/11:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/12:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/13:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/14:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/15:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/16:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-pilot-v1/engine/frozen-classpath/17:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.4/scala3-library_3-3.7.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-bytecode/1.37/jmh-generator-bytecode-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-reflection/1.37/jmh-generator-reflection-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-asm/1.37/jmh-generator-asm-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar",
+        "reframe4s.halfflow.RealImageObjectiveAudit",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/moving.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed-mask.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-13-to-14/selected-control/checkpoints/0044-level01-levelend-attempt0020",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/spatial-chain-followup-v1/oasis-13-to-14-selected-control-levelend",
+        "0.41630979486853564",
+        "1e-08"
+      ],
+      "protocol_sha256": "492b84c7099ccf18ae0a6921082537d9cef174fe8c0a2761a2981bf8e27f1aa1",
+      "analysis_completed": true,
+      "qualification_claim": false,
+      "runtime_comparison_allowed": false,
+      "exit_code": 0,
+      "diagnostic_wall_seconds": 313.8060292089358,
+      "log_sha256": "cac548f1b59abc49a70ad14bc0161898098cfcbcd7c19cced039736add52133b",
+      "directions": {
+        "production": [
+          {
+            "direction": "translation",
+            "minimum_relative_error": 0.31591648298477376,
+            "two_step_convergence_region": false,
+            "passed": false
+          },
+          {
+            "direction": "smooth-wave",
+            "minimum_relative_error": 1.0,
+            "two_step_convergence_region": false,
+            "passed": false
+          },
+          {
+            "direction": "negative-gradient",
+            "minimum_relative_error": 0.027484387084126403,
+            "two_step_convergence_region": false,
+            "passed": false
+          }
+        ],
+        "intensity": [
+          {
+            "direction": "translation",
+            "minimum_relative_error": 0.000701060715486349,
+            "two_step_convergence_region": true,
+            "passed": true
+          },
+          {
+            "direction": "smooth-wave",
+            "minimum_relative_error": 8.73300944858135e-05,
+            "two_step_convergence_region": true,
+            "passed": true
+          },
+          {
+            "direction": "negative-gradient",
+            "minimum_relative_error": 2.487425504012554e-07,
+            "two_step_convergence_region": true,
+            "passed": true
+          }
+        ],
+        "spatial": [
+          {
+            "direction": "translation",
+            "minimum_relative_error": 0.03589115268593192,
+            "two_step_convergence_region": true,
+            "passed": false
+          },
+          {
+            "direction": "smooth-wave",
+            "minimum_relative_error": 0.0019129875675040458,
+            "two_step_convergence_region": true,
+            "passed": true
+          },
+          {
+            "direction": "negative-gradient",
+            "minimum_relative_error": 1.2630810485942224e-05,
+            "two_step_convergence_region": true,
+            "passed": true
+          }
+        ]
+      },
+      "support": {
+        "fixed": {
+          "nonzeroIntensityDerivatives": 115444,
+          "evaluated": 115444,
+          "unavailable": 0,
+          "interpolationKnotVoxels": 0
+        },
+        "moving": {
+          "nonzeroIntensityDerivatives": 115444,
+          "evaluated": 115444,
+          "unavailable": 0,
+          "interpolationKnotVoxels": 0
+        }
+      },
+      "complete_spatial_support": true,
+      "production_criterion_pass": false,
+      "intensity_criterion_pass": true,
+      "spatial_criterion_pass": false,
+      "initial_sha256": "88d82649c46921cf0f01565ec6a32e3959433812ffa2955a6fc48817c92ba8e1",
+      "result_sha256": "09e52028e84de5445b9590911ad5a22d71348af6dd0b7889664d2163eb8dd857"
+    }
+  ],
+  "spatial_replication_pass": false,
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}

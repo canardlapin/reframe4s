@@ -1,0 +1,27 @@
+{
+  "command": [
+    "/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/temurin-21.0.12.1+1.jdk/Contents/Home/bin/java",
+    "-Xmx6G",
+    "-XX:ActiveProcessorCount=2",
+    "-cp",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/0:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/1:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/2:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/3:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/4:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/5:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/6:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/7:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/8:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/9:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/10:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/11:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/12:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/13:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/14:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/15:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/16:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/frozen-classpath/17:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.4/scala3-library_3-3.7.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-bytecode/1.37/jmh-generator-bytecode-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-reflection/1.37/jmh-generator-reflection-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-asm/1.37/jmh-generator-asm-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar",
+    "reframe4s.halfflow.RealImageRegistration",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/moving.nii.gz",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/fixed.nii.gz",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/fixed-mask.nii.gz",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/mmrr-21-11-to-12/selected",
+    "fine-taper-boundary",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/mmrr-21-11-to-12/affine/flashalign-affine-moving-to-fixed.json",
+    "--steps-per-level",
+    "20",
+    "--total-smoothing-mm",
+    "1.5",
+    "--boundary-width-mm",
+    "6"
+  ],
+  "source_sha256": "a8baa2c16cfdb495481152ba19e7a31e10c4cb8e4da95154ba3df84b1aff6bb3",
+  "started_at": "2026-10-11T20:50:18.150146+00:00",
+  "exit_code": 0,
+  "seconds": 199.37512462493032,
+  "log_sha256": "bddecb2e85415e5f4f8813b7aee182a96ed9902cbe283cb9219c5760b65554c5"
+}

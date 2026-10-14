@@ -287,3 +287,20 @@ not been promoted as a generally validated strong reference. Additional
 independently sourced observed cohorts, the stricter prospective scoring rules,
 and isolated runtime/memory measurements remain required. No failing result
 from the earlier unsmoothed studies is dropped or relabeled as successful.
+
+## Declared MMRR and NKI-RS reference checks
+
+A [fixed-setting declaration](evidence/halfflow-reference-20261014/regularized-cohorts-declaration-v1/protocol.json)
+now covers the previously observed MMRR-21 11 → 12 and NKI-RS-22 8 → 9 pairs.
+It retains `total_sigma=0.5`, the 100/70/200 schedule, one native thread, one
+worker and the one-hour fitting deadline. Both new attempts must converge at
+every enabled level and pass all unchanged common geometry/cell gates.
+Any failure fails this two-case feasibility replication; every outcome remains.
+
+The original confirmation input manifest verifies the prepared images, masks
+and anatomical labels. The historical HalfFlow command and its `inputs.sha256`
+also verify the generated saved affine used for each new reference fit. The
+[declaration archive](evidence/halfflow-reference-20261014/regularized-cohorts-declaration-v1/artifact-manifest.json)
+preserves those affine coefficients, historical fit receipts and frozen sources.
+It contains no new reference outcomes. These concurrent diagnostic runs cannot
+support a runtime comparison or establish a generally qualified reference.
