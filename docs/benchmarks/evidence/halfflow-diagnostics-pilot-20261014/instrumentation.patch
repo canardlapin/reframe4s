@@ -1,0 +1,755 @@
+--- /dev/null
++++ b/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageCheckpoints.scala
+@@ -0,0 +1,109 @@
++package reframe4s.halfflow
++
++import java.nio.file.{Files, Path, StandardOpenOption}
++import reframe4s.benchmark.flashalign.EvidenceHash
++import reframe4s.halfflow.internal.*
++
++private[halfflow] final case class RealImageCheckpointPolicy(
++    acceptedSteps: Vector[Int],
++    rejectedAttempts: Vector[Int],
++    maximumStates: Int,
++    manifest: Path
++)
++
++/** Diagnostics are saved on native prepared-image grids for common scoring.
++  * Raw midpoint fields retain their original pyramid grid for exact replay.
++  * Labels never enter this writer or its checkpoint selection.
++  */
++private[halfflow] final class RealImageCheckpoints[W, F, M](
++    output: Path,
++    policy: RealImageCheckpointPolicy,
++    initial: ForwardMidpoint[W, F, M],
++    plan: HalfFlowCcPlan,
++    fixed: NeuroVol[Double],
++    moving: NeuroVol[Double],
++    fixedMask: Array[Boolean]
++) extends HalfFlowCcObserver[W, F, M]:
++  private val root = output.resolve("checkpoints")
++  private val manifestHash = EvidenceHash.file(policy.manifest).hex
++  private val movingMask = FieldValidity.copyMask(moving.copyLegacyLinear.map(_ > 0.0))
++  private var serial = 0
++  Files.createDirectory(root)
++  Files.copy(policy.manifest, root.resolve("manifest.json"))
++
++  def wantsState(info: HalfFlowCcCheckpointInfo): Boolean =
++    info.kind match
++      case HalfFlowCcCheckpointKind.LevelStart | HalfFlowCcCheckpointKind.LevelEnd => true
++      case HalfFlowCcCheckpointKind.Accepted => policy.acceptedSteps.contains(info.acceptedSteps)
++      case HalfFlowCcCheckpointKind.Rejected => policy.rejectedAttempts.contains(info.attempts)
++
++  def observe(checkpoint: HalfFlowCcCheckpoint[W, F, M]): Unit =
++    serial += 1
++    val info = checkpoint.info
++    val name = f"$serial%04d-level${info.levelIndex}%02d-${info.kind.toString.toLowerCase}-attempt${info.attempts}%04d"
++    val saved = checkpoint.state.map: state =>
++      val directory = root.resolve(name)
++      Files.createDirectory(directory)
++      RealImageRegistration.savePull("midpoint-fixed-residual", state.fixed.residual, fixed, directory)
++      RealImageRegistration.savePull("midpoint-moving-residual", state.moving.residual, fixed, directory)
++      for (arm, matrix) <- Vector("fixed" -> state.fixed.affine.transform.matrix,
++                                  "moving" -> state.moving.affine.transform.matrix) do
++        Files.writeString(directory.resolve(s"midpoint-$arm-affine.json"),
++          (0 until 16).map(i => matrix(i / 4, i % 4)).mkString("[", ",", "]"), StandardOpenOption.CREATE_NEW)
++      val status = state.regrid(initial.work, initial.fixed.endpoint, initial.moving.endpoint) match
++        case Left(error) => s"regrid failed: ${error.message}"
++        case Right(native) =>
++          ForwardMidpointExporter.inspect(native, plan.exportConfig,
++            Some(FieldValidity.copyMask(fixedMask)), Some(movingMask)) match
++            case Left(error) => s"export construction failed: ${error.message}"
++            case Right(candidate) =>
++              val admitted = ForwardMidpointExporter.admit(candidate, plan.exportConfig)
++              val lane = if admitted.isRight then "halfflow" else "halfflow-rejected"
++              RealImageRegistration.savePair(lane, candidate.transform, moving, fixed, directory)
++              Files.writeString(directory.resolve("export-diagnostics.txt"),
++                s"${candidate.fixedResidualInverse}\n${candidate.movingResidualInverse}\n${candidate.endpointRoundTrip}\n",
++                StandardOpenOption.CREATE_NEW)
++              admitted.fold(error => s"rejected: ${error.message}", _ => "native export gate accepted")
++      Files.writeString(directory.resolve("export-status.txt"), status + "\n", StandardOpenOption.CREATE_NEW)
++      name -> status
++    val record = Map[String, Any](
++      "schema" -> "halfflow-checkpoint-v1", "diagnostic_only" -> true,
++      "serial" -> serial, "manifest_sha256" -> manifestHash,
++      "info" -> info, "capture_status" -> checkpoint.captureStatus,
++      "directory" -> saved.map(_._1), "export_status" -> saved.map(_._2))
++    val json = RealImageCheckpointJson.encode(record)
++    saved.foreach: (directory, _) =>
++      Files.writeString(root.resolve(directory).resolve("checkpoint.json"), json + "\n", StandardOpenOption.CREATE_NEW)
++    Files.writeString(root.resolve("events.jsonl"), json + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND)
++    ()
++
++private[halfflow] object RealImageCheckpointJson:
++  def encode(value: Any): String = value match
++    case null => "null"
++    case value: String => quote(value)
++    case value: Boolean => value.toString
++    case value: Int => value.toString
++    case value: Long => value.toString
++    case value: Double => if value.isFinite then value.toString else "null"
++    case value: Float => if value.isFinite then value.toString else "null"
++    case value: Option[?] => value.fold("null")(encode)
++    case value: Map[?, ?] =>
++      value.toVector.map((key, field) => key.toString -> field).sortBy(_._1)
++        .map((key, field) => quote(key) + ":" + encode(field)).mkString("{", ",", "}")
++    case value: Seq[?] => value.map(encode).mkString("[", ",", "]")
++    case value: Product if value.productArity == 0 => quote(value.productPrefix)
++    case value: Product =>
++      value.productElementNames.zip(value.productIterator)
++        .map((key, field) => quote(key) + ":" + encode(field)).mkString("{", ",", "}")
++    case other => throw new IllegalArgumentException(s"unsupported checkpoint JSON value: ${other.getClass.getName}")
++
++  private def quote(value: String): String =
++    val escaped = value.flatMap:
++      case '"' => "\\\""
++      case '\\' => "\\\\"
++      case '\n' => "\\n"
++      case '\r' => "\\r"
++      case '\t' => "\\t"
++      case c if c < ' ' => "\\" + "u" + f"${c.toInt}%04x"
++      case c => c.toString
++    "\"" + escaped + "\""
+--- a/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageRegistration.scala
++++ b/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageRegistration.scala
+@@ -35,7 +35,8 @@
+       fineAccumulatedSmoothingMm: Option[Double] = None,
+       scaleAccumulatedSmoothingByStep: Boolean = false,
+       affineTrials: Option[Int] = None,
+-      fineCcRadius: Int = 2
++      fineCcRadius: Int = 2,
++      checkpoints: Option[RealImageCheckpointPolicy] = None
+   )
+ 
+   private[halfflow] def parseOptions(args: Vector[String]): RunOptions =
+@@ -44,8 +45,23 @@
+     require(flags.length % 2 == 0, "development flags require values")
+     val pairs = flags.grouped(2).map(p => p(0) -> p(1)).toVector
+     require(pairs.map(_._1).distinct.size == pairs.size, "duplicate development flag")
+-    require(pairs.forall(p => Set("--steps-per-level", "--fine-smoothing-mm", "--affine-budget", "--policy-receipt", "--total-smoothing-mm", "--boundary-width-mm", "--fine-total-smoothing-mm", "--scale-total-smoothing-by-step", "--affine-trials", "--fine-cc-radius").contains(p._1)), "unknown development flag")
++    val checkpointFlags = Set("--checkpoint-accepted", "--checkpoint-rejected", "--checkpoint-max-states", "--checkpoint-manifest")
++    require(pairs.forall(p => (Set("--steps-per-level", "--fine-smoothing-mm", "--affine-budget", "--policy-receipt", "--total-smoothing-mm", "--boundary-width-mm", "--fine-total-smoothing-mm", "--scale-total-smoothing-by-step", "--affine-trials", "--fine-cc-radius") ++ checkpointFlags).contains(p._1)), "unknown development flag")
+     val values = pairs.toMap
++    val checkpoints =
++      if !values.keys.exists(checkpointFlags.contains) then None
++      else
++        require(Set("--checkpoint-accepted", "--checkpoint-max-states", "--checkpoint-manifest").subsetOf(values.keySet),
++          "checkpoints require declared accepted steps, a state budget and a frozen manifest")
++        def indices(value: String): Vector[Int] =
++          if value.isEmpty then Vector.empty else value.split(",").map(_.toInt).toVector
++        val accepted = indices(values("--checkpoint-accepted"))
++        val rejected = indices(values.getOrElse("--checkpoint-rejected", ""))
++        val maximum = values("--checkpoint-max-states").toInt
++        require(accepted.nonEmpty && accepted.distinct == accepted && accepted.forall(_ >= 0), "invalid accepted checkpoint indices")
++        require(rejected.distinct == rejected && rejected.forall(n => n > 0 && n <= 10000), "invalid rejected checkpoint indices")
++        require(maximum >= 0 && maximum <= 128, "checkpoint state budget must lie in [0,128]")
++        Some(RealImageCheckpointPolicy(accepted, rejected, maximum, Paths.get(values("--checkpoint-manifest"))))
+     val result = RunOptions(
+       values.get("--steps-per-level").fold(10)(_.toInt),
+       values.get("--fine-smoothing-mm").fold(6.0)(_.toDouble),
+@@ -56,7 +72,7 @@
+       values.get("--fine-total-smoothing-mm").map(_.toDouble),
+       values.get("--scale-total-smoothing-by-step").fold(false)(_.toBoolean),
+       values.get("--affine-trials").map(_.toInt),
+-      values.get("--fine-cc-radius").fold(2)(_.toInt))
++      values.get("--fine-cc-radius").fold(2)(_.toInt), checkpoints)
+     require(result.stepsPerLevel > 0 && result.stepsPerLevel <= 1000, "invalid accepted-step budget")
+     require(result.fineCcRadius > 0 && result.fineCcRadius <= 10, "invalid fine CC radius")
+     require(result.fineSmoothingMm.isFinite && result.fineSmoothingMm >= 0.0, "invalid fine smoothing")
+@@ -68,6 +84,8 @@
+       (result.affineTrials.isEmpty || result.affineBudget.nonEmpty), "affine trials require an explicit budget and receipt")
+     require(result.affineBudget.isDefined == result.policyReceipt.isDefined, "affine budget requires its policy receipt")
+     require(result.savedAffine.isEmpty || result.affineBudget.isEmpty, "supplied affine cannot also request affine fitting")
++    require(result.checkpoints.forall(_.acceptedSteps.forall(_ <= result.stepsPerLevel)),
++      "checkpoint indices exceed the accepted-step budget")
+     result
+ 
+   def main(args: Array[String]): Unit =
+@@ -76,13 +94,15 @@
+     val mode = args(4)
+     require(Set("identity", "affine", "fine", "fine-inverse-200", "fine-taper", "fine-taper-long", "fine-taper-boundary", "identity-fine", "identity-fine-taper-boundary").contains(mode), s"unknown mode $mode")
+     val options = parseOptions(args.drop(5).toVector)
++    require(options.checkpoints.isEmpty || mode.contains("fine"), "checkpoints require nonlinear refinement")
+     val out = Paths.get(args(3))
+     require(!Files.exists(out), s"refusing to overwrite $out")
+     Files.createDirectories(out)
+     val inputs = args.take(3).map(Paths.get(_))
+     val savedAffine = options.savedAffine
+     require(savedAffine.isEmpty || mode.startsWith("fine"), "saved affine requires a fine mode")
+-    val provenance = (inputs.toVector ++ savedAffine ++ options.policyReceipt).map(p => s"${p.toAbsolutePath}\t${EvidenceHash.file(p).hex}").mkString("\n")
++    val provenance = (inputs.toVector ++ savedAffine ++ options.policyReceipt ++ options.checkpoints.map(_.manifest))
++      .map(p => s"${p.toAbsolutePath}\t${EvidenceHash.file(p).hex}").mkString("\n")
+     Files.writeString(out.resolve("inputs.sha256"), provenance + "\n", StandardOpenOption.CREATE_NEW)
+     Files.writeString(out.resolve("mode.txt"), mode + "\n", StandardOpenOption.CREATE_NEW)
+     val moving = Nifti.readScaledDouble(inputs(0)).fold(e => fail(e.message), identity)
+@@ -178,7 +198,12 @@
+             supplied.initial
+     if mode != "affine" && mode != "identity" then
+       println("REAL_MRI stage=halfflow started=true")
+-      HalfFlowCc.optimize(fi, mi, initial, plan) match
++      val optimized = options.checkpoints match
++        case None => HalfFlowCc.optimize(fi, mi, initial, plan)
++        case Some(policy) =>
++          val observer = new RealImageCheckpoints(out, policy, initial, plan, fv, mv, mask)
++          HalfFlowCc.optimizeObserved(fi, mi, initial, plan, HalfFlowCcObservation(observer, policy.maximumStates))
++      optimized match
+         case Left(error) =>
+           Files.writeString(out.resolve("failure.txt"), s"halfflow-fine: ${error.message}\n")
+           println(s"REAL_MRI stage=halfflow status=failed error=${error.message}")
+@@ -213,12 +238,12 @@
+     println(s"REAL_MRI complete=true elapsedMs=${elapsed(started)} output=$out")
+     if Files.exists(out.resolve("failure.txt")) then fail(s"registration rejected; diagnostics saved in $out")
+ 
+-  private def savePair[A, B](name: String, pair: InversePair[A, B],
++  private[halfflow] def savePair[A, B](name: String, pair: InversePair[A, B],
+       moving: NeuroVol[Double], fixed: NeuroVol[Double], out: Path): Unit =
+     savePull(name + "-fixed-to-moving", pair.forward, moving, out)
+     savePull(name + "-moving-to-fixed", pair.backward, fixed, out)
+ 
+-  private def savePull[A, B](name: String, pull: DensePull[A, B],
++  private[halfflow] def savePull[A, B](name: String, pull: DensePull[A, B],
+       source: NeuroVol[Double], out: Path): Unit =
+     val grid = pull.from.grid
+     val coords = Array.tabulate(grid.nVoxels * 3)(i => pull.sourceCoordinates.linearComponent(i / 3, i % 3))
+--- a/benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageRegistrationSuite.scala
++++ b/benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageRegistrationSuite.scala
+@@ -8,6 +8,28 @@
+ import reframe4s.halfflow.internal.{GridSpec, VoxelWindowRadius}
+ 
+ final class RealImageRegistrationSuite extends munit.FunSuite:
++  test("checkpoint selection is opt-in, bounded and tied to a declared manifest"):
++    assertEquals(RealImageRegistration.parseOptions(Vector.empty).checkpoints, None)
++    val flags = Vector("--checkpoint-accepted", "0,1,2,5,10", "--checkpoint-rejected", "1,2,6",
++      "--checkpoint-max-states", "24", "--checkpoint-manifest", "protocol.json")
++    val selected = RealImageRegistration.parseOptions(flags).checkpoints.get
++    assertEquals(selected.acceptedSteps, Vector(0, 1, 2, 5, 10))
++    assertEquals(selected.rejectedAttempts, Vector(1, 2, 6))
++    assertEquals(selected.maximumStates, 24)
++    assertEquals(selected.manifest, java.nio.file.Paths.get("protocol.json"))
++    for invalid <- Vector(
++      Vector("--checkpoint-max-states", "1"),
++      flags.updated(1, "-1"), flags.updated(1, "1,1"), flags.updated(1, "11"),
++      flags.updated(3, "0"), flags.updated(5, "129"), flags.updated(5, "-1")
++    ) do
++      val _ = intercept[IllegalArgumentException](RealImageRegistration.parseOptions(invalid))
++
++  test("checkpoint JSON escapes text and represents unavailable numerical values as null"):
++    val encoded = RealImageCheckpointJson.encode(Map("value" -> Double.NaN,
++      "text" -> "quote\" slash\\ newline\n", "missing" -> None))
++    assertEquals(encoded, "{\"missing\":null,\"text\":\"quote\\\" slash\\\\ newline\\n\",\"value\":null}")
++    assertEquals(RealImageCheckpointJson.encode(Vector(1.0, Double.PositiveInfinity, -2.0)), "[1.0,null,-2.0]")
++
+   test("development controls preserve the legacy plan and isolate smoothing from budgets"):
+     val defaults = RealImageRegistration.parseOptions(Vector.empty)
+     val legacy = RealImageRegistration.finePlan(50, 1e-3, 6.0)
+--- a/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala
++++ b/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala
+@@ -290,6 +290,7 @@
+     def activeFraction: Double
+     def edgeActiveFraction: Double
+     def smoothingWeight: Array[Double]
++    def audit: HalfFlowCcObjectiveAudit
+     def initialize(fixed: CcWarpBuffer, moving: CcWarpBuffer): Either[RegistrationError, Unit]
+     def candidateValue(fixed: CcWarpBuffer, moving: CcWarpBuffer): Either[RegistrationError, Double]
+     def gradientInto(
+@@ -315,6 +316,11 @@
+     def activeFraction: Double = evaluation.diagnostics.support.activeFraction
+     def edgeActiveFraction: Double = evaluation.diagnostics.support.edgeBandActiveFraction
+     def smoothingWeight: Array[Double] = frozen.support
++    def audit: HalfFlowCcObjectiveAudit =
++      HalfFlowCcObjectiveAudit(loss, activeFraction, edgeActiveFraction,
++        HalfFlowCcWeightSummary.from(frozen.support),
++        Some(HalfFlowCcWeightSummary.from(frozen.weight)),
++        Some(HalfFlowCcWeightSummary.from(frozen.epsilon)), Some(evaluation.diagnostics))
+ 
+     def initialize(fixed: CcWarpBuffer, moving: CcWarpBuffer): Either[RegistrationError, Unit] =
+       HalfFlowCcSupport.buildSupport(
+@@ -407,6 +413,9 @@
+     def activeFraction: Double = active.toDouble / frame.grid.nVoxels.toDouble
+     def edgeActiveFraction: Double = edgeActive.toDouble / math.max(1, edgeVoxelCount(frame.grid)).toDouble
+     def smoothingWeight: Array[Double] = weight
++    def audit: HalfFlowCcObjectiveAudit =
++      HalfFlowCcObjectiveAudit(loss, activeFraction, edgeActiveFraction,
++        HalfFlowCcWeightSummary.from(weight), None, None, None)
+ 
+     def initialize(fixed: CcWarpBuffer, moving: CcWarpBuffer): Either[RegistrationError, Unit] =
+       for
+@@ -539,7 +548,17 @@
+       initial: ForwardMidpoint[W, F, M],
+       plan: HalfFlowCcPlan
+   ): Either[HalfFlowCcError, HalfFlowCcOptimization[W, F, M]] =
+-    optimizeInternal(fixed, moving, initial, plan, None)
++    optimizeInternal(fixed, moving, initial, plan, None, None)
++
++  /** Opt-in observation retains the same objective, decisions and stopping. */
++  def optimizeObserved[W, F, M](
++      fixed: RegistrationImage[F],
++      moving: RegistrationImage[M],
++      initial: ForwardMidpoint[W, F, M],
++      plan: HalfFlowCcPlan,
++      observation: HalfFlowCcObservation[W, F, M]
++  ): Either[HalfFlowCcError, HalfFlowCcOptimization[W, F, M]] =
++    optimizeInternal(fixed, moving, initial, plan, None, Some(new HalfFlowCcObservationRun(observation)))
+ 
+   /** G5-only control that restores the previous inverse-tracked accumulated
+     * gate while retaining the true-CC lane-A objective and step.
+@@ -562,7 +581,8 @@
+         moving,
+         ForwardMidpoint.fromLegacy(initial),
+         plan,
+-        Some(LegacyInverseGate(initial, guard))
++        Some(LegacyInverseGate(initial, guard)),
++        None
+       )
+ 
+   private def optimizeInternal[W, F, M](
+@@ -570,7 +590,8 @@
+       moving: RegistrationImage[M],
+       initial: ForwardMidpoint[W, F, M],
+       plan: HalfFlowCcPlan,
+-      initialLegacyGate: Option[LegacyInverseGate[W, F, M]]
++      initialLegacyGate: Option[LegacyInverseGate[W, F, M]],
++      observation: Option[HalfFlowCcObservationRun[W, F, M]]
+   ): Either[HalfFlowCcError, HalfFlowCcOptimization[W, F, M]] =
+     moving.validity match
+       case FieldValidity.Mask(_) => Left(HalfFlowCcError.MovingOptimizationMaskForbidden)
+@@ -612,7 +633,8 @@
+                           control = HalfFlowCcControl
+                             .observe(control, ControlObservation.LevelTransition, plan.control)
+                             .after
+-                        refineLevel(nextFixed, nextMoving, regridded, level, plan, control, regriddedLegacy) match
++                        refineLevel(nextFixed, nextMoving, regridded, level, plan, control, regriddedLegacy,
++                          levelIndex, observation) match
+                           case Left(error) => failure = Some(error)
+                           case Right((accepted, levelDiagnostics, nextControl, nextLegacyGate)) =>
+                             state = accepted
+@@ -633,7 +655,9 @@
+       level: HalfFlowCcLevel,
+       plan: HalfFlowCcPlan,
+       initialControl: HalfFlowCcControlState,
+-      initialLegacyGate: Option[LegacyInverseGate[W, F, M]]
++      initialLegacyGate: Option[LegacyInverseGate[W, F, M]],
++      levelIndex: Int,
++      observation: Option[HalfFlowCcObservationRun[W, F, M]]
+   ): Either[
+     HalfFlowCcError,
+     (ForwardMidpoint[W, F, M], HalfFlowCcLevelDiagnostics, HalfFlowCcControlState, Option[LegacyInverseGate[W, F, M]])
+@@ -654,17 +678,28 @@
+     var attempts = 0
+     var termination = Option.empty[HalfFlowCcTermination]
+     val trace = Vector.newBuilder[HalfFlowCcAttemptDiagnostics]
++    var observedAttempt = Option.empty[HalfFlowCcAttemptDiagnostics]
++    def recordAttempt(diagnostic: HalfFlowCcAttemptDiagnostics): Unit =
++      trace += diagnostic
++      if observation.nonEmpty then observedAttempt = Some(diagnostic)
+     warp(fixed, moving, state, currentFixed, currentMoving)
+     metricSession
+       .initialize(currentFixed, currentMoving)
+       .fold(error => break(Left(HalfFlowCcError.Registration(error))), identity)
+     val initialLoss = metricSession.loss
++    observation.foreach: observer =>
++      val audit = metricSession.audit
++      observer.emit(HalfFlowCcCheckpointInfo(HalfFlowCcCheckpointKind.LevelStart,
++        levelIndex, level.shrink, accepted, attempts, audit, audit, control, None, None, true), Some(state))
+ 
+     while termination.isEmpty do
+       if accepted >= level.targetAcceptedSteps then termination = Some(HalfFlowCcTermination.AcceptedStepBudget)
+       else if attempts >= level.maximumAttempts then termination = Some(HalfFlowCcTermination.AttemptBudget)
+       else if control.exhausted(plan.control) then termination = Some(HalfFlowCcTermination.ControllerExhausted)
+       else
++        observedAttempt = None
++        var observedCandidate = Option.empty[ForwardMidpoint[W, F, M]]
++        val beforeAudit = observation.map(_ => metricSession.audit)
+         val attemptTransitions = Vector.newBuilder[ControlTransition]
+         val step = rankOneStep(
+           currentFixed,
+@@ -706,7 +741,7 @@
+           numerical match
+             case NumericalVerdict.IncreaseIntegrationDepth(_) =>
+               attempts += 1
+-              trace += attemptDiagnostic(
++              recordAttempt(attemptDiagnostic(
+                 attempts,
+                 accepted = false,
+                 metricSession,
+@@ -715,7 +750,7 @@
+                 GeometryVerdict.Valid,
+                 numerical,
+                 attemptTransitions.result()
+-              )
++              ))
+             case _ =>
+               val incremental = ForwardGeometry.incremental(half, plan.geometry)._1
+               val incrementalTransition = HalfFlowCcControl.observe(
+@@ -732,6 +767,7 @@
+                     .fold(error => break(Left(HalfFlowCcError.Registration(error))), identity)
+                     .regularize(level.accumulatedSmoothingMm,
+                       accumulatedSmoothingWeight(level, step._2))
++                  if observation.nonEmpty then observedCandidate = Some(candidate)
+                   val accumulated = ForwardGeometry.accumulated(candidate, plan.geometry)._1
+                   if accumulated != GeometryVerdict.Valid then
+                     val transition = HalfFlowCcControl.observe(
+@@ -742,7 +778,7 @@
+                     attemptTransitions += transition
+                     control = transition.after
+                     attempts += 1
+-                    trace += attemptDiagnostic(
++                    recordAttempt(attemptDiagnostic(
+                       attempts,
+                       accepted = false,
+                       metricSession,
+@@ -751,7 +787,7 @@
+                       accumulated,
+                       numerical,
+                       attemptTransitions.result()
+-                    )
++                    ))
+                   else
+                     val legacyCandidate = legacyGate.map: current =>
+                       val tracked = current.state
+@@ -775,7 +811,7 @@
+                       attemptTransitions += transition
+                       control = transition.after
+                       attempts += 1
+-                      trace += attemptDiagnostic(
++                      recordAttempt(attemptDiagnostic(
+                         attempts,
+                         accepted = false,
+                         metricSession,
+@@ -786,7 +822,7 @@
+                         attemptTransitions.result(),
+                         legacySafe,
+                         legacyMaximum
+-                      )
++                      ))
+                     else
+                       warp(fixed, moving, candidate, candidateFixed, candidateMoving)
+                       val candidateLoss = metricSession
+@@ -805,7 +841,7 @@
+                       control = transition.after
+                       attempts += 1
+                       val isAccepted = objectiveVerdict.isInstanceOf[ObjectiveVerdict.Accepted]
+-                      trace += attemptDiagnostic(
++                      recordAttempt(attemptDiagnostic(
+                         attempts,
+                         isAccepted,
+                         metricSession,
+@@ -816,7 +852,7 @@
+                         attemptTransitions.result(),
+                         legacySafe,
+                         legacyMaximum
+-                      )
++                      ))
+                       if isAccepted then
+                         state = candidate
+                         legacyGate = legacyCandidate.map(_._1)
+@@ -828,7 +864,7 @@
+                           .fold(error => break(Left(HalfFlowCcError.Registration(error))), identity)
+                 case _ =>
+                   attempts += 1
+-                  trace += attemptDiagnostic(
++                  recordAttempt(attemptDiagnostic(
+                     attempts,
+                     accepted = false,
+                     metricSession,
+@@ -837,7 +873,17 @@
+                     incremental,
+                     numerical,
+                     attemptTransitions.result()
+-                  )
++                  ))
++        observation.foreach: observer =>
++          observedAttempt.foreach: diagnostic =>
++            val kind = if diagnostic.accepted then HalfFlowCcCheckpointKind.Accepted else HalfFlowCcCheckpointKind.Rejected
++            val snapshot = if diagnostic.accepted then Some(state) else observedCandidate
++            observer.emit(HalfFlowCcCheckpointInfo(kind, levelIndex, level.shrink, accepted, attempts,
++              beforeAudit.get, metricSession.audit, control, Some(diagnostic), None, snapshot.nonEmpty), snapshot)
++    observation.foreach: observer =>
++      val audit = metricSession.audit
++      observer.emit(HalfFlowCcCheckpointInfo(HalfFlowCcCheckpointKind.LevelEnd,
++        levelIndex, level.shrink, accepted, attempts, audit, audit, control, None, termination, true), Some(state))
+     Right(
+       (
+         state,
+--- /dev/null
++++ b/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcObservation.scala
+@@ -0,0 +1,121 @@
++package reframe4s.halfflow
++
++import reframe4s.halfflow.internal.*
++
++enum HalfFlowCcCheckpointKind:
++  case LevelStart, Accepted, Rejected, LevelEnd
++
++enum HalfFlowCcCaptureStatus:
++  case NotRequested, Unavailable, BudgetExhausted, Captured
++
++/** Scalar summaries retain zero and nonfinite counts rather than dropping them. */
++final case class HalfFlowCcWeightSummary(
++    count: Int,
++    nonFinite: Int,
++    positive: Int,
++    sum: Double,
++    minimum: Double,
++    maximum: Double
++)
++
++object HalfFlowCcWeightSummary:
++  private[halfflow] def from(values: Array[Double]): HalfFlowCcWeightSummary =
++    var nonFinite = 0
++    var positive = 0
++    var sum = 0.0
++    var minimum = Double.PositiveInfinity
++    var maximum = Double.NegativeInfinity
++    var index = 0
++    while index < values.length do
++      val value = values(index)
++      if value.isFinite then
++        sum += value
++        minimum = math.min(minimum, value)
++        maximum = math.max(maximum, value)
++        if value > 0.0 then positive += 1
++      else nonFinite += 1
++      index += 1
++    HalfFlowCcWeightSummary(values.length, nonFinite, positive, sum,
++      if minimum.isFinite then minimum else 0.0,
++      if maximum.isFinite then maximum else 0.0)
++
++/** The trial uses `before`; an accepted update rebuilds weights for `after`. */
++final case class HalfFlowCcObjectiveAudit(
++    loss: Double,
++    activeFraction: Double,
++    edgeActiveFraction: Double,
++    support: HalfFlowCcWeightSummary,
++    reliability: Option[HalfFlowCcWeightSummary],
++    stabilization: Option[HalfFlowCcWeightSummary],
++    neighborhood: Option[NeighborhoodCcDiagnostics]
++)
++
++final case class HalfFlowCcCheckpointInfo(
++    kind: HalfFlowCcCheckpointKind,
++    levelIndex: Int,
++    shrink: Int,
++    acceptedSteps: Int,
++    attempts: Int,
++    before: HalfFlowCcObjectiveAudit,
++    after: HalfFlowCcObjectiveAudit,
++    control: HalfFlowCcControlState,
++    trial: Option[HalfFlowCcAttemptDiagnostics],
++    termination: Option[HalfFlowCcTermination],
++    stateAvailable: Boolean
++)
++
++/** A rejected snapshot is the attempted candidate, never a replacement result.
++  * Snapshot coordinate and validity buffers are detached from optimization.
++  * Frame and affine values retain their ordinary immutable semantic ownership.
++  */
++final case class HalfFlowCcCheckpoint[W, F, M](
++    info: HalfFlowCcCheckpointInfo,
++    captureStatus: HalfFlowCcCaptureStatus,
++    state: Option[ForwardMidpoint[W, F, M]]
++)
++
++trait HalfFlowCcObserver[W, F, M]:
++  def wantsState(info: HalfFlowCcCheckpointInfo): Boolean
++  def observe(checkpoint: HalfFlowCcCheckpoint[W, F, M]): Unit
++
++/** Explicit diagnostic mode. Observer exceptions propagate; they are not
++  * converted into successful optimizer results. The ordinary optimize method
++  * performs no audit reductions or state copying.
++  */
++final case class HalfFlowCcObservation[W, F, M](
++    observer: HalfFlowCcObserver[W, F, M],
++    maximumSnapshots: Int
++):
++  require(maximumSnapshots >= 0, "checkpoint snapshot budget must be nonnegative")
++
++private[halfflow] final class HalfFlowCcObservationRun[W, F, M](
++    config: HalfFlowCcObservation[W, F, M]
++):
++  private var captured = 0
++
++  def emit(info: HalfFlowCcCheckpointInfo, state: Option[ForwardMidpoint[W, F, M]]): Unit =
++    val requested = config.observer.wantsState(info)
++    val status =
++      if !requested then HalfFlowCcCaptureStatus.NotRequested
++      else if state.isEmpty then HalfFlowCcCaptureStatus.Unavailable
++      else if captured >= config.maximumSnapshots then HalfFlowCcCaptureStatus.BudgetExhausted
++      else HalfFlowCcCaptureStatus.Captured
++    val snapshot =
++      if status == HalfFlowCcCaptureStatus.Captured then
++        captured += 1
++        state.map(detach)
++      else None
++    config.observer.observe(HalfFlowCcCheckpoint(info, status, snapshot))
++
++  private def detach(state: ForwardMidpoint[W, F, M]): ForwardMidpoint[W, F, M] =
++    def arm[E](value: ForwardMidpointArm[W, E]): ForwardMidpointArm[W, E] =
++      val original = value.residual
++      val coordinates = DenseVectorField.fromLegacyPlanar(original.from.grid,
++        original.sourceCoordinates.copyLegacyPlanar, DenseVectorFieldKind.SourceCoordinates)
++      val validity = original.validity match
++        case FieldValidity.All => FieldValidity.All
++        case FieldValidity.Mask(values) =>
++          FieldValidity.copyMask(Array.tabulate(original.from.grid.nVoxels)(values(_)))
++      ForwardMidpointArm.unsafe(DensePull.unsafe(original.from, original.to, coordinates, validity), value.affine)
++    ForwardMidpoint.make(arm(state.fixed), arm(state.moving))
++      .fold(error => throw new IllegalStateException(error.message), identity)
+--- /dev/null
++++ b/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcObservationSuite.scala
+@@ -0,0 +1,155 @@
++package reframe4s.halfflow
++
++import reframe4s.halfflow.internal.*
++import scala.collection.mutable.ArrayBuffer
++
++class HalfFlowCcObservationSuite extends munit.FunSuite:
++  private sealed trait Work
++  private sealed trait Fixed
++  private sealed trait Moving
++
++  private final class Recorder extends HalfFlowCcObserver[Work, Fixed, Moving]:
++    val events = ArrayBuffer.empty[HalfFlowCcCheckpoint[Work, Fixed, Moving]]
++    def wantsState(info: HalfFlowCcCheckpointInfo): Boolean = true
++    def observe(checkpoint: HalfFlowCcCheckpoint[Work, Fixed, Moving]): Unit = events += checkpoint
++
++  test("observation preserves exact optimizer results and records both objective definitions"):
++    val (fixed, moving, initial) = fixture()
++    val policy = plan()
++    val plain = HalfFlowCc.optimize(fixed, moving, initial, policy).fold(e => fail(e.message), identity)
++    val recorder = new Recorder
++    val observed = HalfFlowCc.optimizeObserved(fixed, moving, initial, policy,
++      HalfFlowCcObservation(recorder, 32)).fold(e => fail(e.message), identity)
++    assertEquals(observed.diagnostics.toString, plain.diagnostics.toString)
++    assertEquals(observed.state.fixed.residual.sourceCoordinates.copyLegacyPlanar.toVector,
++      plain.state.fixed.residual.sourceCoordinates.copyLegacyPlanar.toVector)
++    assertEquals(observed.state.moving.residual.sourceCoordinates.copyLegacyPlanar.toVector,
++      plain.state.moving.residual.sourceCoordinates.copyLegacyPlanar.toVector)
++    val starts = recorder.events.filter(_.info.kind == HalfFlowCcCheckpointKind.LevelStart)
++    val ends = recorder.events.filter(_.info.kind == HalfFlowCcCheckpointKind.LevelEnd)
++    assertEquals(starts.map(_.info.levelIndex).toVector, Vector(0, 1))
++    assertEquals(ends.map(_.info.levelIndex).toVector, Vector(0, 1))
++    assertEquals(recorder.events.count(_.info.trial.nonEmpty), observed.diagnostics.attempts)
++    val accepted = recorder.events.filter(_.info.kind == HalfFlowCcCheckpointKind.Accepted)
++    assert(accepted.nonEmpty, "fixture must exercise post-acceptance weight rebuilding")
++    assertEquals(accepted.size, observed.diagnostics.acceptedSteps)
++    accepted.foreach: event =>
++      val trial = event.info.trial.get
++      assertEquals(event.info.before.loss, trial.currentLoss)
++      assert(trial.candidateLoss < event.info.before.loss)
++      assert(event.info.after.loss.isFinite)
++      assert(event.info.after.neighborhood.nonEmpty)
++      assert(event.info.after.reliability.exists(_.nonFinite == 0))
++    ends.zip(observed.diagnostics.levels).foreach: (event, level) =>
++      assertEquals(event.info.after.loss, level.finalLoss)
++      assertEquals(event.info.termination, Some(level.termination))
++
++  test("the snapshot budget spans levels while all scalar events remain visible"):
++    val (fixed, moving, initial) = fixture()
++    val recorder = new Recorder
++    val result = HalfFlowCc.optimizeObserved(fixed, moving, initial, plan(),
++      HalfFlowCcObservation(recorder, 1)).fold(e => fail(e.message), identity)
++    assertEquals(recorder.events.count(_.state.nonEmpty), 1)
++    assertEquals(recorder.events.count(_.captureStatus == HalfFlowCcCaptureStatus.Captured), 1)
++    assert(recorder.events.exists(_.captureStatus == HalfFlowCcCaptureStatus.BudgetExhausted))
++    assertEquals(recorder.events.count(_.info.trial.nonEmpty), result.diagnostics.attempts)
++    val snapshot = recorder.events.head.state.get
++    assert(!(snapshot.fixed.residual.sourceCoordinates.values eq initial.fixed.residual.sourceCoordinates.values))
++    assert(!(snapshot.moving.residual.sourceCoordinates.values eq initial.moving.residual.sourceCoordinates.values))
++
++  test("rejected accumulated candidates are retained without becoming optimizer results"):
++    val (fixed, moving, initial) = fixture()
++    val recorder = new Recorder
++    val level = HalfFlowCcLevel.make(1, 0.0, smoothSigmaMm = 2.0,
++      maximumStepMm = 1.0, targetAcceptedSteps = 1, maximumAttempts = 2)
++      .fold(e => fail(e.message), identity)
++    val policy = HalfFlowCcPlan.make(Vector(level), minimumUsefulStepMm = 0.0,
++      maximumIntegrationInverseErrorMm = 0.03,
++      geometry = ForwardGeometryConfig(minimumAccumulatedJacobian = 0.99999999))
++      .fold(e => fail(e.message), identity)
++    val result = HalfFlowCc.optimizeObserved(fixed, moving, initial, policy,
++      HalfFlowCcObservation(recorder, 8)).fold(e => fail(e.message), identity)
++    val rejected = recorder.events.filter(_.info.kind == HalfFlowCcCheckpointKind.Rejected)
++    assert(rejected.exists(_.state.nonEmpty), "fixture must construct a rejected candidate")
++    assertEquals(result.diagnostics.acceptedSteps, 0)
++    rejected.foreach: event =>
++      assertEquals(event.info.before.loss, event.info.after.loss)
++      assert(!event.info.trial.get.accepted)
++    assertEquals(result.state.fixed.residual.sourceCoordinates.copyLegacyPlanar.toVector,
++      initial.fixed.residual.sourceCoordinates.copyLegacyPlanar.toVector)
++    assertEquals(result.state.moving.residual.sourceCoordinates.copyLegacyPlanar.toVector,
++      initial.moving.residual.sourceCoordinates.copyLegacyPlanar.toVector)
++
++  test("observer failures propagate instead of reporting a complete diagnostic run"):
++    val (fixed, moving, initial) = fixture()
++    val observer = new HalfFlowCcObserver[Work, Fixed, Moving]:
++      def wantsState(info: HalfFlowCcCheckpointInfo): Boolean = false
++      def observe(checkpoint: HalfFlowCcCheckpoint[Work, Fixed, Moving]): Unit =
++        throw new IllegalStateException("checkpoint output unavailable")
++    val error = intercept[IllegalStateException]:
++      HalfFlowCc.optimizeObserved(fixed, moving, initial, plan(), HalfFlowCcObservation(observer, 0))
++    assertEquals(error.getMessage, "checkpoint output unavailable")
++
++  test("weight summaries preserve zero and nonfinite denominators"):
++    val summary = HalfFlowCcWeightSummary.from(Array(0.0, 1.0, 3.0, Double.NaN))
++    assertEquals(summary, HalfFlowCcWeightSummary(4, 1, 2, 4.0, 0.0, 3.0))
++
++  test("unavailable candidates do not consume the budget and captured fields own their buffers"):
++    val (_, _, initial) = fixture()
++    val mask = Array.fill(initial.work.grid.nVoxels)(true)
++    mask(0) = false
++    val originalPull = initial.fixed.residual
++    val maskedPull = DensePull.make(originalPull.from, originalPull.to, originalPull.sourceCoordinates,
++      FieldValidity.copyMask(mask)).fold(e => fail(e.message), identity)
++    val maskedArm = ForwardMidpointArm.make(maskedPull, initial.fixed.affine).fold(e => fail(e.message), identity)
++    val state = ForwardMidpoint.make(maskedArm, initial.moving).fold(e => fail(e.message), identity)
++    val summary = HalfFlowCcWeightSummary(1, 0, 1, 1.0, 1.0, 1.0)
++    val audit = HalfFlowCcObjectiveAudit(0.5, 1.0, 1.0, summary, None, None, None)
++    val info = HalfFlowCcCheckpointInfo(HalfFlowCcCheckpointKind.Rejected, 0, 1, 0, 1,
++      audit, audit, HalfFlowCcControlState.initial(HalfFlowCcControlConfig.default), None, None, false)
++    val recorder = new Recorder
++    val run = new HalfFlowCcObservationRun(HalfFlowCcObservation(recorder, 1))
++    run.emit(info, None)
++    run.emit(info.copy(stateAvailable = true), Some(state))
++    run.emit(info.copy(stateAvailable = true), Some(state))
++    assertEquals(recorder.events.map(_.captureStatus).toVector,
++      Vector(HalfFlowCcCaptureStatus.Unavailable, HalfFlowCcCaptureStatus.Captured, HalfFlowCcCaptureStatus.BudgetExhausted))
++    val captured = recorder.events(1).state.get.fixed.residual
++    assert(!(captured.sourceCoordinates.values eq maskedPull.sourceCoordinates.values))
++    assertEquals(captured.sourceCoordinates.copyLegacyPlanar.toVector, maskedPull.sourceCoordinates.copyLegacyPlanar.toVector)
++    (captured.validity, maskedPull.validity) match
++      case (FieldValidity.Mask(copy), FieldValidity.Mask(original)) =>
++        assert(!(copy eq original))
++        assert(!copy(0))
++        assert(copy(1))
++      case other => fail(s"expected copied validity masks, got $other")
++
++  private def plan(): HalfFlowCcPlan =
++    val cc = NeighborhoodCcConfig.make(radius = VoxelWindowRadius(2, 2, 2),
++      minimumSupportFraction = 0.15, fullSupportFraction = 0.7,
++      minimumVarianceFraction = 1e-7, fullVarianceFraction = 1e-5,
++      denominatorEpsilonFraction = 1e-7).fold(e => fail(e.message), identity)
++    val levels = Vector((2, 1.0), (1, 0.0)).map: (shrink, sigma) =>
++      HalfFlowCcLevel.make(shrink, sigma, cc, smoothSigmaMm = 3.0,
++        maximumStepMm = 0.6, targetAcceptedSteps = 2, maximumAttempts = 8)
++        .fold(e => fail(e.message), identity)
++    HalfFlowCcPlan.make(levels, minimumUsefulStepMm = 1e-6,
++      maximumIntegrationInverseErrorMm = 0.03).fold(e => fail(e.message), identity)
++
++  private def fixture(): (RegistrationImage[Fixed], RegistrationImage[Moving], ForwardMidpoint[Work, Fixed, Moving]) =
++    val grid = GridSpec.identity(Vector(25, 25, 25))
++    val work = RegistrationFrame[Work](SpatialDomainId("observation-work"), grid)
++    val fixedFrame = RegistrationFrame[Fixed](SpatialDomainId("observation-fixed"), grid)
++    val movingFrame = RegistrationFrame[Moving](SpatialDomainId("observation-moving"), grid)
++    def signal(x: Double, y: Double, z: Double): Double =
++      def bump(cx: Double, cy: Double, cz: Double, width: Double): Double =
++        math.exp(-((x-cx)*(x-cx)+(y-cy)*(y-cy)+(z-cz)*(z-cz))/width)
++      100.0*bump(10, 13, 12, 50) + 45.0*bump(7, 9, 14, 10) +
++        65.0*bump(16, 15, 9, 16) + 3.0*math.sin(.31*x+.17*y) + 2.0*math.cos(.23*z-.11*x)
++    def image[A](frame: RegistrationFrame[A], shift: Double): RegistrationImage[A] =
++      val values = Array.tabulate(grid.nVoxels): index =>
++        signal(index % 25 - shift, index / 25 % 25, index / 625)
++      RegistrationImage.make(frame, NeuroVol.fromLinear[Double](values, grid.toNeuroSpace, "observation"))
++        .fold(e => fail(e.message), identity)
++    (image(fixedFrame, 0), image(movingFrame, 2),
++      ForwardMidpoint.identity(work, fixedFrame, movingFrame).fold(e => fail(e.message), identity))

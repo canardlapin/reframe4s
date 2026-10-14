@@ -1,0 +1,61 @@
+{
+  "schema": "hfq-diagnostic-concurrency-amendment-v1",
+  "created_at": "2026-10-14T14:40:37.533867+00:00",
+  "study": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1",
+  "original_protocol_sha256": "fdde96f537ff4404ccd636eaddf6007ca2d32941a08f2b344ada6ac051beb1c1",
+  "original_diagnostic_seal_sha256": "6dd28a8000152d9a222f0aff052d4412328206e78f5ff2b017d87b9d76c7f3d0",
+  "pilot_fit_receipt_sha256": "19df60094e651eedd4df4aa427797dd9e5b66aa6e93f5becb061a44cce04b804",
+  "pilot_artifact_verification_sha256": "0ebaa762959878b6c282c8f2eb9ad4c3c09e34af11c31c2dcb673205ed7dfbe4",
+  "numeric_source_sha256": "c6958633836fb428ec82d2b128007816967699c567a0c7169300718a48145e50",
+  "sources": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/diagnostic_dispatch.py": "e8fdbaea28c58f454231429e34c2bad5fb639888b91585c453653b04ae188105",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/trajectory_study.py": "6b8e4a268186544c521aa88ae809bd6a31e5fda7e929843e4f5ee1501af2d5f1"
+  },
+  "tasks": [
+    {
+      "case": "oasis-11-to-12",
+      "policy": "step-scaled-fine1.5"
+    },
+    {
+      "case": "oasis-13-to-14",
+      "policy": "selected-control"
+    },
+    {
+      "case": "oasis-13-to-14",
+      "policy": "step-scaled-fine1.5"
+    },
+    {
+      "case": "mmrr-21-11-to-12",
+      "policy": "selected-control"
+    },
+    {
+      "case": "mmrr-21-11-to-12",
+      "policy": "step-scaled-fine1.5"
+    },
+    {
+      "case": "oasis-1-to-10",
+      "policy": "selected-control"
+    },
+    {
+      "case": "oasis-1-to-10",
+      "policy": "step-scaled-fine1.5"
+    },
+    {
+      "case": "oasis-17-to-18",
+      "policy": "selected-control"
+    },
+    {
+      "case": "oasis-17-to-18",
+      "policy": "step-scaled-fine1.5"
+    }
+  ],
+  "workers": 2,
+  "java_heap_per_job": "6G",
+  "java_active_processors_per_job": 1,
+  "timeout_seconds_per_job": 3600,
+  "java_version": "openjdk version \"21.0.12.1\" 2026-08-18 LTS\nOpenJDK Runtime Environment Temurin-21.0.12.1+1 (build 21.0.12.1+1-LTS)\nOpenJDK 64-Bit Server VM Temurin-21.0.12.1+1 (build 21.0.12.1+1-LTS, mixed mode, sharing)",
+  "purpose": "Reduce diagnostic export wall time; preserve the declared ten-case/policy combinations and every captured state",
+  "unchanged": "Frozen numerical classes, inputs, affine, optimizer policy, checkpoint selection, geometry gates and per-job deadline",
+  "runtime_comparison_allowed": false,
+  "qualification_claim": false
+}

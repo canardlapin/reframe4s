@@ -1,0 +1,24 @@
+{
+  "schema": "hfq-checkpoint-selection-v1",
+  "policy": {
+    "accepted_steps": [
+      1,
+      2,
+      5,
+      10,
+      15,
+      20
+    ],
+    "rejected_attempts": [
+      1,
+      2,
+      6
+    ],
+    "level_start_and_end": true,
+    "maximum_states": 24
+  },
+  "protocol_sha256": "fdde96f537ff4404ccd636eaddf6007ca2d32941a08f2b344ada6ac051beb1c1",
+  "engine_freeze_sha256": "7fe90217cdff1452311c775bac4d077823499e386c2de30495ae37ea4bbf5093",
+  "diagnostic_only": true,
+  "labels_used_for_capture": false
+}

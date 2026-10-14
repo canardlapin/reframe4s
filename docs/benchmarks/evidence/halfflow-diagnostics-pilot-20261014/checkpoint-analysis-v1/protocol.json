@@ -1,0 +1,24 @@
+{
+  "schema": "hfq-checkpoint-analysis-v1",
+  "created_at": "2026-10-14T14:11:17.633414+00:00",
+  "trajectory_study": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1",
+  "trajectory_protocol_sha256": "fdde96f537ff4404ccd636eaddf6007ca2d32941a08f2b344ada6ac051beb1c1",
+  "diagnostic_seal_sha256": "6dd28a8000152d9a222f0aff052d4412328206e78f5ff2b017d87b9d76c7f3d0",
+  "sources": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/checkpoint_analysis.py": "2fa1b08b245d923a7631c796aad0ecc7021fdda78ff510d16708dee7413437dd",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/fixed_audit.py": "e0855cd0f6b472b9c5cf07ac51c7f8ea1092a0947fb95c9efe732e5bab2540a9",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/regularity.py": "0dc505c636dcd84e50bcebffd84790b8ce0977ad2023a20b07822a079119d1d9",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/test_regularity.py": "354b289335e0a72b03cd37c80cc279ab3c0e62d3b96722b7695aaf253fd5336a",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/audit-contract-v1.json": "c6173ab928d14ee109687b8a949c1ffc963e986b94338e79a10e2710710b1a3e",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/audit_study.py": "5ddcdb40ef0ce79bb4c38950898989988b65c69ca75190f462f4388f82b6e064",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/canonical_ants.py": "b79677e3595ec2d417806b8544e4d874b9ca2b2d9ea349698b6f17c5b5129d69",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/real_image_court.py": "78aeac693e7d8ed83df7f403c3e3af269c40dd712cbfd7ace6a6ee4e8b60c55c",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/real_mri_cell_topology.py": "83f41aa020a2ceb8dd427b169cb2a7c49830ad95cd024a423aa026bdb51e5bc1"
+  },
+  "geometry": "Unchanged independent brain inverse, coverage and complete-cell sample checks; invalid outputs remain invalid",
+  "intensity": "Sealed fixed audit contract, both original prepared target grids/masks; invalid windows receive loss 1",
+  "regularity": "Physical Frobenius norm of midpoint residual displacement gradient on every valid central-difference stencil; affine arms excluded; denominators retained",
+  "anatomy": "Original per-structure bidirectional Dice/HD95; diagnostic-only observed labels, no policy/stopping selection",
+  "missing": "Every scalar event retained; uncaptured/unavailable/export-construction-failed states remain explicit; no scores invented",
+  "qualification_claim": false
+}

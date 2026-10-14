@@ -1,0 +1,156 @@
+{
+  "schema": "hfq-rejected-candidate-change-v1",
+  "source_sha256": "a406f3174197eef531095c18fe447343a3931a00df258627f6d77756fa33e25f",
+  "events_sha256": "5a9bd22007e888761f9254dcbc5f6c98e6cc5928ecede027ebc932f6565fb867",
+  "rows": [
+    {
+      "serial": 24,
+      "level": 1,
+      "attempt": 1,
+      "accepted_steps": 0,
+      "attempted_velocity_maximum_mm": 0.019401042150480143,
+      "reference_serial": 23,
+      "arms": {
+        "fixed": {
+          "declared_voxels": 2276640,
+          "evaluated_voxels": 2276640,
+          "nonfinite_voxels": 0,
+          "validity_unchanged": true,
+          "maximum_residual_coordinate_change_mm": 0.263801328938755,
+          "rms_residual_coordinate_change_mm": 0.026175841253054992,
+          "maximum_endpoint_coordinate_change_mm": 0.2646857731956351,
+          "rms_endpoint_coordinate_change_mm": 0.026134986133176233
+        },
+        "moving": {
+          "declared_voxels": 2276640,
+          "evaluated_voxels": 2276640,
+          "nonfinite_voxels": 0,
+          "validity_unchanged": true,
+          "maximum_residual_coordinate_change_mm": 0.2485104527740268,
+          "rms_residual_coordinate_change_mm": 0.026743761267753845,
+          "maximum_endpoint_coordinate_change_mm": 0.25351326534854807,
+          "rms_endpoint_coordinate_change_mm": 0.026819555970900803
+        }
+      },
+      "inputs": {
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.f64": "abde1a12e1e534413df88627a7ad58abab8201975544b1dcf3a71ee547e9d596",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-affine.json": "a4764b1075a167a0ca5cefa8ff3043f18555759548d3be84e53fcd86ba2fdb67",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/midpoint-fixed-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/midpoint-fixed-residual.f64": "8f6a17199fcd255cbc1591bc1240cef78e0be47107deb50d025e668d57e4108c",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/midpoint-fixed-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/midpoint-fixed-affine.json": "a4764b1075a167a0ca5cefa8ff3043f18555759548d3be84e53fcd86ba2fdb67",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.f64": "c649546b06907ec25f6c3c5156862ee5f60efff01fe7f653bfba93a7a900ae6d",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-affine.json": "3ada34833b0103614800ee1fd2a6a234eecb2b13007769f5a33ea0ea184a1ad2",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/midpoint-moving-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/midpoint-moving-residual.f64": "235adb7a4e615fccece6dfcb2702a0b20c0deb3430a97ccc4e9e96e56484f6fd",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/midpoint-moving-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/midpoint-moving-affine.json": "3ada34833b0103614800ee1fd2a6a234eecb2b13007769f5a33ea0ea184a1ad2"
+      },
+      "status": "compared"
+    },
+    {
+      "serial": 25,
+      "level": 1,
+      "attempt": 2,
+      "accepted_steps": 0,
+      "attempted_velocity_maximum_mm": 0.004850263721052972,
+      "reference_serial": 23,
+      "arms": {
+        "fixed": {
+          "declared_voxels": 2276640,
+          "evaluated_voxels": 2276640,
+          "nonfinite_voxels": 0,
+          "validity_unchanged": true,
+          "maximum_residual_coordinate_change_mm": 0.26380150069630026,
+          "rms_residual_coordinate_change_mm": 0.026198711326806567,
+          "maximum_endpoint_coordinate_change_mm": 0.2646859456049238,
+          "rms_endpoint_coordinate_change_mm": 0.026158407672972228
+        },
+        "moving": {
+          "declared_voxels": 2276640,
+          "evaluated_voxels": 2276640,
+          "nonfinite_voxels": 0,
+          "validity_unchanged": true,
+          "maximum_residual_coordinate_change_mm": 0.2485107699506603,
+          "rms_residual_coordinate_change_mm": 0.02676884767106008,
+          "maximum_endpoint_coordinate_change_mm": 0.2535135878622573,
+          "rms_endpoint_coordinate_change_mm": 0.026844192192326533
+        }
+      },
+      "inputs": {
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.f64": "abde1a12e1e534413df88627a7ad58abab8201975544b1dcf3a71ee547e9d596",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-affine.json": "a4764b1075a167a0ca5cefa8ff3043f18555759548d3be84e53fcd86ba2fdb67",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/midpoint-fixed-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/midpoint-fixed-residual.f64": "b467581c14cbb1b8b413aa3f143319fa2531b7056e02d2f1a636f536859be8ca",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/midpoint-fixed-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/midpoint-fixed-affine.json": "a4764b1075a167a0ca5cefa8ff3043f18555759548d3be84e53fcd86ba2fdb67",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.f64": "c649546b06907ec25f6c3c5156862ee5f60efff01fe7f653bfba93a7a900ae6d",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-affine.json": "3ada34833b0103614800ee1fd2a6a234eecb2b13007769f5a33ea0ea184a1ad2",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/midpoint-moving-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/midpoint-moving-residual.f64": "dc5e844af0a317d29cf9bbdce656a29c9234f1e949ee3a1be4e32060628e3fb5",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/midpoint-moving-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/midpoint-moving-affine.json": "3ada34833b0103614800ee1fd2a6a234eecb2b13007769f5a33ea0ea184a1ad2"
+      },
+      "status": "compared"
+    },
+    {
+      "serial": 29,
+      "level": 1,
+      "attempt": 6,
+      "accepted_steps": 0,
+      "attempted_velocity_maximum_mm": 1.8946346789274964e-05,
+      "reference_serial": 23,
+      "arms": {
+        "fixed": {
+          "declared_voxels": 2276640,
+          "evaluated_voxels": 2276640,
+          "nonfinite_voxels": 0,
+          "validity_unchanged": true,
+          "maximum_residual_coordinate_change_mm": 0.2638015577275499,
+          "rms_residual_coordinate_change_mm": 0.026210882191440358,
+          "maximum_endpoint_coordinate_change_mm": 0.2646860028525318,
+          "rms_endpoint_coordinate_change_mm": 0.026170738867655103
+        },
+        "moving": {
+          "declared_voxels": 2276640,
+          "evaluated_voxels": 2276640,
+          "nonfinite_voxels": 0,
+          "validity_unchanged": true,
+          "maximum_residual_coordinate_change_mm": 0.24851087526858423,
+          "rms_residual_coordinate_change_mm": 0.02678161382917286,
+          "maximum_endpoint_coordinate_change_mm": 0.25351369495199255,
+          "rms_endpoint_coordinate_change_mm": 0.02685683751645101
+        }
+      },
+      "inputs": {
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.f64": "abde1a12e1e534413df88627a7ad58abab8201975544b1dcf3a71ee547e9d596",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-affine.json": "a4764b1075a167a0ca5cefa8ff3043f18555759548d3be84e53fcd86ba2fdb67",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/midpoint-fixed-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/midpoint-fixed-residual.f64": "527896061b7d02b290c3880fc92cd1ffb46decf850bb7806b883bcfa06df001c",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/midpoint-fixed-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/midpoint-fixed-affine.json": "a4764b1075a167a0ca5cefa8ff3043f18555759548d3be84e53fcd86ba2fdb67",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.f64": "c649546b06907ec25f6c3c5156862ee5f60efff01fe7f653bfba93a7a900ae6d",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-affine.json": "3ada34833b0103614800ee1fd2a6a234eecb2b13007769f5a33ea0ea184a1ad2",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/midpoint-moving-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/midpoint-moving-residual.f64": "5454eef3e1090cfbcd2343add8bf622dde8230935c56defa89edfb0b68342b60",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/midpoint-moving-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/midpoint-moving-affine.json": "3ada34833b0103614800ee1fd2a6a234eecb2b13007769f5a33ea0ea184a1ad2"
+      },
+      "status": "compared"
+    }
+  ],
+  "scope": "Declared captured rejections versus exact captured current state; whole raw lattice with explicit validity counts",
+  "qualification_claim": false
+}

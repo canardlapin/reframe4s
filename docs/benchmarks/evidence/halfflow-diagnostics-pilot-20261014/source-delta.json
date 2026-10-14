@@ -1,0 +1,17 @@
+{
+  "base_numerical_source_sha256": "b3f06ae102c8da87e3758d08d511fc9e476dd6341044084d6cc1d57544bfd2e8",
+  "numerical_source_sha256": "c6958633836fb428ec82d2b128007816967699c567a0c7169300718a48145e50",
+  "base_archive": "benchmarks/halfflow/qualification/control-source.tar.gz",
+  "base_archive_sha256": "7158c10ee61ab1978b191ca871fcb530a01ecbd85fdfd0ccd16a328db3e14211",
+  "patch_sha256": "323b59dc7a0ec7e8594093989c02c6141d95135ce9b6a020a81cebf32f7b6614",
+  "changed_files": {
+    "benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageCheckpoints.scala": "ebc067fcf1516202325013a791c4f439d2c6feda2b09d62ec3406e1c36147b20",
+    "benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageRegistration.scala": "54b0d1a605513fa11a64bbc823217a1dc0f86a86f91da4c566d640a96bfa522d",
+    "benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageRegistrationSuite.scala": "34ec031dc421266c6fb4ea447690a51c160d0613a3dfa6a81eb0ed68195d7eda",
+    "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala": "41d6face6ba779b97ca1deb660e9565d85600de847704f839f11bcde687cb63f",
+    "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcObservation.scala": "44d6ae6c43d517a863f44024d3434d9d17506526358a9b180bdd92056d3fcc5c",
+    "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcObservationSuite.scala": "46f0060cf8bae382c4feb157cfac4f8844e6b3c9172ae29f4d108b849e6bbcfc"
+  },
+  "scratch_reconstruction_verified": true,
+  "scope": "Diagnostic API, runner capture and tests; existing optimizer arithmetic and policy preserved"
+}

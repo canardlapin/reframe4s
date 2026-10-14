@@ -1,0 +1,1785 @@
+{
+  "schema": "hfq-diagnostic-pilot-scoring-evidence-v1",
+  "created_at": "2026-10-14T15:02:49.628044+00:00",
+  "initial_archive_manifest_sha256": "7d87146d6f14830edda203f87f2c353dc0990872902a1c0d71fb03bda51aa215",
+  "initial_archive_unchanged": true,
+  "events": 30,
+  "statuses": {
+    "scored": 13,
+    "not_captured": 17
+  },
+  "scope": "One completed diagnostic case/policy; remaining nine replays are not included",
+  "qualification_claim": false,
+  "files": [
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/export-diagnostics.txt",
+      "bytes": 705,
+      "sha256": "3c168503504866e63a204b7d03c6473d0b3ceb739d9ade15adba07aa91c89e15",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-anatomy-evaluation.json",
+      "bytes": 28264,
+      "sha256": "951744b996f7dc03c884f3b15964c260869b89b8afd351f4ef176d8569c36b4a",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-cell-topology.json",
+      "bytes": 952,
+      "sha256": "2c58f9e8ef15fad9d807216bddaf035fec873121d7ae62074fbab192e928875a",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-evaluation.json",
+      "bytes": 2491,
+      "sha256": "71ee6e13bc78c4cb9af7627e0aae0a9aa15420f20f234e1d2cfb1bd00120565b",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "8949127b321d4940811982b24e58a3ef17948b5f4d9acb4253130f37cc4e8000",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3585293,
+      "sha256": "57afb064cabfd415f645bd0dfa1827dc658d7d9a9923d54ad10040614b18cdd4",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "df78a402a7fa137fcb632631ec0d14b8b24023b7cf9fbc938dd12b18fda80fb1",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "f6010f5d2adaee593410bed2d800b5eaa1f663a646c6ac1bb0adf79665cadb86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3509774,
+      "sha256": "9dcb358254ac63309d6164e7be765f8652a9053dddbe175ea1b4245efd275ef6",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "1bc72bea41e5ae157201731af1533fd3230c6a801c70484ba801d41e255f20f0",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000.log",
+      "bytes": 1918,
+      "sha256": "eb2493de14b4f0e79508e4d3fed1037f8f488c3d3b344ccefde1c4c6b8f9a895",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000.log.gz",
+      "archived_sha256": "14d7b72817db3d4c42fda6ef9a6cb545564030321aabcc1f973c3837bf0494e5"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/export-diagnostics.txt",
+      "bytes": 1107,
+      "sha256": "2f08e93d6e9348f10697c0bc28a1a2e3cf87654389d15182e733f53e143e20b5",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-anatomy-evaluation.json",
+      "bytes": 28264,
+      "sha256": "2e3b42d527dec0d853dfa761a8bc2458f45ba13cbb4669465fb62d7554e7e450",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-cell-topology.json",
+      "bytes": 953,
+      "sha256": "056fa13658d6d58077ce23982c6feeb7e89d37716ab2df7d23648036a5f5c497",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-evaluation.json",
+      "bytes": 2489,
+      "sha256": "48b9e7ecd9b6e4ab4503efa55f58e34c17d41ec4d8871850098ecc7f16fb752b",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "4ef99fdcb5ab314433396d25ad46c34b433e715971d74baf2b556dee16e2edde",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0002-level00-accepted-attempt0001/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3584958,
+      "sha256": "740680064fd82ed8c9637e26c0255ed23c96cc7cde726ac47fe3ea0f522d79f1",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "dbb1620b255364fef43be3e0f744245d51a906d3c8b32f11f8e010f2bb069262",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0002-level00-accepted-attempt0001/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0002-level00-accepted-attempt0001/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0002-level00-accepted-attempt0001/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "3b97582825661e8329328dbe655ee7fbd36f655e7f549fa0d62941d067410b7f",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0002-level00-accepted-attempt0001/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3509311,
+      "sha256": "78795b72113f357c6d47226194853cf0d893420122f5983bd4a1a77485778948",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "594eccb19213659f2aa861d16c0b1b4e1bc20e24158b5ccb7fb9bbe535382a51",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0002-level00-accepted-attempt0001/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0002-level00-accepted-attempt0001/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0002-level00-accepted-attempt0001/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001.log",
+      "bytes": 1916,
+      "sha256": "75f30c00f2bb540deab77a2634d26cb23a7d8b17f86bd73012159cb26c3fa850",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0002-level00-accepted-attempt0001.log.gz",
+      "archived_sha256": "d7e6c65f73cee4fbd3f6caf9ab3f41ccb68556b8044255d9bd324be43cad9ab5"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/export-diagnostics.txt",
+      "bytes": 1109,
+      "sha256": "63a9ed20e8041c1a94655cec3b312adc77155a26ca1ded3ea3f5a40fa51860bf",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-anatomy-evaluation.json",
+      "bytes": 28259,
+      "sha256": "9842487ff71536ce1f3b5f9e9a70c0c6cacf3c2f085333afbe7153a224b8ba5c",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-cell-topology.json",
+      "bytes": 951,
+      "sha256": "3ce3069efe05360e7eedd45d9c621201bbf9dc5b2ed6e60ae8dd325542f18e77",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-evaluation.json",
+      "bytes": 2490,
+      "sha256": "3ff3104722ca54575d477f754395ba5c0ae7af3662d979f3de0a2d61aa8674d3",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "7ea4d2eb54a9062958e727fd223a9729e8b4b772a34cc38e1e10c917e283b1ad",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0003-level00-accepted-attempt0002/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3585196,
+      "sha256": "e6595ab3db6322e581b868d65fb6fbc98d0e0813a24c38578d7b1d9d4f1d3ee1",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "f98c243c227cfd94657b2a438082d3c8df655fbde9c67cb31dd04f8a525a3b40",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0003-level00-accepted-attempt0002/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0003-level00-accepted-attempt0002/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0003-level00-accepted-attempt0002/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "33af9458c1fed22bbe0fef0b5ca97337d54ed1ffdf88bcd0aa60c0445c45c153",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0003-level00-accepted-attempt0002/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3509342,
+      "sha256": "4288360d41987af8643904d3590531d640db7bebe521ef5016a58e9ef4af8b6d",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "6ce83c68598f07c3fd3ed100ccb3746946a798b76d4af1bf26f6a654edfb3aed",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0003-level00-accepted-attempt0002/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0003-level00-accepted-attempt0002/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0003-level00-accepted-attempt0002/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002.log",
+      "bytes": 1917,
+      "sha256": "bd7c73da7b8afa44d15b654db188313d9078e96bdd624872079f40fa5891c1e9",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0003-level00-accepted-attempt0002.log.gz",
+      "archived_sha256": "577ee1081825cd5cf4a53151e46b8a440edfabeb22ebfe308c66db4bdece712d"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/export-diagnostics.txt",
+      "bytes": 1111,
+      "sha256": "f3b1706f8d7369b44f2ed521fdeb16ee02d8b3fb81e5674cc677963dfe86e5d6",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-anatomy-evaluation.json",
+      "bytes": 28128,
+      "sha256": "ccd79ad4924c7dc6899c57d31b4bed951be5900afd1925c864aa5f75fc55dfa9",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-cell-topology.json",
+      "bytes": 952,
+      "sha256": "766ea6e2464d5bba492434da3034a6a69994a84626f7d1c8ce051cd02d3bc56b",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-evaluation.json",
+      "bytes": 2483,
+      "sha256": "427a77a0bd8845244c1c1d8fd395fc1fa6ac188567279b38e80d8df3cdf54307",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "accc208e583e8646251a076ee893ce7b7e63a0e76aca17f6fc9bba23d3a87cdd",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0006-level00-accepted-attempt0005/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3586315,
+      "sha256": "8a39477bfdb7d4dd8756bdbc137931d0826be365b553bde1712ad277d7052b4d",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "a53ef4a7db1406673207f50022174d78ec9035e25b5da271b24e029e11f74dee",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0006-level00-accepted-attempt0005/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0006-level00-accepted-attempt0005/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0006-level00-accepted-attempt0005/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "894fb3253ee3e9c2266258c9f5e059a9fd60ea34dc68ab88d806266a92fa9d87",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0006-level00-accepted-attempt0005/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3507696,
+      "sha256": "1281e4b9b6670757d233d2278b9cfbaee34b77adce2c6ff3e03897ab08afc946",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "0894dd0b353acd741b6a2da13c21ff7e3bdb0bb9c1eb4548f677694f6458a677",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0006-level00-accepted-attempt0005/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0006-level00-accepted-attempt0005/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0006-level00-accepted-attempt0005/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005.log",
+      "bytes": 1910,
+      "sha256": "ac581db4c71a1189783885d76478889f72713f21703020504e43aacbba88d249",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0006-level00-accepted-attempt0005.log.gz",
+      "archived_sha256": "e5c4df27292df7241dc9aca22b2500ae352a2492a5c7d562ad2543e218c8ee2f"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/export-diagnostics.txt",
+      "bytes": 1103,
+      "sha256": "a553cf23e4e3796b5da042ec10c07174b393844db23c1a19ab9f7de5871d7e4f",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-anatomy-evaluation.json",
+      "bytes": 28153,
+      "sha256": "94b5d4ebf26e4e0f48c490edabc7d2dc443422227e7cdcedf6c4c8adcfba5411",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-cell-topology.json",
+      "bytes": 953,
+      "sha256": "e51194252acdeeedfb79b93fd837df9493f9c4f25bb132122829e0d496636b3d",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-evaluation.json",
+      "bytes": 2478,
+      "sha256": "6acda261ab868c495eadfa29cb3df170eb97fb2e34735a7734aa42eff2d1c84d",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "69aed63279eef352cfb8cddc29cfa6b199c86612a53620597b40c679a8f1729e",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0011-level00-accepted-attempt0010/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3586176,
+      "sha256": "9517ab30261bfee07da20282bcfc1ed1c64dcb0ec99e44f50fc8abca3f599eb5",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "c7b957b6f3fbf85bfbe775a91b833a4ac6b3577d08aa343526e9e3a4858f9056",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0011-level00-accepted-attempt0010/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0011-level00-accepted-attempt0010/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0011-level00-accepted-attempt0010/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "7121e06091d3a82df2196968edb88f7b328f0b13f88f64208c627ab43143b8c6",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0011-level00-accepted-attempt0010/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3504151,
+      "sha256": "2f3c70857d6ba0012c138ca7cf0ab093e7fc5d235096502f47ac442533da701f",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "f2e9b0d376099fb6cb5811ae97aa2ad9052671af70e5ca636271a029921d079d",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0011-level00-accepted-attempt0010/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0011-level00-accepted-attempt0010/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0011-level00-accepted-attempt0010/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010.log",
+      "bytes": 1905,
+      "sha256": "3761b9f217fa635399064055127bf529ce9842f12c78a33f6d7cbeaad4297132",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0011-level00-accepted-attempt0010.log.gz",
+      "archived_sha256": "c9dfa90f03ba387689907f6db5dee0e2f395a1476022b511202f30fb0f046e3b"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/export-diagnostics.txt",
+      "bytes": 1092,
+      "sha256": "2b5059d805fffc2dc88ea401c19c3ab16d8ea94171887492dca0bf1cc24e7aee",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-anatomy-evaluation.json",
+      "bytes": 28079,
+      "sha256": "cbe966176b5f99990c6488ee48fd69fa1a10421a2fe3faa54a0c7b1ced8178b6",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-cell-topology.json",
+      "bytes": 953,
+      "sha256": "adc79e09e247bdb3d0e6a801378d02396d99e3edf6d651d935e15f0596417b3c",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-evaluation.json",
+      "bytes": 2475,
+      "sha256": "3a12ac76e9b3a26c26ab4a4da81acfd95f728f8f296604451ee7300cc869cdd7",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "4b127baa003fc85f89731b078bd4d4aada65ca4beedf839a8ca0c0c3bbc38e7c",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0016-level00-accepted-attempt0015/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3579747,
+      "sha256": "10c6e865cb7ce50e2779c933e23f2c0265117b51773160aff100de614bc45e4e",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "dc7a9cdb8c87dc488330c98ee5a412e9874567b98c894a59aa997d669560af60",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0016-level00-accepted-attempt0015/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0016-level00-accepted-attempt0015/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0016-level00-accepted-attempt0015/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "8bb5eb0da9d53d39039cee6cd14516ac0848d5cfb0a6941090bcef60c0e24554",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0016-level00-accepted-attempt0015/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3511216,
+      "sha256": "f75e27ef23f069497a72e3927b2a2b9fd5e852b4db3e55ab470879ff477cc906",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "f4347fc71fa88f30641497ca6f9cc56c3a1e8279ebe057fc2b4b8fab8c63f0dc",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0016-level00-accepted-attempt0015/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0016-level00-accepted-attempt0015/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0016-level00-accepted-attempt0015/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015.log",
+      "bytes": 1902,
+      "sha256": "5977c776286c1a3fa2aee1e29d2bdd07b17ba169f9a0633a6c359c4b5ea08813",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0016-level00-accepted-attempt0015.log.gz",
+      "archived_sha256": "1e4d3ff56621543f44d217ae608ece19609c089de0bd39ec86bd70bdb6c56f10"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/export-diagnostics.txt",
+      "bytes": 1087,
+      "sha256": "c7c5b82b43de3ecf1073310340d7a0aacf1eca824fd7dc2f8ac5b0f45b1f65c1",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-anatomy-evaluation.json",
+      "bytes": 28117,
+      "sha256": "0c1405c87f47e56c17fab40b13934816dd7186684be1feae2b7f17653f293832",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-cell-topology.json",
+      "bytes": 953,
+      "sha256": "db52bcb923459a6a7d715e4861bd6e70a37c70909cf18dce6f2b86318d380ae4",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-evaluation.json",
+      "bytes": 2478,
+      "sha256": "e3c57597903a35fdc6696b4e5e69f5853671a6380557b9182d1963a4cfdd8457",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "f01657b17b7d8984201b11827b8a44cf28b01d594c7d745b26d2d5181091da78",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0021-level00-accepted-attempt0020/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3578151,
+      "sha256": "3b145e3bbc1eaa48a46540574438df60ae0206b405d4bad76774cd73fae0f718",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "e27fc4d456680a4238955eb57445bcde6c3e2c3e7ac10ffb8e168d7c72d9f251",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0021-level00-accepted-attempt0020/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0021-level00-accepted-attempt0020/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0021-level00-accepted-attempt0020/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "484cbbc4be2c50e5e3b68b641f8d12066745eff3a44754953baa7bd9f9076758",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0021-level00-accepted-attempt0020/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3512555,
+      "sha256": "d83166baf1f70c16edb8842bfec738b8f522395c4fcd993994fb46d0cefb3cba",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "348ef2aeb5e9a953b204912c657d389da0e4dd76f918d22f7e7af7b24ce6d981",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0021-level00-accepted-attempt0020/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0021-level00-accepted-attempt0020/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0021-level00-accepted-attempt0020/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020.log",
+      "bytes": 1905,
+      "sha256": "1c362e622063e28dd8068b77f82537129bb972131ab97af7d5ac74b7b9c8aa68",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0021-level00-accepted-attempt0020.log.gz",
+      "archived_sha256": "47aa476224fed21524185156ff1bd3540d0ae576c7087c61e9042eaf3c5ceb74"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/export-diagnostics.txt",
+      "bytes": 1087,
+      "sha256": "c7c5b82b43de3ecf1073310340d7a0aacf1eca824fd7dc2f8ac5b0f45b1f65c1",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-anatomy-evaluation.json",
+      "bytes": 28117,
+      "sha256": "0c1405c87f47e56c17fab40b13934816dd7186684be1feae2b7f17653f293832",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-cell-topology.json",
+      "bytes": 953,
+      "sha256": "db52bcb923459a6a7d715e4861bd6e70a37c70909cf18dce6f2b86318d380ae4",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-evaluation.json",
+      "bytes": 2478,
+      "sha256": "e3c57597903a35fdc6696b4e5e69f5853671a6380557b9182d1963a4cfdd8457",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "f01657b17b7d8984201b11827b8a44cf28b01d594c7d745b26d2d5181091da78",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3578151,
+      "sha256": "3b145e3bbc1eaa48a46540574438df60ae0206b405d4bad76774cd73fae0f718",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "e27fc4d456680a4238955eb57445bcde6c3e2c3e7ac10ffb8e168d7c72d9f251",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "484cbbc4be2c50e5e3b68b641f8d12066745eff3a44754953baa7bd9f9076758",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3512555,
+      "sha256": "d83166baf1f70c16edb8842bfec738b8f522395c4fcd993994fb46d0cefb3cba",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "348ef2aeb5e9a953b204912c657d389da0e4dd76f918d22f7e7af7b24ce6d981",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020.log",
+      "bytes": 1905,
+      "sha256": "1c362e622063e28dd8068b77f82537129bb972131ab97af7d5ac74b7b9c8aa68",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0022-level00-levelend-attempt0020.log.gz",
+      "archived_sha256": "47aa476224fed21524185156ff1bd3540d0ae576c7087c61e9042eaf3c5ceb74"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/export-diagnostics.txt",
+      "bytes": 1087,
+      "sha256": "c7c5b82b43de3ecf1073310340d7a0aacf1eca824fd7dc2f8ac5b0f45b1f65c1",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-anatomy-evaluation.json",
+      "bytes": 28117,
+      "sha256": "0c1405c87f47e56c17fab40b13934816dd7186684be1feae2b7f17653f293832",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-cell-topology.json",
+      "bytes": 953,
+      "sha256": "db52bcb923459a6a7d715e4861bd6e70a37c70909cf18dce6f2b86318d380ae4",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-evaluation.json",
+      "bytes": 2478,
+      "sha256": "e3c57597903a35fdc6696b4e5e69f5853671a6380557b9182d1963a4cfdd8457",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "f01657b17b7d8984201b11827b8a44cf28b01d594c7d745b26d2d5181091da78",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3578151,
+      "sha256": "3b145e3bbc1eaa48a46540574438df60ae0206b405d4bad76774cd73fae0f718",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "e27fc4d456680a4238955eb57445bcde6c3e2c3e7ac10ffb8e168d7c72d9f251",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "484cbbc4be2c50e5e3b68b641f8d12066745eff3a44754953baa7bd9f9076758",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3512555,
+      "sha256": "d83166baf1f70c16edb8842bfec738b8f522395c4fcd993994fb46d0cefb3cba",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "348ef2aeb5e9a953b204912c657d389da0e4dd76f918d22f7e7af7b24ce6d981",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000.log",
+      "bytes": 1905,
+      "sha256": "1c362e622063e28dd8068b77f82537129bb972131ab97af7d5ac74b7b9c8aa68",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000.log.gz",
+      "archived_sha256": "47aa476224fed21524185156ff1bd3540d0ae576c7087c61e9042eaf3c5ceb74"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/export-diagnostics.txt",
+      "bytes": 1097,
+      "sha256": "9c9bcb424e317e19de03925da189b4fa8fa208efa66976ea64cb40193ca64432",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-anatomy-evaluation.json",
+      "bytes": 28133,
+      "sha256": "17bc965ca528a51a9f80d0d63d9cc3676906e1316a7fd2db04d8d4ecb6a2d316",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-cell-topology.json",
+      "bytes": 951,
+      "sha256": "12651b8b32c7cfe199e408614d0eefa3344b0389cfdecd3d86e3c755ad04990f",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-evaluation.json",
+      "bytes": 2478,
+      "sha256": "62c9c1e4fafb0ac7b7f4d5ef4a2e9f6479e9b973600b779b2f4f5404f10fefda",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "10782e1b597613f63ac453a97d796490e3a9b8e37a999999353b05e08bbaa677",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3577718,
+      "sha256": "23c0bafeff33f3bdb2349ae52a6a4bc72531d5aa7c65d98fa0da6ac6688ca095",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "a3dfd5674e7bb25fd55941b7f0a8c5437029c44fdb073e10e44c76ddfaddc9f3",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "bfc2e40b2b6ae6000d3bc81b8f64194b081ea21e776f566fbf08635d68856cdd",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3512586,
+      "sha256": "a5fd3e6fa2966cdac57c306fd0087e2703e0dccb12bd4a32fa3e082d1c0e412a",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "6308154b1c9d84218396ccd63ca9c1e74a09e14f7f32bf97948cf3607db9597c",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001.log",
+      "bytes": 1905,
+      "sha256": "a27a078b653297efd9e5f84344facb9df7f643f581cddd2e1520a248291f3b17",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0024-level01-rejected-attempt0001.log.gz",
+      "archived_sha256": "5f4ef0178a3034c188d4363fb92b92e3d5d12b9e5985b86d4396ca1e47184cb5"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/export-diagnostics.txt",
+      "bytes": 1101,
+      "sha256": "d3b4d7baa0dae25c531b6eed145600344d0aeea7ce9bad64f8225fde851531ed",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-anatomy-evaluation.json",
+      "bytes": 28108,
+      "sha256": "09bb7f24037788d616f03d19f3f1bf629dc890ff7d5d624dccf4d9b8f189e62a",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-cell-topology.json",
+      "bytes": 953,
+      "sha256": "14354fff1ccf18ef287bf6085fd734f1d65bc328e81143d3fd2fac1e349201ef",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-evaluation.json",
+      "bytes": 2477,
+      "sha256": "48c1367e799b79de63bdfe0b428ca23e24ab6b47d12a259b20d35bf42e7ce351",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "243b82a1bba747bcc57f000ec5d699205520cf6d43b391e646ad95ec5276ca3f",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3578099,
+      "sha256": "60dd958923084dbc6bde1f440acb16cd8fa2509fe0703592f5b5831ba33c6900",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "78cb3bb3951157c658ad6617675da97737f386b1f096aa3cbfabbcccd2f0c9b7",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "e57e6eed4621a5845817b5e4bd5c35449a8928a12408eaa2c7672e75ea805eeb",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3512473,
+      "sha256": "0c3fc6d9de5f43df5d707067410eb01c02724e41d244db825b5a8f511b5fefab",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "c87dfa5f88acc31ca55d36a3c43495ba75d22defe65815b47ee67974231f6d16",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002.log",
+      "bytes": 1904,
+      "sha256": "e66ae3a08afb7ad74dafec9ea859a3ce566a6bddfd3a89fe57f986f0347c70c4",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0025-level01-rejected-attempt0002.log.gz",
+      "archived_sha256": "cea4f3c138758ed9f0f7a45f6808426eb680a3242b3a0b2b3c6510f9dfa33c50"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/export-diagnostics.txt",
+      "bytes": 1098,
+      "sha256": "20ff18cadfe186138c3144fa5ad32202947b28a1d56be7a4f93289c11161c126",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-anatomy-evaluation.json",
+      "bytes": 28137,
+      "sha256": "6412a0965b97b9d5f8fa31777342dab9e30696702d427c1766bc9a2301a6764c",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-cell-topology.json",
+      "bytes": 953,
+      "sha256": "64f6786d688aa1b974774ee6fa7c798f96bd9f8eb94a5a53d112755cf1d6d29b",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-evaluation.json",
+      "bytes": 2480,
+      "sha256": "07a76c6f4ea0956d669ac467675d92d33abe57e315e04ce8e1f89e446f66d222",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "0befb85f2a5e8792a1d848b6017f1fded851682e93ad6779b178f9db267318d0",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3578276,
+      "sha256": "79061f91565778e05bf39b3cfe3f9feb4aa1d14030a6e5b4904e3024b4c079bf",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "43b2f1a95cb9149359a749e5f54014a69d76d1a61ba7f377d68bf74794fb8f03",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "dc9324ee9bc0de577b94e541a84e631d4a2f5320f61ecc87a6ee4b2fd6bdd3b3",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3512752,
+      "sha256": "d2ae4eff41f2fd83d52d42c2232dc7537f473505b2c53eb0e348589f301f5990",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "25cb352200c611427048fccb2369ff12737acad1824590e6b55a148ac82e49f3",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006.log",
+      "bytes": 1907,
+      "sha256": "caa1f66d13b667032c4858b585c4d5daefe3cc1cae8eeb28f4baf4b0bc26f3fd",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0029-level01-rejected-attempt0006.log.gz",
+      "archived_sha256": "a81db0b6a138f6a9c853a88ad3e00d2f23d3f6240ecdcf02e613c43f39f63369"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/export-diagnostics.txt",
+      "bytes": 1087,
+      "sha256": "c7c5b82b43de3ecf1073310340d7a0aacf1eca824fd7dc2f8ac5b0f45b1f65c1",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/export-diagnostics.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-anatomy-evaluation.json",
+      "bytes": 28117,
+      "sha256": "0c1405c87f47e56c17fab40b13934816dd7186684be1feae2b7f17653f293832",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-cell-topology.json",
+      "bytes": 953,
+      "sha256": "db52bcb923459a6a7d715e4861bd6e70a37c70909cf18dce6f2b86318d380ae4",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-cell-topology.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-evaluation.json",
+      "bytes": 2478,
+      "sha256": "e3c57597903a35fdc6696b4e5e69f5853671a6380557b9182d1963a4cfdd8457",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-evaluation.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "f01657b17b7d8984201b11827b8a44cf28b01d594c7d745b26d2d5181091da78",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0030-level01-levelend-attempt0006/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3578151,
+      "sha256": "3b145e3bbc1eaa48a46540574438df60ae0206b405d4bad76774cd73fae0f718",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "e27fc4d456680a4238955eb57445bcde6c3e2c3e7ac10ffb8e168d7c72d9f251",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0030-level01-levelend-attempt0006/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0030-level01-levelend-attempt0006/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0030-level01-levelend-attempt0006/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "484cbbc4be2c50e5e3b68b641f8d12066745eff3a44754953baa7bd9f9076758",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0030-level01-levelend-attempt0006/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3512555,
+      "sha256": "d83166baf1f70c16edb8842bfec738b8f522395c4fcd993994fb46d0cefb3cba",
+      "retained_locally": true
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "348ef2aeb5e9a953b204912c657d389da0e4dd76f918d22f7e7af7b24ce6d981",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0030-level01-levelend-attempt0006/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0030-level01-levelend-attempt0006/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0030-level01-levelend-attempt0006/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006.log",
+      "bytes": 1905,
+      "sha256": "1c362e622063e28dd8068b77f82537129bb972131ab97af7d5ac74b7b9c8aa68",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/0030-level01-levelend-attempt0006.log.gz",
+      "archived_sha256": "47aa476224fed21524185156ff1bd3540d0ae576c7087c61e9042eaf3c5ceb74"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0001.json",
+      "bytes": 10542,
+      "sha256": "1a2d80a2b1be221a69c0c758281abac9d9e2c65d89ae99c373c30f384160b990",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0001.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0002.json",
+      "bytes": 13074,
+      "sha256": "8e59fa38998de39616acf0dbb738e5211395226df7569d086224e57ffed43fc6",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0002.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0003.json",
+      "bytes": 13067,
+      "sha256": "457fee317b17b42208e7413c6f3296439f66f142b81580c4e072e8772495783c",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0003.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0004.json",
+      "bytes": 6504,
+      "sha256": "7668dcfaf0cecf59d7afaf98137d7a1ea391a38635bed2ca5545fac41ec98c87",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0004.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0005.json",
+      "bytes": 6507,
+      "sha256": "d939dc8589bc9590863a5b95c2991c2830c40204a23be8fe791bed834281caa0",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0005.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0006.json",
+      "bytes": 13073,
+      "sha256": "d3d2cbae2e357ca334d154353dd452162731d005de2e51637c1f28974c77b67a",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0006.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0007.json",
+      "bytes": 6500,
+      "sha256": "e348b64306e1055a8a3ba800f2e5e0a1db84eb606da7680d6ef769c990f2c987",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0007.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0008.json",
+      "bytes": 6508,
+      "sha256": "d6c15a0304c52c973e07d68a1bec43323acc66219c519326ef924ae850130606",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0008.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0009.json",
+      "bytes": 6511,
+      "sha256": "3bf946886f4d6e4fd8af552f73cda93d71c2981251b7fc140b5dc87ba68495ff",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0009.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0010.json",
+      "bytes": 6519,
+      "sha256": "12cdc1f85d8ab981e5b9905feffd90c71f617c298bb5d7228967dd5d7c6425be",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0010.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0011.json",
+      "bytes": 13088,
+      "sha256": "a9209991ebcfd00ba62fc81b56bfe8bd3f94cc18fb1479843e3d8570003f3144",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0011.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0012.json",
+      "bytes": 6528,
+      "sha256": "6842bc1430a083e01655346097c8bdec6bcd2b17453939291209a97feabb516f",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0012.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0013.json",
+      "bytes": 6535,
+      "sha256": "17654cb68e974fde770a22d64e3672594d835f3d4a06ac5c1c5406bc111877e4",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0013.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0014.json",
+      "bytes": 6541,
+      "sha256": "d06599d3fa4350b1a4448e3e0c822ba4a235dd325646d6b011fb5196221aa788",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0014.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0015.json",
+      "bytes": 6530,
+      "sha256": "d1bfd56305aa6841fbfc4edc98122afb4d6f3b6b1f8ff8bad39db717608f6919",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0015.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0016.json",
+      "bytes": 13039,
+      "sha256": "7da64c81bc8748cbc6c5c8a685ae2e96a66a8f6fcd01ac40784c4f95d7223391",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0016.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0017.json",
+      "bytes": 6482,
+      "sha256": "78471865fe08a5db88dc024492cc863dfdeb58b3c0e70977f68bb2d0847fc22a",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0017.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0018.json",
+      "bytes": 6477,
+      "sha256": "193113653f738b1b0079efe69715bf1984f56697a3aaee89e325b5f7267ddd0c",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0018.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0019.json",
+      "bytes": 6474,
+      "sha256": "e07f856b57da1085b755213337b99e925779e994778b9650cf52aa3b66e1ab81",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0019.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0020.json",
+      "bytes": 6478,
+      "sha256": "96f7a85f17702904f6ab7c07426da6cc4ed536d972ef55054d3927b5f233c3df",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0020.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0021.json",
+      "bytes": 13036,
+      "sha256": "76427d1d4634d9bf3ef434bafd0e84f6318bca853f2a21a944995b313edd0404",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0021.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0022.json",
+      "bytes": 10668,
+      "sha256": "7eb415b1e811a94edd82637b10e34379d8865ee77411aeb75907e7bf687d3305",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0022.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0023.json",
+      "bytes": 10716,
+      "sha256": "232e936dfa340ff037925d03ac0d3423ed88a984ec6f9d6cf0f73b5d2840ed65",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0023.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0024.json",
+      "bytes": 13167,
+      "sha256": "a7217aa9cc0da09c80ad327a03de0097268c77fc3bf49004a7ffe3a92ad8aee4",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0024.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0025.json",
+      "bytes": 13163,
+      "sha256": "94372e8ac10fe81720641821248f64ac3caf32519fe08f5bd8a3c900864db371",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0025.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0026.json",
+      "bytes": 6605,
+      "sha256": "b5e8490dde688d02a95bacf3865afab0738e2ef85697c1b4a0bcb9eb727897b4",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0026.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0027.json",
+      "bytes": 6606,
+      "sha256": "6d39246d1bf490c7d67ae9a671cc54067a1a715f54f985fd23763f615c6b6400",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0027.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0028.json",
+      "bytes": 6605,
+      "sha256": "06b4a2c994d731212b8b986ffd643c8e3bdd45d054e4d4cb596f62a228a6b097",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0028.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0029.json",
+      "bytes": 13172,
+      "sha256": "08faf32f1d56628241ff195b7dc4852c9c6d29f8e3d0d2981f8e245bbf83e57a",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0029.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0030.json",
+      "bytes": 10724,
+      "sha256": "e2f613fa9d1c2af12b63a910e7fad106d938bd3de6ecce6e7d306160db0e6444",
+      "archived_path": "checkpoint-analysis-v1/oasis-11-to-12/selected-control/event-0030.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/protocol.json",
+      "bytes": 2633,
+      "sha256": "fb6248bb6c98af228890e622a8beac6d8bacb006ed728906a8a61b4bb89256ef",
+      "archived_path": "checkpoint-analysis-v1/protocol.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/source-audit-contract-v1.json",
+      "bytes": 1863,
+      "sha256": "c6173ab928d14ee109687b8a949c1ffc963e986b94338e79a10e2710710b1a3e",
+      "archived_path": "checkpoint-analysis-v1/source-audit-contract-v1.json"
+    },
+    {
+      "path": "checkpoint-analysis-v1/source-audit_study.py",
+      "bytes": 9973,
+      "sha256": "5ddcdb40ef0ce79bb4c38950898989988b65c69ca75190f462f4388f82b6e064",
+      "archived_path": "checkpoint-analysis-v1/source-audit_study.py"
+    },
+    {
+      "path": "checkpoint-analysis-v1/source-canonical_ants.py",
+      "bytes": 9094,
+      "sha256": "b79677e3595ec2d417806b8544e4d874b9ca2b2d9ea349698b6f17c5b5129d69",
+      "archived_path": "checkpoint-analysis-v1/source-canonical_ants.py"
+    },
+    {
+      "path": "checkpoint-analysis-v1/source-checkpoint_analysis.py",
+      "bytes": 7859,
+      "sha256": "2fa1b08b245d923a7631c796aad0ecc7021fdda78ff510d16708dee7413437dd",
+      "archived_path": "checkpoint-analysis-v1/source-checkpoint_analysis.py"
+    },
+    {
+      "path": "checkpoint-analysis-v1/source-fixed_audit.py",
+      "bytes": 5527,
+      "sha256": "e0855cd0f6b472b9c5cf07ac51c7f8ea1092a0947fb95c9efe732e5bab2540a9",
+      "archived_path": "checkpoint-analysis-v1/source-fixed_audit.py"
+    },
+    {
+      "path": "checkpoint-analysis-v1/source-real_image_court.py",
+      "bytes": 20929,
+      "sha256": "78aeac693e7d8ed83df7f403c3e3af269c40dd712cbfd7ace6a6ee4e8b60c55c",
+      "archived_path": "checkpoint-analysis-v1/source-real_image_court.py"
+    },
+    {
+      "path": "checkpoint-analysis-v1/source-real_mri_cell_topology.py",
+      "bytes": 5297,
+      "sha256": "83f41aa020a2ceb8dd427b169cb2a7c49830ad95cd024a423aa026bdb51e5bc1",
+      "archived_path": "checkpoint-analysis-v1/source-real_mri_cell_topology.py"
+    },
+    {
+      "path": "checkpoint-analysis-v1/source-regularity.py",
+      "bytes": 2224,
+      "sha256": "0dc505c636dcd84e50bcebffd84790b8ce0977ad2023a20b07822a079119d1d9",
+      "archived_path": "checkpoint-analysis-v1/source-regularity.py"
+    },
+    {
+      "path": "checkpoint-analysis-v1/source-test_regularity.py",
+      "bytes": 1406,
+      "sha256": "354b289335e0a72b03cd37c80cc279ab3c0e62d3b96722b7695aaf253fd5336a",
+      "archived_path": "checkpoint-analysis-v1/source-test_regularity.py"
+    },
+    {
+      "path": "pilot-candidate-changes.json",
+      "bytes": 18526,
+      "sha256": "17d83275c2d32be6e4f6d158e47dddb21b545f59678fcaecbcf5f220ecd13968",
+      "archived_path": "pilot-candidate-changes.json"
+    },
+    {
+      "path": "pilot-candidate-changes.log",
+      "bytes": 3284,
+      "sha256": "892e6dbc0c8f96b13a7809bbf7ebc4c84c3df1c3d5eb8a909ca206f95f852ff0",
+      "archived_path": "pilot-candidate-changes.log.gz",
+      "archived_sha256": "6660fa1e6ccadc8b25349b489611790caac6d11493a33c5a5ada14d883fec9d9"
+    },
+    {
+      "path": "pilot-figures-v1/per-structure.png",
+      "bytes": 202702,
+      "sha256": "7f99a3e98e04b30405494fcc4b01d364eaa165aab40bbee076c982be86c2da0e",
+      "archived_path": "pilot-figures-v1/per-structure.png"
+    },
+    {
+      "path": "pilot-figures-v1/per-structure.svg",
+      "bytes": 172769,
+      "sha256": "007910104d7b41042cfc9f243baf26fa9591e1840efa858a5a77f6bd9ebcc324",
+      "archived_path": "pilot-figures-v1/per-structure.svg"
+    },
+    {
+      "path": "pilot-figures-v1/summary.json",
+      "bytes": 8714,
+      "sha256": "683230619f0fda8c669d02d4a67e13f9b3dc74abd51cf948cdddf7879012faef",
+      "archived_path": "pilot-figures-v1/summary.json"
+    },
+    {
+      "path": "pilot-figures-v1/trajectory.png",
+      "bytes": 378319,
+      "sha256": "659495e748e53ccd324a53124791b6a7791bf266ef361ce7bad5aa934ed8a6cf",
+      "archived_path": "pilot-figures-v1/trajectory.png"
+    },
+    {
+      "path": "pilot-figures-v1/trajectory.svg",
+      "bytes": 236223,
+      "sha256": "39707280777e7c866a9921473866f84e67eb5fda2d35b901bc26f9a1a850dbec",
+      "archived_path": "pilot-figures-v1/trajectory.svg"
+    },
+    {
+      "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/compare_candidates.py",
+      "bytes": 4379,
+      "sha256": "a406f3174197eef531095c18fe447343a3931a00df258627f6d77756fa33e25f",
+      "archived_path": "sources/compare_candidates.py"
+    },
+    {
+      "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/plot_trajectories.py",
+      "bytes": 9376,
+      "sha256": "51912a0e5dd8b9d1bee20eeb187d5cc9c0e95e7719e912ccb239c040e268f1c0",
+      "archived_path": "sources/plot_trajectories.py"
+    },
+    {
+      "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/archive_pilot_scoring.py",
+      "bytes": 4696,
+      "sha256": "a2398ef07583dcca816dfcd6fcb0b5f80b587ab1ff93c00a10d9e87ec03f5300",
+      "archived_path": "sources/archive_pilot_scoring.py"
+    }
+  ]
+}
