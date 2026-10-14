@@ -196,5 +196,69 @@ cover both policies for OASIS 13 → 14 and MMRR 11 → 12. All four source fits
 terminated with exit 0. Every captured state is included: 61 exports from
 162 total events, with the other 101 explicitly uncaptured. Source exit 0
 does not establish convergence. The batch is prepared for sequential export
-after the existing worker; no outcomes from this next batch are included in
+after the [isolated reference timing study](halfflow-reference-audit-v1.md#declared-isolated-regularized-cost-study),
+which itself waits for the current workers to finish. No outcomes from this next batch are included in
 the [supplement](evidence/halfflow-deferred-capture-20261014/offline-ledger-supplement-v1/artifact-manifest.json).
+
+## Nine-fit scalar loss snapshot
+
+The [timestamped scalar snapshot](evidence/halfflow-deferred-capture-20261014/scalar-loss-snapshot-v1/summary.json)
+contains nine terminal fits of the ten declared attempts. All nine exited 0.
+OASIS 17 → 18 step-scaled was still pending when the snapshot was taken; its
+live stream is excluded. Eight terminal fits have historical map baselines:
+all four final map/validity hashes match exactly for each. OASIS 1 → 10
+step-scaled has no historical baseline and is not counted as an exact replay.
+These are diagnostic fits; exit 0 does not establish convergence.
+
+For every accepted step, let `before` be its frozen current loss, `candidate`
+its loss under the same frozen objective, and `after` its loss after rebuilding
+support and weights. The new scalar accounting verifies, separately for each
+pyramid level:
+
+`sum(before − candidate) − sum(after − candidate) = initial − final rebuilt loss`
+
+It checks every event's identity and accepted-state continuity, including
+unchanged states after rejection. The nine streams contain 280 accepted updates
+and 24 rejected attempts. Fourteen levels terminate at their accepted-step
+budget; four fine levels exhaust the controller with no accepted update. None
+of those termination reasons establishes convergence.
+
+| Pair and policy, fine level | Accepted updates | Frozen trial loss drop, summed | Rebuild loss change, summed | Net rebuilt loss drop |
+| --- | ---: | ---: | ---: | ---: |
+| OASIS 11, control | 0 | 0 | 0 | 0 |
+| OASIS 11, step-scaled | 20 | 0.098087 | +0.006215 | 0.091872 |
+| OASIS 13, control | 20 | 0.111801 | −0.002533 | 0.114333 |
+| OASIS 13, step-scaled | 20 | 0.111278 | −0.002359 | 0.113637 |
+| MMRR 11, control | 0 | 0 | 0 | 0 |
+| MMRR 11, step-scaled | 20 | 0.105562 | +0.000373 | 0.105189 |
+| OASIS 1, control | 0 | 0 | 0 | 0 |
+| OASIS 1, step-scaled | 20 | 0.101549 | +0.001635 | 0.099914 |
+| OASIS 17, control | 0 | 0 | 0 | 0 |
+
+Positive rebuild change offsets frozen trial improvement. The complete summary
+also retains all nine coarse levels, population counts, support mass, active
+windows, variance statistics and stabilization mass.
+
+One of the 280 accepted updates increases the rebuilt loss: OASIS 13 control,
+fine-level update 1 (event 24). Its frozen loss decreases from
+`0.530643266102` to `0.530558147031`, but its rebuilt loss is
+`0.530876225932`. This is a frozen improvement of `0.000085119071`, followed
+by a rebuild increase of `0.000318078901`, giving a net increase of
+`0.000232959830`. The state was captured; its new offline anatomical scoring is
+in the next export batch. The later net loss decrease for this level does not
+erase that accepted increase.
+
+Most accumulated scalar loss improvement survives rebuilding on these streams.
+That arithmetic does not establish a common voxel population or show that
+removing difficult voxels caused an anatomical decline. Positive-support counts
+decrease at 168 accepted updates, but counts alone do not identify which voxels
+changed. Fixed-region intensity audits and anatomical trajectories remain
+necessary; the already observed intensity/anatomy disagreement is not resolved.
+
+Three regression checks cover rebuild penalties and accepted increases,
+explicit partial levels, and missing events or inconsistent accepted states.
+The [archive](evidence/halfflow-deferred-capture-20261014/scalar-loss-snapshot-v1/artifact-manifest.json)
+contains the verified terminal receipts, compressed scalar streams and logs,
+source hashes, summarizer and passing check log. It contains no MRI or dense-map
+payloads. `summarize_scalar_losses.py` reproduces the calculation from the sealed
+study; later snapshots must use a new directory and preserve this partial one.

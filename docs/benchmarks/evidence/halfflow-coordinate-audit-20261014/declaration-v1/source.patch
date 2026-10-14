@@ -1,0 +1,299 @@
+--- /dev/null
++++ b/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageOrderAudit.scala
+@@ -0,0 +1,138 @@
++package reframe4s.halfflow
++
++import image4s.{ContinuousImage, SampleSpace}
++import image4s.geometry.D3
++import image4s.geometry.Frame as CanonicalFrame
++import image4s.nifti.Nifti
++import java.nio.file.{Files, Path, Paths, StandardOpenOption}
++import ravel.Rank
++import reframe4s.halfflow.internal.*
++
++/** Diagnostic role swap on a fixed saved work grid, not reverse registration.
++  * Images, validity and arms move together. The original fixed fitting mask
++  * therefore belongs to the swapped moving image. No optimizer is called.
++  */
++object RealImageOrderAudit:
++  private sealed trait Work
++  private sealed trait Fixed
++  private sealed trait Moving
++  private val lossTolerance = 1e-12
++  private val gradientAbsoluteTolerance = 1e-11
++  private val gradientRelativeTolerance = 1e-10
++  private val epsilons = Vector(.01,.0001)
++  private def right[E,A](value: Either[E,A]): A =
++    value.fold(error => throw new IllegalArgumentException(error.toString),identity)
++
++  def main(args: Array[String]): Unit =
++    require(args.length==7,"moving fixed fixed-mask checkpoint output expected-loss level-index")
++    val moving = right(Nifti.readScaledDouble(Paths.get(args(0))))
++    val fixed = right(Nifti.readScaledDouble(Paths.get(args(1))))
++    moving.image.fold(_ => throw new IllegalArgumentException("scalar D3 moving required"),
++      m => fixed.image.fold(_ => throw new IllegalArgumentException("scalar D3 fixed required"),
++        f => run(right(m.value.requireDataRank[3]),right(f.value.requireDataRank[3]),
++          Paths.get(args(2)),Paths.get(args(3)),Paths.get(args(4)),args(5).toDouble,args(6).toInt)))
++
++  private def run[M <: CanonicalFrame[D3],F <: CanonicalFrame[D3],
++      MS <: SampleSpace[M,D3],FS <: SampleSpace[F,D3]](
++      moving: ContinuousImage[MS,Double,Rank[3]],fixed: ContinuousImage[FS,Double,Rank[3]],
++      maskPath: Path,checkpoint: Path,output: Path,expectedLoss: Double,levelIndex: Int
++  ): Unit =
++    require(!Files.exists(output),"refusing to overwrite order audit")
++    require(expectedLoss.isFinite)
++    val fg = GridSpec.fromGrid(fixed.grid); val mg = GridSpec.fromGrid(moving.grid)
++    val ff = RegistrationFrame[Fixed](SpatialDomainId("order-fixed"),fg)
++    val mf = RegistrationFrame[Moving](SpatialDomainId("order-moving"),mg)
++    val fi = right(RegistrationImage.make(ff,NeuroVol.fromRavel(fixed.data,fg,"fixed"),
++      FieldValidity.copyMask(RealImageRegistration.loadMask(maskPath,fg))))
++    val mi = right(RegistrationImage.make(mf,NeuroVol.fromRavel(moving.data,mg,"moving")))
++    val plan = RealImageRegistration.finePlan(50,1e-3,6.0,20,6.0,1.5)
++    require(levelIndex>=0 && levelIndex<plan.levels.length,"invalid pyramid level")
++    val level = plan.levels(levelIndex)
++    val (fixedLevel,movingLevel) = right(HalfFlowCc.prepareProbeLevel(fi,mi,level))
++    val grid = HalfFlowKernels.pyramidGrid(fg,level.shrink)
++    val work = RegistrationFrame[Work](SpatialDomainId("order-work"),grid)
++    val state = right(ForwardMidpoint.make(RealImageObjectiveAudit.loadArm(checkpoint,"fixed",work,fixedLevel.frame),
++      RealImageObjectiveAudit.loadArm(checkpoint,"moving",work,movingLevel.frame)))
++    val swappedState = right(ForwardMidpoint.make(state.moving,state.fixed))
++    val original = right(HalfFlowCc.probeObjectiveAtLevel(fixedLevel,movingLevel,state,level,plan))
++    val swapped = right(HalfFlowCc.probeObjectiveAtLevel(movingLevel,fixedLevel,swappedState,level,plan))
++    require(math.abs(original.audit.loss-expectedLoss)<=lossTolerance,"captured objective differs")
++    val spatial = original.spatialChain.get; val reversedSpatial = swapped.spatialChain.get
++    val productionCheck = antisymmetry(original.gradient,swapped.gradient)
++    val spatialCheck = antisymmetry(spatial.gradient,reversedSpatial.gradient)
++    val supportSwapped = spatial.fixed==reversedSpatial.moving && spatial.moving==reversedSpatial.fixed
++    val complete = Vector(spatial.fixed,spatial.moving,reversedSpatial.fixed,reversedSpatial.moving)
++      .forall(s => s.unavailable==0 && s.evaluated==s.nonzeroIntensityDerivatives && s.evaluated>0)
++    val validSwapped = original.gradientValid.sameElements(swapped.gradientValid)
++    val initialDifference = math.abs(original.audit.loss-swapped.audit.loss)
++    Files.createDirectories(output)
++    write(output.resolve("initial.json"),Map("original_audit"->original.audit,"swapped_audit"->swapped.audit,
++      "expected_loss"->expectedLoss,"level_index"->levelIndex,"shrink"->level.shrink,
++      "production_antisymmetry"->productionCheck,"spatial_antisymmetry"->spatialCheck,
++      "original_fixed_support"->spatial.fixed,"original_moving_support"->spatial.moving,
++      "swapped_fixed_support"->reversedSpatial.fixed,"swapped_moving_support"->reversedSpatial.moving,
++      "support_swapped_exact"->supportSwapped,"complete_spatial_support"->complete,
++      "production_validity_swapped_exact"->validSwapped,"initial_loss_absolute_difference"->initialDifference))
++    val n = grid.nVoxels
++    val maximum = (0 until n).map(i => math.sqrt((0 until 3).map(c => math.pow(original.gradient(i+c*n),2)).sum)).max
++    require(maximum.isFinite && maximum>0.0)
++    val rows = Vector.newBuilder[Map[String,Any]]
++    var maximumCandidateDifference = 0.0
++    for name <- Vector("translation","smooth-wave","negative-gradient") do
++      val direction = Array.tabulate(3*n): i =>
++        val at = i % n; val c = i / n
++        val x = at % grid.extentX; val y = (at / grid.extentX) % grid.extentY
++        val z = at / (grid.extentX * grid.extentY)
++        val wave = math.sin(2*math.Pi*x/(grid.extentX-1)) * math.sin(math.Pi*y/(grid.extentY-1)) *
++          math.sin(math.Pi*z/(grid.extentZ-1))
++        name match
++          case "translation" => Vector(.73,-.21,.16)(c)
++          case "smooth-wave" => wave*Vector(.73,-.21,.16)(c)
++          case _ => -original.gradient(i)/maximum
++      VelocityBoundaryTaper.inPlace(direction,grid,plan.velocityBoundaryWidthMm)
++      for epsilon <- epsilons; sign <- Vector(-1.0,1.0) do
++        def half(scale: Double): HalfStep[Work] =
++          val velocity = right(Velocity.make(work,DenseVectorField.fromLegacyPlanar(grid,
++            direction.map(_ * scale),DenseVectorFieldKind.Displacement)))
++          HalfStep.fromPairedFlow(right(PairedScalingAndSquaring.expHalfPair(velocity)))
++        val a = right(original.value(right(state.advance(half(sign*epsilon)))))
++        val b = right(swapped.value(right(swappedState.advance(half(-sign*epsilon)))))
++        require(a.isFinite && b.isFinite,"nonfinite candidate objective")
++        val difference = math.abs(a-b)
++        maximumCandidateDifference = math.max(maximumCandidateDifference,difference)
++        val row = Map[String,Any]("direction"->name,"epsilon_mm"->epsilon,"sign"->sign,
++          "original_loss"->a,"swapped_opposite_loss"->b,"absolute_difference"->difference,
++          "passed"->(difference<=lossTolerance))
++        rows += row
++        Files.writeString(output.resolve("curve.jsonl"),RealImageCheckpointJson.encode(row)+"\n",
++          StandardOpenOption.CREATE,StandardOpenOption.APPEND)
++        println(RealImageCheckpointJson.encode(row))
++    val originalUnchanged = right(original.value(state))==original.audit.loss
++    val swappedUnchanged = right(swapped.value(swappedState))==swapped.audit.loss
++    val passed = productionCheck("passed")==true && spatialCheck("passed")==true && supportSwapped && complete &&
++      validSwapped && initialDifference<=lossTolerance && maximumCandidateDifference<=lossTolerance &&
++      originalUnchanged && swappedUnchanged
++    write(output.resolve("result.json"),Map("schema"->"hfq-order-audit-v1","rows"->rows.result(),
++      "loss_tolerance"->lossTolerance,"gradient_absolute_tolerance"->gradientAbsoluteTolerance,
++      "gradient_relative_tolerance"->gradientRelativeTolerance,"epsilons_mm"->epsilons,
++      "maximum_candidate_loss_difference"->maximumCandidateDifference,
++      "original_current_loss_unchanged"->originalUnchanged,"swapped_current_loss_unchanged"->swappedUnchanged,
++      "passed"->passed,"qualification_claim"->false,"runtime_comparison_allowed"->false,
++      "scope"->"Fixed work-grid image/validity/arm role swap; not reverse fitting or reference-grid exchange"))
++
++  private def antisymmetry(a: Array[Double],b: Array[Double]): Map[String,Any] =
++    require(a.length==b.length && a.forall(_.isFinite) && b.forall(_.isFinite))
++    var squared = 0.0; var aSquared = 0.0; var bSquared = 0.0; var maximum = 0.0
++    for i <- a.indices do
++      val sum = a(i)+b(i)
++      squared += sum*sum; aSquared += a(i)*a(i); bSquared += b(i)*b(i)
++      maximum = math.max(maximum,math.abs(sum))
++    require(aSquared>0.0 && bSquared>0.0,"missing nonzero derivative")
++    val relative = math.sqrt(squared)/(math.sqrt(aSquared)+math.sqrt(bSquared))
++    Map("maximum_absolute_sum"->maximum,"relative_l2_sum"->relative,
++      "original_l2"->math.sqrt(aSquared),"swapped_l2"->math.sqrt(bSquared),
++      "passed"->(maximum<=gradientAbsoluteTolerance && relative<=gradientRelativeTolerance))
++
++  private def write(path: Path,value: Any): Unit =
++    Files.writeString(path,RealImageCheckpointJson.encode(value)+"\n",StandardOpenOption.CREATE_NEW)
++    ()
+--- /dev/null
++++ b/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcEquivarianceSuite.scala
+@@ -0,0 +1,155 @@
++package reframe4s.halfflow
++
++import gale.linalg.DMat
++import image4s.geometry.{Affine, D3}
++import reframe4s.halfflow.internal.*
++
++/** Coordinate identities for the actual sampled objective, not an optimizer trial. */
++class HalfFlowCcEquivarianceSuite extends munit.FunSuite:
++  private sealed trait Work
++  private sealed trait Fixed
++  private sealed trait Moving
++  private def right[E, A](value: Either[E, A]): A = value.fold(e => fail(e.toString), identity)
++  private def matrix(values: Double*): DMat = DMat.dense(4, 4, values.toVector)
++  private def point(a: DMat, x: Vector[Double]): Vector[Double] =
++    Vector.tabulate(3)(r => a(r, 3) + (0 until 3).map(c => a(r, c) * x(c)).sum)
++  private def affine(a: DMat): Affine[D3] =
++    right(Affine.fromRowMajor[D3](Vector.tabulate(16)(i => a(i / 4, i % 4))))
++  private val level = right(HalfFlowCcLevel.make(1, 0.0, smoothSigmaMm = 2.0,
++    maximumStepMm = 0.2, targetAcceptedSteps = 1, maximumAttempts = 2))
++  private def plan(action: HalfFlowCcAction): HalfFlowCcPlan =
++    right(HalfFlowCcPlan.make(Vector(level), action = action))
++
++  private final case class Fixture(fixed: RegistrationImage[Fixed], moving: RegistrationImage[Moving],
++      state: ForwardMidpoint[Work, Fixed, Moving])
++
++  private def fixture(change: DMat = DMat.eye(4)): Fixture =
++    val inverseChange = affine(change).inverse.matrix
++    val workBase = GridSpec(Vector(17,19,15), matrix(1.2,.2,0,4, 0,1.1,.1,3, .1,0,.9,2, 0,0,0,1))
++    val fixedBase = GridSpec(Vector(37,39,35), matrix(.9,.1,0,-4, 0,.85,.05,-3, .04,0,1.0,-4, 0,0,0,1))
++    val movingBase = GridSpec(Vector(41,35,37), matrix(.85,0,.1,-3, .08,1.05,0,-4, 0,.06,.9,-3, 0,0,0,1))
++    val grid = GridSpec(workBase.shape, change * workBase.affine)
++    val fixedGrid = GridSpec(fixedBase.shape, change * fixedBase.affine)
++    val movingGrid = GridSpec(movingBase.shape, change * movingBase.affine)
++    val work = RegistrationFrame[Work](SpatialDomainId("equivariance-work"), grid)
++    val ff = RegistrationFrame[Fixed](SpatialDomainId("equivariance-fixed"), fixedGrid)
++    val mf = RegistrationFrame[Moving](SpatialDomainId("equivariance-moving"), movingGrid)
++    def image[A](frame: RegistrationFrame[A], base: GridSpec, shift: Double): RegistrationImage[A] =
++      val values = Array.tabulate(base.nVoxels): i =>
++        val p = base.voxelToWorld(Vector((i % base.extentX).toDouble,
++          ((i / base.extentX) % base.extentY).toDouble, (i / (base.extentX * base.extentY)).toDouble))
++        val x = p(0) - shift; val y = p(1); val z = p(2)
++        math.sin(.31*x) + math.cos(.27*y) + .4*math.sin(.23*(x+z)) + .01*y*z
++      right(RegistrationImage.make(frame, NeuroVol.fromLinear[Double](values, frame.grid.toNeuroSpace, "coordinate-fixture")))
++    def arm[A](endpoint: RegistrationFrame[A], sign: Double): ForwardMidpointArm[Work,A] =
++      val coordinates = new Array[Double](3 * grid.nVoxels)
++      for i <- 0 until grid.nVoxels do
++        val p = workBase.voxelToWorld(Vector((i % grid.extentX).toDouble,
++          ((i / grid.extentX) % grid.extentY).toDouble, (i / (grid.extentX * grid.extentY)).toDouble))
++        val next = point(change, Vector(p(0)+sign*.2*math.sin(.3*p(1)),
++          p(1)+sign*.15*math.cos(.2*p(2)), p(2)+sign*.1*math.sin(.4*p(0))))
++        for c <- 0 until 3 do coordinates(i+c*grid.nVoxels) = next(c)
++      val residual = right(DensePull.make(work,work,
++        DenseVectorField.fromLegacyPlanar(grid,coordinates,DenseVectorFieldKind.SourceCoordinates)))
++      val a = matrix(1.01,.03,0,.23*sign, 0,.98,.02,-.17*sign, .01,0,1.02,.31*sign, 0,0,0,1)
++      right(ForwardMidpointArm.make(residual, right(AffineIso.make(work,endpoint,affine(change*a*inverseChange)))))
++    Fixture(image(ff,fixedBase,0.0), image(mf,movingBase,.7), right(ForwardMidpoint.make(arm(ff,1.0),arm(mf,-1.0))))
++
++  private def direction(grid: GridSpec): Array[Double] =
++    val n = grid.nVoxels
++    val values = Array.tabulate(3*n): i =>
++      val at = i % n
++      val x = at % grid.extentX; val y = (at / grid.extentX) % grid.extentY
++      val z = at / (grid.extentX * grid.extentY)
++      Vector(.7+.1*math.sin(.3*y), -.2+.1*math.cos(.2*z), .1+.05*math.sin(.4*x))(i/n)
++    VelocityBoundaryTaper.inPlace(values,grid,3.5)
++    values
++
++  private def transformed(values: Array[Double], change: DMat): Array[Double] =
++    val n = values.length / 3
++    Array.tabulate(values.length)(i => (0 until 3).map(c => change(i/n,c)*values(i%n+c*n)).sum)
++
++  private def advance[F,M](state: ForwardMidpoint[Work,F,M], values: Array[Double], epsilon: Double,
++      action: HalfFlowCcAction): ForwardMidpoint[Work,F,M] =
++    val scale = if action == HalfFlowCcAction.FixedAnchor then 2.0 else 1.0
++    val velocity = right(Velocity.make(state.work, DenseVectorField.fromLegacyPlanar(state.work.grid,
++      values.map(_ * epsilon * scale), DenseVectorFieldKind.Displacement)))
++    val pair = right(PairedScalingAndSquaring.expHalfPair(velocity))
++    val half = if action == HalfFlowCcAction.SymmetricMidpoint then HalfStep.fromPairedFlow(pair)
++      else right(HalfStep.make(DensePull.identity(state.work),pair.pair.backward))
++    right(state.advance(half))
++
++  private def complete(result: HalfFlowSpatialChainResult): Unit =
++    for summary <- Vector(result.fixed,result.moving) do
++      assertEquals(summary.unavailable,0)
++      assertEquals(summary.evaluated,summary.nonzeroIntensityDerivatives)
++    assert(result.fixed.evaluated + result.moving.evaluated > 0)
++
++  test("swapping unequal image grids and arms reverses the symmetric derivative and candidate action"):
++    val f = fixture()
++    val p = plan(HalfFlowCcAction.SymmetricMidpoint)
++    val original = right(HalfFlowCc.probeObjectiveAtLevel(f.fixed,f.moving,f.state,level,p))
++    val reversedState = right(ForwardMidpoint.make(f.state.moving,f.state.fixed))
++    val reversed = right(HalfFlowCc.probeObjectiveAtLevel(f.moving,f.fixed,reversedState,level,p))
++    assertEqualsDouble(original.audit.loss,reversed.audit.loss,1e-12)
++    val a = original.spatialChain.get; val b = reversed.spatialChain.get
++    complete(a); complete(b)
++    assertEquals(a.fixed,b.moving); assertEquals(a.moving,b.fixed)
++    for i <- a.gradient.indices do assertEqualsDouble(a.gradient(i),-b.gradient(i),1e-11)
++    val v = direction(f.state.work.grid)
++    for epsilon <- Vector(-.01,0.0,.01) do
++      val left = right(original.value(advance(f.state,v,epsilon,p.action)))
++      val rightValue = right(reversed.value(advance(reversedState,v,-epsilon,p.action)))
++      assertEqualsDouble(left,rightValue,1e-12)
++
++  test("rotating or reflecting physical coordinates preserves objective values and transforms spatial covectors"):
++    val f = fixture()
++    val v = direction(f.state.work.grid)
++    val changes = Vector(matrix(0,-1,0,7, 1,0,0,-5, 0,0,1,3, 0,0,0,1),
++      matrix(0,1,0,-2, 1,0,0,4, 0,0,1,6, 0,0,0,1))
++    for action <- Vector(HalfFlowCcAction.SymmetricMidpoint,HalfFlowCcAction.FixedAnchor) do
++      val p = plan(action)
++      val original = right(HalfFlowCc.probeObjectiveAtLevel(f.fixed,f.moving,f.state,level,p))
++      complete(original.spatialChain.get)
++      for change <- changes do
++        val g = fixture(change)
++        val probe = right(HalfFlowCc.probeObjectiveAtLevel(g.fixed,g.moving,g.state,level,p))
++        complete(probe.spatialChain.get)
++        assertEqualsDouble(probe.audit.loss,original.audit.loss,1e-11)
++        val expected = transformed(original.spatialChain.get.gradient,change)
++        for i <- expected.indices do assertEqualsDouble(probe.spatialChain.get.gradient(i),expected(i),1e-10)
++        val nextDirection = transformed(v,change)
++        for epsilon <- Vector(-.01,.01) do
++          assertEqualsDouble(right(probe.value(advance(g.state,nextDirection,epsilon,action))),
++            right(original.value(advance(f.state,v,epsilon,action))),1e-11)
++
++  test("full frozen CC derivative agrees with actual composition on unequal oblique grids for both actions"):
++    val f = fixture()
++    val v = direction(f.state.work.grid)
++    for action <- Vector(HalfFlowCcAction.SymmetricMidpoint,HalfFlowCcAction.FixedAnchor) do
++      val probe = right(HalfFlowCc.probeObjectiveAtLevel(f.fixed,f.moving,f.state,level,plan(action)))
++      val chain = probe.spatialChain.get
++      complete(chain)
++      assertEquals(chain.fixed.interpolationKnotVoxels+chain.moving.interpolationKnotVoxels,0)
++      val analytic = chain.gradient.indices.map(i => chain.gradient(i)*v(i)).sum
++      assert(math.abs(analytic)>1e-8)
++      val errors = Vector(.01,.005,.002,.001,.0005,.0002,.0001).map: epsilon =>
++        val plus = right(probe.value(advance(f.state,v,epsilon,action)))
++        val minus = right(probe.value(advance(f.state,v,-epsilon,action)))
++        val numerical = (plus-minus)/(2*epsilon)
++        math.abs(numerical-analytic)/math.max(1e-12,math.abs(numerical)+math.abs(analytic))
++      assert(errors.min<=.005,s"$action: $errors")
++      assert(errors.sliding(3).exists(e => e(2)<e(1) && e(1)<e(0)),s"$action: $errors")
++      assertEqualsDouble(right(probe.value(f.state)),probe.audit.loss,0.0)
++
++  test("active boundary derivatives remain unavailable instead of silently becoming valid zeros"):
++    val f = fixture()
++    val n = f.state.work.grid.nVoxels
++    val fixedDerivative = new Array[Double](n)
++    val movingDerivative = new Array[Double](n)
++    fixedDerivative(0)=.7; movingDerivative(n-1) = -.3
++    val result = HalfFlowSpatialChainProbe(f.fixed,f.moving,f.state,fixedDerivative,movingDerivative,
++      HalfFlowCcAction.SymmetricMidpoint)
++    assertEquals(result.fixed,SpatialChainArmSummary(1,0,1,0))
++    assertEquals(result.moving,SpatialChainArmSummary(1,0,1,0))
++    assert(result.gradient.forall(_==0.0))

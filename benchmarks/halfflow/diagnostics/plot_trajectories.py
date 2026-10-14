@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 
 import matplotlib
@@ -13,6 +14,62 @@ import numpy as np
 
 def read(path):return json.loads(Path(path).read_text())
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def scalar_loss_decomposition(events):
+    """Account for trial improvement and the subsequent weight/support rebuild.
+
+    This is an algebraic decomposition of changing objectives, not a causal
+    attribution or a score evaluated on a common voxel population.
+    """
+    serials = [event['serial'] for event in events]
+    if serials != list(range(1,len(events)+1)):
+        raise ValueError('Scalar event stream is not contiguous from initialization')
+    result = []
+    for level in sorted({e['info']['levelIndex'] for e in events}):
+        rows = [e['info'] for e in events if e['info']['levelIndex']==level]
+        if rows[0]['kind']!='LevelStart' or any(r['kind']=='LevelStart' for r in rows[1:]):
+            raise ValueError('Missing or duplicate level initialization')
+        if any(r['kind']=='LevelEnd' for r in rows[:-1]):
+            raise ValueError('Events after a terminal level')
+        initial = rows[0]['after']; current = initial; accepted = []; rejected = 0
+        for row in rows[1:]:
+            if row['before']!=current: raise ValueError('Scalar state continuity differs')
+            if row['kind']=='Accepted':
+                trial = row['trial']
+                if not trial['accepted'] or trial['currentLoss']!=current['loss']:
+                    raise ValueError('Accepted trial current loss differs')
+                values = [current['loss'],trial['candidateLoss'],row['after']['loss']]
+                if any(not isinstance(v,(float,int)) or not math.isfinite(v) for v in values):
+                    raise ValueError('Nonfinite accepted loss')
+                accepted.append(dict(frozen_drop=values[0]-values[1],rebuild_change=values[2]-values[1],
+                    rebuilt_increased=values[2]>values[0],
+                    support_decreased=row['after']['support']['positive']<current['support']['positive']))
+                current = row['after']
+            elif row['kind'] in ['Rejected','LevelEnd']:
+                if row['after']!=current: raise ValueError('Nonaccepted event changed the accepted state')
+                if row['kind']=='Rejected': rejected += 1
+            else: raise ValueError('Unexpected scalar event kind')
+        frozen_drop = math.fsum(a['frozen_drop'] for a in accepted)
+        rebuild_change = math.fsum(a['rebuild_change'] for a in accepted)
+        net_drop = initial['loss']-current['loss']
+        balance_error = (frozen_drop-rebuild_change)-net_drop
+        if abs(balance_error)>1e-12: raise ValueError('Loss decomposition fails its telescoping identity')
+        def population(audit):
+            return dict(voxels=audit['support']['count'],positive_support_voxels=audit['support']['positive'],
+                support_mass=audit['support']['sum'],active_windows=audit['neighborhood']['activeWindows'],
+                variance=audit['neighborhood']['variance'],stabilization_mass=audit['stabilization']['sum'])
+        result.append(dict(level_index=level,shrink=rows[0]['shrink'],terminal=rows[-1]['kind']=='LevelEnd',
+            termination=rows[-1]['termination'] if rows[-1]['kind']=='LevelEnd' else None,
+            accepted_steps=len(accepted),rejected_attempts=rejected,
+            initial_loss=initial['loss'],latest_accepted_loss=current['loss'],
+            sum_frozen_trial_drop=frozen_drop,sum_rebuild_loss_change=rebuild_change,net_rebuilt_loss_drop=net_drop,
+            decomposition_balance_error=balance_error,
+            accepted_steps_with_rebuilt_loss_increase=sum(a['rebuilt_increased'] for a in accepted),
+            accepted_steps_with_positive_support_count_decrease=sum(a['support_decreased'] for a in accepted),
+            initial_population=population(initial),latest_population=population(current),
+            interpretation='Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit.'))
+    return result
 
 
 def plot_case(study,analysis,case,policy,output):
@@ -114,6 +171,7 @@ def plot_case(study,analysis,case,policy,output):
              'event_count':len(events),'scored_states':len(states),'export_or_analysis_failures':failures,'pending_events':pending,
              'accepted_steps':len(accepted),'accepted_steps_with_rebuilt_loss_above_previous_loss':
                  sum(r['info']['after']['loss']>r['info']['before']['loss'] for r in accepted),
+             'per_level_loss_decomposition':scalar_loss_decomposition(events),
              'unscored_events':[{ 'serial':r['serial'],'capture_status':r['capture_status'],
                  'analysis_status':by_serial[r['serial']]['status'] if r['serial'] in by_serial else 'pending'}
                  for r in events if r['serial'] not in by_serial or by_serial[r['serial']]['status']!='scored'],

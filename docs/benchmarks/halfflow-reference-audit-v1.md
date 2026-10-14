@@ -8,8 +8,9 @@ on all five. This establishes an unresolved reference-export issue; it does
 not erase HalfFlow's anatomical deficit or qualify either method.
 
 A subsequent fixed regularized SyN setting converges and passes the same
-geometry checks on three observed OASIS pairs. That development replication is
-reported below; broader-cohort and isolated timing validation remain open.
+geometry checks on five observed pairs spanning OASIS, MMRR and NKI-RS. Those
+development replications are reported below; isolated timing validation and
+fresh-cohort qualification remain open.
 
 This is P02 development evidence for Mote
 `bd-01M4X4DXW7WGW5WK0J3Z6PFP98`, under the
@@ -332,3 +333,29 @@ success rate or fresh-cohort qualification. The original unsmoothed failures
 remain in their original attempt ledgers. HFQ-P02 stays open: controlled,
 isolated quality-versus-runtime measurements for the comparable-budget and
 generous-convergence lanes, and their publication, are still required.
+
+## Declared isolated regularized cost study
+
+A [new declaration](evidence/halfflow-reference-20261014/regularized-cost-declaration-v1/protocol.json)
+holds the same three OASIS timing pairs and P01's frozen HalfFlow executable
+fixed. Each pair receives four lanes: selected HalfFlow and regularized SyN
+with uniform `100/70/10`, `100/70/25` and `100/70/200` schedules. All SyN lanes
+retain native `total_sigma=0.5` and the other settings from the completed
+feasibility studies. The two lower fine-level caps sample cost prefixes; the
+generous lane repeats the previously converged setting. No concurrent walltime
+or anatomical score selects a per-case schedule.
+
+The twelve attempts have **not started**. Before launch, all ten deferred fits,
+the first 29 offline exports and their complete 74-event analysis, and all
+three image-role audits must be terminal. Their live handles and exact ledgers
+must be checked and an isolation receipt recorded. The next 61-state export
+batch and further builds/numerical work wait until this timed study ends.
+Any isolation violation excludes affected timings while retaining the outcomes.
+
+The existing timing-only comparable-cost rule, common geometry thresholds,
+native convergence interpretation and child-process RSS limitation remain.
+If no lane lies in the `[0.8,1.25]` runtime ratio, report no comparable-budget
+lane; do not pad a converged run, interpolate quality or relabel a capped run
+as converged. The [declaration archive](evidence/halfflow-reference-20261014/regularized-cost-declaration-v1/artifact-manifest.json)
+contains the protocol and all pinned helper sources, with no new fitting or
+timing results. This remains observed-data reference validation, not qualification.
