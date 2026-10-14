@@ -1,0 +1,198 @@
+--- a/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageObjectiveAudit.scala
++++ b/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageObjectiveAudit.scala
+@@ -10,7 +10,7 @@
+ import reframe4s.benchmark.flashalign.EvidenceHash
+ import reframe4s.halfflow.internal.*
+ 
+-/** Read-only fine-level checkpoint audit. No labels, fitting or export admission.
++/** Read-only pyramid checkpoint audit. No labels, fitting or export admission.
+   * The objective/gradient come from the production session; perturbations use
+   * the actual paired integration, residual composition and image interpolation.
+   */
+@@ -22,15 +22,16 @@
+     value.fold(error => throw new IllegalArgumentException(error.toString), identity)
+ 
+   def main(args: Array[String]): Unit =
+-    require(args.length == 7 || args.length == 8,
+-      "moving fixed fixed-mask fine-checkpoint output expected-loss checkpoint-damping [decreasing-epsilons-mm]")
++    require(args.length >= 7 && args.length <= 9,
++      "moving fixed fixed-mask checkpoint output expected-loss checkpoint-damping [decreasing-epsilons-mm] [level-index]")
+     val epsilons = auditEpsilons(args.lift(7))
++    val levelIndex = args.lift(8).fold(1)(_.toInt)
+     val moving = right(Nifti.readScaledDouble(Paths.get(args(0))))
+     val fixed = right(Nifti.readScaledDouble(Paths.get(args(1))))
+     moving.image.fold(_ => throw new IllegalArgumentException("scalar D3 moving required"),
+       m => fixed.image.fold(_ => throw new IllegalArgumentException("scalar D3 fixed required"),
+         f => run(right(m.value.requireDataRank[3]), right(f.value.requireDataRank[3]),
+-          Paths.get(args(2)), Paths.get(args(3)), Paths.get(args(4)), args(5).toDouble, args(6).toDouble, epsilons)))
++          Paths.get(args(2)), Paths.get(args(3)), Paths.get(args(4)), args(5).toDouble, args(6).toDouble, epsilons, levelIndex)))
+ 
+   private[halfflow] def auditEpsilons(value: Option[String]): Vector[Double] =
+     val epsilons = value.fold(Vector(0.5, 0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002))(
+@@ -44,7 +45,7 @@
+       MS <: SampleSpace[M, D3], FS <: SampleSpace[F, D3]](
+       moving: ContinuousImage[MS, Double, Rank[3]], fixed: ContinuousImage[FS, Double, Rank[3]],
+       maskPath: Path, checkpoint: Path, output: Path, expectedLoss: Double, damping: Double,
+-      epsilons: Vector[Double]
++      epsilons: Vector[Double], levelIndex: Int
+   ): Unit =
+     require(!Files.exists(output), "refusing to overwrite objective audit")
+     require(expectedLoss.isFinite && damping.isFinite && damping > 0.0)
+@@ -52,16 +53,20 @@
+     val mg = GridSpec.fromGrid(moving.grid)
+     val ff = RegistrationFrame[Fixed](SpatialDomainId("objective-audit-fixed"), fg)
+     val mf = RegistrationFrame[Moving](SpatialDomainId("objective-audit-moving"), mg)
+-    val wf = RegistrationFrame[Work](SpatialDomainId("objective-audit-work"), fg)
+     val fv = NeuroVol.fromRavel(fixed.data, fg, "fixed")
+     val mv = NeuroVol.fromRavel(moving.data, mg, "moving")
+     val fi = right(RegistrationImage.make(ff, fv,
+       FieldValidity.copyMask(RealImageRegistration.loadMask(maskPath, fg))))
+     val mi = right(RegistrationImage.make(mf, mv))
+-    val state = right(ForwardMidpoint.make(loadArm(checkpoint, "fixed", wf, ff),
+-      loadArm(checkpoint, "moving", wf, mf)))
+     val plan = RealImageRegistration.finePlan(50, 1e-3, 6.0, 20, 6.0, 1.5)
+-    val probe = right(HalfFlowCc.probeObjectiveAtLevel(fi, mi, state, plan.levels.last, plan))
++    require(levelIndex >= 0 && levelIndex < plan.levels.length, "invalid pyramid level index")
++    val level = plan.levels(levelIndex)
++    val (fixedLevel, movingLevel) = right(HalfFlowCc.prepareProbeLevel(fi, mi, level))
++    val wg = HalfFlowKernels.pyramidGrid(fg, level.shrink)
++    val wf = RegistrationFrame[Work](SpatialDomainId("objective-audit-work"), wg)
++    val state = right(ForwardMidpoint.make(loadArm(checkpoint, "fixed", wf, fixedLevel.frame),
++      loadArm(checkpoint, "moving", wf, movingLevel.frame)))
++    val probe = right(HalfFlowCc.probeObjectiveAtLevel(fixedLevel, movingLevel, state, level, plan))
+     val sampledIntensity = probe.sampledIntensity.getOrElse(
+       throw new IllegalArgumentException("CC intensity-space diagnostic required"))
+     val spatialChain = probe.spatialChain.getOrElse(
+@@ -69,7 +74,7 @@
+     require(math.abs(probe.audit.loss - expectedLoss) <= 1e-12,
+       s"saved objective not reproduced: ${probe.audit.loss} versus $expectedLoss")
+     require(math.abs(right(probe.value(state)) - expectedLoss) <= 1e-12, "frozen current value mismatch")
+-    val n = fg.nVoxels
++    val n = wg.nVoxels
+     val norms = Array.tabulate(n): i =>
+       math.sqrt((0 until 3).map(c => math.pow(probe.gradient(i + c * n), 2)).sum)
+     val maximum = norms.max
+@@ -84,6 +89,8 @@
+     write(output.resolve("initial.json"), Map("schema" -> "halfflow-objective-probe-v2",
+       "audit" -> probe.audit, "expected_loss" -> expectedLoss, "inputs" -> inputs,
+       "damping" -> damping, "epsilons_mm" -> epsilons, "gradient_maximum" -> maximum,
++      "level_index" -> levelIndex, "shrink" -> level.shrink,
++      "pyramid_sigma_mm" -> level.pyramidSigmaMm, "work_shape" -> wg.shape,
+       "gradient_valid" -> probe.gradientValid.count(identity), "gradient_nonzero" -> norms.count(_ > 0.0),
+       "spatial_chain_fixed" -> spatialChain.fixed, "spatial_chain_moving" -> spatialChain.moving,
+       "rank_one_crossover" -> crossover, "gradient_above_crossover" -> norms.count(_ > crossover),
+@@ -93,18 +100,18 @@
+       val direction = new Array[Double](3 * n)
+       var i = 0
+       while i < n do
+-        val x = i % fg.extentX
+-        val y = (i / fg.extentX) % fg.extentY
+-        val z = i / (fg.extentX * fg.extentY)
+-        val wave = math.sin(2.0 * math.Pi * x / (fg.extentX - 1)) *
+-          math.sin(math.Pi * y / (fg.extentY - 1)) * math.sin(math.Pi * z / (fg.extentZ - 1))
++        val x = i % wg.extentX
++        val y = (i / wg.extentX) % wg.extentY
++        val z = i / (wg.extentX * wg.extentY)
++        val wave = math.sin(2.0 * math.Pi * x / (wg.extentX - 1)) *
++          math.sin(math.Pi * y / (wg.extentY - 1)) * math.sin(math.Pi * z / (wg.extentZ - 1))
+         for c <- 0 until 3 do
+           direction(i + c * n) = name match
+             case "translation" => Vector(0.73, -0.21, 0.16)(c)
+             case "smooth-wave" => wave * Vector(0.73, -0.21, 0.16)(c)
+             case _ => -probe.gradient(i + c * n) / maximum
+         i += 1
+-      VelocityBoundaryTaper.inPlace(direction, fg, plan.velocityBoundaryWidthMm)
++      VelocityBoundaryTaper.inPlace(direction, wg, plan.velocityBoundaryWidthMm)
+       var analytic = 0.0
+       var spatialAnalytic = 0.0
+       i = 0
+@@ -114,7 +121,7 @@
+         i += 1
+       val rows = epsilons.map: epsilon =>
+         def value(scale: Double): HalfFlowSampledIntensityProbe =
+-          val velocity = right(Velocity.make(wf, DenseVectorField.fromLegacyPlanar(fg,
++          val velocity = right(Velocity.make(wf, DenseVectorField.fromLegacyPlanar(wg,
+             direction.map(_ * scale), DenseVectorFieldKind.Displacement)))
+           val half = HalfStep.fromPairedFlow(right(PairedScalingAndSquaring.expHalfPair(velocity)))
+           val candidate = right(state.advance(half))
+@@ -150,7 +157,7 @@
+       val pattern = ("\"" + key + "\"\\s*:\\s*\\[([^\\]]+)\\]").r
+       pattern.findFirstMatchIn(metadata).getOrElse(throw new IllegalArgumentException(s"missing $key"))
+         .group(1).split(",").map(_.trim.toDouble).toVector
+-    require(array("shape") == work.grid.shape.map(_.toDouble), "checkpoint is not on the native fine work grid")
++    require(array("shape") == work.grid.shape.map(_.toDouble), "checkpoint is not on the declared pyramid work grid")
+     val matrix = right(Affine.fromRowMajor[D3](array("index_to_ras_mm")))
+     require((0 until 16).forall(i => matrix.matrix(i / 4, i % 4) == work.grid.affine(i / 4, i % 4)),
+       "checkpoint work affine coefficients differ")
+--- a/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala
++++ b/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala
+@@ -532,6 +532,24 @@
+     level.metric match
+       case HalfFlowCcMetric.TrueNeighborhoodCc => TrueCcSession(frame, level, plan)
+       case HalfFlowCcMetric.StandardizedCenter(feature) => StandardizedCenterSession(frame, feature, plan.action)
++
++  /** Prepare diagnostic level images through the exact production pyramid path.
++    * The shared scratch capacity and fixed-then-moving order match optimization;
++    * returned image buffers are owned independently of that scratch.
++    */
++  private[halfflow] def prepareProbeLevel[F, M](
++      fixed: RegistrationImage[F],
++      moving: RegistrationImage[M],
++      level: HalfFlowCcLevel
++  ): Either[RegistrationError, (RegistrationImage[F], RegistrationImage[M])] =
++    val needsPyramid = level.shrink != 1 || level.pyramidSigmaMm > 0.0
++    val workspace =
++      if needsPyramid then Some(PyramidWorkspace(math.max(fixed.frame.grid.nVoxels, moving.frame.grid.nVoxels)))
++      else None
++    for
++      nextFixed <- pyramid(fixed, level, workspace)
++      nextMoving <- pyramid(moving, level, workspace)
++    yield (nextFixed.image, nextMoving.image)
+ 
+   /** Inspect one already-prepared pyramid level using the production objective
+     * and gradient path. Callers supply the exact level images and saved state;
+--- a/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcObjectiveProbeSuite.scala
++++ b/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcObjectiveProbeSuite.scala
+@@ -38,6 +38,42 @@
+     val wrongFrame = RegistrationFrame[Fixed](SpatialDomainId("unrelated-fixed"), fixed.frame.grid)
+     val wrong = right(RegistrationImage.make(wrongFrame, fixed.volume, fixed.validity))
+     assert(HalfFlowCc.probeObjectiveAtLevel(wrong, moving, state, plan.levels.head, plan).isLeft)
++
++  test("diagnostic pyramid preparation retains the unsmoothed native image owners"):
++    val (fixed, moving, _, plan) = fixture()
++    val (nextFixed, nextMoving) = right(HalfFlowCc.prepareProbeLevel(fixed, moving, plan.levels.head))
++    assert(nextFixed eq fixed)
++    assert(nextMoving eq moving)
++
++  test("masked coarse-level probe exactly reproduces the optimizer's captured initialization"):
++    val (original, moving, state, nativePlan) = fixture()
++    val grid = original.frame.grid
++    val mask = Array.tabulate(grid.nVoxels): i =>
++      val x = i % grid.extentX
++      val y = (i / grid.extentX) % grid.extentY
++      x >= 2 && x < grid.extentX - 2 && y >= 2 && y < grid.extentY - 2
++    val fixed = right(RegistrationImage.make(original.frame, original.volume, FieldValidity.copyMask(mask)))
++    val level = right(HalfFlowCcLevel.make(2, 1.0, smoothSigmaMm = 2.0,
++      maximumStepMm = 0.2, targetAcceptedSteps = 1, maximumAttempts = 2))
++    val plan = right(HalfFlowCcPlan.make(Vector(level, nativePlan.levels.head)))
++    var captured = Option.empty[HalfFlowCcCheckpoint[Work, Fixed, Moving]]
++    val observer = new HalfFlowCcObserver[Work, Fixed, Moving]:
++      def wantsState(info: HalfFlowCcCheckpointInfo): Boolean =
++        info.kind == HalfFlowCcCheckpointKind.LevelStart && info.levelIndex == 0
++      def observe(checkpoint: HalfFlowCcCheckpoint[Work, Fixed, Moving]): Unit =
++        if checkpoint.info.kind == HalfFlowCcCheckpointKind.LevelStart && checkpoint.info.levelIndex == 0 then
++          captured = Some(checkpoint)
++    val _ = right(HalfFlowCc.optimizeObserved(fixed, moving, state, plan, HalfFlowCcObservation(observer, 1)))
++    val checkpoint = captured.getOrElse(fail("coarse initialization was not captured"))
++    val coarse = checkpoint.state.getOrElse(fail("coarse state was not captured"))
++    val (fixedLevel, movingLevel) = right(HalfFlowCc.prepareProbeLevel(fixed, moving, level))
++    assert(coarse.work.grid.shape != grid.shape)
++    assertEquals(coarse.fixed.endpoint, fixedLevel.frame)
++    assertEquals(coarse.moving.endpoint, movingLevel.frame)
++    val probe = right(HalfFlowCc.probeObjectiveAtLevel(fixedLevel, movingLevel, coarse, level, plan))
++    assertEquals(probe.audit, checkpoint.info.after)
++    assertEqualsDouble(right(probe.value(coarse)), checkpoint.info.after.loss, 0.0)
++    assert(HalfFlowCc.probeObjectiveAtLevel(fixed, moving, coarse, level, plan).isLeft)
+ 
+   test("sampled intensity linearization agrees with frozen-objective finite differences and is repeatable"):
+     val (fixed, moving, state, plan) = fixture()

@@ -1,0 +1,78 @@
+{
+  "schema": "ants-canonical-pull-export-v1",
+  "affine": {
+    "maximum_coefficient_abs": 5.419068713763409e-07,
+    "four_affinely_independent_points_mm": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        100.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        100.0
+      ]
+    ],
+    "maximum_point_abs_mm": 5.1437798731512885e-06,
+    "supplied_sha256": "99f73533e48762bdba236974b321cb672408ca3147e1281c5a78707dab58130d",
+    "itk_affine_sha256": "bea44ef1e6e521e1b9aeab30d4715cdeb7cf951a5a7267406484495763433443"
+  },
+  "source_sha256": "b79677e3595ec2d417806b8544e4d874b9ca2b2d9ea349698b6f17c5b5129d69",
+  "reference_result_sha256": "f09430893ce7b323201518c5f041487741ebb53cb79f1d357ab43b5952f162c2",
+  "settings_sha256": "fd4272c8f2d19314f1d263c833df0120bc9ddf3ba65d72feeb12ac76440b499c",
+  "antspyx_version": "0.6.3",
+  "directions": {
+    "fixed-to-moving": {
+      "point_probe_max_abs_mm": 3.162327135441956e-05,
+      "point_probe_tolerance_mm": 0.0001,
+      "independent_native_reload_max_abs": 2.0039525594484076e-14,
+      "historical_float_warp_max_abs_difference": 1.6752345009585223e-05,
+      "conversion_pass": true,
+      "extrapolation": [
+        {
+          "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-cohorts-v1/mmrr-21-11-to-12/syn-total0.5/ants-1Warp.nii.gz",
+          "outside_field_points": 0,
+          "total_points": 1747278
+        }
+      ],
+      "transform_sha256": {
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-cohorts-v1/mmrr-21-11-to-12/syn-total0.5/ants-1Warp.nii.gz": "3c50ec16b1dfecd23039d742312e6c6d3087edd93a8f44cb263f27aa7af4912a",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-cohorts-v1/mmrr-21-11-to-12/syn-total0.5/ants-0GenericAffine.mat": "bea44ef1e6e521e1b9aeab30d4715cdeb7cf951a5a7267406484495763433443"
+      },
+      "historical_image_sha256": "6e9f374083a426f37e518261e554317cf109b6134d62e4c02926be77c0b30611",
+      "map_sha256": "43917860b81d4ccf9e67ae2ed0d2e2a9900a333b8773b86e0f8fdeae66ed0031"
+    },
+    "moving-to-fixed": {
+      "point_probe_max_abs_mm": 6.650322623613647e-05,
+      "point_probe_tolerance_mm": 0.0001,
+      "independent_native_reload_max_abs": 5.295763827461997e-14,
+      "historical_float_warp_max_abs_difference": 3.701619322843408e-05,
+      "conversion_pass": true,
+      "extrapolation": [
+        {
+          "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-cohorts-v1/mmrr-21-11-to-12/syn-total0.5/ants-1InverseWarp.nii.gz",
+          "outside_field_points": 264097,
+          "total_points": 2320290
+        }
+      ],
+      "transform_sha256": {
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-cohorts-v1/mmrr-21-11-to-12/syn-total0.5/ants-0GenericAffine.mat": "bea44ef1e6e521e1b9aeab30d4715cdeb7cf951a5a7267406484495763433443",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-cohorts-v1/mmrr-21-11-to-12/syn-total0.5/ants-1InverseWarp.nii.gz": "37fc993d8c769c12a8f49309bc173ca5b3c08d972d68f9149873aeb0ffe8bb49"
+      },
+      "historical_image_sha256": "aee822417d31f86645d95913084fe61d851e71255fb2ad8bd681f1cf6ddfa206",
+      "map_sha256": "982e1c150d4e20758667e4c172e293663967dc67aa043240d5135241ba8e364a"
+    }
+  },
+  "conversion_pass": true
+}

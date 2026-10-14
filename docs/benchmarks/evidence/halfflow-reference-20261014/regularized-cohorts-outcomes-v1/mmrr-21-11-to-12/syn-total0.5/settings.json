@@ -1,0 +1,23 @@
+{
+  "settings": {
+    "type_of_transform": "SyNOnly",
+    "syn_metric": "CC",
+    "syn_sampling": 2,
+    "reg_iterations": [
+      100,
+      70,
+      200
+    ],
+    "grad_step": 0.2,
+    "flow_sigma": 3,
+    "total_sigma": 0.5,
+    "mask_all_stages": true,
+    "singleprecision": true,
+    "verbose": true
+  },
+  "seed": 20261002,
+  "antspyx_version": "0.6.3",
+  "initialization_sha256": "99f73533e48762bdba236974b321cb672408ca3147e1281c5a78707dab58130d",
+  "fixed_sha256": "5296ef997c162864d1956556b7ba7645263df8a2001a1b522ad7be98c36d6186",
+  "moving_sha256": "c9370026f838e052ff54a9e984e9f45f25ea3589e93cd0cdec42396464360a1f"
+}

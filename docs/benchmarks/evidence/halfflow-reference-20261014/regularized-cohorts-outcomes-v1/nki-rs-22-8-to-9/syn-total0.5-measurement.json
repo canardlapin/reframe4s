@@ -1,0 +1,24 @@
+{
+  "schema": "hfq-process-measurement-v1",
+  "command": [
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/.venv/bin/python",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/fit_reference.py",
+    "--data",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/nki-rs-22-8-to-9/data",
+    "--affine",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/nki-rs-22-8-to-9/affine/flashalign-affine-moving-to-fixed.json",
+    "--output",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-cohorts-v1/nki-rs-22-8-to-9/syn-total0.5",
+    "--iterations",
+    "100,70,200",
+    "--total-sigma",
+    "0.5"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 1899.3961546663195,
+  "user_seconds": 543.370124,
+  "system_seconds": 11.759963,
+  "peak_rss_bytes": 670547968,
+  "measurement": "wait4 direct child; Darwin ru_maxrss is bytes; Linux is KiB",
+  "scope": "child registration process, excluding parent conversion and evaluation"
+}

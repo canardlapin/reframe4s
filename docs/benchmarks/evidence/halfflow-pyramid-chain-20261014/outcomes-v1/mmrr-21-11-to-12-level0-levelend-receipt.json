@@ -1,0 +1,291 @@
+{
+  "task": {
+    "id": "mmrr-21-11-to-12-level0-levelend",
+    "pair": "mmrr-21-11-to-12",
+    "policy": "selected-control",
+    "level_index": 0,
+    "shrink": 2,
+    "kind": "LevelEnd",
+    "event": 22,
+    "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/mmrr-21-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020",
+    "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data",
+    "fit_exit_code": 0,
+    "expected_loss": 0.429577123704439,
+    "damping": 1e-08
+  },
+  "source_sha256": "d7b5a3137d9402ea6b95eca75f384cc397b8e07d448b83d8d92442b8ed9fe429",
+  "protocol_sha256": "1f514cd7348ccf1c5d68c806694bedf00d96f18f8098f70e49b3af47ca3487cb",
+  "analysis_completed": true,
+  "attempted": true,
+  "original_fine_replication_pass": false,
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false,
+  "command": [
+    "/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/temurin-21.0.12.1+1.jdk/Contents/Home/bin/java",
+    "-Xmx6G",
+    "-XX:ActiveProcessorCount=1",
+    "-cp",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/0:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/1:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/2:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/3:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/4:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/5:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/6:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/7:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/8:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/9:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/10:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/11:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/12:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/13:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/14:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/15:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/16:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/engine/frozen-classpath/17:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.4/scala3-library_3-3.7.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-bytecode/1.37/jmh-generator-bytecode-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-reflection/1.37/jmh-generator-reflection-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-asm/1.37/jmh-generator-asm-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar",
+    "reframe4s.halfflow.RealImageObjectiveAudit",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/moving.nii.gz",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/fixed.nii.gz",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/fixed-mask.nii.gz",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/mmrr-21-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/pyramid-chain-study-v1/mmrr-21-11-to-12-level0-levelend",
+    "0.429577123704439",
+    "1e-08",
+    "0.5,0.2,0.1,0.05,0.02,0.01,0.005,0.002,0.001,0.0005,0.0002,0.0001,5e-05,2e-05",
+    "0"
+  ],
+  "exit_code": 0,
+  "diagnostic_wall_seconds": 50.965607250109315,
+  "log_sha256": "6d6f30e375450cbc5885236466411cd44c0944394c206c0e3c7f5706ac1fe574",
+  "all_step_summary": {
+    "directions": {
+      "production": [
+        {
+          "direction": "translation",
+          "minimum_relative_error": 0.44077912479617526,
+          "two_step_convergence_region": true,
+          "passed": false
+        },
+        {
+          "direction": "smooth-wave",
+          "minimum_relative_error": 1.0,
+          "two_step_convergence_region": false,
+          "passed": false
+        },
+        {
+          "direction": "negative-gradient",
+          "minimum_relative_error": 0.08900766817048004,
+          "two_step_convergence_region": true,
+          "passed": false
+        }
+      ],
+      "intensity": [
+        {
+          "direction": "translation",
+          "minimum_relative_error": 2.194995461248671e-07,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "smooth-wave",
+          "minimum_relative_error": 5.042727192564629e-07,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "negative-gradient",
+          "minimum_relative_error": 3.8092602867819795e-09,
+          "two_step_convergence_region": true,
+          "passed": true
+        }
+      ],
+      "spatial": [
+        {
+          "direction": "translation",
+          "minimum_relative_error": 9.837502121602486e-05,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "smooth-wave",
+          "minimum_relative_error": 0.00015876365788531353,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "negative-gradient",
+          "minimum_relative_error": 2.0156960794872714e-07,
+          "two_step_convergence_region": true,
+          "passed": true
+        }
+      ]
+    },
+    "support": {
+      "fixed": {
+        "nonzeroIntensityDerivatives": 36793,
+        "evaluated": 36793,
+        "unavailable": 0,
+        "interpolationKnotVoxels": 0
+      },
+      "moving": {
+        "nonzeroIntensityDerivatives": 36793,
+        "evaluated": 36793,
+        "unavailable": 0,
+        "interpolationKnotVoxels": 0
+      }
+    },
+    "complete_spatial_support": true,
+    "production_criterion_pass": false,
+    "intensity_criterion_pass": true,
+    "spatial_criterion_pass": true
+  },
+  "original_step_summary": {
+    "directions": {
+      "production": [
+        {
+          "direction": "translation",
+          "minimum_relative_error": 0.4419815883918989,
+          "two_step_convergence_region": true,
+          "passed": false
+        },
+        {
+          "direction": "smooth-wave",
+          "minimum_relative_error": 1.0,
+          "two_step_convergence_region": false,
+          "passed": false
+        },
+        {
+          "direction": "negative-gradient",
+          "minimum_relative_error": 0.08900766817048004,
+          "two_step_convergence_region": false,
+          "passed": false
+        }
+      ],
+      "intensity": [
+        {
+          "direction": "translation",
+          "minimum_relative_error": 1.7770271404167306e-05,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "smooth-wave",
+          "minimum_relative_error": 6.139241785611719e-05,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "negative-gradient",
+          "minimum_relative_error": 1.7984977354572412e-07,
+          "two_step_convergence_region": true,
+          "passed": true
+        }
+      ],
+      "spatial": [
+        {
+          "direction": "translation",
+          "minimum_relative_error": 0.0004812232491488662,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "smooth-wave",
+          "minimum_relative_error": 0.0009138025048461926,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "negative-gradient",
+          "minimum_relative_error": 3.8152095318567614e-07,
+          "two_step_convergence_region": true,
+          "passed": true
+        }
+      ]
+    },
+    "support": {
+      "fixed": {
+        "nonzeroIntensityDerivatives": 36793,
+        "evaluated": 36793,
+        "unavailable": 0,
+        "interpolationKnotVoxels": 0
+      },
+      "moving": {
+        "nonzeroIntensityDerivatives": 36793,
+        "evaluated": 36793,
+        "unavailable": 0,
+        "interpolationKnotVoxels": 0
+      }
+    },
+    "complete_spatial_support": true,
+    "production_criterion_pass": false,
+    "intensity_criterion_pass": true,
+    "spatial_criterion_pass": true
+  },
+  "small_step_summary": {
+    "directions": {
+      "production": [
+        {
+          "direction": "translation",
+          "minimum_relative_error": 0.44077912479617526,
+          "two_step_convergence_region": false,
+          "passed": false
+        },
+        {
+          "direction": "smooth-wave",
+          "minimum_relative_error": 1.0,
+          "two_step_convergence_region": false,
+          "passed": false
+        },
+        {
+          "direction": "negative-gradient",
+          "minimum_relative_error": 0.08978094206853007,
+          "two_step_convergence_region": true,
+          "passed": false
+        }
+      ],
+      "intensity": [
+        {
+          "direction": "translation",
+          "minimum_relative_error": 2.194995461248671e-07,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "smooth-wave",
+          "minimum_relative_error": 5.042727192564629e-07,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "negative-gradient",
+          "minimum_relative_error": 3.8092602867819795e-09,
+          "two_step_convergence_region": true,
+          "passed": true
+        }
+      ],
+      "spatial": [
+        {
+          "direction": "translation",
+          "minimum_relative_error": 9.837502121602486e-05,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "smooth-wave",
+          "minimum_relative_error": 0.00015876365788531353,
+          "two_step_convergence_region": true,
+          "passed": true
+        },
+        {
+          "direction": "negative-gradient",
+          "minimum_relative_error": 2.0156960794872714e-07,
+          "two_step_convergence_region": true,
+          "passed": true
+        }
+      ]
+    },
+    "support": {
+      "fixed": {
+        "nonzeroIntensityDerivatives": 36793,
+        "evaluated": 36793,
+        "unavailable": 0,
+        "interpolationKnotVoxels": 0
+      },
+      "moving": {
+        "nonzeroIntensityDerivatives": 36793,
+        "evaluated": 36793,
+        "unavailable": 0,
+        "interpolationKnotVoxels": 0
+      }
+    },
+    "complete_spatial_support": true,
+    "production_criterion_pass": false,
+    "intensity_criterion_pass": true,
+    "spatial_criterion_pass": true
+  },
+  "initial_sha256": "b999f6029cef7f29a3b32a4e86034b56ec7eb3438aea77cd5cf4312b04d480da",
+  "result_sha256": "874735e3fe0c17f3b37df0756ef4ba47a5805cd744f659a847686cf4b2a073ac"
+}

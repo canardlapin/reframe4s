@@ -1,0 +1,117 @@
+{
+  "schema": "hfq-budget-summary-v1",
+  "protocol_sha256": "38a3f269719b90ee19babdedc75240d3f246aaa85aed97318bb8c66cc79ce3ee",
+  "results_sha256": "94914406b1e85d694aa1463b04c9ec7116a08a55399a18bd51555da2c8a3a837",
+  "source_sha256": "1b27350df7ea9f624c87eb173c0f4ce64d8595a876057eaeff720325acc87683",
+  "studies": [
+    {
+      "protocol_sha256": "38a3f269719b90ee19babdedc75240d3f246aaa85aed97318bb8c66cc79ce3ee",
+      "results_sha256": "94914406b1e85d694aa1463b04c9ec7116a08a55399a18bd51555da2c8a3a837"
+    }
+  ],
+  "estimand": "Raw anatomy on observed development outputs, including geometry failures; not failure-penalized qualification scores",
+  "lanes": {
+    "syn-total0.5": {
+      "attempts": 2,
+      "complete_audits": 2,
+      "common_geometry_valid": 2,
+      "mean_dice": {
+        "mean": 0.4614410321621099,
+        "median": 0.4614410321621099,
+        "minimum": 0.4251006534652627,
+        "maximum": 0.4977814108589571
+      },
+      "mean_hd95_mm": {
+        "mean": 5.075871701724276,
+        "median": 5.075871701724276,
+        "minimum": 4.743416490252569,
+        "maximum": 5.408326913195984
+      },
+      "nonlinear_and_geometry_seconds": {
+        "mean": 1382.539528957801,
+        "median": 1382.539528957801,
+        "minimum": 827.3820229158737,
+        "maximum": 1937.6970349997282
+      },
+      "fit_peak_rss_bytes": {
+        "mean": 689889280,
+        "median": 689889280.0,
+        "minimum": 670547968,
+        "maximum": 709230592
+      }
+    }
+  },
+  "matched_budget": [
+    {
+      "pair": "mmrr-21-11-to-12",
+      "comparable": false,
+      "reason": "Missing completed timing"
+    },
+    {
+      "pair": "nki-rs-22-8-to-9",
+      "comparable": false,
+      "reason": "Missing completed timing"
+    }
+  ],
+  "stopping": {
+    "mmrr-21-11-to-12/syn-total0.5": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 100,
+          "iterations": 17,
+          "last_convergence_value": -6.886815390317e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 1,
+          "limit": 70,
+          "iterations": 44,
+          "last_convergence_value": -8.511168744008e-06,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 2,
+          "limit": 200,
+          "iterations": 32,
+          "last_convergence_value": -6.157414463814e-05,
+          "status": "native_convergence_rule_before_cap"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": true,
+      "full_resolution_enabled": true
+    },
+    "nki-rs-22-8-to-9/syn-total0.5": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 100,
+          "iterations": 30,
+          "last_convergence_value": -6.015223698341e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 1,
+          "limit": 70,
+          "iterations": 58,
+          "last_convergence_value": -1.006490856525e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 2,
+          "limit": 200,
+          "iterations": 45,
+          "last_convergence_value": -1.512675316917e-05,
+          "status": "native_convergence_rule_before_cap"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": true,
+      "full_resolution_enabled": true
+    }
+  },
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false,
+  "timing_scope": "Concurrent diagnostic measurements only"
+}

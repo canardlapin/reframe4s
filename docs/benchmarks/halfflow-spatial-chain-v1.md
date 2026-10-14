@@ -212,3 +212,8 @@ and [verified archive](evidence/halfflow-spatial-chain-20261014/smaller-step-out
 retain the original verdict, all measurements, source patch and hashes. The
 plot was visually checked. Other pyramid scales, cohorts, image orders and
 boundary conditions still require testing before changing the optimizer.
+
+The [pyramid-scale and cross-cohort study](halfflow-pyramid-chain-v1.md) now
+declares a fine-scale neutrality control, three coarse checkpoints and an MMRR
+fine checkpoint. It reuses the production pyramid builder and preserves the
+separate original-step and smaller-step verdicts.

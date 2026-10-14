@@ -304,3 +304,31 @@ also verify the generated saved affine used for each new reference fit. The
 preserves those affine coefficients, historical fit receipts and frozen sources.
 It contains no new reference outcomes. These concurrent diagnostic runs cannot
 support a runtime comparison or establish a generally qualified reference.
+
+## MMRR and NKI-RS outcomes
+
+Both declared attempts completed, stopped by the native convergence rule at
+every enabled level, and passed every unchanged common geometry and cell gate.
+The fixed-setting two-case feasibility replication therefore passes. The
+[complete attempt ledger](evidence/halfflow-reference-20261014/regularized-cohorts-outcomes-v1/results.json)
+and [stopping summary](evidence/halfflow-reference-20261014/regularized-cohorts-outcomes-v1/summary.json)
+retain both outcomes.
+
+| Observed pair | Iterations used | Mean Dice | HD95 (mm) | Max brain round trip (mm) | Min sampled cell Jacobian |
+| --- | --- | ---: | ---: | ---: | ---: |
+| MMRR-21 11 → 12 | 17 / 44 / 32 | 0.425101 | 5.408327 | 0.188619 | 0.271304 |
+| NKI-RS-22 8 → 9 | 30 / 58 / 45 | 0.497781 | 4.743416 | 0.177901 | 0.455575 |
+
+Both have full brain coverage, zero sampled folded cells and complete anatomical
+scoring. The canonical/native reload discrepancies remain within the existing
+conversion gate. The [archive](evidence/halfflow-reference-20261014/regularized-cohorts-outcomes-v1/artifact-manifest.json)
+verifies all frozen source/input identities and retains per-structure metrics,
+native stopping logs and process receipts; dense maps remain in the local study.
+
+Together with the three OASIS cases, the unchanged regularized reference now
+converges and passes geometry on **5/5 observed cases spanning three cohorts**.
+This extends feasibility beyond OASIS. It does not establish a population
+success rate or fresh-cohort qualification. The original unsmoothed failures
+remain in their original attempt ledgers. HFQ-P02 stays open: controlled,
+isolated quality-versus-runtime measurements for the comparable-budget and
+generous-convergence lanes, and their publication, are still required.
