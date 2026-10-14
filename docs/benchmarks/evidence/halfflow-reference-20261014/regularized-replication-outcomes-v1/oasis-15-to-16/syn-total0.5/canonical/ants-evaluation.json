@@ -1,0 +1,59 @@
+{
+  "lane": "ants",
+  "directions": {
+    "fixed-to-moving": {
+      "target": "fixed",
+      "source": "moving",
+      "map_sha256": "41c917f1ce5064467ed5f86823d98422fcd5332c28b46bca5351f341b6b1b61c",
+      "all_map_values_finite": true,
+      "grid_jacobian_invalid": 0,
+      "grid_jacobian_nonfinite": 0,
+      "reload_max_abs": 1.432187701766452e-14,
+      "reload_evaluated": 1854224,
+      "reload_excluded": 388926,
+      "ncc": 0.6751119439043827,
+      "brain_mask_dice": 0.8886391552449314,
+      "brain_sampling_coverage": 1.0,
+      "grid_jacobian_min": 0.39714835146546906,
+      "grid_jacobian_nonpositive": 0,
+      "grid_jacobian_evaluated": 2141568,
+      "brain_jacobian_min": 0.39714835146546906,
+      "brain_roundtrip_coverage": 1.0,
+      "brain_roundtrip_max_mm": 0.19684586648493055,
+      "brain_roundtrip_p95_mm": 0.06056624239054418,
+      "whole_valid_roundtrip_max_mm": 0.19684586648493055,
+      "geometry_pass": true
+    },
+    "moving-to-fixed": {
+      "target": "moving",
+      "source": "fixed",
+      "map_sha256": "5bb0bcad41c8ab2cb995b716cd37b28b30c609452aee6c6c12c93656044bc2d4",
+      "all_map_values_finite": true,
+      "grid_jacobian_invalid": 0,
+      "grid_jacobian_nonfinite": 0,
+      "reload_max_abs": 2.3925306180672123e-14,
+      "reload_evaluated": 1547827,
+      "reload_excluded": 420113,
+      "ncc": 0.6816243509665525,
+      "brain_mask_dice": 0.8913155793527782,
+      "brain_sampling_coverage": 1.0,
+      "grid_jacobian_min": 0.6364867124385593,
+      "grid_jacobian_nonpositive": 0,
+      "grid_jacobian_evaluated": 1874730,
+      "brain_jacobian_min": 0.6364867124385593,
+      "brain_roundtrip_coverage": 1.0,
+      "brain_roundtrip_max_mm": 0.07608816102678868,
+      "brain_roundtrip_p95_mm": 0.018324526568501073,
+      "whole_valid_roundtrip_max_mm": 0.08730377099489894,
+      "geometry_pass": true
+    }
+  },
+  "anatomical_labels": "not supplied",
+  "input_sha256": {
+    "fixed": "54539b5e386c43e2032ea13231f85d8aa6473df41e829c74370ea7eba01541f5",
+    "moving": "dd4de1d8c7f476be7c38713cf0e9263036ec9f01fe8d3760d810a88c58f28a14",
+    "fixed-mask": "a320e036da85eb5130521dcac95e2051b2b2566068ba399d539c6b400de91820",
+    "moving-mask": "9df6942483adccd399bd1477736eed95538978754300a26de7f2a35f4ba9cd6e"
+  },
+  "geometry_pass": true
+}

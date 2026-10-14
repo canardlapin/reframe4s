@@ -1,0 +1,78 @@
+{
+  "schema": "ants-canonical-pull-export-v1",
+  "affine": {
+    "maximum_coefficient_abs": 2.9884411745229045e-07,
+    "four_affinely_independent_points_mm": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        100.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        100.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        100.0
+      ]
+    ],
+    "maximum_point_abs_mm": 2.819230573436471e-06,
+    "supplied_sha256": "fbfd18847905d85ea80987c5bbffed581e213f0eb0f63d74c9ac9943e4863a1f",
+    "itk_affine_sha256": "4f1f3f957cd25af9b8475ff2599242479780ff909084a462c2605f1e6b46cb78"
+  },
+  "source_sha256": "b79677e3595ec2d417806b8544e4d874b9ca2b2d9ea349698b6f17c5b5129d69",
+  "reference_result_sha256": "fd2146a5563162c9a119bfe79107d1ffa220873adb6f949f88b5cf15d8e1e123",
+  "settings_sha256": "0f4a292b06a68b4865df1872adbbebfb40f7481b845cae2ab879c6d5f19b76b0",
+  "antspyx_version": "0.6.3",
+  "directions": {
+    "fixed-to-moving": {
+      "point_probe_max_abs_mm": 1.2980116380845175e-05,
+      "point_probe_tolerance_mm": 0.0001,
+      "independent_native_reload_max_abs": 1.5487611193520934e-14,
+      "historical_float_warp_max_abs_difference": 5.133676825863631e-06,
+      "conversion_pass": true,
+      "extrapolation": [
+        {
+          "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-replication-v1/oasis-13-to-14/syn-total0.5/ants-1Warp.nii.gz",
+          "outside_field_points": 0,
+          "total_points": 2228760
+        }
+      ],
+      "transform_sha256": {
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-replication-v1/oasis-13-to-14/syn-total0.5/ants-1Warp.nii.gz": "5b0100305386bb119a12dc55672be7d0219042fd1b7269505dfca97cf7af66d9",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-replication-v1/oasis-13-to-14/syn-total0.5/ants-0GenericAffine.mat": "4f1f3f957cd25af9b8475ff2599242479780ff909084a462c2605f1e6b46cb78"
+      },
+      "historical_image_sha256": "80954cee4a848d9f64dcaadbefdb9afbf8aa149b60b02bb958cc61aeebcbf670",
+      "map_sha256": "fc7133ca193871d836c7a1e680489c9f77860bc09fa53e90eb25b6560c7e763a"
+    },
+    "moving-to-fixed": {
+      "point_probe_max_abs_mm": 6.467796119125069e-05,
+      "point_probe_tolerance_mm": 0.0001,
+      "independent_native_reload_max_abs": 2.3703261575747092e-14,
+      "historical_float_warp_max_abs_difference": 1.4618651783926406e-05,
+      "conversion_pass": true,
+      "extrapolation": [
+        {
+          "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-replication-v1/oasis-13-to-14/syn-total0.5/ants-1InverseWarp.nii.gz",
+          "outside_field_points": 244976,
+          "total_points": 2007720
+        }
+      ],
+      "transform_sha256": {
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-replication-v1/oasis-13-to-14/syn-total0.5/ants-0GenericAffine.mat": "4f1f3f957cd25af9b8475ff2599242479780ff909084a462c2605f1e6b46cb78",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-reference-20261014/regularized-replication-v1/oasis-13-to-14/syn-total0.5/ants-1InverseWarp.nii.gz": "df55d40f7af2b5cead032b0120e7965de31f91528a44a576ae1738cef1fb01b3"
+      },
+      "historical_image_sha256": "30cdffc0fb2675c22e2eff4cf8ba5f158eb72f88288ebc473ca40dc107ae3c94",
+      "map_sha256": "d6d2e10d1feca60344d47fadc057b7693f24db19d9384571c6dcb32694ed4c5f"
+    }
+  },
+  "conversion_pass": true
+}

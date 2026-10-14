@@ -7,6 +7,10 @@ the unchanged 0.2 mm brain round-trip limit. SyN passes the sampled cell checks
 on all five. This establishes an unresolved reference-export issue; it does
 not erase HalfFlow's anatomical deficit or qualify either method.
 
+A subsequent fixed regularized SyN setting converges and passes the same
+geometry checks on three observed OASIS pairs. That development replication is
+reported below; broader-cohort and isolated timing validation remain open.
+
 This is P02 development evidence for Mote
 `bd-01M4X4DXW7WGW5WK0J3Z6PFP98`, under the
 [frozen qualification contract](halfflow-qualification-protocol-v1.md).
@@ -250,4 +254,36 @@ holds `total_sigma=0.5`, the 100/70/200 schedule and all other fitting
 parameters fixed on observed OASIS 13 → 14 and 15 → 16. Both must converge before
 all caps and pass the unchanged geometry gates. All outcomes are retained; no
 parameter search or reference promotion follows from the pilot alone. Runtime
-comparison remains excluded during this concurrent diagnostic replication.
+comparison is excluded during this concurrent diagnostic replication.
+
+## Completed fixed-setting replication
+
+Both prospectively declared replication cases completed and met their
+convergence and geometry requirements. The
+[replication outcome archive](evidence/halfflow-reference-20261014/regularized-replication-outcomes-v1/artifact-manifest.json)
+retains the complete two-attempt ledger, raw native logs, conversion checks and
+anatomical/geometry reports. Combining those outcomes with the pilot gives:
+
+| OASIS pair | Iterations used | Mean Dice | HD95 (mm) | Max brain round trip (mm) | Min sampled cell Jacobian |
+| --- | --- | ---: | ---: | ---: | ---: |
+| 11 → 12, pilot | 25 / 40 / 26 | 0.481692 | 5.302240 | 0.193218 | 0.382621 |
+| 13 → 14, replication | 16 / 35 / 40 | 0.476786 | 4.500000 | 0.198227 | 0.358767 |
+| 15 → 16, replication | 19 / 51 / 22 | 0.450387 | 5.796493 | 0.196846 | 0.389404 |
+
+All enabled levels stop by the native convergence rule before their caps.
+All three cases have full brain coverage, zero sampled folded cells, and pass
+the unchanged common geometry checks. Round-trip margins are narrow: the
+closest case is only about 0.00177 mm below the 0.2 mm limit.
+
+On these same three observed pairs, regularized SyN's mean Dice is 0.469622
+versus the frozen HalfFlow control's 0.413943. Mean HD95 is 5.199577 versus
+5.253667 mm. Dice is higher for each pair; HD95 improves on two and worsens
+slightly on the pilot. These raw development results establish an anatomical
+gap against a converged, geometry-admitted reference on this small panel.
+They are not fresh-cohort qualification estimates or a runtime comparison.
+
+The regularized reference configuration was held fixed after the pilot and has
+not been promoted as a generally validated strong reference. Additional
+independently sourced observed cohorts, the stricter prospective scoring rules,
+and isolated runtime/memory measurements remain required. No failing result
+from the earlier unsmoothed studies is dropped or relabeled as successful.
