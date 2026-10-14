@@ -314,5 +314,31 @@ The [complete archive](evidence/halfflow-deferred-capture-20261014/completed-oas
 retains every compact event, export receipt and scientific report, both full
 trajectory plots and per-structure plots. MRI and dense maps remain local with
 verified identities. `archive_completed_offline.py` requires the exact ledger
-to be complete before producing this archive. The remaining 61-state export
-batch is still unstarted, pending the isolated timing window. D01 remains open.
+to be complete before producing this archive. At that snapshot, the next
+61-state export batch was unstarted, pending the isolated timing window.
+
+## Anatomy batch moved ahead of timing
+
+The [prospective scheduling amendment](evidence/halfflow-deferred-capture-20261014/offline-before-timing-v1/amendment.json)
+moves the already-declared OASIS 13 and MMRR 11 batch ahead of P02 timing.
+The 22:15 UTC process check still found nine external numerical workers.
+Waiting for isolation was therefore delaying untimed anatomical evidence.
+The frozen timing protocol prohibits concurrent numerical work during timing;
+it does not require these exports to occur afterward. Its original bytes and
+all earlier evidence remain unchanged.
+
+This batch contains **61 captured states and 162 scalar events across four
+terminal fits**. The supervisor starts one export worker and one scoring worker
+using the previously sealed protocols. No fitting, capture selection, input,
+evaluator, threshold or denominator changes. Scoring preserves the 101
+uncaptured events explicitly. Both workers must exit successfully and the exact
+61-export/162-event ledger must be complete before the amended timing launcher
+permits a run. A partial or failed batch blocks timing. Eight process-monitor
+and scheduling checks pass, including a first export that has started but has
+not yet produced a terminal receipt.
+
+The batch is running; this declaration contains no completed-batch conclusion.
+Its times are excluded from performance comparisons. The remaining
+representative-success trajectories on OASIS 1 and OASIS 17 also need offline
+scoring before D01 can close. The corrected-direction screen remains gated;
+no new anatomical improvement or convergence is established by scheduling work.

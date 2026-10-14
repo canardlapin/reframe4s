@@ -349,7 +349,8 @@ The twelve attempts have **not started**. Before launch, all ten deferred fits,
 the first 29 offline exports and their complete 74-event analysis, and all
 three image-role audits must be terminal. Their live handles and exact ledgers
 must be checked and an isolation receipt recorded. The next 61-state export
-batch remains queued after this study. Once timing starts, all further builds
+batch was initially queued after this study; the prospective amendment below
+changes that operational order. Once timing starts, all further builds
 and numerical work wait until it ends, as required by the frozen protocol.
 Any isolation violation excludes affected timings while retaining the outcomes.
 
@@ -383,6 +384,19 @@ failure or sample gap over 45 seconds excludes the entire run from runtime
 comparison while preserving its scientific outcomes. The completion overlay
 must be read before any per-attempt timing flag. Sampling does not prove that
 the machine was otherwise idle between observations.
+
+### Prospective scheduling amendment
+
+The [offline-before-timing amendment](evidence/halfflow-deferred-capture-20261014/offline-before-timing-v1/amendment.json)
+starts the unchanged 61-state OASIS 13/MMRR 11 export and scoring batch while
+external numerical work continues to prevent timing isolation. It does not
+change this study's twelve attempts, numerical policies or runtime rules.
+The original timing protocol is preserved. `run_isolated_reference.py` now
+accepts `--schedule-amendment` pointing to the local amendment, and requires
+successful terminal receipts for both offline workers plus exact accounting
+of all 61 exports and 162 analysis events. Without that amendment, a started
+batch remains an error. A new quiet-machine check and continued isolation
+monitoring are still required. No timing attempt has started.
 
 The [precheck archive](evidence/halfflow-reference-20261014/regularized-cost-launch-v1/artifact-manifest.json)
 records the completed prerequisites, failed isolation check and monitor source.

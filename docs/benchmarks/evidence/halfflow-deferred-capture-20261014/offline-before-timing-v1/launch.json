@@ -1,0 +1,23 @@
+{
+  "started_at": "2026-10-14T22:18:12.360615+00:00",
+  "amendment_sha256": "bda0b9cf6f53b15ffeb6246d1284b339386272eaff664536ae79a4e7488b25f3",
+  "commands": {
+    "exports": [
+      "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/.venv/bin/python",
+      "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/offline_checkpoints.py",
+      "run",
+      "--output",
+      "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-panel-oasis13-mmrr11-v1"
+    ],
+    "analysis": [
+      "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/.venv/bin/python",
+      "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/follow_offline_analysis.py",
+      "--analysis",
+      "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-analysis-oasis13-mmrr11-v1",
+      "--deadline-seconds",
+      "86400"
+    ]
+  },
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}

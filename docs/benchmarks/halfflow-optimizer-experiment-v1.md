@@ -159,3 +159,30 @@ The [declared design](evidence/halfflow-spatial-direction-20261014/declaration-v
 still requires the outstanding D01/D02/P02 evidence and a separate final freeze
 of all input/evaluator identities and twelve attempt rows before execution.
 No candidate MRI fit or runtime comparison is claimed by this package.
+
+## Executable comparison declaration
+
+The [execution package](evidence/halfflow-spatial-direction-20261014/execution-v1/artifact-manifest.json)
+now seals all twelve ordered fit commands, the existing frozen executable and
+input identities, evaluator sources, Java executable identity and the original
+six-pair design. `spatial_direction_study.py` provides preparation, verification
+and sequential execution. It uses the already-tested source `4c3bed8a…`; no
+new Scala change or build is involved. Labels remain evaluation-only inputs.
+
+Execution requires D01, D02 and P02 to be explicitly closed in Mote after their
+evidence is reviewed. A launch check against their current state correctly
+refused before creating any fit launch record. All twelve fits remain
+unstarted. This package neither waives those gates nor closes their issues.
+
+Seven focused checks cover the decision rules. A missing or failed attempt,
+native rejection, independent geometry failure, nonfinite metric or baseline
+replay mismatch prevents expansion. Average gains cannot hide a pair exceeding
+either declared regression limit. The summary keeps all twelve planned rows
+and does not compute a complete-case mean when any pair is incomparable.
+Cap/controller stops never become qualifying convergence. Each actual launch
+is charged to the full-fit budget and retained, including interruptions;
+the driver refuses an automatic rerun of a previously launched study.
+
+The fit, export and anatomy execution path has not yet run on MRI through this
+new driver. Its scientific components are the existing frozen registration
+and evaluators, but passing the decision-rule tests is not an end-to-end result.

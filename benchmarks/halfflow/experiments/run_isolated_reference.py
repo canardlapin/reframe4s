@@ -47,7 +47,35 @@ def snapshot():
     return classify_processes(subprocess.check_output(['ps','-axo','pid=,ppid=,%cpu=,comm='],text=True),os.getpid())
 
 
-def preflight(study, diagnostics):
+def verify_schedule(study, diagnostics, amendment=None):
+    next_batch = diagnostics/'offline-panel-oasis13-mmrr11-v1'
+    if amendment is None:
+        if (next_batch/'results.json').exists() or any(p.is_dir() for p in next_batch.iterdir()):
+            raise ValueError('Next offline batch has already started; a prospective scheduling amendment is required')
+        return dict(next_export_batch_unstarted=True)
+    p = read(amendment)
+    if p['schema'] != 'hfq-offline-before-timing-v1':
+        raise ValueError('Wrong scheduling amendment')
+    if p['timing_study'] != str(study) or p['diagnostics'] != str(diagnostics):
+        raise ValueError('Scheduling amendment refers to another study')
+    for path, digest in p['identities'].items():
+        if sha(path) != digest:
+            raise ValueError('Scheduling identity changed: '+path)
+    analysis = diagnostics/'offline-analysis-oasis13-mmrr11-v1'
+    ledger = inspect(analysis)
+    if (not ledger['ledger_complete'] or ledger['expected_event_count'] != 162 or
+            ledger['expected_export_count'] != 61):
+        raise ValueError('Second offline batch not exactly complete')
+    completion = amendment.parent/'completion.json'
+    row = read(completion)
+    if (row['amendment_sha256'] != sha(amendment) or row['exit_code'] != 0 or
+            row['worker_exit_codes'] != {'exports': 0, 'analysis': 0}):
+        raise ValueError('Offline workers are not verified terminal')
+    return dict(schedule_amendment_sha256=sha(amendment),
+        offline_completion_sha256=sha(completion),second_offline_ledger=ledger)
+
+
+def preflight(study, diagnostics, amendment=None):
     p = read(study/'protocol.json')
     if p['schema']!='hfq-p02-regularized-isolated-cost-v1': raise ValueError('Wrong timing declaration')
     for group in ['sources','inputs','pending_diagnostic_protocols']:
@@ -79,21 +107,19 @@ def preflight(study, diagnostics):
         path = diagnostics/'order-study-v1'/(row['task']['id']+'-receipt.json')
         if read(path)!=row: raise ValueError('Role audit ledger changed')
         role_receipts[row['task']['id']] = sha(path)
-    next_batch = diagnostics/'offline-panel-oasis13-mmrr11-v1'
-    if (next_batch/'results.json').exists() or list(next_batch.glob('*/*/event-*-receipt.json')):
-        raise ValueError('Next offline batch has already started')
+    schedule = verify_schedule(study, diagnostics, amendment)
     if (study/'results.json').exists() or list(study.glob('*/*-receipt.json')):
         raise ValueError('Timing launch requires an unstarted study')
     return dict(verified_at=datetime.now(timezone.utc).isoformat(),fits=fits,offline_ledger=ledger,
-        role_audit_receipts=role_receipts,next_export_batch_unstarted=True,
+        role_audit_receipts=role_receipts,**schedule,
         terminal_worker_handles_observed_by_agent={'81646':0,'50624':0,'51301':0},
-        terminal_handle_observation='Tool handles polled to exit zero immediately before this launch preparation.')
+        terminal_handle_observation='Historical first-batch handles polled to exit zero before the original launch preparation; these are not new observations.')
 
 
-def run(study, diagnostics):
+def run(study, diagnostics, amendment=None):
     plan_path = study/'isolation-plan.json'
     if plan_path.exists(): raise FileExistsError('Prior isolation attempt retained; use a new declared study')
-    checks = preflight(study,diagnostics)
+    checks = preflight(study,diagnostics,amendment)
     write(study/'prerequisite-verification.json',checks)
     plan = dict(schema='hfq-isolation-plan-v1',created_at=datetime.now(timezone.utc).isoformat(),
         protocol_sha256=sha(study/'protocol.json'),launcher_sha256=sha(__file__),sample_interval_seconds=15,
@@ -151,4 +177,6 @@ def run(study, diagnostics):
 if __name__=='__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--study',type=Path,required=True);parser.add_argument('--diagnostics',type=Path,required=True)
-    args = parser.parse_args();raise SystemExit(run(args.study.resolve(),args.diagnostics.resolve()))
+    parser.add_argument('--schedule-amendment',type=Path)
+    args = parser.parse_args();raise SystemExit(run(args.study.resolve(),args.diagnostics.resolve(),
+        args.schedule_amendment.resolve() if args.schedule_amendment else None))
