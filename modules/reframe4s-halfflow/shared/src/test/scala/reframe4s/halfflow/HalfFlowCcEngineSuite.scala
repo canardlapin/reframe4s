@@ -5,9 +5,10 @@ import reframe4s.halfflow.internal.*
 
 class HalfFlowCcEngineSuite extends munit.FunSuite:
   // These numerical/export regressions are not wall-clock benchmarks. The large
-  // capture fixture exceeded MUnit's 30-second default on a shared CI runner.
+  // capture case took 41.5 s on shared JVM CI and 176 s on local Scala.js.
+  // Keep a finite per-test deadline with headroom on both supported platforms.
   override def munitTimeout: scala.concurrent.duration.Duration =
-    scala.concurrent.duration.Duration(2, "minutes")
+    scala.concurrent.duration.Duration(5, "minutes")
 
   private sealed trait Work
   private sealed trait Fixed
