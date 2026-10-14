@@ -1,0 +1,66 @@
+{
+  "schema": "hfq-offline-scoring-parity-v1",
+  "source_sha256": "3c9aa8e9f80b322d0a55e41baf5e642749d3113a45563f38be0862d866dbc2c9",
+  "original_protocol_sha256": "fb6248bb6c98af228890e622a8beac6d8bacb006ed728906a8a61b4bb89256ef",
+  "offline_analysis_protocol_sha256": "55b71f8507c39ff6182d42b88a3bd58592788999d1e1ebe62985410dca9ad17b",
+  "excluded": "Only geometry_audit_seconds, total_audit_seconds and relocation of identical hashed intensity inputs. All per-structure, geometry, cell, coverage, intensity and regularity numbers must agree exactly.",
+  "event_statuses": {
+    "scored": 2,
+    "export_not_requested": 11,
+    "not_captured": 17
+  },
+  "comparisons": [
+    {
+      "pair": "oasis-11-to-12",
+      "policy": "selected-control",
+      "event": 1,
+      "original_receipt_sha256": "1a2d80a2b1be221a69c0c758281abac9d9e2c65d89ae99c373c30f384160b990",
+      "offline_receipt_sha256": "7e2d5709a9de737a8e702b7fad41dfce1ce43d29f60794e6ae4476867c07724c",
+      "checks": {
+        "event": true,
+        "fit_receipt_sha256": true,
+        "regularity": true,
+        "map_inputs": true,
+        "native_export_accepted": true,
+        "fixed_intensity": true,
+        "geometry_and_anatomy": true,
+        "halfflow-evaluation.json": true,
+        "halfflow-anatomy-evaluation.json": true,
+        "halfflow-cell-topology.json": true
+      },
+      "scientific_reports": {
+        "oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-evaluation.json": "71ee6e13bc78c4cb9af7627e0aae0a9aa15420f20f234e1d2cfb1bd00120565b",
+        "oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-anatomy-evaluation.json": "951744b996f7dc03c884f3b15964c260869b89b8afd351f4ef176d8569c36b4a",
+        "oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-cell-topology.json": "2c58f9e8ef15fad9d807216bddaf035fec873121d7ae62074fbab192e928875a"
+      },
+      "passed": true
+    },
+    {
+      "pair": "oasis-11-to-12",
+      "policy": "selected-control",
+      "event": 23,
+      "original_receipt_sha256": "232e936dfa340ff037925d03ac0d3423ed88a984ec6f9d6cf0f73b5d2840ed65",
+      "offline_receipt_sha256": "18c4c5dd12d42558483fe9b14d8e8e349e6c944310cc5106a070afc5417d00e1",
+      "checks": {
+        "event": true,
+        "fit_receipt_sha256": true,
+        "regularity": true,
+        "map_inputs": true,
+        "native_export_accepted": true,
+        "fixed_intensity": true,
+        "geometry_and_anatomy": true,
+        "halfflow-evaluation.json": true,
+        "halfflow-anatomy-evaluation.json": true,
+        "halfflow-cell-topology.json": true
+      },
+      "scientific_reports": {
+        "oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-evaluation.json": "e3c57597903a35fdc6696b4e5e69f5853671a6380557b9182d1963a4cfdd8457",
+        "oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-anatomy-evaluation.json": "0c1405c87f47e56c17fab40b13934816dd7186684be1feae2b7f17653f293832",
+        "oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-cell-topology.json": "db52bcb923459a6a7d715e4861bd6e70a37c70909cf18dce6f2b86318d380ae4"
+      },
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "qualification_claim": false
+}

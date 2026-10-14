@@ -40,6 +40,41 @@ work makes this unsuitable for a runtime comparison. Its optimizer still ends
 with the original accepted-step budget/controller exhaustion behavior; this
 replay does not turn that behavior into convergence.
 
+## Independent scoring after offline export
+
+The separate scoring path now verifies the frozen capture, export engine,
+raw-state inputs, per-export receipt, output hashes and native admission before
+using an offline map. Admission comes from the export result; the raw capture's
+"deferred" status does not admit a map. A pending export receives no score,
+while process failure, construction failure and geometric rejection remain
+distinct. The analysis protocol retains every selected source fit, including
+failed fits with no events. An exported checkpoint cannot change its source
+fit's outcome.
+
+Eleven focused provenance and failure tests pass. On the original coarse-start
+and fine-start real checkpoints, the
+[scoring parity check](evidence/halfflow-deferred-capture-20261014/offline-scoring-supplement-v1/offline-analysis-parity-v1/parity-verification.json)
+reproduces all regularity, fixed-intensity, geometry and anatomy numbers exactly.
+All six complete evaluation, per-structure and sampled-cell reports are
+byte-identical. Only elapsed audit times and relocated paths to identical
+hashed inputs are excluded from numerical equality. All 30 original scalar
+events remain represented: two scored states, 17 uncaptured events and 11
+states outside the explicitly limited parity-export plan.
+
+The OASIS 11 → 12 step-scaled replay has also completed, retaining 16 raw
+checkpoints and matching all four historical final map/validity files exactly.
+Its successful process exit does not establish optimizer convergence. A frozen
+first batch now includes every captured state from both OASIS 11 policies:
+29 separate export attempts followed by independent scoring. Explicit terminal
+fit batches allow this work to proceed while other fits run; omitted panel fits
+remain outside the batch and in the full panel's original denominator.
+
+The [scoring supplement](evidence/halfflow-deferred-capture-20261014/offline-scoring-supplement-v1/artifact-manifest.json)
+archives the completed parity evidence, tests, helper sources, source-fit
+receipts and immutable first-batch declarations. It does not claim that this
+29-state batch or the full ten-fit panel has completed. Two orchestration launch
+errors are also retained; neither started a scoring or export process.
+
 ## Preserved failures and correction
 
 The first offline-export attempt failed exact parity on both checkpoints.
@@ -117,8 +152,16 @@ export receipts and `verify_deferred.py` for exact pilot neutrality. Use fresh
 directories and the pinned Python/Scala environments. Captures, failed attempts
 and published archives are not overwritten.
 
-The remaining nine declared replays are running sequentially. Full offline
-export, scoring and review of that panel remain required for D01. The separate
+For a terminal fit batch, repeat `offline_checkpoints.py freeze --fit pair/policy`.
+Freeze its scorer with `checkpoint_analysis.py freeze --offline-exports ...`,
+then run the scorer as exports finish. It skips pending exports without writing
+terminal analysis receipts; rerunning scores those states once their receipts
+exist. `verify_offline_analysis.py` reproduces the two-state scientific-score
+parity check. The full panel denominator remains defined by the trajectory
+protocol, independently of batch boundaries.
+
+The remaining declared replays are running sequentially. Full offline export,
+scoring and review of that panel remain required for D01. The separate
 [derivative-chain investigation](halfflow-intensity-chain-v1.md) localizes the
 pilot's discrepancy to spatial/composition differentiation; its broader checks
 remain open, and a corrected derivative alone has not yet been shown to improve

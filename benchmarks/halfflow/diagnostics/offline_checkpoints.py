@@ -13,16 +13,24 @@ import time
 from trajectory_study import ROOT, read, write, sha, verify, verify_engine
 
 
-def freeze(output, engine_study, captures, pilot):
+def freeze(output, engine_study, captures, pilot, fits=None):
     if output.exists():
         raise FileExistsError(output)
     _, source = verify(engine_study)
     panel, _ = verify(captures)
+    all_fits = {(c['id'], lane['id']) for c in panel['cases'] for lane in panel['lanes']}
+    selected = {tuple(value.split('/')) for value in fits} if fits else all_fits
+    if not selected or not selected <= all_fits:
+        raise ValueError('Every --fit must identify a declared pair/policy')
+    if pilot:
+        if fits:
+            raise ValueError('--pilot and --fit are mutually exclusive')
+        selected = {('oasis-11-to-12', 'selected-control')}
     inputs = dict(read(captures/'engine/inputs.json'))
     tasks = []
     for case in panel['cases']:
         for lane in panel['lanes']:
-            if pilot and (case['id'],lane['id']) != ('oasis-11-to-12','selected-control'):
+            if (case['id'],lane['id']) not in selected:
                 continue
             parent = captures/case['id']
             fit = parent/(lane['id']+'-fit-receipt.json')
@@ -64,11 +72,13 @@ def freeze(output, engine_study, captures, pilot):
         raise ValueError('Pilot must include coarse start and fine start')
     output.mkdir(parents=True)
     shutil.copyfile(__file__, output/'source-offline_checkpoints.py')
-    write(output/'protocol.json',dict(schema='hfq-offline-checkpoint-export-v1',
+    write(output/'protocol.json',dict(schema='hfq-offline-checkpoint-export-v2',
         created_at=datetime.now(timezone.utc).isoformat(), engine=str(engine_study/'engine'),
         engine_freeze_sha256=sha(engine_study/'engine/freeze.json'), source_sha256=source['sha256'],
         capture_protocol_sha256=sha(captures/'engine/protocol.json'), captures=str(captures),
         driver_sha256=sha(Path(__file__)), inputs=inputs,tasks=tasks,workers=1,
+        selected_fits=[dict(pair=pair,policy=policy) for pair,policy in sorted(selected)],
+        selection='Explicit terminal fit batches; all captured states included, except the declared two-state parity pilot. Other panel fits remain outside this batch and in the original panel denominator.',
         timeout_seconds=3600,environment=panel['environment'],
         exact_replay_required=any(t['expected_synchronous_exports'] for t in tasks),
         rule='Every committed selected raw state gets one export receipt. Export failure or rejection remains explicit. A partial or failed source fit never becomes a completed fit through export.',
@@ -132,8 +142,10 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('command',choices=['freeze','run']);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--engine-study',type=Path);p.add_argument('--captures',type=Path)
-    p.add_argument('--pilot',action='store_true');a=p.parse_args()
+    p.add_argument('--pilot',action='store_true')
+    p.add_argument('--fit',action='append',help='Terminal pair/policy to export; repeat for a batch; default all declared fits')
+    a=p.parse_args()
     if a.command=='freeze':
         if a.engine_study is None or a.captures is None:p.error('freeze requires --engine-study and --captures')
-        freeze(a.output.resolve(),a.engine_study.resolve(),a.captures.resolve(),a.pilot)
+        freeze(a.output.resolve(),a.engine_study.resolve(),a.captures.resolve(),a.pilot,a.fit)
     else:run(a.output.resolve())

@@ -1,0 +1,133 @@
+{
+  "pair": "oasis-11-to-12",
+  "policy": "selected-control",
+  "event": {
+    "capture_status": "Captured",
+    "diagnostic_only": true,
+    "directory": "0022-level00-levelend-attempt0020",
+    "export_status": "native export gate accepted",
+    "info": {
+      "kind": "LevelEnd",
+      "levelIndex": 0,
+      "shrink": 2,
+      "acceptedSteps": 20,
+      "attempts": 20,
+      "before": {
+        "loss": 0.4314966061820277,
+        "activeFraction": 0.19668342410277895,
+        "edgeActiveFraction": 0.0,
+        "support": {
+          "count": 286440,
+          "nonFinite": 0,
+          "positive": 45591,
+          "sum": 44524.62502560931,
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "reliability": {
+          "count": 286440,
+          "nonFinite": 0,
+          "positive": 56338,
+          "sum": 1.0000000000010318,
+          "minimum": 0.0,
+          "maximum": 2.1627539918135355e-05
+        },
+        "stabilization": {
+          "count": 286440,
+          "nonFinite": 0,
+          "positive": 286440,
+          "sum": 0.06672266158721288,
+          "minimum": 5e-324,
+          "maximum": 1.7287453514581592e-06
+        },
+        "neighborhood": {
+          "loss": 0.4314966061820277,
+          "activeWindows": 56338,
+          "totalWindows": 286440,
+          "support": {
+            "minimumFraction": -1.2789769243681803e-15,
+            "meanFraction": 0.1554413665186777,
+            "maximumFraction": 1.0000000000000007,
+            "activeFraction": 0.19668342410277895,
+            "edgeBandActiveFraction": 0.0
+          },
+          "variance": {
+            "fixedGlobalVariance": 0.02450839665742306,
+            "movingGlobalVariance": 0.04514359059869862,
+            "fixedReliabilityMean": 0.27832038094526973,
+            "movingReliabilityMean": 0.28054846664179367,
+            "jointReliabilityMean": 0.1614206949382702
+          }
+        }
+      },
+      "after": {
+        "loss": 0.4314966061820277,
+        "activeFraction": 0.19668342410277895,
+        "edgeActiveFraction": 0.0,
+        "support": {
+          "count": 286440,
+          "nonFinite": 0,
+          "positive": 45591,
+          "sum": 44524.62502560931,
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "reliability": {
+          "count": 286440,
+          "nonFinite": 0,
+          "positive": 56338,
+          "sum": 1.0000000000010318,
+          "minimum": 0.0,
+          "maximum": 2.1627539918135355e-05
+        },
+        "stabilization": {
+          "count": 286440,
+          "nonFinite": 0,
+          "positive": 286440,
+          "sum": 0.06672266158721288,
+          "minimum": 5e-324,
+          "maximum": 1.7287453514581592e-06
+        },
+        "neighborhood": {
+          "loss": 0.4314966061820277,
+          "activeWindows": 56338,
+          "totalWindows": 286440,
+          "support": {
+            "minimumFraction": -1.2789769243681803e-15,
+            "meanFraction": 0.1554413665186777,
+            "maximumFraction": 1.0000000000000007,
+            "activeFraction": 0.19668342410277895,
+            "edgeBandActiveFraction": 0.0
+          },
+          "variance": {
+            "fixedGlobalVariance": 0.02450839665742306,
+            "movingGlobalVariance": 0.04514359059869862,
+            "fixedReliabilityMean": 0.27832038094526973,
+            "movingReliabilityMean": 0.28054846664179367,
+            "jointReliabilityMean": 0.1614206949382702
+          }
+        }
+      },
+      "control": {
+        "damping": 1e-08,
+        "stepScale": 1.0,
+        "squarings": 0,
+        "objectiveRetries": 0,
+        "geometryRetries": 0,
+        "integrationRetries": 0
+      },
+      "trial": null,
+      "termination": "AcceptedStepBudget",
+      "stateAvailable": true
+    },
+    "manifest_sha256": "e4e929d2f165c3432d0cd4b3401140506a80db29967e5a792a1e77874587f07f",
+    "schema": "halfflow-checkpoint-v1",
+    "serial": 22
+  },
+  "protocol_sha256": "55b71f8507c39ff6182d42b88a3bd58592788999d1e1ebe62985410dca9ad17b",
+  "fit_receipt_sha256": "19df60094e651eedd4df4aa427797dd9e5b66aa6e93f5becb061a44cce04b804",
+  "fit_exit_code": 0,
+  "status": "export_not_requested",
+  "qualification_claim": false,
+  "offline_export_protocol_sha256": "863c1791a470b599ff5169647b8b09c817838d5cb13c200ff4706d67f634745f"
+}

@@ -1,0 +1,877 @@
+{
+  "schema": "hfq-offline-scoring-evidence-v1",
+  "created_at": "2026-10-14T16:59:16.844113+00:00",
+  "initial_archive_manifest_sha256": "19510157b4f505d3d9db39845eb7b6ace3ecc355b19ad5966e53209a1d5c9fcf",
+  "initial_archive_unchanged": true,
+  "parity_pass": true,
+  "parity_scored_states": 2,
+  "parity_event_statuses": {
+    "scored": 2,
+    "export_not_requested": 11,
+    "not_captured": 17
+  },
+  "byte_identical_scientific_reports": 6,
+  "provenance_tests_passed": 11,
+  "declared_next_export_tasks": 29,
+  "declared_next_fits": [
+    {
+      "pair": "oasis-11-to-12",
+      "policy": "selected-control"
+    },
+    {
+      "pair": "oasis-11-to-12",
+      "policy": "step-scaled-fine1.5"
+    }
+  ],
+  "scope": "Completed two-state scoring parity plus the immutable first 29-state export/scoring declarations. No claim that the running batch or ten-fit trajectory panel is complete.",
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false,
+  "files": [
+    {
+      "path": "offline-analysis-checks-v1/launch-errors.json",
+      "bytes": 373,
+      "sha256": "2ab0086feb7aebd429930ee587277f1f07f83dd144e1f054a143ce3de2249326",
+      "archived_path": "offline-analysis-checks-v1/launch-errors.json"
+    },
+    {
+      "path": "offline-analysis-checks-v1/tests.log",
+      "bytes": 1683,
+      "sha256": "e11c852b6c8a724590046e4ace5a71fc321f1bab67dc3ad37a810a5eb8840f14",
+      "archived_sha256": "add8277a6b92a3a6312f812d4baa7b434af651ca369c7be476adf86a322050b3",
+      "archived_path": "offline-analysis-checks-v1/tests.log.gz"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/protocol.json",
+      "bytes": 4069,
+      "sha256": "3358800973f619ad36abace605061620b8cec22ab56976ea96f3b4e13d462f7e",
+      "archived_path": "offline-analysis-oasis11-v1/protocol.json"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/source-audit-contract-v1.json",
+      "bytes": 1863,
+      "sha256": "c6173ab928d14ee109687b8a949c1ffc963e986b94338e79a10e2710710b1a3e",
+      "archived_path": "offline-analysis-oasis11-v1/source-audit-contract-v1.json"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/source-audit_study.py",
+      "bytes": 9973,
+      "sha256": "5ddcdb40ef0ce79bb4c38950898989988b65c69ca75190f462f4388f82b6e064",
+      "archived_path": "offline-analysis-oasis11-v1/source-audit_study.py"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/source-canonical_ants.py",
+      "bytes": 9094,
+      "sha256": "b79677e3595ec2d417806b8544e4d874b9ca2b2d9ea349698b6f17c5b5129d69",
+      "archived_path": "offline-analysis-oasis11-v1/source-canonical_ants.py"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/source-checkpoint_analysis.py",
+      "bytes": 10500,
+      "sha256": "7439fd806acb5cc29f44a6c5fbc9e55c94a07621508d5893ca689fcda22887ac",
+      "archived_path": "offline-analysis-oasis11-v1/source-checkpoint_analysis.py"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/source-fixed_audit.py",
+      "bytes": 5527,
+      "sha256": "e0855cd0f6b472b9c5cf07ac51c7f8ea1092a0947fb95c9efe732e5bab2540a9",
+      "archived_path": "offline-analysis-oasis11-v1/source-fixed_audit.py"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/source-offline_analysis.py",
+      "bytes": 7669,
+      "sha256": "4ce25e6b38f4885e217f9aaa5ad15955cb49730fb92ff1fc655e545caad4647e",
+      "archived_path": "offline-analysis-oasis11-v1/source-offline_analysis.py"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/source-real_image_court.py",
+      "bytes": 20929,
+      "sha256": "78aeac693e7d8ed83df7f403c3e3af269c40dd712cbfd7ace6a6ee4e8b60c55c",
+      "archived_path": "offline-analysis-oasis11-v1/source-real_image_court.py"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/source-real_mri_cell_topology.py",
+      "bytes": 5297,
+      "sha256": "83f41aa020a2ceb8dd427b169cb2a7c49830ad95cd024a423aa026bdb51e5bc1",
+      "archived_path": "offline-analysis-oasis11-v1/source-real_mri_cell_topology.py"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/source-regularity.py",
+      "bytes": 2224,
+      "sha256": "0dc505c636dcd84e50bcebffd84790b8ce0977ad2023a20b07822a079119d1d9",
+      "archived_path": "offline-analysis-oasis11-v1/source-regularity.py"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/source-test_offline_analysis.py",
+      "bytes": 8361,
+      "sha256": "f928f90f0aa64d9ac9f1a1149e951f6dcd580ee2b69f1f9a399b114e7bdd8a7f",
+      "archived_path": "offline-analysis-oasis11-v1/source-test_offline_analysis.py"
+    },
+    {
+      "path": "offline-analysis-oasis11-v1/source-test_regularity.py",
+      "bytes": 1406,
+      "sha256": "354b289335e0a72b03cd37c80cc279ab3c0e62d3b96722b7695aaf253fd5336a",
+      "archived_path": "offline-analysis-oasis11-v1/source-test_regularity.py"
+    },
+    {
+      "path": "offline-analysis-parity-v1/driver.log",
+      "bytes": 1507,
+      "sha256": "4e5a31400330aad90037d24f53dbda1cb920928ddf5884dd267cc3995ab18dd7",
+      "archived_sha256": "7947392d5eb977184a1d2e16077b4b73b3956dd9d255adbd72a7be5f9041d686",
+      "archived_path": "offline-analysis-parity-v1/driver.log.gz"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/export-diagnostics.txt",
+      "bytes": 705,
+      "sha256": "3c168503504866e63a204b7d03c6473d0b3ceb739d9ade15adba07aa91c89e15",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/export-diagnostics.txt"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-anatomy-evaluation.json",
+      "bytes": 28264,
+      "sha256": "951744b996f7dc03c884f3b15964c260869b89b8afd351f4ef176d8569c36b4a",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-cell-topology.json",
+      "bytes": 952,
+      "sha256": "2c58f9e8ef15fad9d807216bddaf035fec873121d7ae62074fbab192e928875a",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-cell-topology.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-evaluation.json",
+      "bytes": 2491,
+      "sha256": "71ee6e13bc78c4cb9af7627e0aae0a9aa15420f20f234e1d2cfb1bd00120565b",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-evaluation.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "8949127b321d4940811982b24e58a3ef17948b5f4d9acb4253130f37cc4e8000",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0001/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3585293,
+      "sha256": "57afb064cabfd415f645bd0dfa1827dc658d7d9a9923d54ad10040614b18cdd4",
+      "retained_locally": true
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "df78a402a7fa137fcb632631ec0d14b8b24023b7cf9fbc938dd12b18fda80fb1",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0001/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0001/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0001/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "f6010f5d2adaee593410bed2d800b5eaa1f663a646c6ac1bb0adf79665cadb86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0001/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3509774,
+      "sha256": "9dcb358254ac63309d6164e7be765f8652a9053dddbe175ea1b4245efd275ef6",
+      "retained_locally": true
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "1bc72bea41e5ae157201731af1533fd3230c6a801c70484ba801d41e255f20f0",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0001/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0001/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0001/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000.log",
+      "bytes": 1918,
+      "sha256": "eb2493de14b4f0e79508e4d3fed1037f8f488c3d3b344ccefde1c4c6b8f9a895",
+      "archived_sha256": "14d7b72817db3d4c42fda6ef9a6cb545564030321aabcc1f973c3837bf0494e5",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0001-level00-levelstart-attempt0000.log.gz"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/export-diagnostics.txt",
+      "bytes": 1087,
+      "sha256": "c7c5b82b43de3ecf1073310340d7a0aacf1eca824fd7dc2f8ac5b0f45b1f65c1",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/export-diagnostics.txt"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-anatomy-evaluation.json",
+      "bytes": 28117,
+      "sha256": "0c1405c87f47e56c17fab40b13934816dd7186684be1feae2b7f17653f293832",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-anatomy-evaluation.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-cell-topology.json",
+      "bytes": 953,
+      "sha256": "db52bcb923459a6a7d715e4861bd6e70a37c70909cf18dce6f2b86318d380ae4",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-cell-topology.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-evaluation.json",
+      "bytes": 2478,
+      "sha256": "e3c57597903a35fdc6696b4e5e69f5853671a6380557b9182d1963a4cfdd8457",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-evaluation.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving-warped.f64",
+      "bytes": 18213120,
+      "sha256": "f01657b17b7d8984201b11827b8a44cf28b01d594c7d745b26d2d5181091da78",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0023/halfflow-fixed-to-moving-warped.f64"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving-warped.nii.gz",
+      "bytes": 3578151,
+      "sha256": "3b145e3bbc1eaa48a46540574438df60ae0206b405d4bad76774cd73fae0f718",
+      "retained_locally": true
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving.f64",
+      "bytes": 54639360,
+      "sha256": "e27fc4d456680a4238955eb57445bcde6c3e2c3e7ac10ffb8e168d7c72d9f251",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0023/halfflow-fixed-to-moving.f64"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving.json",
+      "bytes": 217,
+      "sha256": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0023/halfflow-fixed-to-moving.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-fixed-to-moving.valid-u8",
+      "bytes": 2276640,
+      "sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0023/halfflow-fixed-to-moving.valid-u8"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed-warped.f64",
+      "bytes": 18204000,
+      "sha256": "484cbbc4be2c50e5e3b68b641f8d12066745eff3a44754953baa7bd9f9076758",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0023/halfflow-moving-to-fixed-warped.f64"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed-warped.nii.gz",
+      "bytes": 3512555,
+      "sha256": "d83166baf1f70c16edb8842bfec738b8f522395c4fcd993994fb46d0cefb3cba",
+      "retained_locally": true
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed.f64",
+      "bytes": 54612000,
+      "sha256": "348ef2aeb5e9a953b204912c657d389da0e4dd76f918d22f7e7af7b24ce6d981",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0023/halfflow-moving-to-fixed.f64"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed.json",
+      "bytes": 217,
+      "sha256": "70075739fe82a9779f0734f1485094bf845d521aa347820397d1eb6e1b7ac795",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0023/halfflow-moving-to-fixed.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/halfflow-moving-to-fixed.valid-u8",
+      "bytes": 2275500,
+      "sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-parity-v2/oasis-11-to-12/selected-control/event-0023/halfflow-moving-to-fixed.valid-u8"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "retained_locally": true,
+      "original_input": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000.log",
+      "bytes": 1905,
+      "sha256": "1c362e622063e28dd8068b77f82537129bb972131ab97af7d5ac74b7b9c8aa68",
+      "archived_sha256": "47aa476224fed21524185156ff1bd3540d0ae576c7087c61e9042eaf3c5ceb74",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/0023-level01-levelstart-attempt0000.log.gz"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0001.json",
+      "bytes": 10848,
+      "sha256": "7e2d5709a9de737a8e702b7fad41dfce1ce43d29f60794e6ae4476867c07724c",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0001.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0002.json",
+      "bytes": 6681,
+      "sha256": "56287371468f301a8ef5253735b5f03da90d72bd6e63396784844a8114e0e13c",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0002.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0003.json",
+      "bytes": 6678,
+      "sha256": "ed6e30d3526f6ad9dd709301fe8240324b6787f5cee66c28ae2902dc1ee69bc4",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0003.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0004.json",
+      "bytes": 6526,
+      "sha256": "a49139e00a5123a52ffc59aa7037473d68bd125e4848af31dcf4a524b2e40f92",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0004.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0005.json",
+      "bytes": 6529,
+      "sha256": "875d76be48f489e0785676b20cd68b51020ca62693073dafc8761e036aff8f3f",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0005.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0006.json",
+      "bytes": 6690,
+      "sha256": "c28d129d2de7ef90b5dcb56814fcd1e25cf1ee86d6b5de31af6739eff93c78bb",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0006.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0007.json",
+      "bytes": 6522,
+      "sha256": "5af78937bab1a5ec1b084df7e008d01960e6f7da68500dfd39478980f08427bb",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0007.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0008.json",
+      "bytes": 6530,
+      "sha256": "7801922534ff87a6b19aeac17fa87aea9decb29d1c73ee09d4fcb93f9f265f53",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0008.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0009.json",
+      "bytes": 6533,
+      "sha256": "0f2aef52b8e01c621d967a9ba00ec08c9fb97187427694ccb2ee06e202c2fb53",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0009.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0010.json",
+      "bytes": 6541,
+      "sha256": "ebf05c6a0f3e424896b90cc1f96c1fc33f4d3f12844d23b345409739577df00c",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0010.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0011.json",
+      "bytes": 6713,
+      "sha256": "3e5ae3aaa56fc706e363b5c4e7bee16798ef61250871bc68dce44583a4724d8c",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0011.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0012.json",
+      "bytes": 6550,
+      "sha256": "fab9aacc100e7f58426fd4834ccb47859221f016b59d213aa671920cbee20889",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0012.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0013.json",
+      "bytes": 6557,
+      "sha256": "87a9f8cad8da332c76287a03e2977843f3b1e4755873d653926b6a329d0a8a9e",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0013.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0014.json",
+      "bytes": 6563,
+      "sha256": "9995c587e99ead8c4b5d46fee53d2acda92577e5e468ac80171c3fbbddc49c3d",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0014.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0015.json",
+      "bytes": 6552,
+      "sha256": "c48640487c561512061ee3f62730e0b3fd9cf5b68c07a0ce4b5d2c292775979d",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0015.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0016.json",
+      "bytes": 6667,
+      "sha256": "60b050077e4d075ec6ddc41c2cd34d6607108dd6d3789689a4fee0e9e58c768a",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0016.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0017.json",
+      "bytes": 6504,
+      "sha256": "b8cc4a555d5ab6c6c4e2c2ab8727aa8b4b93223237ac0f2da17875542651a6a2",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0017.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0018.json",
+      "bytes": 6499,
+      "sha256": "1b2944ff3d8c7c1f8814be456a7d3e50c33066e093957838ae376e2bb41603b7",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0018.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0019.json",
+      "bytes": 6496,
+      "sha256": "508b3470f2a88f664734378e17fa78ed74fd5b1f3c82e648f538b4b6d65a623e",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0019.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0020.json",
+      "bytes": 6500,
+      "sha256": "dc3601bd9f89024181fc5ffa13425d7e789e67744cb58244b9076ed6f6b5da72",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0020.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0021.json",
+      "bytes": 6663,
+      "sha256": "c5217dcdef7e5a70f4cbf5f68ef0c1731e80146e961303822ab3668d97342430",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0021.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0022.json",
+      "bytes": 4296,
+      "sha256": "fb26c83dee41c317b7fdb7ee2dc0e0082d3e193190547f489995bbf87ea0661b",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0022.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0023.json",
+      "bytes": 11021,
+      "sha256": "18c4c5dd12d42558483fe9b14d8e8e349e6c944310cc5106a070afc5417d00e1",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0023.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0024.json",
+      "bytes": 6790,
+      "sha256": "5163645aa6c1bc04b59054ce834d27c3834f5d9545423b7c7bd10cd58385db6d",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0024.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0025.json",
+      "bytes": 6790,
+      "sha256": "dc42baa1ba602b1aa9f024894f31bf53f4f3ec4c490e6d01bd3c10a0db076e50",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0025.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0026.json",
+      "bytes": 6627,
+      "sha256": "b5c81222b4aebe9b341d9b1bc74b4dc211bec0c31910b182639f5b16e6d0c2dc",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0026.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0027.json",
+      "bytes": 6628,
+      "sha256": "56362ee1f24ef9bcd6f209335d6be175729afa8dfbbb867def76ceb756811079",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0027.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0028.json",
+      "bytes": 6627,
+      "sha256": "7b07830370f9c2a2eb97fb85cdff74df59b5e69ddb934f8aadbbc2b73aab8c38",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0028.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0029.json",
+      "bytes": 6792,
+      "sha256": "e2a0e593f0678d09c39e3d86ca27b3a96909bbe98936cc39d359c469f905d015",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0029.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0030.json",
+      "bytes": 4346,
+      "sha256": "0fc38af274bab05c161c79730ac43a293f2d623696f21b80bdb47881da339938",
+      "archived_path": "offline-analysis-parity-v1/oasis-11-to-12/selected-control/event-0030.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/parity-verification.json",
+      "bytes": 3279,
+      "sha256": "d4818d09364cdf46d327d4d981d57c104476e1ae68650f52dee908729c390303",
+      "archived_path": "offline-analysis-parity-v1/parity-verification.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/protocol.json",
+      "bytes": 3786,
+      "sha256": "55b71f8507c39ff6182d42b88a3bd58592788999d1e1ebe62985410dca9ad17b",
+      "archived_path": "offline-analysis-parity-v1/protocol.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/source-audit-contract-v1.json",
+      "bytes": 1863,
+      "sha256": "c6173ab928d14ee109687b8a949c1ffc963e986b94338e79a10e2710710b1a3e",
+      "archived_path": "offline-analysis-parity-v1/source-audit-contract-v1.json"
+    },
+    {
+      "path": "offline-analysis-parity-v1/source-audit_study.py",
+      "bytes": 9973,
+      "sha256": "5ddcdb40ef0ce79bb4c38950898989988b65c69ca75190f462f4388f82b6e064",
+      "archived_path": "offline-analysis-parity-v1/source-audit_study.py"
+    },
+    {
+      "path": "offline-analysis-parity-v1/source-canonical_ants.py",
+      "bytes": 9094,
+      "sha256": "b79677e3595ec2d417806b8544e4d874b9ca2b2d9ea349698b6f17c5b5129d69",
+      "archived_path": "offline-analysis-parity-v1/source-canonical_ants.py"
+    },
+    {
+      "path": "offline-analysis-parity-v1/source-checkpoint_analysis.py",
+      "bytes": 10500,
+      "sha256": "7439fd806acb5cc29f44a6c5fbc9e55c94a07621508d5893ca689fcda22887ac",
+      "archived_path": "offline-analysis-parity-v1/source-checkpoint_analysis.py"
+    },
+    {
+      "path": "offline-analysis-parity-v1/source-fixed_audit.py",
+      "bytes": 5527,
+      "sha256": "e0855cd0f6b472b9c5cf07ac51c7f8ea1092a0947fb95c9efe732e5bab2540a9",
+      "archived_path": "offline-analysis-parity-v1/source-fixed_audit.py"
+    },
+    {
+      "path": "offline-analysis-parity-v1/source-offline_analysis.py",
+      "bytes": 7669,
+      "sha256": "4ce25e6b38f4885e217f9aaa5ad15955cb49730fb92ff1fc655e545caad4647e",
+      "archived_path": "offline-analysis-parity-v1/source-offline_analysis.py"
+    },
+    {
+      "path": "offline-analysis-parity-v1/source-real_image_court.py",
+      "bytes": 20929,
+      "sha256": "78aeac693e7d8ed83df7f403c3e3af269c40dd712cbfd7ace6a6ee4e8b60c55c",
+      "archived_path": "offline-analysis-parity-v1/source-real_image_court.py"
+    },
+    {
+      "path": "offline-analysis-parity-v1/source-real_mri_cell_topology.py",
+      "bytes": 5297,
+      "sha256": "83f41aa020a2ceb8dd427b169cb2a7c49830ad95cd024a423aa026bdb51e5bc1",
+      "archived_path": "offline-analysis-parity-v1/source-real_mri_cell_topology.py"
+    },
+    {
+      "path": "offline-analysis-parity-v1/source-regularity.py",
+      "bytes": 2224,
+      "sha256": "0dc505c636dcd84e50bcebffd84790b8ce0977ad2023a20b07822a079119d1d9",
+      "archived_path": "offline-analysis-parity-v1/source-regularity.py"
+    },
+    {
+      "path": "offline-analysis-parity-v1/source-test_offline_analysis.py",
+      "bytes": 8361,
+      "sha256": "f928f90f0aa64d9ac9f1a1149e951f6dcd580ee2b69f1f9a399b114e7bdd8a7f",
+      "archived_path": "offline-analysis-parity-v1/source-test_offline_analysis.py"
+    },
+    {
+      "path": "offline-analysis-parity-v1/source-test_regularity.py",
+      "bytes": 1406,
+      "sha256": "354b289335e0a72b03cd37c80cc279ab3c0e62d3b96722b7695aaf253fd5336a",
+      "archived_path": "offline-analysis-parity-v1/source-test_regularity.py"
+    },
+    {
+      "path": "offline-panel-oasis11-v1/protocol.json",
+      "bytes": 107785,
+      "sha256": "cd45d4eb74095cae1667530d348f936e7957474141f4bd9228e313fae0744552",
+      "archived_path": "offline-panel-oasis11-v1/protocol.json"
+    },
+    {
+      "path": "offline-panel-oasis11-v1/source-offline_checkpoints.py",
+      "bytes": 9211,
+      "sha256": "8184ac6a8471e0f90ae3af199f0dd356cfd3d05eaadc30abc7df3cadc0d45f05",
+      "archived_path": "offline-panel-oasis11-v1/source-offline_checkpoints.py"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0001-level00-levelstart-attempt0000/checkpoint.json",
+      "bytes": 2548,
+      "sha256": "35d8ca4f763f41c4aae2cd6ece2678b3589fd34647a168ecff58ec3ea18935e3",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0001-level00-levelstart-attempt0000/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0002-level00-accepted-attempt0001/checkpoint.json",
+      "bytes": 3802,
+      "sha256": "7d69690e02bca013292cf94bc1f0e0ce93fad166cb0f94c4e77957f0d2daca3d",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0002-level00-accepted-attempt0001/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0003-level00-accepted-attempt0002/checkpoint.json",
+      "bytes": 3801,
+      "sha256": "c7f9bd1e53efa1b5a288629e26669dc1bb1c119f0941ad88267848cdec73f3ec",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0003-level00-accepted-attempt0002/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0006-level00-accepted-attempt0005/checkpoint.json",
+      "bytes": 3803,
+      "sha256": "08a05eede37b701ad0bfe6aa07e023b641026c10eb2f94361426f8da17a25dd9",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0006-level00-accepted-attempt0005/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0011-level00-accepted-attempt0010/checkpoint.json",
+      "bytes": 3826,
+      "sha256": "6d671ece39f687ddca0cbe385b550b882e92622d839340ebd64ee0210ee051f8",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0011-level00-accepted-attempt0010/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0016-level00-accepted-attempt0015/checkpoint.json",
+      "bytes": 3794,
+      "sha256": "3f31e988e2ee319109c4a9fea917e1b5006dde7ced2f8d366e76bdb2605e48ff",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0016-level00-accepted-attempt0015/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0021-level00-accepted-attempt0020/checkpoint.json",
+      "bytes": 3790,
+      "sha256": "ec3f8a17739397236a6cc339d8361a4d96731549ed63b5752f657a759a889acf",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0021-level00-accepted-attempt0020/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020/checkpoint.json",
+      "bytes": 2561,
+      "sha256": "9bb41c09f9bb5c2d63a181ddcd2ad33ecf79e8ba48f4f7ecb6bbc60b7eb74b35",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/checkpoint.json",
+      "bytes": 2597,
+      "sha256": "76cb0c56fb02a0461f342e2e3c6e3bcfe4f10d1d6c68569362e582d980b301e7",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/checkpoint.json",
+      "bytes": 3892,
+      "sha256": "6201a282e8bfca9f7b0b78a85dc0883cd4bb948c6318edcdc996b25f308d95ad",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0024-level01-rejected-attempt0001/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/checkpoint.json",
+      "bytes": 3892,
+      "sha256": "6f56820beefbe51486c3f510092a7ae3be6da21e007751be867369b0b593b030",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0025-level01-rejected-attempt0002/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/checkpoint.json",
+      "bytes": 3893,
+      "sha256": "a41d2d054d1ce6ede1307dd39d0b37d176c3445f5cf886bdac1b1306db8fb604",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0029-level01-rejected-attempt0006/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0030-level01-levelend-attempt0006/checkpoint.json",
+      "bytes": 2610,
+      "sha256": "ae807906a03d04715187ec257b1c20092cc1d1533428cca3f84ac28109d72835",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0030-level01-levelend-attempt0006/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/events.jsonl",
+      "bytes": 108484,
+      "sha256": "af64e16b905f69e692048e5703013af3f96fe2f5d1d762520c21d6419152b3d2",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/events.jsonl"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/mode.txt"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/plan.txt",
+      "bytes": 562,
+      "sha256": "0ed932cead44997e3a5fbdc9f717dafdf9f7738a94b217f26b83fc3f1358ca93",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control/plan.txt"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/selected-control-fit-receipt.json",
+      "bytes": 12318,
+      "sha256": "1ec866eadfe4f81cd306c31c11632b341277054d5ba4a467c1b3e8908bcb58d4",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/selected-control-fit-receipt.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0001-level00-levelstart-attempt0000/checkpoint.json",
+      "bytes": 2548,
+      "sha256": "35d8ca4f763f41c4aae2cd6ece2678b3589fd34647a168ecff58ec3ea18935e3",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0001-level00-levelstart-attempt0000/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0002-level00-accepted-attempt0001/checkpoint.json",
+      "bytes": 3805,
+      "sha256": "e578ef3e32559c40793c2d03df15815d7c3e701e2f5fcd5561c7892ee581129b",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0002-level00-accepted-attempt0001/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0003-level00-accepted-attempt0002/checkpoint.json",
+      "bytes": 3801,
+      "sha256": "0428e60e4cc8c393473d542b36e00385845d2509d97feb5bca4fcfcb8af1d63b",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0003-level00-accepted-attempt0002/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0006-level00-accepted-attempt0005/checkpoint.json",
+      "bytes": 3803,
+      "sha256": "9b41101e9378db92636a7d83900015a003ed5c057d20141a2bc0619af4dfc50b",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0006-level00-accepted-attempt0005/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0011-level00-accepted-attempt0010/checkpoint.json",
+      "bytes": 3818,
+      "sha256": "698f4a77d3abcac84882d0037be9a5e294d0100d0b5a8e35a2371b83276ab3f4",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0011-level00-accepted-attempt0010/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0016-level00-accepted-attempt0015/checkpoint.json",
+      "bytes": 3796,
+      "sha256": "f899fc2f6e6e2ff5ce0b08f7f5a6b1350fe94c584f99a7e6b55df34b2ce31783",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0016-level00-accepted-attempt0015/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0021-level00-accepted-attempt0020/checkpoint.json",
+      "bytes": 3788,
+      "sha256": "5a7ac18cc2941ea2bdedf7be5faed85dfaa08467fdded62aaa60835477596024",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0021-level00-accepted-attempt0020/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0022-level00-levelend-attempt0020/checkpoint.json",
+      "bytes": 2555,
+      "sha256": "651c8419f5cd3d0e88608a468f3c9147bf8f98bd0206be50db1f01ead1f8d7bc",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0022-level00-levelend-attempt0020/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0023-level01-levelstart-attempt0000/checkpoint.json",
+      "bytes": 2599,
+      "sha256": "28efadad562107428dc1da1b24408792a1107d08e040f20b6115693697625a42",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0023-level01-levelstart-attempt0000/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0024-level01-accepted-attempt0001/checkpoint.json",
+      "bytes": 3855,
+      "sha256": "6681a4e675f4e3e797252060393fb20a3b99dd5fff3e235bea85b47ea737e66d",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0024-level01-accepted-attempt0001/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0025-level01-accepted-attempt0002/checkpoint.json",
+      "bytes": 3854,
+      "sha256": "5e737c3551b0c243e39a5ac6e5f8a9fd7f1b829be4da394d509395396056806a",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0025-level01-accepted-attempt0002/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0028-level01-accepted-attempt0005/checkpoint.json",
+      "bytes": 3855,
+      "sha256": "a21a34ac2c98bbc3a560ed4eb1542aebec9f0cd95afdde85820fbd05b6dd8c8d",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0028-level01-accepted-attempt0005/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0033-level01-accepted-attempt0010/checkpoint.json",
+      "bytes": 3874,
+      "sha256": "e03bf9c11bfa6ed50e36d96414c340128ac123a9ee58a10253627076f2fdedf6",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0033-level01-accepted-attempt0010/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0038-level01-accepted-attempt0015/checkpoint.json",
+      "bytes": 3838,
+      "sha256": "ea557f1ca6c511011181a2dedd722b7864359ecee9585a9d00da590241eb8757",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0038-level01-accepted-attempt0015/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0043-level01-accepted-attempt0020/checkpoint.json",
+      "bytes": 3845,
+      "sha256": "a3e3a21b39b4ffe38ca7cff23a29acf04ce7136f8890229482c8d9d14b574779",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0043-level01-accepted-attempt0020/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0044-level01-levelend-attempt0020/checkpoint.json",
+      "bytes": 2617,
+      "sha256": "659e3c8155b75a000cc90f8ab80b438925f95ea4e4b1232e8a1f70d9260bb6a4",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/0044-level01-levelend-attempt0020/checkpoint.json"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/events.jsonl",
+      "bytes": 161449,
+      "sha256": "4b1b034e0d15441f48ae8c14e6a677fa351088732d29b02da2e4d4909d07a94c",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/checkpoints/events.jsonl"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/mode.txt",
+      "bytes": 20,
+      "sha256": "880bd8f02832526bdd39484233fcd32f225de83fa8f67ecc07691e847c9fca86",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/mode.txt"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/plan.txt",
+      "bytes": 560,
+      "sha256": "8f9059da180058f32d633712383574cd6a8f66ef7c1a11befda3cdf7a6bba702",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5/plan.txt"
+    },
+    {
+      "path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5-fit-receipt.json",
+      "bytes": 12522,
+      "sha256": "00acddcc11c22315c5064b7b823a632485fb764052d82798fc1666b231c33686",
+      "archived_path": "trajectories-deferred-v2/oasis-11-to-12/step-scaled-fine1.5-fit-receipt.json"
+    },
+    {
+      "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/checkpoint_analysis.py",
+      "bytes": 10500,
+      "sha256": "7439fd806acb5cc29f44a6c5fbc9e55c94a07621508d5893ca689fcda22887ac",
+      "archived_path": "sources/checkpoint_analysis.py"
+    },
+    {
+      "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/offline_analysis.py",
+      "bytes": 7669,
+      "sha256": "4ce25e6b38f4885e217f9aaa5ad15955cb49730fb92ff1fc655e545caad4647e",
+      "archived_path": "sources/offline_analysis.py"
+    },
+    {
+      "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/test_offline_analysis.py",
+      "bytes": 8361,
+      "sha256": "f928f90f0aa64d9ac9f1a1149e951f6dcd580ee2b69f1f9a399b114e7bdd8a7f",
+      "archived_path": "sources/test_offline_analysis.py"
+    },
+    {
+      "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/offline_checkpoints.py",
+      "bytes": 9211,
+      "sha256": "8184ac6a8471e0f90ae3af199f0dd356cfd3d05eaadc30abc7df3cadc0d45f05",
+      "archived_path": "sources/offline_checkpoints.py"
+    },
+    {
+      "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/verify_offline_analysis.py",
+      "bytes": 4352,
+      "sha256": "3c9aa8e9f80b322d0a55e41baf5e642749d3113a45563f38be0862d866dbc2c9",
+      "archived_path": "sources/verify_offline_analysis.py"
+    },
+    {
+      "path": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/archive_offline_analysis.py",
+      "bytes": 5359,
+      "sha256": "a9ff24933aa6cefd1b3f75d56de3a1ebdbc57c75c0e791be41b6ca3b57beb4e7",
+      "archived_path": "sources/archive_offline_analysis.py"
+    }
+  ]
+}
