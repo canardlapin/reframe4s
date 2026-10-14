@@ -90,7 +90,10 @@ def run(study):
             else:
                 cmd=[sys.executable,str(HERE/'fit_reference.py'),'--data',c['data'],'--affine',c['saved_affine'],
                      '--output',str(target),'--iterations',','.join(map(str,lane['iterations']))]
+                if 'total_sigma' in lane:
+                    cmd += ['--total-sigma',str(lane['total_sigma'])]
             row={'pair':c['id'],'lane':lane['id'],'method':lane['method'],'command':cmd,'protocol_sha256':sha(study/'protocol.json')}
+            row['runtime_comparison_allowed']=p.get('runtime_comparison_allowed',True)
             print('START',c['id'],lane['id'],flush=True)
             start=time.monotonic()
             with fit_log.open('x') as stream:

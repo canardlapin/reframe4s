@@ -1,4 +1,4 @@
-# HalfFlow checkpoint diagnostics: verified pilot, panel in progress
+# HalfFlow checkpoint diagnostics: verified pilot, partial panel
 
 The first acquired-image replay verifies that bounded checkpoint capture
 preserves the selected HalfFlow result exactly on OASIS 11 → 12. Both final
@@ -10,8 +10,12 @@ registration accuracy or completed qualification.
 
 This is HFQ-D01 (`bd-01M4X4DY7DQCVK33MCK3T17NA1`) under the
 [qualification contract](halfflow-qualification-protocol-v1.md). The remaining
-nine declared case/policy replays are in progress. All 13 pilot checkpoints
-have completed independent scoring. D01 and the qualification epic remain open.
+nine declared case/policy replays ended with two diagnostic timeouts and seven
+explicit cancellations. All 13 pilot checkpoints have completed independent
+scoring; partial captures from the other attempts are being scored separately.
+The [objective-probe follow-up](halfflow-objective-probe-v1.md) records the complete
+attempt ledger and the required capture redesign. D01 and the qualification
+epic remain open.
 
 ## Capture and independent checks
 
@@ -58,6 +62,12 @@ declared two independent diagnostic jobs for the remaining nine combinations.
 Each retains one active Java processor, a 6 GiB heap and a one-hour deadline.
 Numerical classes, data, affines, policy flags, capture points and geometry
 limits are unchanged. All failed attempts remain in the ledger.
+
+This version of the panel subsequently ended with two one-hour timeouts during
+synchronous checkpoint capture. The remaining seven jobs were cancelled with
+their normal failed-fit receipts retained. The next revision will persist raw
+states during fitting and perform per-checkpoint export afterward; it has not
+yet established complete trajectories for the remaining combinations.
 
 The pilot took 1,874 seconds with approximately 5.09 GiB peak child RSS.
 Checkpoint export dominates this diagnostic overhead. These times, and all

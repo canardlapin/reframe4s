@@ -216,3 +216,16 @@ Run one timed study at a time. Existing output directories and immutable
 receipts are not overwritten. The common historical anatomical evaluator is
 retained to reproduce the old estimand; P01's stricter prospective missing-label
 and failure rules still require implementation before final qualification.
+
+## Declared convergence and regularity follow-up
+
+A [separately sealed diagnostic](evidence/halfflow-reference-20261014/regularized-reference-declaration-v1/protocol.json)
+uses observed OASIS 11 → 12, the same saved affine and a 100/70/200 schedule.
+Its two declared lanes retain native ANTs `total_sigma=0` or use `total_sigma=0.5`.
+The first isolates the earlier fine-level iteration cap; the second tests
+accumulated-field regularity. The native parameter is not asserted to equal
+HalfFlow's physical smoothing sigma. Both outcomes and failures will be retained
+before any broader validation is declared. These runs overlap diagnostic work,
+so their times cannot extend the controlled cost curves above. This declaration
+archive contains the protocol and sources; the completed two-lane outcome
+report remains pending, and no reference is promoted.

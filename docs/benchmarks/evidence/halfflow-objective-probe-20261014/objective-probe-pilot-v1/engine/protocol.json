@@ -1,0 +1,92 @@
+{
+  "schema": "hfq-objective-probe-pilot-v1",
+  "created_at": "2026-10-14T15:30:26.556123+00:00",
+  "cases": [
+    {
+      "id": "oasis-11-to-12",
+      "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data",
+      "saved_affine": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+      "affine_report": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/affine-evaluation.json",
+      "identity_report": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/flashalign-default/identity-evaluation.json",
+      "baseline_halfflow_report": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/halfflow-evaluation.json",
+      "baseline_default_directory": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-default",
+      "moving_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-11/labels.DKT31.manual.nii.gz",
+      "fixed_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-12/labels.DKT31.manual.nii.gz",
+      "hashes": {
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/flashalign-affine-moving-to-fixed.json": "4bb38de85079a9f32ddac316ff345982871603513a3ff209f8c60978781c9795",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/affine-evaluation.json": "60c3957d0f9ccdf801c0584d0b7932bf1f93742c1aa3ca01598cde26b6048d97",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/flashalign-default/identity-evaluation.json": "100075a6301e574d34dc6899edb387b44a66b20995fc6d08eb917780676d6e47",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/halfflow-evaluation.json": "130bef4bc0f88c1f6363e84efea14f7263c9051f706224384b799556cfee9927",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-11/labels.DKT31.manual.nii.gz": "f63280e54f3de00fd4a11076103f6241aa069de8be7f12650222a8ad2bebf341",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-12/labels.DKT31.manual.nii.gz": "3576c3c3efcf5121d167db67963e79293ade110971963301de085d03448a61b3",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed.nii.gz": "0019d8b7378280aa57de500e26681d9bfc57b88f2644ae68ad9054a87f16d207",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed-mask.nii.gz": "4a7744c33777e384e288e714710ff332d9c3e38643c55c79711d5a0dd2407011",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/moving-mask.nii.gz": "efc960c8c94eb91d09ffd78c25b5540fdf19413d83ec4096281dfe8ab8b78cab",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/moving.nii.gz": "8058e830973af7d8ef63397ed020ef5232fef9376b558fbfadd4c307c4025df7"
+      },
+      "baseline_report": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/affine-evaluation.json",
+      "previous_selected_report": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/sentinels/oasis-11-to-12/hf40-total1.5-boundary6/halfflow-evaluation.json",
+      "selection_reason": "Previously observed refinement sentinel required by HFQ-D01",
+      "historical_outputs": {
+        "selected-control": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/sentinels/oasis-11-to-12/hf40-total1.5-boundary6",
+        "step-scaled-fine1.5": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-backtracking-20261011/sentinels/oasis-11-to-12/step-scaled-fine1.5"
+      },
+      "expected_outputs": {
+        "selected-control": {
+          "halfflow-fixed-to-moving.f64": "e27fc4d456680a4238955eb57445bcde6c3e2c3e7ac10ffb8e168d7c72d9f251",
+          "halfflow-moving-to-fixed.f64": "348ef2aeb5e9a953b204912c657d389da0e4dd76f918d22f7e7af7b24ce6d981",
+          "halfflow-fixed-to-moving.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+          "halfflow-moving-to-fixed.valid-u8": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa"
+        },
+        "step-scaled-fine1.5": {
+          "halfflow-fixed-to-moving.f64": "b5b9298404aaf9c858f43773741072a5d3187aa7cb3943305d71ddec5502bd32",
+          "halfflow-moving-to-fixed.f64": "f5abde75fe882f73d4cfa343ce8c2887aa61053d518c5c039612d25a40045ec3",
+          "halfflow-fixed-to-moving.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+          "halfflow-moving-to-fixed.valid-u8": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa"
+        }
+      }
+    }
+  ],
+  "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000",
+  "checkpoint_inputs": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.f64": "abde1a12e1e534413df88627a7ad58abab8201975544b1dcf3a71ee547e9d596",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-fixed-affine.json": "a4764b1075a167a0ca5cefa8ff3043f18555759548d3be84e53fcd86ba2fdb67",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.json": "fbc3ab54c80f08506644906da45196a5c244670c2f3f5004bd7ef1c867c0a3d9",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.f64": "c649546b06907ec25f6c3c5156862ee5f60efff01fe7f653bfba93a7a900ae6d",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-residual.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/midpoint-moving-affine.json": "3ada34833b0103614800ee1fd2a6a234eecb2b13007769f5a33ea0ea184a1ad2",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-v1/oasis-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000/checkpoint.json": "7b35085097106a9eabf41b32488a66dee2b61e7761928becff9b4c233b0eda5f"
+  },
+  "pilot_fit_sha256": "19df60094e651eedd4df4aa427797dd9e5b66aa6e93f5becb061a44cce04b804",
+  "pilot_verification_sha256": "0ebaa762959878b6c282c8f2eb9ad4c3c09e34af11c31c2dcb673205ed7dfbe4",
+  "expected_loss": 0.5292673434405287,
+  "damping": 0.0001,
+  "directions": [
+    "translation",
+    "smooth-wave",
+    "negative-gradient"
+  ],
+  "epsilons_mm": [
+    0.5,
+    0.2,
+    0.1,
+    0.05,
+    0.02,
+    0.01,
+    0.005,
+    0.002
+  ],
+  "expected_loss_tolerance": 1e-12,
+  "maximum_minimum_relative_derivative_error": 0.005,
+  "convergence_rule": "At least three consecutive epsilon entries with strictly decreasing relative error",
+  "criterion_source": "Existing HalfFlowCcEngineSuite synthetic production directional-derivative criterion",
+  "scope": "Actual frozen production objective and gradient; actual paired integration/composition/interpolation before accumulated smoothing",
+  "remaining_scope": "This pilot does not close D01/D02; other checkpoints, scales, image order, mixed grids and regularization remain",
+  "java_heap": "6G",
+  "java_active_processors": 1,
+  "timeout_seconds": 3600,
+  "runtime_comparison_allowed": false,
+  "qualification_claim": false
+}

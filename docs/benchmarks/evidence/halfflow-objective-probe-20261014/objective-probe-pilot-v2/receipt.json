@@ -1,0 +1,33 @@
+{
+  "schema": "hfq-objective-probe-receipt-v1",
+  "exit_code": 0,
+  "diagnostic_wall_seconds": 252.33434987487271,
+  "source_sha256": "4728da7a505919a5abedfc745ed6444380b8c404ba49ad05aed192ea41c1b046",
+  "protocol_sha256": "910561973605c7d356a227139041914066d221c29e185897d045d9b13852e429",
+  "run_log_sha256": "91cb1c7992d51d3af8c298929294f83e559d8673ae892a2eb401d2272dabf55f",
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false,
+  "directions": [
+    {
+      "direction": "translation",
+      "minimum_relative_error": 0.0589615177278194,
+      "two_step_convergence_region": false,
+      "pass": false
+    },
+    {
+      "direction": "smooth-wave",
+      "minimum_relative_error": 0.15028399153496314,
+      "two_step_convergence_region": true,
+      "pass": false
+    },
+    {
+      "direction": "negative-gradient",
+      "minimum_relative_error": 0.04192723779911525,
+      "two_step_convergence_region": true,
+      "pass": false
+    }
+  ],
+  "gradient_criterion_pass": false,
+  "result_sha256": "9b6e5654b7e7d05eb64ee24f3efbbc2e1528057fadfa5b84400fa55913490dec",
+  "initial_sha256": "b8a56242012a6dfab210dfdb370847cce30a817dc6d62c14a4673be94b71debe"
+}
