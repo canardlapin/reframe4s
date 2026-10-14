@@ -1,0 +1,377 @@
+{
+  "rows": [
+    {
+      "task": {
+        "id": "oasis-11-to-12-level0-levelend",
+        "pair": "oasis-11-to-12",
+        "policy": "selected-control",
+        "level_index": 0,
+        "shrink": 2,
+        "kind": "LevelEnd",
+        "event": 22,
+        "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020",
+        "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data",
+        "fit_exit_code": 0,
+        "expected_loss": 0.4314966061820277,
+        "damping": 1e-08,
+        "baseline_initial": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/oasis-11-to-12-level0-levelend/initial.json",
+        "baseline_result": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/oasis-11-to-12-level0-levelend/result.json",
+        "grid_baseline_initial": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/oasis-11-to-12-level0-levelend/initial.json",
+        "grid_baseline_result": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/oasis-11-to-12-level0-levelend/result.json"
+      },
+      "command": [
+        "/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/temurin-21.0.12.1+1.jdk/Contents/Home/bin/java",
+        "-Xmx6G",
+        "-XX:ActiveProcessorCount=1",
+        "-cp",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/0:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/1:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/2:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/3:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/4:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/5:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/6:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/7:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/8:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/9:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/10:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/11:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/12:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/13:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/14:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/15:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/16:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/17:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.4/scala3-library_3-3.7.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-bytecode/1.37/jmh-generator-bytecode-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-reflection/1.37/jmh-generator-reflection-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-asm/1.37/jmh-generator-asm-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar",
+        "reframe4s.halfflow.RealImageGridAudit",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/moving.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed-mask.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/oasis-11-to-12-level0-levelend",
+        "0.4314966061820277",
+        "0",
+        "intensity-only"
+      ],
+      "protocol_sha256": "967341700071b24f5b848dad01fef605e8f53655c78718c3c3fb00ab84b702a1",
+      "source_sha256": "5b792b869c62b47597d7de880eba4fe7c9387239a927c0160c45a5d34b7bb924",
+      "analysis_completed": true,
+      "exit_code": 0,
+      "log_sha256": "b549799f719271e2471018c6a692fc6bfa64779ece6230cfaa807bce4784f63f",
+      "diagnostic_wall_seconds": 10.515661167446524,
+      "summary": {
+        "measurements": [
+          {
+            "variant": "fixed-reindexed",
+            "arm": "fixed",
+            "zero_status_changes": 0,
+            "original_nonzero": 45591,
+            "reindexed_nonzero": 45591,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 6.006480035569695e-16,
+            "relative_l2_difference": 3.5279236120406245e-14,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "fixed-reindexed",
+            "arm": "moving",
+            "zero_status_changes": 0,
+            "original_nonzero": 45591,
+            "reindexed_nonzero": 45591,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 6.904199434387692e-16,
+            "relative_l2_difference": 4.636051908248898e-14,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "moving-reindexed",
+            "arm": "fixed",
+            "zero_status_changes": 0,
+            "original_nonzero": 45591,
+            "reindexed_nonzero": 45591,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 2.3071822230491534e-16,
+            "relative_l2_difference": 2.202401355463158e-14,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "moving-reindexed",
+            "arm": "moving",
+            "zero_status_changes": 0,
+            "original_nonzero": 45591,
+            "reindexed_nonzero": 45591,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 4.180683577104105e-16,
+            "relative_l2_difference": 4.2827328068104066e-14,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "both-reindexed",
+            "arm": "fixed",
+            "zero_status_changes": 0,
+            "original_nonzero": 45591,
+            "reindexed_nonzero": 45591,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 6.245004513516506e-16,
+            "relative_l2_difference": 3.5716937604914446e-14,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "both-reindexed",
+            "arm": "moving",
+            "zero_status_changes": 0,
+            "original_nonzero": 45591,
+            "reindexed_nonzero": 45591,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 5.334274688628682e-16,
+            "relative_l2_difference": 5.240217506138979e-14,
+            "magnitude_agreement_pass": true
+          }
+        ],
+        "prior_grid_measurements_exact": true,
+        "zero_status_changes": 0,
+        "magnitude_agreement_pass": true,
+        "original_grid_verdict_unchanged": true
+      },
+      "detail_sha256": {
+        "moving-reindexed.json": "7f5a522332d2fe7d987822caf206a8e6becceaf0e7e0033687d1f6ae4f5b7205",
+        "result.json": "1977e551ea6a5ea996718d1e22a7679785be46f6838d52c8c486338497cbbe76",
+        "fixed-reindexed.json": "f64983e42768d31221ae4f4e29da1c9ad070a1a4724f208e8ac1d27fcf95030c",
+        "both-reindexed.json": "32f8223d3be2c524107dc1482fc36c2957888d9f2f6c921826166f0316c08fd9",
+        "initial.json": "806cb2bcb9ffae2f4e6239caebd258d205d2f22437ee229c76214ee59a79af01"
+      }
+    },
+    {
+      "task": {
+        "id": "oasis-13-to-14-level1-levelend",
+        "pair": "oasis-13-to-14",
+        "policy": "selected-control",
+        "level_index": 1,
+        "shrink": 1,
+        "kind": "LevelEnd",
+        "event": 44,
+        "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-13-to-14/selected-control/checkpoints/0044-level01-levelend-attempt0020",
+        "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data",
+        "fit_exit_code": 0,
+        "expected_loss": 0.41630979486853564,
+        "damping": 1e-08,
+        "baseline_initial": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/oasis-13-to-14-level1-levelend/initial.json",
+        "baseline_result": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/oasis-13-to-14-level1-levelend/result.json",
+        "grid_baseline_initial": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/oasis-13-to-14-level1-levelend/initial.json",
+        "grid_baseline_result": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/oasis-13-to-14-level1-levelend/result.json"
+      },
+      "command": [
+        "/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/temurin-21.0.12.1+1.jdk/Contents/Home/bin/java",
+        "-Xmx6G",
+        "-XX:ActiveProcessorCount=1",
+        "-cp",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/0:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/1:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/2:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/3:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/4:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/5:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/6:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/7:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/8:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/9:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/10:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/11:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/12:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/13:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/14:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/15:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/16:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/17:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.4/scala3-library_3-3.7.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-bytecode/1.37/jmh-generator-bytecode-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-reflection/1.37/jmh-generator-reflection-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-asm/1.37/jmh-generator-asm-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar",
+        "reframe4s.halfflow.RealImageGridAudit",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/moving.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed-mask.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-13-to-14/selected-control/checkpoints/0044-level01-levelend-attempt0020",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/oasis-13-to-14-level1-levelend",
+        "0.41630979486853564",
+        "1",
+        "intensity-only"
+      ],
+      "protocol_sha256": "967341700071b24f5b848dad01fef605e8f53655c78718c3c3fb00ab84b702a1",
+      "source_sha256": "5b792b869c62b47597d7de880eba4fe7c9387239a927c0160c45a5d34b7bb924",
+      "analysis_completed": true,
+      "exit_code": 0,
+      "log_sha256": "d875c18aca5e185255cd478687ae7855e398092108c9b17f4b32938eca344b59",
+      "diagnostic_wall_seconds": 28.858050792012364,
+      "summary": {
+        "measurements": [
+          {
+            "variant": "fixed-reindexed",
+            "arm": "fixed",
+            "zero_status_changes": 1,
+            "original_nonzero": 115444,
+            "reindexed_nonzero": 115443,
+            "maximum_zero_status_difference": 3.9562489159764203e-25,
+            "maximum_absolute_difference": 4.111294638065033e-15,
+            "relative_l2_difference": 5.073396366270208e-13,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "fixed-reindexed",
+            "arm": "moving",
+            "zero_status_changes": 0,
+            "original_nonzero": 115444,
+            "reindexed_nonzero": 115444,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 4.961309141293668e-15,
+            "relative_l2_difference": 5.257059357349213e-13,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "moving-reindexed",
+            "arm": "fixed",
+            "zero_status_changes": 0,
+            "original_nonzero": 115444,
+            "reindexed_nonzero": 115444,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 3.740063814205996e-15,
+            "relative_l2_difference": 4.875314037089067e-13,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "moving-reindexed",
+            "arm": "moving",
+            "zero_status_changes": 0,
+            "original_nonzero": 115444,
+            "reindexed_nonzero": 115444,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 4.6004866582904924e-15,
+            "relative_l2_difference": 5.157694597003623e-13,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "both-reindexed",
+            "arm": "fixed",
+            "zero_status_changes": 1,
+            "original_nonzero": 115444,
+            "reindexed_nonzero": 115443,
+            "maximum_zero_status_difference": 3.9562489159764203e-25,
+            "maximum_absolute_difference": 6.439293542825908e-15,
+            "relative_l2_difference": 6.215674006909698e-13,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "both-reindexed",
+            "arm": "moving",
+            "zero_status_changes": 1,
+            "original_nonzero": 115444,
+            "reindexed_nonzero": 115443,
+            "maximum_zero_status_difference": 5.446832856927932e-26,
+            "maximum_absolute_difference": 5.4817261840867104e-15,
+            "relative_l2_difference": 6.453233398835526e-13,
+            "magnitude_agreement_pass": true
+          }
+        ],
+        "prior_grid_measurements_exact": true,
+        "zero_status_changes": 3,
+        "magnitude_agreement_pass": true,
+        "original_grid_verdict_unchanged": true
+      },
+      "detail_sha256": {
+        "moving-reindexed.json": "a61c9a7741103b65919f80e2a0ecbd3242d68864017fa56d52a328d1444362b8",
+        "result.json": "04e4df24448325490d2da01f50de817ff0bce1a193750e55060b8f4c1314232e",
+        "fixed-reindexed.json": "0e70a96783f340b257027fe7b54080a4c8c55b9d923e266f3a021d8e3511d4da",
+        "both-reindexed.json": "a4245c12d45463b82903ccefb6617ff7ceb28013156c03740c9ee5ae753a52a2",
+        "initial.json": "94263b12423c94445bb268437b521c8f53e6c896b380183de56db4ec39d1e379"
+      }
+    },
+    {
+      "task": {
+        "id": "mmrr-21-11-to-12-level1-levelstart",
+        "pair": "mmrr-21-11-to-12",
+        "policy": "selected-control",
+        "level_index": 1,
+        "shrink": 1,
+        "kind": "LevelStart",
+        "event": 23,
+        "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/mmrr-21-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000",
+        "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data",
+        "fit_exit_code": 0,
+        "expected_loss": 0.4828247211771754,
+        "damping": 0.0001,
+        "baseline_initial": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/mmrr-21-11-to-12-level1-levelstart/initial.json",
+        "baseline_result": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/mmrr-21-11-to-12-level1-levelstart/result.json",
+        "grid_baseline_initial": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/mmrr-21-11-to-12-level1-levelstart/initial.json",
+        "grid_baseline_result": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/mmrr-21-11-to-12-level1-levelstart/result.json"
+      },
+      "command": [
+        "/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/temurin-21.0.12.1+1.jdk/Contents/Home/bin/java",
+        "-Xmx6G",
+        "-XX:ActiveProcessorCount=1",
+        "-cp",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/0:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/1:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/2:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/3:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/4:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/5:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/6:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/7:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/8:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/9:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/10:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/11:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/12:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/13:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/14:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/15:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/16:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/engine/frozen-classpath/17:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.4/scala3-library_3-3.7.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-bytecode/1.37/jmh-generator-bytecode-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-reflection/1.37/jmh-generator-reflection-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-asm/1.37/jmh-generator-asm-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar",
+        "reframe4s.halfflow.RealImageGridAudit",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/moving.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/fixed.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/fixed-mask.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/mmrr-21-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-zero-study-v1/mmrr-21-11-to-12-level1-levelstart",
+        "0.4828247211771754",
+        "1",
+        "intensity-only"
+      ],
+      "protocol_sha256": "967341700071b24f5b848dad01fef605e8f53655c78718c3c3fb00ab84b702a1",
+      "source_sha256": "5b792b869c62b47597d7de880eba4fe7c9387239a927c0160c45a5d34b7bb924",
+      "analysis_completed": true,
+      "exit_code": 0,
+      "log_sha256": "d875c18aca5e185255cd478687ae7855e398092108c9b17f4b32938eca344b59",
+      "diagnostic_wall_seconds": 23.189409624785185,
+      "summary": {
+        "measurements": [
+          {
+            "variant": "fixed-reindexed",
+            "arm": "fixed",
+            "zero_status_changes": 2,
+            "original_nonzero": 107967,
+            "reindexed_nonzero": 107969,
+            "maximum_zero_status_difference": 5.1586013449201665e-24,
+            "maximum_absolute_difference": 2.536165721878092e-15,
+            "relative_l2_difference": 2.5157925319806437e-13,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "fixed-reindexed",
+            "arm": "moving",
+            "zero_status_changes": 0,
+            "original_nonzero": 107969,
+            "reindexed_nonzero": 107969,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 1.8457457784393227e-15,
+            "relative_l2_difference": 2.422283849281416e-13,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "moving-reindexed",
+            "arm": "fixed",
+            "zero_status_changes": 0,
+            "original_nonzero": 107967,
+            "reindexed_nonzero": 107967,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 1.6792123247455493e-15,
+            "relative_l2_difference": 2.2580855053505287e-13,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "moving-reindexed",
+            "arm": "moving",
+            "zero_status_changes": 0,
+            "original_nonzero": 107969,
+            "reindexed_nonzero": 107969,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 2.112893193739751e-15,
+            "relative_l2_difference": 2.319779541612093e-13,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "both-reindexed",
+            "arm": "fixed",
+            "zero_status_changes": 2,
+            "original_nonzero": 107967,
+            "reindexed_nonzero": 107969,
+            "maximum_zero_status_difference": 1.6479052710031434e-24,
+            "maximum_absolute_difference": 2.6194324487249787e-15,
+            "relative_l2_difference": 2.920855648921183e-13,
+            "magnitude_agreement_pass": true
+          },
+          {
+            "variant": "both-reindexed",
+            "arm": "moving",
+            "zero_status_changes": 0,
+            "original_nonzero": 107969,
+            "reindexed_nonzero": 107969,
+            "maximum_zero_status_difference": 0,
+            "maximum_absolute_difference": 1.6202317265623378e-15,
+            "relative_l2_difference": 2.593752874614881e-13,
+            "magnitude_agreement_pass": true
+          }
+        ],
+        "prior_grid_measurements_exact": true,
+        "zero_status_changes": 4,
+        "magnitude_agreement_pass": true,
+        "original_grid_verdict_unchanged": true
+      },
+      "detail_sha256": {
+        "moving-reindexed.json": "668f04cfa256d03ff69d911b918e01d7515bc4efeeb5c8291fa688ebb9512fd5",
+        "result.json": "8889d02a037605ca38d5ee8d5fcfd1b8116a98ebd1ce6d84695a9ea2e102c5c5",
+        "fixed-reindexed.json": "968d49a92b2c700f87eeb710f42c96112881bdfb0c591ca3cb8e62d0134162c2",
+        "both-reindexed.json": "5b575d341758e761820af919b466054ccbe62a54007170bfecd9c73b6b224843",
+        "initial.json": "6b13e28d9bee7df5f9d29bc9060ff5a41c6576ddefe3aac2bc154b7f8ea87f31"
+      }
+    }
+  ],
+  "all_states_completed": true,
+  "original_grid_verdict_preserved": true,
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}

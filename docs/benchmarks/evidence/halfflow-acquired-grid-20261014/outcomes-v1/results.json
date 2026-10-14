@@ -1,0 +1,302 @@
+{
+  "rows": [
+    {
+      "task": {
+        "id": "oasis-11-to-12-level0-levelend",
+        "pair": "oasis-11-to-12",
+        "policy": "selected-control",
+        "level_index": 0,
+        "shrink": 2,
+        "kind": "LevelEnd",
+        "event": 22,
+        "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020",
+        "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data",
+        "fit_exit_code": 0,
+        "expected_loss": 0.4314966061820277,
+        "damping": 1e-08,
+        "baseline_initial": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/oasis-11-to-12-level0-levelend/initial.json",
+        "baseline_result": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/oasis-11-to-12-level0-levelend/result.json"
+      },
+      "command": [
+        "/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/temurin-21.0.12.1+1.jdk/Contents/Home/bin/java",
+        "-Xmx6G",
+        "-XX:ActiveProcessorCount=1",
+        "-cp",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/0:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/1:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/2:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/3:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/4:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/5:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/6:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/7:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/8:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/9:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/10:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/11:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/12:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/13:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/14:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/15:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/16:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/17:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.4/scala3-library_3-3.7.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-bytecode/1.37/jmh-generator-bytecode-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-reflection/1.37/jmh-generator-reflection-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-asm/1.37/jmh-generator-asm-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar",
+        "reframe4s.halfflow.RealImageGridAudit",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/moving.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed-mask.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-11-to-12/selected-control/checkpoints/0022-level00-levelend-attempt0020",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/oasis-11-to-12-level0-levelend",
+        "0.4314966061820277",
+        "0"
+      ],
+      "protocol_sha256": "50e1c32a91d8773b80b7f6c4c693d5d7c0e1004591fe7b81f997b0636a97b541",
+      "source_sha256": "ed31a4e84869d72df88453e26972ea51bce83dcf9b7b2c9ea8763de8c5160944",
+      "analysis_completed": true,
+      "qualification_claim": false,
+      "runtime_comparison_allowed": false,
+      "exit_code": 0,
+      "log_sha256": "b549799f719271e2471018c6a692fc6bfa64779ece6230cfaa807bce4784f63f",
+      "diagnostic_wall_seconds": 25.26415487518534,
+      "summary": {
+        "passed": true,
+        "variants": [
+          {
+            "variant": "fixed-reindexed",
+            "passed": true,
+            "candidate_pairs": 12,
+            "maximum_candidate_loss_difference": 4.440892098500626e-15,
+            "initial_loss_absolute_difference": 1.7763568394002505e-15,
+            "gradient_agreement_passes": {
+              "production": true,
+              "spatial": true
+            },
+            "support_exact": true,
+            "complete_spatial_support": true
+          },
+          {
+            "variant": "moving-reindexed",
+            "passed": true,
+            "candidate_pairs": 12,
+            "maximum_candidate_loss_difference": 3.164135620181696e-15,
+            "initial_loss_absolute_difference": 9.992007221626409e-16,
+            "gradient_agreement_passes": {
+              "production": true,
+              "spatial": true
+            },
+            "support_exact": true,
+            "complete_spatial_support": true
+          },
+          {
+            "variant": "both-reindexed",
+            "passed": true,
+            "candidate_pairs": 12,
+            "maximum_candidate_loss_difference": 4.385380947269368e-15,
+            "initial_loss_absolute_difference": 3.219646771412954e-15,
+            "gradient_agreement_passes": {
+              "production": true,
+              "spatial": true
+            },
+            "support_exact": true,
+            "complete_spatial_support": true
+          }
+        ],
+        "candidate_pairs": 36,
+        "interpretation": "Prepared source-grid representation invariance only; not reference-grid exchange, reverse fitting, boundary admission or anatomical benefit."
+      },
+      "initial_sha256": "806cb2bcb9ffae2f4e6239caebd258d205d2f22437ee229c76214ee59a79af01",
+      "result_sha256": "5b65aa6438b1839903a56a4ac0fe2cc44486637cf521b6b34783d3abf1b830a1",
+      "detail_sha256": {
+        "curve.jsonl": "637b9c1f4c9639bf2085cd26dd597f4af8af240e0c791a855b36a716ec207797",
+        "moving-reindexed.json": "d6b56e777d38c272134a86a8ce99bd496029e6654e46c5efe35d858bbd4d226c",
+        "result.json": "5b65aa6438b1839903a56a4ac0fe2cc44486637cf521b6b34783d3abf1b830a1",
+        "fixed-reindexed.json": "0ec4a0adbfd960a662a74ef9dbbeccf35d683c20596c89365d34851854803c7d",
+        "both-reindexed.json": "c072b59bdea04ac1d09ac8a8b70daae658484bffb0c38e287ccdfcd7054c170a",
+        "initial.json": "806cb2bcb9ffae2f4e6239caebd258d205d2f22437ee229c76214ee59a79af01"
+      },
+      "original_audit_exact": true
+    },
+    {
+      "task": {
+        "id": "oasis-13-to-14-level1-levelend",
+        "pair": "oasis-13-to-14",
+        "policy": "selected-control",
+        "level_index": 1,
+        "shrink": 1,
+        "kind": "LevelEnd",
+        "event": 44,
+        "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-13-to-14/selected-control/checkpoints/0044-level01-levelend-attempt0020",
+        "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data",
+        "fit_exit_code": 0,
+        "expected_loss": 0.41630979486853564,
+        "damping": 1e-08,
+        "baseline_initial": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/oasis-13-to-14-level1-levelend/initial.json",
+        "baseline_result": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/oasis-13-to-14-level1-levelend/result.json"
+      },
+      "command": [
+        "/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/temurin-21.0.12.1+1.jdk/Contents/Home/bin/java",
+        "-Xmx6G",
+        "-XX:ActiveProcessorCount=1",
+        "-cp",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/0:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/1:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/2:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/3:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/4:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/5:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/6:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/7:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/8:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/9:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/10:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/11:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/12:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/13:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/14:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/15:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/16:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/17:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.4/scala3-library_3-3.7.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-bytecode/1.37/jmh-generator-bytecode-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-reflection/1.37/jmh-generator-reflection-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-asm/1.37/jmh-generator-asm-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar",
+        "reframe4s.halfflow.RealImageGridAudit",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/moving.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed-mask.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/oasis-13-to-14/selected-control/checkpoints/0044-level01-levelend-attempt0020",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/oasis-13-to-14-level1-levelend",
+        "0.41630979486853564",
+        "1"
+      ],
+      "protocol_sha256": "50e1c32a91d8773b80b7f6c4c693d5d7c0e1004591fe7b81f997b0636a97b541",
+      "source_sha256": "ed31a4e84869d72df88453e26972ea51bce83dcf9b7b2c9ea8763de8c5160944",
+      "analysis_completed": true,
+      "qualification_claim": false,
+      "runtime_comparison_allowed": false,
+      "exit_code": 0,
+      "log_sha256": "d875c18aca5e185255cd478687ae7855e398092108c9b17f4b32938eca344b59",
+      "diagnostic_wall_seconds": 241.77855154126883,
+      "summary": {
+        "passed": false,
+        "variants": [
+          {
+            "variant": "fixed-reindexed",
+            "passed": false,
+            "candidate_pairs": 12,
+            "maximum_candidate_loss_difference": 2.4868995751603507e-14,
+            "initial_loss_absolute_difference": 1.3433698597964394e-14,
+            "gradient_agreement_passes": {
+              "production": true,
+              "spatial": true
+            },
+            "support_exact": false,
+            "complete_spatial_support": true
+          },
+          {
+            "variant": "moving-reindexed",
+            "passed": true,
+            "candidate_pairs": 12,
+            "maximum_candidate_loss_difference": 2.3869795029440866e-14,
+            "initial_loss_absolute_difference": 1.7763568394002505e-15,
+            "gradient_agreement_passes": {
+              "production": true,
+              "spatial": true
+            },
+            "support_exact": true,
+            "complete_spatial_support": true
+          },
+          {
+            "variant": "both-reindexed",
+            "passed": false,
+            "candidate_pairs": 12,
+            "maximum_candidate_loss_difference": 1.9817480989559044e-14,
+            "initial_loss_absolute_difference": 2.3203661214665772e-14,
+            "gradient_agreement_passes": {
+              "production": true,
+              "spatial": true
+            },
+            "support_exact": false,
+            "complete_spatial_support": true
+          }
+        ],
+        "candidate_pairs": 36,
+        "interpretation": "Prepared source-grid representation invariance only; not reference-grid exchange, reverse fitting, boundary admission or anatomical benefit."
+      },
+      "initial_sha256": "94263b12423c94445bb268437b521c8f53e6c896b380183de56db4ec39d1e379",
+      "result_sha256": "2b1459f785225bcc1c72a434a2d4a4246cba55566cf46913832be810e3aa8e17",
+      "detail_sha256": {
+        "curve.jsonl": "3030df550583456ce1b6d339bcfe3dd7c09724d3b1a993fa92d68e8ac2736bb0",
+        "moving-reindexed.json": "abd712f64a768f24a8110b6a1909d187208ee26ea8bb2655ed478c0c405cd5e4",
+        "result.json": "2b1459f785225bcc1c72a434a2d4a4246cba55566cf46913832be810e3aa8e17",
+        "fixed-reindexed.json": "29b375f2b5e40f5633c39031afda27ebf3b4619cb2528ba598f2a0ab3baf8983",
+        "both-reindexed.json": "f3f136eb47055adc3249f8fba0b7b1898c764ba990106588142f640b0e7a3bbf",
+        "initial.json": "94263b12423c94445bb268437b521c8f53e6c896b380183de56db4ec39d1e379"
+      },
+      "original_audit_exact": true
+    },
+    {
+      "task": {
+        "id": "mmrr-21-11-to-12-level1-levelstart",
+        "pair": "mmrr-21-11-to-12",
+        "policy": "selected-control",
+        "level_index": 1,
+        "shrink": 1,
+        "kind": "LevelStart",
+        "event": 23,
+        "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/mmrr-21-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000",
+        "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data",
+        "fit_exit_code": 0,
+        "expected_loss": 0.4828247211771754,
+        "damping": 0.0001,
+        "baseline_initial": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/mmrr-21-11-to-12-level1-levelstart/initial.json",
+        "baseline_result": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/mmrr-21-11-to-12-level1-levelstart/result.json"
+      },
+      "command": [
+        "/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/temurin-21.0.12.1+1.jdk/Contents/Home/bin/java",
+        "-Xmx6G",
+        "-XX:ActiveProcessorCount=1",
+        "-cp",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/0:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/1:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/2:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/3:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/4:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/5:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/6:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/7:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/8:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/9:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/10:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/11:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/12:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/13:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/14:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/15:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/16:/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/engine/frozen-classpath/17:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.4/scala3-library_3-3.7.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-bytecode/1.37/jmh-generator-bytecode-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-reflection/1.37/jmh-generator-reflection-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjdk/jmh/jmh-generator-asm/1.37/jmh-generator-asm-1.37.jar:/Users/bbuchsbaum/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar",
+        "reframe4s.halfflow.RealImageGridAudit",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/moving.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/fixed.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data/fixed-mask.nii.gz",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/mmrr-21-11-to-12/selected-control/checkpoints/0023-level01-levelstart-attempt0000",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/grid-study-v1/mmrr-21-11-to-12-level1-levelstart",
+        "0.4828247211771754",
+        "1"
+      ],
+      "protocol_sha256": "50e1c32a91d8773b80b7f6c4c693d5d7c0e1004591fe7b81f997b0636a97b541",
+      "source_sha256": "ed31a4e84869d72df88453e26972ea51bce83dcf9b7b2c9ea8763de8c5160944",
+      "analysis_completed": true,
+      "qualification_claim": false,
+      "runtime_comparison_allowed": false,
+      "exit_code": 0,
+      "log_sha256": "d875c18aca5e185255cd478687ae7855e398092108c9b17f4b32938eca344b59",
+      "diagnostic_wall_seconds": 453.612340208143,
+      "summary": {
+        "passed": false,
+        "variants": [
+          {
+            "variant": "fixed-reindexed",
+            "passed": false,
+            "candidate_pairs": 12,
+            "maximum_candidate_loss_difference": 1.582067810090848e-14,
+            "initial_loss_absolute_difference": 7.105427357601002e-15,
+            "gradient_agreement_passes": {
+              "production": true,
+              "spatial": true
+            },
+            "support_exact": false,
+            "complete_spatial_support": true
+          },
+          {
+            "variant": "moving-reindexed",
+            "passed": true,
+            "candidate_pairs": 12,
+            "maximum_candidate_loss_difference": 1.9206858326015208e-14,
+            "initial_loss_absolute_difference": 2.220446049250313e-15,
+            "gradient_agreement_passes": {
+              "production": true,
+              "spatial": true
+            },
+            "support_exact": true,
+            "complete_spatial_support": true
+          },
+          {
+            "variant": "both-reindexed",
+            "passed": false,
+            "candidate_pairs": 12,
+            "maximum_candidate_loss_difference": 1.9539925233402755e-14,
+            "initial_loss_absolute_difference": 9.992007221626409e-16,
+            "gradient_agreement_passes": {
+              "production": true,
+              "spatial": true
+            },
+            "support_exact": false,
+            "complete_spatial_support": true
+          }
+        ],
+        "candidate_pairs": 36,
+        "interpretation": "Prepared source-grid representation invariance only; not reference-grid exchange, reverse fitting, boundary admission or anatomical benefit."
+      },
+      "initial_sha256": "6b13e28d9bee7df5f9d29bc9060ff5a41c6576ddefe3aac2bc154b7f8ea87f31",
+      "result_sha256": "7f51ac19a5c546e8e0e1d50269a9ae981d8c7228657787f78a48f023295d95ee",
+      "detail_sha256": {
+        "curve.jsonl": "942c9b046f6bae0692cfc232b591273df29132f1b016160b99c8759ab470dcf4",
+        "moving-reindexed.json": "6c29c8a21bca3e43f76d6909ad05f7df509220775903bba1db0c180c3ecfcb85",
+        "result.json": "7f51ac19a5c546e8e0e1d50269a9ae981d8c7228657787f78a48f023295d95ee",
+        "fixed-reindexed.json": "dea282a2547251f6caa5e305c4fba57c652f5acd0235aabb4c9420fbc3037264",
+        "both-reindexed.json": "c40a2a5dcb8002419477a219def276a98d4f446609e9cd23d627e1f7845ca5c6",
+        "initial.json": "6b13e28d9bee7df5f9d29bc9060ff5a41c6576ddefe3aac2bc154b7f8ea87f31"
+      },
+      "original_audit_exact": true
+    }
+  ],
+  "all_states_completed": true,
+  "grid_replication_pass": false,
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}
