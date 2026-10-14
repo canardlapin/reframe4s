@@ -1,0 +1,91 @@
+{
+  "schema": "hfq-objective-probe-receipt-v1",
+  "exit_code": 0,
+  "diagnostic_wall_seconds": 334.7350903749466,
+  "source_sha256": "a3827bfdff07a34f5c54f5229ab92b515b1b20bf45fbf80751baa228c3f7afaf",
+  "protocol_sha256": "080d3be8735a8cde8e54beb93531c892cf3a7571c630ab99e0cee1533c5d361d",
+  "run_log_sha256": "21788ef74c3ebfe7ce810d4df058d997d3f9e7eae1515be87524efd6dec5c04b",
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false,
+  "directions": [
+    {
+      "direction": "translation",
+      "minimum_relative_error": 0.0589615177278194,
+      "two_step_convergence_region": false,
+      "pass": false
+    },
+    {
+      "direction": "smooth-wave",
+      "minimum_relative_error": 0.15028399153496314,
+      "two_step_convergence_region": true,
+      "pass": false
+    },
+    {
+      "direction": "negative-gradient",
+      "minimum_relative_error": 0.04192723779911525,
+      "two_step_convergence_region": true,
+      "pass": false
+    }
+  ],
+  "gradient_criterion_pass": false,
+  "intensity_chain_directions": [
+    {
+      "direction": "translation",
+      "minimum_relative_error": 2.9911011796830548e-06,
+      "two_step_convergence_region": true,
+      "pass": true
+    },
+    {
+      "direction": "smooth-wave",
+      "minimum_relative_error": 8.943449267832127e-06,
+      "two_step_convergence_region": true,
+      "pass": true
+    },
+    {
+      "direction": "negative-gradient",
+      "minimum_relative_error": 1.9732307521303777e-08,
+      "two_step_convergence_region": true,
+      "pass": true
+    }
+  ],
+  "intensity_chain_criterion_pass": true,
+  "spatial_chain_directions": [
+    {
+      "direction": "translation",
+      "minimum_relative_error": 0.0007433029637511488,
+      "two_step_convergence_region": true,
+      "pass": true
+    },
+    {
+      "direction": "smooth-wave",
+      "minimum_relative_error": 8.435373401459156e-06,
+      "two_step_convergence_region": true,
+      "pass": true
+    },
+    {
+      "direction": "negative-gradient",
+      "minimum_relative_error": 3.6525709112182326e-06,
+      "two_step_convergence_region": true,
+      "pass": true
+    }
+  ],
+  "spatial_chain_support": {
+    "fixed": {
+      "nonzeroIntensityDerivatives": 149166,
+      "evaluated": 149166,
+      "unavailable": 0,
+      "interpolationKnotVoxels": 0
+    },
+    "moving": {
+      "nonzeroIntensityDerivatives": 149166,
+      "evaluated": 149166,
+      "unavailable": 0,
+      "interpolationKnotVoxels": 0
+    }
+  },
+  "spatial_chain_complete_support": true,
+  "spatial_chain_criterion_pass": true,
+  "result_sha256": "256ed66b801a2e15c215d4faab4bacda4cd0f432fa05bc83e237ccb3e0fe3c82",
+  "initial_sha256": "3db0e57451ad58b27992cbe3b7becb281eaf6e24174bac83c82bfde5241f48ae",
+  "baseline_numerics_reproduced_exactly": true
+}

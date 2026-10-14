@@ -9,9 +9,9 @@ import shutil
 from archive_objective_probe import read, write, sha, source_delta
 
 
-def archive(root, output):
+def archive(root, output, prefix='intensity-chain'):
     if output.exists():raise FileExistsError(output)
-    study=root/'intensity-chain-pilot-v1';receipt=read(study/'receipt.json')
+    study=root/(prefix+'-pilot-v1');receipt=read(study/'receipt.json')
     if receipt['exit_code']!=0:raise ValueError('Probe must be terminal and complete')
     # Retain the measured verdicts without requiring a positive scientific result.
     output.mkdir(parents=True)
@@ -19,9 +19,9 @@ def archive(root, output):
     files=[p for p in study.iterdir() if p.is_file()]
     files += [p for p in (study/'engine').iterdir() if p.is_file()]
     files += [p for p in (study/'audit').iterdir() if p.is_file()]
-    for folder in ['intensity-chain-build-v1','intensity-chain-figures-v1']:
+    for folder in [prefix+'-build-v1',prefix+'-figures-v1']:
         files += [p for p in (root/folder).iterdir() if p.is_file()]
-    files.append(root/'intensity-chain-plot.log')
+    files.append(root/(prefix+'-plot.log'))
     inventory=[]
     for path in sorted(set(files)):
         relative=path.relative_to(root);target=output/relative
@@ -39,13 +39,18 @@ def archive(root, output):
     for name in ['archive_intensity_chain.py','objective_probe.py','plot_intensity_chain.py']:
         path=Path(__file__).parent/name;target=output/name;shutil.copyfile(path,target)
         inventory.append(dict(path=str(path),bytes=path.stat().st_size,sha256=sha(path),archived_path=name))
-    write(output/'artifact-manifest.json',dict(schema='hfq-intensity-chain-evidence-v1',
+    manifest=dict(schema='hfq-'+prefix+'-evidence-v1',
         created_at=datetime.now(timezone.utc).isoformat(),source_root=str(root),files=inventory,
         changed_source_files=changed,source_reconstruction_verified=True,
         gradient_criterion_pass=receipt['gradient_criterion_pass'],
         intensity_chain_criterion_pass=receipt['intensity_chain_criterion_pass'],
         baseline_numerics_reproduced_exactly=receipt['baseline_numerics_reproduced_exactly'],
-        qualification_claim=False,runtime_comparison_allowed=False))
+        qualification_claim=False,runtime_comparison_allowed=False)
+    if 'spatial_chain_criterion_pass' in receipt:
+        manifest.update(spatial_chain_criterion_pass=receipt['spatial_chain_criterion_pass'],
+            spatial_chain_complete_support=receipt['spatial_chain_complete_support'],
+            spatial_chain_support=receipt['spatial_chain_support'])
+    write(output/'artifact-manifest.json',manifest)
     for entry in inventory:
         if 'archived_path' not in entry:continue
         data=(output/entry['archived_path']).read_bytes()
@@ -57,4 +62,5 @@ def archive(root, output):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--root',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
-    a=p.parse_args();archive(a.root.resolve(),a.output.resolve())
+    p.add_argument('--prefix',choices=['intensity-chain','spatial-chain'],default='intensity-chain')
+    a=p.parse_args();archive(a.root.resolve(),a.output.resolve(),a.prefix)

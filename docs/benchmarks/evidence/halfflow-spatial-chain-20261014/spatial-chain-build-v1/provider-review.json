@@ -1,0 +1,10 @@
+{
+  "provider": "image4s",
+  "pinned_revision_prefix": "f71cec0",
+  "review": "ReferenceSampler exposes scalar linear sampling; Gradient exposes Sobel/Scharr discrete image stencils with physical covector conversion. Neither inspected API exposes the derivative of the piecewise trilinear interpolant at arbitrary source coordinates. This diagnostic therefore differentiates the existing HalfFlow sampler polynomial locally; it does not add a competing image or geometry abstraction.",
+  "sources": {
+    "/Users/bbuchsbaum/.sbt/1.0/staging/d8c55b699f67ffa95b16/image4s/modules/image4s-reference/shared/src/main/scala/image4s/reference/ReferenceSampler.scala": "399f2fe83ada01b8500f10e3abe66fc7172c499441ee3e31944c0e5ae69ff2a7",
+    "/Users/bbuchsbaum/.sbt/1.0/staging/d8c55b699f67ffa95b16/image4s/modules/image4s-filter/shared/src/main/scala/image4s/filter/Gradient.scala": "45d5cc5ee3a3919da5d98f460e620860da5bde067b5f26a36c5fe8fb0ad3ec0c"
+  },
+  "scope": "Provider-first local source inspection; no provider modification"
+}

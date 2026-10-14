@@ -60,7 +60,7 @@ def freeze(study, trajectories, classpath, derivative_baseline=None):
         inputs[str(path)] = sha(path)
     inputs[str(checkpoint/'checkpoint.json')] = sha(checkpoint/'checkpoint.json')
     case = next(c for c in read(trajectories/'engine/protocol.json')['cases'] if c['id'] == 'oasis-11-to-12')
-    protocol = {'schema': 'hfq-objective-chain-pilot-v1', 'created_at': datetime.now(timezone.utc).isoformat(),
+    protocol = {'schema': 'hfq-objective-spatial-chain-pilot-v1', 'created_at': datetime.now(timezone.utc).isoformat(),
         'cases': [case], 'checkpoint': str(checkpoint), 'checkpoint_inputs': inputs,
         'pilot_fit_sha256': sha(fit), 'pilot_verification_sha256': sha(check),
         'expected_loss': event['info']['after']['loss'], 'damping': event['info']['control']['damping'],
@@ -69,7 +69,8 @@ def freeze(study, trajectories, classpath, derivative_baseline=None):
         'expected_loss_tolerance': 1e-12, 'maximum_minimum_relative_derivative_error': 0.005,
         'convergence_rule': 'At least three consecutive epsilon entries with strictly decreasing relative error',
         'intensity_chain_criterion': 'Apply the same 0.005 minimum symmetric relative error and three-point decreasing-error rule to CC intensity-gradient dot actual sampled-image differences versus the frozen-objective finite difference',
-        'interpretation': 'If the intensity chain passes while the production velocity gradient fails, the discrepancy lies between sampled-image changes and the production spatial/composition gradient. This does not establish an anatomical fix.',
+        'spatial_chain_criterion': 'Same derivative-error and convergence rule for source-trilinear derivatives times affine, residual symmetric vertex Jacobian and work-grid physical covector transform. Every nonzero intensity derivative must have usable spatial support; unavailable derivatives and source-grid knots are counted explicitly.',
+        'interpretation': 'Compare the unchanged production gradient, CC intensity chain and separately differentiated source/residual spatial chain. This diagnoses the discretization; it neither changes optimization nor establishes an anatomical fix. Symmetric derivatives at simultaneous source/residual knots are not claimed to be a unique linear derivative.',
         'criterion_source': 'Existing HalfFlowCcEngineSuite synthetic production directional-derivative criterion',
         'scope': 'Actual frozen production objective and gradient; actual paired integration/composition/interpolation before accumulated smoothing',
         'remaining_scope': 'This pilot does not close D01/D02; other checkpoints, scales, image order, mixed grids and regularization remain',
@@ -134,6 +135,7 @@ def run(study):
             raise ValueError('Unexpected probe direction ledger')
         verdicts = []
         chain_verdicts = []
+        spatial_verdicts = []
         for direction in result['directions']:
             if [r['epsilon_mm'] for r in direction['rows']] != protocol['epsilons_mm']:
                 raise ValueError('Unexpected epsilon ledger')
@@ -147,13 +149,26 @@ def run(study):
             chain_verdicts.append({'direction':direction['direction'], 'minimum_relative_error':min(chain_errors),
                 'two_step_convergence_region':chain_converges,
                 'pass':chain_converges and min(chain_errors)<=protocol['maximum_minimum_relative_derivative_error']})
+            spatial_errors = [r['spatial_chain_relative_error'] for r in direction['rows']]
+            spatial_converges = any(c < b < a for a,b,c in zip(spatial_errors, spatial_errors[1:], spatial_errors[2:]))
+            spatial_verdicts.append({'direction':direction['direction'], 'minimum_relative_error':min(spatial_errors),
+                'two_step_convergence_region':spatial_converges,
+                'pass':spatial_converges and min(spatial_errors)<=protocol['maximum_minimum_relative_derivative_error']})
+        initial = read(output/'initial.json')
+        support = {arm:initial['spatial_chain_'+arm] for arm in ['fixed','moving']}
+        complete = all(r['unavailable'] == 0 and r['evaluated'] == r['nonzeroIntensityDerivatives'] for r in support.values())
         row.update(directions=verdicts, gradient_criterion_pass=all(r['pass'] for r in verdicts),
             intensity_chain_directions=chain_verdicts,
             intensity_chain_criterion_pass=all(r['pass'] for r in chain_verdicts),
+            spatial_chain_directions=spatial_verdicts, spatial_chain_support=support,
+            spatial_chain_complete_support=complete,
+            spatial_chain_criterion_pass=complete and all(r['pass'] for r in spatial_verdicts),
             result_sha256=sha(output/'result.json'), initial_sha256=sha(output/'initial.json'))
         if 'derivative_baseline' in protocol:
             old=read(Path(protocol['derivative_baseline'])/'audit/result.json')['directions']
             keys=['direction','epsilon_mm','analytic','finite_difference','relative_error','plus_loss','minus_loss']
+            if 'intensity_chain_derivative' in old[0]['rows'][0]:
+                keys += ['intensity_chain_derivative','intensity_chain_relative_error']
             before=[{k:r[k] for k in keys} for d in old for r in d['rows']]
             after=[{k:r[k] for k in keys} for d in result['directions'] for r in d['rows']]
             row['baseline_numerics_reproduced_exactly']=before==after
