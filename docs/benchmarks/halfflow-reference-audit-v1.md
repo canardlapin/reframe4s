@@ -224,8 +224,30 @@ uses observed OASIS 11 → 12, the same saved affine and a 100/70/200 schedule.
 Its two declared lanes retain native ANTs `total_sigma=0` or use `total_sigma=0.5`.
 The first isolates the earlier fine-level iteration cap; the second tests
 accumulated-field regularity. The native parameter is not asserted to equal
-HalfFlow's physical smoothing sigma. Both outcomes and failures will be retained
-before any broader validation is declared. These runs overlap diagnostic work,
-so their times cannot extend the controlled cost curves above. This declaration
-archive contains the protocol and sources; the completed two-lane outcome
-report remains pending, and no reference is promoted.
+HalfFlow's physical smoothing sigma. Both runs have now completed; the
+[outcome archive](evidence/halfflow-reference-20261014/regularized-reference-outcomes-v1/artifact-manifest.json)
+retains all receipts, native logs, anatomical results, conversion and geometry
+audits, with hashes for large maps. These runs overlap diagnostic work, so their
+times cannot extend the controlled cost curves above.
+
+| Native total sigma | Iterations used at the three levels | Mean Dice | HD95 (mm) | Max brain round trip (mm) | Min sampled cell Jacobian | Common geometry |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| 0 | 20 / 49 / 50 | 0.554366 | 5.246936 | 0.827363 | 0.010755 | Fail |
+| 0.5 | 25 / 40 / 26 | 0.481692 | 5.302240 | 0.193218 | 0.382621 | Pass |
+
+Both meet the native convergence rule before every cap; neither exhausts the
+declared schedule. Both have full brain coverage and zero sampled folded cells.
+The unsmoothed field still fails the 0.2 mm round-trip and 0.05 cell-Jacobian
+limits. More iterations alone therefore do not repair its geometry. The
+regularized field passes both limits, although the round-trip margin is only
+0.0068 mm. It exceeds selected HalfFlow's Dice on this pair (0.422683), while its
+HD95 is slightly worse than HalfFlow's 5.246936 mm. These are raw diagnostic
+scores, not failure-penalized qualification estimates.
+
+This one-case result does not establish a strong reference. A separately frozen
+[replication](evidence/halfflow-reference-20261014/regularized-replication-declaration-v1/protocol.json)
+holds `total_sigma=0.5`, the 100/70/200 schedule and all other fitting
+parameters fixed on observed OASIS 13 → 14 and 15 → 16. Both must converge before
+all caps and pass the unchanged geometry gates. All outcomes are retained; no
+parameter search or reference promotion follows from the pilot alone. Runtime
+comparison remains excluded during this concurrent diagnostic replication.

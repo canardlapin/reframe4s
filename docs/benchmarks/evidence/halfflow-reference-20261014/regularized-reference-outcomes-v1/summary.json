@@ -1,0 +1,141 @@
+{
+  "schema": "hfq-budget-summary-v1",
+  "protocol_sha256": "a9b7d70243ebaaf79505399241128555643cc254c27f55c64525951b1aa25f56",
+  "results_sha256": "7ced8efd67b422c7a43532f8e79770abafb852b042e45a546279ff72136a3d7f",
+  "source_sha256": "1b27350df7ea9f624c87eb173c0f4ce64d8595a876057eaeff720325acc87683",
+  "studies": [
+    {
+      "protocol_sha256": "a9b7d70243ebaaf79505399241128555643cc254c27f55c64525951b1aa25f56",
+      "results_sha256": "7ced8efd67b422c7a43532f8e79770abafb852b042e45a546279ff72136a3d7f"
+    }
+  ],
+  "estimand": "Raw anatomy on observed development outputs, including geometry failures; not failure-penalized qualification scores",
+  "lanes": {
+    "syn-convergence": {
+      "attempts": 1,
+      "complete_audits": 1,
+      "common_geometry_valid": 0,
+      "mean_dice": {
+        "mean": 0.5543656069606044,
+        "median": 0.5543656069606044,
+        "minimum": 0.5543656069606044,
+        "maximum": 0.5543656069606044
+      },
+      "mean_hd95_mm": {
+        "mean": 5.246935858657926,
+        "median": 5.246935858657926,
+        "minimum": 5.246935858657926,
+        "maximum": 5.246935858657926
+      },
+      "nonlinear_and_geometry_seconds": {
+        "mean": 1505.0849939170294,
+        "median": 1505.0849939170294,
+        "minimum": 1505.0849939170294,
+        "maximum": 1505.0849939170294
+      },
+      "fit_peak_rss_bytes": {
+        "mean": 727646208,
+        "median": 727646208,
+        "minimum": 727646208,
+        "maximum": 727646208
+      }
+    },
+    "syn-total0.5": {
+      "attempts": 1,
+      "complete_audits": 1,
+      "common_geometry_valid": 1,
+      "mean_dice": {
+        "mean": 0.4816916009324915,
+        "median": 0.4816916009324915,
+        "minimum": 0.4816916009324915,
+        "maximum": 0.4816916009324915
+      },
+      "mean_hd95_mm": {
+        "mean": 5.302239667951309,
+        "median": 5.302239667951309,
+        "minimum": 5.302239667951309,
+        "maximum": 5.302239667951309
+      },
+      "nonlinear_and_geometry_seconds": {
+        "mean": 989.0006833756343,
+        "median": 989.0006833756343,
+        "minimum": 989.0006833756343,
+        "maximum": 989.0006833756343
+      },
+      "fit_peak_rss_bytes": {
+        "mean": 743931904,
+        "median": 743931904,
+        "minimum": 743931904,
+        "maximum": 743931904
+      }
+    }
+  },
+  "matched_budget": [
+    {
+      "pair": "oasis-11-to-12",
+      "comparable": false,
+      "reason": "Missing completed timing"
+    }
+  ],
+  "stopping": {
+    "oasis-11-to-12/syn-convergence": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 100,
+          "iterations": 20,
+          "last_convergence_value": -6.107900844654e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 1,
+          "limit": 70,
+          "iterations": 49,
+          "last_convergence_value": -2.026576112257e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 2,
+          "limit": 200,
+          "iterations": 50,
+          "last_convergence_value": -1.195775985252e-05,
+          "status": "native_convergence_rule_before_cap"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": true,
+      "full_resolution_enabled": true
+    },
+    "oasis-11-to-12/syn-total0.5": {
+      "interpretable": true,
+      "levels": [
+        {
+          "level": 0,
+          "limit": 100,
+          "iterations": 25,
+          "last_convergence_value": -3.359143011039e-05,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 1,
+          "limit": 70,
+          "iterations": 40,
+          "last_convergence_value": -5.354760560294e-06,
+          "status": "native_convergence_rule_before_cap"
+        },
+        {
+          "level": 2,
+          "limit": 200,
+          "iterations": 26,
+          "last_convergence_value": -3.825649400824e-05,
+          "status": "native_convergence_rule_before_cap"
+        }
+      ],
+      "all_enabled_levels_stop_by_native_rule": true,
+      "full_resolution_enabled": true
+    }
+  },
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false,
+  "timing_scope": "Concurrent diagnostic measurements only"
+}
