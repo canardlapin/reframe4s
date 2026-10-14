@@ -167,3 +167,34 @@ pilot's discrepancy to spatial/composition differentiation; its broader checks
 remain open, and a corrected derivative alone has not yet been shown to improve
 anatomy. No fresh qualification data, new optimizer policy or relaxed geometry
 threshold was used here.
+
+## Exact event accounting and the next offline batch
+
+`verify_offline_ledger.py` checks the complete expected event identities, their
+committed capture metadata, preserved source-fit outcomes, export receipts,
+map hashes and admission status. It also compares the final export ledger with
+every individual attempt receipt. A matching event count alone cannot establish
+completion: four regression tests cover missing, duplicated, substituted and
+mutated events. `--require-complete` exits 2 for incomplete accounting; export
+failures and rejected maps remain explicit even when accounting is complete.
+
+The [real-data completion-gate checks](evidence/halfflow-deferred-capture-20261014/offline-ledger-supplement-v1/runtime-verification-v1/artifact-manifest.json)
+also pass: the completed two-state parity pilot accounts for all 30 events and
+exits 0, while the still-incomplete 74-event batch exits 2 under
+`--require-complete`. The pilot explicitly retains its 11 captured states
+outside that two-state export plan, rather than counting them as scored.
+
+The [recorded partial audit](evidence/halfflow-deferred-capture-20261014/offline-ledger-supplement-v1/verification/partial-verification-v2.json)
+contains 55 of 74 expected OASIS 11 events: 10 scored checkpoints and 45 events
+without captured states. It records 19 missing events and no terminal export
+ledger. This timestamped snapshot is incomplete, and does not describe a final
+scientific result. Its receipt hashes preserve exactly which events were checked.
+
+The next [export declaration](evidence/halfflow-deferred-capture-20261014/offline-ledger-supplement-v1/offline-panel-oasis13-mmrr11-v1/protocol.json)
+and [analysis declaration](evidence/halfflow-deferred-capture-20261014/offline-ledger-supplement-v1/offline-analysis-oasis13-mmrr11-v1/protocol.json)
+cover both policies for OASIS 13 → 14 and MMRR 11 → 12. All four source fits
+terminated with exit 0. Every captured state is included: 61 exports from
+162 total events, with the other 101 explicitly uncaptured. Source exit 0
+does not establish convergence. The batch is prepared for sequential export
+after the existing worker; no outcomes from this next batch are included in
+the [supplement](evidence/halfflow-deferred-capture-20261014/offline-ledger-supplement-v1/artifact-manifest.json).

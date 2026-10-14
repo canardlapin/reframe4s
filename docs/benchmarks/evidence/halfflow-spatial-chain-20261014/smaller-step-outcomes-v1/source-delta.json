@@ -1,0 +1,11 @@
+{
+  "base_source_sha256": "a3827bfdff07a34f5c54f5229ab92b515b1b20bf45fbf80751baa228c3f7afaf",
+  "source_sha256": "a499b631c988a42c82b9b7f14a439a23378dde54538eb5d14598f884ff0e33de",
+  "patch_sha256": "5ab4c8c494933e76f5e87dbf1ae5737cd65fff6fadf80768be2f34e129784a0e",
+  "base_reproduction": "P01 control-source.tar.gz, then D01 instrumentation.patch, then halfflow-spatial-chain-20261014/source.patch; this patch changes only the audit runner and its test",
+  "changed_files": {
+    "benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageObjectiveAudit.scala": "821ae762826cd00e0ff539a67dd7cf1b5cbb8e63efb39b94b83e7cd0480c7f14",
+    "benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageObjectiveAuditSuite.scala": "3c40fed3a588634c04ecc2b31d2d3129c50ebd6b38409b9c79104e8318ea9ac4"
+  },
+  "scratch_reconstruction_verified": true
+}

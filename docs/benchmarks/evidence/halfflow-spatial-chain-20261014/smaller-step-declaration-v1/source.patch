@@ -1,0 +1,68 @@
+--- a/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageObjectiveAudit.scala
++++ b/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageObjectiveAudit.scala
+@@ -22,19 +22,29 @@
+     value.fold(error => throw new IllegalArgumentException(error.toString), identity)
+ 
+   def main(args: Array[String]): Unit =
+-    require(args.length == 7,
+-      "moving fixed fixed-mask fine-checkpoint output expected-loss checkpoint-damping")
++    require(args.length == 7 || args.length == 8,
++      "moving fixed fixed-mask fine-checkpoint output expected-loss checkpoint-damping [decreasing-epsilons-mm]")
++    val epsilons = auditEpsilons(args.lift(7))
+     val moving = right(Nifti.readScaledDouble(Paths.get(args(0))))
+     val fixed = right(Nifti.readScaledDouble(Paths.get(args(1))))
+     moving.image.fold(_ => throw new IllegalArgumentException("scalar D3 moving required"),
+       m => fixed.image.fold(_ => throw new IllegalArgumentException("scalar D3 fixed required"),
+         f => run(right(m.value.requireDataRank[3]), right(f.value.requireDataRank[3]),
+-          Paths.get(args(2)), Paths.get(args(3)), Paths.get(args(4)), args(5).toDouble, args(6).toDouble)))
++          Paths.get(args(2)), Paths.get(args(3)), Paths.get(args(4)), args(5).toDouble, args(6).toDouble, epsilons)))
++
++  private[halfflow] def auditEpsilons(value: Option[String]): Vector[Double] =
++    val epsilons = value.fold(Vector(0.5, 0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002))(
++      _.split(",", -1).map(_.trim.toDouble).toVector)
++    require(epsilons.length >= 3 && epsilons.forall(e => e.isFinite && e > 0.0) &&
++      epsilons.zip(epsilons.tail).forall((a, b) => a > b),
++      "audit epsilons must contain at least three finite, positive, strictly decreasing values")
++    epsilons
+ 
+   private def run[M <: CanonicalFrame[D3], F <: CanonicalFrame[D3],
+       MS <: SampleSpace[M, D3], FS <: SampleSpace[F, D3]](
+       moving: ContinuousImage[MS, Double, Rank[3]], fixed: ContinuousImage[FS, Double, Rank[3]],
+-      maskPath: Path, checkpoint: Path, output: Path, expectedLoss: Double, damping: Double
++      maskPath: Path, checkpoint: Path, output: Path, expectedLoss: Double, damping: Double,
++      epsilons: Vector[Double]
+   ): Unit =
+     require(!Files.exists(output), "refusing to overwrite objective audit")
+     require(expectedLoss.isFinite && damping.isFinite && damping > 0.0)
+@@ -73,12 +83,11 @@
+       .map(p => p.toAbsolutePath.toString -> EvidenceHash.file(p).hex).toMap
+     write(output.resolve("initial.json"), Map("schema" -> "halfflow-objective-probe-v2",
+       "audit" -> probe.audit, "expected_loss" -> expectedLoss, "inputs" -> inputs,
+-      "damping" -> damping, "gradient_maximum" -> maximum,
++      "damping" -> damping, "epsilons_mm" -> epsilons, "gradient_maximum" -> maximum,
+       "gradient_valid" -> probe.gradientValid.count(identity), "gradient_nonzero" -> norms.count(_ > 0.0),
+       "spatial_chain_fixed" -> spatialChain.fixed, "spatial_chain_moving" -> spatialChain.moving,
+       "rank_one_crossover" -> crossover, "gradient_above_crossover" -> norms.count(_ > crossover),
+       "scope" -> "Frozen objective before accumulated regularization; no convergence or qualification claim"))
+-    val epsilons = Vector(0.5, 0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002)
+     val results = Vector.newBuilder[Map[String, Any]]
+     for name <- Vector("translation", "smooth-wave", "negative-gradient") do
+       val direction = new Array[Double](3 * n)
+--- a/benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageObjectiveAuditSuite.scala
++++ b/benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/RealImageObjectiveAuditSuite.scala
+@@ -7,6 +7,15 @@
+ class RealImageObjectiveAuditSuite extends munit.FunSuite:
+   private sealed trait Work
+   private sealed trait Endpoint
++
++  test("audit steps retain the original default and reject invalid experimental ledgers"):
++    assertEquals(RealImageObjectiveAudit.auditEpsilons(None),
++      Vector(0.5, 0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002))
++    assertEquals(RealImageObjectiveAudit.auditEpsilons(Some("0.001,0.0005,0.0002")),
++      Vector(0.001, 0.0005, 0.0002))
++    for invalid <- Vector("0.1,0.1,0.01", "0.1,0.2,0.01", "0.1,0,-0.1",
++        "NaN,0.1,0.01", "Infinity,0.1,0.01", "0.1,0.01", "0.1,0.01,") do
++      val _ = intercept[IllegalArgumentException](RealImageObjectiveAudit.auditEpsilons(Some(invalid)))
+ 
+   test("checkpoint loader preserves interleaved physical coordinates and compares affine coefficients"):
+     val directory = Files.createTempDirectory("halfflow-checkpoint-load-")

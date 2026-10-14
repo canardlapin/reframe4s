@@ -163,3 +163,52 @@ verifies every source/input identity, recomputes the directional verdicts and
 retains all logs and results. Its nine-panel plot was visually checked. This
 supports further diagnosis, not promotion to the production optimizer or a
 claim of improved anatomical registration.
+
+## Separate smaller-step experiment
+
+The [smaller-step declaration](evidence/halfflow-spatial-chain-20261014/smaller-step-declaration-v1/declared-protocol.json)
+fixes the failed OASIS 13 → 14 control endpoint, all three directions, and six
+additional steps: `0.001`, `0.0005`, `0.0002`, `0.0001`, `0.00005` and
+`0.00002 mm`. It first repeats all original 24 measurements and requires exact
+agreement. The 18 additional measurements are assessed separately using the
+same 0.5% error threshold and three-point decreasing-error rule. A favorable
+extension cannot change the original failed replication verdict.
+
+The new frozen source
+`a499b631c988a42c82b9b7f14a439a23378dde54538eb5d14598f884ff0e33de`
+differs from the pilot only in the diagnostic runner's optional validated step
+list and its test. Both runner tests pass, and a hash-verified source patch is
+included in the [declaration archive](evidence/halfflow-spatial-chain-20261014/smaller-step-declaration-v1/artifact-manifest.json).
+Derivative kernels and optimizer policies are unchanged. The experiment asks
+about asymptotic agreement at this checkpoint; even a pass would not establish
+finite-step accuracy, a globally smooth gradient or improved anatomy.
+
+The extension completed successfully in 647.04 diagnostic wall seconds. All
+24 original measurements reproduced exactly. On the 18 newly declared
+measurements, all three spatial-chain directions and all three CC intensity-chain
+directions pass the unchanged criterion; the production gradient passes none.
+At the smallest new step, `ε=0.00002 mm`:
+
+| Direction | Actual objective finite difference | Spatial-chain derivative | Spatial relative error | Production relative error |
+| --- | ---: | ---: | ---: | ---: |
+| Translation | -0.000118424012 | -0.000118422387 | 0.0006861% | 100% |
+| Smooth wave | -0.001027035369 | -0.001027037237 | 0.00009092% | 100% |
+| Negative production gradient | -0.046999237312 | -0.046999237387 | 0.00000007987% | 3.34048% |
+
+This supports the spatial-chain derivative as the small-step limit at the
+previously failing checkpoint. The finite-step curve is nonmonotone, and the
+translation result changes substantially below the original minimum step.
+The extension is consistent with nearby interpolation-cell crossings affecting
+finite differences, but does not count those crossings or establish that they
+are the sole cause. The original eight-step replication remains failed.
+Production and actual directional derivatives have opposite signs for
+translation and smooth wave here; the negative production-gradient direction
+itself remains a descent direction.
+
+![Original and extended derivative curves](evidence/halfflow-spatial-chain-20261014/smaller-step-outcomes-v1/derivative-errors.png)
+
+The [complete extension receipt](evidence/halfflow-spatial-chain-20261014/smaller-step-outcomes-v1/receipt.json)
+and [verified archive](evidence/halfflow-spatial-chain-20261014/smaller-step-outcomes-v1/artifact-manifest.json)
+retain the original verdict, all measurements, source patch and hashes. The
+plot was visually checked. Other pyramid scales, cohorts, image orders and
+boundary conditions still require testing before changing the optimizer.

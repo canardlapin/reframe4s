@@ -1,0 +1,32 @@
+{
+  "schema": "hfq-offline-completion-gate-check-v1",
+  "created_at": "2026-10-14T18:00:07.298373+00:00",
+  "parent_manifest_sha256": "f182a567ddb630db41b5abd2394a6b9fc4dfc6b9ace81a49fee4d486a130ab8a",
+  "parent_archive_unchanged": true,
+  "checks": [
+    {
+      "artifact": "completed-parity-verification.json",
+      "exit_code": 0,
+      "sha256": "6ef89445b1dd0b7eeeba4052d804ebd5eb13542200fb5d1947e44ab88f5c6ef8",
+      "expected_events": 30,
+      "recorded_events": 30,
+      "statuses": {
+        "scored": 2,
+        "export_not_requested": 11,
+        "not_captured": 17
+      }
+    },
+    {
+      "artifact": "incomplete-required-verification.json",
+      "exit_code": 2,
+      "sha256": "e4c20240c858ddf4d2ebd6bb5f71435abaa43927966c3d9918fa18c7703da2bb",
+      "expected_events": 74,
+      "recorded_events": 55,
+      "statuses": {
+        "scored": 10,
+        "not_captured": 45
+      }
+    }
+  ],
+  "qualification_claim": false
+}
