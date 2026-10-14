@@ -349,7 +349,8 @@ The twelve attempts have **not started**. Before launch, all ten deferred fits,
 the first 29 offline exports and their complete 74-event analysis, and all
 three image-role audits must be terminal. Their live handles and exact ledgers
 must be checked and an isolation receipt recorded. The next 61-state export
-batch and further builds/numerical work wait until this timed study ends.
+batch remains queued after this study. Once timing starts, all further builds
+and numerical work wait until it ends, as required by the frozen protocol.
 Any isolation violation excludes affected timings while retaining the outcomes.
 
 The existing timing-only comparable-cost rule, common geometry thresholds,
@@ -359,3 +360,31 @@ lane; do not pad a converged run, interpolate quality or relabel a capped run
 as converged. The [declaration archive](evidence/halfflow-reference-20261014/regularized-cost-declaration-v1/artifact-manifest.json)
 contains the protocol and all pinned helper sources, with no new fitting or
 timing results. This remains observed-data reference validation, not qualification.
+
+### Isolation precheck
+
+All diagnostic prerequisites subsequently completed: ten terminal source fits,
+29 terminal exports, all 74 analysis events exactly accounted for, and three
+completed role audits. The three previous worker handles were polled to exit 0.
+However, the [launch precheck](evidence/halfflow-reference-20261014/regularized-cost-launch-v1/isolation-precheck-v1.json)
+observed eight active external numerical processes, comprising independent R
+and Java jobs. **No timing attempt was launched**, and no external job was
+stopped. The timing declaration and its twelve lanes/attempts remain unchanged.
+
+`run_isolated_reference.py` verifies the prerequisite identities before launch
+and records process names, parent IDs and CPU use without collecting command
+arguments or environment. Its original three process-classification tests pass.
+The subsequent [four-test revision](evidence/halfflow-spatial-direction-20261014/declaration-v1/checks/monitor-check-v2.log.gz)
+also recognizes external Node numerical jobs; that source is retained with the
+spatial-direction declaration, while the precheck snapshot stays unchanged. If an
+isolated run starts, supplementary samples every 15 seconds flag external
+numerical activity at or above 10% of one CPU. Any such observation, monitoring
+failure or sample gap over 45 seconds excludes the entire run from runtime
+comparison while preserving its scientific outcomes. The completion overlay
+must be read before any per-attempt timing flag. Sampling does not prove that
+the machine was otherwise idle between observations.
+
+The [precheck archive](evidence/halfflow-reference-20261014/regularized-cost-launch-v1/artifact-manifest.json)
+records the completed prerequisites, failed isolation check and monitor source.
+Untimed implementation and diagnostic review can proceed while other jobs are
+active; the speed comparison waits for a quiet machine.

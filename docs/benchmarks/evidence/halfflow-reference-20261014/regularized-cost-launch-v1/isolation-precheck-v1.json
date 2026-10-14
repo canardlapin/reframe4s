@@ -1,0 +1,837 @@
+{
+  "schema": "hfq-isolation-precheck-v1",
+  "prerequisites": {
+    "verified_at": "2026-10-14T21:11:13.801343+00:00",
+    "fits": [
+      {
+        "pair": "oasis-11-to-12",
+        "lane": "selected-control",
+        "exit_code": 0,
+        "receipt_sha256": "1ec866eadfe4f81cd306c31c11632b341277054d5ba4a467c1b3e8908bcb58d4",
+        "events_sha256": "af64e16b905f69e692048e5703013af3f96fe2f5d1d762520c21d6419152b3d2"
+      },
+      {
+        "pair": "oasis-11-to-12",
+        "lane": "step-scaled-fine1.5",
+        "exit_code": 0,
+        "receipt_sha256": "00acddcc11c22315c5064b7b823a632485fb764052d82798fc1666b231c33686",
+        "events_sha256": "4b1b034e0d15441f48ae8c14e6a677fa351088732d29b02da2e4d4909d07a94c"
+      },
+      {
+        "pair": "oasis-13-to-14",
+        "lane": "selected-control",
+        "exit_code": 0,
+        "receipt_sha256": "adb546f2d3b207adf979235e4e8d9617b592dce3b3e0ccbdca520bfae664172f",
+        "events_sha256": "cfc15a3e79f3a590f9eaefdf44158dbd209687c6299203af86e3a2b89be3b473"
+      },
+      {
+        "pair": "oasis-13-to-14",
+        "lane": "step-scaled-fine1.5",
+        "exit_code": 0,
+        "receipt_sha256": "086c3bde948d8b2e423a450f8f2c1e49a6db0fdb9608815a60c256fd7c2d91e9",
+        "events_sha256": "c7501d16afe409deeb7c065edbcf81e6f82ec2502d5792e22cb3a1e5bc594632"
+      },
+      {
+        "pair": "mmrr-21-11-to-12",
+        "lane": "selected-control",
+        "exit_code": 0,
+        "receipt_sha256": "21647f09a51da3a7fe55cd5d00d264fc185c0c55e6680d161f45cc6e8a0271d7",
+        "events_sha256": "9297deecf7d23779812c3edee0cf7895f09a4fae4f9dd17859cdd8629f1fa74f"
+      },
+      {
+        "pair": "mmrr-21-11-to-12",
+        "lane": "step-scaled-fine1.5",
+        "exit_code": 0,
+        "receipt_sha256": "ed2bc0eb8267bc78d15d0cdfe250de07797b9dac46050301eb4837ca69cab3b4",
+        "events_sha256": "7f49e39193ce2f4cc574c69a039b310aa993ed4446b7c4383ea20e524b1584b3"
+      },
+      {
+        "pair": "oasis-1-to-10",
+        "lane": "selected-control",
+        "exit_code": 0,
+        "receipt_sha256": "004e1f699b4d63ad8f776dface12f81884372ab51ecd514f73009c5eeef2f55a",
+        "events_sha256": "923604fbbc1c1447ab0b66a1e24a7f656cf6a6e47fd81e0915a677d4833b9942"
+      },
+      {
+        "pair": "oasis-1-to-10",
+        "lane": "step-scaled-fine1.5",
+        "exit_code": 0,
+        "receipt_sha256": "a7cfff87cdf284c0375b6d17ee7900787bcbc61ece751a5ac248513615ccc1ee",
+        "events_sha256": "0f1e62758f03a9f7e277e6745474ee622b0e2b0a9f72b8014924b19acff31397"
+      },
+      {
+        "pair": "oasis-17-to-18",
+        "lane": "selected-control",
+        "exit_code": 0,
+        "receipt_sha256": "58d683f84aed8247b2ca8584732c183f59700d58e6c6465cd599d0feeb12dd93",
+        "events_sha256": "ea00a74f35dc933328900fa3fadc7674addae5e93bc69be937a0da8dd409ea92"
+      },
+      {
+        "pair": "oasis-17-to-18",
+        "lane": "step-scaled-fine1.5",
+        "exit_code": 0,
+        "receipt_sha256": "4e5e0fd0c895a15651e49465904efba6534d8d481060f29d4c333aa8f92bf68b",
+        "events_sha256": "0a7eb35a621f25502cabff5b773a2970382e3e32dc51507dcda4710594616a4d"
+      }
+    ],
+    "offline_ledger": {
+      "schema": "hfq-offline-ledger-verification-v1",
+      "verified_at": "2026-10-14T21:11:13.786267+00:00",
+      "verification_sources": {
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/verify_offline_ledger.py": "85bd0f7a59329e9b01420e00fa26799b8f30d7a782783b94c24bfc1e8de56a1a",
+        "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/diagnostics/offline_analysis.py": "4ce25e6b38f4885e217f9aaa5ad15955cb49730fb92ff1fc655e545caad4647e"
+      },
+      "analysis_protocol_sha256": "3358800973f619ad36abace605061620b8cec22ab56976ea96f3b4e13d462f7e",
+      "export_protocol_sha256": "cd45d4eb74095cae1667530d348f936e7957474141f4bd9228e313fae0744552",
+      "expected_event_count": 74,
+      "recorded_event_count": 74,
+      "expected_export_count": 29,
+      "missing_event_keys": [],
+      "expected_event_keys": [
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          1
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          2
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          3
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          4
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          5
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          6
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          7
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          8
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          9
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          10
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          11
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          12
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          13
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          14
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          15
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          16
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          17
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          18
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          19
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          20
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          21
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          22
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          23
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          24
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          25
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          26
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          27
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          28
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          29
+        ],
+        [
+          "oasis-11-to-12",
+          "selected-control",
+          30
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          1
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          2
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          3
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          4
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          5
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          6
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          7
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          8
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          9
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          10
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          11
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          12
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          13
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          14
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          15
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          16
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          17
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          18
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          19
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          20
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          21
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          22
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          23
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          24
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          25
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          26
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          27
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          28
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          29
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          30
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          31
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          32
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          33
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          34
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          35
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          36
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          37
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          38
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          39
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          40
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          41
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          42
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          43
+        ],
+        [
+          "oasis-11-to-12",
+          "step-scaled-fine1.5",
+          44
+        ]
+      ],
+      "analysis_receipt_sha256": {
+        "oasis-11-to-12/selected-control/event-0001.json": "17fc5bdf52761183be5096618d9b0d9b6705fd3588b33c1090a0d7cbdba52272",
+        "oasis-11-to-12/selected-control/event-0002.json": "fac116fdec19da2f3bb94576b5d17a2fdbb16d6e342d204717195a750168d70e",
+        "oasis-11-to-12/selected-control/event-0003.json": "6a414653582082b465ae5ebe74e15f392aa5866a034219b02c9aadc2db1a33af",
+        "oasis-11-to-12/selected-control/event-0004.json": "4c0c30659194b04a0b13f543291c83893a4f644e9a9e796c287951a5f6a3d6ca",
+        "oasis-11-to-12/selected-control/event-0005.json": "b439d9edea0f3c71981de8e468052bc1a2b40ba1d782d983d2a52f488685d6c9",
+        "oasis-11-to-12/selected-control/event-0006.json": "2c5664d7db36361b2ee788995a700154ad4b79b16d4165688ca3acedd5b4a951",
+        "oasis-11-to-12/selected-control/event-0007.json": "563c6f7c43bff5f1f6fb6573ad6e9772125767434f485f26c737a2c4204e9bdb",
+        "oasis-11-to-12/selected-control/event-0008.json": "b9b1766add8ddb045bd8e160447abea4584352feba242051911b7b8aac5cd9c1",
+        "oasis-11-to-12/selected-control/event-0009.json": "01e93ee3d4fe19fc27bd032aa9f58250b7136a82beadd6c6c27f576d86f79a35",
+        "oasis-11-to-12/selected-control/event-0010.json": "19a4db7251a0fd3d6cb38afc6440589b21d0a337a17179720b72ae576c7703c0",
+        "oasis-11-to-12/selected-control/event-0011.json": "bb434162ef15f2fa1f261519be4f96d0627fae661ef2ead08c22908be3fa96bc",
+        "oasis-11-to-12/selected-control/event-0012.json": "b6d406273284e80b74ca928c6125af8f2b27737cbcea86ea95cb6d6ee50e6914",
+        "oasis-11-to-12/selected-control/event-0013.json": "f44f79a6881cbe6c53369311a3591517f56981bafaff821e90e3bc5893406245",
+        "oasis-11-to-12/selected-control/event-0014.json": "11f6e9a7934316e9a852e5bb7d13e76588bff2c2d7871ed6a8bb32e4547b1ee2",
+        "oasis-11-to-12/selected-control/event-0015.json": "42e044760c4ae073f22e550827d75888eb6e0eba09e994c13b86aa696fbc5c81",
+        "oasis-11-to-12/selected-control/event-0016.json": "513d547f8c047e4c834db6a68800ba06b67409ce9542eab531a597a1937aa741",
+        "oasis-11-to-12/selected-control/event-0017.json": "9e2abeddca0fb327fe9150f91b65b01c0b8e57f832048ca9ba858438b72aadef",
+        "oasis-11-to-12/selected-control/event-0018.json": "f70d9343d3368ae3b7b535ca2a69a57c4e138239cfc85066aaf43eb4cbd715f0",
+        "oasis-11-to-12/selected-control/event-0019.json": "d6741cb3900f4a26f7f497a5a9cacf2c176841757e4fd55f5fb06c475076a613",
+        "oasis-11-to-12/selected-control/event-0020.json": "c2830b6b1f54ac1e82010c490bd9984da989f3d878ffac63e6b482480c262c6d",
+        "oasis-11-to-12/selected-control/event-0021.json": "56bb2c1ea0c2b3db2b5b81f8dbcceb7b4758ffe39a875f7da1096bdb7cf73be7",
+        "oasis-11-to-12/selected-control/event-0022.json": "fe26ee283a7a60f7f72eb5c8e54b6a86337c247ce66ce1575036fd8d63bdb453",
+        "oasis-11-to-12/selected-control/event-0023.json": "b9b4e1384c6f522bc893eaabbbb4d83a2a51d1861dac65af2139d571a81d7bd3",
+        "oasis-11-to-12/selected-control/event-0024.json": "877917e8458b9b0c2dc599f11c817ff1a4d26f5bf1e5dc23b26d5ed6daf1b831",
+        "oasis-11-to-12/selected-control/event-0025.json": "848add5cd13f253362fe31e6e84052e53bc815f9abfa87a7efad9fae6fc8abea",
+        "oasis-11-to-12/selected-control/event-0026.json": "754ff9dc051e1a2ce11c0461aa23ded901fb7ce7bb66239c2002c56c13a0ae7b",
+        "oasis-11-to-12/selected-control/event-0027.json": "9e60feea1b041bd5af889744226856eabcf648409d1c62729094be708a26e6e6",
+        "oasis-11-to-12/selected-control/event-0028.json": "b0e2ad17ec930a2ab7e05cf97038e5545c907e3547fbb635e42a74bf905bb6be",
+        "oasis-11-to-12/selected-control/event-0029.json": "147b24facdf70a3cadc4fb3c5db9af96257c5520320f09592c5f762f4fab42c0",
+        "oasis-11-to-12/selected-control/event-0030.json": "7dca80757683d066a71b56ea3e6f3e631815c4ecfd90a12af902bd78bc9eaff1",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0001.json": "a2e8bc1588b3d08a3c271047e234a1196132336b9ff610625f7ec18012005650",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0002.json": "42dab0751c4313affc87364fd4b9260fc0d971d5dd2bd28aba3463d2c0c11c37",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0003.json": "026dc7081e4d749f6944d3860e7a54e86551267ffb86df2db93bc38aecd77de0",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0004.json": "06a8fbfcb91a34443f6d0aec55669f5b83da48bd69d6b5819fc51800b7552984",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0005.json": "ca1bf4c29a8ce957a398b475496bedc55a7b48cfe5d3f7d9e64edb3e932bf2b3",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0006.json": "6eb8e830a51c1f4e639a7b5ac61b887ff54746f7a77e94670238282a2d421bf0",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0007.json": "7a492fb4946224378c1b9010f759ac0fc0f5bac4b20c5e7ca1ccfc35ae012559",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0008.json": "3c951ec24f5fbe99a02c07a44a4de044d8e4c440273764c19d69c071b6c4751a",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0009.json": "c72ebf9b91294b0a2fed95bfe5e8c53d316643274f8d9ea752b436cc64ff2189",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0010.json": "6bc25f04fb8e915a971b1b21794071f443955670fc20fec04f69729fe5235fda",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0011.json": "05bb4c637d96a40c26f7a15157aa4171ff3a54879186d5dd17c639c255a72b95",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0012.json": "16d8ba067a3bd6bf3b63117a9f0699b01115ce178a23a1facbdfe009f69b6dd1",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0013.json": "dfe81636ed1f0ee2dc948dae1cdaef0fc28710f3d667b87fdb952991bde6d3b8",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0014.json": "1d087ddebdd3eb8bcd85056640e2f5c526250f568334f1210a33f75577b1b27c",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0015.json": "1f3d1c9f3b75185ef3173e78a4b6bda4f361b015b5013609e434b9b8f0494956",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0016.json": "7c6b31f897f10a7c59cbcd0e52822c29664ffc76bdaf2a3bda7c410573826c95",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0017.json": "91cb82845e427662022d3c66cae50c2f4eb20bb69457f5ba6fd9ae5c3b09f7bf",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0018.json": "a7b2b0d70d4b6bef645ea2f5f2e340a355e2de06fabf6d028bfb4f827f98c1a6",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0019.json": "700ef693763978987e3602ad4ba8d02e6b44706c5d5ebf03841c4aa5823b5370",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0020.json": "c10f9387f2b147c6bbf744dae056b15b3be5c00b1aa3a71ba422c1d7bfda6aa5",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0021.json": "6ffcc37e4f7fa7d95fb22bc47f11f35123168a9fea4ecf97df3d7d99c86f7606",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0022.json": "5fa6984adc646e04f34807421cbc3770b4fddb55822f38ce2fe05e9ea4f8cc6f",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0023.json": "22918825889e15e7683c6a928b4d24165e6df32dd0ca68478f81b4f46b2d30c0",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0024.json": "9c9f38fc2268cb10598af4c787c93ba82e23de3a664d32c27f4ef08928eae6c9",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0025.json": "53fc45894acc21f01a654dacc4dadd53d7b9e29173c4deba932092549217a1c9",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0026.json": "40141ef0f2a7a2bcca98cf46ca992a940932ba343eb55885e72a0b4c6973852b",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0027.json": "9b745129f6da35bc704a9fd5f62ace167be7c8cae189b5e48b46b49e3988cfb0",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0028.json": "006b97747c8a0868df26484bfde97684210bb16e9622c6441fa0d98d5813adfb",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0029.json": "bc33a7ca2ebba502b0dc469b2c65617991f416558033b1e47ceaae904b913715",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0030.json": "0d660561ccd82b26dbd6458be2ca64d64d52b92e6064910af3c98436cf3ce383",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0031.json": "38a12a051427602f9d486d3b63c044e0eda8500de30ed4684b8d5930cc459035",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0032.json": "de7c91ade2fa3e88dab63492d47e3ecfcaa048c26c3a84271f9625a67f319a12",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0033.json": "ec196ff8e663ef089404dd48639c43ffc3140c38cecf1b4a5a7654273eae68eb",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0034.json": "0e8ef066df83d2ed3332557f30bc613061aa3fd0ee26ba85fd209e0ee4539f33",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0035.json": "12afbac67057fb848236a5db61280d78f9732f551f95c5b937ec52dedd2d6921",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0036.json": "fcef684da341a6d41943772047ab55c8e8ecfa28c1c800be79e25e879682ac5f",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0037.json": "f40efd3078be9030fddf440511b75b8de00deb6b91ce9dbf058a6b8fb5e3d54f",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0038.json": "b61f68c9f9f7c8c0ec300a4f3c74691c5d462bb841bd4f30bb435060f0e159a0",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0039.json": "10e276473813487abbd2dcc0cd7a9302755ddcdc09ecb5f19ce7ef5d778b67a9",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0040.json": "ec94d8932deabc3d796d361b07bf322f062ecccf73e97bf3b5f3b0abca58924d",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0041.json": "ef30ad0ef04483e7cf4323b59c46bd28b5620ad883584eb3283e20c5445ca2e0",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0042.json": "f98507c73da61b0b9cb834dd113ac06cd6e5999ef0133978a5a69af4a2648a42",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0043.json": "0518ac2376f88fe04a2c679edad007880c4fba7157a38fb8aa07af7bb790ac99",
+        "oasis-11-to-12/step-scaled-fine1.5/event-0044.json": "395b68ed08b5f37c74bc1ee88c65865318874addca0d6eb6d27b338ed33ea4df"
+      },
+      "exact_event_set_complete": true,
+      "terminal_export_ledger_complete": true,
+      "ledger_complete": true,
+      "statuses": {
+        "scored": 29,
+        "not_captured": 45
+      },
+      "source_fit_ledger": [
+        {
+          "pair": "oasis-11-to-12",
+          "policy": "selected-control",
+          "exit_code": 0,
+          "fit_receipt_sha256": "1ec866eadfe4f81cd306c31c11632b341277054d5ba4a467c1b3e8908bcb58d4",
+          "events": 30,
+          "captured_states": 13
+        },
+        {
+          "pair": "oasis-11-to-12",
+          "policy": "step-scaled-fine1.5",
+          "exit_code": 0,
+          "fit_receipt_sha256": "00acddcc11c22315c5064b7b823a632485fb764052d82798fc1666b231c33686",
+          "events": 44,
+          "captured_states": 16
+        }
+      ],
+      "qualification_claim": false,
+      "runtime_comparison_allowed": false,
+      "interpretation": "Exact attempt accounting only; failed exports, rejected maps, nonconverged fits and analysis failures are not scientific successes."
+    },
+    "role_audit_receipts": {
+      "oasis-11-to-12-level0-levelend": "490c4efc9d9c168b1ecbbdb91bbbfba18b6b09634fe624f07fd13d78ed7847a9",
+      "oasis-13-to-14-level1-levelend": "d07c14b98cbe6882b181d914b3928975644695e4c4a4a572f208c1123a89bcf5",
+      "mmrr-21-11-to-12-level1-levelstart": "1114f19496cadbc3e28edbb05fcb41d04859e546efe1897f0ac3c10bd3558fa2"
+    },
+    "next_export_batch_unstarted": true,
+    "terminal_worker_handles_observed_by_agent": {
+      "81646": 0,
+      "50624": 0,
+      "51301": 0
+    },
+    "terminal_handle_observation": "Tool handles polled to exit zero immediately before this launch preparation."
+  },
+  "process_sample": {
+    "at": "2026-10-14T21:11:13.894824+00:00",
+    "numerical_processes": [
+      {
+        "pid": 1942,
+        "ppid": 1854,
+        "cpu_percent": 0.6,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 2136,
+        "ppid": 1942,
+        "cpu_percent": 0.0,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 2137,
+        "ppid": 1942,
+        "cpu_percent": 0.0,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 2138,
+        "ppid": 1942,
+        "cpu_percent": 0.0,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 2139,
+        "ppid": 1942,
+        "cpu_percent": 0.0,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 2140,
+        "ppid": 1942,
+        "cpu_percent": 0.0,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 2141,
+        "ppid": 1942,
+        "cpu_percent": 0.0,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 15344,
+        "ppid": 89635,
+        "cpu_percent": 37.2,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 30500,
+        "ppid": 89635,
+        "cpu_percent": 38.2,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 42966,
+        "ppid": 89635,
+        "cpu_percent": 35.2,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 44230,
+        "ppid": 77530,
+        "cpu_percent": 0.0,
+        "name": "Python",
+        "owned": false
+      },
+      {
+        "pid": 47441,
+        "ppid": 1854,
+        "cpu_percent": 1.3,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 50914,
+        "ppid": 89635,
+        "cpu_percent": 34.8,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 70699,
+        "ppid": 77530,
+        "cpu_percent": 0.0,
+        "name": "python3.12",
+        "owned": false
+      },
+      {
+        "pid": 71707,
+        "ppid": 89635,
+        "cpu_percent": 33.9,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 79508,
+        "ppid": 77530,
+        "cpu_percent": 0.0,
+        "name": "Python",
+        "owned": false
+      },
+      {
+        "pid": 80906,
+        "ppid": 77530,
+        "cpu_percent": 0.0,
+        "name": "Python",
+        "owned": false
+      },
+      {
+        "pid": 82478,
+        "ppid": 77530,
+        "cpu_percent": 182.9,
+        "name": "java",
+        "owned": false
+      },
+      {
+        "pid": 89635,
+        "ppid": 77530,
+        "cpu_percent": 0.0,
+        "name": "Python",
+        "owned": false
+      },
+      {
+        "pid": 90977,
+        "ppid": 1,
+        "cpu_percent": 0.0,
+        "name": "java",
+        "owned": false
+      },
+      {
+        "pid": 92180,
+        "ppid": 89635,
+        "cpu_percent": 34.8,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 94514,
+        "ppid": 77530,
+        "cpu_percent": 0.0,
+        "name": "Python",
+        "owned": false
+      },
+      {
+        "pid": 96814,
+        "ppid": 70699,
+        "cpu_percent": 0.0,
+        "name": "python3.12",
+        "owned": false
+      },
+      {
+        "pid": 96817,
+        "ppid": 96814,
+        "cpu_percent": 117.9,
+        "name": "java",
+        "owned": false
+      },
+      {
+        "pid": 97370,
+        "ppid": 77530,
+        "cpu_percent": 41.7,
+        "name": "python",
+        "owned": true
+      },
+      {
+        "pid": 99017,
+        "ppid": 1,
+        "cpu_percent": 0.0,
+        "name": "Python",
+        "owned": false
+      },
+      {
+        "pid": 89700,
+        "ppid": 88124,
+        "cpu_percent": 0.0,
+        "name": "R",
+        "owned": false
+      }
+    ],
+    "external_active_numerical_processes": [
+      {
+        "pid": 15344,
+        "ppid": 89635,
+        "cpu_percent": 37.2,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 30500,
+        "ppid": 89635,
+        "cpu_percent": 38.2,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 42966,
+        "ppid": 89635,
+        "cpu_percent": 35.2,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 50914,
+        "ppid": 89635,
+        "cpu_percent": 34.8,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 71707,
+        "ppid": 89635,
+        "cpu_percent": 33.9,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 82478,
+        "ppid": 77530,
+        "cpu_percent": 182.9,
+        "name": "java",
+        "owned": false
+      },
+      {
+        "pid": 92180,
+        "ppid": 89635,
+        "cpu_percent": 34.8,
+        "name": "R",
+        "owned": false
+      },
+      {
+        "pid": 96817,
+        "ppid": 96814,
+        "cpu_percent": 117.9,
+        "name": "java",
+        "owned": false
+      }
+    ]
+  },
+  "timing_launched": false,
+  "launch_ready": false,
+  "monitor_source_sha256": "1e5ca872c8dd9ca79f7509c21fde6b58ef79c8c9add9c0392ab3030c046bb188",
+  "explanation": "Independent active R and Java jobs prevent an isolated timing window. No process was stopped and no timing attempt was launched.",
+  "qualification_claim": false
+}

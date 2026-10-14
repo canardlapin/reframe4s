@@ -262,3 +262,57 @@ contains the verified terminal receipts, compressed scalar streams and logs,
 source hashes, summarizer and passing check log. It contains no MRI or dense-map
 payloads. `summarize_scalar_losses.py` reproduces the calculation from the sealed
 study; later snapshots must use a new directory and preserve this partial one.
+
+## Completed capture panel and first scored batch
+
+The [complete scalar ledger](evidence/halfflow-deferred-capture-20261014/scalar-loss-complete-v1/summary.json)
+now contains all ten declared fits, each exiting 0: 384 scalar events,
+320 accepted updates and 24 rejected attempts. Sixteen levels end at their
+accepted-step budget and four exhaust the controller. These are completed
+diagnostic runs, not converged registrations. Eight fits have historical map
+baselines and replay all four final map/validity hashes exactly. The OASIS 1 and
+OASIS 17 step-scaled fits have no historical baseline. The earlier nine-fit
+snapshot is preserved unchanged.
+
+The full panel still has one accepted rebuilt-loss increase, the OASIS 13 event
+described above. Positive-support counts decrease at 199 accepted updates. The
+same caution about changing voxel populations applies.
+
+The first offline batch is complete. Its
+[exact ledger verification](evidence/halfflow-deferred-capture-20261014/completed-oasis11-v1/ledger-verification.json)
+accounts for all **74 OASIS 11 events: 29 scored states and 45 uncaptured events**.
+Every declared export has its terminal receipt. The 29 scored states comprise
+13 control states and 16 step-scaled states, including the selected rejected
+candidates. All 29 pass native export admission, independent geometry and
+sampled complete-cell checks; no export or analysis failed. This does not
+establish convergence or certify the unresolved full boundary contract.
+
+| OASIS 11 step-scaled fine state | Rebuilt optimizer loss | Fixed-region audit loss | Mean bidirectional Dice | Median-label HD95 (mm) |
+| --- | ---: | ---: | ---: | ---: |
+| Start | 0.529247 | 0.650371 | 0.422652 | 5.246936 |
+| Accepted 5 | 0.512420 | 0.644460 | 0.422738 | 5.315000 |
+| Accepted 10 | 0.469591 | 0.633549 | 0.419009 | 5.404319 |
+| Accepted 15 | 0.449892 | 0.629331 | 0.415789 | 5.404319 |
+| Accepted 20 / endpoint | 0.437375 | 0.626561 | 0.413321 | 5.404319 |
+
+The completed endpoint extends the earlier partial negative result: fine
+refinement improves both intensity losses while worsening anatomy. Its
+midpoint displacement-gradient RMS also decreases during fine refinement, so
+a claim that greater deformation roughness alone explains this decline is not
+supported by that scalar regularity measure. This is one observed pair, not a
+cross-cohort causal conclusion. The control accepts no fine update; its scored
+rejected candidates worsen both the independent intensity audit and anatomy.
+
+The endpoint decline is distributed across structures: averaging the two
+directions for each of the same 62 labels, 45 lose Dice and 17 gain it between
+fine start and fine end. HD95 worsens for 34 labels, improves for 20 and ties
+for eight. No label is removed or used to choose the returned checkpoint.
+
+![Complete OASIS 11 step-scaled trajectory](evidence/halfflow-deferred-capture-20261014/completed-oasis11-v1/figures/oasis-11-to-12/step-scaled-fine1.5/trajectory.png)
+
+The [complete archive](evidence/halfflow-deferred-capture-20261014/completed-oasis11-v1/artifact-manifest.json)
+retains every compact event, export receipt and scientific report, both full
+trajectory plots and per-structure plots. MRI and dense maps remain local with
+verified identities. `archive_completed_offline.py` requires the exact ledger
+to be complete before producing this archive. The remaining 61-state export
+batch is still unstarted, pending the isolated timing window. D01 remains open.

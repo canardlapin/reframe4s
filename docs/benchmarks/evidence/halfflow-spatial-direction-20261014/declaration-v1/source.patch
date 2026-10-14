@@ -1,0 +1,300 @@
+--- a/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageRegistration.scala
++++ b/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageRegistration.scala
+@@ -36,7 +36,8 @@
+       scaleAccumulatedSmoothingByStep: Boolean = false,
+       affineTrials: Option[Int] = None,
+       fineCcRadius: Int = 2,
+-      checkpoints: Option[RealImageCheckpointPolicy] = None
++      checkpoints: Option[RealImageCheckpointPolicy] = None,
++      spatialChainGradient: Boolean = false
+   )
+ 
+   private[halfflow] def parseOptions(args: Vector[String]): RunOptions =
+@@ -46,7 +47,7 @@
+     val pairs = flags.grouped(2).map(p => p(0) -> p(1)).toVector
+     require(pairs.map(_._1).distinct.size == pairs.size, "duplicate development flag")
+     val checkpointFlags = Set("--checkpoint-accepted", "--checkpoint-rejected", "--checkpoint-max-states", "--checkpoint-manifest", "--checkpoint-defer-export")
+-    require(pairs.forall(p => (Set("--steps-per-level", "--fine-smoothing-mm", "--affine-budget", "--policy-receipt", "--total-smoothing-mm", "--boundary-width-mm", "--fine-total-smoothing-mm", "--scale-total-smoothing-by-step", "--affine-trials", "--fine-cc-radius") ++ checkpointFlags).contains(p._1)), "unknown development flag")
++    require(pairs.forall(p => (Set("--steps-per-level", "--fine-smoothing-mm", "--affine-budget", "--policy-receipt", "--total-smoothing-mm", "--boundary-width-mm", "--fine-total-smoothing-mm", "--scale-total-smoothing-by-step", "--affine-trials", "--fine-cc-radius", "--spatial-chain-gradient") ++ checkpointFlags).contains(p._1)), "unknown development flag")
+     val values = pairs.toMap
+     val checkpoints =
+       if !values.keys.exists(checkpointFlags.contains) then None
+@@ -73,7 +74,8 @@
+       values.get("--fine-total-smoothing-mm").map(_.toDouble),
+       values.get("--scale-total-smoothing-by-step").fold(false)(_.toBoolean),
+       values.get("--affine-trials").map(_.toInt),
+-      values.get("--fine-cc-radius").fold(2)(_.toInt), checkpoints)
++      values.get("--fine-cc-radius").fold(2)(_.toInt), checkpoints,
++      values.get("--spatial-chain-gradient").fold(false)(_.toBoolean))
+     require(result.stepsPerLevel > 0 && result.stepsPerLevel <= 1000, "invalid accepted-step budget")
+     require(result.fineCcRadius > 0 && result.fineCcRadius <= 10, "invalid fine CC radius")
+     require(result.fineSmoothingMm.isFinite && result.fineSmoothingMm >= 0.0, "invalid fine smoothing")
+@@ -199,11 +201,17 @@
+             supplied.initial
+     if mode != "affine" && mode != "identity" then
+       println("REAL_MRI stage=halfflow started=true")
+-      val optimized = options.checkpoints match
+-        case None => HalfFlowCc.optimize(fi, mi, initial, plan)
+-        case Some(policy) =>
+-          val observer = new RealImageCheckpoints(out, policy, initial, plan, fv, mv, mask)
+-          HalfFlowCc.optimizeObserved(fi, mi, initial, plan, HalfFlowCcObservation(observer, policy.maximumStates))
++      val optimized =
++        if options.spatialChainGradient then
++          val observation = options.checkpoints.map: policy =>
++            val observer = new RealImageCheckpoints(out, policy, initial, plan, fv, mv, mask)
++            HalfFlowCcObservation(observer, policy.maximumStates)
++          HalfFlowCc.optimizeSpatialChain(fi, mi, initial, plan, observation)
++        else options.checkpoints match
++          case None => HalfFlowCc.optimize(fi, mi, initial, plan)
++          case Some(policy) =>
++            val observer = new RealImageCheckpoints(out, policy, initial, plan, fv, mv, mask)
++            HalfFlowCc.optimizeObserved(fi, mi, initial, plan, HalfFlowCcObservation(observer, policy.maximumStates))
+       optimized match
+         case Left(error) =>
+           Files.writeString(out.resolve("failure.txt"), s"halfflow-fine: ${error.message}\n")
+--- /dev/null
++++ b/benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/SpatialChainOptionsSuite.scala
+@@ -0,0 +1,13 @@
++package reframe4s.halfflow
++
++class SpatialChainOptionsSuite extends munit.FunSuite:
++  test("spatial-chain development direction requires an explicit flag"):
++    assert(!RealImageRegistration.parseOptions(Vector.empty).spatialChainGradient)
++    assert(RealImageRegistration.parseOptions(Vector("--spatial-chain-gradient","true")).spatialChainGradient)
++    assert(!RealImageRegistration.parseOptions(Vector("--spatial-chain-gradient","false")).spatialChainGradient)
++
++  test("spatial-chain development flag cannot be duplicated or silently malformed"):
++    intercept[IllegalArgumentException]:
++      RealImageRegistration.parseOptions(Vector("--spatial-chain-gradient","true","--spatial-chain-gradient","false"))
++    intercept[IllegalArgumentException]:
++      RealImageRegistration.parseOptions(Vector("--spatial-chain-gradient","maybe"))
+--- a/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala
++++ b/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala
+@@ -638,6 +638,27 @@
+   ): Either[HalfFlowCcError, HalfFlowCcOptimization[W, F, M]] =
+     optimizeInternal(fixed, moving, initial, plan, None, Some(new HalfFlowCcObservationRun(observation)))
+ 
++  /** Development-only direction ablation. The baseline step, smoothing,
++    * candidate admission and stopping remain unchanged. Complete source-chain
++    * support is mandatory; this does not certify anatomical improvement.
++    */
++  private[halfflow] def optimizeSpatialChain[W, F, M](
++      fixed: RegistrationImage[F],
++      moving: RegistrationImage[M],
++      initial: ForwardMidpoint[W, F, M],
++      plan: HalfFlowCcPlan,
++      observation: Option[HalfFlowCcObservation[W, F, M]] = None
++  ): Either[HalfFlowCcError, HalfFlowCcOptimization[W, F, M]] =
++    val supported = plan.levels.forall: level =>
++      level.metric == HalfFlowCcMetric.TrueNeighborhoodCc &&
++        (level.accumulatedSmoothingMm == 0.0 || level.scaleAccumulatedSmoothingByStep)
++    if !supported then
++      Left(HalfFlowCcError.Registration(RegistrationError.InvalidConfiguration(
++        "spatial-chain experiment requires true CC and absent or step-scaled accumulated smoothing")))
++    else
++      optimizeInternal(fixed, moving, initial, plan, None,
++        observation.map(o => new HalfFlowCcObservationRun(o)), useSpatialChain = true)
++
+   /** G5-only control that restores the previous inverse-tracked accumulated
+     * gate while retaining the true-CC lane-A objective and step.
+     *
+@@ -669,7 +690,8 @@
+       initial: ForwardMidpoint[W, F, M],
+       plan: HalfFlowCcPlan,
+       initialLegacyGate: Option[LegacyInverseGate[W, F, M]],
+-      observation: Option[HalfFlowCcObservationRun[W, F, M]]
++      observation: Option[HalfFlowCcObservationRun[W, F, M]],
++      useSpatialChain: Boolean = false
+   ): Either[HalfFlowCcError, HalfFlowCcOptimization[W, F, M]] =
+     moving.validity match
+       case FieldValidity.Mask(_) => Left(HalfFlowCcError.MovingOptimizationMaskForbidden)
+@@ -712,7 +734,7 @@
+                             .observe(control, ControlObservation.LevelTransition, plan.control)
+                             .after
+                         refineLevel(nextFixed, nextMoving, regridded, level, plan, control, regriddedLegacy,
+-                          levelIndex, observation) match
++                          levelIndex, observation, useSpatialChain) match
+                           case Left(error) => failure = Some(error)
+                           case Right((accepted, levelDiagnostics, nextControl, nextLegacyGate)) =>
+                             state = accepted
+@@ -735,7 +757,8 @@
+       initialControl: HalfFlowCcControlState,
+       initialLegacyGate: Option[LegacyInverseGate[W, F, M]],
+       levelIndex: Int,
+-      observation: Option[HalfFlowCcObservationRun[W, F, M]]
++      observation: Option[HalfFlowCcObservationRun[W, F, M]],
++      useSpatialChain: Boolean
+   ): Either[
+     HalfFlowCcError,
+     (ForwardMidpoint[W, F, M], HalfFlowCcLevelDiagnostics, HalfFlowCcControlState, Option[LegacyInverseGate[W, F, M]])
+@@ -787,7 +810,15 @@
+           level,
+           plan,
+           control,
+-          stepWorkspace
++          stepWorkspace,
++          if useSpatialChain then Some(() =>
++            metricSession.intensityGradientSnapshot match
++              case None => Left(RegistrationError.InvalidConfiguration("spatial-chain intensity derivative unavailable"))
++              case Some((fixedDerivative, movingDerivative)) =>
++                HalfFlowSpatialChainDirection.into(fixed.image, moving.image, state,
++                  fixedDerivative, movingDerivative, plan.action, metricSession.smoothingWeight,
++                  stepWorkspace.raw, stepWorkspace.movingGradientValid)
++          ) else None
+         ).fold(error => break(Left(HalfFlowCcError.Registration(error))), identity)
+         if step._2 <= plan.minimumUsefulStepMm then
+           termination = Some(HalfFlowCcTermination.Stationary)
+@@ -998,10 +1029,12 @@
+       level: HalfFlowCcLevel,
+       plan: HalfFlowCcPlan,
+       control: HalfFlowCcControlState,
+-      workspace: CcStepWorkspace[W]
++      workspace: CcStepWorkspace[W],
++      gradientOverride: Option[() => Either[RegistrationError, Unit]]
+   ): Either[RegistrationError, (Velocity[W], Double)] =
+     val n = frame.grid.nVoxels
+-    objective.gradientInto(fixed, moving, workspace).flatMap: _ =>
++    val gradient = gradientOverride.fold(objective.gradientInto(fixed, moving, workspace))(_())
++    gradient.flatMap: _ =>
+       PointwiseRankOne.solveInto(
+         workspace.raw,
+         workspace.movingGradientValid,
+--- /dev/null
++++ b/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowSpatialChainDirection.scala
+@@ -0,0 +1,34 @@
++package reframe4s.halfflow
++
++/** Opt-in bridge from the audited source-chain probe to the existing step.
++  * Missing support fails before any destination is changed. Symmetric slopes
++  * at interpolation knots retain the probe's documented directional limits.
++  */
++private[halfflow] object HalfFlowSpatialChainDirection:
++  def into[W, F, M](
++      fixed: RegistrationImage[F], moving: RegistrationImage[M],
++      state: ForwardMidpoint[W, F, M], fixedDerivative: Array[Double], movingDerivative: Array[Double],
++      action: HalfFlowCcAction, smoothingWeight: Array[Double],
++      destination: Array[Double], validity: Array[Boolean]
++  ): Either[RegistrationError, Unit] =
++    val n = state.work.grid.nVoxels
++    require(destination.length == 3 * n && validity.length == n && smoothingWeight.length == n)
++    val result = HalfFlowSpatialChainProbe(fixed, moving, state, fixedDerivative, movingDerivative, action)
++    if result.fixed.unavailable > 0 || result.moving.unavailable > 0 then
++      Left(RegistrationError.InvalidField(
++        s"spatial-chain derivative support (fixed=${result.fixed.unavailable}, moving=${result.moving.unavailable})"))
++    else if result.gradient.exists(v => !v.isFinite) || smoothingWeight.exists(v => !v.isFinite || v < 0.0) then
++      Left(RegistrationError.InvalidField("spatial-chain derivative or smoothing weight"))
++    else if (0 until n).exists(i => smoothingWeight(i) == 0.0 &&
++        (0 until 3).exists(c => result.gradient(i + c * n) != 0.0)) then
++      Left(RegistrationError.InvalidField("nonzero spatial-chain derivative outside smoothing support"))
++    else
++      var i = 0
++      while i < n do
++        validity(i) = smoothingWeight(i) > 0.0
++        var c = 0
++        while c < 3 do
++          destination(i + c * n) = if validity(i) then result.gradient(i + c * n) else 0.0
++          c += 1
++        i += 1
++      Right(())
+--- /dev/null
++++ b/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowSpatialChainDirectionSuite.scala
+@@ -0,0 +1,99 @@
++package reframe4s.halfflow
++
++import gale.linalg.DMat
++import image4s.geometry.{Affine, D3}
++import reframe4s.halfflow.internal.*
++
++class HalfFlowSpatialChainDirectionSuite extends munit.FunSuite:
++  override val munitTimeout: scala.concurrent.duration.Duration = scala.concurrent.duration.Duration(120, "s")
++  private sealed trait Work
++  private sealed trait Fixed
++  private sealed trait Moving
++  private def right[E, A](value: Either[E, A]): A = value.fold(e => fail(e.toString), identity)
++  private val grid = GridSpec.identity(Vector(17,17,17))
++  private val sourceGrid = GridSpec(Vector(29,29,29),DMat.dense(4,4,Vector(
++    1.0,0,0,-5, 0,1.0,0,-5, 0,0,1.0,-5, 0,0,0,1.0)))
++  private val work = RegistrationFrame[Work](SpatialDomainId("direction-work"),grid)
++  private val ff = RegistrationFrame[Fixed](SpatialDomainId("direction-fixed"),sourceGrid)
++  private val mf = RegistrationFrame[Moving](SpatialDomainId("direction-moving"),sourceGrid)
++  private def image[A](frame: RegistrationFrame[A], shift: Double): RegistrationImage[A] =
++    val values = Array.tabulate(sourceGrid.nVoxels): i =>
++      val x = (i % 29).toDouble-shift; val y = ((i/29)%29).toDouble; val z = (i/(29*29)).toDouble
++      math.sin(.31*x)+.7*math.cos(.27*y)+.4*math.sin(.23*(x+z))+.002*y*z
++    right(RegistrationImage.make(frame,NeuroVol.fromLinear[Double](values,sourceGrid.toNeuroSpace,"direction-fixture")))
++  private val fixed = image(ff,0.0)
++  private val moving = image(mf,.7)
++  private val transform = right(Affine.fromRowMajor[D3](Vector(
++    1.0,0,0,.13, 0,1.0,0,.21, 0,0,1.0,.17, 0,0,0,1.0)))
++  private val state = right(ForwardMidpoint.make(
++    right(ForwardMidpointArm.make(DensePull.identity(work),right(AffineIso.make(work,ff,transform)))),
++    right(ForwardMidpointArm.make(DensePull.identity(work),right(AffineIso.make(work,mf,transform))))))
++  private val n = grid.nVoxels
++  private val center = 8+17*(8+17*8)
++  private def level(total: Double = 0.0, scaled: Boolean = false): HalfFlowCcLevel =
++    right(HalfFlowCcLevel.make(1,0.0,smoothSigmaMm=1.0,maximumStepMm=.1,
++      targetAcceptedSteps=1,maximumAttempts=6,accumulatedSmoothingMm=total,scaleAccumulatedSmoothingByStep=scaled))
++
++  test("source-chain direction uses physical source derivatives for both actions"):
++    val fd = new Array[Double](n);val md = new Array[Double](n)
++    fd(center)=.7;md(center) = -.3
++    val point = Vector(13.13,13.21,13.17)
++    def expectedGradient(image: RegistrationImage[?]): Vector[Double] =
++      // Independent central samples within one source cell differentiate the actual sampler.
++      Vector.tabulate(3): c =>
++        val plus = point.updated(c,point(c)+1e-5);val minus = point.updated(c,point(c)-1e-5)
++        val a = HalfFlowSpatialChainProbe.sampleVoxelGradient(image.volume,image.validity,point).get._1(c)
++        // The trilinear cell slope equals differences along its two enclosing faces.
++        val lo = point.updated(c,math.floor(point(c)));val hi = lo.updated(c,lo(c)+1.0)
++        def value(p: Vector[Double]): Double =
++          val lower = p.map(math.floor(_).toInt)
++          var sum = 0.0
++          for dx <- 0 to 1;dy <- 0 to 1;dz <- 0 to 1 do
++            val bits=Vector(dx,dy,dz)
++            val weight=(0 until 3).map(k => if bits(k)==0 then 1.0-(p(k)-lower(k)) else p(k)-lower(k)).product
++            if weight!=0.0 then sum += weight*image.volume.values(lower(0)+dx,lower(1)+dy,lower(2)+dz)
++          sum
++        val numerical=(value(plus)-value(minus))/(2e-5)
++        assertEqualsDouble(a,value(hi)-value(lo),1e-12)
++        numerical
++    val fg=expectedGradient(fixed);val mg=expectedGradient(moving)
++    for action <- Vector(HalfFlowCcAction.SymmetricMidpoint,HalfFlowCcAction.FixedAnchor) do
++      val out = Array.fill(3*n)(Double.NaN);val valid = Array.fill(n)(false)
++      right(HalfFlowSpatialChainDirection.into(fixed,moving,state,fd,md,action,Array.fill(n)(1.0),out,valid))
++      for c <- 0 until 3 do
++        val expected = if action==HalfFlowCcAction.SymmetricMidpoint then .5*(.7*fg(c)+.3*mg(c)) else .3*mg(c)
++        assertEqualsDouble(out(center+c*n),expected,1e-10)
++      assert(out.indices.filter(i => i%n!=center).forall(i => out(i)==0.0))
++
++  test("unavailable boundary support fails without mutating output or inventing zero gradients"):
++    val fd = new Array[Double](n);fd(0)=1.0
++    val out=Array.fill(3*n)(7.0);val valid=Array.fill(n)(true)
++    assert(HalfFlowSpatialChainDirection.into(fixed,moving,state,fd,new Array[Double](n),
++      HalfFlowCcAction.SymmetricMidpoint,Array.fill(n)(1.0),out,valid).isLeft)
++    assert(out.forall(_==7.0));assert(valid.forall(identity))
++
++  test("a nonzero direction cannot silently disappear outside smoothing support"):
++    val fd = new Array[Double](n);fd(center)=1.0
++    val out=Array.fill(3*n)(7.0);val valid=Array.fill(n)(true)
++    assert(HalfFlowSpatialChainDirection.into(fixed,moving,state,fd,new Array[Double](n),
++      HalfFlowCcAction.SymmetricMidpoint,new Array[Double](n),out,valid).isLeft)
++    assert(out.forall(_==7.0));assert(valid.forall(identity))
++
++  test("experimental optimization accepts a real decreasing candidate and preserves observer neutrality"):
++    val plan = right(HalfFlowCcPlan.make(Vector(level()),velocityBoundaryWidthMm=3.0))
++    val plain = right(HalfFlowCc.optimizeSpatialChain(fixed,moving,state,plan))
++    val observer = new HalfFlowCcObserver[Work,Fixed,Moving]:
++      def wantsState(info: HalfFlowCcCheckpointInfo): Boolean = false
++      def observe(checkpoint: HalfFlowCcCheckpoint[Work,Fixed,Moving]): Unit = ()
++    val observed = right(HalfFlowCc.optimizeSpatialChain(fixed,moving,state,plan,
++      Some(HalfFlowCcObservation(observer,0))))
++    assertEquals(plain.diagnostics,observed.diagnostics)
++    assertEquals(plain.diagnostics.acceptedSteps,1)
++    assert(plain.diagnostics.levels.head.trace.exists(t => t.accepted && t.candidateLoss<t.currentLoss))
++    for (a,b) <- Vector((plain.state.fixed.residual,observed.state.fixed.residual),
++        (plain.state.moving.residual,observed.state.moving.residual));i <- 0 until n;c <- 0 until 3 do
++      assertEqualsDouble(a.sourceCoordinates.linearComponent(i,c),b.sourceCoordinates.linearComponent(i,c),0.0)
++
++  test("experimental optimization rejects discontinuous accumulated smoothing"):
++    val plan = right(HalfFlowCcPlan.make(Vector(level(total=1.5))))
++    assert(HalfFlowCc.optimizeSpatialChain(fixed,moving,state,plan).isLeft)

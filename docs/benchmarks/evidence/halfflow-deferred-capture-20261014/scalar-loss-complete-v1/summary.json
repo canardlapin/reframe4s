@@ -1,0 +1,1253 @@
+{
+  "schema": "hfq-scalar-loss-snapshot-v1",
+  "created_at": "2026-10-14T21:08:47.353921+00:00",
+  "protocol_sha256": "cb6c6c04f61fa7e900817d96e1dd1f65bc23a9bd7614621d900a42f4ef739e6f",
+  "source_sha256": "57e03c8b5d3f0af6f65c38e3603f811292c1715065b8127afc12b1e9f8884ad6",
+  "declared_fits": 10,
+  "terminal_fits": 10,
+  "rows": [
+    {
+      "pair": "oasis-11-to-12",
+      "lane": "selected-control",
+      "terminal": true,
+      "status": "completed",
+      "exit_code": 0,
+      "fit_receipt_sha256": "1ec866eadfe4f81cd306c31c11632b341277054d5ba4a467c1b3e8908bcb58d4",
+      "historical_replay": {
+        "halfflow-fixed-to-moving.f64": {
+          "expected_sha256": "e27fc4d456680a4238955eb57445bcde6c3e2c3e7ac10ffb8e168d7c72d9f251",
+          "actual_sha256": "e27fc4d456680a4238955eb57445bcde6c3e2c3e7ac10ffb8e168d7c72d9f251",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.f64": {
+          "expected_sha256": "348ef2aeb5e9a953b204912c657d389da0e4dd76f918d22f7e7af7b24ce6d981",
+          "actual_sha256": "348ef2aeb5e9a953b204912c657d389da0e4dd76f918d22f7e7af7b24ce6d981",
+          "equal": true
+        },
+        "halfflow-fixed-to-moving.valid-u8": {
+          "expected_sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+          "actual_sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.valid-u8": {
+          "expected_sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+          "actual_sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+          "equal": true
+        }
+      },
+      "historical_baseline_available": true,
+      "events_sha256": "af64e16b905f69e692048e5703013af3f96fe2f5d1d762520c21d6419152b3d2",
+      "event_count": 30,
+      "saved_states": 13,
+      "levels": [
+        {
+          "level_index": 0,
+          "shrink": 2,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.6059626397428346,
+          "latest_accepted_loss": 0.4314966061820277,
+          "sum_frozen_trial_drop": 0.17539989625375424,
+          "sum_rebuild_loss_change": 0.0009338626929473182,
+          "net_rebuilt_loss_drop": 0.17446603356080692,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 14,
+          "initial_population": {
+            "voxels": 286440,
+            "positive_support_voxels": 45815,
+            "support_mass": 44745.09886381074,
+            "active_windows": 56582,
+            "variance": {
+              "fixedGlobalVariance": 0.023885273955711873,
+              "movingGlobalVariance": 0.047915678085801695,
+              "fixedReliabilityMean": 0.27587558341959123,
+              "movingReliabilityMean": 0.281392534169283,
+              "jointReliabilityMean": 0.16224789748358215
+            },
+            "stabilization_mass": 0.06934713422762641
+          },
+          "latest_population": {
+            "voxels": 286440,
+            "positive_support_voxels": 45591,
+            "support_mass": 44524.62502560931,
+            "active_windows": 56338,
+            "variance": {
+              "fixedGlobalVariance": 0.02450839665742306,
+              "movingGlobalVariance": 0.04514359059869862,
+              "fixedReliabilityMean": 0.27832038094526973,
+              "movingReliabilityMean": 0.28054846664179367,
+              "jointReliabilityMean": 0.1614206949382702
+            },
+            "stabilization_mass": 0.06672266158721288
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        },
+        {
+          "level_index": 1,
+          "shrink": 1,
+          "terminal": true,
+          "termination": "ControllerExhausted",
+          "accepted_steps": 0,
+          "rejected_attempts": 6,
+          "initial_loss": 0.5292673434405287,
+          "latest_accepted_loss": 0.5292673434405287,
+          "sum_frozen_trial_drop": 0.0,
+          "sum_rebuild_loss_change": 0.0,
+          "net_rebuilt_loss_drop": 0.0,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 0,
+          "initial_population": {
+            "voxels": 2276640,
+            "positive_support_voxels": 149189,
+            "support_mass": 123912.14804265418,
+            "active_windows": 193907,
+            "variance": {
+              "fixedGlobalVariance": 0.028404056014727775,
+              "movingGlobalVariance": 0.03450525710373685,
+              "fixedReliabilityMean": 0.19916265643602102,
+              "movingReliabilityMean": 0.20138098449457945,
+              "jointReliabilityMean": 0.055043607841592415
+            },
+            "stabilization_mass": 0.13398133491684755
+          },
+          "latest_population": {
+            "voxels": 2276640,
+            "positive_support_voxels": 149189,
+            "support_mass": 123912.14804265418,
+            "active_windows": 193907,
+            "variance": {
+              "fixedGlobalVariance": 0.028404056014727775,
+              "movingGlobalVariance": 0.03450525710373685,
+              "fixedReliabilityMean": 0.19916265643602102,
+              "movingReliabilityMean": 0.20138098449457945,
+              "jointReliabilityMean": 0.055043607841592415
+            },
+            "stabilization_mass": 0.13398133491684755
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        }
+      ],
+      "accepted_rebuilt_increases": []
+    },
+    {
+      "pair": "oasis-11-to-12",
+      "lane": "step-scaled-fine1.5",
+      "terminal": true,
+      "status": "completed",
+      "exit_code": 0,
+      "fit_receipt_sha256": "00acddcc11c22315c5064b7b823a632485fb764052d82798fc1666b231c33686",
+      "historical_replay": {
+        "halfflow-fixed-to-moving.f64": {
+          "expected_sha256": "b5b9298404aaf9c858f43773741072a5d3187aa7cb3943305d71ddec5502bd32",
+          "actual_sha256": "b5b9298404aaf9c858f43773741072a5d3187aa7cb3943305d71ddec5502bd32",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.f64": {
+          "expected_sha256": "f5abde75fe882f73d4cfa343ce8c2887aa61053d518c5c039612d25a40045ec3",
+          "actual_sha256": "f5abde75fe882f73d4cfa343ce8c2887aa61053d518c5c039612d25a40045ec3",
+          "equal": true
+        },
+        "halfflow-fixed-to-moving.valid-u8": {
+          "expected_sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+          "actual_sha256": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.valid-u8": {
+          "expected_sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+          "actual_sha256": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa",
+          "equal": true
+        }
+      },
+      "historical_baseline_available": true,
+      "events_sha256": "4b1b034e0d15441f48ae8c14e6a677fa351088732d29b02da2e4d4909d07a94c",
+      "event_count": 44,
+      "saved_states": 16,
+      "levels": [
+        {
+          "level_index": 0,
+          "shrink": 2,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.6059626397428346,
+          "latest_accepted_loss": 0.4314280865059343,
+          "sum_frozen_trial_drop": 0.17545859428610255,
+          "sum_rebuild_loss_change": 0.00092404104920224,
+          "net_rebuilt_loss_drop": 0.1745345532369003,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 14,
+          "initial_population": {
+            "voxels": 286440,
+            "positive_support_voxels": 45815,
+            "support_mass": 44745.09886381074,
+            "active_windows": 56582,
+            "variance": {
+              "fixedGlobalVariance": 0.023885273955711873,
+              "movingGlobalVariance": 0.047915678085801695,
+              "fixedReliabilityMean": 0.27587558341959123,
+              "movingReliabilityMean": 0.281392534169283,
+              "jointReliabilityMean": 0.16224789748358215
+            },
+            "stabilization_mass": 0.06934713422762641
+          },
+          "latest_population": {
+            "voxels": 286440,
+            "positive_support_voxels": 45593,
+            "support_mass": 44526.751506352986,
+            "active_windows": 56340,
+            "variance": {
+              "fixedGlobalVariance": 0.02450879392559504,
+              "movingGlobalVariance": 0.045144785099746204,
+              "fixedReliabilityMean": 0.278728126701406,
+              "movingReliabilityMean": 0.2787596086486335,
+              "jointReliabilityMean": 0.1614286531706
+            },
+            "stabilization_mass": 0.06672882747733158
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        },
+        {
+          "level_index": 1,
+          "shrink": 1,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.5292470853402258,
+          "latest_accepted_loss": 0.43737469002775886,
+          "sum_frozen_trial_drop": 0.09808721535827686,
+          "sum_rebuild_loss_change": 0.006214820045809921,
+          "net_rebuilt_loss_drop": 0.09187239531246694,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 14,
+          "initial_population": {
+            "voxels": 2276640,
+            "positive_support_voxels": 149189,
+            "support_mass": 123911.74821671235,
+            "active_windows": 193903,
+            "variance": {
+              "fixedGlobalVariance": 0.02840372833928481,
+              "movingGlobalVariance": 0.034500516618450404,
+              "fixedReliabilityMean": 0.2008884346227227,
+              "movingReliabilityMean": 0.20327957803169974,
+              "jointReliabilityMean": 0.05504276792790235
+            },
+            "stabilization_mass": 0.13396034761416728
+          },
+          "latest_population": {
+            "voxels": 2276640,
+            "positive_support_voxels": 148412,
+            "support_mass": 123378.97251707377,
+            "active_windows": 192655,
+            "variance": {
+              "fixedGlobalVariance": 0.028012156519281805,
+              "movingGlobalVariance": 0.034743301832006704,
+              "fixedReliabilityMean": 0.20250125165380214,
+              "movingReliabilityMean": 0.2033897067320905,
+              "jointReliabilityMean": 0.05479785637001207
+            },
+            "stabilization_mass": 0.13278327817613716
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        }
+      ],
+      "accepted_rebuilt_increases": []
+    },
+    {
+      "pair": "oasis-13-to-14",
+      "lane": "selected-control",
+      "terminal": true,
+      "status": "completed",
+      "exit_code": 0,
+      "fit_receipt_sha256": "adb546f2d3b207adf979235e4e8d9617b592dce3b3e0ccbdca520bfae664172f",
+      "historical_replay": {
+        "halfflow-fixed-to-moving.f64": {
+          "expected_sha256": "7dc8565df1b0333932c678f108ae18aa831d9e1aa0487848a398f414f38cae63",
+          "actual_sha256": "7dc8565df1b0333932c678f108ae18aa831d9e1aa0487848a398f414f38cae63",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.f64": {
+          "expected_sha256": "d327eba9eb36715b30500810123e6de32cc42beadd0ae0248eecdbaf864abefb",
+          "actual_sha256": "d327eba9eb36715b30500810123e6de32cc42beadd0ae0248eecdbaf864abefb",
+          "equal": true
+        },
+        "halfflow-fixed-to-moving.valid-u8": {
+          "expected_sha256": "fc5af34087f26f59c9d091b6eeff1c3a2dcb9994f5e8df39ee93c6f609118dd3",
+          "actual_sha256": "fc5af34087f26f59c9d091b6eeff1c3a2dcb9994f5e8df39ee93c6f609118dd3",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.valid-u8": {
+          "expected_sha256": "1b4172c7b022494535ec050d49b5d68917be6a9fc0c1bf5cffb0ae24a1e4af1b",
+          "actual_sha256": "1b4172c7b022494535ec050d49b5d68917be6a9fc0c1bf5cffb0ae24a1e4af1b",
+          "equal": true
+        }
+      },
+      "historical_baseline_available": true,
+      "events_sha256": "cfc15a3e79f3a590f9eaefdf44158dbd209687c6299203af86e3a2b89be3b473",
+      "event_count": 44,
+      "saved_states": 16,
+      "levels": [
+        {
+          "level_index": 0,
+          "shrink": 2,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.6197005386107792,
+          "latest_accepted_loss": 0.4298887368294965,
+          "sum_frozen_trial_drop": 0.1916088587527855,
+          "sum_rebuild_loss_change": 0.0017970569715027862,
+          "net_rebuilt_loss_drop": 0.1898118017812827,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 12,
+          "initial_population": {
+            "voxels": 282720,
+            "positive_support_voxels": 39280,
+            "support_mass": 38304.76014170645,
+            "active_windows": 49020,
+            "variance": {
+              "fixedGlobalVariance": 0.02716855315696195,
+              "movingGlobalVariance": 0.04171878270573361,
+              "fixedReliabilityMean": 0.24886454816844447,
+              "movingReliabilityMean": 0.2488895916450458,
+              "jointReliabilityMean": 0.1410639232091205
+            },
+            "stabilization_mass": 0.05825982966120157
+          },
+          "latest_population": {
+            "voxels": 282720,
+            "positive_support_voxels": 39083,
+            "support_mass": 38110.33039724159,
+            "active_windows": 48747,
+            "variance": {
+              "fixedGlobalVariance": 0.026606496556471966,
+              "movingGlobalVariance": 0.03957149052143852,
+              "fixedReliabilityMean": 0.24710097615411117,
+              "movingReliabilityMean": 0.2498475654770512,
+              "jointReliabilityMean": 0.1402887135543915
+            },
+            "stabilization_mass": 0.053849630773457356
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        },
+        {
+          "level_index": 1,
+          "shrink": 1,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.5306432661019224,
+          "latest_accepted_loss": 0.41630979486853564,
+          "sum_frozen_trial_drop": 0.11180059273457998,
+          "sum_rebuild_loss_change": -0.0025328784988067343,
+          "net_rebuilt_loss_drop": 0.11433347123338672,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 1,
+          "accepted_steps_with_positive_support_count_decrease": 15,
+          "initial_population": {
+            "voxels": 2228760,
+            "positive_support_voxels": 118010,
+            "support_mass": 96587.97668289224,
+            "active_windows": 156612,
+            "variance": {
+              "fixedGlobalVariance": 0.030493022287597604,
+              "movingGlobalVariance": 0.029050982388391104,
+              "fixedReliabilityMean": 0.17154269380695292,
+              "movingReliabilityMean": 0.1727415231893206,
+              "jointReliabilityMean": 0.043747453031347534
+            },
+            "stabilization_mass": 0.09081378961281578
+          },
+          "latest_population": {
+            "voxels": 2228760,
+            "positive_support_voxels": 115484,
+            "support_mass": 94103.0520589579,
+            "active_windows": 153597,
+            "variance": {
+              "fixedGlobalVariance": 0.030268570354361455,
+              "movingGlobalVariance": 0.028372402475030287,
+              "fixedReliabilityMean": 0.16873637124217336,
+              "movingReliabilityMean": 0.16908419784409423,
+              "jointReliabilityMean": 0.04229869027353351
+            },
+            "stabilization_mass": 0.08522797937706492
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        }
+      ],
+      "accepted_rebuilt_increases": [
+        {
+          "serial": 24,
+          "level_index": 1,
+          "accepted_steps": 1,
+          "frozen_current_loss": 0.5306432661019224,
+          "frozen_candidate_loss": 0.530558147030567,
+          "rebuilt_loss": 0.5308762259315382,
+          "capture_status": "Captured",
+          "directory": "0024-level01-accepted-attempt0001"
+        }
+      ]
+    },
+    {
+      "pair": "oasis-13-to-14",
+      "lane": "step-scaled-fine1.5",
+      "terminal": true,
+      "status": "completed",
+      "exit_code": 0,
+      "fit_receipt_sha256": "086c3bde948d8b2e423a450f8f2c1e49a6db0fdb9608815a60c256fd7c2d91e9",
+      "historical_replay": {
+        "halfflow-fixed-to-moving.f64": {
+          "expected_sha256": "99b9dec31adbcc69b8b333dc348bc0371aed034cb47b5ab9617ba29ee7705b1b",
+          "actual_sha256": "99b9dec31adbcc69b8b333dc348bc0371aed034cb47b5ab9617ba29ee7705b1b",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.f64": {
+          "expected_sha256": "6fd4b2d35ee955f736ee0d8f9dcb3e3945d66ec4c83813dfcbddd47563d2c3fa",
+          "actual_sha256": "6fd4b2d35ee955f736ee0d8f9dcb3e3945d66ec4c83813dfcbddd47563d2c3fa",
+          "equal": true
+        },
+        "halfflow-fixed-to-moving.valid-u8": {
+          "expected_sha256": "fc5af34087f26f59c9d091b6eeff1c3a2dcb9994f5e8df39ee93c6f609118dd3",
+          "actual_sha256": "fc5af34087f26f59c9d091b6eeff1c3a2dcb9994f5e8df39ee93c6f609118dd3",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.valid-u8": {
+          "expected_sha256": "1b4172c7b022494535ec050d49b5d68917be6a9fc0c1bf5cffb0ae24a1e4af1b",
+          "actual_sha256": "1b4172c7b022494535ec050d49b5d68917be6a9fc0c1bf5cffb0ae24a1e4af1b",
+          "equal": true
+        }
+      },
+      "historical_baseline_available": true,
+      "events_sha256": "c7501d16afe409deeb7c065edbcf81e6f82ec2502d5792e22cb3a1e5bc594632",
+      "event_count": 44,
+      "saved_states": 16,
+      "levels": [
+        {
+          "level_index": 0,
+          "shrink": 2,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.6197005386107792,
+          "latest_accepted_loss": 0.42980515295088495,
+          "sum_frozen_trial_drop": 0.1917386599429301,
+          "sum_rebuild_loss_change": 0.0018432742830358229,
+          "net_rebuilt_loss_drop": 0.18989538565989428,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 12,
+          "initial_population": {
+            "voxels": 282720,
+            "positive_support_voxels": 39280,
+            "support_mass": 38304.76014170645,
+            "active_windows": 49020,
+            "variance": {
+              "fixedGlobalVariance": 0.02716855315696195,
+              "movingGlobalVariance": 0.04171878270573361,
+              "fixedReliabilityMean": 0.24886454816844447,
+              "movingReliabilityMean": 0.2488895916450458,
+              "jointReliabilityMean": 0.1410639232091205
+            },
+            "stabilization_mass": 0.05825982966120157
+          },
+          "latest_population": {
+            "voxels": 282720,
+            "positive_support_voxels": 39086,
+            "support_mass": 38113.30629384183,
+            "active_windows": 48753,
+            "variance": {
+              "fixedGlobalVariance": 0.02660728907515102,
+              "movingGlobalVariance": 0.0395720316102312,
+              "fixedReliabilityMean": 0.2498157525258157,
+              "movingReliabilityMean": 0.24585710231107247,
+              "jointReliabilityMean": 0.14029949766527322
+            },
+            "stabilization_mass": 0.0538556844785905
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        },
+        {
+          "level_index": 1,
+          "shrink": 1,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.5305416035703042,
+          "latest_accepted_loss": 0.41690489524265173,
+          "sum_frozen_trial_drop": 0.11127783563199967,
+          "sum_rebuild_loss_change": -0.002358872695652825,
+          "net_rebuilt_loss_drop": 0.11363670832765249,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 18,
+          "initial_population": {
+            "voxels": 2228760,
+            "positive_support_voxels": 118012,
+            "support_mass": 96591.28301991624,
+            "active_windows": 156642,
+            "variance": {
+              "fixedGlobalVariance": 0.0304896843849793,
+              "movingGlobalVariance": 0.02905146026014672,
+              "fixedReliabilityMean": 0.16868279350310664,
+              "movingReliabilityMean": 0.17077265476244285,
+              "jointReliabilityMean": 0.04374941659968494
+            },
+            "stabilization_mass": 0.09080589536637915
+          },
+          "latest_population": {
+            "voxels": 2228760,
+            "positive_support_voxels": 115566,
+            "support_mass": 94209.54529245327,
+            "active_windows": 153780,
+            "variance": {
+              "fixedGlobalVariance": 0.030275852951172872,
+              "movingGlobalVariance": 0.028343484148958088,
+              "fixedReliabilityMean": 0.1681491311914579,
+              "movingReliabilityMean": 0.1684980192894091,
+              "jointReliabilityMean": 0.04235881572193632
+            },
+            "stabilization_mass": 0.08530101087037366
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        }
+      ],
+      "accepted_rebuilt_increases": []
+    },
+    {
+      "pair": "mmrr-21-11-to-12",
+      "lane": "selected-control",
+      "terminal": true,
+      "status": "completed",
+      "exit_code": 0,
+      "fit_receipt_sha256": "21647f09a51da3a7fe55cd5d00d264fc185c0c55e6680d161f45cc6e8a0271d7",
+      "historical_replay": {
+        "halfflow-fixed-to-moving.f64": {
+          "expected_sha256": "e9b1eb96858c4f44364b8a2ec7457aeb6c6ef1febe365ccac78a729d26f1e9ce",
+          "actual_sha256": "e9b1eb96858c4f44364b8a2ec7457aeb6c6ef1febe365ccac78a729d26f1e9ce",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.f64": {
+          "expected_sha256": "4cf20321692127de8a7205bf2f1163a6c81af9d8f1ace5c00dda0d7a4d050e62",
+          "actual_sha256": "4cf20321692127de8a7205bf2f1163a6c81af9d8f1ace5c00dda0d7a4d050e62",
+          "equal": true
+        },
+        "halfflow-fixed-to-moving.valid-u8": {
+          "expected_sha256": "eeaf4de7be101447de393fec7545a6ade8304b592c9d9535873358f938a14eae",
+          "actual_sha256": "eeaf4de7be101447de393fec7545a6ade8304b592c9d9535873358f938a14eae",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.valid-u8": {
+          "expected_sha256": "e7c01b88b0f7942c8d7642d189299259f87887fc11d2f9e7eb3626eaf0a9fe1d",
+          "actual_sha256": "e7c01b88b0f7942c8d7642d189299259f87887fc11d2f9e7eb3626eaf0a9fe1d",
+          "equal": true
+        }
+      },
+      "historical_baseline_available": true,
+      "events_sha256": "9297deecf7d23779812c3edee0cf7895f09a4fae4f9dd17859cdd8629f1fa74f",
+      "event_count": 30,
+      "saved_states": 13,
+      "levels": [
+        {
+          "level_index": 0,
+          "shrink": 2,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.5629737989124872,
+          "latest_accepted_loss": 0.429577123704439,
+          "sum_frozen_trial_drop": 0.13716359046540794,
+          "sum_rebuild_loss_change": 0.0037669152573597264,
+          "net_rebuilt_loss_drop": 0.1333966752080482,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 4,
+          "initial_population": {
+            "voxels": 221958,
+            "positive_support_voxels": 36367,
+            "support_mass": 35429.495719383754,
+            "active_windows": 45647,
+            "variance": {
+              "fixedGlobalVariance": 0.03114513982779168,
+              "movingGlobalVariance": 0.04821582662981626,
+              "fixedReliabilityMean": 0.2896454238114582,
+              "movingReliabilityMean": 0.29770909822598457,
+              "jointReliabilityMean": 0.1661513301883152
+            },
+            "stabilization_mass": 0.07101751095946664
+          },
+          "latest_population": {
+            "voxels": 221958,
+            "positive_support_voxels": 36793,
+            "support_mass": 35846.115709136655,
+            "active_windows": 46155,
+            "variance": {
+              "fixedGlobalVariance": 0.03098909301697817,
+              "movingGlobalVariance": 0.04871994163039805,
+              "fixedReliabilityMean": 0.2932444186835875,
+              "movingReliabilityMean": 0.2946892762691875,
+              "jointReliabilityMean": 0.1681217747520292
+            },
+            "stabilization_mass": 0.0722669406224402
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        },
+        {
+          "level_index": 1,
+          "shrink": 1,
+          "terminal": true,
+          "termination": "ControllerExhausted",
+          "accepted_steps": 0,
+          "rejected_attempts": 6,
+          "initial_loss": 0.4828247211771754,
+          "latest_accepted_loss": 0.4828247211771754,
+          "sum_frozen_trial_drop": 0.0,
+          "sum_rebuild_loss_change": 0.0,
+          "net_rebuilt_loss_drop": 0.0,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 0,
+          "initial_population": {
+            "voxels": 1747278,
+            "positive_support_voxels": 108154,
+            "support_mass": 90176.59307756198,
+            "active_windows": 140683,
+            "variance": {
+              "fixedGlobalVariance": 0.028175478364426382,
+              "movingGlobalVariance": 0.032852587643611736,
+              "fixedReliabilityMean": 0.19179733946845995,
+              "movingReliabilityMean": 0.19170222106831245,
+              "jointReliabilityMean": 0.052701701026158496
+            },
+            "stabilization_mass": 0.09230727494172035
+          },
+          "latest_population": {
+            "voxels": 1747278,
+            "positive_support_voxels": 108154,
+            "support_mass": 90176.59307756198,
+            "active_windows": 140683,
+            "variance": {
+              "fixedGlobalVariance": 0.028175478364426382,
+              "movingGlobalVariance": 0.032852587643611736,
+              "fixedReliabilityMean": 0.19179733946845995,
+              "movingReliabilityMean": 0.19170222106831245,
+              "jointReliabilityMean": 0.052701701026158496
+            },
+            "stabilization_mass": 0.09230727494172035
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        }
+      ],
+      "accepted_rebuilt_increases": []
+    },
+    {
+      "pair": "mmrr-21-11-to-12",
+      "lane": "step-scaled-fine1.5",
+      "terminal": true,
+      "status": "completed",
+      "exit_code": 0,
+      "fit_receipt_sha256": "ed2bc0eb8267bc78d15d0cdfe250de07797b9dac46050301eb4837ca69cab3b4",
+      "historical_replay": {
+        "halfflow-fixed-to-moving.f64": {
+          "expected_sha256": "7eba360ad3bef90b6eea3d27a005ba7bdf28ef74c3442cb050f533be1a293cfa",
+          "actual_sha256": "7eba360ad3bef90b6eea3d27a005ba7bdf28ef74c3442cb050f533be1a293cfa",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.f64": {
+          "expected_sha256": "36a4657392258df199eaa9e68fe25075837a34718b9c92900e4428c278610327",
+          "actual_sha256": "36a4657392258df199eaa9e68fe25075837a34718b9c92900e4428c278610327",
+          "equal": true
+        },
+        "halfflow-fixed-to-moving.valid-u8": {
+          "expected_sha256": "eeaf4de7be101447de393fec7545a6ade8304b592c9d9535873358f938a14eae",
+          "actual_sha256": "eeaf4de7be101447de393fec7545a6ade8304b592c9d9535873358f938a14eae",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.valid-u8": {
+          "expected_sha256": "e7c01b88b0f7942c8d7642d189299259f87887fc11d2f9e7eb3626eaf0a9fe1d",
+          "actual_sha256": "e7c01b88b0f7942c8d7642d189299259f87887fc11d2f9e7eb3626eaf0a9fe1d",
+          "equal": true
+        }
+      },
+      "historical_baseline_available": true,
+      "events_sha256": "7f49e39193ce2f4cc574c69a039b310aa993ed4446b7c4383ea20e524b1584b3",
+      "event_count": 44,
+      "saved_states": 16,
+      "levels": [
+        {
+          "level_index": 0,
+          "shrink": 2,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.5629737989124872,
+          "latest_accepted_loss": 0.42943619569960817,
+          "sum_frozen_trial_drop": 0.13726625495208927,
+          "sum_rebuild_loss_change": 0.0037286517392102203,
+          "net_rebuilt_loss_drop": 0.13353760321287905,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 3,
+          "initial_population": {
+            "voxels": 221958,
+            "positive_support_voxels": 36367,
+            "support_mass": 35429.495719383754,
+            "active_windows": 45647,
+            "variance": {
+              "fixedGlobalVariance": 0.03114513982779168,
+              "movingGlobalVariance": 0.04821582662981626,
+              "fixedReliabilityMean": 0.2896454238114582,
+              "movingReliabilityMean": 0.29770909822598457,
+              "jointReliabilityMean": 0.1661513301883152
+            },
+            "stabilization_mass": 0.07101751095946664
+          },
+          "latest_population": {
+            "voxels": 221958,
+            "positive_support_voxels": 36790,
+            "support_mass": 35843.04934057887,
+            "active_windows": 46152,
+            "variance": {
+              "fixedGlobalVariance": 0.030989471473196285,
+              "movingGlobalVariance": 0.04871859203249262,
+              "fixedReliabilityMean": 0.2929609357307547,
+              "movingReliabilityMean": 0.2939152109608532,
+              "jointReliabilityMean": 0.16810843408300713
+            },
+            "stabilization_mass": 0.07225702632184436
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        },
+        {
+          "level_index": 1,
+          "shrink": 1,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.4827602005798422,
+          "latest_accepted_loss": 0.37757079291845397,
+          "sum_frozen_trial_drop": 0.10556242248293995,
+          "sum_rebuild_loss_change": 0.0003730148215517204,
+          "net_rebuilt_loss_drop": 0.10518940766138823,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 19,
+          "initial_population": {
+            "voxels": 1747278,
+            "positive_support_voxels": 108147,
+            "support_mass": 90173.52354262085,
+            "active_windows": 140674,
+            "variance": {
+              "fixedGlobalVariance": 0.028170266153638365,
+              "movingGlobalVariance": 0.032841167211482794,
+              "fixedReliabilityMean": 0.19160786039180408,
+              "movingReliabilityMean": 0.19387378952964854,
+              "jointReliabilityMean": 0.052701601881502386
+            },
+            "stabilization_mass": 0.09225640813343333
+          },
+          "latest_population": {
+            "voxels": 1747278,
+            "positive_support_voxels": 106499,
+            "support_mass": 88694.98155982884,
+            "active_windows": 138761,
+            "variance": {
+              "fixedGlobalVariance": 0.028418207257184924,
+              "movingGlobalVariance": 0.03142119058575064,
+              "fixedReliabilityMean": 0.19221584786427254,
+              "movingReliabilityMean": 0.18775114909209778,
+              "jointReliabilityMean": 0.05184367162121769
+            },
+            "stabilization_mass": 0.08740106705557266
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        }
+      ],
+      "accepted_rebuilt_increases": []
+    },
+    {
+      "pair": "oasis-1-to-10",
+      "lane": "selected-control",
+      "terminal": true,
+      "status": "completed",
+      "exit_code": 0,
+      "fit_receipt_sha256": "004e1f699b4d63ad8f776dface12f81884372ab51ecd514f73009c5eeef2f55a",
+      "historical_replay": {
+        "halfflow-fixed-to-moving.f64": {
+          "expected_sha256": "f4662001cfbd62c87d6ca7daff1b0cfc9bbda25407add7cc97df576bea8c05a1",
+          "actual_sha256": "f4662001cfbd62c87d6ca7daff1b0cfc9bbda25407add7cc97df576bea8c05a1",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.f64": {
+          "expected_sha256": "494d1294eea949a7c4186ac87b76ef6319519ed8162526a07e4e644eaa84184c",
+          "actual_sha256": "494d1294eea949a7c4186ac87b76ef6319519ed8162526a07e4e644eaa84184c",
+          "equal": true
+        },
+        "halfflow-fixed-to-moving.valid-u8": {
+          "expected_sha256": "5565b870e02bd50a8ce4e54a3cb243f4bda42ff4083e3e83abc651de48b3f492",
+          "actual_sha256": "5565b870e02bd50a8ce4e54a3cb243f4bda42ff4083e3e83abc651de48b3f492",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.valid-u8": {
+          "expected_sha256": "eae8f733a98e87774ab5595a52fe135984dd3291884ca4a60154a4644d1ea802",
+          "actual_sha256": "eae8f733a98e87774ab5595a52fe135984dd3291884ca4a60154a4644d1ea802",
+          "equal": true
+        }
+      },
+      "historical_baseline_available": true,
+      "events_sha256": "923604fbbc1c1447ab0b66a1e24a7f656cf6a6e47fd81e0915a677d4833b9942",
+      "event_count": 30,
+      "saved_states": 13,
+      "levels": [
+        {
+          "level_index": 0,
+          "shrink": 2,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.6235233563610868,
+          "latest_accepted_loss": 0.4443854457751667,
+          "sum_frozen_trial_drop": 0.18119316663083934,
+          "sum_rebuild_loss_change": 0.0020552560449192403,
+          "net_rebuilt_loss_drop": 0.1791379105859201,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 8,
+          "initial_population": {
+            "voxels": 280612,
+            "positive_support_voxels": 45975,
+            "support_mass": 44878.09432806476,
+            "active_windows": 57039,
+            "variance": {
+              "fixedGlobalVariance": 0.026862564035808178,
+              "movingGlobalVariance": 0.04721539452574346,
+              "fixedReliabilityMean": 0.2801176883359798,
+              "movingReliabilityMean": 0.2792934865984056,
+              "jointReliabilityMean": 0.16635201856445106
+            },
+            "stabilization_mass": 0.07681533066905262
+          },
+          "latest_population": {
+            "voxels": 280612,
+            "positive_support_voxels": 45893,
+            "support_mass": 44790.82215444688,
+            "active_windows": 56973,
+            "variance": {
+              "fixedGlobalVariance": 0.026624187844251624,
+              "movingGlobalVariance": 0.045905870169643294,
+              "fixedReliabilityMean": 0.27856610590595104,
+              "movingReliabilityMean": 0.27465019858419437,
+              "jointReliabilityMean": 0.1659785127260572
+            },
+            "stabilization_mass": 0.07386269764032968
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        },
+        {
+          "level_index": 1,
+          "shrink": 1,
+          "terminal": true,
+          "termination": "ControllerExhausted",
+          "accepted_steps": 0,
+          "rejected_attempts": 6,
+          "initial_loss": 0.557130024036998,
+          "latest_accepted_loss": 0.557130024036998,
+          "sum_frozen_trial_drop": 0.0,
+          "sum_rebuild_loss_change": 0.0,
+          "net_rebuilt_loss_drop": 0.0,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 0,
+          "initial_population": {
+            "voxels": 2193705,
+            "positive_support_voxels": 150852,
+            "support_mass": 124346.73833453293,
+            "active_windows": 200744,
+            "variance": {
+              "fixedGlobalVariance": 0.028338721080252535,
+              "movingGlobalVariance": 0.03219118571699386,
+              "fixedReliabilityMean": 0.20060496706421777,
+              "movingReliabilityMean": 0.2017139275655501,
+              "jointReliabilityMean": 0.0569885535455096
+            },
+            "stabilization_mass": 0.12194954640166716
+          },
+          "latest_population": {
+            "voxels": 2193705,
+            "positive_support_voxels": 150852,
+            "support_mass": 124346.73833453293,
+            "active_windows": 200744,
+            "variance": {
+              "fixedGlobalVariance": 0.028338721080252535,
+              "movingGlobalVariance": 0.03219118571699386,
+              "fixedReliabilityMean": 0.20060496706421777,
+              "movingReliabilityMean": 0.2017139275655501,
+              "jointReliabilityMean": 0.0569885535455096
+            },
+            "stabilization_mass": 0.12194954640166716
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        }
+      ],
+      "accepted_rebuilt_increases": []
+    },
+    {
+      "pair": "oasis-1-to-10",
+      "lane": "step-scaled-fine1.5",
+      "terminal": true,
+      "status": "completed",
+      "exit_code": 0,
+      "fit_receipt_sha256": "a7cfff87cdf284c0375b6d17ee7900787bcbc61ece751a5ac248513615ccc1ee",
+      "historical_replay": {},
+      "historical_baseline_available": false,
+      "events_sha256": "0f1e62758f03a9f7e277e6745474ee622b0e2b0a9f72b8014924b19acff31397",
+      "event_count": 44,
+      "saved_states": 16,
+      "levels": [
+        {
+          "level_index": 0,
+          "shrink": 2,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.6235233563610868,
+          "latest_accepted_loss": 0.44425483119240766,
+          "sum_frozen_trial_drop": 0.1812806070387445,
+          "sum_rebuild_loss_change": 0.002012081870065352,
+          "net_rebuilt_loss_drop": 0.17926852516867914,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 8,
+          "initial_population": {
+            "voxels": 280612,
+            "positive_support_voxels": 45975,
+            "support_mass": 44878.09432806476,
+            "active_windows": 57039,
+            "variance": {
+              "fixedGlobalVariance": 0.026862564035808178,
+              "movingGlobalVariance": 0.04721539452574346,
+              "fixedReliabilityMean": 0.2801176883359798,
+              "movingReliabilityMean": 0.2792934865984056,
+              "jointReliabilityMean": 0.16635201856445106
+            },
+            "stabilization_mass": 0.07681533066905262
+          },
+          "latest_population": {
+            "voxels": 280612,
+            "positive_support_voxels": 45896,
+            "support_mass": 44794.14253175557,
+            "active_windows": 56980,
+            "variance": {
+              "fixedGlobalVariance": 0.026627095405360422,
+              "movingGlobalVariance": 0.04591057049990957,
+              "fixedReliabilityMean": 0.275596530506375,
+              "movingReliabilityMean": 0.27835693349233304,
+              "jointReliabilityMean": 0.16599082245580157
+            },
+            "stabilization_mass": 0.07388439312569088
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        },
+        {
+          "level_index": 1,
+          "shrink": 1,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.557076710642463,
+          "latest_accepted_loss": 0.4571624405672678,
+          "sum_frozen_trial_drop": 0.10154896941746688,
+          "sum_rebuild_loss_change": 0.0016346993422716727,
+          "net_rebuilt_loss_drop": 0.09991427007519521,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 18,
+          "initial_population": {
+            "voxels": 2193705,
+            "positive_support_voxels": 150849,
+            "support_mass": 124343.05873581444,
+            "active_windows": 200717,
+            "variance": {
+              "fixedGlobalVariance": 0.028339166038123028,
+              "movingGlobalVariance": 0.032185111551961985,
+              "fixedReliabilityMean": 0.20034509620539256,
+              "movingReliabilityMean": 0.2022181652433247,
+              "jointReliabilityMean": 0.05698681322496826
+            },
+            "stabilization_mass": 0.12192805570574358
+          },
+          "latest_population": {
+            "voxels": 2193705,
+            "positive_support_voxels": 148183,
+            "support_mass": 121727.00520382712,
+            "active_windows": 197543,
+            "variance": {
+              "fixedGlobalVariance": 0.028475574144957855,
+              "movingGlobalVariance": 0.03097655192317114,
+              "fixedReliabilityMean": 0.20200074091003267,
+              "movingReliabilityMean": 0.1987397686208971,
+              "jointReliabilityMean": 0.05560414776506277
+            },
+            "stabilization_mass": 0.11474198104418067
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        }
+      ],
+      "accepted_rebuilt_increases": []
+    },
+    {
+      "pair": "oasis-17-to-18",
+      "lane": "selected-control",
+      "terminal": true,
+      "status": "completed",
+      "exit_code": 0,
+      "fit_receipt_sha256": "58d683f84aed8247b2ca8584732c183f59700d58e6c6465cd599d0feeb12dd93",
+      "historical_replay": {
+        "halfflow-fixed-to-moving.f64": {
+          "expected_sha256": "423d7a9eb97dad5b835ade442945b2c928a720747895f02207a2b506c8fccdfc",
+          "actual_sha256": "423d7a9eb97dad5b835ade442945b2c928a720747895f02207a2b506c8fccdfc",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.f64": {
+          "expected_sha256": "2f3ee83381e72e756253276ae869579bfb4aa3823d0b546fba179ab16aeef73d",
+          "actual_sha256": "2f3ee83381e72e756253276ae869579bfb4aa3823d0b546fba179ab16aeef73d",
+          "equal": true
+        },
+        "halfflow-fixed-to-moving.valid-u8": {
+          "expected_sha256": "f0342f5dad1b2737f3d9dccf8b0110a32c7fabf398abc480cbaf9218b59e3946",
+          "actual_sha256": "f0342f5dad1b2737f3d9dccf8b0110a32c7fabf398abc480cbaf9218b59e3946",
+          "equal": true
+        },
+        "halfflow-moving-to-fixed.valid-u8": {
+          "expected_sha256": "4bc027658615060deb13664623aa43b06f97bff0a2ff8e0f674343acc3900c47",
+          "actual_sha256": "4bc027658615060deb13664623aa43b06f97bff0a2ff8e0f674343acc3900c47",
+          "equal": true
+        }
+      },
+      "historical_baseline_available": true,
+      "events_sha256": "ea00a74f35dc933328900fa3fadc7674addae5e93bc69be937a0da8dd409ea92",
+      "event_count": 30,
+      "saved_states": 13,
+      "levels": [
+        {
+          "level_index": 0,
+          "shrink": 2,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.6574625288088507,
+          "latest_accepted_loss": 0.4829081418238167,
+          "sum_frozen_trial_drop": 0.1765657674686681,
+          "sum_rebuild_loss_change": 0.0020113804836340843,
+          "net_rebuilt_loss_drop": 0.174554386985034,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 9,
+          "initial_population": {
+            "voxels": 301568,
+            "positive_support_voxels": 47200,
+            "support_mass": 46066.095258230336,
+            "active_windows": 58432,
+            "variance": {
+              "fixedGlobalVariance": 0.02665115541863778,
+              "movingGlobalVariance": 0.05688900025180232,
+              "fixedReliabilityMean": 0.2765762333033598,
+              "movingReliabilityMean": 0.27647304950275575,
+              "jointReliabilityMean": 0.15887228850103544
+            },
+            "stabilization_mass": 0.09430057066138293
+          },
+          "latest_population": {
+            "voxels": 301568,
+            "positive_support_voxels": 47090,
+            "support_mass": 45958.05465949959,
+            "active_windows": 58337,
+            "variance": {
+              "fixedGlobalVariance": 0.026539788596851747,
+              "movingGlobalVariance": 0.053761471688148266,
+              "fixedReliabilityMean": 0.2718337224222236,
+              "movingReliabilityMean": 0.2797730562202143,
+              "jointReliabilityMean": 0.1585836697376227
+            },
+            "stabilization_mass": 0.08849770581824291
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        },
+        {
+          "level_index": 1,
+          "shrink": 1,
+          "terminal": true,
+          "termination": "ControllerExhausted",
+          "accepted_steps": 0,
+          "rejected_attempts": 6,
+          "initial_loss": 0.616539324135121,
+          "latest_accepted_loss": 0.616539324135121,
+          "sum_frozen_trial_drop": 0.0,
+          "sum_rebuild_loss_change": 0.0,
+          "net_rebuilt_loss_drop": 0.0,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 0,
+          "initial_population": {
+            "voxels": 2377948,
+            "positive_support_voxels": 160321,
+            "support_mass": 133337.9004932017,
+            "active_windows": 211296,
+            "variance": {
+              "fixedGlobalVariance": 0.029106272851370598,
+              "movingGlobalVariance": 0.04841784916705985,
+              "fixedReliabilityMean": 0.20304293201369245,
+              "movingReliabilityMean": 0.20342609362836797,
+              "jointReliabilityMean": 0.057011586670272375
+            },
+            "stabilization_mass": 0.20573378077531654
+          },
+          "latest_population": {
+            "voxels": 2377948,
+            "positive_support_voxels": 160321,
+            "support_mass": 133337.9004932017,
+            "active_windows": 211296,
+            "variance": {
+              "fixedGlobalVariance": 0.029106272851370598,
+              "movingGlobalVariance": 0.04841784916705985,
+              "fixedReliabilityMean": 0.20304293201369245,
+              "movingReliabilityMean": 0.20342609362836797,
+              "jointReliabilityMean": 0.057011586670272375
+            },
+            "stabilization_mass": 0.20573378077531654
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        }
+      ],
+      "accepted_rebuilt_increases": []
+    },
+    {
+      "pair": "oasis-17-to-18",
+      "lane": "step-scaled-fine1.5",
+      "terminal": true,
+      "status": "completed",
+      "exit_code": 0,
+      "fit_receipt_sha256": "4e5e0fd0c895a15651e49465904efba6534d8d481060f29d4c333aa8f92bf68b",
+      "historical_replay": {},
+      "historical_baseline_available": false,
+      "events_sha256": "0a7eb35a621f25502cabff5b773a2970382e3e32dc51507dcda4710594616a4d",
+      "event_count": 44,
+      "saved_states": 16,
+      "levels": [
+        {
+          "level_index": 0,
+          "shrink": 2,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.6574625288088507,
+          "latest_accepted_loss": 0.4828306427198671,
+          "sum_frozen_trial_drop": 0.17662276711927583,
+          "sum_rebuild_loss_change": 0.001990881030292213,
+          "net_rebuilt_loss_drop": 0.1746318860889836,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 11,
+          "initial_population": {
+            "voxels": 301568,
+            "positive_support_voxels": 47200,
+            "support_mass": 46066.095258230336,
+            "active_windows": 58432,
+            "variance": {
+              "fixedGlobalVariance": 0.02665115541863778,
+              "movingGlobalVariance": 0.05688900025180232,
+              "fixedReliabilityMean": 0.2765762333033598,
+              "movingReliabilityMean": 0.27647304950275575,
+              "jointReliabilityMean": 0.15887228850103544
+            },
+            "stabilization_mass": 0.09430057066138293
+          },
+          "latest_population": {
+            "voxels": 301568,
+            "positive_support_voxels": 47089,
+            "support_mass": 45957.07244766976,
+            "active_windows": 58334,
+            "variance": {
+              "fixedGlobalVariance": 0.026539184724132567,
+              "movingGlobalVariance": 0.05376257991695516,
+              "fixedReliabilityMean": 0.2746180403796763,
+              "movingReliabilityMean": 0.27973724273926515,
+              "jointReliabilityMean": 0.1585799784734522
+            },
+            "stabilization_mass": 0.08849552178870451
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        },
+        {
+          "level_index": 1,
+          "shrink": 1,
+          "terminal": true,
+          "termination": "AcceptedStepBudget",
+          "accepted_steps": 20,
+          "rejected_attempts": 0,
+          "initial_loss": 0.616534358757111,
+          "latest_accepted_loss": 0.5139853874381015,
+          "sum_frozen_trial_drop": 0.10828820972925035,
+          "sum_rebuild_loss_change": 0.005739238410240821,
+          "net_rebuilt_loss_drop": 0.10254897131900953,
+          "decomposition_balance_error": 0.0,
+          "accepted_steps_with_rebuilt_loss_increase": 0,
+          "accepted_steps_with_positive_support_count_decrease": 20,
+          "initial_population": {
+            "voxels": 2377948,
+            "positive_support_voxels": 160338,
+            "support_mass": 133355.7299911289,
+            "active_windows": 211305,
+            "variance": {
+              "fixedGlobalVariance": 0.029106727649811273,
+              "movingGlobalVariance": 0.04841954337639299,
+              "fixedReliabilityMean": 0.2037253634642484,
+              "movingReliabilityMean": 0.20353643227512283,
+              "jointReliabilityMean": 0.05702053189066267
+            },
+            "stabilization_mass": 0.2057818808847204
+          },
+          "latest_population": {
+            "voxels": 2377948,
+            "positive_support_voxels": 156534,
+            "support_mass": 129808.23559691897,
+            "active_windows": 206617,
+            "variance": {
+              "fixedGlobalVariance": 0.02946036643466756,
+              "movingGlobalVariance": 0.04656913793576256,
+              "fixedReliabilityMean": 0.19997222345152862,
+              "movingReliabilityMean": 0.19990805269490258,
+              "jointReliabilityMean": 0.05538870507716966
+            },
+            "stabilization_mass": 0.19394108545209368
+          },
+          "interpretation": "Changing-objective arithmetic only; voxel counts do not identify the same voxels or establish a cause of anatomical change. Compare the separate fixed-region audit."
+        }
+      ],
+      "accepted_rebuilt_increases": []
+    }
+  ],
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false,
+  "candidate_policies_added": 0,
+  "interpretation": "Observed changing-objective arithmetic. Rebuilt losses have different weights/support; their decomposition is neither a common-population objective nor a causal explanation of anatomical changes. Exit zero and accepted-step budgets do not establish convergence."
+}

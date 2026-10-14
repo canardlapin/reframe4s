@@ -1,0 +1,183 @@
+{
+  "schema": "hfq-p02-regularized-isolated-cost-v1",
+  "created_at": "2026-10-14T18:53:29.313268+00:00",
+  "cases": [
+    {
+      "id": "oasis-11-to-12",
+      "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data",
+      "saved_affine": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+      "moving_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-11/labels.DKT31.manual.nii.gz",
+      "fixed_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-12/labels.DKT31.manual.nii.gz",
+      "baseline_report": "benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/affine-evaluation.json"
+    },
+    {
+      "id": "oasis-15-to-16",
+      "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-15-to-16/data",
+      "saved_affine": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-15-to-16/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+      "moving_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-15/labels.DKT31.manual.nii.gz",
+      "fixed_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-16/labels.DKT31.manual.nii.gz",
+      "baseline_report": "benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-15-to-16/flashalign-halfflow/affine-evaluation.json"
+    },
+    {
+      "id": "oasis-13-to-14",
+      "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data",
+      "saved_affine": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-13-to-14/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+      "moving_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-13/labels.DKT31.manual.nii.gz",
+      "fixed_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-14/labels.DKT31.manual.nii.gz",
+      "baseline_report": "benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-13-to-14/flashalign-halfflow/affine-evaluation.json"
+    }
+  ],
+  "sources": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/declare_regularized_timing.py": "d3af0fefd05867d7c01804e5145da7a23efd5a38bf378e60ccbde5113c823774",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/audit_study.py": "5ddcdb40ef0ce79bb4c38950898989988b65c69ca75190f462f4388f82b6e064",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/inverse_cleanup.py": "113e5b2bf95b801d74663630f8f82671bda066434aef216580a8122ac047fbdc",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/regularized_reference.py": "a47baecee231a89c1e9295b6dc4622f65065e9f350c90d2963846330471fd57e",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/budget_study.py": "ec8b68eff75e70f51c6fb5cfb7f80a07498ed1223dd7f2f65ab8b4cfeebd091c",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/regularized_followup.py": "86d9208aa5487ccded77960a55b767c7e4a093fc5ecbdd546a635349a7c092b3",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/canonical_ants.py": "b79677e3595ec2d417806b8544e4d874b9ca2b2d9ea349698b6f17c5b5129d69",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/test_matched_budget.py": "9cc550ab4438694623d7cbf6160ae6f54dc527adfcedb71e6b64a4577514add3",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/measure_process.py": "a1b5f5e2559fe7971910274014251ff89559e321fbe32c58bd43a48b6ee1a2ce",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/run_cleanup_probe.py": "b1cd90154e2d9980f9ab4509fa8c683f4890947c247008ad7976ac33b2f09346",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/test_canonical_ants.py": "0c766e67330c4e882930ac7ab87e77fd8e78a3f76a730f733eaf3539f66d74d8",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/test_inverse_cleanup.py": "8a4f01cc362b642fe477155484cf6ae67b15b2ebb7e630efee8982aa414f726c",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/archive_evidence.py": "9866ae47d11ccdcf27051235f04a0c988b63a7293e4b7bba700d6c0801248295",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/summarize_study.py": "1b27350df7ea9f624c87eb173c0f4ce64d8595a876057eaeff720325acc87683",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/matched_budget.py": "6241136d8c343d657c8e7ab4aa12c2fec8b4f8621c9160b086e79072b7e6fd37",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/cohort_reference.py": "8bd838e42d506c9119f1230a78ec585ea4757aeeb6e6ff2ab6e719ca375d98d4",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/fit_reference.py": "2dbd5fe86983e322138212594106d7487c56e3ef934a7fa2a960a080d5627902",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/test_measure_process.py": "e9e8cc003ca88270941bb468bbf15581e868b50bd43d8f9b1d7fb5e4f28da73a",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/test_stopping.py": "17629610b4409c1c97848c68aa7bef2bb32252cf84bc914207fd6dc3dc8e8252",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/reference/native_inverse_probe.py": "9754553df793a7a5de82a79ee089a9e63983ba277bc566476c401d2936268efa",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/real_image_court.py": "78aeac693e7d8ed83df7f403c3e3af269c40dd712cbfd7ace6a6ee4e8b60c55c",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/real_mri_cell_topology.py": "83f41aa020a2ceb8dd427b169cb2a7c49830ad95cd024a423aa026bdb51e5bc1"
+  },
+  "inputs": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/flashalign-affine-moving-to-fixed.json": "4bb38de85079a9f32ddac316ff345982871603513a3ff209f8c60978781c9795",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-11/labels.DKT31.manual.nii.gz": "f63280e54f3de00fd4a11076103f6241aa069de8be7f12650222a8ad2bebf341",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-12/labels.DKT31.manual.nii.gz": "3576c3c3efcf5121d167db67963e79293ade110971963301de085d03448a61b3",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed.nii.gz": "0019d8b7378280aa57de500e26681d9bfc57b88f2644ae68ad9054a87f16d207",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/fixed-mask.nii.gz": "4a7744c33777e384e288e714710ff332d9c3e38643c55c79711d5a0dd2407011",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/moving-mask.nii.gz": "efc960c8c94eb91d09ffd78c25b5540fdf19413d83ec4096281dfe8ab8b78cab",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data/moving.nii.gz": "8058e830973af7d8ef63397ed020ef5232fef9376b558fbfadd4c307c4025df7",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-15-to-16/flashalign-halfflow/flashalign-affine-moving-to-fixed.json": "8562318364dcc441a14308e717e2a34bbea272e4b6ab70f17dc13eee8cc59d85",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-15/labels.DKT31.manual.nii.gz": "920443d73079dcd0bc026c6d0b4f6a20724933ffb92083fd291d85d31bce1e84",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-16/labels.DKT31.manual.nii.gz": "be911f9d27086b4baf2f74547b636c6748d5785c7fd07195812d4c3f02f6bbd8",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-15-to-16/data/fixed.nii.gz": "54539b5e386c43e2032ea13231f85d8aa6473df41e829c74370ea7eba01541f5",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-15-to-16/data/fixed-mask.nii.gz": "a320e036da85eb5130521dcac95e2051b2b2566068ba399d539c6b400de91820",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-15-to-16/data/moving-mask.nii.gz": "9df6942483adccd399bd1477736eed95538978754300a26de7f2a35f4ba9cd6e",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-15-to-16/data/moving.nii.gz": "dd4de1d8c7f476be7c38713cf0e9263036ec9f01fe8d3760d810a88c58f28a14",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-13-to-14/flashalign-halfflow/flashalign-affine-moving-to-fixed.json": "fbfd18847905d85ea80987c5bbffed581e213f0eb0f63d74c9ac9943e4863a1f",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-13/labels.DKT31.manual.nii.gz": "48f2f54cf1753b3b4bc5cc8d7ec7b09c2dc72c348eb733e28d9b9f23e8b0c2a3",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-14/labels.DKT31.manual.nii.gz": "29c8c6d9a4147f3e2b7aeffabe4d91dd92798d22d863b0e9523e76d7ab805ab8",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed.nii.gz": "38c41fe1b4e3c9399b35dee9a36b085095291401b1c25742bfaf592138b388a8",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/fixed-mask.nii.gz": "af648c2f055b6c7663c5af58cf9e7315a8359f66fcfbc4ab10a61300f891684f",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/moving-mask.nii.gz": "425a0dbb4269e2cf39d44a5fc30222efcca3db73ba3b81bda2e06c58f55696c3",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data/moving.nii.gz": "bdebc36677cccda1c03a12b0bc86a249b8ec990020c1a2303553e760ea6d9245"
+  },
+  "hardware": {
+    "platform": "macOS-15.1.1-arm64-arm-64bit-Mach-O",
+    "architecture": "arm64",
+    "hw.model": "Mac14,12",
+    "hw.memsize": "34359738368",
+    "hw.physicalcpu": "10",
+    "hw.logicalcpu": "10",
+    "machdep.cpu.brand_string": "Apple M2 Pro"
+  },
+  "control_seal_sha256": "b2d226fba41e97a57e4236271d346eb91d4c7ff3a0dcec745f8cb16d0dd56bd0",
+  "control_run": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-control-20261014",
+  "classpath_sha256": "9e7c2c3cb8504a4b8cc263054df004834a133a7a0cc281d245cbe98d1bcb9ad3",
+  "lanes": [
+    {
+      "id": "halfflow-selected",
+      "method": "halfflow",
+      "flags": [
+        "--steps-per-level",
+        "20",
+        "--total-smoothing-mm",
+        "1.5",
+        "--boundary-width-mm",
+        "6"
+      ]
+    },
+    {
+      "id": "syn-total0.5-fine10",
+      "method": "ants",
+      "iterations": [
+        100,
+        70,
+        10
+      ],
+      "total_sigma": 0.5
+    },
+    {
+      "id": "syn-total0.5-fine25",
+      "method": "ants",
+      "iterations": [
+        100,
+        70,
+        25
+      ],
+      "total_sigma": 0.5
+    },
+    {
+      "id": "syn-total0.5-generous",
+      "method": "ants",
+      "iterations": [
+        100,
+        70,
+        200
+      ],
+      "total_sigma": 0.5
+    }
+  ],
+  "native_threads": 1,
+  "workers": 1,
+  "timeout_seconds": 3600,
+  "java_heap": "6G",
+  "java_active_processors": 1,
+  "process_measurement": "isolated wait4 wrapper; direct child exit status and peak RSS; no sysctl",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "timing_scope": "process startup + nonlinear fitting/export + conversion + independent geometry; shared saved affine already supplied; label evaluation excluded; direct child RSS only, converter/evaluator peak not measured",
+  "matched_budget_rule": "Per pair select the predeclared ANTs lane with smallest absolute log runtime ratio to HalfFlow, using timing only; call it comparable only if ratio lies [0.8,1.25]. Otherwise report no comparable-budget lane and retain the full curve, with no interpolation or extrapolation.",
+  "selection": "No production policy or reference is promoted by this experiment. High-quality geometry failures remain failures; inspect all results, including incomplete fits.",
+  "qualification_claim": false,
+  "runtime_comparison_allowed": true,
+  "baseline_protocol_sha256": "c927e139be40722c57489788173e8501990ed9cd14b66ec09d9cd01a6156529d",
+  "fixed_reference_feasibility": [
+    {
+      "pair": "oasis-11-to-12",
+      "protocol_sha256": "a9b7d70243ebaaf79505399241128555643cc254c27f55c64525951b1aa25f56",
+      "results_sha256": "7ced8efd67b422c7a43532f8e79770abafb852b042e45a546279ff72136a3d7f",
+      "fit_log_sha256": "dfc8bc3c53bcb85624e7ac60813480ab9a6ec1064a5f71a1e184c0f7c3c7c910"
+    },
+    {
+      "pair": "oasis-15-to-16",
+      "protocol_sha256": "7a80ca3dfef8ad293b45bb52cfb36878945b0072f60bffceb50973c8d1f8b054",
+      "results_sha256": "0b0dd1c3ff20ebb87e064e917268e0cb31b89008f9b281b1ebf3dca131d3e710",
+      "fit_log_sha256": "1c78aecd84888a7083493949625d7574d6379bad20b4b9f5f2e8f18a8260f6a6"
+    },
+    {
+      "pair": "oasis-13-to-14",
+      "protocol_sha256": "7a80ca3dfef8ad293b45bb52cfb36878945b0072f60bffceb50973c8d1f8b054",
+      "results_sha256": "0b0dd1c3ff20ebb87e064e917268e0cb31b89008f9b281b1ebf3dca131d3e710",
+      "fit_log_sha256": "28a7b17e5f72aa90d00101f3dd7b88f26206f868d549a442350edf5255e81418"
+    }
+  ],
+  "pending_diagnostic_protocols": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/engine/protocol.json": "cb6c6c04f61fa7e900817d96e1dd1f65bc23a9bd7614621d900a42f4ef739e6f",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-panel-oasis11-v1/protocol.json": "cd45d4eb74095cae1667530d348f936e7957474141f4bd9228e313fae0744552",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/offline-analysis-oasis11-v1/protocol.json": "3358800973f619ad36abace605061620b8cec22ab56976ea96f3b4e13d462f7e",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/order-study-v1/declared-protocol.json": "0d241ba3b298cb8cc8c4fd8ae8a8028962363bf57cac2830f406c295369bff5a"
+  },
+  "launch_requirements": "Before launching: verify all ten deferred source fits are terminal; all 29 first-batch exports and 74 analysis events are exactly accounted for with the ledger verifier; all three role-swap attempts are terminal; poll their live handles to terminal; record an isolation receipt. Do not start the next 61-state export batch, builds or other numerical work during this timed study. A violated isolation condition excludes affected timings, preserving outcomes.",
+  "schedule_selection": "Uniform fine caps 10,25,200 for every pair. The first two sample lower-cost prefixes; the last is the same fixed generous schedule used in the completed regularized feasibility studies. No concurrent walltimes or anatomical scores determine per-case schedules.",
+  "stopping_rule": "Read native iteration logs: only all enabled levels stopping by the native convergence rule before their caps count as converged. Capped lanes and HalfFlow budget/controller stops remain nonconverged even with valid maps.",
+  "reference_parameters": "Retain native total_sigma=0.5, grad_step=0.2, flow_sigma=3, CC radius=2, seed=20261002, same prepared inputs and saved affine. No reference parameter search.",
+  "interpretation": "Same-affine observed-data reference validation and quality/cost curves only. No new HalfFlow optimizer candidate or fresh-cohort qualification. If no reference lane lies within the existing [0.8,1.25] time ratio, report no comparable-budget lane; do not pad runtime, interpolate quality or relabel a capped fit as converged."
+}

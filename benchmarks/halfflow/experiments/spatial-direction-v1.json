@@ -1,0 +1,222 @@
+{
+  "schema": "hfq-spatial-direction-development-v1",
+  "created_at": "2026-10-14T21:16:39.750743+00:00",
+  "status": "execution-gated-design",
+  "baseline_source_study": "benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2",
+  "baseline_replay_scope": "Expected step-scaled maps come from the completed deferred study, including its newly observed OASIS1 and OASIS17 step-scaled outputs. This does not claim those two outputs had an older historical baseline. OASIS15 step-scaled has no prior map baseline.",
+  "cases": [
+    {
+      "id": "oasis-11-to-12",
+      "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-11-to-12/data",
+      "saved_affine": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-11-to-12/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+      "moving_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-11/labels.DKT31.manual.nii.gz",
+      "fixed_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-12/labels.DKT31.manual.nii.gz",
+      "role": "refinement-sentinel",
+      "expected_baseline_outputs": {
+        "halfflow-fixed-to-moving.f64": "b5b9298404aaf9c858f43773741072a5d3187aa7cb3943305d71ddec5502bd32",
+        "halfflow-moving-to-fixed.f64": "f5abde75fe882f73d4cfa343ce8c2887aa61053d518c5c039612d25a40045ec3",
+        "halfflow-fixed-to-moving.valid-u8": "e7c2e0be4c85dfe5153b8a1d351dc25b41c5fe8d71cfc2f901d0d75ad162db91",
+        "halfflow-moving-to-fixed.valid-u8": "c28009b6a9a3bceca5dce656a7b17176e99db864dd8ec6f64371b1e069cebdaa"
+      },
+      "baseline_capture_receipt_sha256": "00acddcc11c22315c5064b7b823a632485fb764052d82798fc1666b231c33686"
+    },
+    {
+      "id": "oasis-13-to-14",
+      "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-13-to-14/data",
+      "saved_affine": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-13-to-14/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+      "moving_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-13/labels.DKT31.manual.nii.gz",
+      "fixed_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-14/labels.DKT31.manual.nii.gz",
+      "role": "refinement-sentinel",
+      "expected_baseline_outputs": {
+        "halfflow-fixed-to-moving.f64": "99b9dec31adbcc69b8b333dc348bc0371aed034cb47b5ab9617ba29ee7705b1b",
+        "halfflow-moving-to-fixed.f64": "6fd4b2d35ee955f736ee0d8f9dcb3e3945d66ec4c83813dfcbddd47563d2c3fa",
+        "halfflow-fixed-to-moving.valid-u8": "fc5af34087f26f59c9d091b6eeff1c3a2dcb9994f5e8df39ee93c6f609118dd3",
+        "halfflow-moving-to-fixed.valid-u8": "1b4172c7b022494535ec050d49b5d68917be6a9fc0c1bf5cffb0ae24a1e4af1b"
+      },
+      "baseline_capture_receipt_sha256": "086c3bde948d8b2e423a450f8f2c1e49a6db0fdb9608815a60c256fd7c2d91e9"
+    },
+    {
+      "id": "mmrr-21-11-to-12",
+      "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/mmrr-21-11-to-12/data",
+      "saved_affine": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/confirmation/mmrr-21-11-to-12/affine/flashalign-affine-moving-to-fixed.json",
+      "moving_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/inputs/MMRR-21-11/labels.DKT31.manual.nii.gz",
+      "fixed_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-recovery-20261011/fresh-data/inputs/MMRR-21-12/labels.DKT31.manual.nii.gz",
+      "role": "refinement-sentinel",
+      "expected_baseline_outputs": {
+        "halfflow-fixed-to-moving.f64": "7eba360ad3bef90b6eea3d27a005ba7bdf28ef74c3442cb050f533be1a293cfa",
+        "halfflow-moving-to-fixed.f64": "36a4657392258df199eaa9e68fe25075837a34718b9c92900e4428c278610327",
+        "halfflow-fixed-to-moving.valid-u8": "eeaf4de7be101447de393fec7545a6ade8304b592c9d9535873358f938a14eae",
+        "halfflow-moving-to-fixed.valid-u8": "e7c01b88b0f7942c8d7642d189299259f87887fc11d2f9e7eb3626eaf0a9fe1d"
+      },
+      "baseline_capture_receipt_sha256": "ed2bc0eb8267bc78d15d0cdfe250de07797b9dac46050301eb4837ca69cab3b4"
+    },
+    {
+      "id": "oasis-1-to-10",
+      "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-1-to-10/data",
+      "saved_affine": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-1-to-10/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+      "moving_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-1/labels.DKT31.manual.nii.gz",
+      "fixed_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-10/labels.DKT31.manual.nii.gz",
+      "role": "prior-selected-policy-success",
+      "expected_baseline_outputs": {
+        "halfflow-fixed-to-moving.f64": "828ceb9adaab80439b4fb182a3dd47d3dae74022990b3b70de04d7e79d6d6cac",
+        "halfflow-moving-to-fixed.f64": "7137ba1d6835cc33d76a45a0190413c23bcf7318eb0e8f386e12a5ae4b4a713d",
+        "halfflow-fixed-to-moving.valid-u8": "5565b870e02bd50a8ce4e54a3cb243f4bda42ff4083e3e83abc651de48b3f492",
+        "halfflow-moving-to-fixed.valid-u8": "eae8f733a98e87774ab5595a52fe135984dd3291884ca4a60154a4644d1ea802"
+      },
+      "baseline_capture_receipt_sha256": "a7cfff87cdf284c0375b6d17ee7900787bcbc61ece751a5ac248513615ccc1ee"
+    },
+    {
+      "id": "oasis-15-to-16",
+      "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/oasis-15-to-16/data",
+      "saved_affine": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/candidate-01/oasis-15-to-16/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+      "moving_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-15/labels.DKT31.manual.nii.gz",
+      "fixed_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-20261010/study/inputs/OASIS-TRT-20-16/labels.DKT31.manual.nii.gz",
+      "role": "prior-selected-policy-success",
+      "expected_baseline_outputs": {}
+    },
+    {
+      "id": "oasis-17-to-18",
+      "data": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/followup/oasis-17-to-18/data",
+      "saved_affine": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/followup/oasis-17-to-18/flashalign-halfflow/flashalign-affine-moving-to-fixed.json",
+      "moving_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/followup/inputs/OASIS-TRT-20-17/labels.DKT31.manual.nii.gz",
+      "fixed_labels": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/real-mri-improvement-20261011/followup/inputs/OASIS-TRT-20-18/labels.DKT31.manual.nii.gz",
+      "role": "prior-selected-policy-success",
+      "expected_baseline_outputs": {
+        "halfflow-fixed-to-moving.f64": "3051a6c7c86443aa60fd02b4cb65edd1b92bb2afd1e31a3587c8a4b09649508a",
+        "halfflow-moving-to-fixed.f64": "4c69e0613a3c94e0591932bbb53f47dc909093bc9cf117c2bd7702035d059887",
+        "halfflow-fixed-to-moving.valid-u8": "f0342f5dad1b2737f3d9dccf8b0110a32c7fabf398abc480cbaf9218b59e3946",
+        "halfflow-moving-to-fixed.valid-u8": "4bc027658615060deb13664623aa43b06f97bff0a2ff8e0f674343acc3900c47"
+      },
+      "baseline_capture_receipt_sha256": "4e5e0fd0c895a15651e49465904efba6534d8d481060f29d4c333aa8f92bf68b"
+    }
+  ],
+  "lanes": [
+    {
+      "id": "step-scaled-baseline",
+      "mode": "fine-taper-boundary",
+      "flags": [
+        "--steps-per-level",
+        "20",
+        "--total-smoothing-mm",
+        "1.5",
+        "--fine-total-smoothing-mm",
+        "1.5",
+        "--boundary-width-mm",
+        "6",
+        "--scale-total-smoothing-by-step",
+        "true"
+      ]
+    },
+    {
+      "id": "spatial-chain-direction",
+      "mode": "fine-taper-boundary",
+      "flags": [
+        "--steps-per-level",
+        "20",
+        "--total-smoothing-mm",
+        "1.5",
+        "--fine-total-smoothing-mm",
+        "1.5",
+        "--boundary-width-mm",
+        "6",
+        "--scale-total-smoothing-by-step",
+        "true",
+        "--spatial-chain-gradient",
+        "true"
+      ]
+    }
+  ],
+  "third_success_selection": {
+    "prior_results_sha256": "30d73e7e7426e40d6d6e358092a852cec28d1671888eabb4affd89851d89af8a",
+    "historical_selected_row": {
+      "pair": "oasis-15-to-16",
+      "lane": "hf40-total1.5-boundary6",
+      "fit": true,
+      "geometry": true,
+      "anatomy": true,
+      "cells": true,
+      "directions": {
+        "fixed-to-moving": {
+          "macro_dice": 0.3997210433077944,
+          "median_hd95_mm": 6.274309734552709,
+          "label_count": 62,
+          "missing_labels": 0,
+          "ncc": 0.6289591925835231,
+          "grid_jacobian_min": 0.35992829003445703,
+          "grid_jacobian_nonpositive": 0,
+          "brain_jacobian_min": 0.43920412305277257,
+          "brain_sampling_coverage": 1.0,
+          "brain_roundtrip_coverage": 1.0,
+          "brain_roundtrip_max_mm": 0.06231353034230137,
+          "reload_max_abs": 4.440892098500626e-16,
+          "geometry_pass": true
+        },
+        "moving-to-fixed": {
+          "macro_dice": 0.39699664770543963,
+          "median_hd95_mm": 5.510406496678448,
+          "label_count": 62,
+          "missing_labels": 0,
+          "ncc": 0.6243022201050777,
+          "grid_jacobian_min": 0.47498513237400036,
+          "grid_jacobian_nonpositive": 0,
+          "brain_jacobian_min": 0.7631539823109977,
+          "brain_sampling_coverage": 1.0,
+          "brain_roundtrip_coverage": 1.0,
+          "brain_roundtrip_max_mm": 0.05459883768558297,
+          "reload_max_abs": 4.440892098500626e-16,
+          "geometry_pass": true
+        }
+      },
+      "gain": {
+        "pass": true,
+        "directions": {
+          "fixed-to-moving": {
+            "dice_gain": 0.055405257806980635,
+            "hd95_reduction_mm": 0.2617727470364395,
+            "pass": true
+          },
+          "moving-to-fixed": {
+            "dice_gain": 0.060742076782038634,
+            "hd95_reduction_mm": 0.6742519417480421,
+            "pass": true
+          }
+        }
+      },
+      "report_sha256": "2259355148d37d3c3d140a49ada828b09247bcce1039949df3a50c32eb50b182",
+      "seconds": 269.5838094577193,
+      "failure": null,
+      "all_checks": true
+    }
+  },
+  "hypothesis": "Changing only the spatial direction improves anatomical endpoints against the existing step-scaled baseline.",
+  "execution_prerequisites": [
+    "Complete D01 trajectory analysis and D02 acquired-grid/boundary checks",
+    "Complete P02 comparison",
+    "All affected JVM/JS/runner checks pass",
+    "Freeze executable/input/evaluator identities and all twelve attempt rows before execution"
+  ],
+  "expansion_rule": {
+    "all_six_candidate_fits_complete_and_geometry_admitted": true,
+    "mean_dice_change_gt": 0.0,
+    "mean_hd95_change_mm_lt": 0.0,
+    "maximum_pair_dice_loss": 0.005,
+    "maximum_pair_hd95_increase_mm": 0.1
+  },
+  "failure_policy": "Every declared attempt remains; any failed expansion condition stops this candidate; no replacement, label-selected checkpoint or extra iterations. Budget/controller stops remain nonconverged.",
+  "planned_candidate_policies": 1,
+  "planned_full_fits": 12,
+  "full_fits_executed": 0,
+  "workers": 1,
+  "timeout_seconds": 3600,
+  "java_heap": "6G",
+  "java_active_processors": 1,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}

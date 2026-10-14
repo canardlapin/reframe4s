@@ -1,0 +1,30 @@
+{
+  "source_sha256": "4c3bed8ae13b67b453f570ff8a9923ab924658637d04161e7e9d9f044bb0a9b1",
+  "base_source_sha256": "890f7b4d221d2091b1c30091f36e46c8ee86f559a908a148593a3dc8ebcc64c3",
+  "changed_files": [
+    "benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageRegistration.scala",
+    "benchmarks/flashalign/runner/src/test/scala/reframe4s/halfflow/SpatialChainOptionsSuite.scala",
+    "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowCcEngine.scala",
+    "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/HalfFlowSpatialChainDirection.scala",
+    "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowSpatialChainDirectionSuite.scala"
+  ],
+  "source_reconstruction_verified": true,
+  "checks": {
+    "JVM": 30,
+    "JS": 30,
+    "runner": 4,
+    "process_monitor": 4
+  },
+  "new_direction_checks_per_platform": 5,
+  "planned_candidate_policies": 1,
+  "planned_full_fits": 12,
+  "full_fits_executed": 0,
+  "execution_gates_still_required": [
+    "Complete D01 trajectory analysis and D02 acquired-grid/boundary checks",
+    "Complete P02 comparison",
+    "All affected JVM/JS/runner checks pass",
+    "Freeze executable/input/evaluator identities and all twelve attempt rows before execution"
+  ],
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}
