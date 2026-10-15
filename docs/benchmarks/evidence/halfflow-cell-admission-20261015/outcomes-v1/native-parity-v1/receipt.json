@@ -1,0 +1,2602 @@
+{
+  "schema": "hfq-native-cell-parity-receipt-v1",
+  "source_sha256": "405282ec450899731c42c81a0d0bd6daaeb35a56d7693118fed3fdc001672e25",
+  "protocol_sha256": "85f7d7d16b872ec3610133d319e19f86c6cd112311b5883945f1c4fd680e93db",
+  "rows": [
+    {
+      "task": {
+        "case": "r19-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-00/fixed-forward",
+        "central_difference": {
+          "minimum": 0.9316942166744504,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "82e416d6322a01593cebe800829e77ae24cb97320333e2c523ba4d3189b0321f"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8428211181258178,
+        "maximum_cell_jacobian": 1.1032196785576864,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1032196785576862,
+        "minimum_cell_jacobian": 0.8428211181258176,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "3ccc5fcd2bef3236e5fea086960aa95341eab2f2294c8e0fe18d169791ce4701"
+    },
+    {
+      "task": {
+        "case": "r19-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-00/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.9423268919369742,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "76eafd111efe0ea7e07abfc1f7e2fb61686e06e2e9d872a995f945c23932ae3b"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.9014549791141826,
+        "maximum_cell_jacobian": 1.176211091196699,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1762110911966988,
+        "minimum_cell_jacobian": 0.9014549791141824,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "059cbd39b57bc303d5ba440b3ed2aa07d886c3474d9b6ae2704fdbbb4eb18c70"
+    },
+    {
+      "task": {
+        "case": "r19-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-00/moving-forward",
+        "central_difference": {
+          "minimum": 0.9196888591001106,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "63e69f4fca2434a475c616184f4000d537c0af01e0db13919a6ee0f8299fb451"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.862147846113843,
+        "maximum_cell_jacobian": 1.0971125745958292,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.097112574595829,
+        "minimum_cell_jacobian": 0.8621478461138428,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "6b4421de14fb48c8e010a359060ea81f4e186f0f5a4f6947b281383ab97420b8"
+    },
+    {
+      "task": {
+        "case": "r19-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-00/moving-inverse",
+        "central_difference": {
+          "minimum": 0.9671050645405517,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "a180081b17ef32eaa3cf736e33d437b7a9985acc0ad4a23c1a7a8c03a23a9fb8"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8982217177836522,
+        "maximum_cell_jacobian": 1.1572923630635321,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.157292363063532,
+        "minimum_cell_jacobian": 0.898221717783652,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "fc55ce6f2f1cc7ef87ce49e057d7fb301971e85fd3373ddaf07509a307906e70"
+    },
+    {
+      "task": {
+        "case": "r19-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-01/fixed-forward",
+        "central_difference": {
+          "minimum": 0.49386208350160743,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "0e628b3f00e571518720befd5c923e069a8d6dba3ece6f816de037daa707eba9"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -0.20177239180900425,
+        "maximum_cell_jacobian": 2.673837278239829,
+        "folded_cells": 2,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 2,
+        "maximum_cell_jacobian": 2.6738372782398288,
+        "minimum_cell_jacobian": -0.20177239180900416,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "3da3e21538855cbc5834976512c31f34abf89df7dc3011d22a3973f437237b61"
+    },
+    {
+      "task": {
+        "case": "r19-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-01/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.607286730949787,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "cad72a6d32ca54c2d21f231edfaf9a4596fd1da1b8c7d4f17e42bbe709bad812"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.09233538382240401,
+        "maximum_cell_jacobian": 2.465054744572374,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 2.4650547445723734,
+        "minimum_cell_jacobian": 0.092335383822404,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "3909bd7de50b0dcb1275891af4463edbc668963520cc2b4c64c35c6e8ec91dab"
+    },
+    {
+      "task": {
+        "case": "r19-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-01/moving-forward",
+        "central_difference": {
+          "minimum": 0.6165541564287919,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "ed10049c04634181d7ccbee5a7a7700738e5280bab84be4356b2d88e32c5cee7"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.12608305102277165,
+        "maximum_cell_jacobian": 2.4385988423217198,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 2.4385988423217193,
+        "minimum_cell_jacobian": 0.12608305102277162,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "eef65e49e23ada4af1713cc43ca92cb4855e79285a4acf795a86cfeba0640db8"
+    },
+    {
+      "task": {
+        "case": "r19-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-01/moving-inverse",
+        "central_difference": {
+          "minimum": 0.3997183164917347,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "78e141e1b2fc146faa968e2d7e6b0848b15cbfb01bcf8c9f3e17a51c7226f27c"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.09877108787554079,
+        "maximum_cell_jacobian": 2.3082725996141855,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 2.308272599614185,
+        "minimum_cell_jacobian": 0.09877108787554076,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "6927e9018895a1776d8f27ccedd9d424cce68ffbfc8d02524a18918d693cb995"
+    },
+    {
+      "task": {
+        "case": "r20-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-02/fixed-forward",
+        "central_difference": {
+          "minimum": 0.9314423524105012,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "70280f55825e3715da21cb08077632bcf96b5a31459bbf30258afe17b0c24d61"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8401376412917703,
+        "maximum_cell_jacobian": 1.125944957075698,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1259449570756979,
+        "minimum_cell_jacobian": 0.84013764129177,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "ea5fe841b9a024dac23c2373ddff29c1627a262286714f06c4b0c5d0bcaa8316"
+    },
+    {
+      "task": {
+        "case": "r20-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-02/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.9443863820575361,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "9bb0f1ab0290a6ea456c8dc6964b917235946b4b87b49be661cce2479279da2e"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8749025055661191,
+        "maximum_cell_jacobian": 1.1833558030906608,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1833558030906606,
+        "minimum_cell_jacobian": 0.8749025055661189,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "4537e9a836ec8c18354cf73fb36da8b54a24c197da0e70900970adcb985b50cc"
+    },
+    {
+      "task": {
+        "case": "r20-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-02/moving-forward",
+        "central_difference": {
+          "minimum": 0.9137923400954122,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "b4e9a29b780bdb5b6d71e440dc2cfa03f136559811394fd29058709231fb8723"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8617322799393881,
+        "maximum_cell_jacobian": 1.1583947886586594,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1583947886586592,
+        "minimum_cell_jacobian": 0.8617322799393878,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "be15bac87872fa06544d5f391f4aff67733c11a326830b08743a2788402cbce2"
+    },
+    {
+      "task": {
+        "case": "r20-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-02/moving-inverse",
+        "central_difference": {
+          "minimum": 0.9512992144807445,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "783f3105ce590e68146e7c4d73944771f9e9d0e5740504951c79d8b0fcb558e9"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.837249698469416,
+        "maximum_cell_jacobian": 1.1614862148771974,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1614862148771972,
+        "minimum_cell_jacobian": 0.8372496984694158,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "c91422b1136f516aa699177374bdae565de0a32f8e3f780118a15da3b530c97f"
+    },
+    {
+      "task": {
+        "case": "r20-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-03/fixed-forward",
+        "central_difference": {
+          "minimum": 0.5870954315480509,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "3cceff8f9eb12daa01d235b3e33c9c8a31df7aaed20ecdcd7edd8fb1f01cce07"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.41563509332370163,
+        "maximum_cell_jacobian": 2.534991102055862,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 2.5349911020558618,
+        "minimum_cell_jacobian": 0.4156350933237015,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "5ecdebe89e8992a56332be106d360ddc0825e6311aaafd97fc6fb2bc2bc4890e"
+    },
+    {
+      "task": {
+        "case": "r20-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-03/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.5436531789596772,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "79b9b62d9cf47ad7d661323f33054c7a28f8e3dc003ae2a025050f73ba9678da"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.13951739345527353,
+        "maximum_cell_jacobian": 2.1903711644830755,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 2.190371164483075,
+        "minimum_cell_jacobian": 0.13951739345527348,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "fc1bcffcc1de43cc845561a09778d93bbe89bcfabac92a1f99d4db647309f239"
+    },
+    {
+      "task": {
+        "case": "r20-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-03/moving-forward",
+        "central_difference": {
+          "minimum": 0.4073771589746517,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "7697f0dc005a3328ab346cfe94c4dcccb5e2331d352b36731d8f6db74242d4e7"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -0.4678194743679544,
+        "maximum_cell_jacobian": 2.1821163702922135,
+        "folded_cells": 33,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 33,
+        "maximum_cell_jacobian": 2.182116370292213,
+        "minimum_cell_jacobian": -0.4678194743679543,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "d2c565c083d335caf6429927bafb1e4220b51cbdd4d282ff9246c1a5fe7d8093"
+    },
+    {
+      "task": {
+        "case": "r20-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-03/moving-inverse",
+        "central_difference": {
+          "minimum": 0.5502138223985528,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "82e0d20b988ef9cc04df6c4834a5fb85f683eccd20be9043d20991abb35428e1"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.29649890255446154,
+        "maximum_cell_jacobian": 3.320916141534838,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 3.3209161415348367,
+        "minimum_cell_jacobian": 0.2964989025544615,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "ccb334a631b6db86c4ffaee28fca4867b15e90dfe2e3cb47046d92fb3ecc4429"
+    },
+    {
+      "task": {
+        "case": "r21-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-04/fixed-forward",
+        "central_difference": {
+          "minimum": 0.9079007698947626,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "0a378b9b32567ae2df9b9311fcd720dd6c2603d09047d597b83434f6f066ada4"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.7408608650839134,
+        "maximum_cell_jacobian": 1.1357217256456256,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1357217256456253,
+        "minimum_cell_jacobian": 0.7408608650839132,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "9a9baef3a5183e6aad9e343504163890057c202156eeed4d98e75d0666165002"
+    },
+    {
+      "task": {
+        "case": "r21-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-04/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.934071946390419,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "f17703c9af48a01902f9424201b5314cb50b429c4934ac104b6ff1f740cc09d4"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8721287954287501,
+        "maximum_cell_jacobian": 1.291212198002834,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.2912121980028337,
+        "minimum_cell_jacobian": 0.8721287954287499,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "efe801eb9ae9f2b667eda6695eab03ed44ecf830c18d64fc4e9b34b8a880d454"
+    },
+    {
+      "task": {
+        "case": "r21-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-04/moving-forward",
+        "central_difference": {
+          "minimum": 0.9288379972195353,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "dc903b405d790018047b86eedb19d98679d5453e67f869b57277282d2dc234f1"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8794767828126684,
+        "maximum_cell_jacobian": 1.1483433821145683,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.148343382114568,
+        "minimum_cell_jacobian": 0.8794767828126682,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "46c72ab83366cfd5262dbd2214908d37aba467b1a60ed0470f7290b9faca1557"
+    },
+    {
+      "task": {
+        "case": "r21-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-04/moving-inverse",
+        "central_difference": {
+          "minimum": 0.9394176962014447,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "28f9e6df4cad19460898e8412c3ee47e151bedf0d33f1fd25dda46c2443da60e"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8487282788362066,
+        "maximum_cell_jacobian": 1.1284168622004738,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1284168622004735,
+        "minimum_cell_jacobian": 0.8487282788362064,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "0a2d34bafd2077f6d56af2a6eba14d3f11f468d456e05ae014a9b696111b3298"
+    },
+    {
+      "task": {
+        "case": "r21-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-05/fixed-forward",
+        "central_difference": {
+          "minimum": 0.4755844430460091,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "31025b49a3e7f070b06a5528beeb2367645ecb2cca48a589126b6a82be2d4cae"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.3182224079262408,
+        "maximum_cell_jacobian": 2.4324725989078577,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 2.4324725989078573,
+        "minimum_cell_jacobian": 0.31822240792624074,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "9088afdba73c4878dbe77c4bb1eb253f0b5d95d2ed1fe148036b668c79a82430"
+    },
+    {
+      "task": {
+        "case": "r21-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-05/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.6150576078135878,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "5e41bec4a7233836c6fcd2fc4a61c376aa72a744474efc5a6415f1d9c788da62"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.1723412940950033,
+        "maximum_cell_jacobian": 2.1088550057036817,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 2.1088550057036812,
+        "minimum_cell_jacobian": 0.17234129409500326,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "d7f7f8165672661395135452d9752ff999d930281c3aa99d44354c5ecb3be202"
+    },
+    {
+      "task": {
+        "case": "r21-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-05/moving-forward",
+        "central_difference": {
+          "minimum": 0.5941709980319427,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "e667cc7a86396b8812199cdb89edd237186c3d76c9b0541e239fefba5bce2d1a"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -0.0830543680190073,
+        "maximum_cell_jacobian": 2.330310172909093,
+        "folded_cells": 1,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 1,
+        "maximum_cell_jacobian": 2.3303101729090927,
+        "minimum_cell_jacobian": -0.0830543680190073,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "aee694180a5f93a075a5d0d7736f854ebecd710a7d1e5aea0fba7783c36e8fa2"
+    },
+    {
+      "task": {
+        "case": "r21-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-05/moving-inverse",
+        "central_difference": {
+          "minimum": 0.5357606479357352,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "3e24b8f6c59314e146144097b1acf5e12d3cc76ab61c00e9a5a5b4948d23f2a1"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.3062400332722242,
+        "maximum_cell_jacobian": 2.415210011117543,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 2.4152100111175425,
+        "minimum_cell_jacobian": 0.30624003327222415,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "8570bd0f1aba0ab4489ced17ad8db0710b5a86f209df9855fe2191b55d56f9b5"
+    },
+    {
+      "task": {
+        "case": "r22-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-06/fixed-forward",
+        "central_difference": {
+          "minimum": 0.9424749573537836,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "441948e2e68b338f09ca3b44e7a66bbc3a5aaa4210a99386c8bb304a0dbbc3f4"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.869089513849527,
+        "maximum_cell_jacobian": 1.1376263186071778,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1376263186071776,
+        "minimum_cell_jacobian": 0.8690895138495268,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "4a7225bde46cc640d0bceef912efd3a100bd0a76d1be6d6a7148cd709188677a"
+    },
+    {
+      "task": {
+        "case": "r22-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-06/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.9371742381153809,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "90438c7265a5ef06e3e992130d92fb5447f399334359c0ab22171107113627d1"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8624460134561006,
+        "maximum_cell_jacobian": 1.147416486561745,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1474164865617449,
+        "minimum_cell_jacobian": 0.8624460134561004,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "c6cd432aa6b4ed5c204837a264ab8e50df1f5d60e4ac6c13692290ff772e3ea3"
+    },
+    {
+      "task": {
+        "case": "r22-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-06/moving-forward",
+        "central_difference": {
+          "minimum": 0.9314667932763582,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "b5bf36287513c561d9dec75936a917ffcaed301f8e42edf2631d785abac33ee5"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8810239524803166,
+        "maximum_cell_jacobian": 1.1302266182040999,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1302266182040996,
+        "minimum_cell_jacobian": 0.8810239524803164,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "8e9d79b44bdfa51ff60698dbe8091a75bcd1e81b8a8d8aa4d38737dd4e8149d7"
+    },
+    {
+      "task": {
+        "case": "r22-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-06/moving-inverse",
+        "central_difference": {
+          "minimum": 0.9433743096047286,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "b2056494a9cfcb311967bb5ab610e3c620f2b85dc1795460c70e076ed3db115c"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8692286569429827,
+        "maximum_cell_jacobian": 1.1312002602481777,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1312002602481774,
+        "minimum_cell_jacobian": 0.8692286569429825,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "008357404725de87c8cfbb3ac7ad27f311e648227c62e39246fa66cc3373d758"
+    },
+    {
+      "task": {
+        "case": "r22-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-07/fixed-forward",
+        "central_difference": {
+          "minimum": 0.619072262387135,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "4e537c06ae25f06ea4e5148963298851cdd2cbd0fc0810fa86c59eecc18be66d"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -0.07305818964311875,
+        "maximum_cell_jacobian": 2.4172384585513935,
+        "folded_cells": 1,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 1,
+        "maximum_cell_jacobian": 2.417238458551393,
+        "minimum_cell_jacobian": -0.07305818964311873,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "e3f177ffe212148770cec26e7ebe64f3b4f3ca4cba0bc75abb3874c79f2f15ee"
+    },
+    {
+      "task": {
+        "case": "r22-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-07/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.5271485686697417,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "27fc20cc6f5fe6dbea69f066afd0516911814d432522c9ef11d36071d65d2133"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.2675327539792987,
+        "maximum_cell_jacobian": 2.2972791083801694,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 2.297279108380169,
+        "minimum_cell_jacobian": 0.26753275397929865,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "8bd84f65186f9f7ac64ff70f1fae72eb6ab5e2be01ade5581286ff2efa300017"
+    },
+    {
+      "task": {
+        "case": "r22-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-07/moving-forward",
+        "central_difference": {
+          "minimum": 0.3827880224513473,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "e7a61f63228f610650c2ac75f3cfe9a9604ea0756820e69c91b685472cc3ccb8"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -0.5267945329642229,
+        "maximum_cell_jacobian": 2.1587839896265124,
+        "folded_cells": 35,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 35,
+        "maximum_cell_jacobian": 2.158783989626512,
+        "minimum_cell_jacobian": -0.5267945329642227,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "e552a6232f2ef7d08c416b01a028c156afa7d93cec125e265f69eceb2cccf72b"
+    },
+    {
+      "task": {
+        "case": "r22-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-07/moving-inverse",
+        "central_difference": {
+          "minimum": 0.5606140764557221,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "4043236ab7e63d810b4ce0f5837cac44874e4d9c97d98c8521d6cdd75024ad96"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.281017910225643,
+        "maximum_cell_jacobian": 3.4455563797052617,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 3.4455563797052613,
+        "minimum_cell_jacobian": 0.28101791022564293,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "09dbd492c5093e2bce2bded8b301ea079f7286a6186ba69d55e5decb15e6094d"
+    },
+    {
+      "task": {
+        "case": "r23-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-08/fixed-forward",
+        "central_difference": {
+          "minimum": 0.9124414179151834,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "1789a782fdcbfc2cd7ccedbf01af11f31c70e08c255bbf0cb32e5efb9821dca7"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.7901856249135458,
+        "maximum_cell_jacobian": 1.1469442134828718,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1469442134828716,
+        "minimum_cell_jacobian": 0.7901856249135456,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "0c46785edc2daa40fc386304d3e4e7a1b719615ec304c31fb0a4631359a7f910"
+    },
+    {
+      "task": {
+        "case": "r23-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-08/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.9116060300406841,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "8fcad78d781a7dc3075ef89f95fe428e3d12dd598578782a95a4d2abf2eeded7"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.853864279322577,
+        "maximum_cell_jacobian": 1.2337905940772507,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.2337905940772504,
+        "minimum_cell_jacobian": 0.8538642793225768,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "1688953ccd8145be69190b2eee7163ab4a31dcac5e91334f7158d9b8a0c9055c"
+    },
+    {
+      "task": {
+        "case": "r23-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-08/moving-forward",
+        "central_difference": {
+          "minimum": 0.9166475635034186,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "adb8351fc0cca944f080f3f3353d6004d0d81450c40c9a12ad860240cad9ecb3"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8389323215018503,
+        "maximum_cell_jacobian": 1.3057887038440188,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.3057887038440186,
+        "minimum_cell_jacobian": 0.83893232150185,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "fe4a84096965f61751cdc85c7ce254fdc26347f111ca06691cc8c75f42936cb3"
+    },
+    {
+      "task": {
+        "case": "r23-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-08/moving-inverse",
+        "central_difference": {
+          "minimum": 0.872409821627765,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "9cc6cb444add137664367473bf528d7df077992acf50a9adf8f25eebfd9db5e6"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.7181177932293547,
+        "maximum_cell_jacobian": 1.171908976133136,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1719089761331358,
+        "minimum_cell_jacobian": 0.7181177932293545,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "d914350735ddc1877d28e08e109be8930540f340b5edff70cb306d52a7975495"
+    },
+    {
+      "task": {
+        "case": "r23-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-09/fixed-forward",
+        "central_difference": {
+          "minimum": 0.44444886220088353,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "dd88b5c797c9721bca8e4677d670a1c22c8942520b244d20270c12d8d375f0d1"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -0.30858331183260407,
+        "maximum_cell_jacobian": 2.712327383685313,
+        "folded_cells": 9,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 9,
+        "maximum_cell_jacobian": 2.7123273836853126,
+        "minimum_cell_jacobian": -0.308583311832604,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "c3969d22945851f222f22ee5f47719657153555cd9536e0ca2f1c65925e2adb8"
+    },
+    {
+      "task": {
+        "case": "r23-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-09/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.5629827468523902,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "fc912571503bdfc97f066ac417c0abf3b59de23117e3ec59db09656f9ae4f245"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.11366747323822302,
+        "maximum_cell_jacobian": 2.53051614975687,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 2.5305161497568696,
+        "minimum_cell_jacobian": 0.11366747323822296,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "e0a0d631ea2cac4bdaceb3feb2bb934cad65c4bf6670dc7e054a200bfa479300"
+    },
+    {
+      "task": {
+        "case": "r23-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-09/moving-forward",
+        "central_difference": {
+          "minimum": 0.5340842637184565,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "0140daa1dea372911ecd1da49f94405030056647278e8b225ce524a21d51f746"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -0.1165960524413078,
+        "maximum_cell_jacobian": 2.7187347405070055,
+        "folded_cells": 3,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 3,
+        "maximum_cell_jacobian": 2.7187347405070046,
+        "minimum_cell_jacobian": -0.11659605244130776,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "18c7a18360096106b1402242d579cfc263891afb1b5ba12c561c2a226c73ef8e"
+    },
+    {
+      "task": {
+        "case": "r23-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-09/moving-inverse",
+        "central_difference": {
+          "minimum": 0.37162968283885384,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "fb4ac8067cae3f0da2c8e29f95f3b01e2f2532433579450314bae00e06024179"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -0.027248263046217587,
+        "maximum_cell_jacobian": 2.44229580706426,
+        "folded_cells": 1,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 1,
+        "maximum_cell_jacobian": 2.4422958070642595,
+        "minimum_cell_jacobian": -0.027248263046217566,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "b0395e49b75133922c15e47500909ba5dd7a1b31913a4a5f438bf70044f6b91c"
+    },
+    {
+      "task": {
+        "case": "r24-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-10/fixed-forward",
+        "central_difference": {
+          "minimum": 0.9371469171790577,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "0d91b72b572fc190d89be5f13fc3f555641215266ecaa6cbe3d317565cb19e29"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8333839520026595,
+        "maximum_cell_jacobian": 1.1720351721742959,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1720351721742956,
+        "minimum_cell_jacobian": 0.8333839520026592,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "34b6e4adfbdeda6b8dfe04c40f6f0168f41d4f9f10305ae0ad02327fd82aa9ba"
+    },
+    {
+      "task": {
+        "case": "r24-exact-core-affine",
+        "lane": "C5",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-10/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.9376250241310836,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "5792417b16c4726e9a560733fe2b84705f203b28d34dbdaf12cf6499510711fc"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8317763039998716,
+        "maximum_cell_jacobian": 1.1888638962353832,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.188863896235383,
+        "minimum_cell_jacobian": 0.8317763039998713,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "c89c3bd97485e702386d0c633022f59a9c20cf39f5dc1aabe6bcbe263786f4db"
+    },
+    {
+      "task": {
+        "case": "r24-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-10/moving-forward",
+        "central_difference": {
+          "minimum": 0.9254270502908533,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "b9e5cacfb9813a5cade9e77f513faea0857afac644658209f598e46f2698d553"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8524925999357528,
+        "maximum_cell_jacobian": 1.1299648215909188,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.1299648215909186,
+        "minimum_cell_jacobian": 0.8524925999357525,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "046fba6e8c3db68ebb59b1e3f2f00f3f06436919e1778f063aedd86fa6476375"
+    },
+    {
+      "task": {
+        "case": "r24-exact-core-affine",
+        "lane": "C5",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-10/moving-inverse",
+        "central_difference": {
+          "minimum": 0.9451814095815009,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "8a79356e7fea88fddc055b832ba3a7aab9e915854ce41d85f62a1ab0aad14c3b"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": 0.8732243418808837,
+        "maximum_cell_jacobian": 1.1632543980384513,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "actual": {
+        "cell_pass": true,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 0,
+        "maximum_cell_jacobian": 1.163254398038451,
+        "minimum_cell_jacobian": 0.8732243418808835,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": true,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "54b6b0f5af5ae065ac2a0904c144e6bdf15f0eaddeaec05dd8d29f6457338ad8"
+    },
+    {
+      "task": {
+        "case": "r24-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-11/fixed-forward",
+        "central_difference": {
+          "minimum": 0.6123036032942829,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "014656807f2e9a09089b7cd890ca8ebd576a31508fed1e1c379e3492a27625dd"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -0.22210713523750877,
+        "maximum_cell_jacobian": 3.3444676317779165,
+        "folded_cells": 12,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 12,
+        "maximum_cell_jacobian": 3.344467631777915,
+        "minimum_cell_jacobian": -0.22210713523750872,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "f8fc8a20a91208c1143ff95d8bd2ca9cf7cffcc3757c96740e529ee8419ef014"
+    },
+    {
+      "task": {
+        "case": "r24-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-11/fixed-inverse",
+        "central_difference": {
+          "minimum": 0.14586975059588422,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "a43695f47a7cb30820df47fac8aa2fbcf7566e0cb29901de094f02cf876b2abf"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -1.0544702375762354,
+        "maximum_cell_jacobian": 2.546543239879576,
+        "folded_cells": 32,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 32,
+        "maximum_cell_jacobian": 2.5465432398795755,
+        "minimum_cell_jacobian": -1.0544702375762351,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "0d66b17abfefa27c0f72f6000b7e96089799ccaa4fb94e35ec1ffde65d45c19a"
+    },
+    {
+      "task": {
+        "case": "r24-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "forward",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-11/moving-forward",
+        "central_difference": {
+          "minimum": 0.2893693109490843,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "ddd4747edf5253dec1232521e9e93d3024966dad00bbcb176635a7883ba9695f"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -1.5565425592776163,
+        "maximum_cell_jacobian": 3.781568926440219,
+        "folded_cells": 33,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 33,
+        "maximum_cell_jacobian": 3.781568926440218,
+        "minimum_cell_jacobian": -1.556542559277616,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "0b05e68278f9c0806c4795443ab5a758289aab5c6c0a4d5c35a3f8b13a7c00fc"
+    },
+    {
+      "task": {
+        "case": "r24-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "kind": "inverse",
+        "stem": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-11/moving-inverse",
+        "central_difference": {
+          "minimum": 0.10435684284069072,
+          "nonpositive": 0,
+          "evaluated": 42875,
+          "field_sha256": "c5400107fe0ea3b0882646aa2ecaecc3f944ded052399dab58c733eaf15292fa"
+        }
+      },
+      "exit_code": 0,
+      "checks": {
+        "minimum_cell_jacobian": true,
+        "maximum_cell_jacobian": true,
+        "covered_fraction": true,
+        "covered_cells": true,
+        "total_declared_cells": true,
+        "folded_cells": true,
+        "samples_per_cell": true,
+        "nonfinite_cells": true,
+        "cell_pass": true,
+        "shared_gate_rejects_cell_failure": true,
+        "shared_gate_accepts_positive_control": true
+      },
+      "passed": true,
+      "expected": {
+        "minimum_cell_jacobian": -2.459721947603901,
+        "maximum_cell_jacobian": 10.210513532015765,
+        "folded_cells": 57,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "actual": {
+        "cell_pass": false,
+        "covered_cells": 46656,
+        "covered_fraction": 1.0,
+        "folded_cells": 57,
+        "maximum_cell_jacobian": 10.210513532015765,
+        "minimum_cell_jacobian": -2.4597219476039003,
+        "nonfinite_cells": 0,
+        "samples_per_cell": 9,
+        "shared_forward_gate_accepted": false,
+        "total_declared_cells": 46656
+      },
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "8589dbfeac9c2f8cf329424359a7c49beb3c9c0b6da487adec1231a24f003ff9"
+    }
+  ],
+  "passed": true,
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}

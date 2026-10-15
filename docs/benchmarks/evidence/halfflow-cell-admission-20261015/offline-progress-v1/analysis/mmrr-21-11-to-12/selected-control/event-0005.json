@@ -1,0 +1,214 @@
+{
+  "pair": "mmrr-21-11-to-12",
+  "policy": "selected-control",
+  "event": {
+    "capture_status": "NotRequested",
+    "diagnostic_only": true,
+    "directory": null,
+    "export_status": null,
+    "info": {
+      "kind": "Accepted",
+      "levelIndex": 0,
+      "shrink": 2,
+      "acceptedSteps": 4,
+      "attempts": 4,
+      "before": {
+        "loss": 0.557820796353452,
+        "activeFraction": 0.2056695410843493,
+        "edgeActiveFraction": 0.0,
+        "support": {
+          "count": 221958,
+          "nonFinite": 0,
+          "positive": 36358,
+          "sum": 35420.65027313252,
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "reliability": {
+          "count": 221958,
+          "nonFinite": 0,
+          "positive": 45650,
+          "sum": 0.9999999999996639,
+          "minimum": 0.0,
+          "maximum": 2.7121927098651795e-05
+        },
+        "stabilization": {
+          "count": 221958,
+          "nonFinite": 0,
+          "positive": 221958,
+          "sum": 0.07093959722829007,
+          "minimum": 5e-324,
+          "maximum": 2.3444481671734714e-06
+        },
+        "neighborhood": {
+          "loss": 0.557820796353452,
+          "activeWindows": 45650,
+          "totalWindows": 221958,
+          "support": {
+            "minimumFraction": -1.0894988614988202e-15,
+            "meanFraction": 0.1595826700237551,
+            "maximumFraction": 1.0000000000000007,
+            "activeFraction": 0.2056695410843493,
+            "edgeBandActiveFraction": 0.0
+          },
+          "variance": {
+            "fixedGlobalVariance": 0.031132400185988833,
+            "movingGlobalVariance": 0.048195668115120056,
+            "fixedReliabilityMean": 0.2970770682311259,
+            "movingReliabilityMean": 0.29461120510652916,
+            "jointReliabilityMean": 0.1661149243905156
+          }
+        }
+      },
+      "after": {
+        "loss": 0.5520990800506996,
+        "activeFraction": 0.2057236053667811,
+        "edgeActiveFraction": 0.0,
+        "support": {
+          "count": 221958,
+          "nonFinite": 0,
+          "positive": 36364,
+          "sum": 35426.03691954028,
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "reliability": {
+          "count": 221958,
+          "nonFinite": 0,
+          "positive": 45662,
+          "sum": 0.9999999999995935,
+          "minimum": 0.0,
+          "maximum": 2.7117518979471907e-05
+        },
+        "stabilization": {
+          "count": 221958,
+          "nonFinite": 0,
+          "positive": 221958,
+          "sum": 0.07088515251719248,
+          "minimum": 5e-324,
+          "maximum": 2.3423714635335466e-06
+        },
+        "neighborhood": {
+          "loss": 0.5520990800506996,
+          "activeWindows": 45662,
+          "totalWindows": 221958,
+          "support": {
+            "minimumFraction": -1.105782132526656e-15,
+            "meanFraction": 0.15960693878815052,
+            "maximumFraction": 1.0000000000000007,
+            "activeFraction": 0.2057236053667811,
+            "edgeBandActiveFraction": 0.0
+          },
+          "variance": {
+            "fixedGlobalVariance": 0.03112086088753508,
+            "movingGlobalVariance": 0.04817083120158522,
+            "fixedReliabilityMean": 0.29448569840205124,
+            "movingReliabilityMean": 0.2986653047603659,
+            "jointReliabilityMean": 0.16614192739122616
+          }
+        }
+      },
+      "control": {
+        "damping": 6.25e-06,
+        "stepScale": 1.0,
+        "squarings": 0,
+        "objectiveRetries": 0,
+        "geometryRetries": 0,
+        "integrationRetries": 0
+      },
+      "trial": {
+        "attempt": 4,
+        "accepted": true,
+        "currentLoss": 0.557820796353452,
+        "candidateLoss": 0.5522390083190737,
+        "maximumStepMm": 0.23972820046307264,
+        "activeFraction": 0.2056695410843493,
+        "edgeActiveFraction": 0.0,
+        "geometry": "Valid",
+        "numerical": "Accurate",
+        "legacyInverseSafe": null,
+        "legacyInverseMaximumMm": null,
+        "controlTransitions": [
+          {
+            "observation": {
+              "verdict": "Accurate"
+            },
+            "action": "AcceptIntegration",
+            "before": {
+              "damping": 1.25e-05,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            },
+            "after": {
+              "damping": 1.25e-05,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            }
+          },
+          {
+            "observation": {
+              "verdict": "Valid"
+            },
+            "action": "AcceptGeometry",
+            "before": {
+              "damping": 1.25e-05,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            },
+            "after": {
+              "damping": 1.25e-05,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            }
+          },
+          {
+            "observation": {
+              "verdict": {
+                "actualDrop": 0.0055817880343783655
+              }
+            },
+            "action": "AcceptObjective",
+            "before": {
+              "damping": 1.25e-05,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            },
+            "after": {
+              "damping": 6.25e-06,
+              "stepScale": 1.0,
+              "squarings": 0,
+              "objectiveRetries": 0,
+              "geometryRetries": 0,
+              "integrationRetries": 0
+            }
+          }
+        ]
+      },
+      "termination": null,
+      "stateAvailable": true
+    },
+    "manifest_sha256": "a8be53b4bf3b7d6fe596f93e8139b2667575697d05ea848e5a1898700acfad59",
+    "schema": "halfflow-checkpoint-v1",
+    "serial": 5
+  },
+  "protocol_sha256": "21dbc135136bc91d5a08e748fcac0b55d85d49bd94efd17d523c08a79c58bbf8",
+  "fit_receipt_sha256": "21647f09a51da3a7fe55cd5d00d264fc185c0c55e6680d161f45cc6e8a0271d7",
+  "fit_exit_code": 0,
+  "status": "not_captured",
+  "qualification_claim": false
+}

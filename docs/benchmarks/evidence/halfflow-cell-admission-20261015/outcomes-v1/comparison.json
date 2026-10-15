@@ -1,0 +1,2938 @@
+{
+  "schema": "hfq-cell-admission-comparison-v1",
+  "inputs": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-cells-v1/results.json": "174803905134735a8524c91494b22dde25b63bd14462760e4e016fcbf06aa27d",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-cells-v1/results.json": "eeac190f057ba3715b4ba03bc5bc095aef487383da934b06878099e77c36a343",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/receipt.json": "7aaf5cecea64cf90fee212bbd15399e970da3a7cbe4fd516e42a4a73f6251990",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/replay/rows.jsonl": "0eb00ec0d7ea2fc9c450179033af6875d1bcea35918b7d44340373c819bc5500",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/replay/execution.log": "b77830bec1caa67f150f21bff69e3ba7437aa2fc7af6ed3922bec40f177c11f2",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/receipt.json": "8805ff79f60aa01486c243042548f80ca4688301c09cced4af20c6ab67836fe1",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/replay/rows.jsonl": "2bd84af87243fe3394365e15cb89fdd9d42bc44d006cec0aeee45aa9a42b5672",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/replay/execution.log": "4dbbec9624d99773a6e35dd2a6ff29863fa2e9899f3dac562490e86a5296c5a1"
+  },
+  "fields": [
+    {
+      "case": "r19-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": -0.20177239180900425,
+        "maximum_cell_jacobian": 2.673837278239829,
+        "folded_cells": 2,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.12889063898769088,
+        "maximum_cell_jacobian": 2.7220255575883856,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r19-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.09233538382240401,
+        "maximum_cell_jacobian": 2.465054744572374,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": -0.01443189106608796,
+        "maximum_cell_jacobian": 2.013123867337532,
+        "folded_cells": 1,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r19-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.12608305102277165,
+        "maximum_cell_jacobian": 2.4385988423217198,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.14129175853821846,
+        "maximum_cell_jacobian": 2.5003303449043806,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r19-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.09877108787554079,
+        "maximum_cell_jacobian": 2.3082725996141855,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.07526907468730028,
+        "maximum_cell_jacobian": 2.0821869692113237,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r19-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.8428211181258178,
+        "maximum_cell_jacobian": 1.1032196785576864,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8428211181258178,
+        "maximum_cell_jacobian": 1.1032196785576864,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r19-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.9014549791141826,
+        "maximum_cell_jacobian": 1.176211091196699,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.9014549791141826,
+        "maximum_cell_jacobian": 1.176211091196699,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r19-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.862147846113843,
+        "maximum_cell_jacobian": 1.0971125745958292,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.862147846113843,
+        "maximum_cell_jacobian": 1.0971125745958292,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r19-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.8982217177836522,
+        "maximum_cell_jacobian": 1.1572923630635321,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8982217177836522,
+        "maximum_cell_jacobian": 1.1572923630635321,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r20-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.41563509332370163,
+        "maximum_cell_jacobian": 2.534991102055862,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.3860659108223171,
+        "maximum_cell_jacobian": 1.8824291436213083,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r20-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.13951739345527353,
+        "maximum_cell_jacobian": 2.1903711644830755,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.43229294967563964,
+        "maximum_cell_jacobian": 2.243803443386704,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r20-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": -0.4678194743679544,
+        "maximum_cell_jacobian": 2.1821163702922135,
+        "folded_cells": 33,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.3547596277828256,
+        "maximum_cell_jacobian": 2.2840066001277735,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r20-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.29649890255446154,
+        "maximum_cell_jacobian": 3.320916141534838,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.30348674756951294,
+        "maximum_cell_jacobian": 2.570742969467625,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r20-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.8401376412917703,
+        "maximum_cell_jacobian": 1.125944957075698,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8401376412917703,
+        "maximum_cell_jacobian": 1.125944957075698,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r20-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.8749025055661191,
+        "maximum_cell_jacobian": 1.1833558030906608,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8749025055661191,
+        "maximum_cell_jacobian": 1.1833558030906608,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r20-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.8617322799393881,
+        "maximum_cell_jacobian": 1.1583947886586594,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8617322799393881,
+        "maximum_cell_jacobian": 1.1583947886586594,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r20-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.837249698469416,
+        "maximum_cell_jacobian": 1.1614862148771974,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.837249698469416,
+        "maximum_cell_jacobian": 1.1614862148771974,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r21-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.3182224079262408,
+        "maximum_cell_jacobian": 2.4324725989078577,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.337339226469814,
+        "maximum_cell_jacobian": 1.819755191181391,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r21-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.1723412940950033,
+        "maximum_cell_jacobian": 2.1088550057036817,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.47934212589846315,
+        "maximum_cell_jacobian": 2.589541493814531,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r21-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": -0.0830543680190073,
+        "maximum_cell_jacobian": 2.330310172909093,
+        "folded_cells": 1,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.3664586473272858,
+        "maximum_cell_jacobian": 1.8621288800458091,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r21-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.3062400332722242,
+        "maximum_cell_jacobian": 2.415210011117543,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.4762121035042221,
+        "maximum_cell_jacobian": 2.4132247858508005,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r21-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.7408608650839134,
+        "maximum_cell_jacobian": 1.1357217256456256,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.7408608650839134,
+        "maximum_cell_jacobian": 1.1357217256456256,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r21-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.8721287954287501,
+        "maximum_cell_jacobian": 1.291212198002834,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8721287954287501,
+        "maximum_cell_jacobian": 1.291212198002834,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r21-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.8794767828126684,
+        "maximum_cell_jacobian": 1.1483433821145683,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8794767828126684,
+        "maximum_cell_jacobian": 1.1483433821145683,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r21-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.8487282788362066,
+        "maximum_cell_jacobian": 1.1284168622004738,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8487282788362066,
+        "maximum_cell_jacobian": 1.1284168622004738,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r22-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": -0.07305818964311875,
+        "maximum_cell_jacobian": 2.4172384585513935,
+        "folded_cells": 1,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.44609478928417867,
+        "maximum_cell_jacobian": 1.8159129570147257,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r22-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.2675327539792987,
+        "maximum_cell_jacobian": 2.2972791083801694,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.48368530088354106,
+        "maximum_cell_jacobian": 2.0933328624832077,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r22-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": -0.5267945329642229,
+        "maximum_cell_jacobian": 2.1587839896265124,
+        "folded_cells": 35,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.31164141693646136,
+        "maximum_cell_jacobian": 2.2835244521664166,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r22-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.281017910225643,
+        "maximum_cell_jacobian": 3.4455563797052617,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.3028091865368007,
+        "maximum_cell_jacobian": 2.3158019486413393,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r22-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.869089513849527,
+        "maximum_cell_jacobian": 1.1376263186071778,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.869089513849527,
+        "maximum_cell_jacobian": 1.1376263186071778,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r22-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.8624460134561006,
+        "maximum_cell_jacobian": 1.147416486561745,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8624460134561006,
+        "maximum_cell_jacobian": 1.147416486561745,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r22-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.8810239524803166,
+        "maximum_cell_jacobian": 1.1302266182040999,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8810239524803166,
+        "maximum_cell_jacobian": 1.1302266182040999,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r22-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.8692286569429827,
+        "maximum_cell_jacobian": 1.1312002602481777,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8692286569429827,
+        "maximum_cell_jacobian": 1.1312002602481777,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r23-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": -0.30858331183260407,
+        "maximum_cell_jacobian": 2.712327383685313,
+        "folded_cells": 9,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.483657667897772,
+        "maximum_cell_jacobian": 1.84322807940677,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r23-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.11366747323822302,
+        "maximum_cell_jacobian": 2.53051614975687,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.47517607942995144,
+        "maximum_cell_jacobian": 2.0520465778686763,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r23-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": -0.1165960524413078,
+        "maximum_cell_jacobian": 2.7187347405070055,
+        "folded_cells": 3,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.44605285670652756,
+        "maximum_cell_jacobian": 1.9456783087732954,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r23-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": -0.027248263046217587,
+        "maximum_cell_jacobian": 2.44229580706426,
+        "folded_cells": 1,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.4446930380423261,
+        "maximum_cell_jacobian": 1.9284002424140319,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r23-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.7901856249135458,
+        "maximum_cell_jacobian": 1.1469442134828718,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.7901856249135458,
+        "maximum_cell_jacobian": 1.1469442134828718,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r23-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.853864279322577,
+        "maximum_cell_jacobian": 1.2337905940772507,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.853864279322577,
+        "maximum_cell_jacobian": 1.2337905940772507,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r23-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.8389323215018503,
+        "maximum_cell_jacobian": 1.3057887038440188,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8389323215018503,
+        "maximum_cell_jacobian": 1.3057887038440188,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r23-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.7181177932293547,
+        "maximum_cell_jacobian": 1.171908976133136,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.7181177932293547,
+        "maximum_cell_jacobian": 1.171908976133136,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r24-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": -0.22210713523750877,
+        "maximum_cell_jacobian": 3.3444676317779165,
+        "folded_cells": 12,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.48474208171677796,
+        "maximum_cell_jacobian": 1.9328273835496255,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r24-exact-core-affine",
+      "lane": "C4",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": -1.0544702375762354,
+        "maximum_cell_jacobian": 2.546543239879576,
+        "folded_cells": 32,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.43448484448478725,
+        "maximum_cell_jacobian": 1.7799999308783867,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r24-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": -1.5565425592776163,
+        "maximum_cell_jacobian": 3.781568926440219,
+        "folded_cells": 33,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.39029545962124795,
+        "maximum_cell_jacobian": 2.0885739416329,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r24-exact-core-affine",
+      "lane": "C4",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": -2.459721947603901,
+        "maximum_cell_jacobian": 10.210513532015765,
+        "folded_cells": 57,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.3559594190857733,
+        "maximum_cell_jacobian": 2.30039949198917,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": false
+    },
+    {
+      "case": "r24-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.8333839520026595,
+        "maximum_cell_jacobian": 1.1720351721742959,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8333839520026595,
+        "maximum_cell_jacobian": 1.1720351721742959,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r24-exact-core-affine",
+      "lane": "C5",
+      "arm": "fixed",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.8317763039998716,
+        "maximum_cell_jacobian": 1.1888638962353832,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8317763039998716,
+        "maximum_cell_jacobian": 1.1888638962353832,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r24-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "forward",
+      "before": {
+        "minimum_cell_jacobian": 0.8524925999357528,
+        "maximum_cell_jacobian": 1.1299648215909188,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8524925999357528,
+        "maximum_cell_jacobian": 1.1299648215909188,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    },
+    {
+      "case": "r24-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "kind": "inverse",
+      "before": {
+        "minimum_cell_jacobian": 0.8732243418808837,
+        "maximum_cell_jacobian": 1.1632543980384513,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "after": {
+        "minimum_cell_jacobian": 0.8732243418808837,
+        "maximum_cell_jacobian": 1.1632543980384513,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "field_hash_unchanged": true
+    }
+  ],
+  "groups": [
+    {
+      "lane": "C4",
+      "kind": "forward",
+      "fields": 12,
+      "before_folded_fields": 9,
+      "after_folded_fields": 0,
+      "before_cell_passes": 3,
+      "after_cell_passes": 12,
+      "before_minimum": -1.5565425592776163,
+      "after_minimum": 0.12889063898769088,
+      "unchanged_field_hashes": 0
+    },
+    {
+      "lane": "C4",
+      "kind": "inverse",
+      "fields": 12,
+      "before_folded_fields": 3,
+      "after_folded_fields": 1,
+      "before_cell_passes": 9,
+      "after_cell_passes": 11,
+      "before_minimum": -2.459721947603901,
+      "after_minimum": -0.01443189106608796,
+      "unchanged_field_hashes": 0
+    },
+    {
+      "lane": "C5",
+      "kind": "forward",
+      "fields": 12,
+      "before_folded_fields": 0,
+      "after_folded_fields": 0,
+      "before_cell_passes": 12,
+      "after_cell_passes": 12,
+      "before_minimum": 0.7408608650839134,
+      "after_minimum": 0.7408608650839134,
+      "unchanged_field_hashes": 12
+    },
+    {
+      "lane": "C5",
+      "kind": "inverse",
+      "fields": 12,
+      "before_folded_fields": 0,
+      "after_folded_fields": 0,
+      "before_cell_passes": 12,
+      "after_cell_passes": 12,
+      "before_minimum": 0.7181177932293547,
+      "after_minimum": 0.7181177932293547,
+      "unchanged_field_hashes": 12
+    }
+  ],
+  "lanes": [
+    {
+      "case": "r19-exact-core-affine",
+      "lane": "C4",
+      "before": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4b0a6c3cc7686ef3e78b3dff8036d074fa0348b98ae0dbd58f6b2a0b60b75fde",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving endpoint inverse missed tolerance: InverseErrorSummary(46987,3666,Some(0.07042031356526293),Some(0.6510303668918468),Some(0.035210156782631466),Some(0.3255151834459234)) (eligible 46987)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 25.0,
+            "halfflow_bridge_final_match_mm": 4.020429540163983,
+            "halfflow_bridge_initial_match_mm": 4.868605050453333,
+            "halfflow_bridge_ms": 15381.615791,
+            "halfflow_export_ms": 13072.381959,
+            "halfflow_fine_ms": 3829.659916,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 25,
+          "rejected_trials": 5,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 76.66625,
+          "shared_preparation_ms": 76.66625,
+          "prepare_ms": 76.66625,
+          "capture_ms": 0.0,
+          "optimize_ms": 19211.275707,
+          "validate_ms": 13072.381959,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "37f9cec8e1adddd11a6cf170e6c35adc66c278fa239c12888a9ba57cba713d88",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving export failed complete-cell geometry: TrilinearCellJacobianReport(-0.02319995413514947,3.3396540968437627,46656,46656,1,0)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 16.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 25.0,
+            "halfflow_bridge_final_match_mm": 4.020429540163983,
+            "halfflow_bridge_initial_match_mm": 4.868605050453333,
+            "halfflow_bridge_ms": 43996.845333,
+            "halfflow_export_ms": 37063.884875,
+            "halfflow_fine_ms": 12292.032459,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 25,
+          "rejected_trials": 9,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 345.468875,
+          "shared_preparation_ms": 345.468875,
+          "prepare_ms": 345.468875,
+          "capture_ms": 0.0,
+          "optimize_ms": 56288.877792,
+          "validate_ms": 37063.884875,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      }
+    },
+    {
+      "case": "r19-exact-core-affine",
+      "lane": "C5",
+      "before": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "c1441cc3b8c24c7a4f79681bae100b89181c9e397d3230e6746cbb60535cd06e",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "0b067732be32206d52b440e65124b973e36ae8c6dfdf61b113f8735e458fc97e",
+        "effective_map_sha256": "0b067732be32206d52b440e65124b973e36ae8c6dfdf61b113f8735e458fc97e",
+        "metrics": {
+          "landmark_rms_mm": 0.08864392818414925,
+          "landmark_p95_mm": 0.126026497881057,
+          "landmark_maximum_mm": 0.1563055203729205,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 201.011875,
+            "halfflow_attempts": 26.0,
+            "halfflow_bridge_final_match_mm": 6.374122250531611e-15,
+            "halfflow_bridge_initial_match_mm": 6.374122250531611e-15,
+            "halfflow_bridge_ms": 8884.489708,
+            "halfflow_export_ms": 3646.990416,
+            "halfflow_fine_ms": 5216.503125,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27640081.92823402,
+            "output_finite_voxels": 41030.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 10143100,
+          "gradient_evaluations": 4400561,
+          "linearizations": 334,
+          "trial_evaluations": 193,
+          "rejected_trials": 6,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 1515.2555,
+          "shared_preparation_ms": 158.49225,
+          "prepare_ms": 1716.267375,
+          "capture_ms": 1829.209916,
+          "optimize_ms": 17091.119625,
+          "validate_ms": 3672.933082,
+          "output_ms": 140.743375,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4f63b37aca9ed1d538ae9129c50a0621dfdbc9de57c6855070ca3109d97ecf49",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "0b067732be32206d52b440e65124b973e36ae8c6dfdf61b113f8735e458fc97e",
+        "effective_map_sha256": "0b067732be32206d52b440e65124b973e36ae8c6dfdf61b113f8735e458fc97e",
+        "metrics": {
+          "landmark_rms_mm": 0.08864392818414925,
+          "landmark_p95_mm": 0.126026497881057,
+          "landmark_maximum_mm": 0.1563055203729205,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 595.449084,
+            "halfflow_attempts": 26.0,
+            "halfflow_bridge_final_match_mm": 6.374122250531611e-15,
+            "halfflow_bridge_initial_match_mm": 6.374122250531611e-15,
+            "halfflow_bridge_ms": 29906.1335,
+            "halfflow_export_ms": 11647.515375,
+            "halfflow_fine_ms": 15759.54325,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27640081.92823402,
+            "output_finite_voxels": 41030.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 10143100,
+          "gradient_evaluations": 4400561,
+          "linearizations": 334,
+          "trial_evaluations": 193,
+          "rejected_trials": 6,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 3643.5150830000002,
+          "shared_preparation_ms": 387.958916,
+          "prepare_ms": 4238.964167,
+          "capture_ms": 4619.644458,
+          "optimize_ms": 55200.748583,
+          "validate_ms": 12049.34375,
+          "output_ms": 395.177125,
+          "peak_retained_bytes": 0
+        }
+      }
+    },
+    {
+      "case": "r20-exact-core-affine",
+      "lane": "C4",
+      "before": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4b0a6c3cc7686ef3e78b3dff8036d074fa0348b98ae0dbd58f6b2a0b60b75fde",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving endpoint inverse missed tolerance: InverseErrorSummary(47134,3519,Some(0.10237760920812568),Some(2.302651695047004),Some(0.05118880460406284),Some(1.151325847523502)) (eligible 47134)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 23.0,
+            "halfflow_bridge_final_match_mm": 4.078067218614975,
+            "halfflow_bridge_initial_match_mm": 4.938893566230027,
+            "halfflow_bridge_ms": 29889.651958,
+            "halfflow_export_ms": 18143.433292,
+            "halfflow_fine_ms": 6482.388042,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 23,
+          "rejected_trials": 3,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 18.77175,
+          "shared_preparation_ms": 18.77175,
+          "prepare_ms": 18.77175,
+          "capture_ms": 0.0,
+          "optimize_ms": 36372.04,
+          "validate_ms": 18143.433292,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "37f9cec8e1adddd11a6cf170e6c35adc66c278fa239c12888a9ba57cba713d88",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving endpoint inverse missed tolerance: InverseErrorSummary(46804,3849,Some(0.08027051718919193),Some(0.6612163197021126),Some(0.04013525859459596),Some(0.3306081598510563)) (eligible 46804)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 10.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 17.0,
+            "halfflow_bridge_final_match_mm": 4.078067218614975,
+            "halfflow_bridge_initial_match_mm": 4.938893566230027,
+            "halfflow_bridge_ms": 18837.945917,
+            "halfflow_export_ms": 31479.545542,
+            "halfflow_fine_ms": 4551.874958,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 17,
+          "rejected_trials": 7,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 20.16925,
+          "shared_preparation_ms": 20.16925,
+          "prepare_ms": 20.16925,
+          "capture_ms": 0.0,
+          "optimize_ms": 23389.820875,
+          "validate_ms": 31479.545542,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      }
+    },
+    {
+      "case": "r20-exact-core-affine",
+      "lane": "C5",
+      "before": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "c1441cc3b8c24c7a4f79681bae100b89181c9e397d3230e6746cbb60535cd06e",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "7bfc0dc9476fc75148c310d5e34d5b4a7f902d1c6213a63173a2b6cef0be4420",
+        "effective_map_sha256": "7bfc0dc9476fc75148c310d5e34d5b4a7f902d1c6213a63173a2b6cef0be4420",
+        "metrics": {
+          "landmark_rms_mm": 0.08267327493314953,
+          "landmark_p95_mm": 0.11606011594161392,
+          "landmark_maximum_mm": 0.11627683713610906,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 3.408291,
+            "halfflow_attempts": 25.0,
+            "halfflow_bridge_final_match_mm": 6.3414390030550265e-15,
+            "halfflow_bridge_initial_match_mm": 6.3414390030550265e-15,
+            "halfflow_bridge_ms": 7964.649084,
+            "halfflow_export_ms": 4624.526,
+            "halfflow_fine_ms": 6432.935125,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27323260.97214525,
+            "output_finite_voxels": 40810.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 8801537,
+          "gradient_evaluations": 3807391,
+          "linearizations": 288,
+          "trial_evaluations": 169,
+          "rejected_trials": 5,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 1083.5652910000001,
+          "shared_preparation_ms": 84.124833,
+          "prepare_ms": 1086.973582,
+          "capture_ms": 1208.257291,
+          "optimize_ms": 16744.008084,
+          "validate_ms": 4628.712625,
+          "output_ms": 145.933125,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4f63b37aca9ed1d538ae9129c50a0621dfdbc9de57c6855070ca3109d97ecf49",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "7bfc0dc9476fc75148c310d5e34d5b4a7f902d1c6213a63173a2b6cef0be4420",
+        "effective_map_sha256": "7bfc0dc9476fc75148c310d5e34d5b4a7f902d1c6213a63173a2b6cef0be4420",
+        "metrics": {
+          "landmark_rms_mm": 0.08267327493314953,
+          "landmark_p95_mm": 0.11606011594161392,
+          "landmark_maximum_mm": 0.11627683713610906,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 8.684833,
+            "halfflow_attempts": 25.0,
+            "halfflow_bridge_final_match_mm": 6.3414390030550265e-15,
+            "halfflow_bridge_initial_match_mm": 6.3414390030550265e-15,
+            "halfflow_bridge_ms": 8819.74625,
+            "halfflow_export_ms": 13544.888625,
+            "halfflow_fine_ms": 5533.338,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27323260.97214525,
+            "output_finite_voxels": 40810.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 8801537,
+          "gradient_evaluations": 3807391,
+          "linearizations": 288,
+          "trial_evaluations": 169,
+          "rejected_trials": 5,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 1735.542541,
+          "shared_preparation_ms": 94.997625,
+          "prepare_ms": 1744.227374,
+          "capture_ms": 2192.203583,
+          "optimize_ms": 18188.845833,
+          "validate_ms": 13550.771999999999,
+          "output_ms": 86.700959,
+          "peak_retained_bytes": 0
+        }
+      }
+    },
+    {
+      "case": "r21-exact-core-affine",
+      "lane": "C4",
+      "before": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4b0a6c3cc7686ef3e78b3dff8036d074fa0348b98ae0dbd58f6b2a0b60b75fde",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving endpoint inverse missed tolerance: InverseErrorSummary(47381,3272,Some(0.07884463043723465),Some(0.9005920948731845),Some(0.039422315218617325),Some(0.45029604743659224)) (eligible 47381)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 25.0,
+            "halfflow_bridge_final_match_mm": 5.220656106007993,
+            "halfflow_bridge_initial_match_mm": 5.7510180511653415,
+            "halfflow_bridge_ms": 28067.931,
+            "halfflow_export_ms": 25228.310208,
+            "halfflow_fine_ms": 4256.755666,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 25,
+          "rejected_trials": 5,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 67.796875,
+          "shared_preparation_ms": 67.796875,
+          "prepare_ms": 67.796875,
+          "capture_ms": 0.0,
+          "optimize_ms": 32324.686666,
+          "validate_ms": 25228.310208,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "37f9cec8e1adddd11a6cf170e6c35adc66c278fa239c12888a9ba57cba713d88",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving endpoint inverse missed tolerance: InverseErrorSummary(46569,4084,Some(0.07277290312370527),Some(0.762380780641149),Some(0.036386451561852634),Some(0.3811903903205745)) (eligible 46569)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 10.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 19.0,
+            "halfflow_bridge_final_match_mm": 5.220656106007993,
+            "halfflow_bridge_initial_match_mm": 5.7510180511653415,
+            "halfflow_bridge_ms": 17751.32975,
+            "halfflow_export_ms": 19686.975333,
+            "halfflow_fine_ms": 3267.615416,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 19,
+          "rejected_trials": 9,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 17.3955,
+          "shared_preparation_ms": 17.3955,
+          "prepare_ms": 17.3955,
+          "capture_ms": 0.0,
+          "optimize_ms": 21018.945166,
+          "validate_ms": 19686.975333,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      }
+    },
+    {
+      "case": "r21-exact-core-affine",
+      "lane": "C5",
+      "before": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "c1441cc3b8c24c7a4f79681bae100b89181c9e397d3230e6746cbb60535cd06e",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "8d369d04b96a6e12fe4b740f1d338dfa4f87ad180eb3ba7051ccb0c85045c89c",
+        "effective_map_sha256": "8d369d04b96a6e12fe4b740f1d338dfa4f87ad180eb3ba7051ccb0c85045c89c",
+        "metrics": {
+          "landmark_rms_mm": 0.08108683139137027,
+          "landmark_p95_mm": 0.13921246923921382,
+          "landmark_maximum_mm": 0.14132357051857633,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 11.53925,
+            "halfflow_attempts": 26.0,
+            "halfflow_bridge_final_match_mm": 6.154649439679411e-15,
+            "halfflow_bridge_initial_match_mm": 6.154649439679411e-15,
+            "halfflow_bridge_ms": 4906.076708,
+            "halfflow_export_ms": 3377.901292,
+            "halfflow_fine_ms": 4985.969125,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27497142.4418142,
+            "output_finite_voxels": 41058.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 8402511,
+          "gradient_evaluations": 3641433,
+          "linearizations": 278,
+          "trial_evaluations": 165,
+          "rejected_trials": 6,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 519.988292,
+          "shared_preparation_ms": 17.796833,
+          "prepare_ms": 531.527542,
+          "capture_ms": 1131.321875,
+          "optimize_ms": 11536.871165999999,
+          "validate_ms": 3384.38475,
+          "output_ms": 145.213208,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4f63b37aca9ed1d538ae9129c50a0621dfdbc9de57c6855070ca3109d97ecf49",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "8d369d04b96a6e12fe4b740f1d338dfa4f87ad180eb3ba7051ccb0c85045c89c",
+        "effective_map_sha256": "8d369d04b96a6e12fe4b740f1d338dfa4f87ad180eb3ba7051ccb0c85045c89c",
+        "metrics": {
+          "landmark_rms_mm": 0.08108683139137027,
+          "landmark_p95_mm": 0.13921246923921382,
+          "landmark_maximum_mm": 0.14132357051857633,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 48.268208,
+            "halfflow_attempts": 26.0,
+            "halfflow_bridge_final_match_mm": 6.154649439679411e-15,
+            "halfflow_bridge_initial_match_mm": 6.154649439679411e-15,
+            "halfflow_bridge_ms": 7938.615584,
+            "halfflow_export_ms": 9079.710334,
+            "halfflow_fine_ms": 7786.193,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27497142.4418142,
+            "output_finite_voxels": 41058.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 8402511,
+          "gradient_evaluations": 3641433,
+          "linearizations": 278,
+          "trial_evaluations": 165,
+          "rejected_trials": 6,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 606.0610409999999,
+          "shared_preparation_ms": 19.053416,
+          "prepare_ms": 654.3292489999999,
+          "capture_ms": 1660.706792,
+          "optimize_ms": 18802.762084,
+          "validate_ms": 9136.475333999999,
+          "output_ms": 137.857958,
+          "peak_retained_bytes": 0
+        }
+      }
+    },
+    {
+      "case": "r22-exact-core-affine",
+      "lane": "C4",
+      "before": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4b0a6c3cc7686ef3e78b3dff8036d074fa0348b98ae0dbd58f6b2a0b60b75fde",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving endpoint inverse missed tolerance: InverseErrorSummary(47058,3595,Some(0.11411116054818485),Some(2.58403477889133),Some(0.057055580274092424),Some(1.292017389445665)) (eligible 47058)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 22.0,
+            "halfflow_bridge_final_match_mm": 3.3337529672796022,
+            "halfflow_bridge_initial_match_mm": 4.407633678569745,
+            "halfflow_bridge_ms": 13377.588334,
+            "halfflow_export_ms": 15881.821917,
+            "halfflow_fine_ms": 3148.984667,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 22,
+          "rejected_trials": 2,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 88.219417,
+          "shared_preparation_ms": 88.219417,
+          "prepare_ms": 88.219417,
+          "capture_ms": 0.0,
+          "optimize_ms": 16526.573001,
+          "validate_ms": 15881.821917,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "37f9cec8e1adddd11a6cf170e6c35adc66c278fa239c12888a9ba57cba713d88",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving endpoint inverse missed tolerance: InverseErrorSummary(47368,3285,Some(0.0845327340692153),Some(1.0820564946510407),Some(0.04226636703460765),Some(0.5410282473255204)) (eligible 47368)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 10.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 16.0,
+            "halfflow_bridge_final_match_mm": 3.3337529672796022,
+            "halfflow_bridge_initial_match_mm": 4.407633678569745,
+            "halfflow_bridge_ms": 20939.574042,
+            "halfflow_export_ms": 24942.062375,
+            "halfflow_fine_ms": 4703.757625,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 16,
+          "rejected_trials": 6,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 33.080959,
+          "shared_preparation_ms": 33.080959,
+          "prepare_ms": 33.080959,
+          "capture_ms": 0.0,
+          "optimize_ms": 25643.331667,
+          "validate_ms": 24942.062375,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      }
+    },
+    {
+      "case": "r22-exact-core-affine",
+      "lane": "C5",
+      "before": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "c1441cc3b8c24c7a4f79681bae100b89181c9e397d3230e6746cbb60535cd06e",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "6624c85a7022d289e63e5053bd9d2df699c661a9f4e4b32e1df2ac52b3e55370",
+        "effective_map_sha256": "6624c85a7022d289e63e5053bd9d2df699c661a9f4e4b32e1df2ac52b3e55370",
+        "metrics": {
+          "landmark_rms_mm": 0.06675689979401114,
+          "landmark_p95_mm": 0.09892703891394417,
+          "landmark_maximum_mm": 0.10379723521133444,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 31.710667,
+            "halfflow_attempts": 25.0,
+            "halfflow_bridge_final_match_mm": 7.11268913185734e-15,
+            "halfflow_bridge_initial_match_mm": 7.11268913185734e-15,
+            "halfflow_bridge_ms": 4890.783833,
+            "halfflow_export_ms": 3541.49425,
+            "halfflow_fine_ms": 3412.472541,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27137184.451036938,
+            "output_finite_voxels": 40728.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 6030447,
+          "gradient_evaluations": 2588195,
+          "linearizations": 220,
+          "trial_evaluations": 141,
+          "rejected_trials": 11,
+          "early_rejections": 6,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 721.3073740000001,
+          "shared_preparation_ms": 15.227333,
+          "prepare_ms": 753.018041,
+          "capture_ms": 1972.725709,
+          "optimize_ms": 10115.798666,
+          "validate_ms": 3549.9674170000003,
+          "output_ms": 34.392458,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4f63b37aca9ed1d538ae9129c50a0621dfdbc9de57c6855070ca3109d97ecf49",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "6624c85a7022d289e63e5053bd9d2df699c661a9f4e4b32e1df2ac52b3e55370",
+        "effective_map_sha256": "6624c85a7022d289e63e5053bd9d2df699c661a9f4e4b32e1df2ac52b3e55370",
+        "metrics": {
+          "landmark_rms_mm": 0.06675689979401114,
+          "landmark_p95_mm": 0.09892703891394417,
+          "landmark_maximum_mm": 0.10379723521133444,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 21.602459,
+            "halfflow_attempts": 25.0,
+            "halfflow_bridge_final_match_mm": 7.11268913185734e-15,
+            "halfflow_bridge_initial_match_mm": 7.11268913185734e-15,
+            "halfflow_bridge_ms": 7107.544417,
+            "halfflow_export_ms": 11497.807458,
+            "halfflow_fine_ms": 6731.318875,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27137184.451036938,
+            "output_finite_voxels": 40728.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 6030447,
+          "gradient_evaluations": 2588195,
+          "linearizations": 220,
+          "trial_evaluations": 141,
+          "rejected_trials": 11,
+          "early_rejections": 6,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 518.140667,
+          "shared_preparation_ms": 18.5365,
+          "prepare_ms": 539.743126,
+          "capture_ms": 1818.531875,
+          "optimize_ms": 15474.540292000002,
+          "validate_ms": 11512.187708,
+          "output_ms": 83.985,
+          "peak_retained_bytes": 0
+        }
+      }
+    },
+    {
+      "case": "r23-exact-core-affine",
+      "lane": "C4",
+      "before": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4b0a6c3cc7686ef3e78b3dff8036d074fa0348b98ae0dbd58f6b2a0b60b75fde",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving endpoint inverse missed tolerance: InverseErrorSummary(46747,3906,Some(0.08372178048992028),Some(0.8378752786511772),Some(0.04186089024496014),Some(0.4189376393255886)) (eligible 46747)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 25.0,
+            "halfflow_bridge_final_match_mm": 5.122842099929118,
+            "halfflow_bridge_initial_match_mm": 5.7815896587906925,
+            "halfflow_bridge_ms": 14635.700834,
+            "halfflow_export_ms": 15345.981708,
+            "halfflow_fine_ms": 3903.415833,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 25,
+          "rejected_trials": 5,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 24.326208,
+          "shared_preparation_ms": 24.326208,
+          "prepare_ms": 24.326208,
+          "capture_ms": 0.0,
+          "optimize_ms": 18539.116667,
+          "validate_ms": 15345.981708,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "37f9cec8e1adddd11a6cf170e6c35adc66c278fa239c12888a9ba57cba713d88",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving endpoint inverse missed tolerance: InverseErrorSummary(47167,3486,Some(0.0554068204270551),Some(0.5112558878707035),Some(0.02770341021352755),Some(0.25562794393535176)) (eligible 47167)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 9.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 15.0,
+            "halfflow_bridge_final_match_mm": 5.122842099929118,
+            "halfflow_bridge_initial_match_mm": 5.7815896587906925,
+            "halfflow_bridge_ms": 25434.730041,
+            "halfflow_export_ms": 17416.095458,
+            "halfflow_fine_ms": 1194.802542,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 15,
+          "rejected_trials": 6,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 41.866042,
+          "shared_preparation_ms": 41.866042,
+          "prepare_ms": 41.866042,
+          "capture_ms": 0.0,
+          "optimize_ms": 26629.532583,
+          "validate_ms": 17416.095458,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      }
+    },
+    {
+      "case": "r23-exact-core-affine",
+      "lane": "C5",
+      "before": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "c1441cc3b8c24c7a4f79681bae100b89181c9e397d3230e6746cbb60535cd06e",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "610a49f4e6091977a820f205a9cbe0ea42ad8290ee5e78c002d578c7f0d56ea9",
+        "effective_map_sha256": "610a49f4e6091977a820f205a9cbe0ea42ad8290ee5e78c002d578c7f0d56ea9",
+        "metrics": {
+          "landmark_rms_mm": 0.07832241471890306,
+          "landmark_p95_mm": 0.13120574458477094,
+          "landmark_maximum_mm": 0.14737313330817453,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 22.385625,
+            "halfflow_attempts": 26.0,
+            "halfflow_bridge_final_match_mm": 6.406375677656671e-15,
+            "halfflow_bridge_initial_match_mm": 6.406375677656671e-15,
+            "halfflow_bridge_ms": 4764.77,
+            "halfflow_export_ms": 3644.459084,
+            "halfflow_fine_ms": 3942.779167,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27300575.555773802,
+            "output_finite_voxels": 40913.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 10257871,
+          "gradient_evaluations": 4451844,
+          "linearizations": 340,
+          "trial_evaluations": 198,
+          "rejected_trials": 8,
+          "early_rejections": 2,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 749.419709,
+          "shared_preparation_ms": 15.321709,
+          "prepare_ms": 771.805334,
+          "capture_ms": 1571.324042,
+          "optimize_ms": 11078.253667,
+          "validate_ms": 3648.557209,
+          "output_ms": 37.639833,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4f63b37aca9ed1d538ae9129c50a0621dfdbc9de57c6855070ca3109d97ecf49",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "610a49f4e6091977a820f205a9cbe0ea42ad8290ee5e78c002d578c7f0d56ea9",
+        "effective_map_sha256": "610a49f4e6091977a820f205a9cbe0ea42ad8290ee5e78c002d578c7f0d56ea9",
+        "metrics": {
+          "landmark_rms_mm": 0.07832241471890306,
+          "landmark_p95_mm": 0.13120574458477094,
+          "landmark_maximum_mm": 0.14737313330817453,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 128.306583,
+            "halfflow_attempts": 26.0,
+            "halfflow_bridge_final_match_mm": 6.406375677656671e-15,
+            "halfflow_bridge_initial_match_mm": 6.406375677656671e-15,
+            "halfflow_bridge_ms": 8908.303084,
+            "halfflow_export_ms": 6175.618208,
+            "halfflow_fine_ms": 12851.39,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27300575.555773802,
+            "output_finite_voxels": 40913.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 10257871,
+          "gradient_evaluations": 4451844,
+          "linearizations": 340,
+          "trial_evaluations": 198,
+          "rejected_trials": 8,
+          "early_rejections": 2,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 881.919041,
+          "shared_preparation_ms": 4.734791,
+          "prepare_ms": 1010.2256239999999,
+          "capture_ms": 2849.18475,
+          "optimize_ms": 25220.735624999998,
+          "validate_ms": 6179.561624,
+          "output_ms": 83.244916,
+          "peak_retained_bytes": 0
+        }
+      }
+    },
+    {
+      "case": "r24-exact-core-affine",
+      "lane": "C4",
+      "before": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4b0a6c3cc7686ef3e78b3dff8036d074fa0348b98ae0dbd58f6b2a0b60b75fde",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving endpoint inverse missed tolerance: InverseErrorSummary(47261,3392,Some(0.16637561676440119),Some(4.653884879417581),Some(0.08318780838220059),Some(2.3269424397087906)) (eligible 47261)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 20.0,
+            "halfflow_bridge_final_match_mm": 5.729531965832688,
+            "halfflow_bridge_initial_match_mm": 6.400845305685407,
+            "halfflow_bridge_ms": 24206.334833,
+            "halfflow_export_ms": 20994.331041,
+            "halfflow_fine_ms": 8027.858834,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 20,
+          "rejected_trials": 0,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 67.48275,
+          "shared_preparation_ms": 67.48275,
+          "prepare_ms": 67.48275,
+          "capture_ms": 0.0,
+          "optimize_ms": 32234.193667,
+          "validate_ms": 20994.331041,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C4",
+        "method": {
+          "id": "halfflow-existing-pipeline",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "37f9cec8e1adddd11a6cf170e6c35adc66c278fa239c12888a9ba57cba713d88",
+          "configuration_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "recipient-existing-identity-midpoint",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "inverse-failure",
+        "accepted": false,
+        "failure": {
+          "kind": "halfflow-export",
+          "message": "FixedToMoving endpoint inverse missed tolerance: InverseErrorSummary(46544,4109,Some(0.07006609443557366),Some(0.6996692317858089),Some(0.03503304721778683),Some(0.34983461589290443)) (eligible 46544)"
+        },
+        "serialized_map_sha256": null,
+        "effective_map_sha256": null,
+        "metrics": {
+          "landmark_rms_mm": null,
+          "landmark_p95_mm": null,
+          "landmark_maximum_mm": null,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 10.0,
+            "halfflow_affine_adapter_ms": 0.0,
+            "halfflow_attempts": 16.0,
+            "halfflow_bridge_final_match_mm": 5.729531965832688,
+            "halfflow_bridge_initial_match_mm": 6.400845305685407,
+            "halfflow_bridge_ms": 17354.29225,
+            "halfflow_export_ms": 15823.299084,
+            "halfflow_fine_ms": 2967.698959,
+            "halfflow_invoked": 1.0,
+            "output_resamplings": 0.0,
+            "upstream_affine_completed": 0.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 0,
+          "gradient_evaluations": 0,
+          "linearizations": 0,
+          "trial_evaluations": 16,
+          "rejected_trials": 6,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 51.900292,
+          "shared_preparation_ms": 51.900292,
+          "prepare_ms": 51.900292,
+          "capture_ms": 0.0,
+          "optimize_ms": 20321.991209,
+          "validate_ms": 15823.299084,
+          "output_ms": 0.0,
+          "peak_retained_bytes": 0
+        }
+      }
+    },
+    {
+      "case": "r24-exact-core-affine",
+      "lane": "C5",
+      "before": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "c1441cc3b8c24c7a4f79681bae100b89181c9e397d3230e6746cbb60535cd06e",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "eceec5f3fdd0986ada813e1a46473ef5f462bf7f1db8e7a515997270b20d6526",
+        "effective_map_sha256": "eceec5f3fdd0986ada813e1a46473ef5f462bf7f1db8e7a515997270b20d6526",
+        "metrics": {
+          "landmark_rms_mm": 0.07915126794602022,
+          "landmark_p95_mm": 0.12869243338304368,
+          "landmark_maximum_mm": 0.14118146636422743,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 3.296458,
+            "halfflow_attempts": 24.0,
+            "halfflow_bridge_final_match_mm": 6.922342053632355e-15,
+            "halfflow_bridge_initial_match_mm": 6.922342053632355e-15,
+            "halfflow_bridge_ms": 5545.823375,
+            "halfflow_export_ms": 3838.437,
+            "halfflow_fine_ms": 3444.180791,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27058084.34298968,
+            "output_finite_voxels": 40660.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 6648312,
+          "gradient_evaluations": 2860951,
+          "linearizations": 232,
+          "trial_evaluations": 140,
+          "rejected_trials": 4,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 552.079708,
+          "shared_preparation_ms": 15.176458,
+          "prepare_ms": 555.376166,
+          "capture_ms": 1127.997834,
+          "optimize_ms": 10361.680166,
+          "validate_ms": 3846.280708,
+          "output_ms": 87.557916,
+          "peak_retained_bytes": 0
+        }
+      },
+      "after": {
+        "lane": "C5",
+        "method": {
+          "id": "halfflow-flashalign-initialization",
+          "model": "frozen-halfflow-basinbridge-complete",
+          "revision": "4f63b37aca9ed1d538ae9129c50a0621dfdbc9de57c6855070ca3109d97ecf49",
+          "configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea"
+        },
+        "controls": {
+          "objective_id": "halfflow-frozen-recipient-objective",
+          "support_policy_id": "all-finite-synthetic-support-v1",
+          "mask_policy_id": "all-finite-synthetic-support-v1",
+          "model_freedom_id": "recipient-frozen-complete-pipeline",
+          "initialization_source_id": "flashalign-affine-v5",
+          "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f"
+        },
+        "map_interpretation": "complete-moving-to-fixed",
+        "status": "success",
+        "accepted": true,
+        "failure": null,
+        "serialized_map_sha256": "eceec5f3fdd0986ada813e1a46473ef5f462bf7f1db8e7a515997270b20d6526",
+        "effective_map_sha256": "eceec5f3fdd0986ada813e1a46473ef5f462bf7f1db8e7a515997270b20d6526",
+        "metrics": {
+          "landmark_rms_mm": 0.07915126794602022,
+          "landmark_p95_mm": 0.12869243338304368,
+          "landmark_maximum_mm": 0.14118146636422743,
+          "candidate_secondary": {
+            "halfflow_accepted_steps": 20.0,
+            "halfflow_affine_adapter_ms": 3.168334,
+            "halfflow_attempts": 24.0,
+            "halfflow_bridge_final_match_mm": 6.922342053632355e-15,
+            "halfflow_bridge_initial_match_mm": 6.922342053632355e-15,
+            "halfflow_bridge_ms": 7222.729625,
+            "halfflow_export_ms": 3865.603708,
+            "halfflow_fine_ms": 6230.678708,
+            "halfflow_invoked": 1.0,
+            "output_finite_value_sum": 27058084.34298968,
+            "output_finite_voxels": 40660.0,
+            "output_resamplings": 1.0,
+            "output_voxels": 50653.0,
+            "upstream_affine_completed": 1.0
+          }
+        },
+        "work": {
+          "unique_interpolations": 6648312,
+          "gradient_evaluations": 2860951,
+          "linearizations": 232,
+          "trial_evaluations": 140,
+          "rejected_trials": 4,
+          "early_rejections": 0,
+          "curvature_products": 0
+        },
+        "costs": {
+          "cold_standalone_input_and_preparation_ms": 804.254416,
+          "shared_preparation_ms": 4.246958,
+          "prepare_ms": 807.42275,
+          "capture_ms": 2759.579667,
+          "optimize_ms": 15729.723666000002,
+          "validate_ms": 3869.6236670000003,
+          "output_ms": 55.955041,
+          "peak_retained_bytes": 0
+        }
+      }
+    }
+  ],
+  "all_24_forward_fields_pass": true,
+  "statuses": {
+    "before": {
+      "inverse-failure": 6,
+      "success": 6
+    },
+    "after": {
+      "inverse-failure": 6,
+      "success": 6
+    }
+  },
+  "qualification_claim": false,
+  "acquired_mri_improvement_claim": false,
+  "runtime_comparison_allowed": false,
+  "scope": "All six observed synthetic cases and all 48 fields; no case or failure omitted. Stored inverse topology, endpoint inverse admission and convergence remain separate outcomes."
+}

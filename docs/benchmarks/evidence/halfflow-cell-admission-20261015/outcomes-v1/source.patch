@@ -1,0 +1,604 @@
+--- /dev/null
++++ b/benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageCellGeometryAudit.scala
+@@ -0,0 +1,46 @@
++package reframe4s.halfflow
++
++import gale.linalg.DMat
++import java.io.DataInputStream
++import java.nio.file.{Files, Paths, StandardOpenOption}
++import reframe4s.halfflow.internal.*
++
++/** Read-only audit of captured coordinate fields; no fitting or map mutation. */
++object RealImageCellGeometryAudit:
++  def main(args: Array[String]): Unit =
++    require(args.length == 2, "field-stem output-json")
++    val output = Paths.get(args(1))
++    require(!Files.exists(output), "refusing to overwrite cell audit")
++    val metadata = Files.readString(Paths.get(args(0) + ".json"))
++    def array(key: String): Vector[Double] =
++      val pattern = ("\"" + key + "\"\\s*:\\s*\\[([^\\]]+)\\]").r
++      pattern.findFirstMatchIn(metadata).getOrElse(
++        throw new IllegalArgumentException("missing field " + key)).group(1)
++        .split(",").map(_.trim.toDouble).toVector
++    val shape = array("shape")
++    require(shape.length == 3 && shape.forall(v => v.isFinite && v >= 1 && v == v.toInt.toDouble))
++    val grid = GridSpec(shape.map(_.toInt), DMat.dense(4, 4, array("affine")))
++    val coordinates = new Array[Double](3 * grid.nVoxels)
++    val input = new DataInputStream(Files.newInputStream(Paths.get(args(0) + ".f64")))
++    try
++      var i = 0
++      while i < coordinates.length do
++        coordinates(i) = input.readDouble()
++        i += 1
++      require(input.read() == -1, "trailing coordinate data")
++    finally input.close()
++    val mask = Files.readAllBytes(Paths.get(args(0) + ".valid-u8"))
++    require(mask.length == grid.nVoxels && mask.forall(v => v == 0 || v == 1), "invalid validity data")
++    val validity = FieldValidity.copyMask(mask.map(_ != 0))
++    val field = DenseVectorField.fromLegacyPlanar(grid, coordinates, DenseVectorFieldKind.SourceCoordinates)
++    val report = TrilinearCellGeometry.evaluate(field, validity)
++    val frame = RegistrationFrame[Unit](SpatialDomainId("captured-cell-audit"), grid)
++    val pull = DensePull.make(frame, frame, field, validity).fold(e => throw new IllegalArgumentException(e.message), identity)
++    val step = HalfStep.make(pull, DensePull.identity(frame)).fold(e => throw new IllegalArgumentException(e.message), identity)
++    val admitted = ForwardGeometry.incremental(step)._1 == GeometryVerdict.Valid
++    val result = Map("minimum_cell_jacobian" -> report.minimum, "maximum_cell_jacobian" -> report.maximum,
++      "covered_cells" -> report.evaluated, "total_declared_cells" -> report.eligible,
++      "covered_fraction" -> report.validFraction, "folded_cells" -> report.nonPositive,
++      "nonfinite_cells" -> report.nonFinite, "samples_per_cell" -> 9,
++      "cell_pass" -> report.acceptable(0.05, 0.99), "shared_forward_gate_accepted" -> admitted)
++    val _ = Files.writeString(output, RealImageCheckpointJson.encode(result) + "\n", StandardOpenOption.CREATE_NEW)
+--- a/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/ForwardMidpoint.scala
++++ b/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/ForwardMidpoint.scala
+@@ -125,7 +125,8 @@
+     evaluated: Int,
+     eligible: Int,
+     validFraction: Double,
+-    nonPositive: Int
++    nonPositive: Int,
++    cells: Option[TrilinearCellJacobianReport] = None
+ )
+ 
+ final class ForwardGeometryWorkspace private (
+@@ -154,7 +155,7 @@
+     val workspace = ForwardGeometryWorkspace(step.plus.from.grid)
+     val plus = report(step.plus, workspace, config.interiorMargin)
+     val minus = report(step.minus, workspace, config.interiorMargin)
+-    val minimum = math.min(plus.minimum, minus.minimum)
++    val minimum = math.min(effectiveMinimum(plus), effectiveMinimum(minus))
+     val valid = acceptable(plus, config.minimumIncrementJacobian, config.minimumValidFraction) &&
+       acceptable(minus, config.minimumIncrementJacobian, config.minimumValidFraction)
+     (
+@@ -171,9 +172,9 @@
+     val moving = report(state.moving.residual, workspace, config.interiorMargin)
+     val verdict =
+       if !acceptable(fixed, config.minimumAccumulatedJacobian, config.minimumValidFraction) then
+-        GeometryVerdict.AccumulatedJacobianTooSmall(MidpointArmName.Fixed, fixed.minimum)
++        GeometryVerdict.AccumulatedJacobianTooSmall(MidpointArmName.Fixed, effectiveMinimum(fixed))
+       else if !acceptable(moving, config.minimumAccumulatedJacobian, config.minimumValidFraction) then
+-        GeometryVerdict.AccumulatedJacobianTooSmall(MidpointArmName.Moving, moving.minimum)
++        GeometryVerdict.AccumulatedJacobianTooSmall(MidpointArmName.Moving, effectiveMinimum(moving))
+       else GeometryVerdict.Valid
+     (verdict, Vector(fixed, moving))
+ 
+@@ -201,12 +202,16 @@
+       workspace.reduction.evaluated,
+       eligible,
+       if eligible == 0 then 0.0 else workspace.reduction.evaluated.toDouble / eligible.toDouble,
+-      workspace.reduction.nonPositive
++      workspace.reduction.nonPositive,
++      Some(TrilinearCellGeometry.evaluate(pull.sourceCoordinates, pull.validity))
+     )
+ 
+   private def acceptable(report: ForwardJacobianReport, floor: Double, minimumValidFraction: Double): Boolean =
+     report.minimum.isFinite && report.minimum >= floor && report.nonPositive == 0 &&
+-      report.validFraction >= minimumValidFraction
++      report.validFraction >= minimumValidFraction && report.cells.exists(_.acceptable(floor, minimumValidFraction))
++
++  private def effectiveMinimum(report: ForwardJacobianReport): Double =
++    math.min(report.minimum, report.cells.fold(Double.NaN)(_.minimum))
+ 
+ /** One authoritative forward residual followed by an exact affine factor. */
+ final case class ForwardMidpointArm[W, E] private (
+--- a/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/ForwardMidpointExport.scala
++++ b/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/ForwardMidpointExport.scala
+@@ -89,6 +89,8 @@
+   case InverseDidNotConverge(arm: MidpointArmName, report: ResidualInverseReport)
+   case EndpointInverseDidNotConverge(direction: ExportDirection, report: InverseErrorSummary, eligible: Int)
+   case ExportedTopologyInvalid(direction: ExportDirection, minimumJacobian: Double, nonPositive: Int)
++  case ForwardResidualTopologyInvalid(arm: MidpointArmName, report: TrilinearCellJacobianReport)
++  case ExportedCellTopologyInvalid(direction: ExportDirection, report: TrilinearCellJacobianReport)
+ 
+   def message: String =
+     this match
+@@ -100,6 +102,10 @@
+         s"$direction endpoint inverse missed tolerance: $report (eligible $eligible)"
+       case ExportedTopologyInvalid(direction, minimum, nonPositive) =>
+         s"$direction export contains $nonPositive non-positive Jacobians (minimum $minimum)"
++      case ForwardResidualTopologyInvalid(arm, report) =>
++        s"$arm forward residual failed complete-cell geometry: $report"
++      case ExportedCellTopologyInvalid(direction, report) =>
++        s"$direction export failed complete-cell geometry: $report"
+ 
+ enum ExportDirection:
+   case FixedToMoving
+@@ -412,6 +418,20 @@
+       fixedEvaluationScope: Option[FieldValidity] = None,
+       movingEvaluationScope: Option[FieldValidity] = None
+   ): Either[ForwardExportError, ForwardMidpointExportCandidate[F, M]] =
++    val fixedCells = TrilinearCellGeometry.evaluate(state.fixed.residual.sourceCoordinates, state.fixed.residual.validity)
++    val movingCells = TrilinearCellGeometry.evaluate(state.moving.residual.sourceCoordinates, state.moving.residual.validity)
++    if !fixedCells.acceptable(0.0, config.minimumInteriorValidFraction) then
++      Left(ForwardExportError.ForwardResidualTopologyInvalid(MidpointArmName.Fixed, fixedCells))
++    else if !movingCells.acceptable(0.0, config.minimumInteriorValidFraction) then
++      Left(ForwardExportError.ForwardResidualTopologyInvalid(MidpointArmName.Moving, movingCells))
++    else construct(state, config, fixedEvaluationScope, movingEvaluationScope)
++
++  private def construct[W, F, M](
++      state: ForwardMidpoint[W, F, M],
++      config: ResidualInverseConfig,
++      fixedEvaluationScope: Option[FieldValidity],
++      movingEvaluationScope: Option[FieldValidity]
++  ): Either[ForwardExportError, ForwardMidpointExportCandidate[F, M]] =
+     val fixedInverse = ResidualInverseRefiner.refine(state.fixed.residual, config)
+     val movingInverse = ResidualInverseRefiner.refine(state.moving.residual, config)
+     val fixedToWork = state.fixed.affine.inverse.dense.forward
+@@ -444,8 +464,8 @@
+       Left(ForwardExportError.InverseDidNotConverge(MidpointArmName.Moving, candidate.movingResidualInverse))
+     else
+       for
+-        _ <- requireTopology(candidate.transform.forward, ExportDirection.FixedToMoving)
+-        _ <- requireTopology(candidate.transform.backward, ExportDirection.MovingToFixed)
++        _ <- requireTopology(candidate.transform.forward, ExportDirection.FixedToMoving, config.minimumInteriorValidFraction)
++        _ <- requireTopology(candidate.transform.backward, ExportDirection.MovingToFixed, config.minimumInteriorValidFraction)
+         // Recompute from the maps: a copied candidate must not carry stale admission evidence.
+         forward <- requireEndpoint(candidate.transform.forward, candidate.transform.backward,
+           candidate.fixedEvaluationScope, ExportDirection.FixedToMoving, config)
+@@ -495,7 +515,8 @@
+ 
+   private def requireTopology[A, B](
+       pull: DensePull[A, B],
+-      direction: ExportDirection
++      direction: ExportDirection,
++      minimumValidFraction: Double
+   ): Either[ForwardExportError, Unit] =
+     val grid = pull.from.grid
+     val determinants = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
+@@ -510,5 +531,9 @@
+       reduction
+     )
+     val minimum = reduction.minimumOrNaN
+-    if reduction.nonPositive == 0 && minimum.isFinite && minimum > 0.0 then Right(())
+-    else Left(ForwardExportError.ExportedTopologyInvalid(direction, minimum, reduction.nonPositive))
++    if reduction.nonPositive != 0 || !minimum.isFinite || minimum <= 0.0 then
++      Left(ForwardExportError.ExportedTopologyInvalid(direction, minimum, reduction.nonPositive))
++    else
++      val cells = TrilinearCellGeometry.evaluate(pull.sourceCoordinates, pull.validity)
++      if cells.acceptable(0.0, minimumValidFraction) then Right(())
++      else Left(ForwardExportError.ExportedCellTopologyInvalid(direction, cells))
+--- a/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/TopologyGuard.scala
++++ b/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/TopologyGuard.scala
+@@ -36,7 +36,8 @@
+     validFraction: Double,
+     nonPositive: Int,
+     belowFloor: Int,
+-    quantiles: JacobianQuantiles
++    quantiles: JacobianQuantiles,
++    cells: Option[TrilinearCellJacobianReport] = None
+ )
+ 
+ final case class PairGuardReport(
+@@ -239,7 +240,8 @@
+         percentile(buffers.sorted, destination, 0.50),
+         percentile(buffers.sorted, destination, 0.95),
+         percentile(buffers.sorted, destination, 0.99)
+-      )
++      ),
++      Some(TrilinearCellGeometry.evaluate(pull.sourceCoordinates, pull.validity))
+     )
+ 
+   private def percentile(sorted: Array[Double], length: Int, probability: Double): Option[Double] =
+@@ -273,6 +275,8 @@
+     if summary.validFraction < config.minimumValidFraction then reasons += s"$label Jacobian coverage is too small"
+     if summary.nonPositive > 0 then reasons += s"$label map has non-positive Jacobians"
+     if summary.belowFloor > 0 then reasons += s"$label map crosses the Jacobian floor"
++    if !summary.cells.exists(_.acceptable(config.minimumJacobian, config.minimumValidFraction)) then
++      reasons += s"$label map failed complete-cell Jacobian or coverage bounds"
+ 
+   private def checkInverse(
+       label: String,
+--- /dev/null
++++ b/modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/TrilinearCellGeometry.scala
+@@ -0,0 +1,122 @@
++package reframe4s.halfflow
++
++import reframe4s.halfflow.internal.*
++
++/** Every cell is eligible, including the outermost cells. A cell is evaluated
++  * only when all eight vertices are valid and all nine determinants are finite.
++  * Nonpositive counts are cells, not vertices. This is sampled cell evidence,
++  * not a certificate of positivity everywhere inside a trilinear cell.
++  */
++final case class TrilinearCellJacobianReport(
++    minimum: Double,
++    maximum: Double,
++    evaluated: Int,
++    eligible: Int,
++    nonPositive: Int,
++    nonFinite: Int
++):
++  def validFraction: Double = if eligible == 0 then 0.0 else evaluated.toDouble / eligible.toDouble
++
++  def acceptable(floor: Double, minimumValidFraction: Double): Boolean =
++    evaluated > 0 && minimum.isFinite && minimum >= floor && nonPositive == 0 && nonFinite == 0 &&
++      validFraction >= minimumValidFraction
++
++/** World-coordinate Jacobians of the actual trilinear coordinate map, sampled
++  * at each complete cell's eight one-sided corners and center. Geometry/frame
++  * ownership stays with the canonical grid; no finite-difference halo is used.
++  */
++object TrilinearCellGeometry:
++  def evaluate(field: DenseVectorField, validity: FieldValidity = FieldValidity.All): TrilinearCellJacobianReport =
++    require(field.kind == DenseVectorFieldKind.SourceCoordinates, "cell geometry requires source coordinates")
++    val grid = field.grid
++    validity.requireSize(grid.nVoxels)
++    val nx = grid.extentX
++    val ny = grid.extentY
++    val nz = grid.extentZ
++    val eligible = math.max(0, nx - 1) * math.max(0, ny - 1) * math.max(0, nz - 1)
++    val basis = grid.affine
++    val basisDeterminant =
++      basis(0, 0) * (basis(1, 1) * basis(2, 2) - basis(1, 2) * basis(2, 1)) -
++        basis(0, 1) * (basis(1, 0) * basis(2, 2) - basis(1, 2) * basis(2, 0)) +
++        basis(0, 2) * (basis(1, 0) * basis(2, 1) - basis(1, 1) * basis(2, 0))
++    require(basisDeterminant.isFinite && basisDeterminant != 0.0, "cell grid basis must be nonsingular")
++    // Scratch is constant-size; the traversal allocates nothing per cell.
++    val vertices = new Array[Double](24)
++    val edges = new Array[Double](45)
++    var evaluated = 0
++    var nonPositive = 0
++    var nonFinite = 0
++    var minimum = Double.PositiveInfinity
++    var maximum = Double.NegativeInfinity
++    var z = 0
++    while z < nz - 1 do
++      var y = 0
++      while y < ny - 1 do
++        var x = 0
++        while x < nx - 1 do
++          var complete = true
++          var finite = true
++          var corner = 0
++          while corner < 8 do
++            val index = x + (corner & 1) + nx * (y + ((corner >> 1) & 1) + ny * (z + (corner >> 2)))
++            complete &&= validity.contains(index)
++            var component = 0
++            while component < 3 do
++              val value = field.linearComponent(index, component)
++              vertices(3 * corner + component) = value
++              finite &&= value.isFinite
++              component += 1
++            corner += 1
++          if finite && complete then
++            var edge = 0
++            while edge < 4 do
++              val a = edge & 1
++              val b = edge >> 1
++              var c = 0
++              while c < 3 do
++                edges(3 * edge + c) = vertices(3 * (1 + 2 * a + 4 * b) + c) - vertices(3 * (2 * a + 4 * b) + c)
++                edges(12 + 3 * edge + c) = vertices(3 * (a + 2 + 4 * b) + c) - vertices(3 * (a + 4 * b) + c)
++                edges(24 + 3 * edge + c) = vertices(3 * (a + 2 * b + 4) + c) - vertices(3 * (a + 2 * b) + c)
++                c += 1
++              edge += 1
++            var c = 0
++            while c < 9 do
++              val group = c / 3
++              val component = c % 3
++              val start = 12 * group + component
++              edges(36 + c) = 0.25 * (edges(start) + edges(start + 3) + edges(start + 6) + edges(start + 9))
++              c += 1
++            var cellMinimum = Double.PositiveInfinity
++            var cellMaximum = Double.NegativeInfinity
++            corner = 0
++            while corner < 9 do
++              val dx = corner & 1
++              val dy = (corner >> 1) & 1
++              val dz = corner >> 2
++              val a = if corner == 8 then 36 else 3 * (dy + 2 * dz)
++              val b = if corner == 8 then 39 else 12 + 3 * (dx + 2 * dz)
++              val cc = if corner == 8 then 42 else 24 + 3 * (dx + 2 * dy)
++              val determinant = triple(edges, a, b, cc) / basisDeterminant
++              finite &&= determinant.isFinite
++              cellMinimum = math.min(cellMinimum, determinant)
++              cellMaximum = math.max(cellMaximum, determinant)
++              corner += 1
++            if finite then
++              evaluated += 1
++              minimum = math.min(minimum, cellMinimum)
++              maximum = math.max(maximum, cellMaximum)
++              if cellMinimum <= 0.0 then nonPositive += 1
++          if !finite then nonFinite += 1
++          x += 1
++        y += 1
++      z += 1
++    TrilinearCellJacobianReport(
++      if evaluated == 0 then Double.NaN else minimum,
++      if evaluated == 0 then Double.NaN else maximum,
++      evaluated, eligible, nonPositive, nonFinite
++    )
++
++  private inline def triple(v: Array[Double], a: Int, b: Int, c: Int): Double =
++    v(a) * (v(b + 1) * v(c + 2) - v(b + 2) * v(c + 1)) -
++      v(a + 1) * (v(b) * v(c + 2) - v(b + 2) * v(c)) +
++      v(a + 2) * (v(b) * v(c + 1) - v(b + 1) * v(c))
+--- a/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/BasinBridgeAssimilatorSuite.scala
++++ b/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/BasinBridgeAssimilatorSuite.scala
+@@ -8,7 +8,7 @@
+   sealed trait Fixed
+   sealed trait Moving
+ 
+-  test("constant 12 mm tangent accepts alpha one with unit topology"):
++  test("constant 12 mm tangent backtracks past boundary folds before accepting"):
+     val grid = GridSpec.identity(Vector(33, 33, 33))
+     val work = RegistrationFrame[Work](SpatialDomainId("b3-work"), grid)
+     val fixed = RegistrationFrame[Fixed](SpatialDomainId("b3-fixed"), grid)
+@@ -40,16 +40,20 @@
+     assertEqualsDouble(result.initialAlpha, 1.0, 1e-12)
+     assertEqualsDouble(
+       result.acceptedAlpha.getOrElse(Double.NaN),
+-      1.0,
++      0.25,
+       0.0,
+-      "alpha one"
+-    )
+-    assert(result.trials.length == 1, "constant translation should accept first trial")
+-    assert(result.trials.head.accepted)
++      "boundary-safe alpha"
++    )
++    assertEquals(result.trials.length, 3)
++    assert(result.trials.take(2).forall(_.rejection.exists(
++      _.isInstanceOf[BasinBridgeTrialRejection.IncrementalGeometry])))
++    assert(result.trials.last.accepted)
+     val finalError = right(BasinBridgeObjective.correspondenceMatchError(result.state, correspondences))
+-    assert(finalError < 1e-6, s"final weighted match error=$finalError")
++    assertEqualsDouble(finalError, 9.0, 1e-4)
+     val acceptedGeometry = ForwardGeometryConfig(interiorMargin = 8)
+-    val (_, reports) = ForwardGeometry.accumulated(result.state, acceptedGeometry)
++    val (verdict, reports) = ForwardGeometry.accumulated(result.state, acceptedGeometry)
++    assertEquals(verdict, GeometryVerdict.Valid)
++    assert(reports.forall(_.cells.exists(_.acceptable(0.05, 0.95))))
+     val minimum = reports.map(_.minimum).min
+     assertEqualsDouble(minimum, 1.0, 1e-10)
+ 
+@@ -61,13 +65,15 @@
+         RegistrationFrame[Moving](SpatialDomainId("b3-moving"), fineGrid)
+       )
+     )
+-    val (_, regridReports) = ForwardGeometry.accumulated(
++    val (regridVerdict, regridReports) = ForwardGeometry.accumulated(
+       regridded,
+       acceptedGeometry.copy(interiorMargin = 10)
+     )
+     assert(regridReports.forall(report => report.minimum.isFinite && report.minimum > 0.99))
+-
+-  test("compressive field backtracks globally before it can fold"):
++    assertEquals(regridVerdict, GeometryVerdict.Valid)
++    assert(regridReports.forall(_.cells.exists(_.acceptable(0.05, 0.95))))
++
++  test("compressive field exhausts the declared trials without accepting boundary folds"):
+     val grid = GridSpec.identity(Vector(33, 33, 33))
+     val work = RegistrationFrame[Work](SpatialDomainId("b3-compress-work"), grid)
+     val fixed = RegistrationFrame[Fixed](SpatialDomainId("b3-compress-fixed"), grid)
+@@ -102,17 +108,13 @@
+         config
+       )
+     )
+-    assert(result.accepted)
++    assert(!result.accepted)
++    assert(result.state eq initial)
+     assertEqualsDouble(result.initialAlpha, 1.0, 1e-12)
+-    assertEqualsDouble(
+-      result.acceptedAlpha.getOrElse(Double.NaN),
+-      0.5,
+-      1e-12,
+-      "compressive alpha"
+-    )
+-    assert(!result.trials.head.accepted)
+-    assert(result.trials.head.rejection.exists(_.isInstanceOf[BasinBridgeTrialRejection.IncrementalGeometry]))
+-    assert(result.trials.last.accepted)
++    assertEquals(result.acceptedAlpha, None)
++    assertEquals(result.trials.length, 4)
++    assert(result.trials.forall(trial => !trial.accepted && trial.rejection.exists(
++      _.isInstanceOf[BasinBridgeTrialRejection.IncrementalGeometry])))
+     val (_, reports) = ForwardGeometry.accumulated(result.state, ForwardGeometryConfig(interiorMargin = 8))
+     assert(reports.forall(report => report.minimum.isFinite && report.minimum >= 0.05))
+ 
+--- /dev/null
++++ b/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/ForwardCellAdmissionSuite.scala
+@@ -0,0 +1,81 @@
++package reframe4s.halfflow
++
++import image4s.geometry.{Affine, D3}
++import reframe4s.halfflow.internal.*
++
++class ForwardCellAdmissionSuite extends munit.FunSuite:
++  test("shared incremental and accumulated gates reject a hidden fold in either arm"):
++    val frame = fixture()
++    val identity = DensePull.identity(frame)
++    val folded = boundary(frame, 5.5)
++    val affine = right(AffineIso.make(frame, frame, Affine.identity[D3]))
++    for fixedIsFolded <- Vector(true, false) do
++      val fixed = if fixedIsFolded then folded else identity
++      val moving = if fixedIsFolded then identity else folded
++      val incremental = ForwardGeometry.incremental(right(HalfStep.make(fixed, moving)))
++      assertEquals(incremental._1, GeometryVerdict.IncrementJacobianTooSmall(-0.5))
++      val reports = incremental._2
++      assert(reports.forall(_.minimum > 0.0))
++      assertEquals(reports.count(_.cells.exists(_.nonPositive == 36)), 1)
++      val state = right(ForwardMidpoint.make(right(ForwardMidpointArm.make(fixed, affine)),
++        right(ForwardMidpointArm.make(moving, affine))))
++      assertEquals(ForwardGeometry.accumulated(state)._1,
++        GeometryVerdict.AccumulatedJacobianTooSmall(
++          if fixedIsFolded then MidpointArmName.Fixed else MidpointArmName.Moving, -0.5))
++
++  test("the existing Jacobian floor also applies to positive outer cells"):
++    val frame = fixture()
++    val thin = boundary(frame, 6.02)
++    val verdict = ForwardGeometry.incremental(right(HalfStep.make(thin, DensePull.identity(frame))))
++    assert(verdict._1.isInstanceOf[GeometryVerdict.IncrementJacobianTooSmall])
++    assertEquals(verdict._2.head.cells.get.nonPositive, 0)
++    assertEqualsDouble(verdict._2.head.cells.get.minimum, 0.02, 1e-12)
++
++  test("export construction rejects manually supplied hidden-fold forward states"):
++    val frame = fixture()
++    val affine = right(AffineIso.make(frame, frame, Affine.identity[D3]))
++    val bad = right(ForwardMidpointArm.make(boundary(frame, 5.5), affine))
++    val good = ForwardMidpointArm.identity(affine)
++    for fixedIsFolded <- Vector(true, false) do
++      val state = right(ForwardMidpoint.make(if fixedIsFolded then bad else good, if fixedIsFolded then good else bad))
++      ForwardMidpointExporter.inspect(state) match
++        case Left(ForwardExportError.ForwardResidualTopologyInvalid(arm, report)) =>
++          assertEquals(arm, if fixedIsFolded then MidpointArmName.Fixed else MidpointArmName.Moving)
++          assertEquals(report.nonPositive, 36)
++        case other => fail(s"hidden forward fold was not rejected: $other")
++
++  test("endpoint admission recomputes cell geometry on copied candidate maps"):
++    val frame = fixture()
++    val candidate = right(ForwardMidpointExporter.inspect(right(ForwardMidpoint.identity(frame, frame, frame))))
++    val bad = boundary(frame, 5.5)
++    val good = DensePull.identity(frame)
++    for forwardIsFolded <- Vector(true, false) do
++      val maps = right(InversePair.make(if forwardIsFolded then bad else good, if forwardIsFolded then good else bad))
++      ForwardMidpointExporter.admit(candidate.copy(transform = maps)) match
++        case Left(ForwardExportError.ExportedCellTopologyInvalid(direction, report)) =>
++          assertEquals(direction, if forwardIsFolded then ExportDirection.FixedToMoving else ExportDirection.MovingToFixed)
++          assertEquals(report.nonPositive, 36)
++        case other => fail(s"copied endpoint fold was not rejected: $other")
++
++  test("legacy pair guard cannot admit a hidden fold when voxel and inverse checks pass"):
++    val frame = fixture()
++    val pair = right(InversePair.make(boundary(frame, 5.5), DensePull.identity(frame)))
++    val report = TopologyGuard.evaluate(pair, GuardConfig(maximumInverseErrorMm = 100.0,
++      maximumInverseErrorVox = 100.0))
++    assertEquals(report.forward.nonPositive, 0)
++    assertEquals(report.forward.belowFloor, 0)
++    assertEquals(report.forward.cells.get.nonPositive, 36)
++    assert(!report.safe)
++    assert(report.reasons.exists(_.contains("complete-cell")))
++
++  private def fixture(): RegistrationFrame[Unit] =
++    RegistrationFrame[Unit](SpatialDomainId("cell-admission"), GridSpec.identity(Vector(7, 7, 7)))
++
++  private def boundary(frame: RegistrationFrame[Unit], last: Double): DensePull[Unit, Unit] =
++    val coordinates = HalfFlowKernels.identity(frame.grid).field.copyLegacyPlanar
++    val xs = Vector(0.0, 1.0, 2.0, 3.0, 4.0, 6.0, last)
++    for i <- 0 until frame.grid.nVoxels do coordinates(i) = xs(i % 7)
++    right(DensePull.make(frame, frame,
++      DenseVectorField.fromLegacyPlanar(frame.grid, coordinates, DenseVectorFieldKind.SourceCoordinates)))
++
++  private def right[E, A](value: Either[E, A]): A = value.fold(error => fail(error.toString), identity)
+--- a/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcEngineSuite.scala
++++ b/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcEngineSuite.scala
+@@ -263,13 +263,15 @@
+       if shift == 2.0 then assertTypedEndpointFailure(capture.exported)
+       else assertTypedTopologyFailure(capture.exported)
+ 
+-  test("translation refinement retains endpoint inverse and topology failures after continuous export"):
++  test("cell-safe translation refinement retains explicit endpoint inverse failures"):
+     Vector((41, 8.0), (49, 12.0)).foreach: (side, shift) =>
+       val capture = runCapture(side, shift)
+       assert(capture.errorMm < shift, s"$shift mm capture did not improve: ${capture.errorMm} mm")
+-      // Positive endpoint Jacobians do not guarantee sampled inverse consistency.
+-      if shift == 8.0 then assertTypedEndpointFailure(capture.exported)
+-      else assertTypedTopologyFailure(capture.exported)
++      // Rejecting folded trial cells removes the former 12 mm topology failure;
++      // it does not establish the separate endpoint inverse contract.
++      val reports = ForwardGeometry.accumulated(capture.optimization.state)._2
++      assert(reports.forall(_.cells.exists(r => r.nonPositive == 0 && r.minimum >= 0.05)))
++      assertTypedEndpointFailure(capture.exported)
+ 
+   private final case class TranslationFixture(
+       grid: GridSpec,
+--- /dev/null
++++ b/modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/TrilinearCellGeometrySuite.scala
+@@ -0,0 +1,80 @@
++package reframe4s.halfflow
++
++import gale.linalg.DMat
++import reframe4s.halfflow.internal.*
++
++class TrilinearCellGeometrySuite extends munit.FunSuite:
++  test("physical affine determinant is exact on oblique anisotropic and left-handed grids"):
++    for sign <- Vector(1.0, -1.0) do
++      val grid = GridSpec(Vector(6, 5, 4), DMat.dense(4, 4, Vector(
++        sign * 1.2, -0.4, 0.1, -3.0,
++        sign * 0.3, 1.5, 0.2, 2.0,
++        0.0, 0.1, 2.0, -1.0,
++        0.0, 0.0, 0.0, 1.0
++      )))
++      val coordinates = HalfFlowKernels.identity(grid).field.copyLegacyPlanar
++      val n = grid.nVoxels
++      for i <- 0 until n do
++        val x = coordinates(i)
++        val y = coordinates(i + n)
++        val z = coordinates(i + 2 * n)
++        coordinates(i) = 1.1 * x + 0.15 * y - 0.02 * z + 3.0
++        coordinates(i + n) = 0.9 * y + 0.04 * z - 2.0
++        coordinates(i + 2 * n) = 1.03 * z + 1.0
++      val field = DenseVectorField.fromLegacyPlanar(grid, coordinates, DenseVectorFieldKind.SourceCoordinates)
++      val report = TrilinearCellGeometry.evaluate(field)
++      assertEquals(report.eligible, 60)
++      assertEquals(report.evaluated, 60)
++      assertEquals(report.nonPositive, 0)
++      assertEquals(report.nonFinite, 0)
++      assertEqualsDouble(report.minimum, 1.1 * 0.9 * 1.03, 1e-12)
++      assertEqualsDouble(report.maximum, 1.1 * 0.9 * 1.03, 1e-12)
++
++  test("an outer-cell fold missed by positive voxel differences is detected"):
++    val grid = GridSpec.identity(Vector(7, 7, 7))
++    val field = boundaryField(grid, 5.5)
++    val old = JacobianReduction()
++    HalfFlowKernels.jacobianDeterminantsReduceInto(field, new Array[Double](grid.nVoxels),
++      new Array[Boolean](grid.nVoxels), DenseFieldSampler(grid), FieldValidity.All, old)
++    assertEquals(old.nonPositive, 0)
++    assert(old.minimumOrNaN > 0.0)
++    val report = TrilinearCellGeometry.evaluate(field)
++    assertEquals(report.evaluated, 216)
++    assertEquals(report.eligible, 216)
++    assertEquals(report.nonPositive, 36)
++    assertEqualsDouble(report.minimum, -0.5, 1e-12)
++
++  test("one invalid corner removes only its cell and remains in the denominator"):
++    val grid = GridSpec.identity(Vector(3, 3, 3))
++    val valid = Array.fill(grid.nVoxels)(true)
++    valid(0) = false
++    val report = TrilinearCellGeometry.evaluate(HalfFlowKernels.identity(grid).field, FieldValidity.copyMask(valid))
++    assertEquals(report.eligible, 8)
++    assertEquals(report.evaluated, 7)
++    assertEqualsDouble(report.validFraction, 0.875, 0.0)
++    assert(!report.acceptable(0.05, 0.95))
++
++  test("nonfinite boundary data cannot be hidden by invalid support"):
++    val grid = GridSpec.identity(Vector(3, 3, 3))
++    val coordinates = HalfFlowKernels.identity(grid).field.copyLegacyPlanar
++    coordinates(0) = Double.NaN
++    val valid = Array.fill(grid.nVoxels)(true)
++    valid(0) = false
++    val report = TrilinearCellGeometry.evaluate(
++      DenseVectorField.fromLegacyPlanar(grid, coordinates, DenseVectorFieldKind.SourceCoordinates),
++      FieldValidity.copyMask(valid))
++    assertEquals(report.nonFinite, 1)
++    assert(!report.acceptable(0.05, 0.5))
++
++  test("a grid without complete cells cannot pass"):
++    val grid = GridSpec.identity(Vector(1, 3, 3))
++    val report = TrilinearCellGeometry.evaluate(HalfFlowKernels.identity(grid).field)
++    assertEquals(report.eligible, 0)
++    assertEquals(report.evaluated, 0)
++    assert(!report.acceptable(0.05, 0.95))
++
++  private def boundaryField(grid: GridSpec, last: Double): DenseVectorField =
++    val coordinates = HalfFlowKernels.identity(grid).field.copyLegacyPlanar
++    val xs = Vector(0.0, 1.0, 2.0, 3.0, 4.0, 6.0, last)
++    for i <- 0 until grid.nVoxels do coordinates(i) = xs(i % 7)
++    DenseVectorField.fromLegacyPlanar(grid, coordinates, DenseVectorFieldKind.SourceCoordinates)
