@@ -1,0 +1,38 @@
+{
+  "schema": "hfq-r24-boundary-root-oracle-v1",
+  "created_at": "2026-10-15T02:32:52.258796+00:00",
+  "sources": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/boundary/analyze_c04.py": "06589cc07c28257140b37703bd54d5ad7bb0461746cd3389322d63ba5056e686",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/boundary/field_oracle.py": "a21cffd2df155b1297a80ab538ca3d4e46e88aad1538921fa9b30496c15397ae",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/boundary/test_field_oracle.py": "7a996ed81afeb1c9bd7639778237c9bc2a182ce0217a13b3a7ecbde93dd6a469"
+  },
+  "capture": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1",
+  "capture_protocol_sha256": "31abd57ce17193492dc3ed0840c5a9499806336d86e369d59ce98c8662406d17",
+  "target_case": "r24-exact-core-affine",
+  "target_lane": "C4",
+  "arms": [
+    "fixed",
+    "moving"
+  ],
+  "corrected_admission": true,
+  "required_cell_audit": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-cells-v1/results.json",
+  "historical_comparison": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/diagnostics/halfflow-export-topology-v1/comparison.json",
+  "method": {
+    "tolerance": 1e-08,
+    "iterations": 40,
+    "step_cap": 4.0,
+    "backtracks": 12
+  },
+  "variants": [
+    "same-inverse-grid",
+    "padded-inverse-grid"
+  ],
+  "padding": "Same physical basis/spacing; integer voxel bounds enclose original grid and all forward nodal coordinates, plus one exterior cell on every face.",
+  "scope": "At every original target node, solve the current forward boundary-linear trilinear field equation with bounded Newton/backtracking. Compare storing those roots on the original or padded inverse lattice. Also solve directly at each forward-node query. Root convergence does not establish unique/global invertibility or cell topology. Use the separately identified complete-cell-admission correction; no additional optimizer or inverse-source changes in this root experiment.",
+  "denominator": "Both compositions keep every original target grid node; failed/unsupported roots and invalid compositions remain explicit.",
+  "baseline_requirement": "Corrected capture and independent all48 field audit must complete; both r24 C4 forward fields must pass the unchanged cell floor/coverage before root analysis. Historical hash agreement is reported without historical attribution.",
+  "maximum_error_mm": 0.2,
+  "interior_margin": 6,
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}

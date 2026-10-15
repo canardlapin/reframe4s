@@ -54,6 +54,8 @@ def archive(root, output, stage):
     write(output / 'source-delta.json', delta)
     paths = [p for p in root.iterdir() if p.is_file() and p.suffix in ['.json', '.log']]
     paths += [root / 'pre-fix/snapshot.json']
+    if (root / 'pre-fix/analyze_c04.py').exists():
+        paths += [root / 'pre-fix/analyze_c04.py']
     paths += [p for p in native.iterdir() if p.is_file()]
     paths += [p for p in (native / 'engine').iterdir() if p.is_file()]
     paths += [p for p in capture.rglob('*') if p.is_file() and 'fields' not in p.relative_to(capture).parts]
@@ -62,8 +64,10 @@ def archive(root, output, stage):
     if stage == 'outcomes':
         paths += [p for p in (native / 'native').iterdir() if p.is_file()]
         paths += [p for p in (root / 'c04-cells-v1').iterdir() if p.is_file()]
+        paths += [p for p in (root / 'r24-corrected-roots-v1').iterdir() if p.is_file()]
     paths += [Path(__file__).with_name(name) for name in
-        ['archive_cell_fix.py', 'native_cells.py', 'capture_c04.py', 'audit_cells.py', 'summarize_cell_fix.py']]
+        ['archive_cell_fix.py', 'native_cells.py', 'capture_c04.py', 'audit_cells.py', 'summarize_cell_fix.py',
+         'analyze_c04.py', 'field_oracle.py', 'test_field_oracle.py']]
     inventory = []
     for path in sorted(set(paths)):
         if not path.is_file() or path.is_symlink() or path.suffix not in ['.json', '.py', '.log', '.txt', '.patch', '.jsonl']:

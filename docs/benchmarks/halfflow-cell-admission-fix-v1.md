@@ -49,8 +49,23 @@ The existing large-motion tests expose the practical effect of the correction:
   still fails the endpoint inverse bound. That remaining failure is retained;
   it is not converted into an accepted result.
 
-Exact native/independent parity and the prospectively declared six-case replay
-remain pending in this declaration. Terminal outcomes will be recorded separately.
+The native evaluator matches the independent Python evaluator on all 48
+previously captured fields: cell counts, coverage, folded-cell counts and
+pass/fail verdicts agree exactly. Determinant extrema agree within the
+prospective `1e-10` absolute/relative tolerance. Every independently failing
+field is rejected by the shared forward gate, and all positive C5 controls
+pass. This checks all 2,239,488 complete cells across the field ledger.
+
+The prospectively declared corrected six-case replay is running; its terminal
+outcomes will be recorded separately.
+
+The [corrected r24 root declaration](evidence/halfflow-cell-admission-20261015/corrected-roots-declaration-v1/artifact-manifest.json)
+then repeats the original two-arm, two-inverse-grid diagnosis. It requires the
+complete replay and independent cell audit first. Both original compositions
+keep all 50,653 target points; the 40 iterations, 4 mm step cap, 12 backtracks
+and `1e-8` mm equation tolerance remain fixed. The numerical arm-analysis loop
+and imported field-reader utilities are byte-identical to the original helper.
+The added mode changes corrected-capture eligibility and historical attribution.
 
 ## Source and evidence delivery
 
@@ -66,6 +81,7 @@ other prerequisite source identities are retained.
 
 This fixes an admission defect. It does not yet establish acquired-MRI accuracy,
 full-boundary inverse accuracy, convergence or qualification. R02 remains open.
+The added gate's runtime cost still needs measurement under isolation.
 The existing MRI checkpoint export/scoring batch continues under its previously
 frozen executable; those measurements are separate from this new source.
 The remaining 58 captured checkpoints from OASIS1-to-10 and OASIS17-to-18
