@@ -28,8 +28,7 @@ final class AffineObjectiveLinearizationSuite extends munit.FunSuite:
     while entryIndex < fixture.samples.entries.size do
       val entry = fixture.samples.entries(entryIndex)
       val weight = entry.objectiveWeight
-      if entry.patch.id == fixture.incompletePatchId ||
-        entry.patch.id == fixture.constantPatchId
+      if entry.patch.id == fixture.incompletePatchId
       then expectedObjective += weight * fixture.config.outlierCost
       else
         val fixedValues = new Array[Double](fixture.stencil.sampleCount)
@@ -67,7 +66,8 @@ final class AffineObjectiveLinearizationSuite extends munit.FunSuite:
           intensityJacobian,
           fixture.config.positivePolarityPrior,
           fixture.config.tau,
-          fixture.config.outlierFloor
+          fixture.config.outlierFloor,
+          fixture.config.minimumContrastEnergy
         )
         expectedObjective += weight * reference.loss
         var row = 0
@@ -122,8 +122,8 @@ final class AffineObjectiveLinearizationSuite extends munit.FunSuite:
     )
     assertEquals(result.gradient.length, 12)
     assertEquals(result.curvatureUpper.length, 78)
-    assertEquals(result.counters.activePatches, 2)
-    assertEquals(result.counters.invalidContrastPatches, 1)
+    assertEquals(result.counters.activePatches, 3)
+    assertEquals(result.counters.invalidContrastPatches, 0)
     assertEquals(result.counters.invalidSupportPatches, 1)
     assertEquals(
       result.counters.uniqueInterpolations,

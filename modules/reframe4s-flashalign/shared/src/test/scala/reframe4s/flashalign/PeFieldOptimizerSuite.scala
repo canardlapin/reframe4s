@@ -240,7 +240,7 @@ final class PeFieldOptimizerSuite extends munit.FunSuite:
           yield
             val indices = fixture.patchIndices(patchId)
             val fixed = indices.map(values).toArray
-            val normalized = normalize(fixed).getOrElse(movingPatches(patchId).normalizedCopy.toVector -> 1.0)
+            val normalized = normalize(fixed, fixture.patchConfig.minimumContrastEnergy)
             prior :+ (
               CachedProjectedPatch3(
                 indices,
@@ -251,7 +251,8 @@ final class PeFieldOptimizerSuite extends munit.FunSuite:
                 objectiveWeight = 1.0,
                 evaluated.posterior.inlierWeight,
                 evaluated.posterior.signedWeight,
-                evaluated.invalidReason
+                evaluated.invalidReason,
+                math.sqrt(fixture.patchConfig.minimumContrastEnergy) / normalized._2
               ) -> evaluated
             )
       }
@@ -397,13 +398,13 @@ final class PeFieldOptimizerSuite extends munit.FunSuite:
       0.033 * math.cos(0.11 * z) + 0.001 * y
     )
 
-  private def normalize(values: Array[Double]): Option[(Vector[Double], Double)] =
+  private def normalize(values: Array[Double], epsilon: Double): (Vector[Double], Double) =
     val origin = values(0)
     val shifted = values.map(_ - origin)
     val mean = shifted.sum / shifted.length.toDouble
     val centered = shifted.map(_ - mean)
-    val norm = math.sqrt(centered.map(value => value * value).sum)
-    Option.when(norm > 0.0)(centered.map(_ / norm).toVector -> norm)
+    val norm = math.sqrt(centered.map(value => value * value).sum + epsilon)
+    centered.map(_ / norm).toVector -> norm
 
   private def rmsDifference(left: Vector[Double], right: Vector[Double]): Double =
     math.sqrt(left.indices.map(index => math.pow(left(index) - right(index), 2.0)).sum / (left.length / 3).toDouble)

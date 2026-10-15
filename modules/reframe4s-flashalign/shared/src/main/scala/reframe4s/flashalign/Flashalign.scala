@@ -157,10 +157,35 @@ object FlashalignError:
     override val failureDiagnostics: Option[FlashalignFailureDiagnostics] =
       Some(diagnostics)
 
+  final case class AffineRecoveryFailed(
+      primary: NoCaptureCandidateConverged,
+      recovery: FlashalignError,
+      recoveryPolicyId: String
+  ) extends FlashalignError:
+    val message: String = s"affine recovery $recoveryPolicyId failed: ${recovery.message}; primary: ${primary.message}"
+    override val failureDiagnostics: Option[FlashalignFailureDiagnostics] =
+      Some(recovery.failureDiagnostics.fold(primary.diagnostics)(last => last.copy(
+        work = primary.diagnostics.work + last.work,
+        previousAttempts = primary.diagnostics +: last.previousAttempts,
+        recoveryPolicyId = Some(recoveryPolicyId))))
+
+/** Keep retry admission independent of candidate ranking and checkpoint selection. */
+private[flashalign] object AffineBudgetRecovery:
+  def apply[A](primary: Either[FlashalignError, A], recoveryPolicyId: Option[String])(
+      retry: => Either[FlashalignError, A]
+  )(record: (A, FlashalignFailureDiagnostics, String) => Either[FlashalignError, A]): Either[FlashalignError, A] =
+    (primary, recoveryPolicyId) match
+      case (Left(failure: FlashalignError.NoCaptureCandidateConverged), Some(policyId)) =>
+        retry match
+          case Right(result) => record(result, failure.diagnostics, policyId)
+          case Left(error) => Left(FlashalignError.AffineRecoveryFailed(failure, error, policyId))
+      case _ => primary
+
 /** Immutable settings shared by one compiled moving/fixed pair. */
 final class FlashalignConfig private (
     val policy: LinearPresetPolicy,
-    val initialization: FlashalignInitializationPolicy
+    val initialization: FlashalignInitializationPolicy,
+    val affineRecoveryPolicy: Option[LinearPresetPolicy]
 ):
   val preset: FlashalignPreset = policy.preset
   val minimumContrastEnergy: Double = policy.patch.minimumContrastEnergy
@@ -171,16 +196,31 @@ object FlashalignConfig:
       preset: FlashalignPreset,
       initialization: FlashalignInitializationPolicy
   ): FlashalignConfig =
-    new FlashalignConfig(
+    create(
       LinearPresetPolicies.forPreset(preset),
-      initialization
+      initialization,
+      if preset == FlashalignPreset.WithinModality &&
+          initialization == FlashalignInitializationPolicy.CoherentHeaderWorldIdentityThenCapture
+      then Some(LinearPresetPolicies.WithinModalityRecovery) else None
     )
 
   def create(
       policy: LinearPresetPolicy,
-      initialization: FlashalignInitializationPolicy
+      initialization: FlashalignInitializationPolicy,
+      affineRecoveryPolicy: Option[LinearPresetPolicy] = None
   ): FlashalignConfig =
-    new FlashalignConfig(policy, initialization)
+    affineRecoveryPolicy.foreach: recovery =>
+      require(recovery.preset == policy.preset && recovery.patch == policy.patch &&
+        recovery.sampling == policy.sampling && recovery.preparation == policy.preparation &&
+        recovery.capture == policy.capture && recovery.rigidTrust == policy.rigidTrust && recovery.qc == policy.qc &&
+        recovery.affineTrust.maximumLinearizations >= policy.affineTrust.maximumLinearizations &&
+        recovery.affineTrust.maximumTrialAttempts >= policy.affineTrust.maximumTrialAttempts &&
+        (recovery.affineTrust.maximumLinearizations > policy.affineTrust.maximumLinearizations ||
+          recovery.affineTrust.maximumTrialAttempts > policy.affineTrust.maximumTrialAttempts) &&
+        recovery.affineTrust.copy(maximumLinearizations = policy.affineTrust.maximumLinearizations,
+          maximumTrialAttempts = policy.affineTrust.maximumTrialAttempts) == policy.affineTrust,
+        "affine recovery may only increase linearization and trial-attempt budgets")
+    new FlashalignConfig(policy, initialization, affineRecoveryPolicy)
 
 /** Reusable scratch ownership for one compiled plan and one caller at a time. */
 final class FlashalignWorkspace private (
@@ -630,6 +670,24 @@ final class AffineFlashalignPlan[
         finally workspace.release(this)
       }
 
+  /** Retry only complete capture non-convergence, retaining the primary workspace lease.
+    * A converged primary result and every audit/configuration failure are final.
+    * Recovery starts a fresh fit and must pass the original convergence and QC rules.
+    */
+  private def recover(
+      primary: Either[FlashalignError, AffineFlashalignResult[Moving, Fixed]]
+  ): Either[FlashalignError, AffineFlashalignResult[Moving, Fixed]] =
+    AffineBudgetRecovery(primary, config.affineRecoveryPolicy.map(_.id))(
+      config.affineRecoveryPolicy.toRight(FlashalignError.EngineUnavailable(model)).flatMap: policy =>
+        Flashalign.affine(moving, fixed, FlashalignConfig.create(policy, config.initialization))
+          .flatMap(plan => plan.run(plan.newWorkspace()))
+    ) { (result, primary, policyId) =>
+      AffineFlashalignResult.create(result.movingToFixed, result.report, result.diagnostics.copy(
+        work = primary.work + result.diagnostics.work,
+        previousAttempts = primary +: result.diagnostics.previousAttempts,
+        recoveryPolicyId = Some(policyId)))
+    }
+
   def run(
       workspace: FlashalignWorkspace
   ): Either[FlashalignError, AffineFlashalignResult[Moving, Fixed]] =
@@ -644,7 +702,7 @@ final class AffineFlashalignPlan[
       case Some(initialization) =>
         workspace.acquire(this).flatMap { _ =>
           try
-            workspace.payload(this).flatMap { payload =>
+            val primary = workspace.payload(this).flatMap { payload =>
               val planWorkspace = payload.asInstanceOf[LinearPlanWorkspace]
               planWorkspace.capture match
                 case None =>
@@ -816,6 +874,7 @@ final class AffineFlashalignPlan[
                         )
                   }
             }
+            recover(primary)
           finally workspace.release(this)
         }
 
@@ -939,14 +998,18 @@ final case class FlashalignLinearCheckpointDiagnostics(
     acceptedSteps: Int,
     selectionObjectiveId: Long,
     initialOptimizationObjective: Double,
-    lastOptimizationObjective: Double
+    lastOptimizationObjective: Double,
+    // Bounded diagnostic text from the last sixteen trials, including retries.
+    terminalAttemptTrace: Vector[String] = Vector.empty
 )
 
 final case class FlashalignFailureDiagnostics(
     work: FlashalignWorkCounts,
     levels: Vector[FlashalignLinearLevelDiagnostics],
     capture: Option[FlashalignCaptureDiagnostics],
-    lastCheckpoint: Option[FlashalignLinearCheckpointDiagnostics]
+    lastCheckpoint: Option[FlashalignLinearCheckpointDiagnostics],
+    previousAttempts: Vector[FlashalignFailureDiagnostics] = Vector.empty,
+    recoveryPolicyId: Option[String] = None
 )
 
 private[flashalign] object FlashalignFailureDiagnostics:
@@ -968,7 +1031,9 @@ final case class FlashalignDiagnostics(
     selectionPatches: Int = 0,
     work: FlashalignWorkCounts = FlashalignWorkCounts.Zero,
     capture: Option[FlashalignCaptureDiagnostics] = None,
-    levels: Vector[FlashalignLinearLevelDiagnostics] = Vector.empty
+    levels: Vector[FlashalignLinearLevelDiagnostics] = Vector.empty,
+    previousAttempts: Vector[FlashalignFailureDiagnostics] = Vector.empty,
+    recoveryPolicyId: Option[String] = None
 )
 
 /** Common exact linear-result capabilities. */

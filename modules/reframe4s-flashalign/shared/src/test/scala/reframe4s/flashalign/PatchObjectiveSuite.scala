@@ -123,7 +123,7 @@ final class PatchObjectiveSuite extends munit.FunSuite:
       2e-15
     )
 
-  test("degenerate and invalid dynamic patches retain finite outlier cost"):
+  test("zero dynamic contrast is regularized and unsupported patches retain outlier cost"):
     val config = objectiveConfig(0.1, 0.55, 0.02)
     PatchObjective.prepareMoving(Array.fill(27)(4.0), config) match
       case Left(PatchObjectiveError.InsufficientContrast(0.0, _)) => ()
@@ -138,7 +138,10 @@ final class PatchObjectiveSuite extends munit.FunSuite:
     val unsupported = patch(
       PatchObjective.evaluate(prepared, Array.emptyDoubleArray, false, config)
     )
-    Vector(lowContrast, unsupported).foreach { value =>
+    assert(lowContrast.active)
+    val zeroCorrelation = patch(PatchObjective.evaluateCorrelation(0.0, config))
+    assertEqualsDouble(lowContrast.loss, zeroCorrelation.loss, 0.0)
+    Vector(unsupported).foreach { value =>
       assert(!value.active)
       assertEqualsDouble(value.loss, config.outlierCost, 0.0)
       assertEqualsDouble(value.posterior.outlier, 1.0, 0.0)

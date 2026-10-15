@@ -227,11 +227,11 @@ final class PatchLinearizationSuite extends munit.FunSuite:
       minimumContrastEnergy = 1e-16,
       lowContrastWorkspace
     ).fold(error => fail(error.message), identity)
-    assertEquals(lowContrast.mode, PatchStatisticsMode.InvalidContrast)
-    assert(lowContrast.jtu.forall(_ == 0.0))
-    assert(lowContrast.jtjUpper.forall(_ == 0.0))
+    assert(lowContrast.active)
+    assert(lowContrast.jtu.forall(_.isFinite))
+    assert(lowContrast.jtjUpper.forall(_.isFinite))
 
-  test("invalid contrast is inactive and nonfinite derivatives fail"):
+  test("zero contrast is regularized and nonfinite derivatives fail"):
     val parameterCount = 6
     val prepared = movingPatch(signal(27, 0.15))
     val derivatives = jacobian(27, parameterCount, offset = 0.0)
@@ -241,10 +241,10 @@ final class PatchLinearizationSuite extends munit.FunSuite:
       new ArrayPatchSamples(Array.fill(27)(4.0), derivatives),
       workspace
     )
-    assert(!invalid.active)
-    assertEquals(invalid.mode, PatchStatisticsMode.InvalidContrast)
-    assert(invalid.jtu.forall(_ == 0.0))
-    assert(invalid.jtjUpper.forall(_ == 0.0))
+    assert(invalid.active)
+    assertEqualsDouble(invalid.correlation, 0.0, 0.0)
+    assert(invalid.jtu.forall(_.isFinite))
+    assert(invalid.jtjUpper.forall(_.isFinite))
 
     derivatives(9)(4) = Double.PositiveInfinity
     PatchLinearization.compute(

@@ -331,8 +331,9 @@ object LinearPresetPolicy:
     if value >= minimum && value <= maximum then Right(())
     else Left(LinearPresetError.InvalidCount(field, value, s"within [$minimum, $maximum]"))
 
-/** Frozen v1 engineering presets. Their receipt covers synthetic training
-  * behavior and policy checks only; it is not anatomical qualification.
+/** Versioned engineering presets. EPI and slab policies retain synthetic
+  * calibration; within-modality v2 has a separate acquired-MRI budget receipt.
+  * Anatomical qualification is recorded independently.
   */
 object LinearPresetPolicies:
   val Version: String = "1.0.0"
@@ -398,7 +399,35 @@ object LinearPresetPolicies:
 
   val EpiToT1: LinearPresetPolicy = build("flashalign-linear-epi-t1-v1", FlashalignPreset.EpiToT1, epiPatchT1, epiSampling, epiPreparation, standardCapture, epiQc)
   val EpiToT2: LinearPresetPolicy = build("flashalign-linear-epi-t2-v1", FlashalignPreset.EpiToT2, epiPatchT2, epiSampling.copy(seed = 0x59d6e147b20ca83fL), epiPreparation, standardCapture.copy(seed = 0x3a51cb90e74d826fL), epiQc)
-  val WithinModality: LinearPresetPolicy = build("flashalign-linear-within-modality-v1", FlashalignPreset.WithinModality, withinPatch, withinSampling, withinPreparation, withinCapture, withinQc)
+  val WithinModalityVersion: String = "2.0.0"
+  val WithinModalityCalibrationReceiptId: String = "flashalign-within-modality-mri-budget-v2"
+  val WithinModalityCalibrationReceiptPath: String =
+    "benchmarks/flashalign/receipts/within-modality-mri-budget-v2.json"
+  val WithinModalityCalibrationReceiptSha256: String =
+    "fae4bd4cb0ab1bd66ab6153c0ad15c7989074338a21e0bd5ecc14735d3c2da27"
+
+  /** MRI-calibrated affine budget; objective, capture, QC and stopping tolerances
+    * retain the within-modality policy. Other modality budgets are independent.
+    */
+  val WithinModality: LinearPresetPolicy = LinearPresetPolicy.create(
+    "flashalign-linear-within-modality-v2", WithinModalityVersion, FlashalignPreset.WithinModality,
+    withinPatch, withinSampling, withinPreparation, withinCapture, rigidTrust,
+    affineTrust.copy(maximumLinearizations = 100), withinQc,
+    PresetCalibrationIdentity(WithinModalityCalibrationReceiptId,
+      WithinModalityCalibrationReceiptPath, WithinModalityCalibrationReceiptSha256,
+      "acquired-MRI development calibration of the affine iteration budget; see separate frozen transfer evidence")
+  ).fold(error => throw new IllegalStateException(error.message), identity)
+  /** One bounded fallback for automatic affine non-convergence; primary v2 is unchanged. */
+  val WithinModalityRecovery: LinearPresetPolicy = LinearPresetPolicy.create(
+    "flashalign-within-modality-affine-recovery-v2", "2.0.0", FlashalignPreset.WithinModality,
+    withinPatch, withinSampling, withinPreparation, withinCapture, rigidTrust,
+    affineTrust.copy(maximumLinearizations = 400, maximumTrialAttempts = 16), withinQc,
+    PresetCalibrationIdentity("flashalign-within-modality-affine-recovery-v2",
+      "benchmarks/flashalign/receipts/within-modality-affine-recovery-v2.json",
+      "02de0ea683b305ca81a288aefefd44c2faa6e28b806921928edea8d7c39fdb60",
+      "failure-only affine budget recovery on observed MRI; separate frozen confirmation required")
+  ).fold(error => throw new IllegalStateException(error.message), identity)
+
   val SlabToAnatomy: LinearPresetPolicy = build("flashalign-linear-slab-to-anatomy-v1", FlashalignPreset.SlabToAnatomy, epiPatchT1.copy(tau = 0.65, outlierFloor = 0.04), slabSampling, slabPreparation, slabCapture, slabQc)
 
   def forPreset(preset: FlashalignPreset): LinearPresetPolicy = preset match

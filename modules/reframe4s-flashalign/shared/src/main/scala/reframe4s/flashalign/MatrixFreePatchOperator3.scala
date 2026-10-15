@@ -12,7 +12,11 @@ private[flashalign] final case class CachedProjectedPatch3(
     objectiveWeight: Double,
     inlierWeight: Double,
     signedWeight: Double,
-    invalidReason: Option[PatchInvalidReason]
+    invalidReason: Option[PatchInvalidReason],
+    // Extra coordinate of the augmented fixed unit vector. Its intensity
+    // derivative is zero before normalization; compressed products already
+    // include its contribution through I - fixedUnit * fixedUnit'.
+    fixedRegularizerUnit: Double = 0.0
 )
 
 private[flashalign] final case class MatrixFreeCacheDiagnostics(
@@ -260,7 +264,7 @@ private[flashalign] object MatrixFreePatchLinearization3:
               patch.sampleIndices.length.toLong * 4L +
                 patch.movingUnit.length.toLong * 8L +
                 patch.fixedUnit.length.toLong * 8L +
-                5L * 8L
+                6L * 8L
             ).sum
         val diagnostics = MatrixFreeCacheDiagnostics(
           uniquePoints.size,
@@ -313,7 +317,12 @@ private[flashalign] object MatrixFreePatchLinearization3:
       Left(MatrixFreePatchError.InvalidPatchScalar(patchIndex, "negative objective/inlier weight"))
     else if (patch.movingUnit ++ patch.fixedUnit).exists(value => !value.isFinite) then
       Left(MatrixFreePatchError.InvalidPatchScalar(patchIndex, "non-finite normalized vector"))
-    else if !centeredUnit(patch.movingUnit) || !centeredUnit(patch.fixedUnit) then
+    else if !patch.fixedRegularizerUnit.isFinite || patch.fixedRegularizerUnit < 0.0 ||
+      patch.fixedRegularizerUnit > 1.0 || !centeredUnit(patch.movingUnit) ||
+      math.abs(patch.fixedUnit.sum) > 1e-9 ||
+      math.abs(patch.fixedUnit.map(value => value * value).sum +
+        patch.fixedRegularizerUnit * patch.fixedRegularizerUnit - 1.0) > 1e-9
+    then
       Left(MatrixFreePatchError.InvalidNormalization(patchIndex))
     else Right(())
 

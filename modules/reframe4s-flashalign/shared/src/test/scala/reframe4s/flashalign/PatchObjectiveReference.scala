@@ -20,15 +20,16 @@ private object PatchObjectiveReference:
       intensityJacobian: Array[Array[Double]],
       positivePrior: Double,
       tau: Double,
-      outlierFloor: Double
+      outlierFloor: Double,
+      dynamicContrastRidge: Double = 0.0
   ): Terms =
     val sampleCount = moving.length
     val parameterCount = intensityJacobian(0).length
-    val u = centeredUnit(moving)
-    val fixedCentered = centered(fixed)
+    val u = centeredUnit(moving) :+ 0.0
+    val fixedCentered = centered(fixed) :+ math.sqrt(dynamicContrastRidge)
     val fixedNorm = math.sqrt(dot(fixedCentered, fixedCentered))
     val v = fixedCentered.map(_ / fixedNorm)
-    val jacobian = Array.ofDim[Double](sampleCount, parameterCount)
+    val jacobian = Array.ofDim[Double](sampleCount + 1, parameterCount)
     var parameter = 0
     while parameter < parameterCount do
       val origin = intensityJacobian(0)(parameter)
@@ -36,10 +37,10 @@ private object PatchObjectiveReference:
         intensityJacobian(row)(parameter) - origin
       )
       val shiftedMean = shifted.sum / sampleCount.toDouble
-      val centeredGradient = shifted.map(_ - shiftedMean)
+      val centeredGradient = shifted.map(_ - shiftedMean) :+ 0.0
       val projection = dot(v, centeredGradient)
       var row = 0
-      while row < sampleCount do
+      while row < sampleCount + 1 do
         jacobian(row)(parameter) =
           (centeredGradient(row) - v(row) * projection) / fixedNorm
         row += 1
@@ -67,13 +68,13 @@ private object PatchObjectiveReference:
     var row = 0
     while first < parameterCount do
       row = 0
-      while row < sampleCount do
+      while row < sampleCount + 1 do
         jtu(first) += jacobian(row)(first) * u(row)
         row += 1
       var second = 0
       while second < parameterCount do
         row = 0
-        while row < sampleCount do
+        while row < sampleCount + 1 do
           jtj(first * parameterCount + second) +=
             jacobian(row)(first) * jacobian(row)(second)
           row += 1

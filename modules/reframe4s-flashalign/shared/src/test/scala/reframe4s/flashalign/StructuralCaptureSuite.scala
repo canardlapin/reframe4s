@@ -167,6 +167,25 @@ final class StructuralCaptureSuite extends munit.FunSuite:
     assertEquals(comparison.assessments.size, expanded.size)
     assert(comparison.competingAlignments)
 
+  test("a moderate identity translation peak does not suppress rotation search"):
+    val grid = lattice(SpectralShape3(5, 5, 5), 0.0, 0.0, 0.0)
+    val moving = sparseTensor(grid, Vector((2, 2, 2, 1.0, 0.0, 0.0)))
+    val fixed = sparseTensor(grid, Vector((2, 2, 2, 1.0, 0.5, 0.0)))
+    val config = capture(StructuralCaptureConfig3.create(
+      Vector(CaptureRotationStage3(10.0, 10.0)),
+      seed = 71L,
+      maximumRotations = 27,
+      minimumOverlapFraction = 0.2,
+      minimumStructuralScore = 0.1
+    ))
+    outcome(moving, fixed, config) match
+      case StructuralCaptureOutcome3.Captured(_, diagnostics) =>
+        assertEqualsDouble(diagnostics.identityStructuralScore.get, 0.8, 1e-12)
+        assert(!diagnostics.identityAdequate, diagnostics)
+        assert(diagnostics.expandedCaptureExecuted, diagnostics)
+        assert(diagnostics.evaluatedRotations > 1, diagnostics)
+      case other => fail(s"expected rotation search after the moderate peak, got $other")
+
   private def lattice(
       shape: SpectralShape3,
       originX: Double,

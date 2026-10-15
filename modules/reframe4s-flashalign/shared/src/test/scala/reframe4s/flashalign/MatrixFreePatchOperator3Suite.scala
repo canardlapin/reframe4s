@@ -35,6 +35,42 @@ final class MatrixFreePatchOperator3Suite extends munit.FunSuite:
       )
     }
 
+  test("regularized matrix-free curvature matches an explicit augmented Jacobian"):
+    val fixture = makeFixture(12)
+    for regularizer <- Vector(0.0, 0.6, 1.0) do
+      val patches = fixture.patches.filter(_.invalidReason.isEmpty).map { patch =>
+        val fixed = patch.fixedUnit.map(_ * math.sqrt(1.0 - regularizer * regularizer))
+        patch.copy(fixedUnit = fixed, correlation = dot(patch.movingUnit, fixed),
+          fixedRegularizerUnit = regularizer)
+      }
+      val cache = buildCache(fixture.operator, fixture.points, fixture.basis, patches)
+      val values = Array.tabulate(12)(p => math.sin(p + 0.3))
+      val direction = geometry(GeometryDirection3.create(fixture.operator.modelId, fixture.operator.basisId, values))
+      val product = new Array[Double](12)
+      val rhs = new Array[Double](12)
+      matrixFree(cache.curvatureProduct(direction, product, cache.newWorkspace()))
+      matrixFree(cache.rightHandSide(rhs, cache.newWorkspace()))
+      val expected = new Array[Double](12)
+      val expectedRhs = new Array[Double](12)
+      patches.foreach { patch =>
+        val unit = patch.fixedUnit :+ regularizer
+        val jacobian = Array.ofDim[Double](unit.length, 12)
+        for p <- 0 until 12 do
+          val raw = patch.sampleIndices.map(i => fixture.basis(i)(p))
+          val centered = raw.map(_ - raw.sum / raw.length) :+ 0.0
+          val projection = dot(unit, centered)
+          for i <- unit.indices do
+            jacobian(i)(p) = (centered(i) - unit(i) * projection) / patch.fixedContrastNorm
+        val moved = jacobian.map(row => row.indices.map(p => row(p) * values(p)).sum)
+        for p <- 0 until 12 do
+          expected(p) += patch.objectiveWeight * patch.inlierWeight *
+            jacobian.indices.map(i => jacobian(i)(p) * moved(i)).sum
+          expectedRhs(p) += patch.objectiveWeight * patch.signedWeight *
+            patch.movingUnit.indices.map(i => jacobian(i)(p) * patch.movingUnit(i)).sum
+      }
+      assertVectorClose(product.toVector, expected.toVector, 2e-10)
+      assertVectorClose(rhs.toVector, expectedRhs.toVector, 2e-10)
+
   test("duplicate sample indices scatter exactly and invalid patches remain constant"):
     val fixture = makeFixture(12)
     val validOnly = fixture.patches.filter(_.invalidReason.isEmpty)

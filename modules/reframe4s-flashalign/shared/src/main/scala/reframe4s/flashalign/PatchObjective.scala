@@ -87,6 +87,8 @@ private[flashalign] final class PatchObjectiveConfig private (
     val positivePolarityPrior: Double,
     val tau: Double,
     val outlierFloor: Double,
+    // Static moving-patch admission threshold and dynamic fixed-patch norm ridge.
+    // Dynamic patches must not enter/leave the objective at this threshold.
     val minimumContrastEnergy: Double,
     val correlationRoundingTolerance: Double
 ):
@@ -321,15 +323,12 @@ private[flashalign] object PatchObjective:
           energy += centered * centered
           dot += moving.normalized(index) * centered
           index += 1
-        if energy <= config.minimumContrastEnergy then
-          invalidInto(
-            config,
-            PatchInvalidReason.InsufficientContrast,
-            scratch
-          )
-          null
-        else
-          evaluateCorrelationInto(dot / math.sqrt(energy), config, scratch)
+        // Embed fixed contrast as [centered samples, sqrt(epsilon)] and the
+        // moving unit patch as [moving, 0]. Both vectors have unit norm after
+        // normalization, including at zero dynamic contrast.
+        evaluateCorrelationInto(
+          dot / math.sqrt(energy + config.minimumContrastEnergy), config, scratch
+        )
 
   def linearize(
       objective: PatchObjectiveValue,

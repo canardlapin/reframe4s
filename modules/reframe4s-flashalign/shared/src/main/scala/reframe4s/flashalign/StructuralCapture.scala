@@ -417,8 +417,10 @@ private[flashalign] final class StructuralCapturePlan3 private (
       case Left(error)   => return Left(error)
       case Right(result) => result
     val identity = identityCandidate(identityRotation, workspace)
+    // A translation peak alone says nothing about unsearched rotations.
+    // Only essentially exact structural agreement warrants skipping capture.
     val identityAdequate = identity.exists(candidate =>
-      identityResult.peaks.exists(peak =>
+      candidate.structuralScore >= 1.0 - 1e-12 && identityResult.peaks.exists(peak =>
         peak.lagX == candidate.lagX && peak.lagY == candidate.lagY &&
           peak.lagZ == candidate.lagZ
       )

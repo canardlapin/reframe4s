@@ -772,7 +772,8 @@ private[flashalign] object LinearEngine3:
                 optimized.bestCheckpoint.acceptedSteps,
                 optimized.bestCheckpoint.selectionObjectiveId,
                 optimized.initialOptimizationObjective,
-                optimized.lastOptimizationObjective
+                optimized.lastOptimizationObjective,
+                optimized.attempts.takeRight(16).map(_.toString)
               ),
               optimizationEntries,
               selectionEntries
@@ -909,7 +910,8 @@ private[flashalign] object LinearEngine3:
                 optimized.bestCheckpoint.acceptedSteps,
                 optimized.bestCheckpoint.selectionObjectiveId,
                 optimized.initialOptimizationObjective,
-                optimized.lastOptimizationObjective
+                optimized.lastOptimizationObjective,
+                optimized.attempts.takeRight(16).map(_.toString)
               ),
               optimizationEntries,
               selectionEntries

@@ -270,10 +270,11 @@ private[flashalign] object PatchLinearization:
     val energy =
       workspace.scalarShiftedSquares -
         workspace.scalarShiftedSum * workspace.scalarShiftedSum / sampleCount
-    if !energy.isFinite || energy <= minimumContrastEnergy then
+    if !energy.isFinite || energy < 0.0 then
       setInvalid(workspace.result)
     else
-      val norm = math.sqrt(energy)
+      val regularizedEnergy = energy + minimumContrastEnergy
+      val norm = math.sqrt(regularizedEnergy)
       val correlation = workspace.scalarShiftedMovingDot / norm
       var parameter = 0
       while parameter < workspace.parameterCount do
@@ -292,7 +293,7 @@ private[flashalign] object PatchLinearization:
             (workspace.sgg(packed) -
               workspace.sg(other) * workspace.sg(parameter) / sampleCount -
               workspace.a(other) * workspace.a(parameter)) /
-              energy
+              regularizedEnergy
           other += 1
         parameter += 1
       workspace.result.currentCorrelation = correlation
@@ -334,7 +335,7 @@ private[flashalign] object PatchLinearization:
     val scalarCancellation =
       scalarScale > 0.0 &&
         math.abs(scalarCentered) <= CancellationRatio * scalarScale
-    cancellationRisk || scalarCancellation || diagonalFailure || pairFailure ||
+    !workspace.result.active || cancellationRisk || scalarCancellation || diagonalFailure || pairFailure ||
       !workspace.result.correlation.isFinite ||
       !workspace.result.fixedContrastNorm.isFinite ||
       workspace.result.jtu.exists(value => !value.isFinite) ||
@@ -397,12 +398,13 @@ private[flashalign] object PatchLinearization:
       energy += centeredValue * centeredValue
       movingDot += centeredValue * moving.normalized(sample)
       sample += 1
-    if !energy.isFinite || energy <= minimumContrastEnergy then
+    if !energy.isFinite then
       workspace.diagnosticAcceptedCount += 1L
       setInvalid(workspace.result)
       null
     else
-      val norm = math.sqrt(energy)
+      val regularizedEnergy = energy + minimumContrastEnergy
+      val norm = math.sqrt(regularizedEnergy)
       val correlation = movingDot / norm
       sample = 0
       while sample < samples.sampleCount do
@@ -462,6 +464,18 @@ private[flashalign] object PatchLinearization:
             other += 1
           parameter += 1
         sample += 1
+      // The extra coordinate sqrt(epsilon)/norm also has a derivative.
+      // Omitting this row would give the incorrect softened-projector Gram.
+      parameter = 0
+      while parameter < workspace.parameterCount do
+        workspace.q(parameter) =
+          -math.sqrt(minimumContrastEnergy) * workspace.a(parameter) / regularizedEnergy
+        var other = 0
+        while other <= parameter do
+          workspace.referenceJtj(PackedSymmetric.index(other, parameter)) +=
+            workspace.q(other) * workspace.q(parameter)
+          other += 1
+        parameter += 1
       val finiteFailure =
         firstNonFiniteCenteredStatistic(
           correlation,

@@ -203,7 +203,7 @@ final class SmallStrainOptimizerSuite extends munit.FunSuite:
           evaluated <- evaluatePatch(patchId, values)
         yield
           val indices = fixture.patchIndices(patchId)
-          val normalized = normalize(indices.map(values).toArray)
+          val normalized = normalize(indices.map(values).toArray, fixture.patchConfig.minimumContrastEnergy)
           prior :+ (CachedProjectedPatch3(
             indices,
             movingPatches(patchId).normalizedCopy.toVector,
@@ -213,7 +213,8 @@ final class SmallStrainOptimizerSuite extends munit.FunSuite:
             1.0,
             evaluated.posterior.inlierWeight,
             evaluated.posterior.signedWeight,
-            evaluated.invalidReason
+            evaluated.invalidReason,
+            math.sqrt(fixture.patchConfig.minimumContrastEnergy) / normalized._2
           ) -> evaluated)
       }
 
@@ -374,9 +375,9 @@ final class SmallStrainOptimizerSuite extends munit.FunSuite:
     -0.14 * math.sin(0.14 * y) + 0.003 * x + 0.002 * z,
     0.042 * math.cos(0.12 * z) + 0.002 * y + 0.0015 * x
   )
-  private def normalize(values: Array[Double]): (Vector[Double], Double) =
+  private def normalize(values: Array[Double], epsilon: Double): (Vector[Double], Double) =
     val shifted = values.map(_ - values(0)); val mean = shifted.sum / shifted.length.toDouble
-    val centered = shifted.map(_ - mean); val norm = math.sqrt(centered.map(value => value * value).sum)
+    val centered = shifted.map(_ - mean); val norm = math.sqrt(centered.map(value => value * value).sum + epsilon)
     centered.map(_ / norm).toVector -> norm
   private def rms(left: Vector[Double], right: Vector[Double]): Double =
     math.sqrt(left.indices.map(index => math.pow(left(index) - right(index), 2.0)).sum / (left.length / 3).toDouble)

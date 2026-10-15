@@ -1,7 +1,7 @@
 package reframe4s.flashalign
 
 final class LinearPresetSuite extends munit.FunSuite:
-  test("frozen presets expose distinct modality policy and a common calibration identity"):
+  test("frozen presets expose modality-specific policy and calibration identities"):
     val policies = Vector(
       LinearPresetPolicies.EpiToT1,
       LinearPresetPolicies.EpiToT2,
@@ -10,8 +10,15 @@ final class LinearPresetSuite extends munit.FunSuite:
     )
 
     assertEquals(policies.map(_.id).distinct.size, policies.size)
-    assert(policies.forall(_.version == LinearPresetPolicies.Version))
-    assert(policies.forall(_.calibration.receiptId == LinearPresetPolicies.CalibrationReceiptId))
+    val otherModalities = policies.filterNot(_.preset == FlashalignPreset.WithinModality)
+    assert(otherModalities.forall(_.version == LinearPresetPolicies.Version))
+    assert(otherModalities.forall(_.calibration.receiptId == LinearPresetPolicies.CalibrationReceiptId))
+    assertEquals(LinearPresetPolicies.WithinModality.version, LinearPresetPolicies.WithinModalityVersion)
+    assertEquals(LinearPresetPolicies.WithinModality.calibration.receiptId,
+      LinearPresetPolicies.WithinModalityCalibrationReceiptId)
+    assertEquals(LinearPresetPolicies.WithinModality.affineTrust.maximumLinearizations, 100)
+    assertEquals(LinearPresetPolicies.WithinModality.rigidTrust.maximumLinearizations, 40)
+    assert(otherModalities.forall(_.affineTrust.maximumLinearizations == 50))
     assert(policies.forall(_.calibration.receiptSha256.matches("[0-9a-f]{64}")))
     assert(LinearPresetPolicies.EpiToT1.patch.positivePolarityPrior < 0.5)
     assert(LinearPresetPolicies.EpiToT2.patch.positivePolarityPrior > 0.5)
