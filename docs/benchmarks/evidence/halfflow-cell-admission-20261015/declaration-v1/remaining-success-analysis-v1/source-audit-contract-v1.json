@@ -1,0 +1,20 @@
+{
+  "schema": "hfq-fixed-checkpoint-audit-v1",
+  "created_at": "2026-10-14T13:52:08.977834+00:00",
+  "scope": "Observed-data diagnostic comparison only; no runtime selection or qualification claim",
+  "region": "All voxels above 0.5 in the predeclared target brain mask; target grid and mask identities fixed across checkpoints, separately in each direction",
+  "grid": "Original prepared target image lattice; exported checkpoint map must have identical shape and affine within 1e-9 mm coefficient tolerance",
+  "window": "Axis-aligned box with radius 3 mm, radius ceil(3/spacing) voxels per axis; uniform moments with constant-zero image extension",
+  "score": "Mean over every declared target voxel of 1 - clamp(covariance / sqrt(var_fixed * var_warped + epsilon), -1, 1)^2",
+  "epsilon": "(1e-4 * variance of the fixed target image within the declared mask)^2; independent of checkpoint and warped image",
+  "invalid_window": "Any invalid map sample, out-of-image source coordinate or nonfinite warped value in the local window gives loss 1 and signed correlation -1. Denominator never shrinks.",
+  "aggregation": "Report each direction and their equal-weight mean; report fixed count, center/window coverage, nonfinite counts, signed correlation and exact input hashes",
+  "undefined": "Nonfinite/zero target variance or nonfinite numerical moments are explicit audit failures, never silently removed cases",
+  "annotation_use": "No anatomical labels or moving-dependent masks enter this score or its region; anatomical scoring remains a separate evaluation",
+  "code_sha256": "e0855cd0f6b472b9c5cf07ac51c7f8ea1092a0947fb95c9efe732e5bab2540a9",
+  "test_sha256": "6d07e13498b27cee339ce028e8efff0f78845a1730b7120fc18a2b519b5daf87",
+  "verification": {
+    "passed": 4,
+    "log_sha256": "90299d7c5d262fed36c920d283ed0b869fc0f4dfc7432272e691d6da1685c66e"
+  }
+}

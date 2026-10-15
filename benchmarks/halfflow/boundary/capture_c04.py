@@ -21,7 +21,7 @@ def replace_once(text,before,after):
     return text.replace(before,after)
 
 
-def freeze(output):
+def freeze(output, cell_admission_fix=False):
     if output.exists():raise FileExistsError(output)
     base=ROOT/'benchmarks/flashalign/diagnose_halfflow_export.py'
     script=base.read_text()
@@ -70,6 +70,17 @@ def freeze(output):
     paths += [base,Path(__file__).resolve(),ROOT/'build.sbt']
     inputs=[ROOT/'benchmarks/flashalign/manifests/flashalign-halfflow-affine-transfer-v1.json',
         ROOT/'benchmarks/flashalign/diagnostics/halfflow-export-topology-v1/comparison.json']
+    scope = ('Replay the existing six-case C04 diagnostic, capturing both residuals and the current refiner inverses. '
+        'No numerical or admission source changes. Map calls are linked to DIAG_CASE and DIAG_LANE in the log. '
+        'Historical r24 attribution requires exact residual hash replay; changed upstream/C5 outcomes stay explicit.')
+    if cell_admission_fix:
+        scope = ('Prospective replay after the complete-cell admission correction. Both optimizer arms now require '
+            'all complete-cell corner/center samples to meet the existing geometry floor and coverage; '
+            'export construction and endpoint admission also reject cell reversals. '
+            'All six original cases, lane parameters, iteration/backtracking budgets and inverse thresholds stay fixed. '
+            'Changed C4 and C5 fields are expected and must not be attributed to the historical fields. '
+            'Capture all 48 forward/inverse fields, all attempted lane outcomes and remaining export failures. '
+            'This synthetic diagnostic does not establish acquired-MRI benefit or qualification.')
     write(output/'protocol.json',dict(schema='hfq-c04-frozen-field-capture-v1',created_at=datetime.now(timezone.utc).isoformat(),
         sources={str(p):sha(p) for p in sorted(paths)},inputs={str(p):sha(p) for p in inputs},
         generated_source_sha256=sha(generated),timeout_seconds=3600,
@@ -77,11 +88,11 @@ def freeze(output):
         current_runner_sha256=current_digest,runner_adapter_patch_sha256=sha(output/'runner-adapter.patch'),
         runner_adaptation='The original helper expects the pre-canonical-provider runner. Use the existing current canonical adapter '
             'with its explicit Git diff; do not reconstruct removed private geometry. Historical attribution requires exact forward residual hash replay.',
-        scope='Replay the existing six-case C04 diagnostic, capturing both residuals and the current refiner inverses. '
-            'No numerical or admission source changes. Map calls are linked to DIAG_CASE and DIAG_LANE in the log. '
-            'Historical r24 attribution requires exact residual hash replay; changed upstream/C5 outcomes stay explicit.',
+        scope=scope,production_cell_admission_changed=cell_admission_fix,
+        historical_field_hash_replay_required=not cell_admission_fix,
+        comparison_base_source_sha256='5b792b869c62b47597d7de880eba4fe7c9387239a927c0160c45a5d34b7bb924' if cell_admission_fix else None,
         historical_r24_case='r24-exact-core-affine',qualification_claim=False,runtime_comparison_allowed=False))
-    print('FROZEN C04 diagnostic field capture; production sources unchanged',flush=True)
+    print('FROZEN C04 diagnostic field capture; cell admission correction',cell_admission_fix,flush=True)
 
 
 def run(output):
@@ -114,4 +125,7 @@ def run(output):
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command',choices=['freeze','run']);parser.add_argument('--output',type=Path,required=True)
-    args=parser.parse_args();(freeze if args.command=='freeze' else run)(args.output.resolve())
+    parser.add_argument('--cell-admission-fix',action='store_true',help='Declare the new production cell gate rather than historical hash replay')
+    args=parser.parse_args()
+    if args.command=='freeze':freeze(args.output.resolve(),args.cell_admission_fix)
+    else:run(args.output.resolve())

@@ -1,0 +1,30 @@
+{
+  "command": [
+    "node",
+    "scripts/verify-symbol-ownership.mjs"
+  ],
+  "environment": {
+    "IMAGE4S_ROOT": "/Users/bbuchsbaum/.sbt/1.0/staging/d8c55b699f67ffa95b16/image4s",
+    "SPATIAL4S_ROOT": "/Users/bbuchsbaum/.sbt/1.0/staging/616a6014d9109d5bac1b/spatial4s",
+    "LOCUS4S_ROOT": "/Users/bbuchsbaum/.sbt/1.0/staging/d0e9e840cb4c46748943/locus4s"
+  },
+  "providers": {
+    "IMAGE4S_ROOT": {
+      "path": "/Users/bbuchsbaum/.sbt/1.0/staging/d8c55b699f67ffa95b16/image4s",
+      "head": "f71cec05843515269fb8783cffa2ea2c4da6f7d8",
+      "status": ""
+    },
+    "SPATIAL4S_ROOT": {
+      "path": "/Users/bbuchsbaum/.sbt/1.0/staging/616a6014d9109d5bac1b/spatial4s",
+      "head": "2eca2b379c1985881e4ca152b2a6c63a763277b0",
+      "status": ""
+    },
+    "LOCUS4S_ROOT": {
+      "path": "/Users/bbuchsbaum/.sbt/1.0/staging/d0e9e840cb4c46748943/locus4s",
+      "head": "abafedbb135f3b8c0ca7b63ae9095643827ecd7d",
+      "status": ""
+    }
+  },
+  "exit_code": 0,
+  "explanation": "Use the clean exact providers selected by the pinned build, instead of unrelated sibling development checkouts. Initial default-path failure retained as ownership.log."
+}

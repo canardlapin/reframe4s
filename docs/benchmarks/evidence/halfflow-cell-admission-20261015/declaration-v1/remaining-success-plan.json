@@ -1,0 +1,32 @@
+{
+  "schema": "hfq-remaining-success-preparation-v1",
+  "export_protocol": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/remaining-success-exports-v1/protocol.json",
+  "export_protocol_sha256": "62809681689915e75b522cc4d9904ecbe9e6d4af52320350a6f0941136f66a3c",
+  "analysis_protocol": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/remaining-success-analysis-v1/protocol.json",
+  "analysis_protocol_sha256": "3a724c3c9e79c24651b4729dfa516f9ed9e2c00d0e86ef914525daa1f4b9d1c0",
+  "tasks": 58,
+  "selected_fits": [
+    {
+      "pair": "oasis-1-to-10",
+      "policy": "selected-control"
+    },
+    {
+      "pair": "oasis-1-to-10",
+      "policy": "step-scaled-fine1.5"
+    },
+    {
+      "pair": "oasis-17-to-18",
+      "policy": "selected-control"
+    },
+    {
+      "pair": "oasis-17-to-18",
+      "policy": "step-scaled-fine1.5"
+    }
+  ],
+  "frozen_export_source_sha256": "a2b5ddf1ce9da82ed4f4b59ee9aa488466baf69a264d46938cb962cf188d146a",
+  "launched": false,
+  "scheduling": "Prepared only. Keep the existing 61-export batch intact. Start these workers only after the declared isolated-reference schedule permits them.",
+  "scope": "Complete the older immutable trajectory panel; these are not fits or evaluations of the new cell-admission source.",
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}

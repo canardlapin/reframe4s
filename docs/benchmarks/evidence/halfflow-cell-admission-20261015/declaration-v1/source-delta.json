@@ -1,0 +1,18 @@
+{
+  "base_source_sha256": "5b792b869c62b47597d7de880eba4fe7c9387239a927c0160c45a5d34b7bb924",
+  "source_sha256": "405282ec450899731c42c81a0d0bd6daaeb35a56d7693118fed3fdc001672e25",
+  "patch_sha256": "e105ca4b2fe131fc9e26cb6e6414cb31b3af836f569bb33c503dbaee9db4d929",
+  "base_reproduction": "Reconstruct the 5b792b86 acquired-grid/zero-status engine using docs/benchmarks/halfflow-acquired-grid-audit-v1.md and its archived patch chain, then apply source.patch. This patch deliberately preserves all other dirty prerequisites.",
+  "changed_files": {
+    "benchmarks/flashalign/runner/src/main/scala/reframe4s/halfflow/RealImageCellGeometryAudit.scala": "6b9b2ee066fb565d92b047da6985a9957e4722c315fcc18999beec1017504388",
+    "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/ForwardMidpoint.scala": "75680cf7fe0efb8bbc77d18a6f1d8ba7762e6d405bd86de7da6efd56a704566a",
+    "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/ForwardMidpointExport.scala": "e3be333bd32c7085a6742ad5c4b6b67060275858b2c549207ca568f9d1e910f7",
+    "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/TopologyGuard.scala": "a835cf3a9b6490e444f5ccb4d4635d7c6bc738e4de2cc5d796bd9ee05ae90cb7",
+    "modules/reframe4s-halfflow/shared/src/main/scala/reframe4s/halfflow/TrilinearCellGeometry.scala": "f02da12a2d09344e9f3101ae03fa35afc5c6fcfbfa5b441bc3c198602c308b35",
+    "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/BasinBridgeAssimilatorSuite.scala": "4a35d7699e948931200c4ead4d2a56eb9dd19fdf4be79da3cd0987509b8e630e",
+    "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/ForwardCellAdmissionSuite.scala": "25d99ddb66ba2b856287df3e720a704682641b1d813ca019832d83577f8d6392",
+    "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/HalfFlowCcEngineSuite.scala": "fdbbfc0e3c4d1ed36b70f9da7ee3aff7b918ee8ff0dc1031e769ff575f5e707d",
+    "modules/reframe4s-halfflow/shared/src/test/scala/reframe4s/halfflow/TrilinearCellGeometrySuite.scala": "3af920314c29eefb3f5661635231f81516fe14dc5d6d95222e29b878a0450347"
+  },
+  "scratch_reconstruction_verified": true
+}
