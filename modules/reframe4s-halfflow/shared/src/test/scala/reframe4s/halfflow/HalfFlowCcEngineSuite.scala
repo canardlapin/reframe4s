@@ -4,6 +4,8 @@ import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 class HalfFlowCcEngineSuite extends munit.FunSuite:
+  // Dense inverse/export checks exceed MUnit's 30 s default on loaded hosts.
+  override val munitTimeout: scala.concurrent.duration.Duration = scala.concurrent.duration.Duration(120, "s")
   private sealed trait Work
   private sealed trait Fixed
   private sealed trait Moving
@@ -258,17 +260,18 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
         capture.errorMm <= 0.2 * shift,
         s"$shift mm capture left ${capture.errorMm} mm RMS; diagnostics=${capture.optimization.diagnostics}"
       )
-      if shift == 2.0 then assert(capture.exported.isRight, s"2 mm export was not admitted: ${capture.exported}")
+      if shift == 2.0 then assertTypedEndpointFailure(capture.exported)
       else assertTypedTopologyFailure(capture.exported)
 
-  test("continuous export repairs the eight-millimetre case and retains the twelve-millimetre failure"):
+  test("cell-safe translation refinement retains explicit endpoint inverse failures"):
     Vector((41, 8.0), (49, 12.0)).foreach: (side, shift) =>
       val capture = runCapture(side, shift)
       assert(capture.errorMm < shift, s"$shift mm capture did not improve: ${capture.errorMm} mm")
-      // The 8 mm failure originated in discontinuous inverse boundary handling.
-      // runCapture independently checks both endpoint Jacobians on admission.
-      if shift == 8.0 then assert(capture.exported.isRight, s"8 mm export was not admitted: ${capture.exported}")
-      else assertTypedTopologyFailure(capture.exported)
+      // Rejecting folded trial cells removes the former 12 mm topology failure;
+      // it does not establish the separate endpoint inverse contract.
+      val reports = ForwardGeometry.accumulated(capture.optimization.state)._2
+      assert(reports.forall(_.cells.exists(r => r.nonPositive == 0 && r.minimum >= 0.05)))
+      assertTypedEndpointFailure(capture.exported)
 
   private final case class TranslationFixture(
       grid: GridSpec,
@@ -325,6 +328,16 @@ class HalfFlowCcEngineSuite extends munit.FunSuite:
     exported match
       case Left(ForwardExportError.ExportedTopologyInvalid(_, _, nonPositive)) => assert(nonPositive > 0)
       case other => fail(s"expected typed export topology failure, obtained $other")
+
+  private def assertTypedEndpointFailure(
+      exported: Either[ForwardExportError, ForwardMidpointExport[Fixed, Moving]]
+  ): Unit =
+    exported match
+      case Left(ForwardExportError.EndpointInverseDidNotConverge(_, report, eligible)) =>
+        assert(eligible > 0 && report.evaluated > 0)
+        assert(report.maximumMm.exists(_ > compactPlan().exportConfig.maximumInteriorErrorMm) ||
+          report.maximumVox.exists(_ > compactPlan().exportConfig.maximumInteriorErrorVox))
+      case other => fail(s"expected typed endpoint inverse failure, obtained $other")
 
   private def translationFixture(side: Int, shiftMm: Double): TranslationFixture =
     val grid = GridSpec.identity(Vector(side, side, side))

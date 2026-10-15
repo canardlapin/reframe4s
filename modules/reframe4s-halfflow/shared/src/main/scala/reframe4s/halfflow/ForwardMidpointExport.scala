@@ -87,7 +87,10 @@ enum ForwardExportError:
   case InvalidConfiguration(context: String)
   case Registration(error: RegistrationError)
   case InverseDidNotConverge(arm: MidpointArmName, report: ResidualInverseReport)
+  case EndpointInverseDidNotConverge(direction: ExportDirection, report: InverseErrorSummary, eligible: Int)
   case ExportedTopologyInvalid(direction: ExportDirection, minimumJacobian: Double, nonPositive: Int)
+  case ForwardResidualTopologyInvalid(arm: MidpointArmName, report: TrilinearCellJacobianReport)
+  case ExportedCellTopologyInvalid(direction: ExportDirection, report: TrilinearCellJacobianReport)
 
   def message: String =
     this match
@@ -95,8 +98,14 @@ enum ForwardExportError:
       case Registration(error) => error.message
       case InverseDidNotConverge(arm, report) =>
         s"$arm residual inverse missed tolerance: ${report.maximumInteriorMm} mm, ${report.maximumInteriorVox} vox"
+      case EndpointInverseDidNotConverge(direction, report, eligible) =>
+        s"$direction endpoint inverse missed tolerance: $report (eligible $eligible)"
       case ExportedTopologyInvalid(direction, minimum, nonPositive) =>
         s"$direction export contains $nonPositive non-positive Jacobians (minimum $minimum)"
+      case ForwardResidualTopologyInvalid(arm, report) =>
+        s"$arm forward residual failed complete-cell geometry: $report"
+      case ExportedCellTopologyInvalid(direction, report) =>
+        s"$direction export failed complete-cell geometry: $report"
 
 enum ExportDirection:
   case FixedToMoving
@@ -106,7 +115,9 @@ final case class ForwardMidpointExport[F, M](
     transform: InversePair[F, M],
     fixedResidualInverse: ResidualInverseReport,
     movingResidualInverse: ResidualInverseReport,
-    endpointRoundTrip: InversePairSummary
+    endpointRoundTrip: InversePairSummary,
+    fixedEvaluationScope: Option[FieldValidity] = None,
+    movingEvaluationScope: Option[FieldValidity] = None
 )
 
 /** Fully constructed export candidate whose numerical/topological admission is still pending. */
@@ -114,7 +125,9 @@ final case class ForwardMidpointExportCandidate[F, M](
     transform: InversePair[F, M],
     fixedResidualInverse: ResidualInverseReport,
     movingResidualInverse: ResidualInverseReport,
-    endpointRoundTrip: InversePairSummary
+    endpointRoundTrip: InversePairSummary,
+    fixedEvaluationScope: Option[FieldValidity] = None,
+    movingEvaluationScope: Option[FieldValidity] = None
 )
 
 /** Invert the continuous boundary-cell extension of a sampled residual.
@@ -392,14 +405,32 @@ object ResidualInverseRefiner:
 object ForwardMidpointExporter:
   def build[W, F, M](
       state: ForwardMidpoint[W, F, M],
-      config: ResidualInverseConfig = ResidualInverseConfig.default
+      config: ResidualInverseConfig = ResidualInverseConfig.default,
+      fixedEvaluationScope: Option[FieldValidity] = None,
+      movingEvaluationScope: Option[FieldValidity] = None
   ): Either[ForwardExportError, ForwardMidpointExport[F, M]] =
-    inspect(state, config).flatMap(admit(_, config))
+    inspect(state, config, fixedEvaluationScope, movingEvaluationScope).flatMap(admit(_, config))
 
   /** Construct the best available endpoint pair without claiming that it passes export policy. */
   def inspect[W, F, M](
       state: ForwardMidpoint[W, F, M],
-      config: ResidualInverseConfig = ResidualInverseConfig.default
+      config: ResidualInverseConfig = ResidualInverseConfig.default,
+      fixedEvaluationScope: Option[FieldValidity] = None,
+      movingEvaluationScope: Option[FieldValidity] = None
+  ): Either[ForwardExportError, ForwardMidpointExportCandidate[F, M]] =
+    val fixedCells = TrilinearCellGeometry.evaluate(state.fixed.residual.sourceCoordinates, state.fixed.residual.validity)
+    val movingCells = TrilinearCellGeometry.evaluate(state.moving.residual.sourceCoordinates, state.moving.residual.validity)
+    if !fixedCells.acceptable(0.0, config.minimumInteriorValidFraction) then
+      Left(ForwardExportError.ForwardResidualTopologyInvalid(MidpointArmName.Fixed, fixedCells))
+    else if !movingCells.acceptable(0.0, config.minimumInteriorValidFraction) then
+      Left(ForwardExportError.ForwardResidualTopologyInvalid(MidpointArmName.Moving, movingCells))
+    else construct(state, config, fixedEvaluationScope, movingEvaluationScope)
+
+  private def construct[W, F, M](
+      state: ForwardMidpoint[W, F, M],
+      config: ResidualInverseConfig,
+      fixedEvaluationScope: Option[FieldValidity],
+      movingEvaluationScope: Option[FieldValidity]
   ): Either[ForwardExportError, ForwardMidpointExportCandidate[F, M]] =
     val fixedInverse = ResidualInverseRefiner.refine(state.fixed.residual, config)
     val movingInverse = ResidualInverseRefiner.refine(state.moving.residual, config)
@@ -415,13 +446,12 @@ object ForwardMidpointExporter:
       result <- InversePair.make(forward, backward)
     yield result
     pair.left.map(ForwardExportError.Registration.apply).map: transform =>
-      val roundTrip = HalfFlowKernels.inversePairError(
-        transform.forward.sourceCoordinates,
-        transform.backward.sourceCoordinates,
-        transform.forward.validity,
-        transform.backward.validity
+      val roundTrip = InversePairSummary(
+        endpointError(transform.forward, transform.backward, fixedEvaluationScope),
+        endpointError(transform.backward, transform.forward, movingEvaluationScope)
       )
-      ForwardMidpointExportCandidate(transform, fixedInverse.report, movingInverse.report, roundTrip)
+      ForwardMidpointExportCandidate(transform, fixedInverse.report, movingInverse.report, roundTrip,
+        fixedEvaluationScope, movingEvaluationScope)
 
   /** Apply the declared inverse and topology contract to a diagnostic candidate. */
   def admit[F, M](
@@ -434,15 +464,47 @@ object ForwardMidpointExporter:
       Left(ForwardExportError.InverseDidNotConverge(MidpointArmName.Moving, candidate.movingResidualInverse))
     else
       for
-        _ <- requireTopology(candidate.transform.forward, ExportDirection.FixedToMoving)
-        _ <- requireTopology(candidate.transform.backward, ExportDirection.MovingToFixed)
+        _ <- requireTopology(candidate.transform.forward, ExportDirection.FixedToMoving, config.minimumInteriorValidFraction)
+        _ <- requireTopology(candidate.transform.backward, ExportDirection.MovingToFixed, config.minimumInteriorValidFraction)
+        // Recompute from the maps: a copied candidate must not carry stale admission evidence.
+        forward <- requireEndpoint(candidate.transform.forward, candidate.transform.backward,
+          candidate.fixedEvaluationScope, ExportDirection.FixedToMoving, config)
+        backward <- requireEndpoint(candidate.transform.backward, candidate.transform.forward,
+          candidate.movingEvaluationScope, ExportDirection.MovingToFixed, config)
       yield
         ForwardMidpointExport(
           candidate.transform,
           candidate.fixedResidualInverse,
           candidate.movingResidualInverse,
-          candidate.endpointRoundTrip
+          InversePairSummary(forward, backward),
+          candidate.fixedEvaluationScope,
+          candidate.movingEvaluationScope
         )
+
+  /** With no explicit region, inspect all mutually sampleable endpoint locations.
+    * An explicit region additionally requires the configured coverage fraction;
+    * its samples are never removed just because the round trip leaves the grid.
+    * The second map retains its own validity, independent of the other region.
+    */
+  private def endpointError[A, B](first: DensePull[A, B], second: DensePull[B, A],
+      scope: Option[FieldValidity]): InverseErrorSummary =
+    val n = first.from.grid.nVoxels
+    scope.foreach(_.requireSize(n))
+    val valid = scope.fold(first.validity)(region =>
+      FieldValidity.copyMask(Array.tabulate(n)(i => region.contains(i) && first.validity.contains(i))))
+    HalfFlowKernels.inverseErrorReduce(first.sourceCoordinates, second.sourceCoordinates, valid, second.validity)
+
+  private def requireEndpoint[A, B](first: DensePull[A, B], second: DensePull[B, A],
+      scope: Option[FieldValidity], direction: ExportDirection,
+      config: ResidualInverseConfig): Either[ForwardExportError, InverseErrorSummary] =
+    val report = endpointError(first, second, scope)
+    val eligible = scope.fold(report.evaluated)(region =>
+      (0 until first.from.grid.nVoxels).count(region.contains))
+    val covered = eligible > 0 && report.evaluated.toDouble / eligible >= config.minimumInteriorValidFraction
+    val bounded = report.maximumMm.exists(v => v.isFinite && v <= config.maximumInteriorErrorMm) &&
+      report.maximumVox.exists(v => v.isFinite && v <= config.maximumInteriorErrorVox)
+    if covered && bounded then Right(report)
+    else Left(ForwardExportError.EndpointInverseDidNotConverge(direction, report, eligible))
 
   private def acceptable(report: ResidualInverseReport, config: ResidualInverseConfig): Boolean =
     val coverage = report.forwardThenInverse.validFraction >= config.minimumInteriorValidFraction &&
@@ -453,7 +515,8 @@ object ForwardMidpointExporter:
 
   private def requireTopology[A, B](
       pull: DensePull[A, B],
-      direction: ExportDirection
+      direction: ExportDirection,
+      minimumValidFraction: Double
   ): Either[ForwardExportError, Unit] =
     val grid = pull.from.grid
     val determinants = PrimitiveBuffers.ofSize[Double](grid.nVoxels)
@@ -468,5 +531,9 @@ object ForwardMidpointExporter:
       reduction
     )
     val minimum = reduction.minimumOrNaN
-    if reduction.nonPositive == 0 && minimum.isFinite && minimum > 0.0 then Right(())
-    else Left(ForwardExportError.ExportedTopologyInvalid(direction, minimum, reduction.nonPositive))
+    if reduction.nonPositive != 0 || !minimum.isFinite || minimum <= 0.0 then
+      Left(ForwardExportError.ExportedTopologyInvalid(direction, minimum, reduction.nonPositive))
+    else
+      val cells = TrilinearCellGeometry.evaluate(pull.sourceCoordinates, pull.validity)
+      if cells.acceptable(0.0, minimumValidFraction) then Right(())
+      else Left(ForwardExportError.ExportedCellTopologyInvalid(direction, cells))

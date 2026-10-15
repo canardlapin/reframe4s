@@ -36,7 +36,8 @@ final case class MapGuardSummary(
     validFraction: Double,
     nonPositive: Int,
     belowFloor: Int,
-    quantiles: JacobianQuantiles
+    quantiles: JacobianQuantiles,
+    cells: Option[TrilinearCellJacobianReport] = None
 )
 
 final case class PairGuardReport(
@@ -239,7 +240,8 @@ object TopologyGuard:
         percentile(buffers.sorted, destination, 0.50),
         percentile(buffers.sorted, destination, 0.95),
         percentile(buffers.sorted, destination, 0.99)
-      )
+      ),
+      Some(TrilinearCellGeometry.evaluate(pull.sourceCoordinates, pull.validity))
     )
 
   private def percentile(sorted: Array[Double], length: Int, probability: Double): Option[Double] =
@@ -273,6 +275,8 @@ object TopologyGuard:
     if summary.validFraction < config.minimumValidFraction then reasons += s"$label Jacobian coverage is too small"
     if summary.nonPositive > 0 then reasons += s"$label map has non-positive Jacobians"
     if summary.belowFloor > 0 then reasons += s"$label map crosses the Jacobian floor"
+    if !summary.cells.exists(_.acceptable(config.minimumJacobian, config.minimumValidFraction)) then
+      reasons += s"$label map failed complete-cell Jacobian or coverage bounds"
 
   private def checkInverse(
       label: String,

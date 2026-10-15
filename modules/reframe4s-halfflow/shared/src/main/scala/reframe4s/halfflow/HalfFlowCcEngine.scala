@@ -17,7 +17,9 @@ final case class HalfFlowCcLevel private (
     maximumStepMm: Double,
     targetAcceptedSteps: Int,
     maximumAttempts: Int,
-    metric: HalfFlowCcMetric
+    metric: HalfFlowCcMetric,
+    accumulatedSmoothingMm: Double,
+    scaleAccumulatedSmoothingByStep: Boolean
 )
 
 object HalfFlowCcLevel:
@@ -29,13 +31,17 @@ object HalfFlowCcLevel:
       maximumStepMm: Double,
       targetAcceptedSteps: Int,
       maximumAttempts: Int,
-      metric: HalfFlowCcMetric = HalfFlowCcMetric.TrueNeighborhoodCc
+      metric: HalfFlowCcMetric = HalfFlowCcMetric.TrueNeighborhoodCc,
+      accumulatedSmoothingMm: Double = 0.0,
+      scaleAccumulatedSmoothingByStep: Boolean = false
   ): Either[RegistrationError, HalfFlowCcLevel] =
     if shrink <= 0 then Left(RegistrationError.InvalidConfiguration("HalfFlow-CC shrink"))
     else if !pyramidSigmaMm.isFinite || pyramidSigmaMm < 0.0 then
       Left(RegistrationError.InvalidConfiguration("HalfFlow-CC pyramid sigma"))
     else if !smoothSigmaMm.isFinite || smoothSigmaMm < 0.0 then
       Left(RegistrationError.InvalidConfiguration("HalfFlow-CC smooth sigma"))
+    else if !accumulatedSmoothingMm.isFinite || accumulatedSmoothingMm < 0.0 then
+      Left(RegistrationError.InvalidConfiguration("HalfFlow-CC accumulated smoothing"))
     else if !maximumStepMm.isFinite || maximumStepMm <= 0.0 then
       Left(RegistrationError.InvalidConfiguration("HalfFlow-CC maximum step"))
     else if targetAcceptedSteps <= 0 || maximumAttempts < targetAcceptedSteps then
@@ -50,7 +56,9 @@ object HalfFlowCcLevel:
           maximumStepMm,
           targetAcceptedSteps,
           maximumAttempts,
-          metric
+          metric,
+          accumulatedSmoothingMm,
+          scaleAccumulatedSmoothingByStep
         )
       )
 
@@ -282,6 +290,8 @@ object HalfFlowCc:
     def activeFraction: Double
     def edgeActiveFraction: Double
     def smoothingWeight: Array[Double]
+    def audit: HalfFlowCcObjectiveAudit
+    def intensityGradientSnapshot: Option[(Array[Double], Array[Double])] = None
     def initialize(fixed: CcWarpBuffer, moving: CcWarpBuffer): Either[RegistrationError, Unit]
     def candidateValue(fixed: CcWarpBuffer, moving: CcWarpBuffer): Either[RegistrationError, Double]
     def gradientInto(
@@ -307,6 +317,13 @@ object HalfFlowCc:
     def activeFraction: Double = evaluation.diagnostics.support.activeFraction
     def edgeActiveFraction: Double = evaluation.diagnostics.support.edgeBandActiveFraction
     def smoothingWeight: Array[Double] = frozen.support
+    override def intensityGradientSnapshot: Option[(Array[Double], Array[Double])] =
+      Some((evaluation.fixedIntensityGradient.clone(), evaluation.movingIntensityGradient.clone()))
+    def audit: HalfFlowCcObjectiveAudit =
+      HalfFlowCcObjectiveAudit(loss, activeFraction, edgeActiveFraction,
+        HalfFlowCcWeightSummary.from(frozen.support),
+        Some(HalfFlowCcWeightSummary.from(frozen.weight)),
+        Some(HalfFlowCcWeightSummary.from(frozen.epsilon)), Some(evaluation.diagnostics))
 
     def initialize(fixed: CcWarpBuffer, moving: CcWarpBuffer): Either[RegistrationError, Unit] =
       HalfFlowCcSupport.buildSupport(
@@ -399,6 +416,9 @@ object HalfFlowCc:
     def activeFraction: Double = active.toDouble / frame.grid.nVoxels.toDouble
     def edgeActiveFraction: Double = edgeActive.toDouble / math.max(1, edgeVoxelCount(frame.grid)).toDouble
     def smoothingWeight: Array[Double] = weight
+    def audit: HalfFlowCcObjectiveAudit =
+      HalfFlowCcObjectiveAudit(loss, activeFraction, edgeActiveFraction,
+        HalfFlowCcWeightSummary.from(weight), None, None, None)
 
     def initialize(fixed: CcWarpBuffer, moving: CcWarpBuffer): Either[RegistrationError, Unit] =
       for
@@ -513,6 +533,82 @@ object HalfFlowCc:
       case HalfFlowCcMetric.TrueNeighborhoodCc => TrueCcSession(frame, level, plan)
       case HalfFlowCcMetric.StandardizedCenter(feature) => StandardizedCenterSession(frame, feature, plan.action)
 
+  /** Prepare diagnostic level images through the exact production pyramid path.
+    * The shared scratch capacity and fixed-then-moving order match optimization;
+    * returned image buffers are owned independently of that scratch.
+    */
+  private[halfflow] def prepareProbeLevel[F, M](
+      fixed: RegistrationImage[F],
+      moving: RegistrationImage[M],
+      level: HalfFlowCcLevel
+  ): Either[RegistrationError, (RegistrationImage[F], RegistrationImage[M])] =
+    val needsPyramid = level.shrink != 1 || level.pyramidSigmaMm > 0.0
+    val workspace =
+      if needsPyramid then Some(PyramidWorkspace(math.max(fixed.frame.grid.nVoxels, moving.frame.grid.nVoxels)))
+      else None
+    for
+      nextFixed <- pyramid(fixed, level, workspace)
+      nextMoving <- pyramid(moving, level, workspace)
+    yield (nextFixed.image, nextMoving.image)
+
+  /** Inspect one already-prepared pyramid level using the production objective
+    * and gradient path. Callers supply the exact level images and saved state;
+    * this method performs no resampling, optimization or label-based selection.
+    */
+  private[halfflow] def probeObjectiveAtLevel[W, F, M](
+      fixed: RegistrationImage[F],
+      moving: RegistrationImage[M],
+      state: ForwardMidpoint[W, F, M],
+      level: HalfFlowCcLevel,
+      plan: HalfFlowCcPlan
+  ): Either[RegistrationError, HalfFlowCcObjectiveProbe[W, F, M]] =
+    if state.fixed.endpoint != fixed.frame || state.moving.endpoint != moving.frame then
+      Left(RegistrationError.GridMismatch("objective probe level endpoint frames"))
+    else
+      val fixedLevel = CcLevelImage(fixed, DenseFieldSampler(fixed.frame.grid))
+      val movingLevel = CcLevelImage(moving, DenseFieldSampler(moving.frame.grid))
+      val fixedWarp = CcWarpBuffer(state.work.grid.nVoxels)
+      val movingWarp = CcWarpBuffer(state.work.grid.nVoxels)
+      val workspace = CcStepWorkspace(state.work)
+      val objective = objectiveSession(state.work, level, plan)
+      warp(fixedLevel, movingLevel, state, fixedWarp, movingWarp)
+      for
+        _ <- objective.initialize(fixedWarp, movingWarp)
+        _ <- objective.gradientInto(fixedWarp, movingWarp, workspace)
+      yield
+        def compatible(candidate: ForwardMidpoint[W, F, M]): Boolean =
+          candidate.work == state.work && candidate.fixed.endpoint == fixed.frame &&
+            candidate.moving.endpoint == moving.frame
+        val intensityDerivatives = objective.intensityGradientSnapshot
+        val spatialChain = intensityDerivatives.map: (fixedDerivative, movingDerivative) =>
+          HalfFlowSpatialChainProbe(fixed, moving, state, fixedDerivative, movingDerivative, plan.action)
+        val sampledIntensity = intensityDerivatives.map: (fixedDerivative, movingDerivative) =>
+          val initialFixed = fixedWarp.values.clone()
+          val initialMoving = movingWarp.values.clone()
+          (candidate: ForwardMidpoint[W, F, M]) =>
+            if !compatible(candidate) then
+              Left(RegistrationError.GridMismatch("objective probe candidate frames"))
+            else
+              warp(fixedLevel, movingLevel, candidate, fixedWarp, movingWarp)
+              var change = 0.0
+              var index = 0
+              while index < initialFixed.length do
+                change += fixedDerivative(index) * (fixedWarp.values(index) - initialFixed(index)) +
+                  movingDerivative(index) * (movingWarp.values(index) - initialMoving(index))
+                index += 1
+              objective.candidateValue(fixedWarp, movingWarp).map(loss => HalfFlowSampledIntensityProbe(loss, change))
+        HalfFlowCcObjectiveProbe(objective.audit, workspace.raw.clone(), workspace.movingGradientValid.clone(),
+          candidate =>
+            if !compatible(candidate) then
+              Left(RegistrationError.GridMismatch("objective probe candidate frames"))
+            else
+              warp(fixedLevel, movingLevel, candidate, fixedWarp, movingWarp)
+              objective.candidateValue(fixedWarp, movingWarp),
+          sampledIntensity,
+          spatialChain,
+          intensityDerivatives.map((fixedDerivative, movingDerivative) => (fixedDerivative.clone(), movingDerivative.clone()))
+        )
+
   def register[W, F, M](
       fixed: RegistrationImage[F],
       moving: RegistrationImage[M],
@@ -531,7 +627,38 @@ object HalfFlowCc:
       initial: ForwardMidpoint[W, F, M],
       plan: HalfFlowCcPlan
   ): Either[HalfFlowCcError, HalfFlowCcOptimization[W, F, M]] =
-    optimizeInternal(fixed, moving, initial, plan, None)
+    optimizeInternal(fixed, moving, initial, plan, None, None)
+
+  /** Opt-in observation retains the same objective, decisions and stopping. */
+  def optimizeObserved[W, F, M](
+      fixed: RegistrationImage[F],
+      moving: RegistrationImage[M],
+      initial: ForwardMidpoint[W, F, M],
+      plan: HalfFlowCcPlan,
+      observation: HalfFlowCcObservation[W, F, M]
+  ): Either[HalfFlowCcError, HalfFlowCcOptimization[W, F, M]] =
+    optimizeInternal(fixed, moving, initial, plan, None, Some(new HalfFlowCcObservationRun(observation)))
+
+  /** Development-only direction ablation. The baseline step, smoothing,
+    * candidate admission and stopping remain unchanged. Complete source-chain
+    * support is mandatory; this does not certify anatomical improvement.
+    */
+  private[halfflow] def optimizeSpatialChain[W, F, M](
+      fixed: RegistrationImage[F],
+      moving: RegistrationImage[M],
+      initial: ForwardMidpoint[W, F, M],
+      plan: HalfFlowCcPlan,
+      observation: Option[HalfFlowCcObservation[W, F, M]] = None
+  ): Either[HalfFlowCcError, HalfFlowCcOptimization[W, F, M]] =
+    val supported = plan.levels.forall: level =>
+      level.metric == HalfFlowCcMetric.TrueNeighborhoodCc &&
+        (level.accumulatedSmoothingMm == 0.0 || level.scaleAccumulatedSmoothingByStep)
+    if !supported then
+      Left(HalfFlowCcError.Registration(RegistrationError.InvalidConfiguration(
+        "spatial-chain experiment requires true CC and absent or step-scaled accumulated smoothing")))
+    else
+      optimizeInternal(fixed, moving, initial, plan, None,
+        observation.map(o => new HalfFlowCcObservationRun(o)), useSpatialChain = true)
 
   /** G5-only control that restores the previous inverse-tracked accumulated
     * gate while retaining the true-CC lane-A objective and step.
@@ -554,7 +681,8 @@ object HalfFlowCc:
         moving,
         ForwardMidpoint.fromLegacy(initial),
         plan,
-        Some(LegacyInverseGate(initial, guard))
+        Some(LegacyInverseGate(initial, guard)),
+        None
       )
 
   private def optimizeInternal[W, F, M](
@@ -562,7 +690,9 @@ object HalfFlowCc:
       moving: RegistrationImage[M],
       initial: ForwardMidpoint[W, F, M],
       plan: HalfFlowCcPlan,
-      initialLegacyGate: Option[LegacyInverseGate[W, F, M]]
+      initialLegacyGate: Option[LegacyInverseGate[W, F, M]],
+      observation: Option[HalfFlowCcObservationRun[W, F, M]],
+      useSpatialChain: Boolean = false
   ): Either[HalfFlowCcError, HalfFlowCcOptimization[W, F, M]] =
     moving.validity match
       case FieldValidity.Mask(_) => Left(HalfFlowCcError.MovingOptimizationMaskForbidden)
@@ -604,7 +734,8 @@ object HalfFlowCc:
                           control = HalfFlowCcControl
                             .observe(control, ControlObservation.LevelTransition, plan.control)
                             .after
-                        refineLevel(nextFixed, nextMoving, regridded, level, plan, control, regriddedLegacy) match
+                        refineLevel(nextFixed, nextMoving, regridded, level, plan, control, regriddedLegacy,
+                          levelIndex, observation, useSpatialChain) match
                           case Left(error) => failure = Some(error)
                           case Right((accepted, levelDiagnostics, nextControl, nextLegacyGate)) =>
                             state = accepted
@@ -625,7 +756,10 @@ object HalfFlowCc:
       level: HalfFlowCcLevel,
       plan: HalfFlowCcPlan,
       initialControl: HalfFlowCcControlState,
-      initialLegacyGate: Option[LegacyInverseGate[W, F, M]]
+      initialLegacyGate: Option[LegacyInverseGate[W, F, M]],
+      levelIndex: Int,
+      observation: Option[HalfFlowCcObservationRun[W, F, M]],
+      useSpatialChain: Boolean
   ): Either[
     HalfFlowCcError,
     (ForwardMidpoint[W, F, M], HalfFlowCcLevelDiagnostics, HalfFlowCcControlState, Option[LegacyInverseGate[W, F, M]])
@@ -646,17 +780,28 @@ object HalfFlowCc:
     var attempts = 0
     var termination = Option.empty[HalfFlowCcTermination]
     val trace = Vector.newBuilder[HalfFlowCcAttemptDiagnostics]
+    var observedAttempt = Option.empty[HalfFlowCcAttemptDiagnostics]
+    def recordAttempt(diagnostic: HalfFlowCcAttemptDiagnostics): Unit =
+      trace += diagnostic
+      if observation.nonEmpty then observedAttempt = Some(diagnostic)
     warp(fixed, moving, state, currentFixed, currentMoving)
     metricSession
       .initialize(currentFixed, currentMoving)
       .fold(error => break(Left(HalfFlowCcError.Registration(error))), identity)
     val initialLoss = metricSession.loss
+    observation.foreach: observer =>
+      val audit = metricSession.audit
+      observer.emit(HalfFlowCcCheckpointInfo(HalfFlowCcCheckpointKind.LevelStart,
+        levelIndex, level.shrink, accepted, attempts, audit, audit, control, None, None, true), Some(state))
 
     while termination.isEmpty do
       if accepted >= level.targetAcceptedSteps then termination = Some(HalfFlowCcTermination.AcceptedStepBudget)
       else if attempts >= level.maximumAttempts then termination = Some(HalfFlowCcTermination.AttemptBudget)
       else if control.exhausted(plan.control) then termination = Some(HalfFlowCcTermination.ControllerExhausted)
       else
+        observedAttempt = None
+        var observedCandidate = Option.empty[ForwardMidpoint[W, F, M]]
+        val beforeAudit = observation.map(_ => metricSession.audit)
         val attemptTransitions = Vector.newBuilder[ControlTransition]
         val step = rankOneStep(
           currentFixed,
@@ -666,7 +811,15 @@ object HalfFlowCc:
           level,
           plan,
           control,
-          stepWorkspace
+          stepWorkspace,
+          if useSpatialChain then Some(() =>
+            metricSession.intensityGradientSnapshot match
+              case None => Left(RegistrationError.InvalidConfiguration("spatial-chain intensity derivative unavailable"))
+              case Some((fixedDerivative, movingDerivative)) =>
+                HalfFlowSpatialChainDirection.into(fixed.image, moving.image, state,
+                  fixedDerivative, movingDerivative, plan.action, metricSession.smoothingWeight,
+                  stepWorkspace.raw, stepWorkspace.movingGradientValid)
+          ) else None
         ).fold(error => break(Left(HalfFlowCcError.Registration(error))), identity)
         if step._2 <= plan.minimumUsefulStepMm then
           termination = Some(HalfFlowCcTermination.Stationary)
@@ -698,7 +851,7 @@ object HalfFlowCc:
           numerical match
             case NumericalVerdict.IncreaseIntegrationDepth(_) =>
               attempts += 1
-              trace += attemptDiagnostic(
+              recordAttempt(attemptDiagnostic(
                 attempts,
                 accepted = false,
                 metricSession,
@@ -707,7 +860,7 @@ object HalfFlowCc:
                 GeometryVerdict.Valid,
                 numerical,
                 attemptTransitions.result()
-              )
+              ))
             case _ =>
               val incremental = ForwardGeometry.incremental(half, plan.geometry)._1
               val incrementalTransition = HalfFlowCcControl.observe(
@@ -722,6 +875,9 @@ object HalfFlowCc:
                   val candidate = state
                     .advance(half)
                     .fold(error => break(Left(HalfFlowCcError.Registration(error))), identity)
+                    .regularize(level.accumulatedSmoothingMm,
+                      accumulatedSmoothingWeight(level, step._2))
+                  if observation.nonEmpty then observedCandidate = Some(candidate)
                   val accumulated = ForwardGeometry.accumulated(candidate, plan.geometry)._1
                   if accumulated != GeometryVerdict.Valid then
                     val transition = HalfFlowCcControl.observe(
@@ -732,7 +888,7 @@ object HalfFlowCc:
                     attemptTransitions += transition
                     control = transition.after
                     attempts += 1
-                    trace += attemptDiagnostic(
+                    recordAttempt(attemptDiagnostic(
                       attempts,
                       accepted = false,
                       metricSession,
@@ -741,7 +897,7 @@ object HalfFlowCc:
                       accumulated,
                       numerical,
                       attemptTransitions.result()
-                    )
+                    ))
                   else
                     val legacyCandidate = legacyGate.map: current =>
                       val tracked = current.state
@@ -765,7 +921,7 @@ object HalfFlowCc:
                       attemptTransitions += transition
                       control = transition.after
                       attempts += 1
-                      trace += attemptDiagnostic(
+                      recordAttempt(attemptDiagnostic(
                         attempts,
                         accepted = false,
                         metricSession,
@@ -776,7 +932,7 @@ object HalfFlowCc:
                         attemptTransitions.result(),
                         legacySafe,
                         legacyMaximum
-                      )
+                      ))
                     else
                       warp(fixed, moving, candidate, candidateFixed, candidateMoving)
                       val candidateLoss = metricSession
@@ -795,7 +951,7 @@ object HalfFlowCc:
                       control = transition.after
                       attempts += 1
                       val isAccepted = objectiveVerdict.isInstanceOf[ObjectiveVerdict.Accepted]
-                      trace += attemptDiagnostic(
+                      recordAttempt(attemptDiagnostic(
                         attempts,
                         isAccepted,
                         metricSession,
@@ -806,7 +962,7 @@ object HalfFlowCc:
                         attemptTransitions.result(),
                         legacySafe,
                         legacyMaximum
-                      )
+                      ))
                       if isAccepted then
                         state = candidate
                         legacyGate = legacyCandidate.map(_._1)
@@ -818,7 +974,7 @@ object HalfFlowCc:
                           .fold(error => break(Left(HalfFlowCcError.Registration(error))), identity)
                 case _ =>
                   attempts += 1
-                  trace += attemptDiagnostic(
+                  recordAttempt(attemptDiagnostic(
                     attempts,
                     accepted = false,
                     metricSession,
@@ -827,7 +983,17 @@ object HalfFlowCc:
                     incremental,
                     numerical,
                     attemptTransitions.result()
-                  )
+                  ))
+        observation.foreach: observer =>
+          observedAttempt.foreach: diagnostic =>
+            val kind = if diagnostic.accepted then HalfFlowCcCheckpointKind.Accepted else HalfFlowCcCheckpointKind.Rejected
+            val snapshot = if diagnostic.accepted then Some(state) else observedCandidate
+            observer.emit(HalfFlowCcCheckpointInfo(kind, levelIndex, level.shrink, accepted, attempts,
+              beforeAudit.get, metricSession.audit, control, Some(diagnostic), None, snapshot.nonEmpty), snapshot)
+    observation.foreach: observer =>
+      val audit = metricSession.audit
+      observer.emit(HalfFlowCcCheckpointInfo(HalfFlowCcCheckpointKind.LevelEnd,
+        levelIndex, level.shrink, accepted, attempts, audit, audit, control, None, termination, true), Some(state))
     Right(
       (
         state,
@@ -845,6 +1011,17 @@ object HalfFlowCc:
       )
     )
 
+  /** A quadratic blend makes regularization second order in the attempted
+    * physical update. Backtracking can then approach the unchanged state
+    * without retaining a fixed smoothing displacement. Full steps retain
+    * the complete filter; geometry and objective admission remain mandatory.
+    */
+  private[halfflow] def accumulatedSmoothingWeight(level: HalfFlowCcLevel, stepMm: Double): Double =
+    if !level.scaleAccumulatedSmoothingByStep then 1.0
+    else
+      val fraction = math.min(1.0, math.max(0.0, stepMm / level.maximumStepMm))
+      fraction * fraction
+
   private def rankOneStep[W](
       fixed: CcWarpBuffer,
       moving: CcWarpBuffer,
@@ -853,10 +1030,12 @@ object HalfFlowCc:
       level: HalfFlowCcLevel,
       plan: HalfFlowCcPlan,
       control: HalfFlowCcControlState,
-      workspace: CcStepWorkspace[W]
+      workspace: CcStepWorkspace[W],
+      gradientOverride: Option[() => Either[RegistrationError, Unit]]
   ): Either[RegistrationError, (Velocity[W], Double)] =
     val n = frame.grid.nVoxels
-    objective.gradientInto(fixed, moving, workspace).flatMap: _ =>
+    val gradient = gradientOverride.fold(objective.gradientInto(fixed, moving, workspace))(_())
+    gradient.flatMap: _ =>
       PointwiseRankOne.solveInto(
         workspace.raw,
         workspace.movingGradientValid,

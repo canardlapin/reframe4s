@@ -8,7 +8,7 @@ class BasinBridgeAssimilatorSuite extends munit.FunSuite:
   sealed trait Fixed
   sealed trait Moving
 
-  test("constant 12 mm tangent accepts alpha one with unit topology"):
+  test("constant 12 mm tangent backtracks past boundary folds before accepting"):
     val grid = GridSpec.identity(Vector(33, 33, 33))
     val work = RegistrationFrame[Work](SpatialDomainId("b3-work"), grid)
     val fixed = RegistrationFrame[Fixed](SpatialDomainId("b3-fixed"), grid)
@@ -40,16 +40,20 @@ class BasinBridgeAssimilatorSuite extends munit.FunSuite:
     assertEqualsDouble(result.initialAlpha, 1.0, 1e-12)
     assertEqualsDouble(
       result.acceptedAlpha.getOrElse(Double.NaN),
-      1.0,
+      0.25,
       0.0,
-      "alpha one"
+      "boundary-safe alpha"
     )
-    assert(result.trials.length == 1, "constant translation should accept first trial")
-    assert(result.trials.head.accepted)
+    assertEquals(result.trials.length, 3)
+    assert(result.trials.take(2).forall(_.rejection.exists(
+      _.isInstanceOf[BasinBridgeTrialRejection.IncrementalGeometry])))
+    assert(result.trials.last.accepted)
     val finalError = right(BasinBridgeObjective.correspondenceMatchError(result.state, correspondences))
-    assert(finalError < 1e-6, s"final weighted match error=$finalError")
+    assertEqualsDouble(finalError, 9.0, 1e-4)
     val acceptedGeometry = ForwardGeometryConfig(interiorMargin = 8)
-    val (_, reports) = ForwardGeometry.accumulated(result.state, acceptedGeometry)
+    val (verdict, reports) = ForwardGeometry.accumulated(result.state, acceptedGeometry)
+    assertEquals(verdict, GeometryVerdict.Valid)
+    assert(reports.forall(_.cells.exists(_.acceptable(0.05, 0.95))))
     val minimum = reports.map(_.minimum).min
     assertEqualsDouble(minimum, 1.0, 1e-10)
 
@@ -61,13 +65,15 @@ class BasinBridgeAssimilatorSuite extends munit.FunSuite:
         RegistrationFrame[Moving](SpatialDomainId("b3-moving"), fineGrid)
       )
     )
-    val (_, regridReports) = ForwardGeometry.accumulated(
+    val (regridVerdict, regridReports) = ForwardGeometry.accumulated(
       regridded,
       acceptedGeometry.copy(interiorMargin = 10)
     )
     assert(regridReports.forall(report => report.minimum.isFinite && report.minimum > 0.99))
+    assertEquals(regridVerdict, GeometryVerdict.Valid)
+    assert(regridReports.forall(_.cells.exists(_.acceptable(0.05, 0.95))))
 
-  test("compressive field backtracks globally before it can fold"):
+  test("compressive field exhausts the declared trials without accepting boundary folds"):
     val grid = GridSpec.identity(Vector(33, 33, 33))
     val work = RegistrationFrame[Work](SpatialDomainId("b3-compress-work"), grid)
     val fixed = RegistrationFrame[Fixed](SpatialDomainId("b3-compress-fixed"), grid)
@@ -102,17 +108,13 @@ class BasinBridgeAssimilatorSuite extends munit.FunSuite:
         config
       )
     )
-    assert(result.accepted)
+    assert(!result.accepted)
+    assert(result.state eq initial)
     assertEqualsDouble(result.initialAlpha, 1.0, 1e-12)
-    assertEqualsDouble(
-      result.acceptedAlpha.getOrElse(Double.NaN),
-      0.5,
-      1e-12,
-      "compressive alpha"
-    )
-    assert(!result.trials.head.accepted)
-    assert(result.trials.head.rejection.exists(_.isInstanceOf[BasinBridgeTrialRejection.IncrementalGeometry]))
-    assert(result.trials.last.accepted)
+    assertEquals(result.acceptedAlpha, None)
+    assertEquals(result.trials.length, 4)
+    assert(result.trials.forall(trial => !trial.accepted && trial.rejection.exists(
+      _.isInstanceOf[BasinBridgeTrialRejection.IncrementalGeometry])))
     val (_, reports) = ForwardGeometry.accumulated(result.state, ForwardGeometryConfig(interiorMargin = 8))
     assert(reports.forall(report => report.minimum.isFinite && report.minimum >= 0.05))
 

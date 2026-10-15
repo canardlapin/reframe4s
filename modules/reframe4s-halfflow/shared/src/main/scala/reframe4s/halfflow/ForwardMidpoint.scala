@@ -125,7 +125,8 @@ final case class ForwardJacobianReport(
     evaluated: Int,
     eligible: Int,
     validFraction: Double,
-    nonPositive: Int
+    nonPositive: Int,
+    cells: Option[TrilinearCellJacobianReport] = None
 )
 
 final class ForwardGeometryWorkspace private (
@@ -154,7 +155,7 @@ object ForwardGeometry:
     val workspace = ForwardGeometryWorkspace(step.plus.from.grid)
     val plus = report(step.plus, workspace, config.interiorMargin)
     val minus = report(step.minus, workspace, config.interiorMargin)
-    val minimum = math.min(plus.minimum, minus.minimum)
+    val minimum = math.min(effectiveMinimum(plus), effectiveMinimum(minus))
     val valid = acceptable(plus, config.minimumIncrementJacobian, config.minimumValidFraction) &&
       acceptable(minus, config.minimumIncrementJacobian, config.minimumValidFraction)
     (
@@ -171,9 +172,9 @@ object ForwardGeometry:
     val moving = report(state.moving.residual, workspace, config.interiorMargin)
     val verdict =
       if !acceptable(fixed, config.minimumAccumulatedJacobian, config.minimumValidFraction) then
-        GeometryVerdict.AccumulatedJacobianTooSmall(MidpointArmName.Fixed, fixed.minimum)
+        GeometryVerdict.AccumulatedJacobianTooSmall(MidpointArmName.Fixed, effectiveMinimum(fixed))
       else if !acceptable(moving, config.minimumAccumulatedJacobian, config.minimumValidFraction) then
-        GeometryVerdict.AccumulatedJacobianTooSmall(MidpointArmName.Moving, moving.minimum)
+        GeometryVerdict.AccumulatedJacobianTooSmall(MidpointArmName.Moving, effectiveMinimum(moving))
       else GeometryVerdict.Valid
     (verdict, Vector(fixed, moving))
 
@@ -201,12 +202,16 @@ object ForwardGeometry:
       workspace.reduction.evaluated,
       eligible,
       if eligible == 0 then 0.0 else workspace.reduction.evaluated.toDouble / eligible.toDouble,
-      workspace.reduction.nonPositive
+      workspace.reduction.nonPositive,
+      Some(TrilinearCellGeometry.evaluate(pull.sourceCoordinates, pull.validity))
     )
 
   private def acceptable(report: ForwardJacobianReport, floor: Double, minimumValidFraction: Double): Boolean =
     report.minimum.isFinite && report.minimum >= floor && report.nonPositive == 0 &&
-      report.validFraction >= minimumValidFraction
+      report.validFraction >= minimumValidFraction && report.cells.exists(_.acceptable(floor, minimumValidFraction))
+
+  private def effectiveMinimum(report: ForwardJacobianReport): Double =
+    math.min(report.minimum, report.cells.fold(Double.NaN)(_.minimum))
 
 /** One authoritative forward residual followed by an exact affine factor. */
 final case class ForwardMidpointArm[W, E] private (
@@ -276,6 +281,43 @@ final case class ForwardMidpoint[W, F, M] private (
 
   def swap: ForwardMidpoint[W, M, F] =
     ForwardMidpoint.unsafe(moving, fixed)
+
+  /** Smooth accumulated world displacement before objective and geometry admission.
+    * The affine factors and validity masks are preserved. Zero is an exact no-op.
+    */
+  private[halfflow] def regularize(sigmaMm: Double, weight: Double = 1.0): ForwardMidpoint[W, F, M] =
+    require(sigmaMm.isFinite && sigmaMm >= 0.0)
+    require(weight.isFinite && weight >= 0.0 && weight <= 1.0)
+    if sigmaMm == 0.0 || weight == 0.0 then this
+    else
+      val grid = work.grid
+      val n = grid.nVoxels
+      val identity = HalfFlowKernels.identity(grid).field.copyLegacyPlanar
+      val component = new Array[Double](n)
+      val smoothed = new Array[Double](n)
+      val smoothedWeight = new Array[Double](n)
+      val gaussian = GaussianWorkspace(grid)
+      val reduction = GaussianReduction()
+      def arm[E](source: ForwardMidpointArm[W, E]): ForwardMidpointArm[W, E] =
+        val coordinates = source.residual.sourceCoordinates.copyLegacyPlanar
+        val support = Array.tabulate(n)(i => if source.residual.validity.contains(i) then 1.0 else 0.0)
+        for axis <- 0 until 3 do
+          var i = 0
+          while i < n do
+            component(i) = if support(i) > 0.0 then coordinates(i + axis * n) - identity(i + axis * n) else 0.0
+            i += 1
+          Gaussian3D.normalizedInto(component, support, grid, sigmaMm, 1e-12,
+            smoothed, smoothedWeight, gaussian, GaussianBoundary.Reflect, reduction)
+          i = 0
+          while i < n do
+            // Preserve the original full-filter arithmetic at weight one.
+            if weight == 1.0 then coordinates(i + axis * n) = identity(i + axis * n) + smoothed(i)
+            else if support(i) > 0.0 then
+              coordinates(i + axis * n) += weight * (smoothed(i) - component(i))
+            i += 1
+        val field = DenseVectorField.fromLegacyPlanar(grid, coordinates, DenseVectorFieldKind.SourceCoordinates)
+        ForwardMidpointArm.unsafe(DensePull.unsafe(work, work, field, source.residual.validity), source.affine)
+      ForwardMidpoint.unsafe(arm(fixed), arm(moving))
 
   def regrid(
       newWork: RegistrationFrame[W],

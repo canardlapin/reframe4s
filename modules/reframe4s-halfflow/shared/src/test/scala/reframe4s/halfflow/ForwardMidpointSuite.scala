@@ -79,9 +79,16 @@ class ForwardMidpointSuite extends munit.FunSuite:
     val exportConfig = ResidualInverseConfig
       .make(shrinks = Vector(1), iterationsPerLevel = 4, interiorMargin = 1)
       .fold(error => fail(error.message), identity)
-    val exported = ForwardMidpointExporter.build(state, exportConfig).fold(error => fail(error.message), identity)
+    val exported = ForwardMidpointExporter.inspect(state, exportConfig).fold(error => fail(error.message), identity)
     assertEqualsDouble(exported.transform.forward.sourceCoordinates.linearComponent(center, 0), -11.0, 1e-12)
     assertEqualsDouble(exported.transform.backward.sourceCoordinates.linearComponent(center, 0), 17.0, 1e-12)
+    // The two endpoint grids do not overlap after these translations. The maps
+    // are available for diagnosis, but cannot claim a measured inverse contract.
+    ForwardMidpointExporter.admit(exported, exportConfig) match
+      case Left(ForwardExportError.EndpointInverseDidNotConverge(_, report, eligible)) =>
+        assertEquals(report.evaluated, 0)
+        assertEquals(eligible, 0)
+      case other => fail(s"empty round-trip domain was admitted: $other")
 
   test("smooth forward midpoint arms retain positive sampled Jacobians"):
     val frames = fixture()
