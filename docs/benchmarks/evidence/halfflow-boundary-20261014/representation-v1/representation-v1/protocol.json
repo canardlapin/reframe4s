@@ -1,0 +1,44 @@
+{
+  "schema": "hfq-boundary-representation-oracle-v1",
+  "created_at": "2026-10-14T23:51:59.906812+00:00",
+  "sources": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/boundary/representation.py": "8a862d484bb4ea819c77105d8f93adc53baee91ec90e5833761595f973a94ee9",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/boundary/test_representation.py": "7209ecd23b673771b4c53d8057562862861fbf58754f2f49e4a1e01f1eedc108"
+  },
+  "grid": {
+    "first_mm": 0.0,
+    "spacing_mm": 1.0,
+    "count": 25
+  },
+  "cases": [
+    {
+      "id": "translation",
+      "scale": 1.0,
+      "shift_mm": 3.0,
+      "quadratic_per_mm": 0.0
+    },
+    {
+      "id": "affine",
+      "scale": 1.05,
+      "shift_mm": 3.0,
+      "quadratic_per_mm": 0.0
+    },
+    {
+      "id": "monotone-nonlinear",
+      "scale": 1.0,
+      "shift_mm": 3.0,
+      "quadratic_per_mm": 0.04
+    }
+  ],
+  "representation": "Sample the prescribed polynomial at the 25 knots; the authoritative map is its piecewise-linear interpolation with linear exterior continuation. Invert this map exactly by swapping its strictly increasing knot/value arrays.",
+  "inverse_grids": [
+    "same-target-grid",
+    "padded-to-forward-image-plus-one-cell"
+  ],
+  "padding_rule": "Retain 1 mm spacing; extend the inverse grid to floor(min(target,forward))-1 through ceil(max(target,forward))+1. Evaluate only the original 25 target/forward nodes in both compositions.",
+  "maximum_error_mm": 0.2,
+  "oracle_tolerance_mm": 1e-12,
+  "scope": "Independent representation counterexample. All samples retained, no numerical solver, fit or MRI. No attribution to actual C04 r24 without a separate frozen-field probe.",
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}

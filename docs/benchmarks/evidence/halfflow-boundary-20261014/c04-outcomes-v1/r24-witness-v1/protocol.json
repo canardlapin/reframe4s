@@ -1,0 +1,32 @@
+{
+  "schema": "hfq-r24-root-witness-v1",
+  "created_at": "2026-10-15T00:05:50.120199+00:00",
+  "analysis": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/r24-analysis-v2",
+  "primary_protocol_sha256": "44ef06a9ecf7d1bd8e51b08019717f8f9575071f533a9cfefcc902e496dd8231",
+  "primary_results_sha256": "6929cd53a3cf04c535c0dd70c20d56ddf13c744b2e3fc5341498ed5b9416bbca",
+  "primary_input_seal_sha256": "eb347166ef788358ac833ca346c7a6a1e445a6cf25dad908e5933c078747badb",
+  "sources": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/boundary/witness_c04.py": "7990acb4a3509174a2347209c6c376275a5003263f92e4d57be53fc2fea99659",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/boundary/field_oracle.py": "a21cffd2df155b1297a80ab538ca3d4e46e88aad1538921fa9b30496c15397ae",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/boundary/analyze_c04.py": "0fd70271b318ed1b82bcf0ce0b8d3b3ab6c7b48ebc7d1db413305b91403f9efd"
+  },
+  "method": {
+    "tolerance": 1e-08,
+    "iterations": 40,
+    "step_cap": 4.0,
+    "backtracks": 12
+  },
+  "arms": [
+    "fixed",
+    "moving"
+  ],
+  "selection": "Every converged direct-query root with nonpositive analytic Jacobian or source separation above0.2mm; no largest-only selection.",
+  "maximum_separation_mm": 0.2,
+  "finite_difference_steps_mm": [
+    1e-05,
+    1e-06
+  ],
+  "scope": "Detached root witness capture only. Same original-grid seeds, solver and parameters; every prior scalar root receipt must replay exactly. Record original and alternate coordinates, residuals, all derivative matrices and whether the root lies outside the original grid. Numerical alternate-preimage evidence is not a proof of global topology or a production inverse policy.",
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}

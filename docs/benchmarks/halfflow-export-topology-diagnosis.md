@@ -1,14 +1,18 @@
 # HalfFlow C04 export topology diagnosis
 
-The r23 and r24 failures are reproducible boundary failures in numerical inverse
-construction. A continuous boundary extension repairs both under the original
-C04 optimizer settings and export thresholds. The original C04 raw rows,
+The original r23 and r24 endpoint topology failures were removed by continuous
+boundary extension under the then-existing voxel-difference checks, with the
+original C04 optimizer settings and export thresholds. A later
+[complete-cell diagnosis](halfflow-boundary-representation-v1.md) also finds
+folds in their authoritative forward fields; attributing the problem solely to
+inverse construction was incomplete. The original C04 raw rows,
 manifest, receipt, 100 mm penalties, and report remain historical evidence;
 this is a separate development follow-up.
 
 ## Mechanism and independent check
 
-The optimized forward residuals have positive sampled Jacobians. Their
+The optimized forward residuals have positive voxel-difference Jacobians; this
+does not establish positive Jacobians throughout their trilinear cells. Their
 refined inverses do not: r23 has one non-positive moving-arm inverse Jacobian;
 r24 has 22 in the fixed-arm inverse and eight in the moving-arm inverse. These
 failures occur one or two voxels from an outer grid face. Endpoint composition
@@ -33,10 +37,11 @@ samples remain invalid. Optimizer integration and forward-state regridding
 retain their existing boundary policy. Export admission thresholds are
 unchanged.
 
-This localizes the failure more precisely than a capture-range explanation.
-Larger residuals expose a defective boundary condition; these two failures do
-not demonstrate that optimization itself folded the authoritative residuals.
-Flashalign initialization still improves landmark accuracy on these cases.
+The translation oracle independently establishes a defective boundary
+condition. It does not establish the geometry of the optimized forward fields;
+the later complete-cell follow-up detects folds missed by these original
+voxel-difference checks. Flashalign initialization still improves landmark
+accuracy on these cases.
 
 ## Results and limitations
 
@@ -90,6 +95,16 @@ round-trip maxima are approximately 4.65 and 4.63 mm over valid compositions.
 This repair removes the observed sampled folds; whole-boundary inverse
 accuracy remains a separate unresolved limitation.
 It is tracked as `bd-01M2EG25H20DR7CXNHK22ZF4VE`.
+
+The [later full-field follow-up](halfflow-boundary-representation-v1.md)
+replays all 24 historical C4 forward/inverse field hashes exactly. Applying the
+existing nine-sample complete-cell evaluator detects folds in 9 of 12 forward
+residuals and 3 of 12 inverses. For r24, its fixed and moving forward fields
+have 12 and 33 folded cells despite positive voxel-difference Jacobians.
+Smooth-cell finite differences independently confirm local reversals. More
+accurate pointwise roots and the declared inverse-grid padding do not satisfy
+the full-boundary contract. These later results do not overwrite the original
+rows or convert the earlier interior/topology evidence into qualification.
 
 ## Reproduction
 

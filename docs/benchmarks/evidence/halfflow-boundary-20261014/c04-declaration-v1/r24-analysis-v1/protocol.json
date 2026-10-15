@@ -1,0 +1,36 @@
+{
+  "schema": "hfq-r24-boundary-root-oracle-v1",
+  "created_at": "2026-10-14T23:56:36.070959+00:00",
+  "sources": {
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/boundary/analyze_c04.py": "0fd70271b318ed1b82bcf0ce0b8d3b3ab6c7b48ebc7d1db413305b91403f9efd",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/boundary/field_oracle.py": "a21cffd2df155b1297a80ab538ca3d4e46e88aad1538921fa9b30496c15397ae",
+    "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/halfflow/boundary/test_field_oracle.py": "7a996ed81afeb1c9bd7639778237c9bc2a182ce0217a13b3a7ecbde93dd6a469"
+  },
+  "capture": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v3",
+  "capture_protocol_sha256": "151b23ee42decf4abf7929a315085cd27e849cd8feace6527312ea5bed9fb949",
+  "target_case": "r24-exact-core-affine",
+  "target_lane": "C4",
+  "arms": [
+    "fixed",
+    "moving"
+  ],
+  "historical_comparison": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/diagnostics/halfflow-export-topology-v1/comparison.json",
+  "method": {
+    "tolerance": 1e-08,
+    "iterations": 40,
+    "step_cap": 4.0,
+    "backtracks": 12
+  },
+  "variants": [
+    "same-inverse-grid",
+    "padded-inverse-grid"
+  ],
+  "padding": "Same physical basis/spacing; integer voxel bounds enclose original grid and all forward nodal coordinates, plus one exterior cell on every face.",
+  "scope": "At every original target node, solve the current forward boundary-linear trilinear field equation with bounded Newton/backtracking. Compare storing those roots on the original or padded inverse lattice. Also solve directly at each forward-node query. Root convergence does not establish unique/global invertibility or cell topology. No optimizer or production source changes.",
+  "denominator": "Both compositions keep every original target grid node; failed/unsupported roots and invalid compositions remain explicit.",
+  "baseline_requirement": "Both r24 C4 forward residual hashes must match the historical topology diagnosis before attribution. Current stored inverse hashes are recorded separately because its exporter changed since that diagnosis.",
+  "maximum_error_mm": 0.2,
+  "interior_margin": 6,
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}

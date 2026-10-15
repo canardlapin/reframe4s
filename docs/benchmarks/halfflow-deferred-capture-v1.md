@@ -342,3 +342,38 @@ Its times are excluded from performance comparisons. The remaining
 representative-success trajectories on OASIS 1 and OASIS 17 also need offline
 scoring before D01 can close. The corrected-direction screen remains gated;
 no new anatomical improvement or convergence is established by scheduling work.
+
+## Partial OASIS 13 control trajectory
+
+The [verified partial snapshot](evidence/halfflow-deferred-capture-20261014/partial-oasis13-mmrr11-v1/artifact-manifest.json)
+accounts for 114 of the batch's 162 events: 13 scored OASIS 13 control states
+and all 101 explicitly uncaptured events. Forty-eight captured events remain
+pending in this snapshot. Every scored state passes native admission,
+independent geometry and sampled complete-cell checks. The snapshot preserves
+all 13 scored reports and per-structure results; it does not mark the batch
+or this fit's anatomical trajectory complete.
+
+| OASIS 13 control state | Rebuilt optimizer loss | Fixed-region audit loss | Mean bidirectional Dice | Median-label HD95 (mm) |
+| --- | ---: | ---: | ---: | ---: |
+| Coarse start | 0.619701 | 0.769922 | 0.356076 | 5.510406 |
+| Coarse end | 0.429889 | 0.655682 | 0.423217 | 4.618734 |
+| Fine start | 0.530643 | 0.655682 | 0.423217 | 4.618734 |
+| Fine accepted 1 | 0.530876 | 0.655898 | 0.422776 | 4.679588 |
+| Fine accepted 2 | 0.529735 | 0.655932 | 0.422088 | 4.679588 |
+| Fine accepted 5 | 0.513192 | 0.651963 | 0.422452 | 4.679588 |
+| Fine accepted 10 | 0.458114 | 0.638702 | 0.422710 | 4.621708 |
+
+The first accepted fine update increases the rebuilt optimizer loss and the
+independent fixed-region loss while worsening both anatomy summaries. By
+update 10, both intensity losses are below their fine-start values, while
+anatomy has partly recovered from the early decline and remains slightly
+worse than at fine start. These partial observations extend the evidence for
+intensity/anatomy disagreement; they do not establish the final outcome or a
+cause. No checkpoint is selected using labels.
+
+![Partial OASIS 13 control trajectory](evidence/halfflow-deferred-capture-20261014/partial-oasis13-mmrr11-v1/figures/oasis-13-to-14/selected-control/trajectory.png)
+
+`snapshot_offline.py` uses the existing exact ledger verifier, copies every
+verified event and scored scientific report into a separate immutable snapshot,
+and labels missing events explicitly. The original export and scoring workers
+continue from their original sealed protocols. MRI and dense maps stay local.
