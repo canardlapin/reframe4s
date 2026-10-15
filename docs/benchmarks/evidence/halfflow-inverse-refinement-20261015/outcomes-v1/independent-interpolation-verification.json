@@ -1,0 +1,122 @@
+{
+  "schema": "hfq-independent-inverse-interpolation-v1",
+  "source_sha256": "9d446537d934f367569af7a831d855ce34842b5722e6c776cd59dc36ea27069b",
+  "protocol_sha256": "b4caaaccf1c42a024b82aa0e8cb8211c20b1e59d92b1dda3ae6d82260bedb0eb",
+  "results_sha256": "235213e2d9a7b34fbdb731880d1595d4634d2c69d4dc5a23d3a9a0e8260d367e",
+  "scipy": "1.15.3",
+  "numpy": "2.3.5",
+  "absolute_tolerance_mm": 1e-10,
+  "rows": [
+    {
+      "arm": "fixed",
+      "factor": 1,
+      "compositions": {
+        "forward_then_inverse": {
+          "eligible": 50653,
+          "maximum_mm": 0.7566960749482877,
+          "primary_maximum_difference_mm": 0.0,
+          "passes_02mm": false
+        },
+        "inverse_then_forward": {
+          "eligible": 50653,
+          "maximum_mm": 9.999386487224587e-09,
+          "primary_maximum_difference_mm": 7.557945501497033e-16,
+          "passes_02mm": true
+        }
+      }
+    },
+    {
+      "arm": "fixed",
+      "factor": 2,
+      "compositions": {
+        "forward_then_inverse": {
+          "eligible": 50653,
+          "maximum_mm": 0.3302567956252363,
+          "primary_maximum_difference_mm": 0.0,
+          "passes_02mm": false
+        },
+        "inverse_then_forward": {
+          "eligible": 50653,
+          "maximum_mm": 9.999386487224587e-09,
+          "primary_maximum_difference_mm": 7.557945501497033e-16,
+          "passes_02mm": true
+        }
+      }
+    },
+    {
+      "arm": "fixed",
+      "factor": 4,
+      "compositions": {
+        "forward_then_inverse": {
+          "eligible": 50653,
+          "maximum_mm": 0.19425533300882403,
+          "primary_maximum_difference_mm": 3.1086244689504383e-15,
+          "passes_02mm": true
+        },
+        "inverse_then_forward": {
+          "eligible": 50653,
+          "maximum_mm": 9.999386487224587e-09,
+          "primary_maximum_difference_mm": 7.557945501497033e-16,
+          "passes_02mm": true
+        }
+      }
+    },
+    {
+      "arm": "moving",
+      "factor": 1,
+      "compositions": {
+        "forward_then_inverse": {
+          "eligible": 50653,
+          "maximum_mm": 0.6050131588182602,
+          "primary_maximum_difference_mm": 0.0,
+          "passes_02mm": false
+        },
+        "inverse_then_forward": {
+          "eligible": 50653,
+          "maximum_mm": 9.99896174662606e-09,
+          "primary_maximum_difference_mm": 2.6297001027022565e-15,
+          "passes_02mm": true
+        }
+      }
+    },
+    {
+      "arm": "moving",
+      "factor": 2,
+      "compositions": {
+        "forward_then_inverse": {
+          "eligible": 50653,
+          "maximum_mm": 0.35757316349542906,
+          "primary_maximum_difference_mm": 0.0,
+          "passes_02mm": false
+        },
+        "inverse_then_forward": {
+          "eligible": 50653,
+          "maximum_mm": 9.99896174662606e-09,
+          "primary_maximum_difference_mm": 2.6297001027022565e-15,
+          "passes_02mm": true
+        }
+      }
+    },
+    {
+      "arm": "moving",
+      "factor": 4,
+      "compositions": {
+        "forward_then_inverse": {
+          "eligible": 50653,
+          "maximum_mm": 0.20609102558394699,
+          "primary_maximum_difference_mm": 0.0,
+          "passes_02mm": false
+        },
+        "inverse_then_forward": {
+          "eligible": 50653,
+          "maximum_mm": 9.99896174662606e-09,
+          "primary_maximum_difference_mm": 2.6297001027022565e-15,
+          "passes_02mm": true
+        }
+      }
+    }
+  ],
+  "passed": true,
+  "scope": "Post-outcome interpolation confirmation only. Does not modify the prospective protocol, primary results, thresholds, root solves or declared variants.",
+  "qualification_claim": false
+}

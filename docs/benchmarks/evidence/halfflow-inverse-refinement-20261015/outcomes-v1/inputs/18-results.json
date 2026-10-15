@@ -1,0 +1,622 @@
+{
+  "protocol_sha256": "f22185f2db1bc35717d0ce938401b4bb0683ab3811ec49b9b32d2dc6fd490fa2",
+  "input_seal_sha256": "1619784b0971e65bc12d4166774ca9eac8807d2c5357e7f3ebc7a025b3c9dd73",
+  "arms": [
+    {
+      "arm": "fixed",
+      "shape": [
+        37,
+        37,
+        37
+      ],
+      "affine": [
+        [
+          2.0,
+          0.0,
+          0.0,
+          -36.0
+        ],
+        [
+          0.0,
+          2.0,
+          0.0,
+          -36.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.0,
+          -36.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "forward_sha256": "4b00756efaa778b95657f4b2078642f9f36ed0931953608b9b17fac45c2c0c54",
+      "stored_inverse_sha256": "2ee91c8e35b983737174c277117c054a45da6b9f8ee63cca7320e0c6be8c7f10",
+      "stored_inverse_matches_historical": false,
+      "historical_inverse": {
+        "maximum_interior_mm": 0.04378810639359324,
+        "maximum_interior_vox": 0.02189405319679662,
+        "all_maximum_mm": 3.4179991315706726,
+        "forward_valid_fraction": 1.0,
+        "backward_valid_fraction": 1.0
+      },
+      "stored_inverse_errors": {
+        "forward_then_inverse": {
+          "all": {
+            "eligible": 50653,
+            "evaluated": 50653,
+            "invalid": 0,
+            "maximum_mm": 0.46546034420258675,
+            "passes_02mm": false
+          },
+          "interior": {
+            "eligible": 15625,
+            "evaluated": 15625,
+            "invalid": 0,
+            "maximum_mm": 0.04694298915787153,
+            "passes_02mm": true
+          },
+          "boundary": {
+            "eligible": 35028,
+            "evaluated": 35028,
+            "invalid": 0,
+            "maximum_mm": 0.46546034420258675,
+            "passes_02mm": false
+          }
+        },
+        "inverse_then_forward": {
+          "all": {
+            "eligible": 50653,
+            "evaluated": 50653,
+            "invalid": 0,
+            "maximum_mm": 0.3821494753410654,
+            "passes_02mm": false
+          },
+          "interior": {
+            "eligible": 15625,
+            "evaluated": 15625,
+            "invalid": 0,
+            "maximum_mm": 0.04334026286158659,
+            "passes_02mm": true
+          },
+          "boundary": {
+            "eligible": 35028,
+            "evaluated": 35028,
+            "invalid": 0,
+            "maximum_mm": 0.3821494753410654,
+            "passes_02mm": false
+          }
+        }
+      },
+      "variants": {
+        "same-inverse-grid": {
+          "inverse_grid_shape": [
+            37,
+            37,
+            37
+          ],
+          "inverse_grid_affine": [
+            [
+              2.0,
+              0.0,
+              0.0,
+              -36.0
+            ],
+            [
+              0.0,
+              2.0,
+              0.0,
+              -36.0
+            ],
+            [
+              0.0,
+              0.0,
+              2.0,
+              -36.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "inverse_root_solve": {
+            "targets": 50653,
+            "converged": 50653,
+            "unresolved": 0,
+            "invalid": 0,
+            "blocked": 0,
+            "iterations_used": 3,
+            "maximum_equation_residual_mm": 9.999385731430037e-09,
+            "minimum_root_jacobian": 0.6286923323200538,
+            "nonpositive_root_jacobians": 0,
+            "all_converged": true
+          },
+          "composition_errors": {
+            "forward_then_inverse": {
+              "all": {
+                "eligible": 50653,
+                "evaluated": 50653,
+                "invalid": 0,
+                "maximum_mm": 0.7566960749482877,
+                "passes_02mm": false
+              },
+              "interior": {
+                "eligible": 15625,
+                "evaluated": 15625,
+                "invalid": 0,
+                "maximum_mm": 0.08279557334795613,
+                "passes_02mm": true
+              },
+              "boundary": {
+                "eligible": 35028,
+                "evaluated": 35028,
+                "invalid": 0,
+                "maximum_mm": 0.7566960749482877,
+                "passes_02mm": false
+              }
+            },
+            "inverse_then_forward": {
+              "all": {
+                "eligible": 50653,
+                "evaluated": 50653,
+                "invalid": 0,
+                "maximum_mm": 9.999385731430037e-09,
+                "passes_02mm": true
+              },
+              "interior": {
+                "eligible": 15625,
+                "evaluated": 15625,
+                "invalid": 0,
+                "maximum_mm": 9.999385731430037e-09,
+                "passes_02mm": true
+              },
+              "boundary": {
+                "eligible": 35028,
+                "evaluated": 35028,
+                "invalid": 0,
+                "maximum_mm": 9.998188886401838e-09,
+                "passes_02mm": true
+              }
+            }
+          },
+          "direct_forward_query_solve": {
+            "targets": 50653,
+            "converged": 50653,
+            "unresolved": 0,
+            "invalid": 0,
+            "blocked": 0,
+            "iterations_used": 3,
+            "maximum_equation_residual_mm": 9.997921045551797e-09,
+            "minimum_root_jacobian": 0.57793581857892,
+            "nonpositive_root_jacobians": 0,
+            "all_converged": true
+          },
+          "direct_forward_roundtrip_maximum_mm": 1.5580390566065028e-08
+        },
+        "padded-inverse-grid": {
+          "inverse_grid_shape": [
+            41,
+            41,
+            41
+          ],
+          "inverse_grid_affine": [
+            [
+              2.0,
+              0.0,
+              0.0,
+              -40.0
+            ],
+            [
+              0.0,
+              2.0,
+              0.0,
+              -40.0
+            ],
+            [
+              0.0,
+              0.0,
+              2.0,
+              -40.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "inverse_root_solve": {
+            "targets": 68921,
+            "converged": 68900,
+            "unresolved": 21,
+            "invalid": 0,
+            "blocked": 21,
+            "iterations_used": 12,
+            "maximum_equation_residual_mm": 1.2541447727741695,
+            "minimum_root_jacobian": -0.24630178422868096,
+            "nonpositive_root_jacobians": 12,
+            "all_converged": false
+          },
+          "composition_errors": {
+            "forward_then_inverse": {
+              "all": {
+                "eligible": 50653,
+                "evaluated": 50653,
+                "invalid": 0,
+                "maximum_mm": 0.7566960749482877,
+                "passes_02mm": false
+              },
+              "interior": {
+                "eligible": 15625,
+                "evaluated": 15625,
+                "invalid": 0,
+                "maximum_mm": 0.08279557334795613,
+                "passes_02mm": true
+              },
+              "boundary": {
+                "eligible": 35028,
+                "evaluated": 35028,
+                "invalid": 0,
+                "maximum_mm": 0.7566960749482877,
+                "passes_02mm": false
+              }
+            },
+            "inverse_then_forward": {
+              "all": {
+                "eligible": 50653,
+                "evaluated": 50653,
+                "invalid": 0,
+                "maximum_mm": 9.999385731430037e-09,
+                "passes_02mm": true
+              },
+              "interior": {
+                "eligible": 15625,
+                "evaluated": 15625,
+                "invalid": 0,
+                "maximum_mm": 9.999385731430037e-09,
+                "passes_02mm": true
+              },
+              "boundary": {
+                "eligible": 35028,
+                "evaluated": 35028,
+                "invalid": 0,
+                "maximum_mm": 9.998188886401838e-09,
+                "passes_02mm": true
+              }
+            }
+          },
+          "direct_forward_query_solve": {
+            "targets": 50653,
+            "converged": 50653,
+            "unresolved": 0,
+            "invalid": 0,
+            "blocked": 0,
+            "iterations_used": 3,
+            "maximum_equation_residual_mm": 9.997921045551797e-09,
+            "minimum_root_jacobian": 0.57793581857892,
+            "nonpositive_root_jacobians": 0,
+            "all_converged": true
+          },
+          "direct_forward_roundtrip_maximum_mm": 1.5580390566065028e-08
+        }
+      }
+    },
+    {
+      "arm": "moving",
+      "shape": [
+        37,
+        37,
+        37
+      ],
+      "affine": [
+        [
+          2.0,
+          0.0,
+          0.0,
+          -36.0
+        ],
+        [
+          0.0,
+          2.0,
+          0.0,
+          -36.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.0,
+          -36.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "forward_sha256": "8926f5742b5b12b3edd76847530e6bf09868630a20f7c54cca8421a16736d768",
+      "stored_inverse_sha256": "cee8f56d87cce6d16823667a05adee2ff8d073e45a13ac02ca58f293744ccb98",
+      "stored_inverse_matches_historical": false,
+      "historical_inverse": {
+        "maximum_interior_mm": 0.06077203879961972,
+        "maximum_interior_vox": 0.03038601939980986,
+        "all_maximum_mm": 8.086229814794342,
+        "forward_valid_fraction": 1.0,
+        "backward_valid_fraction": 1.0
+      },
+      "stored_inverse_errors": {
+        "forward_then_inverse": {
+          "all": {
+            "eligible": 50653,
+            "evaluated": 50653,
+            "invalid": 0,
+            "maximum_mm": 0.3884827689755829,
+            "passes_02mm": false
+          },
+          "interior": {
+            "eligible": 15625,
+            "evaluated": 15625,
+            "invalid": 0,
+            "maximum_mm": 0.06352488620712803,
+            "passes_02mm": true
+          },
+          "boundary": {
+            "eligible": 35028,
+            "evaluated": 35028,
+            "invalid": 0,
+            "maximum_mm": 0.3884827689755829,
+            "passes_02mm": false
+          }
+        },
+        "inverse_then_forward": {
+          "all": {
+            "eligible": 50653,
+            "evaluated": 50653,
+            "invalid": 0,
+            "maximum_mm": 0.3461570826861732,
+            "passes_02mm": false
+          },
+          "interior": {
+            "eligible": 15625,
+            "evaluated": 15625,
+            "invalid": 0,
+            "maximum_mm": 0.04424594422136787,
+            "passes_02mm": true
+          },
+          "boundary": {
+            "eligible": 35028,
+            "evaluated": 35028,
+            "invalid": 0,
+            "maximum_mm": 0.3461570826861732,
+            "passes_02mm": false
+          }
+        }
+      },
+      "variants": {
+        "same-inverse-grid": {
+          "inverse_grid_shape": [
+            37,
+            37,
+            37
+          ],
+          "inverse_grid_affine": [
+            [
+              2.0,
+              0.0,
+              0.0,
+              -36.0
+            ],
+            [
+              0.0,
+              2.0,
+              0.0,
+              -36.0
+            ],
+            [
+              0.0,
+              0.0,
+              2.0,
+              -36.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "inverse_root_solve": {
+            "targets": 50653,
+            "converged": 50653,
+            "unresolved": 0,
+            "invalid": 0,
+            "blocked": 0,
+            "iterations_used": 3,
+            "maximum_equation_residual_mm": 9.998964376326163e-09,
+            "minimum_root_jacobian": 0.28657335865833,
+            "nonpositive_root_jacobians": 0,
+            "all_converged": true
+          },
+          "composition_errors": {
+            "forward_then_inverse": {
+              "all": {
+                "eligible": 50653,
+                "evaluated": 50653,
+                "invalid": 0,
+                "maximum_mm": 0.6050131588182602,
+                "passes_02mm": false
+              },
+              "interior": {
+                "eligible": 15625,
+                "evaluated": 15625,
+                "invalid": 0,
+                "maximum_mm": 0.10262783819777331,
+                "passes_02mm": true
+              },
+              "boundary": {
+                "eligible": 35028,
+                "evaluated": 35028,
+                "invalid": 0,
+                "maximum_mm": 0.6050131588182602,
+                "passes_02mm": false
+              }
+            },
+            "inverse_then_forward": {
+              "all": {
+                "eligible": 50653,
+                "evaluated": 50653,
+                "invalid": 0,
+                "maximum_mm": 9.998964376326163e-09,
+                "passes_02mm": true
+              },
+              "interior": {
+                "eligible": 15625,
+                "evaluated": 15625,
+                "invalid": 0,
+                "maximum_mm": 9.998964376326163e-09,
+                "passes_02mm": true
+              },
+              "boundary": {
+                "eligible": 35028,
+                "evaluated": 35028,
+                "invalid": 0,
+                "maximum_mm": 9.998340980077404e-09,
+                "passes_02mm": true
+              }
+            }
+          },
+          "direct_forward_query_solve": {
+            "targets": 50653,
+            "converged": 50653,
+            "unresolved": 0,
+            "invalid": 0,
+            "blocked": 0,
+            "iterations_used": 3,
+            "maximum_equation_residual_mm": 9.99931817759659e-09,
+            "minimum_root_jacobian": 0.3905517848826996,
+            "nonpositive_root_jacobians": 0,
+            "all_converged": true
+          },
+          "direct_forward_roundtrip_maximum_mm": 1.7367634924626138e-08
+        },
+        "padded-inverse-grid": {
+          "inverse_grid_shape": [
+            41,
+            41,
+            41
+          ],
+          "inverse_grid_affine": [
+            [
+              2.0,
+              0.0,
+              0.0,
+              -40.0
+            ],
+            [
+              0.0,
+              2.0,
+              0.0,
+              -40.0
+            ],
+            [
+              0.0,
+              0.0,
+              2.0,
+              -40.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "inverse_root_solve": {
+            "targets": 68921,
+            "converged": 68900,
+            "unresolved": 21,
+            "invalid": 0,
+            "blocked": 20,
+            "iterations_used": 40,
+            "maximum_equation_residual_mm": 3.7954639958396146,
+            "minimum_root_jacobian": -0.0005579089085193659,
+            "nonpositive_root_jacobians": 11,
+            "all_converged": false
+          },
+          "composition_errors": {
+            "forward_then_inverse": {
+              "all": {
+                "eligible": 50653,
+                "evaluated": 50653,
+                "invalid": 0,
+                "maximum_mm": 0.6050131588182602,
+                "passes_02mm": false
+              },
+              "interior": {
+                "eligible": 15625,
+                "evaluated": 15625,
+                "invalid": 0,
+                "maximum_mm": 0.10262783819777331,
+                "passes_02mm": true
+              },
+              "boundary": {
+                "eligible": 35028,
+                "evaluated": 35028,
+                "invalid": 0,
+                "maximum_mm": 0.6050131588182602,
+                "passes_02mm": false
+              }
+            },
+            "inverse_then_forward": {
+              "all": {
+                "eligible": 50653,
+                "evaluated": 50653,
+                "invalid": 0,
+                "maximum_mm": 9.998964376326163e-09,
+                "passes_02mm": true
+              },
+              "interior": {
+                "eligible": 15625,
+                "evaluated": 15625,
+                "invalid": 0,
+                "maximum_mm": 9.998964376326163e-09,
+                "passes_02mm": true
+              },
+              "boundary": {
+                "eligible": 35028,
+                "evaluated": 35028,
+                "invalid": 0,
+                "maximum_mm": 9.998340980077404e-09,
+                "passes_02mm": true
+              }
+            }
+          },
+          "direct_forward_query_solve": {
+            "targets": 50653,
+            "converged": 50653,
+            "unresolved": 0,
+            "invalid": 0,
+            "blocked": 0,
+            "iterations_used": 3,
+            "maximum_equation_residual_mm": 9.99931817759659e-09,
+            "minimum_root_jacobian": 0.3905517848859037,
+            "nonpositive_root_jacobians": 0,
+            "all_converged": true
+          },
+          "direct_forward_roundtrip_maximum_mm": 2.088291127486461e-08
+        }
+      }
+    }
+  ],
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false,
+  "production_source_changed": true,
+  "global_invertibility_established": false
+}

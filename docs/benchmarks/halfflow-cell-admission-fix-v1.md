@@ -118,6 +118,13 @@ investigating a richer inverse representation and its interpolation error.
 Pointwise root convergence and additional exterior support alone do not pass
 the contract.
 
+The subsequent [inverse-lattice resolution study](halfflow-inverse-refinement-v1.md)
+preserves those corrected forward fields and original query populations.
+Four-times inverse resolution reduces the two opposite-cycle maxima to
+0.194255 and 0.206091 mm. All roots converge and all inverse cell checks
+pass, but the moving arm still fails the unchanged 0.2 mm bound. Its worst
+error lies inside the inverse box. R02 remains open.
+
 ## Source and evidence delivery
 
 The [prospective declaration](evidence/halfflow-cell-admission-20261015/declaration-v1/artifact-manifest.json)
@@ -135,17 +142,38 @@ full-boundary inverse accuracy, convergence or qualification. R02 remains open.
 The added gate's runtime cost still needs measurement under isolation.
 The existing MRI checkpoint export/scoring batch continues under its previously
 frozen executable; those measurements are separate from this new source.
-The [verified partial MRI snapshot](evidence/halfflow-cell-admission-20261015/offline-progress-v1/artifact-manifest.json)
-now contains 54 scored states and 101 explicitly uncaptured events: 155 of
-162 declared events. Seven captured states remain unscored, so the batch is
-incomplete. All captured scientific reports and per-structure plots for those
-54 states are retained.
+The [completed MRI batch](evidence/halfflow-cell-admission-20261015/completed-mri-batch-v1/artifact-manifest.json)
+now accounts for all 162 declared events: 61 scored checkpoints and 101
+explicitly uncaptured events. All 61 export attempts and both worker processes
+finished successfully; there are no missing events or analysis failures. Every
+scored state passes its recorded native export, independent geometry and
+sampled complete-cell checks. The archive retains all scalar reports, source
+fit receipts, objective decompositions, per-structure plots and complete event
+ledgers. The [terminal worker receipts and logs](evidence/halfflow-cell-admission-20261015/completed-mri-execution-v1/artifact-manifest.json)
+bind the successful execution and the report archive. The earlier 54-state
+partial snapshot remains unchanged.
 
-Both completed OASIS13 fine-level trajectories still lose mean Dice from their
-fine-level start to the twentieth accepted step: selected control
-0.423217 → 0.420787, step-scaled policy 0.423353 → 0.421371. Both fixed-region
-intensity losses decrease. This continues the existing anatomical-regression
-diagnosis and does not measure the cell correction's acquired-MRI effect.
+| Pair / policy | Fine accepted steps | Mean Dice, start → end | Median-label HD95, start → end (mm) | Fixed-region intensity loss, start → end |
+| --- | ---: | --- | --- | --- |
+| OASIS13 / selected control | 20 | 0.423217 → 0.420787 | 4.618734 → 4.621708 | 0.655682 → 0.632797 |
+| OASIS13 / step-scaled | 20 | 0.423353 → 0.421371 | 4.618734 → 4.621708 | 0.655607 → 0.631841 |
+| MMRR11 / selected control | 0 | 0.378294 → 0.378294 | 5.766582 → 5.766582 | 0.659850 → 0.659850 |
+| MMRR11 / step-scaled | 20 | 0.378368 → 0.380390 | 5.766582 → 5.877798 | 0.659797 → 0.629950 |
+
+Both OASIS13 fine trajectories lose mean Dice and slightly worsen HD95 while
+the fixed-region intensity loss decreases. The MMRR step-scaled trajectory
+improves Dice but worsens HD95 by 0.111216 mm; its selected control accepts no
+fine update and terminates with controller exhaustion. The other three fine
+runs terminate at their accepted-step budgets, which does not establish
+convergence. All four coarse trajectories improve Dice and HD95 relative to
+their starting affines. Across all accepted updates, one selected-control
+OASIS13 update increases the freshly rebuilt objective despite its accepted
+frozen trial; the other three trajectories record no such increase.
+
+This completes the declared OASIS13/MMRR11 batch, not the five-pair panel.
+It strengthens the anatomical-regression diagnosis and does not measure the
+cell correction's acquired-MRI effect. Labels remain diagnostic and never
+choose a runtime checkpoint. D01, D02 and the qualification epic remain open.
 
 The remaining 58 captured checkpoints from OASIS1-to-10 and OASIS17-to-18
 now have frozen export and independent scoring plans. They use the existing

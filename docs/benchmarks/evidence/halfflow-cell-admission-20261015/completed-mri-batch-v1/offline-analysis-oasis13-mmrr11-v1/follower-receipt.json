@@ -1,0 +1,46 @@
+{
+  "exit_code": 0,
+  "analysis_runs": 54,
+  "ledger_complete": true,
+  "event_statuses": {
+    "not_captured": 101,
+    "scored": 61
+  },
+  "source_fit_ledger": [
+    {
+      "pair": "mmrr-21-11-to-12",
+      "policy": "selected-control",
+      "exit_code": 0,
+      "fit_receipt_sha256": "21647f09a51da3a7fe55cd5d00d264fc185c0c55e6680d161f45cc6e8a0271d7",
+      "events": 30,
+      "captured_states": 13
+    },
+    {
+      "pair": "mmrr-21-11-to-12",
+      "policy": "step-scaled-fine1.5",
+      "exit_code": 0,
+      "fit_receipt_sha256": "ed2bc0eb8267bc78d15d0cdfe250de07797b9dac46050301eb4837ca69cab3b4",
+      "events": 44,
+      "captured_states": 16
+    },
+    {
+      "pair": "oasis-13-to-14",
+      "policy": "selected-control",
+      "exit_code": 0,
+      "fit_receipt_sha256": "adb546f2d3b207adf979235e4e8d9617b592dce3b3e0ccbdca520bfae664172f",
+      "events": 44,
+      "captured_states": 16
+    },
+    {
+      "pair": "oasis-13-to-14",
+      "policy": "step-scaled-fine1.5",
+      "exit_code": 0,
+      "fit_receipt_sha256": "086c3bde948d8b2e423a450f8f2c1e49a6db0fdb9608815a60c256fd7c2d91e9",
+      "events": 44,
+      "captured_states": 16
+    }
+  ],
+  "note": "Complete attempt accounting is not a scientific pass; failures/rejections retain their recorded status.",
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false
+}
