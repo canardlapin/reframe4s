@@ -1,0 +1,262 @@
+{
+  "field": {
+    "case": "r23-exact-core-affine",
+    "lane": "C4",
+    "arm": "fixed",
+    "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/fixed-forward",
+    "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/fixed-inverse",
+    "forward_sha256": "3fba54eda5e1af3be496645b98797e452745318545ebac09611378b95b10d1bd"
+  },
+  "budget": 2,
+  "original_nodes": 50653,
+  "direct_compositions": {
+    "forward_then_inverse": {
+      "all": {
+        "eligible": 50653,
+        "evaluated": 50653,
+        "invalid": 0,
+        "maximum_mm": 3.380809877334566e-06,
+        "passes_02mm": true
+      },
+      "interior": {
+        "eligible": 15625,
+        "evaluated": 15625,
+        "invalid": 0,
+        "maximum_mm": 1.036134991493112e-08,
+        "passes_02mm": true
+      },
+      "boundary": {
+        "eligible": 35028,
+        "evaluated": 35028,
+        "invalid": 0,
+        "maximum_mm": 3.380809877334566e-06,
+        "passes_02mm": true
+      }
+    },
+    "inverse_then_forward": {
+      "all": {
+        "eligible": 50653,
+        "evaluated": 50653,
+        "invalid": 0,
+        "maximum_mm": 8.533162930192298e-08,
+        "passes_02mm": true
+      },
+      "interior": {
+        "eligible": 15625,
+        "evaluated": 15625,
+        "invalid": 0,
+        "maximum_mm": 9.998087178826335e-09,
+        "passes_02mm": true
+      },
+      "boundary": {
+        "eligible": 35028,
+        "evaluated": 35028,
+        "invalid": 0,
+        "maximum_mm": 8.533162930192298e-08,
+        "passes_02mm": true
+      }
+    }
+  },
+  "raster_compositions": {
+    "forward_then_inverse": {
+      "all": {
+        "eligible": 50653,
+        "evaluated": 50653,
+        "invalid": 0,
+        "maximum_mm": 0.4818177029393041,
+        "passes_02mm": false
+      },
+      "interior": {
+        "eligible": 15625,
+        "evaluated": 15625,
+        "invalid": 0,
+        "maximum_mm": 0.06871600426919745,
+        "passes_02mm": true
+      },
+      "boundary": {
+        "eligible": 35028,
+        "evaluated": 35028,
+        "invalid": 0,
+        "maximum_mm": 0.4818177029393041,
+        "passes_02mm": false
+      }
+    },
+    "inverse_then_forward": {
+      "all": {
+        "eligible": 50653,
+        "evaluated": 50653,
+        "invalid": 0,
+        "maximum_mm": 8.533162930192298e-08,
+        "passes_02mm": true
+      },
+      "interior": {
+        "eligible": 15625,
+        "evaluated": 15625,
+        "invalid": 0,
+        "maximum_mm": 9.998087178826335e-09,
+        "passes_02mm": true
+      },
+      "boundary": {
+        "eligible": 35028,
+        "evaluated": 35028,
+        "invalid": 0,
+        "maximum_mm": 8.533162930192298e-08,
+        "passes_02mm": true
+      }
+    }
+  },
+  "materialized_inverse_cells": {
+    "minimum_cell_jacobian": 0.46366346837560424,
+    "maximum_cell_jacobian": 1.998229124151663,
+    "folded_cells": 0,
+    "covered_cells": 46656,
+    "total_declared_cells": 46656,
+    "covered_fraction": 1.0,
+    "samples_per_cell": 9,
+    "pass_criteria": true
+  },
+  "query_reports": {
+    "original": {
+      "targets": 50653,
+      "supported": 50653,
+      "unsupported": 0,
+      "converged": 50641,
+      "unresolved": 12,
+      "all_converged": false,
+      "blocked": 0,
+      "iterations_used": 2,
+      "maximum_equation_residual_mm": 8.533162930192298e-08,
+      "minimum_root_jacobian": 0.4871760132375829,
+      "nonpositive_root_jacobians": 0,
+      "seed_point_samples": 50653,
+      "work": {
+        "forward_point_samples": {
+          "total": 225027,
+          "maximum_per_query": 5
+        },
+        "forward_derivative_samples": {
+          "total": 151959,
+          "maximum_per_query": 3
+        },
+        "linear_solves": {
+          "total": 73068,
+          "maximum_per_query": 2
+        },
+        "backtracking_trials": {
+          "total": 73068,
+          "maximum_per_query": 2
+        }
+      },
+      "work_includes_final_residual_and_jacobian_validation": true
+    },
+    "forward": {
+      "targets": 50653,
+      "supported": 50653,
+      "unsupported": 0,
+      "converged": 50613,
+      "unresolved": 40,
+      "all_converged": false,
+      "blocked": 0,
+      "iterations_used": 2,
+      "maximum_equation_residual_mm": 1.7271150275329147e-06,
+      "minimum_root_jacobian": 0.48418133232821003,
+      "nonpositive_root_jacobians": 0,
+      "seed_point_samples": 50653,
+      "work": {
+        "forward_point_samples": {
+          "total": 225108,
+          "maximum_per_query": 5
+        },
+        "forward_derivative_samples": {
+          "total": 151959,
+          "maximum_per_query": 3
+        },
+        "linear_solves": {
+          "total": 73149,
+          "maximum_per_query": 2
+        },
+        "backtracking_trials": {
+          "total": 73149,
+          "maximum_per_query": 2
+        }
+      },
+      "work_includes_final_residual_and_jacobian_validation": true
+    }
+  },
+  "independent_forward_checks": {
+    "original_queries": {
+      "maximum_vector_difference_mm": 2.864289338439558e-14,
+      "maximum_equation_residual_mm": 8.533162876937583e-08
+    },
+    "forward_queries": {
+      "maximum_vector_difference_mm": 1.0658141036401503e-14,
+      "maximum_equation_residual_mm": 1.7271150353864848e-06
+    }
+  },
+  "original_inverse_baseline": {
+    "forward_then_inverse": {
+      "all": {
+        "eligible": 50653,
+        "evaluated": 50653,
+        "invalid": 0,
+        "maximum_mm": 0.3148056697608507,
+        "passes_02mm": false
+      },
+      "interior": {
+        "eligible": 15625,
+        "evaluated": 15625,
+        "invalid": 0,
+        "maximum_mm": 0.037707490155051954,
+        "passes_02mm": true
+      },
+      "boundary": {
+        "eligible": 35028,
+        "evaluated": 35028,
+        "invalid": 0,
+        "maximum_mm": 0.3148056697608507,
+        "passes_02mm": false
+      }
+    },
+    "inverse_then_forward": {
+      "all": {
+        "eligible": 50653,
+        "evaluated": 50653,
+        "invalid": 0,
+        "maximum_mm": 0.28034447560235637,
+        "passes_02mm": false
+      },
+      "interior": {
+        "eligible": 15625,
+        "evaluated": 15625,
+        "invalid": 0,
+        "maximum_mm": 0.03561605382640074,
+        "passes_02mm": true
+      },
+      "boundary": {
+        "eligible": 35028,
+        "evaluated": 35028,
+        "invalid": 0,
+        "maximum_mm": 0.28034447560235637,
+        "passes_02mm": false
+      }
+    }
+  },
+  "query_diagnostic_pass": true,
+  "all_queries_root_converged": false,
+  "raster_diagnostic_pass": false,
+  "persistent_inverse_nodes": 50653,
+  "persistent_forward_nodes": 50653,
+  "maximum_change_from_stored_inverse_nodes_mm": 0.2734466106329035,
+  "payloads": [
+    {
+      "path": "field-18-budget2/forward.npy",
+      "sha256": "83b0334de0ecaf904876c8ed26eb3ecc0bff89daf7740c85dd6807c699a0e01b",
+      "bytes": 1215800
+    },
+    {
+      "path": "field-18-budget2/original.npy",
+      "sha256": "cda2caba2dcbe680289816a167d28344657807f8f35d5e7e4955cfe801f110dc",
+      "bytes": 1215800
+    }
+  ]
+}

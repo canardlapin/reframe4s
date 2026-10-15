@@ -1,0 +1,139 @@
+{
+  "schema": "hfq-query-inverse-summary-v1",
+  "source_sha256": "56b6b8068e0c666467c0f5f7902bd632723427bd93e365d235ffd5fd00606c56",
+  "protocol_sha256": "dc9a43c8315c77439b4dafb550af8b87b95448a5996c8e6b032c9b450104b49c",
+  "results_sha256": "9ef549ed5d5d20134f89474cd5442a44a41f1d29eddd7aace027661fe2f71b95",
+  "declared_variants": 120,
+  "recorded_variants": 120,
+  "budgets": [
+    {
+      "budget": 0,
+      "fields": 24,
+      "original_queries": 2431344,
+      "query_diagnostic_passes": 12,
+      "all_queries_root_converged_fields": 0,
+      "unresolved_queries": 2428612,
+      "raster_diagnostic_passes": 12,
+      "raster_passes_by_lane": {
+        "C4": 0,
+        "C5": 12
+      },
+      "maximum_direct_cycle_mm": 1.156729063670156,
+      "maximum_raster_cycle_mm": 1.156729063670156,
+      "inverse_cell_failures": 1,
+      "minimum_materialized_inverse_cell_jacobian": -0.01443189106608796,
+      "seed_samples": 2431344,
+      "work": {
+        "forward_point_samples": 2431344,
+        "forward_derivative_samples": 2431344,
+        "linear_solves": 0,
+        "backtracking_trials": 0
+      },
+      "work_includes_final_residual_and_jacobian_validation": true
+    },
+    {
+      "budget": 1,
+      "fields": 24,
+      "original_queries": 2431344,
+      "query_diagnostic_passes": 23,
+      "all_queries_root_converged_fields": 0,
+      "unresolved_queries": 549035,
+      "raster_diagnostic_passes": 12,
+      "raster_passes_by_lane": {
+        "C4": 0,
+        "C5": 12
+      },
+      "maximum_direct_cycle_mm": 0.33807288161899124,
+      "maximum_raster_cycle_mm": 1.1480146724396705,
+      "inverse_cell_failures": 0,
+      "minimum_materialized_inverse_cell_jacobian": 0.08071864707657087,
+      "seed_samples": 2431344,
+      "work": {
+        "forward_point_samples": 7291300,
+        "forward_derivative_samples": 4862688,
+        "linear_solves": 2428612,
+        "backtracking_trials": 2428612
+      },
+      "work_includes_final_residual_and_jacobian_validation": true
+    },
+    {
+      "budget": 2,
+      "fields": 24,
+      "original_queries": 2431344,
+      "query_diagnostic_passes": 24,
+      "all_queries_root_converged_fields": 12,
+      "unresolved_queries": 1634,
+      "raster_diagnostic_passes": 12,
+      "raster_passes_by_lane": {
+        "C4": 0,
+        "C5": 12
+      },
+      "maximum_direct_cycle_mm": 0.050252280153239,
+      "maximum_raster_cycle_mm": 1.1470235344575206,
+      "inverse_cell_failures": 0,
+      "minimum_materialized_inverse_cell_jacobian": 0.08103435108381492,
+      "seed_samples": 2431344,
+      "work": {
+        "forward_point_samples": 10271679,
+        "forward_derivative_samples": 7294032,
+        "linear_solves": 2977647,
+        "backtracking_trials": 2977647
+      },
+      "work_includes_final_residual_and_jacobian_validation": true
+    },
+    {
+      "budget": 4,
+      "fields": 24,
+      "original_queries": 2431344,
+      "query_diagnostic_passes": 24,
+      "all_queries_root_converged_fields": 22,
+      "unresolved_queries": 2,
+      "raster_diagnostic_passes": 12,
+      "raster_passes_by_lane": {
+        "C4": 0,
+        "C5": 12
+      },
+      "maximum_direct_cycle_mm": 2.133661746596628e-06,
+      "maximum_raster_cycle_mm": 1.1470233053239693,
+      "inverse_cell_failures": 0,
+      "minimum_materialized_inverse_cell_jacobian": 0.08103436624760507,
+      "seed_samples": 2431344,
+      "work": {
+        "forward_point_samples": 13920335,
+        "forward_derivative_samples": 10941048,
+        "linear_solves": 2979287,
+        "backtracking_trials": 2979287
+      },
+      "work_includes_final_residual_and_jacobian_validation": true
+    },
+    {
+      "budget": 8,
+      "fields": 24,
+      "original_queries": 2431344,
+      "query_diagnostic_passes": 24,
+      "all_queries_root_converged_fields": 24,
+      "unresolved_queries": 0,
+      "raster_diagnostic_passes": 12,
+      "raster_passes_by_lane": {
+        "C4": 0,
+        "C5": 12
+      },
+      "maximum_direct_cycle_mm": 2.073046254148935e-08,
+      "maximum_raster_cycle_mm": 1.1470233053239693,
+      "inverse_cell_failures": 0,
+      "minimum_materialized_inverse_cell_jacobian": 0.08103436624760507,
+      "seed_samples": 2431344,
+      "work": {
+        "forward_point_samples": 14173602,
+        "forward_derivative_samples": 11194313,
+        "linear_solves": 2979289,
+        "backtracking_trials": 2979289
+      },
+      "work_includes_final_residual_and_jacobian_validation": true
+    }
+  ],
+  "maximum_independent_forward_difference_mm": 3.553823728406967e-14,
+  "qualification_claim": false,
+  "production_export_qualified": false,
+  "runtime_comparison_allowed": false
+}

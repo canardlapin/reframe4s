@@ -87,6 +87,14 @@ whole-field composition and topology checks. Uniform refinement already
 raises inverse storage about sixtyfold and still misses the two-arm target.
 R02 remains open; this study does not change production export behavior.
 
+The subsequent [compact query-evaluation study](halfflow-query-inverse-v1.md)
+tests all 24 corrected forward fields across the six cases and both lanes.
+Two bounded query corrections meet the unchanged 0.2 mm query diagnostic on
+all 24 fields; eight corrections bring every query to the 1e-8 mm equation
+tolerance. Rasterizing those values back onto the original grids still fails
+all 12 C4 fields. This supports preserving correction during evaluation and
+endpoint composition; it does not resolve the current raster export contract.
+
 ## Verification and scope
 
 All 14 independent Python checks pass, including five new checks of refined
