@@ -1,0 +1,57 @@
+{
+  "task": {
+    "id": "endpoint-04-MovingToFixed",
+    "mode": "endpoint",
+    "case": "r21-exact-core-affine",
+    "lane": "C4",
+    "fields": {
+      "fixed": {
+        "case": "r21-exact-core-affine",
+        "lane": "C4",
+        "arm": "fixed",
+        "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/fixed-forward",
+        "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/fixed-inverse",
+        "forward_sha256": "1ac54edd4ed9761d539d30599da77782677b920e99e5458f6fdb8f297678ed7b"
+      },
+      "moving": {
+        "case": "r21-exact-core-affine",
+        "lane": "C4",
+        "arm": "moving",
+        "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/moving-forward",
+        "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/moving-inverse",
+        "forward_sha256": "3025edb1929a2a443c233f2cb99f8b9b43c24c256bbd942e286e5621c18e3dc0"
+      }
+    },
+    "direction": "MovingToFixed",
+    "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-04-queries.f64",
+    "original_nodes": 50653
+  },
+  "exit_code": 0,
+  "native": {
+    "backtracking_trials": 145487,
+    "derivative_samples": 246792,
+    "eligible": 50653,
+    "failures": [],
+    "forward_samples": 493585,
+    "linear_solves": 145486,
+    "maximum_equation_residual_mm": 9.997243773884692e-09,
+    "maximum_output_query_distance_mm": 2.2304555127227364e-08,
+    "minimum_root_jacobian": 0.41677443584399065,
+    "succeeded": 50653
+  },
+  "checks": {
+    "eligible": true,
+    "status_agreement": true,
+    "success_count": true,
+    "coordinates": true
+  },
+  "parity_pass": true,
+  "reference_succeeded": 50653,
+  "eligible": 50653,
+  "maximum_coordinate_difference_mm": 5.0274350720104997e-14,
+  "maximum_endpoint_cycle_mm": 2.2304555127227364e-08,
+  "endpoint_cycle_pass": true,
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "result_sha256": "58caf330a30e96dbb8c3ec71efa844a717e7d701484eef0739a00e0d0fdb2d5b",
+  "coordinates_sha256": "fec4168058ceeb26daf7fd1af8036057ed15c92955f5c282f8840a2debf111c3"
+}

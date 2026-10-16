@@ -1,0 +1,2530 @@
+{
+  "source_sha256": "bbd95a5305d4cdb25504993f9a62f2364e2dce4f38fd95b58c58de87d54f44b9",
+  "rows": [
+    {
+      "task": {
+        "id": "residual-00",
+        "mode": "residual",
+        "field": {
+          "case": "r19-exact-core-affine",
+          "lane": "C5",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/fixed-inverse",
+          "forward_sha256": "82e416d6322a01593cebe800829e77ae24cb97320333e2c523ba4d3189b0321f"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-00-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-00-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-00-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 101887,
+        "derivative_samples": 203193,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 305080,
+        "linear_solves": 101887,
+        "maximum_equation_residual_mm": 9.985884202047792e-09,
+        "maximum_output_query_distance_mm": 0.2259159347886432,
+        "minimum_root_jacobian": 0.8617101883287246,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 2.7755575615628914e-17,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "ea8327e14b8d4898b8818a6ceb9264c4b7b0322d07ea92d37cd5c1d0d3c7dc29",
+      "coordinates_sha256": "d3fa0692a3f3277f4b960ce799040d831059942096cbab9a4ae57454b3d238dc"
+    },
+    {
+      "task": {
+        "id": "residual-01",
+        "mode": "residual",
+        "field": {
+          "case": "r19-exact-core-affine",
+          "lane": "C5",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/moving-inverse",
+          "forward_sha256": "63e69f4fca2434a475c616184f4000d537c0af01e0db13919a6ee0f8299fb451"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-01-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-01-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-01-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 101896,
+        "derivative_samples": 203202,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 305098,
+        "linear_solves": 101896,
+        "maximum_equation_residual_mm": 9.958169706641934e-09,
+        "maximum_output_query_distance_mm": 0.426292150237791,
+        "minimum_root_jacobian": 0.9044520439171937,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 4.440892098500626e-16,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "34a8f59367fc58056250f51972ab6b927861389b59a4c987a92ca5d01e3129fc",
+      "coordinates_sha256": "8ed558582e2eec9494f481af57a1fcb02ea2d8d0f16e5131fe544fa0cb673762"
+    },
+    {
+      "task": {
+        "id": "residual-02",
+        "mode": "residual",
+        "field": {
+          "case": "r19-exact-core-affine",
+          "lane": "C4",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/fixed-inverse",
+          "forward_sha256": "283479f93858fcc1094a571d855dbde4cc5f8da0f95f463d191f5299a2979b0f"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-02-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-02-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-02-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 143529,
+        "derivative_samples": 244835,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 388364,
+        "linear_solves": 143529,
+        "maximum_equation_residual_mm": 9.99857200846694e-09,
+        "maximum_output_query_distance_mm": 2.6105925941768846,
+        "minimum_root_jacobian": 0.14739076333587706,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 1.5888218580782548e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "23ac41c4226ca4a316a3eecc5ebddeb0d2dc822cb3160c581a5269eabe8e9c06",
+      "coordinates_sha256": "661600c231d36ba0ccad9c8cb1450a2dc75a12ac86b7a92f8237d9b4482c1cc7"
+    },
+    {
+      "task": {
+        "id": "residual-03",
+        "mode": "residual",
+        "field": {
+          "case": "r19-exact-core-affine",
+          "lane": "C4",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/moving-inverse",
+          "forward_sha256": "28cf756a9771a90188e36f50c204e9628a9d6a7335a10bd5b18fb1c416eb00f5"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-03-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-03-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-03-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 145118,
+        "derivative_samples": 246424,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 391542,
+        "linear_solves": 145118,
+        "maximum_equation_residual_mm": 9.999203789119823e-09,
+        "maximum_output_query_distance_mm": 2.6345946302616046,
+        "minimum_root_jacobian": 0.45999355459299796,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 2.2469334198890888e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "c30a856782c87ad018bccd113ab8de41451a3e675204946bf1a751bbd62f513a",
+      "coordinates_sha256": "3b23f27fd89286cf1c3b1fc2aa1e74fcf97def4890c4929094114ee3578ab14e"
+    },
+    {
+      "task": {
+        "id": "residual-04",
+        "mode": "residual",
+        "field": {
+          "case": "r20-exact-core-affine",
+          "lane": "C5",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/fixed-inverse",
+          "forward_sha256": "70280f55825e3715da21cb08077632bcf96b5a31459bbf30258afe17b0c24d61"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-04-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-04-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-04-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102302,
+        "derivative_samples": 203608,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 305910,
+        "linear_solves": 102302,
+        "maximum_equation_residual_mm": 9.998265365339562e-09,
+        "maximum_output_query_distance_mm": 0.28761731570940774,
+        "minimum_root_jacobian": 0.84013764129177,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 1.7763568394002505e-15,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "bd74fea5f08619b1f834b1f0edaf15e25b393f87c4ba0c3dac6474f7c2555c4e",
+      "coordinates_sha256": "b2308ba6a82e56ab3898cc74d81c4a7e2b9f639a1f53f0e97c3e9f921dcee756"
+    },
+    {
+      "task": {
+        "id": "residual-05",
+        "mode": "residual",
+        "field": {
+          "case": "r20-exact-core-affine",
+          "lane": "C5",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/moving-inverse",
+          "forward_sha256": "b4e9a29b780bdb5b6d71e440dc2cfa03f136559811394fd29058709231fb8723"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-05-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-05-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-05-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102348,
+        "derivative_samples": 203654,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 306002,
+        "linear_solves": 102348,
+        "maximum_equation_residual_mm": 9.993108312143149e-09,
+        "maximum_output_query_distance_mm": 0.45333802265418,
+        "minimum_root_jacobian": 0.8695967402294735,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 2.220446049250313e-16,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "02c499d88170aec266c18af03d1435392e2e695c244c532de6a7aeb92edcef84",
+      "coordinates_sha256": "ed943b1df5f4acad8be34a6580a78a0216ddeb81ec9ae955b6db848a7cba3b3b"
+    },
+    {
+      "task": {
+        "id": "residual-06",
+        "mode": "residual",
+        "field": {
+          "case": "r20-exact-core-affine",
+          "lane": "C4",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/fixed-inverse",
+          "forward_sha256": "ab7ddb785eb77687a7901213e0364a995673885d32685da7b2b0daf79de47f8f"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-06-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-06-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-06-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 146958,
+        "derivative_samples": 248264,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 395222,
+        "linear_solves": 146958,
+        "maximum_equation_residual_mm": 9.99691560967759e-09,
+        "maximum_output_query_distance_mm": 3.076183301154966,
+        "minimum_root_jacobian": 0.47618689304380296,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 1.9131948672901813e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "e105b1f3b40a1ac0a67333602b5a023c18de48a84a41373b05760d3c9b7efd30",
+      "coordinates_sha256": "fc8a92831f055bc2cb46111b66d517be340dbbc4342ca55d939ad2efbb46c0f1"
+    },
+    {
+      "task": {
+        "id": "residual-07",
+        "mode": "residual",
+        "field": {
+          "case": "r20-exact-core-affine",
+          "lane": "C4",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/moving-inverse",
+          "forward_sha256": "93d0bd4af1f4bd7d57f145211a90baea2a42d0901fb432dcfbb2fbd8b968c945"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-07-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-07-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-07-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 142979,
+        "derivative_samples": 244285,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 387264,
+        "linear_solves": 142979,
+        "maximum_equation_residual_mm": 9.999572160946728e-09,
+        "maximum_output_query_distance_mm": 3.257298665680821,
+        "minimum_root_jacobian": 0.35475962778282555,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 2.2469334198890888e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "590e75a16a37ef386bd0fdcd0e101cde801f84818db755ff34620c0fcf28ecab",
+      "coordinates_sha256": "71f11f8d12e04fa0d2578d5f01c5d82f8f3160cb4d52b3311ff9d63b0daa30d3"
+    },
+    {
+      "task": {
+        "id": "residual-08",
+        "mode": "residual",
+        "field": {
+          "case": "r21-exact-core-affine",
+          "lane": "C5",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/fixed-inverse",
+          "forward_sha256": "0a378b9b32567ae2df9b9311fcd720dd6c2603d09047d597b83434f6f066ada4"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-08-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-08-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-08-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 101288,
+        "derivative_samples": 202594,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 303882,
+        "linear_solves": 101288,
+        "maximum_equation_residual_mm": 9.997897527773557e-09,
+        "maximum_output_query_distance_mm": 0.3998841519139078,
+        "minimum_root_jacobian": 0.7408608653499127,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 1.3877787807814457e-17,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "f190ab5454303fed5371d6b6331bb09efd34799dcbf4d3e771febeca3d03ac24",
+      "coordinates_sha256": "9ab98285c7ef0d90a7378482ff20b63b7a8e44c5ec9e843c864d99d4251b4aa2"
+    },
+    {
+      "task": {
+        "id": "residual-09",
+        "mode": "residual",
+        "field": {
+          "case": "r21-exact-core-affine",
+          "lane": "C5",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/moving-inverse",
+          "forward_sha256": "dc903b405d790018047b86eedb19d98679d5453e67f869b57277282d2dc234f1"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-09-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-09-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-09-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 101472,
+        "derivative_samples": 202778,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 304250,
+        "linear_solves": 101472,
+        "maximum_equation_residual_mm": 9.982699242988293e-09,
+        "maximum_output_query_distance_mm": 0.5109681205050056,
+        "minimum_root_jacobian": 0.9104020286662599,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 6.938893903907228e-18,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "5557056a9e8b051fb5c63604be3042cdfe509c051f9b42f9fe104e2bf235bce1",
+      "coordinates_sha256": "160a3821af82b715f0c377f9da735f1e950950770f81f630ea72e0c9a1c79d3b"
+    },
+    {
+      "task": {
+        "id": "residual-10",
+        "mode": "residual",
+        "field": {
+          "case": "r21-exact-core-affine",
+          "lane": "C4",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/fixed-inverse",
+          "forward_sha256": "1ac54edd4ed9761d539d30599da77782677b920e99e5458f6fdb8f297678ed7b"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-10-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-10-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-10-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 146430,
+        "derivative_samples": 247736,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 394166,
+        "linear_solves": 146430,
+        "maximum_equation_residual_mm": 9.99973809538058e-09,
+        "maximum_output_query_distance_mm": 2.6388717515580686,
+        "minimum_root_jacobian": 0.3632987175217444,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 1.517719948885615e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "6b8ceff1e7f23529060fc2a53d3824b7219f793ca3c9fe5ace730258a25f8128",
+      "coordinates_sha256": "24c235dc7a27bc190fb1721ad491e1a04ce6db795d7e7216dcf763e778117109"
+    },
+    {
+      "task": {
+        "id": "residual-11",
+        "mode": "residual",
+        "field": {
+          "case": "r21-exact-core-affine",
+          "lane": "C4",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/moving-inverse",
+          "forward_sha256": "3025edb1929a2a443c233f2cb99f8b9b43c24c256bbd942e286e5621c18e3dc0"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-11-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-11-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-11-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 147395,
+        "derivative_samples": 248701,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 396096,
+        "linear_solves": 147395,
+        "maximum_equation_residual_mm": 9.99864322029676e-09,
+        "maximum_output_query_distance_mm": 2.6997334076190342,
+        "minimum_root_jacobian": 0.4497784014493447,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 2.5864145986817697e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "48d0334cfb5dbc60fd7180b058621c6f967368690d4dcab552046de19f75c058",
+      "coordinates_sha256": "1db0f2e50453f36b627d6670462f3ffc70d4b877967f66c576e75ceabf0b6453"
+    },
+    {
+      "task": {
+        "id": "residual-12",
+        "mode": "residual",
+        "field": {
+          "case": "r22-exact-core-affine",
+          "lane": "C5",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/fixed-inverse",
+          "forward_sha256": "441948e2e68b338f09ca3b44e7a66bbc3a5aaa4210a99386c8bb304a0dbbc3f4"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-12-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-12-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-12-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102156,
+        "derivative_samples": 203462,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 305618,
+        "linear_solves": 102156,
+        "maximum_equation_residual_mm": 9.973039388701185e-09,
+        "maximum_output_query_distance_mm": 0.2719681240253902,
+        "minimum_root_jacobian": 0.8771353935308875,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 1.3877787807814457e-17,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "a297396db83e0f65c7dbdcdd35ac69828103f65a02f49a6d50697295baaf9621",
+      "coordinates_sha256": "109ee578d83dd40f798d9801618b218fb2c323a3cc2a8d8047e0beada6118bc2"
+    },
+    {
+      "task": {
+        "id": "residual-13",
+        "mode": "residual",
+        "field": {
+          "case": "r22-exact-core-affine",
+          "lane": "C5",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/moving-inverse",
+          "forward_sha256": "b5bf36287513c561d9dec75936a917ffcaed301f8e42edf2631d785abac33ee5"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-13-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-13-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-13-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102177,
+        "derivative_samples": 203483,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 305660,
+        "linear_solves": 102177,
+        "maximum_equation_residual_mm": 9.987795532197751e-09,
+        "maximum_output_query_distance_mm": 0.2779194788672376,
+        "minimum_root_jacobian": 0.8839496058861481,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 1.3877787807814457e-17,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "93d0b39695d1a7b749ccb5ea7a6250feda7320b2c4457c8fe4ecaae263285aad",
+      "coordinates_sha256": "76f1eafcc802d309b4e219d32d72f0234c01c5a58c51071b3eda1ded19010bdd"
+    },
+    {
+      "task": {
+        "id": "residual-14",
+        "mode": "residual",
+        "field": {
+          "case": "r22-exact-core-affine",
+          "lane": "C4",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/fixed-inverse",
+          "forward_sha256": "b0f8ddc58286cc70920c5531927ff5212cd9fb6689c6ada80748a5012afdcea5"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-14-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-14-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-14-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 151147,
+        "derivative_samples": 252453,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 403600,
+        "linear_solves": 151147,
+        "maximum_equation_residual_mm": 9.999868317378391e-09,
+        "maximum_output_query_distance_mm": 3.2648364337726115,
+        "minimum_root_jacobian": 0.4863870054969368,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 1.6280579355608324e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "6dc94103f8b7bea428747183e1f5b4e47681da36fdc7d0c9333719883f55f0b2",
+      "coordinates_sha256": "e7821939ca6fe34863da1033948c51bd62d2a7c0d7f848ba84093a402429e722"
+    },
+    {
+      "task": {
+        "id": "residual-15",
+        "mode": "residual",
+        "field": {
+          "case": "r22-exact-core-affine",
+          "lane": "C4",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/moving-inverse",
+          "forward_sha256": "261afe878b914e63a549759dd999ff9408d0ee2670465138a2d65b415cb3fa46"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-15-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-15-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-15-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 148780,
+        "derivative_samples": 250086,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 398866,
+        "linear_solves": 148780,
+        "maximum_equation_residual_mm": 9.999360093244368e-09,
+        "maximum_output_query_distance_mm": 3.412884130553956,
+        "minimum_root_jacobian": 0.31164142031055325,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 3.014577520672848e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "854a85c0824bc2abd50e19e9224e91c3c7dc8f815c00fdd2c26702300081028c",
+      "coordinates_sha256": "c6c701a6b3cfebb4df5ed7891304a294bde90431b3a9829d444f57d6323bef2a"
+    },
+    {
+      "task": {
+        "id": "residual-16",
+        "mode": "residual",
+        "field": {
+          "case": "r23-exact-core-affine",
+          "lane": "C5",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/fixed-inverse",
+          "forward_sha256": "1789a782fdcbfc2cd7ccedbf01af11f31c70e08c255bbf0cb32e5efb9821dca7"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-16-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-16-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-16-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 101888,
+        "derivative_samples": 203194,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 305082,
+        "linear_solves": 101888,
+        "maximum_equation_residual_mm": 9.995273922470954e-09,
+        "maximum_output_query_distance_mm": 0.32778264742638047,
+        "minimum_root_jacobian": 0.8493686662700599,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 8.881784197001252e-16,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "f91f091bb73a8d00a27f1a05967291ce2646e4045a55163593a651a150a1a06a",
+      "coordinates_sha256": "09eb5b76599cc2c8b50fa69fa51f1a2a7527120354cdc45ea719a5a44b3058a2"
+    },
+    {
+      "task": {
+        "id": "residual-17",
+        "mode": "residual",
+        "field": {
+          "case": "r23-exact-core-affine",
+          "lane": "C5",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/moving-inverse",
+          "forward_sha256": "adb8351fc0cca944f080f3f3353d6004d0d81450c40c9a12ad860240cad9ecb3"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-17-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-17-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-17-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102326,
+        "derivative_samples": 203632,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 305958,
+        "linear_solves": 102326,
+        "maximum_equation_residual_mm": 9.999356857561496e-09,
+        "maximum_output_query_distance_mm": 0.4297699924769476,
+        "minimum_root_jacobian": 0.882241386255284,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 7.105427357601002e-15,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "c1dbc9e6466851e2e168f8ea14ac8985537507796672e3e62dbdba72600a81a8",
+      "coordinates_sha256": "7d19c9ac9fab3c8f67ce80a69e1c8a756490175e73b1cf141ee9dc03d45a3a96"
+    },
+    {
+      "task": {
+        "id": "residual-18",
+        "mode": "residual",
+        "field": {
+          "case": "r23-exact-core-affine",
+          "lane": "C4",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/fixed-inverse",
+          "forward_sha256": "3fba54eda5e1af3be496645b98797e452745318545ebac09611378b95b10d1bd"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-18-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-18-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-18-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 146269,
+        "derivative_samples": 247575,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 393844,
+        "linear_solves": 146269,
+        "maximum_equation_residual_mm": 9.999916913364994e-09,
+        "maximum_output_query_distance_mm": 3.2629145321559765,
+        "minimum_root_jacobian": 0.48418133232821,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 1.9131948672901813e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "417d84b51170faa79f4c2d6757b49f878602afc9fb911f9bfa178e56afb3bf57",
+      "coordinates_sha256": "f64a9453baf8f27e0c7089286e1c75a6b6726344927fadef22c6e85d0d6bed2f"
+    },
+    {
+      "task": {
+        "id": "residual-19",
+        "mode": "residual",
+        "field": {
+          "case": "r23-exact-core-affine",
+          "lane": "C4",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/moving-inverse",
+          "forward_sha256": "584cd4b71387969ef8be088387fbf7b9839098c870d4a56f647335f91f500f03"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-19-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-19-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-19-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 147531,
+        "derivative_samples": 248837,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 396368,
+        "linear_solves": 147531,
+        "maximum_equation_residual_mm": 9.999498751267375e-09,
+        "maximum_output_query_distance_mm": 3.440585011910734,
+        "minimum_root_jacobian": 0.5758537169122568,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 2.3566036520288945e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "3d9b58a51aaf73b7dd9df06045a4716085d4d4205a94d4013d31bb83c7771e5d",
+      "coordinates_sha256": "f2065f79ca1a88fb1b640e25357ef0f03d40d1e3c98fe251bb060aa03f6b53d7"
+    },
+    {
+      "task": {
+        "id": "residual-20",
+        "mode": "residual",
+        "field": {
+          "case": "r24-exact-core-affine",
+          "lane": "C5",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/fixed-inverse",
+          "forward_sha256": "0d91b72b572fc190d89be5f13fc3f555641215266ecaa6cbe3d317565cb19e29"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-20-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-20-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-20-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102372,
+        "derivative_samples": 203678,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 306050,
+        "linear_solves": 102372,
+        "maximum_equation_residual_mm": 9.997917316065655e-09,
+        "maximum_output_query_distance_mm": 0.3248098348077207,
+        "minimum_root_jacobian": 0.864623605794459,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 1.7763568394002505e-15,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "f05b5cf101006687ed84bc4ac1c25ebe2594379db51ca7ec59b86c08337c2216",
+      "coordinates_sha256": "ef7dd54787e63f48b06e175c72ae1a9eb0d5f771c8d1424fa9e29c664e58925d"
+    },
+    {
+      "task": {
+        "id": "residual-21",
+        "mode": "residual",
+        "field": {
+          "case": "r24-exact-core-affine",
+          "lane": "C5",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/moving-inverse",
+          "forward_sha256": "b9e5cacfb9813a5cade9e77f513faea0857afac644658209f598e46f2698d553"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-21-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-21-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-21-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102647,
+        "derivative_samples": 203953,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 306600,
+        "linear_solves": 102647,
+        "maximum_equation_residual_mm": 9.973054583750775e-09,
+        "maximum_output_query_distance_mm": 0.32371567032615817,
+        "minimum_root_jacobian": 0.8604731956748793,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 8.881784197001252e-16,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "06793df11ad8355e089cbc5812002b342f94370d8ba27cb4dff1c7c883e85cd6",
+      "coordinates_sha256": "9037acaa36fbbf28d3fe45da6c2ae85438a3717b55359b2fb2b0ae695aa241b0"
+    },
+    {
+      "task": {
+        "id": "residual-22",
+        "mode": "residual",
+        "field": {
+          "case": "r24-exact-core-affine",
+          "lane": "C4",
+          "arm": "fixed",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/fixed-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/fixed-inverse",
+          "forward_sha256": "4b00756efaa778b95657f4b2078642f9f36ed0931953608b9b17fac45c2c0c54"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-22-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-22-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-22-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 145404,
+        "derivative_samples": 246710,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 392114,
+        "linear_solves": 145404,
+        "maximum_equation_residual_mm": 9.999385731430037e-09,
+        "maximum_output_query_distance_mm": 4.000724066748906,
+        "minimum_root_jacobian": 0.6199904108556046,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 3.03543989777123e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "90e325536aacd51cda00d4957dc7b2bc42e493d786f3450d3d2d17844b50fe5c",
+      "coordinates_sha256": "da87ad61c434737c015c2a834a79500547a6c65cc9cdd2cf83425ace3c73d1e1"
+    },
+    {
+      "task": {
+        "id": "residual-23",
+        "mode": "residual",
+        "field": {
+          "case": "r24-exact-core-affine",
+          "lane": "C4",
+          "arm": "moving",
+          "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/moving-forward",
+          "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/moving-inverse",
+          "forward_sha256": "8926f5742b5b12b3edd76847530e6bf09868630a20f7c54cca8421a16736d768"
+        },
+        "original_nodes": 50653,
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-23-queries.f64",
+        "reference_payloads": [
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-23-budget8/forward.npy",
+          "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-23-budget8/original.npy"
+        ]
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 142990,
+        "derivative_samples": 244296,
+        "eligible": 101306,
+        "failures": [],
+        "forward_samples": 387286,
+        "linear_solves": 142990,
+        "maximum_equation_residual_mm": 9.99963263994843e-09,
+        "maximum_output_query_distance_mm": 3.852734163029874,
+        "minimum_root_jacobian": 0.2865733586583299,
+        "succeeded": 101306
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 101306,
+      "eligible": 101306,
+      "maximum_coordinate_difference_mm": 1.811569657848091e-14,
+      "maximum_endpoint_cycle_mm": null,
+      "endpoint_cycle_pass": false,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "827042aa772964b68717f9c7d3dfaed75c74527760d1ee16c6bf7955d2b8576c",
+      "coordinates_sha256": "239f3063f8f71fb98f8d33f71f5c3f4e60322b1e3f23ad87ddc8e45c44d8cf06"
+    },
+    {
+      "task": {
+        "id": "endpoint-00-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r19-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r19-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/fixed-inverse",
+            "forward_sha256": "283479f93858fcc1094a571d855dbde4cc5f8da0f95f463d191f5299a2979b0f"
+          },
+          "moving": {
+            "case": "r19-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/moving-inverse",
+            "forward_sha256": "28cf756a9771a90188e36f50c204e9628a9d6a7335a10bd5b18fb1c416eb00f5"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-00-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 142018,
+        "derivative_samples": 243324,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 486648,
+        "linear_solves": 142018,
+        "maximum_equation_residual_mm": 9.99857200846694e-09,
+        "maximum_output_query_distance_mm": 1.852760712421575e-08,
+        "minimum_root_jacobian": 0.25166155476291996,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 3.222019477394343e-14,
+      "maximum_endpoint_cycle_mm": 1.852760712421575e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "f1da484053f3c1544405659ffc1d52fd4ea1d83ad68213b9f8ef3875a8740697",
+      "coordinates_sha256": "cfb16f63f9d650820339557a7a32e7f19b733e373243a5e349eb46f2376faea8"
+    },
+    {
+      "task": {
+        "id": "endpoint-00-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r19-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r19-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/fixed-inverse",
+            "forward_sha256": "283479f93858fcc1094a571d855dbde4cc5f8da0f95f463d191f5299a2979b0f"
+          },
+          "moving": {
+            "case": "r19-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-01/moving-inverse",
+            "forward_sha256": "28cf756a9771a90188e36f50c204e9628a9d6a7335a10bd5b18fb1c416eb00f5"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-00-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 142514,
+        "derivative_samples": 243819,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 487639,
+        "linear_solves": 142513,
+        "maximum_equation_residual_mm": 9.999203789119823e-09,
+        "maximum_output_query_distance_mm": 2.5356038845791545e-08,
+        "minimum_root_jacobian": 0.13362187467321335,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 6.456269064396113e-14,
+      "maximum_endpoint_cycle_mm": 2.5356038845791545e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "a55dffa0bc6015f4cf2d9afbdca34af727390367915305feffddea5287135e21",
+      "coordinates_sha256": "edf632ad810fada01bd4fa22ff54a0b4a27c4f587b2096502bc79bea4c68e42b"
+    },
+    {
+      "task": {
+        "id": "endpoint-01-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r19-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r19-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/fixed-inverse",
+            "forward_sha256": "82e416d6322a01593cebe800829e77ae24cb97320333e2c523ba4d3189b0321f"
+          },
+          "moving": {
+            "case": "r19-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/moving-inverse",
+            "forward_sha256": "63e69f4fca2434a475c616184f4000d537c0af01e0db13919a6ee0f8299fb451"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-01-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102021,
+        "derivative_samples": 203327,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 406654,
+        "linear_solves": 102021,
+        "maximum_equation_residual_mm": 9.997863540566452e-09,
+        "maximum_output_query_distance_mm": 1.1751579726998743e-08,
+        "minimum_root_jacobian": 0.9014620429896432,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 0.0,
+      "maximum_endpoint_cycle_mm": 1.1751579726998743e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "e3d4af780c09266ec69bc7b93c67e6db6d7f9d4d1ebe24e3516e4660e1c7f49c",
+      "coordinates_sha256": "0514b666bb23f301fdea48eb23f8be844cc089b807d015dac763d19c81ee5bdf"
+    },
+    {
+      "task": {
+        "id": "endpoint-01-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r19-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r19-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/fixed-inverse",
+            "forward_sha256": "82e416d6322a01593cebe800829e77ae24cb97320333e2c523ba4d3189b0321f"
+          },
+          "moving": {
+            "case": "r19-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-00/moving-inverse",
+            "forward_sha256": "63e69f4fca2434a475c616184f4000d537c0af01e0db13919a6ee0f8299fb451"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-01-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 101985,
+        "derivative_samples": 203291,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 406582,
+        "linear_solves": 101985,
+        "maximum_equation_residual_mm": 9.9944878180955e-09,
+        "maximum_output_query_distance_mm": 1.603336462156538e-08,
+        "minimum_root_jacobian": 0.8554834275429202,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 7.944109290391274e-15,
+      "maximum_endpoint_cycle_mm": 1.603336462156538e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "ac4c9e304f6454bbca2310e3c5f45f0183fbf6b1f89ecf7ba1d72e54b2cc349f",
+      "coordinates_sha256": "c9845a106bb4820d5cdc62865999ebd0936cb7b4bb1c59f2908b379bb1d58c67"
+    },
+    {
+      "task": {
+        "id": "endpoint-02-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r20-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r20-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/fixed-inverse",
+            "forward_sha256": "ab7ddb785eb77687a7901213e0364a995673885d32685da7b2b0daf79de47f8f"
+          },
+          "moving": {
+            "case": "r20-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/moving-inverse",
+            "forward_sha256": "93d0bd4af1f4bd7d57f145211a90baea2a42d0901fb432dcfbb2fbd8b968c945"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-02-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 143878,
+        "derivative_samples": 245181,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 490365,
+        "linear_solves": 143875,
+        "maximum_equation_residual_mm": 9.999617403725136e-09,
+        "maximum_output_query_distance_mm": 3.460102206798014e-08,
+        "minimum_root_jacobian": 0.44924097344095537,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 5.07429009285179e-14,
+      "maximum_endpoint_cycle_mm": 3.460102206798014e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "a5b473a9fae657800e6596514cd935386bac29497dc615000bd212d1ab690f32",
+      "coordinates_sha256": "fabbaaf273dc914966b09a90c9b7a3d21e777925b56b7dac82bc953309ed7146"
+    },
+    {
+      "task": {
+        "id": "endpoint-02-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r20-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r20-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/fixed-inverse",
+            "forward_sha256": "ab7ddb785eb77687a7901213e0364a995673885d32685da7b2b0daf79de47f8f"
+          },
+          "moving": {
+            "case": "r20-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03/moving-inverse",
+            "forward_sha256": "93d0bd4af1f4bd7d57f145211a90baea2a42d0901fb432dcfbb2fbd8b968c945"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-02-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 143977,
+        "derivative_samples": 245283,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 490566,
+        "linear_solves": 143977,
+        "maximum_equation_residual_mm": 9.998858459806236e-09,
+        "maximum_output_query_distance_mm": 2.3761434591237775e-08,
+        "minimum_root_jacobian": 0.3760932808157503,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 4.426658433365955e-14,
+      "maximum_endpoint_cycle_mm": 2.3761434591237775e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "a655e1b255076abdd6766972c58e0cd27eb47b5e5cd5bbdc1c8af0357f2a60e8",
+      "coordinates_sha256": "f233de68b02b95982b9099edc11898272423a9d06dba11bc9bc6d7d33d71366f"
+    },
+    {
+      "task": {
+        "id": "endpoint-03-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r20-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r20-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/fixed-inverse",
+            "forward_sha256": "70280f55825e3715da21cb08077632bcf96b5a31459bbf30258afe17b0c24d61"
+          },
+          "moving": {
+            "case": "r20-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/moving-inverse",
+            "forward_sha256": "b4e9a29b780bdb5b6d71e440dc2cfa03f136559811394fd29058709231fb8723"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-03-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102392,
+        "derivative_samples": 203698,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 407396,
+        "linear_solves": 102392,
+        "maximum_equation_residual_mm": 9.999334964730102e-09,
+        "maximum_output_query_distance_mm": 1.6630064313451217e-08,
+        "minimum_root_jacobian": 0.8660960136478046,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 5.329070518200751e-15,
+      "maximum_endpoint_cycle_mm": 1.6630064313451217e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "12ce99ffc7685db4d3bb23a2cb04d217c10d2f2ae5357373967884cd346fae1f",
+      "coordinates_sha256": "4abdbf6af27f7a1599c74cde8ff6ba98963d9fe678c7572cf7dc93db107618d0"
+    },
+    {
+      "task": {
+        "id": "endpoint-03-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r20-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r20-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/fixed-inverse",
+            "forward_sha256": "70280f55825e3715da21cb08077632bcf96b5a31459bbf30258afe17b0c24d61"
+          },
+          "moving": {
+            "case": "r20-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-02/moving-inverse",
+            "forward_sha256": "b4e9a29b780bdb5b6d71e440dc2cfa03f136559811394fd29058709231fb8723"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-03-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102470,
+        "derivative_samples": 203776,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 407552,
+        "linear_solves": 102470,
+        "maximum_equation_residual_mm": 9.999600185780496e-09,
+        "maximum_output_query_distance_mm": 1.9201301221381038e-08,
+        "minimum_root_jacobian": 0.8419744276722714,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 7.944109290391274e-15,
+      "maximum_endpoint_cycle_mm": 1.9201301221381038e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "a34dee0552333d18082505b75a8f43691756c669f3295bb46212094e2a8bb052",
+      "coordinates_sha256": "7509fe8009bb47dc5701660fae8be9798da34a6b0fb41f41cd4d6550614897c5"
+    },
+    {
+      "task": {
+        "id": "endpoint-04-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r21-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r21-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/fixed-inverse",
+            "forward_sha256": "1ac54edd4ed9761d539d30599da77782677b920e99e5458f6fdb8f297678ed7b"
+          },
+          "moving": {
+            "case": "r21-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/moving-inverse",
+            "forward_sha256": "3025edb1929a2a443c233f2cb99f8b9b43c24c256bbd942e286e5621c18e3dc0"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-04-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 146100,
+        "derivative_samples": 247406,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 494812,
+        "linear_solves": 146100,
+        "maximum_equation_residual_mm": 9.99973809538058e-09,
+        "maximum_output_query_distance_mm": 1.863953129948687e-08,
+        "minimum_root_jacobian": 0.4631848591647557,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 4.1584348204393076e-14,
+      "maximum_endpoint_cycle_mm": 1.863953129948687e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "971c9d6fa46e213fe0989e4f1f539e40d458c4762e4fb3c3998bc50529fae5e5",
+      "coordinates_sha256": "a51a29f7fa0b383699a88e8839a9e3615e2b0543e2e1c6c496d9080f4afce321"
+    },
+    {
+      "task": {
+        "id": "endpoint-04-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r21-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r21-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/fixed-inverse",
+            "forward_sha256": "1ac54edd4ed9761d539d30599da77782677b920e99e5458f6fdb8f297678ed7b"
+          },
+          "moving": {
+            "case": "r21-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-05/moving-inverse",
+            "forward_sha256": "3025edb1929a2a443c233f2cb99f8b9b43c24c256bbd942e286e5621c18e3dc0"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-04-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 145487,
+        "derivative_samples": 246792,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 493585,
+        "linear_solves": 145486,
+        "maximum_equation_residual_mm": 9.997243773884692e-09,
+        "maximum_output_query_distance_mm": 2.2304555127227364e-08,
+        "minimum_root_jacobian": 0.41677443584399065,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 5.0274350720104997e-14,
+      "maximum_endpoint_cycle_mm": 2.2304555127227364e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "58caf330a30e96dbb8c3ec71efa844a717e7d701484eef0739a00e0d0fdb2d5b",
+      "coordinates_sha256": "fec4168058ceeb26daf7fd1af8036057ed15c92955f5c282f8840a2debf111c3"
+    },
+    {
+      "task": {
+        "id": "endpoint-05-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r21-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r21-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/fixed-inverse",
+            "forward_sha256": "0a378b9b32567ae2df9b9311fcd720dd6c2603d09047d597b83434f6f066ada4"
+          },
+          "moving": {
+            "case": "r21-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/moving-inverse",
+            "forward_sha256": "dc903b405d790018047b86eedb19d98679d5453e67f869b57277282d2dc234f1"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-05-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 101857,
+        "derivative_samples": 203163,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 406326,
+        "linear_solves": 101857,
+        "maximum_equation_residual_mm": 9.996617729917125e-09,
+        "maximum_output_query_distance_mm": 1.0918391427588773e-08,
+        "minimum_root_jacobian": 0.8666791090351438,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 0.0,
+      "maximum_endpoint_cycle_mm": 1.0918391427588773e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "fe34e1954e2f161df2364ef660b8b10af4c1c2a7bba4aa1db774ec3948631b80",
+      "coordinates_sha256": "519f0f5b05b49c265a882b3ffdebbd25e4ea3399edb66dfd5e00371384b9d840"
+    },
+    {
+      "task": {
+        "id": "endpoint-05-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r21-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r21-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/fixed-inverse",
+            "forward_sha256": "0a378b9b32567ae2df9b9311fcd720dd6c2603d09047d597b83434f6f066ada4"
+          },
+          "moving": {
+            "case": "r21-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/moving-inverse",
+            "forward_sha256": "dc903b405d790018047b86eedb19d98679d5453e67f869b57277282d2dc234f1"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-05-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 101798,
+        "derivative_samples": 203104,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 406208,
+        "linear_solves": 101798,
+        "maximum_equation_residual_mm": 9.99806810823128e-09,
+        "maximum_output_query_distance_mm": 1.3437879194073083e-08,
+        "minimum_root_jacobian": 0.7815483252126386,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 0.0,
+      "maximum_endpoint_cycle_mm": 1.3437879194073083e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "13276e963e3527e6b174459e88765ed7039c071218f364f6d747252cd6ecfce7",
+      "coordinates_sha256": "c0ef0c0cad4dcd26eb05781146c1f0711667f545c63a46b2be29431dcdfbc6f5"
+    },
+    {
+      "task": {
+        "id": "endpoint-06-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r22-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r22-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/fixed-inverse",
+            "forward_sha256": "b0f8ddc58286cc70920c5531927ff5212cd9fb6689c6ada80748a5012afdcea5"
+          },
+          "moving": {
+            "case": "r22-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/moving-inverse",
+            "forward_sha256": "261afe878b914e63a549759dd999ff9408d0ee2670465138a2d65b415cb3fa46"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-06-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 148857,
+        "derivative_samples": 250162,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 500325,
+        "linear_solves": 148856,
+        "maximum_equation_residual_mm": 9.999868317378391e-09,
+        "maximum_output_query_distance_mm": 3.223981396075137e-08,
+        "minimum_root_jacobian": 0.4307616720622251,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 6.008184003749677e-14,
+      "maximum_endpoint_cycle_mm": 3.223981396075137e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "b73e080fbc248e9cc8e6bfe2b738893166bd3e26be71488ee2109a6113222534",
+      "coordinates_sha256": "47da45173cf276cba8fd225b02414c65b6e1b8618bd5af265b11870cb4354cd5"
+    },
+    {
+      "task": {
+        "id": "endpoint-06-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r22-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r22-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/fixed-inverse",
+            "forward_sha256": "b0f8ddc58286cc70920c5531927ff5212cd9fb6689c6ada80748a5012afdcea5"
+          },
+          "moving": {
+            "case": "r22-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-07/moving-inverse",
+            "forward_sha256": "261afe878b914e63a549759dd999ff9408d0ee2670465138a2d65b415cb3fa46"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-06-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 149118,
+        "derivative_samples": 250424,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 500848,
+        "linear_solves": 149118,
+        "maximum_equation_residual_mm": 9.995642056326304e-09,
+        "maximum_output_query_distance_mm": 2.5912819784405975e-08,
+        "minimum_root_jacobian": 0.40833350419805436,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 6.444038954788686e-14,
+      "maximum_endpoint_cycle_mm": 2.5912819784405975e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "d809f523c7d6cb3930582d67701e9659a675b20bb658c8190f1ea8a9439f0725",
+      "coordinates_sha256": "bd80bcb6ecb4b2ce0c7ace645b8e8ed060af0b3510239ea0c8f6a0f7720c04d0"
+    },
+    {
+      "task": {
+        "id": "endpoint-07-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r22-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r22-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/fixed-inverse",
+            "forward_sha256": "441948e2e68b338f09ca3b44e7a66bbc3a5aaa4210a99386c8bb304a0dbbc3f4"
+          },
+          "moving": {
+            "case": "r22-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/moving-inverse",
+            "forward_sha256": "b5bf36287513c561d9dec75936a917ffcaed301f8e42edf2631d785abac33ee5"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-07-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102209,
+        "derivative_samples": 203515,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 407030,
+        "linear_solves": 102209,
+        "maximum_equation_residual_mm": 9.972833981975661e-09,
+        "maximum_output_query_distance_mm": 1.1288274700206762e-08,
+        "minimum_root_jacobian": 0.8847190116841496,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 0.0,
+      "maximum_endpoint_cycle_mm": 1.1288274700206762e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "2fbc9cd8c8dca7cececabceec3e12fadaaa78ac7c68c4e255ed62c19badb3ff8",
+      "coordinates_sha256": "e653fa0450c378e9282a920c3ef4c9e201060d27894767de3964eb05c3cb321e"
+    },
+    {
+      "task": {
+        "id": "endpoint-07-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r22-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r22-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/fixed-inverse",
+            "forward_sha256": "441948e2e68b338f09ca3b44e7a66bbc3a5aaa4210a99386c8bb304a0dbbc3f4"
+          },
+          "moving": {
+            "case": "r22-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-06/moving-inverse",
+            "forward_sha256": "b5bf36287513c561d9dec75936a917ffcaed301f8e42edf2631d785abac33ee5"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-07-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102304,
+        "derivative_samples": 203610,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 407220,
+        "linear_solves": 102304,
+        "maximum_equation_residual_mm": 9.994614326862373e-09,
+        "maximum_output_query_distance_mm": 1.6202591796887596e-08,
+        "minimum_root_jacobian": 0.8691802391200563,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 0.0,
+      "maximum_endpoint_cycle_mm": 1.6202591796887596e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "e20c9e3565b22df254aef393d6358e3dc0ae45b72829bb08b43029e94f6cb6d7",
+      "coordinates_sha256": "f5043b9e92720a42646d590e7e054d063eca3bd43a32c66835278eafa6d24b9d"
+    },
+    {
+      "task": {
+        "id": "endpoint-08-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r23-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r23-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/fixed-inverse",
+            "forward_sha256": "3fba54eda5e1af3be496645b98797e452745318545ebac09611378b95b10d1bd"
+          },
+          "moving": {
+            "case": "r23-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/moving-inverse",
+            "forward_sha256": "584cd4b71387969ef8be088387fbf7b9839098c870d4a56f647335f91f500f03"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-08-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 146507,
+        "derivative_samples": 247813,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 495626,
+        "linear_solves": 146507,
+        "maximum_equation_residual_mm": 9.999916913364994e-09,
+        "maximum_output_query_distance_mm": 2.353758645416012e-08,
+        "minimum_root_jacobian": 0.48717601323758297,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 3.6230712748823524e-14,
+      "maximum_endpoint_cycle_mm": 2.353758645416012e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "79baf1caf6580ad196e01bfe0ec9c0091284ca8e1cb274f27365fe9d79875a5b",
+      "coordinates_sha256": "05c941766555d2c2d5469d88b107ca0168a273b95798641de18159c1cfde4e4a"
+    },
+    {
+      "task": {
+        "id": "endpoint-08-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r23-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r23-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/fixed-inverse",
+            "forward_sha256": "3fba54eda5e1af3be496645b98797e452745318545ebac09611378b95b10d1bd"
+          },
+          "moving": {
+            "case": "r23-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-09/moving-inverse",
+            "forward_sha256": "584cd4b71387969ef8be088387fbf7b9839098c870d4a56f647335f91f500f03"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-08-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 145072,
+        "derivative_samples": 246378,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 492756,
+        "linear_solves": 145072,
+        "maximum_equation_residual_mm": 9.999532409550235e-09,
+        "maximum_output_query_distance_mm": 2.0051155304246924e-08,
+        "minimum_root_jacobian": 0.4844580433828837,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 3.6230712748823524e-14,
+      "maximum_endpoint_cycle_mm": 2.0051155304246924e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "01bea580033114975b9952e3ec8d561246dfe36e03178443861e7e21deec391b",
+      "coordinates_sha256": "41d85c4d4573ca990777409a590d23e1ecc09313370e17aa6cfc75d385292837"
+    },
+    {
+      "task": {
+        "id": "endpoint-09-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r23-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r23-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/fixed-inverse",
+            "forward_sha256": "1789a782fdcbfc2cd7ccedbf01af11f31c70e08c255bbf0cb32e5efb9821dca7"
+          },
+          "moving": {
+            "case": "r23-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/moving-inverse",
+            "forward_sha256": "adb8351fc0cca944f080f3f3353d6004d0d81450c40c9a12ad860240cad9ecb3"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-09-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102360,
+        "derivative_samples": 203666,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 407332,
+        "linear_solves": 102360,
+        "maximum_equation_residual_mm": 9.995273922470954e-09,
+        "maximum_output_query_distance_mm": 1.2858396922022053e-08,
+        "minimum_root_jacobian": 0.8756985527305876,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 0.0,
+      "maximum_endpoint_cycle_mm": 1.2858396922022053e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "e3fadf6c6c2a01ed0213e2ea31226abd6bbf0ce2980df47b8f93b9bd5d0beade",
+      "coordinates_sha256": "46226085cc619f94b2f51fcf64184b9ffd7b6216c73fad4aac51760db1f890f0"
+    },
+    {
+      "task": {
+        "id": "endpoint-09-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r23-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r23-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/fixed-inverse",
+            "forward_sha256": "1789a782fdcbfc2cd7ccedbf01af11f31c70e08c255bbf0cb32e5efb9821dca7"
+          },
+          "moving": {
+            "case": "r23-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-08/moving-inverse",
+            "forward_sha256": "adb8351fc0cca944f080f3f3353d6004d0d81450c40c9a12ad860240cad9ecb3"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-09-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102588,
+        "derivative_samples": 203894,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 407788,
+        "linear_solves": 102588,
+        "maximum_equation_residual_mm": 9.991085944194147e-09,
+        "maximum_output_query_distance_mm": 1.406660542648267e-08,
+        "minimum_root_jacobian": 0.8153621973103949,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 6.217248937900877e-15,
+      "maximum_endpoint_cycle_mm": 1.406660542648267e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "483689e2946a9478452783939232edd4ad17c12175af095479c1b0800eb0830f",
+      "coordinates_sha256": "19ecfa17bd3df665bfadf9269109ce1c6c42c428953138b2e13071654f468d1b"
+    },
+    {
+      "task": {
+        "id": "endpoint-10-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r24-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r24-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/fixed-inverse",
+            "forward_sha256": "4b00756efaa778b95657f4b2078642f9f36ed0931953608b9b17fac45c2c0c54"
+          },
+          "moving": {
+            "case": "r24-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/moving-inverse",
+            "forward_sha256": "8926f5742b5b12b3edd76847530e6bf09868630a20f7c54cca8421a16736d768"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-10-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 143183,
+        "derivative_samples": 244489,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 488978,
+        "linear_solves": 143183,
+        "maximum_equation_residual_mm": 9.999385731430037e-09,
+        "maximum_output_query_distance_mm": 2.1499941220243543e-08,
+        "minimum_root_jacobian": 0.39013141992340694,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 9.113247286322703e-14,
+      "maximum_endpoint_cycle_mm": 2.1499941220243543e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "389ed64705de0a6167dced10126a0d4108c6a06a2535768093399fedbee14634",
+      "coordinates_sha256": "5eb43382b3858fcc3776074319f8b761f40ce6a9e3dd936e6840e7cc66ac2b62"
+    },
+    {
+      "task": {
+        "id": "endpoint-10-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r24-exact-core-affine",
+        "lane": "C4",
+        "fields": {
+          "fixed": {
+            "case": "r24-exact-core-affine",
+            "lane": "C4",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/fixed-inverse",
+            "forward_sha256": "4b00756efaa778b95657f4b2078642f9f36ed0931953608b9b17fac45c2c0c54"
+          },
+          "moving": {
+            "case": "r24-exact-core-affine",
+            "lane": "C4",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-11/moving-inverse",
+            "forward_sha256": "8926f5742b5b12b3edd76847530e6bf09868630a20f7c54cca8421a16736d768"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-10-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 143842,
+        "derivative_samples": 245148,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 490296,
+        "linear_solves": 143842,
+        "maximum_equation_residual_mm": 9.998964376326163e-09,
+        "maximum_output_query_distance_mm": 1.8347784342742532e-08,
+        "minimum_root_jacobian": 0.2865733586583299,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 2.929642751054232e-14,
+      "maximum_endpoint_cycle_mm": 1.8347784342742532e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "040326fe9abf762c54468b2f182ee876934808db148a7df3a65b72d1c9e815b5",
+      "coordinates_sha256": "93f4e347cafa0f7f866bb083f785605fae973549261ecac6be56924373e784f9"
+    },
+    {
+      "task": {
+        "id": "endpoint-11-FixedToMoving",
+        "mode": "endpoint",
+        "case": "r24-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r24-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/fixed-inverse",
+            "forward_sha256": "0d91b72b572fc190d89be5f13fc3f555641215266ecaa6cbe3d317565cb19e29"
+          },
+          "moving": {
+            "case": "r24-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/moving-inverse",
+            "forward_sha256": "b9e5cacfb9813a5cade9e77f513faea0857afac644658209f598e46f2698d553"
+          }
+        },
+        "direction": "FixedToMoving",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-11-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102428,
+        "derivative_samples": 203734,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 407468,
+        "linear_solves": 102428,
+        "maximum_equation_residual_mm": 9.998716059061992e-09,
+        "maximum_output_query_distance_mm": 1.3008922221781653e-08,
+        "minimum_root_jacobian": 0.8619952766316475,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 0.0,
+      "maximum_endpoint_cycle_mm": 1.3008922221781653e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "09cb772b17b637542714ade0d8f67a3d7dd6671f34c941968938e2c23b551f6d",
+      "coordinates_sha256": "b4fcb48b8eb504515f3ec2aca5def12821e95db5720b6601d76f08c132366ea0"
+    },
+    {
+      "task": {
+        "id": "endpoint-11-MovingToFixed",
+        "mode": "endpoint",
+        "case": "r24-exact-core-affine",
+        "lane": "C5",
+        "fields": {
+          "fixed": {
+            "case": "r24-exact-core-affine",
+            "lane": "C5",
+            "arm": "fixed",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/fixed-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/fixed-inverse",
+            "forward_sha256": "0d91b72b572fc190d89be5f13fc3f555641215266ecaa6cbe3d317565cb19e29"
+          },
+          "moving": {
+            "case": "r24-exact-core-affine",
+            "lane": "C5",
+            "arm": "moving",
+            "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/moving-forward",
+            "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-10/moving-inverse",
+            "forward_sha256": "b9e5cacfb9813a5cade9e77f513faea0857afac644658209f598e46f2698d553"
+          }
+        },
+        "direction": "MovingToFixed",
+        "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/endpoint-11-queries.f64",
+        "original_nodes": 50653
+      },
+      "exit_code": 0,
+      "native": {
+        "backtracking_trials": 102755,
+        "derivative_samples": 204061,
+        "eligible": 50653,
+        "failures": [],
+        "forward_samples": 408122,
+        "linear_solves": 102755,
+        "maximum_equation_residual_mm": 9.99230461411895e-09,
+        "maximum_output_query_distance_mm": 1.2778434858586528e-08,
+        "minimum_root_jacobian": 0.8654780420501837,
+        "succeeded": 50653
+      },
+      "checks": {
+        "eligible": true,
+        "status_agreement": true,
+        "success_count": true,
+        "coordinates": true
+      },
+      "parity_pass": true,
+      "reference_succeeded": 50653,
+      "eligible": 50653,
+      "maximum_coordinate_difference_mm": 0.0,
+      "maximum_endpoint_cycle_mm": 1.2778434858586528e-08,
+      "endpoint_cycle_pass": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "b4169406cbe4a49d40ba5f5c0f3ae44efc12e2082b8357056e4d198f01c002d5",
+      "coordinates_sha256": "61346c3981fc0ff20db0aaddf2c509169ea12ad623c7cd0759d4eb342a4f572e"
+    }
+  ],
+  "all_tasks_complete": true,
+  "all_parity_pass": true,
+  "qualification_claim": false,
+  "runtime_comparison_allowed": false,
+  "raster_export_qualified": false
+}

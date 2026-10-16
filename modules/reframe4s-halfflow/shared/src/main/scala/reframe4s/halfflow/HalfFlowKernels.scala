@@ -1626,6 +1626,25 @@ private[halfflow] object HalfFlowKernels:
       "dense field kernel requires absolute source coordinates"
     )
 
+  /** Same boundary-linear value path used by export, optionally differentiated
+    * in world coordinates. Derivative support includes zero-value-weight
+    * corners with nonzero derivative weight (not an invented zero derivative).
+    */
+  def sampleCoordinateAtWorldInto(
+      field: DenseVectorField,
+      validity: FieldValidity,
+      sampler: DenseFieldSampler,
+      x: Double,
+      y: Double,
+      z: Double,
+      derivatives: Array[Double] = null
+  ): Unit =
+    requireSourceCoordinates(field)
+    require(sampler.grid == field.grid, "coordinate query sampler/grid mismatch")
+    require(derivatives == null || derivatives.length == 9, "coordinate differential must be 3x3")
+    sampleVectorAtWorldInto(field, field.grid.extentX, field.grid.extentY, field.grid.extentZ,
+      validity, sampler, x, y, z, CoordinateMapOutside.BoundaryLinear, derivatives)
+
   private def sampleVectorAtWorldInto(
       field: DenseVectorField,
       nx: Int,
@@ -1636,7 +1655,8 @@ private[halfflow] object HalfFlowKernels:
       worldX: Double,
       worldY: Double,
       worldZ: Double,
-      outside: CoordinateMapOutside = CoordinateMapOutside.Invalid
+      outside: CoordinateMapOutside = CoordinateMapOutside.Invalid,
+      derivatives: Array[Double] = null
   ): Unit =
     val inverse = sampler.inverse
     val voxelX = snapVoxel(affineCoordinate(inverse, 0, worldX, worldY, worldZ))
@@ -1658,6 +1678,7 @@ private[halfflow] object HalfFlowKernels:
     var sumX = 0.0
     var sumY = 0.0
     var sumZ = 0.0
+    if derivatives != null then java.util.Arrays.fill(derivatives, 0.0)
     val finiteVoxel = voxelX.isFinite && voxelY.isFinite && voxelZ.isFinite
     sampler.insideSupport =
       finiteVoxel &&
@@ -1677,7 +1698,11 @@ private[halfflow] object HalfFlowKernels:
         while dx <= 1 && ok do
           val wx = if dx == 0 then 1.0 - fx else fx
           val weight = wx * wy * wz
-          if weight != 0.0 then
+          val derivativeX = (if dx == 0 then -1.0 else 1.0) * wy * wz
+          val derivativeY = wx * (if dy == 0 then -1.0 else 1.0) * wz
+          val derivativeZ = wx * wy * (if dz == 0 then -1.0 else 1.0)
+          if weight != 0.0 || (derivatives != null &&
+              (derivativeX != 0.0 || derivativeY != 0.0 || derivativeZ != 0.0)) then
             val x = x0 + dx
             if !inBounds(x, y, z, nx, ny, nz) then ok = false
             else
@@ -1692,6 +1717,16 @@ private[halfflow] object HalfFlowKernels:
                   sumX += weight * valueX
                   sumY += weight * valueY
                   sumZ += weight * valueZ
+                  if derivatives != null then
+                    derivatives(0) += valueX * derivativeX
+                    derivatives(1) += valueX * derivativeY
+                    derivatives(2) += valueX * derivativeZ
+                    derivatives(3) += valueY * derivativeX
+                    derivatives(4) += valueY * derivativeY
+                    derivatives(5) += valueY * derivativeZ
+                    derivatives(6) += valueZ * derivativeX
+                    derivatives(7) += valueZ * derivativeY
+                    derivatives(8) += valueZ * derivativeZ
           dx += 1
         dy += 1
       dz += 1
@@ -1699,6 +1734,19 @@ private[halfflow] object HalfFlowKernels:
     sampler.y = sumY
     sampler.z = sumZ
     sampler.valid = ok && sumX.isFinite && sumY.isFinite && sumZ.isFinite
+    if derivatives != null then
+      var row = 0
+      while row < 3 do
+        val a = derivatives(3 * row)
+        val b = derivatives(3 * row + 1)
+        val c = derivatives(3 * row + 2)
+        var column = 0
+        while column < 3 do
+          val value = a * inverse(0, column) + b * inverse(1, column) + c * inverse(2, column)
+          derivatives(3 * row + column) = value
+          sampler.valid &&= value.isFinite
+          column += 1
+        row += 1
 
   private def sampleMutableVectorAtWorldInto(
       field: MutableCanonicalArray[Double, Rank[1]],

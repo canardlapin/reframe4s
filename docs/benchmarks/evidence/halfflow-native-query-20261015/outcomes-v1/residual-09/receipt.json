@@ -1,0 +1,48 @@
+{
+  "task": {
+    "id": "residual-09",
+    "mode": "residual",
+    "field": {
+      "case": "r21-exact-core-affine",
+      "lane": "C5",
+      "arm": "moving",
+      "forward": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/moving-forward",
+      "inverse": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-04/moving-inverse",
+      "forward_sha256": "dc903b405d790018047b86eedb19d98679d5453e67f869b57277282d2dc234f1"
+    },
+    "original_nodes": 50653,
+    "query": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/native-query-v1/study/residual-09-queries.f64",
+    "reference_payloads": [
+      "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-09-budget8/forward.npy",
+      "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/query-correction-v2/field-09-budget8/original.npy"
+    ]
+  },
+  "exit_code": 0,
+  "native": {
+    "backtracking_trials": 101472,
+    "derivative_samples": 202778,
+    "eligible": 101306,
+    "failures": [],
+    "forward_samples": 304250,
+    "linear_solves": 101472,
+    "maximum_equation_residual_mm": 9.982699242988293e-09,
+    "maximum_output_query_distance_mm": 0.5109681205050056,
+    "minimum_root_jacobian": 0.9104020286662599,
+    "succeeded": 101306
+  },
+  "checks": {
+    "eligible": true,
+    "status_agreement": true,
+    "success_count": true,
+    "coordinates": true
+  },
+  "parity_pass": true,
+  "reference_succeeded": 101306,
+  "eligible": 101306,
+  "maximum_coordinate_difference_mm": 6.938893903907228e-18,
+  "maximum_endpoint_cycle_mm": null,
+  "endpoint_cycle_pass": false,
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "result_sha256": "5557056a9e8b051fb5c63604be3042cdfe509c051f9b42f9fe104e2bf235bce1",
+  "coordinates_sha256": "160a3821af82b715f0c377f9da735f1e950950770f81f630ea72e0c9a1c79d3b"
+}

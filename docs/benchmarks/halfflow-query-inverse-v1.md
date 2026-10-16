@@ -138,6 +138,13 @@ and endpoint composition. Raster export needs a separately validated
 representation or approximation strategy. Simply correcting grid nodes and
 using the current exporter has failed this experiment. R02 remains open.
 
+The [native follow-up](halfflow-native-query-v1.md) implements the bounded
+evaluator and functional endpoint composition. All 24 native residual tasks
+match the Python reference, and all 24 identity-affine functional endpoint
+cycles pass on the original full point sets. The worst endpoint cycle is
+3.460102e-8 mm. These results retain correction during evaluation; the
+separate saved-grid export failures remain unresolved.
+
 ## Scope and reproduction
 
 This experiment concerns previously observed synthetic fields. It introduces
