@@ -1,0 +1,195 @@
+{
+  "task": {
+    "id": "corrected-r20-exact-core-affine",
+    "cohort": "corrected",
+    "case": "r20-exact-core-affine",
+    "fields": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-cell-fix-20261015/c04-replay-v1/fields/call-03",
+    "grids": {
+      "fixed": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-functional-export-20261016/study-v1/corrected-r20-exact-core-affine-fixed-grid.json",
+      "moving": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-functional-export-20261016/study-v1/corrected-r20-exact-core-affine-moving-grid.json"
+    },
+    "actual_affines": "original-C4-identity-factors",
+    "identity_provenance_runner_sha256": "e9388b9d6c4363508c46c24445e06ae9dcf09dee738dec8cc19dd7ee60d47e91"
+  },
+  "exit_code": 0,
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "native": {
+    "actual_affines": "original-C4-identity-factors",
+    "bundle_byte_stable": true,
+    "bundle_bytes": 5066346,
+    "bundle_sha256": "4fcceca6b5f23b75b114d520eb50774b76124e8a61176d56543abb7a119b0e64",
+    "construction_succeeded": true,
+    "declared_samples": [
+      389017,
+      389017
+    ],
+    "dense_export_admitted": false,
+    "forward_cell_reports": [
+      {
+        "minimum": 0.38606591082231695,
+        "maximum": 1.8824291436213079,
+        "evaluated": 46656,
+        "eligible": 46656,
+        "nonPositive": 0,
+        "nonFinite": 0
+      },
+      {
+        "minimum": 0.35475962778282555,
+        "maximum": 2.284006600127773,
+        "evaluated": 46656,
+        "eligible": 46656,
+        "nonPositive": 0,
+        "nonFinite": 0
+      }
+    ],
+    "functional_admitted": true,
+    "qualification_claim": false,
+    "report": {
+      "fixedToMoving": {
+        "direction": "FixedToMoving",
+        "eligible": 389017,
+        "evaluated": 389017,
+        "successful": 389017,
+        "boundaryEligible": 31106,
+        "boundarySuccessful": 31106,
+        "minimumSuccessfulJacobian": 0.26140681127825055,
+        "maximumSuccessfulCycleMm": 3.692971696473416e-08,
+        "firstFailure": null
+      },
+      "movingToFixed": {
+        "direction": "MovingToFixed",
+        "eligible": 389017,
+        "evaluated": 389017,
+        "successful": 389017,
+        "boundaryEligible": 31106,
+        "boundarySuccessful": 31106,
+        "minimumSuccessfulJacobian": 0.2657019782593235,
+        "maximumSuccessfulCycleMm": 2.4150443876887957e-08,
+        "firstFailure": null
+      }
+    },
+    "runtime_probes": [
+      {
+        "coordinates": [
+          -18.778121095725083,
+          -8.00756359433605,
+          8.681177560361988
+        ],
+        "cycle_mm": 4.436828336428213e-10,
+        "direction": "FixedToMoving",
+        "failure": null,
+        "point": [
+          -21.753999999999998,
+          -9.532,
+          8.689999999999998
+        ],
+        "succeeded": true
+      },
+      {
+        "coordinates": [
+          -24.60265345363573,
+          -11.048327244225144,
+          8.553153872018104
+        ],
+        "cycle_mm": 2.476863911457336e-09,
+        "direction": "MovingToFixed",
+        "failure": null,
+        "point": [
+          -21.753999999999998,
+          -9.532,
+          8.689999999999998
+        ],
+        "succeeded": true
+      }
+    ],
+    "schema": "hfq-functional-export-native-v1"
+  },
+  "oracle": {
+    "constructed": true,
+    "construction_parity": true,
+    "cells": {
+      "fixed": {
+        "minimum_cell_jacobian": 0.3860659108223171,
+        "maximum_cell_jacobian": 1.8824291436213083,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "moving": {
+        "minimum_cell_jacobian": 0.3547596277828256,
+        "maximum_cell_jacobian": 2.2840066001277735,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      }
+    },
+    "rows": [
+      {
+        "direction": "FixedToMoving",
+        "eligible": 389017,
+        "successful": 389017,
+        "boundary_eligible": 31106,
+        "boundary_success": 31106,
+        "status_mismatches": 0,
+        "counts_match": true,
+        "maximum_coordinate_difference_mm": 6.072179074272274e-14,
+        "maximum_jacobian_difference": 1.6653345369377348e-14,
+        "minimum_successful_jacobian": 0.26140681127825055,
+        "maximum_successful_cycle_mm": 3.692971696473416e-08,
+        "parity_pass": true,
+        "admission_pass": true
+      },
+      {
+        "direction": "MovingToFixed",
+        "eligible": 389017,
+        "successful": 389017,
+        "boundary_eligible": 31106,
+        "boundary_success": 31106,
+        "status_mismatches": 0,
+        "counts_match": true,
+        "maximum_coordinate_difference_mm": 5.706503147070311e-14,
+        "maximum_jacobian_difference": 1.865174681370263e-14,
+        "minimum_successful_jacobian": 0.2657019782593235,
+        "maximum_successful_cycle_mm": 2.4150443876887957e-08,
+        "parity_pass": true,
+        "admission_pass": true
+      }
+    ],
+    "functional_admitted": true,
+    "admission_parity": true,
+    "all_parity_pass": true,
+    "runtime_probes": [
+      {
+        "direction": "FixedToMoving",
+        "success_agreement": true,
+        "coordinate_difference_mm": 0.0,
+        "parity_pass": true
+      },
+      {
+        "direction": "MovingToFixed",
+        "success_agreement": true,
+        "coordinate_difference_mm": 0.0,
+        "parity_pass": true
+      }
+    ]
+  },
+  "payloads": {
+    "functional.hfqb": "4fcceca6b5f23b75b114d520eb50774b76124e8a61176d56543abb7a119b0e64",
+    "result.json": "946fc9ccc483556d4464d87f1a6586bf5da849aa614ef73f8a302476babc3368",
+    "FixedToMoving/failures.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "FixedToMoving/samples.f64": "ff111f717c3801ee692c4192b79e553057b1f634290f77a391d1e23e9d7d13c2",
+    "FixedToMoving/oracle.json": "347b3ca60ae9d7125d08104c01803c4ed4d984c18255fd4a5c1ccfa767492ad9",
+    "FixedToMoving/status.u8": "e0d30d67425dedb704aab8e870f9ccc4148001b25d878d2e669f9cb6536d3b7b",
+    "MovingToFixed/failures.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "MovingToFixed/samples.f64": "b1f3093f32dfe777d4603de84d29fe755e44f7902f4741808ac1dc651d55803c",
+    "MovingToFixed/oracle.json": "dcbf694435b94e5a527f77a23324beb825b3cfe63c7c1c2184166df3ef7ea3b5",
+    "MovingToFixed/status.u8": "e0d30d67425dedb704aab8e870f9ccc4148001b25d878d2e669f9cb6536d3b7b"
+  },
+  "validation_pass": true
+}

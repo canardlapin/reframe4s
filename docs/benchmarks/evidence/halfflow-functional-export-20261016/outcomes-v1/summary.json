@@ -1,0 +1,228 @@
+{
+  "schema": "hfq-functional-query-admission-summary-v1",
+  "source_sha256": "c294e1268f6d6684616ed6aa0d4aaad6cf7fd6c7a11c4d3bd6ceea8388d408c2",
+  "cohorts": {
+    "corrected": {
+      "states": 6,
+      "constructed": 6,
+      "admitted": 6,
+      "construction_rejected": 0,
+      "declared_samples": 4668204,
+      "evaluated_samples": 4668204,
+      "successful_samples": 4668204,
+      "boundary_eligible": 373272,
+      "boundary_successful": 373272,
+      "maximum_successful_cycle_mm": 3.692971696473416e-08,
+      "minimum_successful_jacobian": 0.13950820744113693,
+      "independent_status_mismatches": 0,
+      "maximum_coordinate_difference_mm": 9.113247286322703e-14,
+      "maximum_jacobian_difference": 5.906386491005833e-14,
+      "all_validation_pass": true,
+      "outcomes": [
+        {
+          "case": "r19-exact-core-affine",
+          "constructed": true,
+          "admitted": true,
+          "cell_minima": [
+            0.12889063898769085,
+            0.14129175853821843
+          ],
+          "cell_nonpositive": [
+            0,
+            0
+          ],
+          "maximum_cycle_mm": 2.772660311074171e-08,
+          "minimum_jacobian": 0.13950820744113693
+        },
+        {
+          "case": "r20-exact-core-affine",
+          "constructed": true,
+          "admitted": true,
+          "cell_minima": [
+            0.38606591082231695,
+            0.35475962778282555
+          ],
+          "cell_nonpositive": [
+            0,
+            0
+          ],
+          "maximum_cycle_mm": 3.692971696473416e-08,
+          "minimum_jacobian": 0.26140681127825055
+        },
+        {
+          "case": "r21-exact-core-affine",
+          "constructed": true,
+          "admitted": true,
+          "cell_minima": [
+            0.33733922646981396,
+            0.3664586473272857
+          ],
+          "cell_nonpositive": [
+            0,
+            0
+          ],
+          "maximum_cycle_mm": 2.558694739612059e-08,
+          "minimum_jacobian": 0.30308062871654
+        },
+        {
+          "case": "r22-exact-core-affine",
+          "constructed": true,
+          "admitted": true,
+          "cell_minima": [
+            0.44609478928417856,
+            0.3116414169364613
+          ],
+          "cell_nonpositive": [
+            0,
+            0
+          ],
+          "maximum_cycle_mm": 3.566894153786653e-08,
+          "minimum_jacobian": 0.23937760779794565
+        },
+        {
+          "case": "r23-exact-core-affine",
+          "constructed": true,
+          "admitted": true,
+          "cell_minima": [
+            0.48365766789777187,
+            0.44605285670652745
+          ],
+          "cell_nonpositive": [
+            0,
+            0
+          ],
+          "maximum_cycle_mm": 2.4882719232322713e-08,
+          "minimum_jacobian": 0.33586088069822084
+        },
+        {
+          "case": "r24-exact-core-affine",
+          "constructed": true,
+          "admitted": true,
+          "cell_minima": [
+            0.48474208171677785,
+            0.39029545962124784
+          ],
+          "cell_nonpositive": [
+            0,
+            0
+          ],
+          "maximum_cycle_mm": 2.359342998087909e-08,
+          "minimum_jacobian": 0.2594897827791095
+        }
+      ]
+    },
+    "historical-control": {
+      "states": 6,
+      "constructed": 0,
+      "admitted": 0,
+      "construction_rejected": 6,
+      "declared_samples": 4668204,
+      "evaluated_samples": 0,
+      "successful_samples": 0,
+      "boundary_eligible": 0,
+      "boundary_successful": 0,
+      "maximum_successful_cycle_mm": null,
+      "minimum_successful_jacobian": null,
+      "independent_status_mismatches": 0,
+      "maximum_coordinate_difference_mm": null,
+      "maximum_jacobian_difference": null,
+      "all_validation_pass": true,
+      "outcomes": [
+        {
+          "case": "r19-exact-core-affine",
+          "constructed": false,
+          "admitted": false,
+          "cell_minima": [
+            -0.20177239180900416,
+            0.12608305102277162
+          ],
+          "cell_nonpositive": [
+            2,
+            0
+          ],
+          "maximum_cycle_mm": null,
+          "minimum_jacobian": null
+        },
+        {
+          "case": "r20-exact-core-affine",
+          "constructed": false,
+          "admitted": false,
+          "cell_minima": [
+            0.4156350933237015,
+            -0.4678194743679543
+          ],
+          "cell_nonpositive": [
+            0,
+            33
+          ],
+          "maximum_cycle_mm": null,
+          "minimum_jacobian": null
+        },
+        {
+          "case": "r21-exact-core-affine",
+          "constructed": false,
+          "admitted": false,
+          "cell_minima": [
+            0.31822240792624074,
+            -0.0830543680190073
+          ],
+          "cell_nonpositive": [
+            0,
+            1
+          ],
+          "maximum_cycle_mm": null,
+          "minimum_jacobian": null
+        },
+        {
+          "case": "r22-exact-core-affine",
+          "constructed": false,
+          "admitted": false,
+          "cell_minima": [
+            -0.07305818964311873,
+            -0.5267945329642227
+          ],
+          "cell_nonpositive": [
+            1,
+            35
+          ],
+          "maximum_cycle_mm": null,
+          "minimum_jacobian": null
+        },
+        {
+          "case": "r23-exact-core-affine",
+          "constructed": false,
+          "admitted": false,
+          "cell_minima": [
+            -0.308583311832604,
+            -0.11659605244130776
+          ],
+          "cell_nonpositive": [
+            9,
+            3
+          ],
+          "maximum_cycle_mm": null,
+          "minimum_jacobian": null
+        },
+        {
+          "case": "r24-exact-core-affine",
+          "constructed": false,
+          "admitted": false,
+          "cell_minima": [
+            -0.22210713523750872,
+            -1.556542559277616
+          ],
+          "cell_nonpositive": [
+            12,
+            33
+          ],
+          "maximum_cycle_mm": null,
+          "minimum_jacobian": null
+        }
+      ]
+    }
+  },
+  "all_validation_pass": true,
+  "all_tasks_complete": true,
+  "dense_export_admitted": false,
+  "qualification_claim": false
+}

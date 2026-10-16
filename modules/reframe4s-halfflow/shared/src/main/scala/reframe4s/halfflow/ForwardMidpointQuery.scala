@@ -5,7 +5,9 @@ import reframe4s.core.{MapError, SpatialMap}
 import reframe4s.halfflow.internal.*
 
 enum ForwardQueryStage:
-  case Frame, Workspace, Inverse, Forward, Affine
+  case Frame, Workspace, Inverse, Forward, Affine, Geometry
+
+final case class ForwardQueryGeometry(value: ResidualQueryValue, determinant: Double)
 
 final case class ForwardQueryFailure(stage: ForwardQueryStage, failure: ResidualQueryFailure)
 
@@ -17,6 +19,7 @@ final class ForwardQueryWorkspace private[halfflow] (
 ):
   private var active = false
   private[halfflow] val sampler: DenseFieldSampler = DenseFieldSampler(grid)
+  private[halfflow] val endpointDifferential: Array[Double] = new Array[Double](9)
   private[halfflow] def acquire(): Boolean = synchronized {
     if active then false else { active = true; true }
   }
@@ -41,13 +44,24 @@ final class ForwardMidpointQuery[W, F, M] private (
 
   def evaluate(direction: ExportDirection, point: Point[? <: Frame[D3], D3], workspace: ForwardQueryWorkspace)
       : Either[ForwardQueryFailure, ResidualQueryValue] =
+    validatePoint(direction, point).flatMap(_ => evaluateCoordinates(direction, point.coordinates, workspace))
+
+  /** Analytic determinant of the complete affine/residual query composition.
+    * This is local sampled geometry, not a global invertibility certificate.
+    */
+  def evaluateGeometry(direction: ExportDirection, point: Point[? <: Frame[D3], D3], workspace: ForwardQueryWorkspace)
+      : Either[ForwardQueryFailure, ForwardQueryGeometry] =
+    validatePoint(direction, point).flatMap(_ => evaluateGeometryCoordinates(direction, point.coordinates, workspace))
+
+  private def validatePoint(direction: ExportDirection, point: Point[? <: Frame[D3], D3])
+      : Either[ForwardQueryFailure, Unit] =
     val expected = direction match
       case ExportDirection.FixedToMoving => fixedFrame.canonical
       case ExportDirection.MovingToFixed => movingFrame.canonical
     SpatialMap.validateSourcePoint(expected, point) match
       case Left(error) => Left(ForwardQueryFailure(ForwardQueryStage.Frame,
         ResidualQueryFailure(ResidualQueryError.Frame(error), ResidualQueryReport.empty)))
-      case Right(_) => evaluateCoordinates(direction, point.coordinates, workspace)
+      case Right(_) => Right(())
 
   def fixedToMoving: SpatialMap[fixedFrame.canonical.type, movingFrame.canonical.type, D3] =
     new SpatialMap[fixedFrame.canonical.type, movingFrame.canonical.type, D3]:
@@ -69,6 +83,14 @@ final class ForwardMidpointQuery[W, F, M] private (
 
   private[halfflow] def evaluateCoordinates(direction: ExportDirection, query: Vector[Double], workspace: ForwardQueryWorkspace)
       : Either[ForwardQueryFailure, ResidualQueryValue] =
+    evaluateCore(direction, query, workspace, geometry = false).map(_.value)
+
+  private[halfflow] def evaluateGeometryCoordinates(direction: ExportDirection, query: Vector[Double], workspace: ForwardQueryWorkspace)
+      : Either[ForwardQueryFailure, ForwardQueryGeometry] =
+    evaluateCore(direction, query, workspace, geometry = true)
+
+  private def evaluateCore(direction: ExportDirection, query: Vector[Double], workspace: ForwardQueryWorkspace, geometry: Boolean)
+      : Either[ForwardQueryFailure, ForwardQueryGeometry] =
     def early(reason: ResidualQueryError) = Left(ForwardQueryFailure(ForwardQueryStage.Workspace,
       ResidualQueryFailure(reason, ResidualQueryReport.empty)))
     if workspace.owner ne this then early(ResidualQueryError.WorkspaceMismatch)
@@ -91,17 +113,32 @@ final class ForwardMidpointQuery[W, F, M] private (
             val p = value.coordinates
             val sampler = workspace.sampler
             HalfFlowKernels.sampleCoordinateAtWorldInto(destination.sourceCoordinates, destination.validity,
-              sampler, p(0), p(1), p(2))
-            if !sampler.valid then Left(ForwardQueryFailure(ForwardQueryStage.Forward,
+              sampler, p(0), p(1), p(2), if geometry then workspace.endpointDifferential else null)
+            if !sampler.valid then Left(ForwardQueryFailure(if geometry then ForwardQueryStage.Geometry else ForwardQueryStage.Forward,
               ResidualQueryFailure(ResidualQueryError.UnsupportedForward, value.report)))
             else
               destinationAffine(Vector(sampler.x, sampler.y, sampler.z))
                 .left.map(error => ForwardQueryFailure(ForwardQueryStage.Affine,
                   ResidualQueryFailure(ResidualQueryError.Frame(MapError.Geometry(error)), value.report)))
-                .map(result => ResidualQueryValue(result, value.report.copy(forwardSamples = value.report.forwardSamples + 1)))
+                .map: result =>
+                  val report = value.report.copy(forwardSamples = value.report.forwardSamples + 1,
+                    derivativeSamples = value.report.derivativeSamples + (if geometry then 1 else 0))
+                  val determinant = if !geometry then Double.NaN else
+                    val j = workspace.endpointDifferential
+                    val destinationDeterminant = j(0) * (j(4) * j(8) - j(5) * j(7)) -
+                      j(1) * (j(3) * j(8) - j(5) * j(6)) + j(2) * (j(3) * j(7) - j(4) * j(6))
+                    ForwardMidpointQuery.linearDeterminant(destinationAffine) * destinationDeterminant *
+                      ForwardMidpointQuery.linearDeterminant(sourceAffine) / value.report.determinant
+                  ForwardQueryGeometry(ResidualQueryValue(result, report), determinant)
       finally workspace.release()
 
 object ForwardMidpointQuery:
+  private[halfflow] def linearDeterminant(affine: Affine[D3]): Double =
+    val m = affine.matrix
+    m(0, 0) * (m(1, 1) * m(2, 2) - m(1, 2) * m(2, 1)) -
+      m(0, 1) * (m(1, 0) * m(2, 2) - m(1, 2) * m(2, 0)) +
+      m(0, 2) * (m(1, 0) * m(2, 1) - m(1, 1) * m(2, 0))
+
   def compile[W, F, M](state: ForwardMidpoint[W, F, M], fixedSeed: DensePull[W, W], movingSeed: DensePull[W, W],
       config: ResidualQueryConfig = ResidualQueryConfig.default): Either[RegistrationError, ForwardMidpointQuery[W, F, M]] =
     restore(state, fixedSeed, movingSeed, config, state.fixed.affine.transform.inverse, state.moving.affine.transform.inverse)

@@ -1,0 +1,84 @@
+{
+  "task": {
+    "id": "historical-control-r20-exact-core-affine",
+    "cohort": "historical-control",
+    "case": "r20-exact-core-affine",
+    "fields": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-boundary-20261014/c04-capture-v4/fields/call-03",
+    "grids": {
+      "fixed": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-functional-export-20261016/study-v1/historical-control-r20-exact-core-affine-fixed-grid.json",
+      "moving": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-functional-export-20261016/study-v1/historical-control-r20-exact-core-affine-moving-grid.json"
+    },
+    "actual_affines": "original-C4-identity-factors",
+    "identity_provenance_runner_sha256": "e9388b9d6c4363508c46c24445e06ae9dcf09dee738dec8cc19dd7ee60d47e91"
+  },
+  "exit_code": 0,
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "native": {
+    "actual_affines": "original-C4-identity-factors",
+    "construction_error": "UnsafeTransform(residual query forward complete-cell geometry)",
+    "construction_succeeded": false,
+    "declared_samples": [
+      389017,
+      389017
+    ],
+    "dense_export_admitted": false,
+    "forward_cell_reports": [
+      {
+        "minimum": 0.4156350933237015,
+        "maximum": 2.5349911020558618,
+        "evaluated": 46656,
+        "eligible": 46656,
+        "nonPositive": 0,
+        "nonFinite": 0
+      },
+      {
+        "minimum": -0.4678194743679543,
+        "maximum": 2.182116370292213,
+        "evaluated": 46656,
+        "eligible": 46656,
+        "nonPositive": 33,
+        "nonFinite": 0
+      }
+    ],
+    "functional_admitted": false,
+    "qualification_claim": false,
+    "schema": "hfq-functional-export-native-v1"
+  },
+  "oracle": {
+    "constructed": false,
+    "construction_parity": true,
+    "cells": {
+      "fixed": {
+        "minimum_cell_jacobian": 0.41563509332370163,
+        "maximum_cell_jacobian": 2.534991102055862,
+        "folded_cells": 0,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": true
+      },
+      "moving": {
+        "minimum_cell_jacobian": -0.4678194743679544,
+        "maximum_cell_jacobian": 2.1821163702922135,
+        "folded_cells": 33,
+        "covered_cells": 46656,
+        "total_declared_cells": 46656,
+        "covered_fraction": 1.0,
+        "samples_per_cell": 9,
+        "pass_criteria": false
+      }
+    },
+    "declared_samples": [
+      389017,
+      389017
+    ],
+    "evaluated_samples": 0,
+    "functional_admitted": false,
+    "rejected_before_query_scan": true
+  },
+  "payloads": {
+    "result.json": "339c0df4f6eabb4da601ab6f5224a25c4ff7c120822d33d0a4a60e4e11f14a24"
+  },
+  "validation_pass": true
+}

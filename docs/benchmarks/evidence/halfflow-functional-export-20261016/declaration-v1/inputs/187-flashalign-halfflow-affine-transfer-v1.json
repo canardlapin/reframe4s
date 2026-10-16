@@ -1,0 +1,103 @@
+{
+  "schema_version": "flashalign.halfflow-affine-transfer-manifest.v1",
+  "manifest_id": "flashalign-halfflow-affine-transfer-v1",
+  "status": "sealed-before-first-c04-execution",
+  "frozen_at": "2026-09-13T20:15:03Z",
+  "mote_task": "bd-01M2B11A81SP5GJ1XCZP72S6VP",
+  "scope": "Paired analytic-synthetic C04 development comparison of the frozen existing HalfFlow pipeline against the same recipient initialized by the qualified Flashalign affine result.",
+  "candidate": {
+    "repository_head": "fa015c38a1b481096646d2c857191c327fc7a9e5",
+    "worktree_state": "uncommitted multi-owner working tree",
+    "flashalign_released_candidate_sha256": "df4a4ddf84a63e5b7ae714a29b226d15639ce32bf8d583e3f08b931196442089",
+    "flashalign_source_tree_sha256": "51f65b218eb7051f89d232491f55f5b4523e3c230a9df43994d539c8415ce456",
+    "halfflow_source_tree_sha256": "dae5bac9521388a97159dfd1c0b85d32b5193eaf80e97a4632e622ba91f11172",
+    "halfflow_source_tree_files": 68,
+    "halfflow_source_tree_bytes": 1237885,
+    "tree_hash_contract": "SHA-256 over every non-target regular file below the named module, sorted by repository-relative path, with each UTF-8 path and byte payload prefixed by its unsigned eight-byte big-endian length",
+    "integration_build_sbt_sha256": "83dd8b2efb12ed178ae705f7f868aa4ef17c2913c293846feaef604f9a0e9bb1",
+    "released_flashalign_build_sbt_sha256": "366273f359b663327afa679415857ac1355134e09fd3e895faeab58057f230c1",
+    "build_change_boundary": "The integration-only benchmark project now depends on both modules. The released Flashalign module and its frozen candidate identity are unchanged."
+  },
+  "implementation": {
+    "adapter_path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/FlashalignHalfFlowResidual.scala",
+    "adapter_sha256": "fca8fde2928f02599e66173e7b701941a40292abab91ce016e0a95ddfb8b9405",
+    "evidence_runner_path": "benchmarks/flashalign/runner/src/main/scala/reframe4s/benchmark/flashalign/CrossMethodEvidence.scala",
+    "evidence_runner_sha256": "5a997b4561cf1c009f3f9b211fbf62ca8ddfa4d86478f72f91f276ae153def8b",
+    "adapter_suite_sha256": "ea75c6754ec29d5b6691d1919ffa2a0a1528a51a7f3988dbd4c77b707330ed6b",
+    "evidence_suite_sha256": "e2a8d3437b8799f5ffd9192412d70873a79c63e07d2c0a9a43504b33d127af71",
+    "canonical_affine_boundary": "SuppliedAffineInitialization.fromMovingToFixed",
+    "supplied_affine_adapter_sha256": "d806ab6d19c157ba6d0306e4be0d592e2e1ca85f614a615ed54905c86c94a74d",
+    "forward_midpoint_sha256": "f160bd01f136e4b0675d47d17678f56be4c79d0b877af5851c609d7d8a880d57",
+    "basinbridge_round_sha256": "0d8fee1549286ff7348a6809d6254d3192ee9220a4e8a5d389098363bedcce3d",
+    "halfflow_cc_engine_sha256": "a722ccb7d38c6670613b93812f35a2f3b05103d9475cc5a03946f6f15502c326"
+  },
+  "inputs": {
+    "case_table": "benchmarks/flashalign/fixtures/linear-automatic-release-confirmation-v5.cases.tsv",
+    "case_table_sha256": "01b19237dc07a90bcce37b13e47c88e6eeb856d15f523ce2cfcd0d2d575f4fd6",
+    "fixture_descriptor": "benchmarks/flashalign/fixtures/linear-automatic-release-confirmation-v5.json",
+    "fixture_descriptor_sha256": "19bd0beab38f7f4cc75663cf496777d6383004f580b19d7d87739add6b7ad915",
+    "selection_frozen": "all and only the six exact-core affine rows r19 through r24",
+    "truth": "25 interpolant-exact moving-to-fixed world-mm landmarks per pair",
+    "license": "Apache-2.0",
+    "pairs": [
+      {"case_id": "r19-exact-core-affine", "subject_id": "r19", "moving_sha256": "b5070cc642b23dcd95fbeaa4905e8c14f99e5932f1ee8bec56bcf20bcd0b426c", "fixed_sha256": "accc5a97373b9c225ab5db734e55756526dc40d82094439b35fc958f83854412"},
+      {"case_id": "r20-exact-core-affine", "subject_id": "r20", "moving_sha256": "b0a444b5b4e926cae852bfeeb05a45a267b0c01f795754cf6ef0c317a3fd20c0", "fixed_sha256": "1f1bc7e36c6166f2121e20f715b46bfb8c1e831ae1e8fb1741110cc3f08374a9"},
+      {"case_id": "r21-exact-core-affine", "subject_id": "r21", "moving_sha256": "688c1eb156a2ef1c4e7712c9a01e44a5cdaffc31eba7537fe04bf953a5a6e656", "fixed_sha256": "c6e8faed1bdaef76ff92414f1b5b37252394c14a8dc99238a62eef66c8ee29fd"},
+      {"case_id": "r22-exact-core-affine", "subject_id": "r22", "moving_sha256": "e5b68ccc575e27240654345bb4e0301fbaea3710c11e3fb6366ace7ea1db7726", "fixed_sha256": "35c320872c6d06f750f9974ddff9e3df59642e5ffd2fbd0d96616e13c9030373"},
+      {"case_id": "r23-exact-core-affine", "subject_id": "r23", "moving_sha256": "42165b8da2cf835eeb4db8ca0166c6cc9d8be1c456568bbf4e2742840757a5e7", "fixed_sha256": "3aa064276fc449ea999bc06028f600051c5101b8165e5da997b387240d0ec043"},
+      {"case_id": "r24-exact-core-affine", "subject_id": "r24", "moving_sha256": "3f07644ffd01c29555add706c7d1043305142a06b6cc4b9018ca3c6deac17b39", "fixed_sha256": "335cfc9e6113f567db9c3577c438a7e950ed6d684c9836aa3c04cf13f80aa786"}
+    ]
+  },
+  "lanes": {
+    "denominator": "C0-C7, eight rows per pair",
+    "executed": ["C1 Flashalign affine", "C4 existing HalfFlow pipeline", "C5 frozen HalfFlow pipeline initialized by C1"],
+    "unavailable_rows": ["C0", "C2", "C3", "C6", "C7"],
+    "C1_map_interpretation": "complete-moving-to-fixed",
+    "C4_map_interpretation": "complete-moving-to-fixed",
+    "C5_map_interpretation": "complete-moving-to-fixed",
+    "C5_semantic_correction": "ForwardMidpointExporter returns the complete endpoint transform. Declaring C5 residual would compose the initializer twice and is rejected before execution.",
+    "failure_retention": "C1 is materialized before HalfFlow starts. A typed or unexpected downstream failure becomes a C5 failure row and cannot erase the successful C1 affine row."
+  },
+  "controls": {
+    "flashalign_configuration_contract": "flashalign-affine-within-modality|initialization=coherent-header-world-identity-then-capture|public-entry=Flashalign.affine-plan.run-workspace",
+    "flashalign_configuration_sha256": "fb7ffb18977be2c05988e52218f236ae1ecb4a51ea00bd6e6b3b9ee5cf55313f",
+    "recipient_contract": "halfflow-basinbridge-frozen-transfer-v1|all-finite-fixed-support|anchors=18|patch=1|search=8|min-valid=0.75|projector=default|cc-objective=default|levels=2:1.0:2:10.0:1.0:10:24,1:0.0:2:6.0:0.6:10:24|cc=0.15:0.7:1e-7:1e-5:1e-7|control=1e-4:1e-8:1.0:6:8:5|integration-inverse=0.03|export=2,1:50:0.2:0.2:6|action=symmetric-midpoint",
+    "recipient_controls_sha256": "5bb64482cfca5812f0b8fa0f4cf4b14ea02c50a305dfa1be2cbc2598508b151f",
+    "C4_C5_controls_identical_except_initialization": true,
+    "C4_initialization": "ForwardMidpoint.identity",
+    "C5_initialization": "SuppliedAffineInitialization.fromMovingToFixed applied once to the C1 affine",
+    "C5_configuration_sha256": "d04db60ac3186ccef1c5d3e8c335d8635cc1c63e15f1888956ae066abb86c0ea",
+    "C5_composite_revision_sha256": "5b2bc0a063f6c720e318fcc2b0bb64e96d2166a8e437ae5b6a380052c0bf25a6",
+    "retuning_after_results": false
+  },
+  "cost_and_output": {
+    "shared_input_loads_per_pair": 1,
+    "C5_includes_C1_cost": true,
+    "stages": ["input read", "decompression", "preparation", "capture", "supplied-affine conversion", "bridge", "fine optimization", "export", "output"],
+    "final_output": "Each successful C4 or C5 samples the original moving image exactly once. Intermediate resampling is not used as final output."
+  },
+  "estimand": {
+    "primary": "paired mean of C5 adjudicated landmark RMS minus C4 adjudicated landmark RMS in mm; lower favors Flashalign initialization",
+    "failure_penalty_mm": 100.0,
+    "uncertainty": "exact paired nonparametric bootstrap over all 6^6 subject resamples; 2.5 and 97.5 percentiles",
+    "classification": "benefit if the interval is below zero; regression if above zero; otherwise no detected benefit. Completion counts and typed statuses are reported separately.",
+    "secondary": ["C1 landmark RMS", "C4 and C5 success counts", "bridge match error", "all stage costs"]
+  },
+  "prior_negative_evidence": {
+    "manifest": {"path": "benchmarks/flashalign/manifests/halfflow-comparison-baseline-v1.json", "sha256": "c69d61a69f6649f4177100882ffe05db9ec3946677d8e0bf9f6bda0fa5753bda"},
+    "receipt": {"path": "benchmarks/flashalign/receipts/halfflow-comparison-baseline-v1.json", "sha256": "cfdf2132149de6f94dd02977b5cc92ab0f92c10f7b3a58fae8dd598735ed531a"},
+    "result": "The single external sub-18 C4 diagnostic failed the frozen fine-stage topology floor; this remains a visible negative result."
+  },
+  "prerequisites": {
+    "flashalign_linear_release": {"path": "benchmarks/flashalign/receipts/linear-release-assessment-v2.json", "sha256": "ef81b186b531899d0c34f7b2f9f09387f5bc764709a05a5ef328ffe450930416", "status": "passed"},
+    "flashalign_sealed_accuracy": {"path": "benchmarks/flashalign/receipts/linear-automatic-release-confirmation-v5.json", "sha256": "2d51d5af822fd76dc6c3b4714d22c5805259f1459818a1777a40ca0ce5348e4e", "status": "passed"},
+    "focused_contract_tests": "6 passed before sealing"
+  },
+  "execution": {
+    "raw_output": "benchmarks/flashalign/raw/flashalign-halfflow-affine-transfer-v1-2026-09-13.jsonl",
+    "command_contract": "sbt -Dsbt.supershell=false 'flashalignBenchmarkJVM/runMain reframe4s.benchmark.flashalign.FlashalignHalfFlowComparisonCourt RAW MANIFEST MANIFEST_SHA256'",
+    "threads": 1,
+    "raw_output_absent_at_seal": true
+  },
+  "claim_boundary": "This is a six-pair analytic-synthetic development transfer court. It cannot establish acquired-MRI, anatomical, clinical, population, external-method parity, nonlinear Flashalign, or publication claims."
+}

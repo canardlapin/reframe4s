@@ -7,6 +7,12 @@ canonical physical frame owners. Numerical failure remains an undefined map
 value with typed diagnostics. This format does not claim dense-map export
 admission, anatomical accuracy or global continuous invertibility.
 
+The subsequent [functional export admission study](halfflow-functional-export-v1.md)
+adds snapshot-owned admission, full half-voxel endpoint checks and per-call
+cycle/geometry enforcement. It validates all six corrected original C4 cases
+and rejects all six unsafe pre-correction controls. Acquired-MRI admission
+through that new API remains a separate next step.
+
 ## Saved evaluation contract
 
 Version 1 stores:
