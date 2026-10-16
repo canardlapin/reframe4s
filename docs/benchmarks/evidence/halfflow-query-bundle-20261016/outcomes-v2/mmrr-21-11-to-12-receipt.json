@@ -1,0 +1,117 @@
+{
+  "task": {
+    "id": "mmrr-21-11-to-12",
+    "checkpoint": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-diagnostics-20261014/trajectories-deferred-v2/mmrr-21-11-to-12/selected-control/checkpoints/0030-level01-levelend-attempt0006",
+    "grids": {
+      "fixed": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-query-bundle-20261016/study-v2/mmrr-21-11-to-12-fixed-grid.json",
+      "moving": "/Users/bbuchsbaum/code/scala/reframe4s/benchmarks/flashalign/local-results/hfq-query-bundle-20261016/study-v2/mmrr-21-11-to-12-moving-grid.json"
+    },
+    "event": 30
+  },
+  "exit_code": 0,
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "native": {
+    "bundle_bytes": 174728858,
+    "bundle_sha256": "e4ae121d9c08de12085bdb2161e994558a6f59863e044ccce87d73a97227f08d",
+    "byte_stable": true,
+    "dense_export_admitted": false,
+    "qualification_claim": false,
+    "rows": [
+      {
+        "boundary_eligible": 85758,
+        "boundary_success": 85758,
+        "cycle_pass": true,
+        "cycle_success": 1747278,
+        "direction": "FixedToMoving",
+        "eligible": 1747278,
+        "mapped_success": 1747278,
+        "maximum_reload_difference_mm": 0.0,
+        "maximum_successful_cycle_mm": 2.1249567188755137e-08,
+        "reload_parity_failures": 0
+      },
+      {
+        "boundary_eligible": 103790,
+        "boundary_success": 103790,
+        "cycle_pass": true,
+        "cycle_success": 2320290,
+        "direction": "MovingToFixed",
+        "eligible": 2320290,
+        "mapped_success": 2320290,
+        "maximum_reload_difference_mm": 0.0,
+        "maximum_successful_cycle_mm": 2.294835775901557e-08,
+        "reload_parity_failures": 0
+      }
+    ],
+    "schema": "hfq-query-bundle-native-v1",
+    "seed_policy": "identity-on-captured-work-grid"
+  },
+  "bundle": {
+    "checksum_verified": true,
+    "field_and_seed_maximum_differences_mm": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "original_affines_exact": true,
+    "owner_aliases": [
+      0,
+      0,
+      2
+    ],
+    "sha256": "e4ae121d9c08de12085bdb2161e994558a6f59863e044ccce87d73a97227f08d",
+    "bytes": 174728858
+  },
+  "oracle": [
+    {
+      "direction": "FixedToMoving",
+      "eligible": 1747278,
+      "mapped_success": 1747278,
+      "cycle_success": 1747278,
+      "status_mismatches": 0,
+      "boundary_eligible": 85758,
+      "boundary_success": 85758,
+      "maximum_coordinate_differences_mm": [
+        1.0579291766821917e-11,
+        1.265114107870675e-11
+      ],
+      "maximum_successful_cycle_mm": 2.1249601489339087e-08,
+      "native_counts_match": true,
+      "oracle_parity_pass": true,
+      "full_cycle_pass": true
+    },
+    {
+      "direction": "MovingToFixed",
+      "eligible": 2320290,
+      "mapped_success": 2320290,
+      "cycle_success": 2320290,
+      "status_mismatches": 0,
+      "boundary_eligible": 103790,
+      "boundary_success": 103790,
+      "maximum_coordinate_differences_mm": [
+        5.342460453469407e-12,
+        9.702545145415607e-09
+      ],
+      "maximum_successful_cycle_mm": 2.2948464211196727e-08,
+      "native_counts_match": true,
+      "oracle_parity_pass": true,
+      "full_cycle_pass": true
+    }
+  ],
+  "payloads": {
+    "result.json": "c371886b3810e27bfc733982f7e4439f26c58fe81ff40eea560bc1a83d70620d",
+    "transform.hfqb": "e4ae121d9c08de12085bdb2161e994558a6f59863e044ccce87d73a97227f08d",
+    "FixedToMoving/failures.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "FixedToMoving/result.json": "e4c6fc9d3a99cc5958478e05dc74533706e46a40bc418fbb5003f01b2fac26c5",
+    "FixedToMoving/mapped.f64": "609e9ed27f8fcfa9e96c6ea3325e038fa18494f83e091db1e341541cd278b45e",
+    "FixedToMoving/oracle.json": "99c68cdffd6a7aedd156c13c06cc82ea50f53bbc691e76fa5f7d107d675448dc",
+    "FixedToMoving/cycles.f64": "536d899eb7ab5116c2e7405e68b96dfb16bf868f1c99e10ff7950cdfb0c2eaf2",
+    "FixedToMoving/status.u8": "13241b37f9f8f2f34f032b1c407b88938d5e50436d0f15fb98201a6b6e7fc8a2",
+    "MovingToFixed/failures.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "MovingToFixed/result.json": "d6189d186144b988e0a4e058395a3a7f35141db655c498d902af9903ce8e9084",
+    "MovingToFixed/mapped.f64": "c45bc4c58a17e2c57c674095d1f0be382e389c38c7ab1650b1008bdb824fcdcc",
+    "MovingToFixed/oracle.json": "6e69b35fd76713d851507c27af777366f7f484cbc8e3a317195f6f5fb195691b",
+    "MovingToFixed/cycles.f64": "9ea8d5ad886cb3ea13405add8c600f2cc14798e26561df29240e1d8d3dac2670",
+    "MovingToFixed/status.u8": "9171346c6c3de3dad8ec6edafb1ea76e579c3ac31c9237cd8343969caf7f4007"
+  }
+}

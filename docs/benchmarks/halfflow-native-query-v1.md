@@ -137,10 +137,11 @@ compiled-executable seals. Dense payloads remain local. The source guard's
 initial fixture compilation failure and all passing validation logs are
 retained alongside the numerical outcomes.
 
-The next bounded step is to preserve this native evaluator in a reproducible
-transform/export representation, validate its approximation policy on actual
-endpoint lattices and affines, and keep the existing independent topology and
-full-boundary cycle checks. R02 remains open until that contract passes.
+The subsequent [saved query-bundle study](halfflow-query-bundle-v1.md) now
+preserves this native evaluator across serialization and validates functional
+cycles on two acquired-MRI checkpoints using their actual endpoint affines and
+native lattices. Dense raster approximation, independent topology and the
+original full-boundary export contract remain separate. R02 remains open.
 
 ## Scope and reproduction
 

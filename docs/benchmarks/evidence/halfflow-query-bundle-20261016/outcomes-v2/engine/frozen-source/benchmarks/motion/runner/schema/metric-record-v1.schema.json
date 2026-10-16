@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/canardlapin/reframe4s/benchmarks/motion/metric-record-v1.schema.json",
+  "title": "reframe4s motion superiority raw metric record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "definitionVersion",
+    "protocolSha256",
+    "scorerRevision",
+    "runRecordSha256",
+    "subject",
+    "scenario",
+    "stratum",
+    "court",
+    "implementation",
+    "phase",
+    "repetition",
+    "allocatedCoreCount",
+    "frames",
+    "metrics"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "reframe4s.motion-superiority.metrics/v1"
+    },
+    "definitionVersion": {
+      "const": "motion-metrics-v1"
+    },
+    "protocolSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "scorerRevision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "runRecordSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenario": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stratum": {
+      "enum": [
+        "synthetic",
+        "real_anatomy"
+      ]
+    },
+    "court": {
+      "enum": [
+        "common_resampler_estimation",
+        "native_end_to_end"
+      ]
+    },
+    "implementation": {
+      "enum": [
+        "reframe4s_motion",
+        "afni_3dvolreg",
+        "nifreeze",
+        "fsl_mcflirt"
+      ]
+    },
+    "phase": {
+      "const": "measured"
+    },
+    "repetition": {
+      "const": 0
+    },
+    "allocatedCoreCount": {
+      "const": 4
+    },
+    "frames": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/$defs/frame"
+      }
+    },
+    "metrics": {
+      "$ref": "#/$defs/metrics"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "finiteMetric": {
+      "type": "number"
+    },
+    "nullableMetric": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame",
+        "physical_landmark_displacement_p95_mm",
+        "relative_rotation_error_degrees",
+        "framewise_displacement_error_mm",
+        "corrected_image_nrmse",
+        "boundary_shell_nrmse",
+        "temporal_difference_nrmse",
+        "edge_energy_log_error",
+        "ringing_fraction"
+      ],
+      "properties": {
+        "frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "physical_landmark_displacement_p95_mm": {
+          "$ref": "#/$defs/finiteMetric"
+        },
+        "relative_rotation_error_degrees": {
+          "$ref": "#/$defs/finiteMetric"
+        },
+        "framewise_displacement_error_mm": {
+          "$ref": "#/$defs/nullableMetric"
+        },
+        "corrected_image_nrmse": {
+          "$ref": "#/$defs/nullableMetric"
+        },
+        "boundary_shell_nrmse": {
+          "$ref": "#/$defs/nullableMetric"
+        },
+        "temporal_difference_nrmse": {
+          "$ref": "#/$defs/nullableMetric"
+        },
+        "edge_energy_log_error": {
+          "$ref": "#/$defs/nullableMetric"
+        },
+        "ringing_fraction": {
+          "$ref": "#/$defs/nullableMetric"
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "physical_landmark_displacement_p95_mm",
+        "corrected_image_nrmse",
+        "relative_rotation_error_p95_degrees",
+        "framewise_displacement_error_p95_mm",
+        "boundary_shell_nrmse",
+        "temporal_difference_nrmse",
+        "edge_energy_log_error",
+        "ringing_fraction"
+      ],
+      "properties": {
+        "physical_landmark_displacement_p95_mm": {
+          "$ref": "#/$defs/finiteMetric"
+        },
+        "corrected_image_nrmse": {
+          "$ref": "#/$defs/finiteMetric"
+        },
+        "relative_rotation_error_p95_degrees": {
+          "$ref": "#/$defs/finiteMetric"
+        },
+        "framewise_displacement_error_p95_mm": {
+          "$ref": "#/$defs/finiteMetric"
+        },
+        "boundary_shell_nrmse": {
+          "$ref": "#/$defs/finiteMetric"
+        },
+        "temporal_difference_nrmse": {
+          "$ref": "#/$defs/finiteMetric"
+        },
+        "edge_energy_log_error": {
+          "$ref": "#/$defs/finiteMetric"
+        },
+        "ringing_fraction": {
+          "$ref": "#/$defs/finiteMetric"
+        }
+      }
+    }
+  }
+}

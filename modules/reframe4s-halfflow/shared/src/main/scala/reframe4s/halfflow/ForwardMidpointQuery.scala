@@ -1,6 +1,6 @@
 package reframe4s.halfflow
 
-import image4s.geometry.{D3, Frame, Point}
+import image4s.geometry.{Affine, D3, Frame, Point}
 import reframe4s.core.{MapError, SpatialMap}
 import reframe4s.halfflow.internal.*
 
@@ -29,7 +29,9 @@ final class ForwardQueryWorkspace private[halfflow] (
 final class ForwardMidpointQuery[W, F, M] private (
     val state: ForwardMidpoint[W, F, M],
     val fixedInverse: ResidualInverseQuery[W],
-    val movingInverse: ResidualInverseQuery[W]
+    val movingInverse: ResidualInverseQuery[W],
+    val fixedToWork: Affine[D3],
+    val movingToWork: Affine[D3]
 ):
   val fixedFrame: RegistrationFrame[F] = state.fixed.endpoint
   val movingFrame: RegistrationFrame[M] = state.moving.endpoint
@@ -75,10 +77,10 @@ final class ForwardMidpointQuery[W, F, M] private (
       try
         val (sourceAffine, inverse, inverseWorkspace, destination, destinationAffine) = direction match
           case ExportDirection.FixedToMoving =>
-            (state.fixed.affine.transform.inverse, fixedInverse, workspace.fixed,
+            (fixedToWork, fixedInverse, workspace.fixed,
               state.moving.residual, state.moving.affine.transform)
           case ExportDirection.MovingToFixed =>
-            (state.moving.affine.transform.inverse, movingInverse, workspace.moving,
+            (movingToWork, movingInverse, workspace.moving,
               state.fixed.residual, state.fixed.affine.transform)
         sourceAffine(query).left.map(error => ForwardQueryFailure(ForwardQueryStage.Affine,
           ResidualQueryFailure(ResidualQueryError.Frame(MapError.Geometry(error)), ResidualQueryReport.empty)))
@@ -102,7 +104,25 @@ final class ForwardMidpointQuery[W, F, M] private (
 object ForwardMidpointQuery:
   def compile[W, F, M](state: ForwardMidpoint[W, F, M], fixedSeed: DensePull[W, W], movingSeed: DensePull[W, W],
       config: ResidualQueryConfig = ResidualQueryConfig.default): Either[RegistrationError, ForwardMidpointQuery[W, F, M]] =
+    restore(state, fixedSeed, movingSeed, config, state.fixed.affine.transform.inverse, state.moving.affine.transform.inverse)
+
+  /** Preserve both cached affine directions when restoring a saved evaluator.
+    * Canonical affine operators still own evaluation and validation.
+    */
+  private[halfflow] def restore[W, F, M](state: ForwardMidpoint[W, F, M], fixedSeed: DensePull[W, W],
+      movingSeed: DensePull[W, W], config: ResidualQueryConfig, fixedToWork: Affine[D3], movingToWork: Affine[D3])
+      : Either[RegistrationError, ForwardMidpointQuery[W, F, M]] =
+    def check(forward: Affine[D3], reverse: Affine[D3]): Either[RegistrationError, Unit] =
+      for
+        a <- forward.andThen(reverse).left.map(e => RegistrationError.InvalidAffine("query bundle inverse", e.message))
+        b <- reverse.andThen(forward).left.map(e => RegistrationError.InvalidAffine("query bundle inverse", e.message))
+        _ <- if Vector(a, b).forall(_.rowMajor.zipWithIndex.forall((v, i) =>
+          math.abs(v - (if i / 4 == i % 4 then 1.0 else 0.0)) <= 1e-9)) then Right(())
+          else Left(RegistrationError.InvalidAffine("query bundle inverse", "inconsistent affine directions"))
+      yield ()
     for
+      _ <- check(state.fixed.affine.transform, fixedToWork)
+      _ <- check(state.moving.affine.transform, movingToWork)
       fixed <- ResidualInverseQuery.compile(state.fixed.residual, fixedSeed, config)
       moving <- ResidualInverseQuery.compile(state.moving.residual, movingSeed, config)
-    yield new ForwardMidpointQuery(state, fixed, moving)
+    yield new ForwardMidpointQuery(state, fixed, moving, fixedToWork, movingToWork)

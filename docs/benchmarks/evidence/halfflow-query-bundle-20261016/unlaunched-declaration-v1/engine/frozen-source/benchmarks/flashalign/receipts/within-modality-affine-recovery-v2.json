@@ -1,0 +1,26 @@
+{
+  "id": "flashalign-within-modality-affine-recovery-v2",
+  "version": "2.0.0",
+  "scope": "Observed-data calibration; regression and prospectively frozen confirmation required separately.",
+  "primary_policy": "flashalign-linear-within-modality-v2",
+  "primary_budgets": {
+    "linearizations": 100,
+    "trial_attempts": 8
+  },
+  "recovery_budgets": {
+    "linearizations": 400,
+    "trial_attempts": 16
+  },
+  "trigger": "One retry only after NoCaptureCandidateConverged. Successful primary output, other errors and QC gates retain existing behavior.",
+  "behavior": "Increase bounded trial allowance as well as linearization budget. Objective, sample schedule, capture, damping, rank, convergence tolerances and QC unchanged. Failed checkpoints remain rejected. Aggregate work and retain previous failure diagnostics.",
+  "observations": {
+    "mmrr_1_to_10": "100/8 and400/8 failed;100/16 and400/16 pass convergence and all independent gates.",
+    "same_100_400_matrix": true
+  },
+  "evidence": {
+    "benchmarks/flashalign/local-results/real-mri-backtracking-20261011/affine-trace/results.json": "a0a26c2a6a070d3ef8d0ad23d2d23ef36fef17c4fd0cf543c62e7e1241034ddb",
+    "benchmarks/flashalign/local-results/real-mri-backtracking-20261011/affine-trials/protocol.json": "e2d9a77098fff9baaa6dd9d533cbfba0e539669bbdfd470fa3fba21fa1690855",
+    "benchmarks/flashalign/local-results/real-mri-backtracking-20261011/affine-trials/results.json": "fa8c493b063ea716bfb3fd96a74385ce22efe5c6053a0763da9971481c5ddb5f"
+  },
+  "report": "docs/benchmarks/real-image-development.md"
+}

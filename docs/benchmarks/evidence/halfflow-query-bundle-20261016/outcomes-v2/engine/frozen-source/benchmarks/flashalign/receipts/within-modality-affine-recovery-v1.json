@@ -1,0 +1,33 @@
+{
+  "id": "flashalign-within-modality-affine-recovery-v1",
+  "version": "1.0.0",
+  "scope": "Engineering recovery calibration on observed acquired-MRI failures; fresh confirmation recorded separately.",
+  "primary_policy": "flashalign-linear-within-modality-v2",
+  "primary_budget": 100,
+  "recovery_budget": 400,
+  "trigger": "Automatic affine run reports NoCaptureCandidateConverged. Successful primary outputs, final audit failures, capture rejection, invalid inputs and workspace failures never trigger recovery.",
+  "behavior": "One fresh automatic fit at 400 per-level linearizations. Same objective, sample schedule, capture, rank, trial, damping, stopping and QC settings. Failed checkpoints remain unaccepted. Retain primary failure diagnostics and total work in the final outcome.",
+  "observations": {
+    "oasis-20-to-3": {
+      "100": "failed",
+      "200": "converged",
+      "400": "converged, same matrix as 200"
+    },
+    "oasis-7-to-8": {
+      "100": "failed",
+      "200": "failed",
+      "400": "converged; winning native level uses 222 linearizations"
+    }
+  },
+  "decision": "Preserve the 100-budget primary solution: unconditional 400 selected a worse affine on observed OASIS 3-to-4 (mean bidirectional Dice -0.0093393, HD95 +0.311994 mm). Recovery is bounded and failure-only.",
+  "evidence": {
+    "benchmarks/flashalign/local-results/real-mri-recovery-20261011/affine-budget-probe/protocol.json": "9205f81e3d8e85e02ca8b3fb737a6be43b8196d9a7d9838e779ad3cc7cc7ae09",
+    "benchmarks/flashalign/local-results/real-mri-recovery-20261011/affine-budget-probe/oasis-validation-20-to-3/commands/affine-400.json": "93d6f01539c7f72394c69076569dbef033dc5ece53c21dcb6b4f14fa6e40ca69",
+    "benchmarks/flashalign/local-results/real-mri-recovery-20261011/affine-budget-probe/oasis-validation-20-to-3/commands/affine-200.json": "7e68b470d1073e34946db189d8e032b3d643e9682fd8c8958d79c87b270a6361",
+    "benchmarks/flashalign/local-results/real-mri-recovery-20261011/affine-budget-probe/oasis-validation-7-to-8/commands/affine-400.json": "27949c60ae86484f8ea8b7de8738c22cbb94515cde5197beae96453563afe48f",
+    "benchmarks/flashalign/local-results/real-mri-recovery-20261011/affine-budget-probe/oasis-validation-7-to-8/commands/affine-200.json": "0c54b007bdfe25c92eade770c81707f2b63eb9b9e2fcf5d27b0d2e3e121ac687",
+    "benchmarks/flashalign/local-results/real-mri-calibration-20261011/validation/oasis-validation-20-to-3/commands/affine.json": "ecbc6454b540dbdcf2c9fd77be39c5a5dff17db695c0bd51449b3befe4ab196d",
+    "benchmarks/flashalign/local-results/real-mri-calibration-20261011/validation/oasis-validation-7-to-8/commands/affine.json": "422ded69b1965ac75b9d25306aaf519d0ededcd64b56bd80b7f66c32a3abf6a6"
+  },
+  "report": "docs/benchmarks/real-image-development.md"
+}

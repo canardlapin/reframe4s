@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/canardlapin/reframe4s/benchmarks/motion/admission-lock-v2.schema.json",
+  "title": "reframe4s motion superiority admission lock",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "protocol",
+    "resolvedBlockers",
+    "candidate",
+    "implementations",
+    "workers",
+    "realAnatomy",
+    "benchmarkAssets",
+    "runner",
+    "hardware",
+    "environmentManifestPath",
+    "environmentLockSha256",
+    "dataLockSha256"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "reframe4s.motion-superiority.lock/v2"
+    },
+    "protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version",
+        "sha256"
+      ],
+      "properties": {
+        "id": {
+          "const": "motion-superiority-v2"
+        },
+        "version": {
+          "const": "2.0.0"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "resolvedBlockers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clean",
+        "revision",
+        "artifactPath",
+        "artifactSha256",
+        "versionStdoutSha256",
+        "versionStderrSha256"
+      ],
+      "properties": {
+        "clean": {
+          "const": true
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "artifactPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifactSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "versionStdoutSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "versionStderrSha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "implementations": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object"
+      }
+    },
+    "workers": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object"
+      }
+    },
+    "realAnatomy": {
+      "type": "object"
+    },
+    "benchmarkAssets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifestPath",
+        "manifestSha256"
+      ],
+      "properties": {
+        "manifestPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "manifestSha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "runner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workingDirectory",
+        "containerEngine",
+        "affinityExecutable",
+        "javaExecutable",
+        "candidateClasspath",
+        "afniExecutable",
+        "mcflirtExecutable",
+        "pythonExecutable",
+        "nifreezeWrapper"
+      ],
+      "properties": {
+        "workingDirectory": {
+          "$ref": "#/$defs/nonemptyString"
+        },
+        "containerEngine": {
+          "$ref": "#/$defs/nonemptyString"
+        },
+        "affinityExecutable": {
+          "$ref": "#/$defs/nonemptyString"
+        },
+        "javaExecutable": {
+          "$ref": "#/$defs/nonemptyString"
+        },
+        "candidateClasspath": {
+          "$ref": "#/$defs/nonemptyString"
+        },
+        "afniExecutable": {
+          "$ref": "#/$defs/nonemptyString"
+        },
+        "mcflirtExecutable": {
+          "$ref": "#/$defs/nonemptyString"
+        },
+        "pythonExecutable": {
+          "$ref": "#/$defs/nonemptyString"
+        },
+        "nifreezeWrapper": {
+          "$ref": "#/$defs/nonemptyString"
+        }
+      }
+    },
+    "hardware": {
+      "type": "object"
+    },
+    "environmentManifestPath": {
+      "$ref": "#/$defs/nonemptyString"
+    },
+    "environmentLockSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "dataLockSha256": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nonemptyString": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
