@@ -1,0 +1,91 @@
+{
+  "pairs": 2,
+  "admitted": 2,
+  "half_voxel_queries": 65652768,
+  "half_voxel_successful": 65652768,
+  "boundary_queries": 1540920,
+  "boundary_successful": 1540920,
+  "maximum_native_cycle_mm": 2.463951083728924e-08,
+  "minimum_native_endpoint_jacobian": 0.27643170063463807,
+  "oracle_status_mismatches": 0,
+  "maximum_oracle_coordinate_difference_mm": 1.2867154196412403e-08,
+  "maximum_oracle_jacobian_difference": 3.9899195058978876e-10,
+  "native_application_nodes": 8304048,
+  "native_application_successful": 8304048,
+  "image_supported": 7346913,
+  "maximum_node_component_difference": 0.0,
+  "image_support_mismatches": 0,
+  "maximum_intensity_difference": 5.551115123125783e-16,
+  "anatomy": [
+    {
+      "pair": "oasis-13-to-14",
+      "direction": "FixedToMoving",
+      "functional_dice": 0.4179790488368783,
+      "dense_dice": 0.4180743465027797,
+      "affine_dice": 0.3570140215871862,
+      "delta_dice_vs_dense": -9.529766590138378e-05,
+      "delta_dice_vs_affine": 0.060965027249692105,
+      "functional_hd95_mm": 4.743416490252569,
+      "dense_hd95_mm": 4.743416490252569,
+      "affine_hd95_mm": 5.612486080160912,
+      "missing_labels": {
+        "functional": 0,
+        "same_checkpoint_dense": 0,
+        "saved_affine": 0
+      }
+    },
+    {
+      "pair": "oasis-13-to-14",
+      "direction": "MovingToFixed",
+      "functional_dice": 0.42352562558470697,
+      "dense_dice": 0.4235003046374612,
+      "affine_dice": 0.35513723072550957,
+      "delta_dice_vs_dense": 2.532094724577716e-05,
+      "delta_dice_vs_affine": 0.0683883948591974,
+      "functional_hd95_mm": 4.5,
+      "dense_hd95_mm": 4.5,
+      "affine_hd95_mm": 5.408326913195984,
+      "missing_labels": {
+        "functional": 0,
+        "same_checkpoint_dense": 0,
+        "saved_affine": 0
+      }
+    },
+    {
+      "pair": "mmrr-21-11-to-12",
+      "direction": "FixedToMoving",
+      "functional_dice": 0.37423817312992075,
+      "dense_dice": 0.37419680695927166,
+      "affine_dice": 0.33447484312775055,
+      "delta_dice_vs_dense": 4.136617064909309e-05,
+      "delta_dice_vs_affine": 0.039763330002170194,
+      "functional_hd95_mm": 5.612486080160912,
+      "dense_hd95_mm": 5.612486080160912,
+      "affine_hd95_mm": 6.0,
+      "missing_labels": {
+        "functional": 0,
+        "same_checkpoint_dense": 0,
+        "saved_affine": 0
+      }
+    },
+    {
+      "pair": "mmrr-21-11-to-12",
+      "direction": "MovingToFixed",
+      "functional_dice": 0.3823020900980526,
+      "dense_dice": 0.3823911579011883,
+      "affine_dice": 0.3370836398802536,
+      "delta_dice_vs_dense": -8.906780313572282e-05,
+      "delta_dice_vs_affine": 0.04521845021779902,
+      "functional_hd95_mm": 6.092329219213245,
+      "dense_hd95_mm": 5.920677511733565,
+      "affine_hd95_mm": 6.446795038379171,
+      "missing_labels": {
+        "functional": 0,
+        "same_checkpoint_dense": 0,
+        "saved_affine": 0
+      }
+    }
+  ],
+  "qualification_claim": false,
+  "dense_export_admitted": false
+}

@@ -48,6 +48,16 @@ has ever been processed.
 | status | `NotRun` |
 | stable export admitted | no |
 
+The [functional export MRI study](benchmarks/halfflow-functional-mri-v1.md)
+adds development evidence from two existing OASIS/MMRR checkpoints: all
+65,652,768 half-voxel queries pass bounded inverse/cycle/branch-Jacobian checks,
+and all 8,304,048 direct native applications pass independent coordinate and
+image-resampling verification. It preserves Dice within 0.00010 of the previous
+dense outputs; MMRR reverse median HD95 worsens by 0.1717 mm. These are checked
+partial functional maps on two previously studied pairs. They do not supply
+the predeclared 20-pair evaluation or complete topology certificates required
+above, and do not change the qualifying-pair count or stable-admission status.
+
 The checked-in fixtures migrated from ScalaFIM are synthetic local-refinement
 evidence and remain versioned independently of the implementation. Their exact
 current pass/failure accounting belongs to the corresponding frozen receipts;

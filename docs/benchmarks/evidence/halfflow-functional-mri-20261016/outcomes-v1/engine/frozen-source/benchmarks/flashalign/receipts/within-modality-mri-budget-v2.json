@@ -1,0 +1,924 @@
+{
+  "id": "flashalign-within-modality-mri-budget-v2",
+  "version": "2.0.0",
+  "maximum_affine_linearizations": 100,
+  "changed_controls": [
+    "maximumLinearizations"
+  ],
+  "unchanged_controls": "Patch objective, capture, sampling, QC, trial budget, and stopping tolerances.",
+  "source_development_candidate": "5b2105a7c852d9b1eed3f60c9dc43285ace3908a0ba24fdebf607ae3070f03f9",
+  "development_protocol_sha256": "fa6e5d75ffdd9c6bcb5d32578897a3714ed2f23dbe623d346b3c08f0574d6580",
+  "selection_sha256": "5fe65abba5b5dda5b0303a3fa29e07206f9ea252f8e10a16820e81eb101e4593",
+  "selection": {
+    "lane": "affine-100",
+    "affine_budget": 100,
+    "groups": {
+      "affine-200": {
+        "fit": 5,
+        "geometry": 5,
+        "strict_anatomy": 5,
+        "eligible": true,
+        "mean_bidirectional_dice": 0.3537219555434469,
+        "mean_bidirectional_hd95_mm": 5.85453993491208,
+        "minimum_pair_dice_change": 0.0,
+        "mean_reference_dice_gain": 0.30339621832042796,
+        "mean_reference_hd95_reduction_mm": 18.401961990015103
+      },
+      "affine-100": {
+        "fit": 5,
+        "geometry": 5,
+        "strict_anatomy": 5,
+        "eligible": true,
+        "mean_bidirectional_dice": 0.3537219555434469,
+        "mean_bidirectional_hd95_mm": 5.85453993491208,
+        "minimum_pair_dice_change": 0.0,
+        "mean_reference_dice_gain": 0.30339621832042796,
+        "mean_reference_hd95_reduction_mm": 18.401961990015103
+      },
+      "affine-150": {
+        "fit": 5,
+        "geometry": 5,
+        "strict_anatomy": 5,
+        "eligible": true,
+        "mean_bidirectional_dice": 0.3537219555434469,
+        "mean_bidirectional_hd95_mm": 5.85453993491208,
+        "minimum_pair_dice_change": 0.0,
+        "mean_reference_dice_gain": 0.30339621832042796,
+        "mean_reference_hd95_reduction_mm": 18.401961990015103
+      },
+      "affine-50": {
+        "fit": 1,
+        "eligible": false,
+        "origin": "frozen-previous-study"
+      }
+    },
+    "rows": [
+      {
+        "pair": "oasis-11-to-12",
+        "lane": "affine-200",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.35979081099357996,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5699275003416445,
+            "grid_jacobian_min": 1.000244718718617,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.0002447187186223,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 7.3117100289076e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.35815485750396575,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5719347825050208,
+            "grid_jacobian_min": 0.9997553411539415,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.9997553411539508,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.495250665772624e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.319853668039655,
+              "hd95_reduction_mm": 16.170150639396333,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.3182177145500408,
+              "hd95_reduction_mm": 16.170150639396333,
+              "pass": true
+            }
+          }
+        },
+        "origin": "frozen-previous-study",
+        "report_sha256": "60c3957d0f9ccdf801c0584d0b7932bf1f93742c1aa3ca01598cde26b6048d97"
+      },
+      {
+        "pair": "oasis-15-to-16",
+        "lane": "affine-200",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.34431578550081376,
+            "median_hd95_mm": 6.5360824815891485,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.564641947825474,
+            "grid_jacobian_min": 0.8372375806516755,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.8372375806516832,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.739584601870544e-14,
+            "reload_max_abs": 5.551115123125783e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.336254570923401,
+            "median_hd95_mm": 6.18465843842649,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5629693590143761,
+            "grid_jacobian_min": 1.1944041011890445,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.1944041011890627,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.79038518789174e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.2658137190498057,
+              "hd95_reduction_mm": 14.028261898722974,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.25775250447239295,
+              "hd95_reduction_mm": 14.379685941885631,
+              "pass": true
+            }
+          }
+        },
+        "origin": "frozen-previous-study",
+        "report_sha256": "2cad920ca7edc591dacfee9306f56ba4140328b947bce6e1e102d986e5ab4a21"
+      },
+      {
+        "pair": "oasis-1-to-10",
+        "lane": "affine-200",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.35810554602214173,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5290152205827999,
+            "grid_jacobian_min": 1.205732745860088,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.205732745860097,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.928882014060348e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.3686855824499277,
+            "median_hd95_mm": 6.0,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5728339030618486,
+            "grid_jacobian_min": 0.829371188128953,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.829371188128957,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.112319729142702e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.3515510293691939,
+              "hd95_reduction_mm": 27.021554016356255,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.36215785716605914,
+              "hd95_reduction_mm": 27.03209576373385,
+              "pass": true
+            }
+          }
+        },
+        "origin": "frozen-previous-study",
+        "report_sha256": "d3bc11a3a249656d0f9294478c4e1b6dcb438196b2c093e1e2c05476119992b8"
+      },
+      {
+        "pair": "oasis-13-to-14",
+        "lane": "affine-200",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.3570140215871862,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.536147559963373,
+            "grid_jacobian_min": 0.8549177293128916,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.8549177293128979,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.739584601870544e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.35513723072550957,
+            "median_hd95_mm": 5.408326913195984,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5640346074675766,
+            "grid_jacobian_min": 1.1697031956556505,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.1697031956556576,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.394884621840902e-14,
+            "reload_max_abs": 6.661338147750939e-16,
+            "geometry_pass": true
+          }
+        },
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.27236832037185693,
+              "hd95_reduction_mm": 9.349919698138738,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.2704915295101803,
+              "hd95_reduction_mm": 9.554078865103666,
+              "pass": true
+            }
+          }
+        },
+        "origin": "frozen-previous-study",
+        "report_sha256": "e7faf9bbc15c9527c68bf1dc1eb8454d681495a256cc4f12fb0671ae0d776072"
+      },
+      {
+        "pair": "oasis-17-to-18",
+        "lane": "affine-200",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.3530115300589245,
+            "median_hd95_mm": 5.874057976052279,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.556724093145387,
+            "grid_jacobian_min": 1.066404679277171,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.066404679277177,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.210266472242175e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.3467496196690187,
+            "median_hd95_mm": 6.092329219213245,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5351644298938677,
+            "grid_jacobian_min": 0.9377303189233693,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.9377303189233817,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.794300658941186e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.31100887553250034,
+              "hd95_reduction_mm": 25.265996840289105,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.30474696514259453,
+              "hd95_reduction_mm": 25.04772559712814,
+              "pass": true
+            }
+          }
+        },
+        "origin": "frozen-previous-study",
+        "report_sha256": "d84d57135147673c86cdb2af40d314a0a0c88d2ac8eb5a5181cdc0e4ef7ba955"
+      },
+      {
+        "pair": "oasis-11-to-12",
+        "lane": "affine-100",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.319853668039655,
+              "hd95_reduction_mm": 16.170150639396333,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.3182177145500408,
+              "hd95_reduction_mm": 16.170150639396333,
+              "pass": true
+            }
+          }
+        },
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.35979081099357996,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5699275003416445,
+            "grid_jacobian_min": 1.000244718718617,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.0002447187186223,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 7.3117100289076e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.35815485750396575,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5719347825050208,
+            "grid_jacobian_min": 0.9997553411539415,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.9997553411539508,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.495250665772624e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "seconds": 51.8129837079905,
+        "report_sha256": "60c3957d0f9ccdf801c0584d0b7932bf1f93742c1aa3ca01598cde26b6048d97",
+        "levels": null,
+        "failure": null
+      },
+      {
+        "pair": "oasis-11-to-12",
+        "lane": "affine-150",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.319853668039655,
+              "hd95_reduction_mm": 16.170150639396333,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.3182177145500408,
+              "hd95_reduction_mm": 16.170150639396333,
+              "pass": true
+            }
+          }
+        },
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.35979081099357996,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5699275003416445,
+            "grid_jacobian_min": 1.000244718718617,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.0002447187186223,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 7.3117100289076e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.35815485750396575,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5719347825050208,
+            "grid_jacobian_min": 0.9997553411539415,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.9997553411539508,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.495250665772624e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "seconds": 51.820072875358164,
+        "report_sha256": "60c3957d0f9ccdf801c0584d0b7932bf1f93742c1aa3ca01598cde26b6048d97",
+        "levels": null,
+        "failure": null
+      },
+      {
+        "pair": "oasis-15-to-16",
+        "lane": "affine-100",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.2658137190498057,
+              "hd95_reduction_mm": 14.028261898722974,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.25775250447239295,
+              "hd95_reduction_mm": 14.379685941885631,
+              "pass": true
+            }
+          }
+        },
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.34431578550081376,
+            "median_hd95_mm": 6.5360824815891485,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.564641947825474,
+            "grid_jacobian_min": 0.8372375806516755,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.8372375806516832,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.739584601870544e-14,
+            "reload_max_abs": 5.551115123125783e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.336254570923401,
+            "median_hd95_mm": 6.18465843842649,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5629693590143761,
+            "grid_jacobian_min": 1.1944041011890445,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.1944041011890627,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.79038518789174e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "seconds": 47.51382387476042,
+        "report_sha256": "2cad920ca7edc591dacfee9306f56ba4140328b947bce6e1e102d986e5ab4a21",
+        "levels": null,
+        "failure": null
+      },
+      {
+        "pair": "oasis-15-to-16",
+        "lane": "affine-150",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.2658137190498057,
+              "hd95_reduction_mm": 14.028261898722974,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.25775250447239295,
+              "hd95_reduction_mm": 14.379685941885631,
+              "pass": true
+            }
+          }
+        },
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.34431578550081376,
+            "median_hd95_mm": 6.5360824815891485,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.564641947825474,
+            "grid_jacobian_min": 0.8372375806516755,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.8372375806516832,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.739584601870544e-14,
+            "reload_max_abs": 5.551115123125783e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.336254570923401,
+            "median_hd95_mm": 6.18465843842649,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5629693590143761,
+            "grid_jacobian_min": 1.1944041011890445,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.1944041011890627,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.79038518789174e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "seconds": 48.776019415818155,
+        "report_sha256": "2cad920ca7edc591dacfee9306f56ba4140328b947bce6e1e102d986e5ab4a21",
+        "levels": null,
+        "failure": null
+      },
+      {
+        "pair": "oasis-1-to-10",
+        "lane": "affine-100",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.3515510293691939,
+              "hd95_reduction_mm": 27.021554016356255,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.36215785716605914,
+              "hd95_reduction_mm": 27.03209576373385,
+              "pass": true
+            }
+          }
+        },
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.35810554602214173,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5290152205827999,
+            "grid_jacobian_min": 1.205732745860088,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.205732745860097,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.928882014060348e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.3686855824499277,
+            "median_hd95_mm": 6.0,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5728339030618486,
+            "grid_jacobian_min": 0.829371188128953,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.829371188128957,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.112319729142702e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "seconds": 81.13429145887494,
+        "report_sha256": "d3bc11a3a249656d0f9294478c4e1b6dcb438196b2c093e1e2c05476119992b8",
+        "levels": null,
+        "failure": null
+      },
+      {
+        "pair": "oasis-1-to-10",
+        "lane": "affine-150",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.3515510293691939,
+              "hd95_reduction_mm": 27.021554016356255,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.36215785716605914,
+              "hd95_reduction_mm": 27.03209576373385,
+              "pass": true
+            }
+          }
+        },
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.35810554602214173,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5290152205827999,
+            "grid_jacobian_min": 1.205732745860088,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.205732745860097,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.928882014060348e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.3686855824499277,
+            "median_hd95_mm": 6.0,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5728339030618486,
+            "grid_jacobian_min": 0.829371188128953,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.829371188128957,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.112319729142702e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "seconds": 79.64918991690502,
+        "report_sha256": "d3bc11a3a249656d0f9294478c4e1b6dcb438196b2c093e1e2c05476119992b8",
+        "levels": null,
+        "failure": null
+      },
+      {
+        "pair": "oasis-13-to-14",
+        "lane": "affine-100",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.27236832037185693,
+              "hd95_reduction_mm": 9.349919698138738,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.2704915295101803,
+              "hd95_reduction_mm": 9.554078865103666,
+              "pass": true
+            }
+          }
+        },
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.3570140215871862,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.536147559963373,
+            "grid_jacobian_min": 0.8549177293128916,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.8549177293128979,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.739584601870544e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.35513723072550957,
+            "median_hd95_mm": 5.408326913195984,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5640346074675766,
+            "grid_jacobian_min": 1.1697031956556505,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.1697031956556576,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.394884621840902e-14,
+            "reload_max_abs": 6.661338147750939e-16,
+            "geometry_pass": true
+          }
+        },
+        "seconds": 54.36618404230103,
+        "report_sha256": "e7faf9bbc15c9527c68bf1dc1eb8454d681495a256cc4f12fb0671ae0d776072",
+        "levels": null,
+        "failure": null
+      },
+      {
+        "pair": "oasis-13-to-14",
+        "lane": "affine-150",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.27236832037185693,
+              "hd95_reduction_mm": 9.349919698138738,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.2704915295101803,
+              "hd95_reduction_mm": 9.554078865103666,
+              "pass": true
+            }
+          }
+        },
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.3570140215871862,
+            "median_hd95_mm": 5.612486080160912,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.536147559963373,
+            "grid_jacobian_min": 0.8549177293128916,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.8549177293128979,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.739584601870544e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.35513723072550957,
+            "median_hd95_mm": 5.408326913195984,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5640346074675766,
+            "grid_jacobian_min": 1.1697031956556505,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.1697031956556576,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.394884621840902e-14,
+            "reload_max_abs": 6.661338147750939e-16,
+            "geometry_pass": true
+          }
+        },
+        "seconds": 56.56420491728932,
+        "report_sha256": "e7faf9bbc15c9527c68bf1dc1eb8454d681495a256cc4f12fb0671ae0d776072",
+        "levels": null,
+        "failure": null
+      },
+      {
+        "pair": "oasis-17-to-18",
+        "lane": "affine-100",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.31100887553250034,
+              "hd95_reduction_mm": 25.265996840289105,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.30474696514259453,
+              "hd95_reduction_mm": 25.04772559712814,
+              "pass": true
+            }
+          }
+        },
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.3530115300589245,
+            "median_hd95_mm": 5.874057976052279,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.556724093145387,
+            "grid_jacobian_min": 1.066404679277171,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.066404679277177,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.210266472242175e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.3467496196690187,
+            "median_hd95_mm": 6.092329219213245,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5351644298938677,
+            "grid_jacobian_min": 0.9377303189233693,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.9377303189233817,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.794300658941186e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "seconds": 83.25706945825368,
+        "report_sha256": "d84d57135147673c86cdb2af40d314a0a0c88d2ac8eb5a5181cdc0e4ef7ba955",
+        "levels": null,
+        "failure": null
+      },
+      {
+        "pair": "oasis-17-to-18",
+        "lane": "affine-150",
+        "fit": true,
+        "geometry": true,
+        "anatomy": true,
+        "gain": {
+          "pass": true,
+          "directions": {
+            "fixed-to-moving": {
+              "dice_gain": 0.31100887553250034,
+              "hd95_reduction_mm": 25.265996840289105,
+              "pass": true
+            },
+            "moving-to-fixed": {
+              "dice_gain": 0.30474696514259453,
+              "hd95_reduction_mm": 25.04772559712814,
+              "pass": true
+            }
+          }
+        },
+        "directions": {
+          "fixed-to-moving": {
+            "macro_dice": 0.3530115300589245,
+            "median_hd95_mm": 5.874057976052279,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.556724093145387,
+            "grid_jacobian_min": 1.066404679277171,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 1.066404679277177,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 6.210266472242175e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          },
+          "moving-to-fixed": {
+            "macro_dice": 0.3467496196690187,
+            "median_hd95_mm": 6.092329219213245,
+            "label_count": 62,
+            "missing_labels": 0,
+            "ncc": 0.5351644298938677,
+            "grid_jacobian_min": 0.9377303189233693,
+            "grid_jacobian_nonpositive": 0,
+            "brain_jacobian_min": 0.9377303189233817,
+            "brain_sampling_coverage": 1.0,
+            "brain_roundtrip_coverage": 1.0,
+            "brain_roundtrip_max_mm": 5.794300658941186e-14,
+            "reload_max_abs": 4.440892098500626e-16,
+            "geometry_pass": true
+          }
+        },
+        "seconds": 88.27253779070452,
+        "report_sha256": "d84d57135147673c86cdb2af40d314a0a0c88d2ac8eb5a5181cdc0e4ef7ba955",
+        "levels": null,
+        "failure": null
+      }
+    ],
+    "protocol_sha256": "fa6e5d75ffdd9c6bcb5d32578897a3714ed2f23dbe623d346b3c08f0574d6580",
+    "results_sha256": "dbc0c7d4b67ed5a5a30ee3393d330cbfcaf7b7b663ddd6955c097be01cb2b3b2",
+    "analysis_sha256": "1120376ff8d65416f2ea1db7df279fe64d6a9aab75c2e3cf464069f2aeb0e4a3",
+    "source_sha256": "5b2105a7c852d9b1eed3f60c9dc43285ace3908a0ba24fdebf607ae3070f03f9",
+    "scope": "development parameter selection; no held-out labels used"
+  },
+  "scope": "Affine budget calibration on five acquired OASIS MRI development pairs; anatomy was used only for declared development selection, never optimization. Untouched cohort validation is recorded separately after source freeze. No accuracy/runtime superiority or universal reliability claim."
+}
