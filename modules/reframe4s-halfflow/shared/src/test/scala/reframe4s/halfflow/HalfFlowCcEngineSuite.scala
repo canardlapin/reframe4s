@@ -4,8 +4,12 @@ import gale.linalg.DMat
 import reframe4s.halfflow.internal.*
 
 class HalfFlowCcEngineSuite extends munit.FunSuite:
-  // Dense inverse/export checks exceed MUnit's 30 s default on loaded hosts.
-  override val munitTimeout: scala.concurrent.duration.Duration = scala.concurrent.duration.Duration(120, "s")
+  // These numerical/export regressions are not wall-clock benchmarks. The large
+  // capture case took 41.5 s on shared JVM CI and 176 s on local Scala.js.
+  // Keep a finite per-test deadline with headroom on both supported platforms.
+  override def munitTimeout: scala.concurrent.duration.Duration =
+    scala.concurrent.duration.Duration(5, "minutes")
+
   private sealed trait Work
   private sealed trait Fixed
   private sealed trait Moving
