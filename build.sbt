@@ -65,7 +65,7 @@ lazy val spatial4sCoreJS = ProjectRef(spatial4sBuild, "spatial4s-coreJS")
 // image4s is an independently owned foundation. Ordinary builds clone the
 // exact reviewed revision; the property admits an audited local checkout for
 // coordinated cross-repository development.
-lazy val image4sRevision = "a9202ce396ed6fdc21fc388882ac3ba53ca9ec69"
+lazy val image4sRevision = "0816f10eab8034fe09ba46a8ffc9df852e779633"
 lazy val image4sBuild = {
   sys.props.get("reframe4s.spatial4s.build").foreach { path =>
     sys.props.get("image4s.spatial4s.build") match {
