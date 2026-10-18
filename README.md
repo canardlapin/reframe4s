@@ -128,6 +128,11 @@ representation capability evidence now lives in
 Ordinary builds resolve image4s from the immutable revision declared in
 `build.sbt`. During coordinated development, override it explicitly with
 `-Dreframe4s.image4s.build=/absolute/path/to/image4s`.
+Modules that use coordinate types depend on Spatial4s directly, at the same
+revision image4s pins; CI rejects a mismatch. A
+`-Dreframe4s.spatial4s.build=/absolute/path/to/spatial4s` override is also
+forwarded to image4s, and an `image4s.spatial4s.build` override alone is used
+by reframe4s too, so the graph keeps one Spatial4s build.
 
 Start with [the foundation guide](docs/foundation-guide.md). The implementation
 and blocker state is recorded in

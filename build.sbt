@@ -47,17 +47,42 @@ lazy val galeBuild =
 lazy val galeCoreJVM = ProjectRef(galeBuild, "coreJVM")
 lazy val galeCoreJS = ProjectRef(galeBuild, "coreJS")
 
+// Spatial4s is the shared coordinate authority. It must be the same revision
+// image4s pins; image4sBuild forwards a local override, and an image4s-only
+// override is honoured here, so the graph resolves one Spatial4s build.
+lazy val spatial4sRevision = "f3a4e40c38cdfec730d3e13093397ce38072f7fa"
+lazy val spatial4sBuild =
+  sys.props
+    .get("reframe4s.spatial4s.build")
+    .orElse(sys.props.get("image4s.spatial4s.build"))
+    .map(path => file(path).getCanonicalFile.toURI)
+    .getOrElse(
+      uri(s"https://github.com/canardlapin/spatial4s.git#$spatial4sRevision")
+    )
+lazy val spatial4sCoreJVM = ProjectRef(spatial4sBuild, "spatial4s-coreJVM")
+lazy val spatial4sCoreJS = ProjectRef(spatial4sBuild, "spatial4s-coreJS")
+
 // image4s is an independently owned foundation. Ordinary builds clone the
 // exact reviewed revision; the property admits an audited local checkout for
 // coordinated cross-repository development.
-lazy val image4sRevision = "1b6f1af9395fe3140f24ff0a495e4e3df0042ec4"
-lazy val image4sBuild =
+lazy val image4sRevision = "3da276319e3813660ad1dd4a678a76e543ff305e"
+lazy val image4sBuild = {
+  sys.props.get("reframe4s.spatial4s.build").foreach { path =>
+    sys.props.get("image4s.spatial4s.build") match {
+      case Some(other) if other != path =>
+        sys.error(
+          s"reframe4s.spatial4s.build=$path conflicts with image4s.spatial4s.build=$other"
+        )
+      case _ => System.setProperty("image4s.spatial4s.build", path)
+    }
+  }
   sys.props
     .get("reframe4s.image4s.build")
     .map(path => file(path).getCanonicalFile.toURI)
     .getOrElse(
       uri(s"https://github.com/canardlapin/image4s.git#$image4sRevision")
     )
+}
 lazy val image4sGeometryJVM =
   ProjectRef(image4sBuild, "image4s-geometryJVM")
 lazy val image4sGeometryJS =
@@ -135,6 +160,10 @@ def configureExternalDependencies(
       configured
         .jvmConfigure(_.dependsOn(ravelCoreJVM))
         .jsConfigure(_.dependsOn(ravelCoreJS))
+    case (configured, "spatial4s-core") =>
+      configured
+        .jvmConfigure(_.dependsOn(spatial4sCoreJVM))
+        .jsConfigure(_.dependsOn(spatial4sCoreJS))
     case (configured, "image4s-geometry") =>
       configured
         .jvmConfigure(_.dependsOn(image4sGeometryJVM))
