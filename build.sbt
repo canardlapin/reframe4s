@@ -39,7 +39,7 @@ lazy val ravelBuild =
 lazy val ravelCoreJVM = ProjectRef(ravelBuild, "coreJVM")
 lazy val ravelCoreJS = ProjectRef(ravelBuild, "coreJS")
 
-lazy val galeRevision = "099832ff15c8a4a8fcf3398c7b779fb4bbc12434"
+lazy val galeRevision = "779ed3d8169cdd9f4eb9ab10b1ca9defadc27715"
 lazy val galeBuild =
   uri(s"https://github.com/canardlapin/gale.git#$galeRevision")
 lazy val galeCoreJVM = ProjectRef(galeBuild, "coreJVM")
@@ -48,7 +48,7 @@ lazy val galeCoreJS = ProjectRef(galeBuild, "coreJS")
 // image4s is an independently owned foundation. Ordinary builds clone the
 // exact reviewed revision; the property admits an audited local checkout for
 // coordinated cross-repository development.
-lazy val image4sRevision = "20c9515495e43dff9d17bc1283a8ca1d56355c4a"
+lazy val image4sRevision = "cff0bdca35583436ffd4cef019b353b82b146f58"
 lazy val image4sBuild =
   sys.props
     .get("reframe4s.image4s.build")
