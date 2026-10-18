@@ -50,7 +50,7 @@ lazy val galeCoreJS = ProjectRef(galeBuild, "coreJS")
 // Spatial4s is the shared coordinate authority. It must be the same revision
 // image4s pins; image4sBuild forwards a local override, and an image4s-only
 // override is honoured here, so the graph resolves one Spatial4s build.
-lazy val spatial4sRevision = "f3a4e40c38cdfec730d3e13093397ce38072f7fa"
+lazy val spatial4sRevision = "77037a7e6ced044b92d0a70b713c0a32a94f680d"
 lazy val spatial4sBuild =
   sys.props
     .get("reframe4s.spatial4s.build")
@@ -65,7 +65,7 @@ lazy val spatial4sCoreJS = ProjectRef(spatial4sBuild, "spatial4s-coreJS")
 // image4s is an independently owned foundation. Ordinary builds clone the
 // exact reviewed revision; the property admits an audited local checkout for
 // coordinated cross-repository development.
-lazy val image4sRevision = "3da276319e3813660ad1dd4a678a76e543ff305e"
+lazy val image4sRevision = "a9202ce396ed6fdc21fc388882ac3ba53ca9ec69"
 lazy val image4sBuild = {
   sys.props.get("reframe4s.spatial4s.build").foreach { path =>
     sys.props.get("image4s.spatial4s.build") match {

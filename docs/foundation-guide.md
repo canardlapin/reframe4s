@@ -368,6 +368,12 @@ missing or ambiguous routes instead of selecting a lowest-cost estimate.
 `pathByKeys` is the explicit disambiguation operation and reports an attempted
 non-invertible reversal.
 
+A `WorldLink` (reframe4s-core) joins exactly two frames for point crossing,
+such as a linked cursor. `WorldLink.shared` links two owners of one world by
+checked alignment. `WorldLink.mapped` and `WorldLink.pullback` link different
+worlds through whichever maps exist; a direction nothing supplied fails with
+`DirectionUnavailable` and is never approximated.
+
 ## Build endpoint-preserving grid towers
 
 `ScaleSpec[D]` contains per-axis shrink factors and physical smoothing widths.
