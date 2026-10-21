@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source_revision": "622ab31f97bbe30a9bc6436464f3124643856f47",
+  "change": "Only spatial4s and image4s revisions align to the additive XYZ coordinate provider. No transform algorithms changed.",
+  "lie": {
+    "jvm_passed": 22,
+    "js_passed": 22
+  },
+  "field": {
+    "jvm_passed": 52,
+    "js_passed": 52
+  },
+  "total_passed": 148,
+  "failed": 0,
+  "skipped": 0,
+  "limits": "No halfflow/full-repository, broader scientific or performance claim; historical halfflow follow-up remains separate. Coherent standalone surface consumer pending.",
+  "log": {
+    "path": "reframe4s-eco-u5-pin-01.log.gz",
+    "raw_sha256": "68df7eecc27a93fd64e6d3e17b55770b5f21d1491607803c895c55b3a4d4af71",
+    "metadata": {
+      "schema_version": 1,
+      "started_utc": "2026-10-21T17:52:29.808406+00:00",
+      "finished_utc": "2026-10-21T17:55:20.172037+00:00",
+      "duration_seconds": 170.361573,
+      "command": [
+        "env",
+        "JAVA_HOME=/Users/bbuchsbaum/Library/Java/JavaVirtualMachines/openjdk-22/Contents/Home",
+        "SBT_WARM_HEAP=3g",
+        "python3",
+        "/Users/bbuchsbaum/code/scala/scalafim-eco-mesh-kernels-20261020/tools/build/sbt-warm",
+        "reframe4s-lieJVM/test",
+        "reframe4s-lieJS/test",
+        "reframe4s-fieldJVM/test",
+        "reframe4s-fieldJS/test"
+      ],
+      "cwd": "/Users/bbuchsbaum/code/scala/reframe4s-eco-u5-20261021",
+      "log": "/tmp/reframe4s-eco-u5-pin-01.log",
+      "exit_code": 0,
+      "child_returncode": 0,
+      "reason": "exited",
+      "detail": null,
+      "timeout_seconds": 2400.0,
+      "log_bytes": 16951
+    }
+  }
+}
